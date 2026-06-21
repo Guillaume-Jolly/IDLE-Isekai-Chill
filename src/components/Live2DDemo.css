@@ -1,0 +1,82 @@
+.live2d-overlay {
+  align-items: center;
+  backdrop-filter: blur(6px);
+  background: rgba(12, 8, 20, 0.72);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 20px;
+  position: fixed;
+  z-index: 1050;
+}
+
+.live2d-panel {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 252, 0.92));
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--soft-shadow);
+  display: grid;
+  gap: 12px;
+  max-width: min(520px, 96vw);
+  padding: 18px;
+  width: 100%;
+}
+
+.live2d-head {
+  align-items: start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.live2d-head h3 {
+  margin: 0 0 4px;
+}
+
+.live2d-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin: 0;
+}
+
+.live2d-close {
+  flex: 0 0 auto;
+}
+
+.live2d-stage {
+  aspect-ratio: 3 / 4;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 220, 160, 0.28), transparent 42%),
+    linear-gradient(180deg, #f7ecff, #e8f4ff);
+  border: 1px solid rgba(180, 73, 255, 0.18);
+  border-radius: 18px;
+  min-height: 360px;
+  overflow: hidden;
+  position: relative;
+}
+
+.live2d-stage canvas {
+  display: block;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.live2d-status {
+  color: var(--muted);
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  width: 80%;
+}
+
+.live2d-status-error {
+  color: #b42318;
+}
+
+.live2d-hint {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0;
+  text-align: center;
+}

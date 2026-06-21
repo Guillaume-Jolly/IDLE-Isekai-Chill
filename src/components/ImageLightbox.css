@@ -1,0 +1,148 @@
+.lightbox-overlay {
+  align-items: center;
+  animation: lightbox-fade 0.2s ease;
+  backdrop-filter: blur(10px);
+  background: rgba(12, 8, 20, 0.88);
+  display: grid;
+  inset: 0;
+  justify-items: center;
+  padding: 24px;
+  place-items: center;
+  position: fixed;
+  z-index: 1000;
+}
+
+.lightbox-stage {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  max-height: calc(100vh - 140px);
+  max-width: min(920px, 92vw);
+}
+
+.lightbox-image {
+  animation: lightbox-zoom 0.28s ease, companion-breathe 4.8s ease-in-out 0.28s infinite;
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  max-height: calc(100vh - 180px);
+  max-width: 100%;
+  object-fit: contain;
+  transform-origin: 50% 62%;
+  width: 100%;
+}
+
+.lightbox-caption {
+  color: #fff;
+  display: flex;
+  font-size: 0.95rem;
+  font-weight: 700;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.lightbox-caption span {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+}
+
+.lightbox-close,
+.lightbox-nav {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.8rem;
+  height: 48px;
+  justify-content: center;
+  position: fixed;
+  width: 48px;
+}
+
+.lightbox-close {
+  font-size: 2rem;
+  line-height: 1;
+  right: 24px;
+  top: 24px;
+}
+
+.lightbox-prev {
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-next {
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-thumbs {
+  bottom: 24px;
+  display: flex;
+  gap: 8px;
+  left: 50%;
+  max-width: min(920px, 92vw);
+  overflow-x: auto;
+  position: fixed;
+  transform: translateX(-50%);
+}
+
+.lightbox-thumbs button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  height: 64px;
+  overflow: hidden;
+  padding: 0;
+  width: 48px;
+}
+
+.lightbox-thumbs button.active {
+  border-color: #ffb020;
+  box-shadow: 0 0 18px rgba(255, 176, 32, 0.45);
+}
+
+.lightbox-thumbs img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+@keyframes lightbox-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lightbox-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes companion-breathe {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+
+  50% {
+    transform: scale(1.012) translateY(-2px);
+  }
+}

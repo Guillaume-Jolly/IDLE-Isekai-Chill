@@ -8,18 +8,20 @@ Expected path pattern:
 public/companions/<companion-id>/affinity-<level>.png
 ```
 
-Examples:
+## AI-generated sets (gacha anime style)
 
-```text
-public/companions/lyra/affinity-1.png
-public/companions/lyra/affinity-2.png
-public/companions/lyra/affinity-3.png
-public/companions/lyra/affinity-4.png
-public/companions/lyra/affinity-5.png
-```
+Each of the 15 companions has 5 affinity levels saved:
 
-The dev gallery reads these paths automatically. If a file is missing, it shows
-a styled placeholder.
+| Level | Scene |
+|-------|--------|
+| 1 | Premiere rencontre au lieu de travail |
+| 2 | Premier rendez-vous |
+| 3 | Boudoir, tenue legere (non explicite) |
+| 4 | Chambre aux bougies, placeholder modere |
+| 5 | Terrace/balcon romantique, placeholder modere |
 
-Only add original assets, commissioned assets, or assets with a license that
-allows this use.
+Backup copies: `public/generated-backup/`
+
+Style references (inspiration only): `public/references/`
+
+To replace levels 4-5 with mature assets from ComfyUI etc., overwrite the PNG files in each companion folder.

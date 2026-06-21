@@ -1,5 +1,13 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { GachaOpening } from './components/GachaOpening'
+import { ImageLightbox, type LightboxImage } from './components/ImageLightbox'
+import { VillageMapLabels, type MapLabelSpot } from './components/VillageMapLabels'
+import { DEV_UNLIMITED_GACHA, rollMulti, type GachaItem } from './data/gacha'
 import './App.css'
+
+const Live2DDemo = lazy(() =>
+  import('./components/Live2DDemo').then((module) => ({ default: module.Live2DDemo })),
+)
 
 type ViewKey =
   | 'village'
@@ -196,17 +204,17 @@ const makeScenes = (name: string, place: string, mood: string): AffinityScene[] 
     level: 4,
     title: 'Confidence adulte',
     summary:
-      'Emplacement mature verrouille: le prototype garde cette etape en fade-to-black.',
+      'Une nuit complice dans un cadre tamise, tenue legere et atmosphere sensuelle mais respectueuse.',
     artDirection:
-      'Placeholder narratif uniquement. Prevoir age gate, consentement clair et personnages adultes.',
+      'Peignoir de soie, chambre aux bougies, cadrage intime non explicite, personnage adulte.',
   },
   {
     level: 5,
     title: 'Lien maximum',
     summary:
-      'Emplacement mature verrouille: conclusion relationnelle hors champ dans cette version.',
+      'Le lien atteint son apogee dans une scene passionnee voilee, elegante et suggestive sans nudite explicite.',
     artDirection:
-      'Placeholder non explicite. Utiliser des assets externes legaux si tu choisis de les ajouter hors de ce prototype.',
+      'Lumiere rouge douce, chemise de nuit, draps et rosees, maximum de sensualite dans les limites du contenu mature suggere.',
   },
 ]
 
@@ -348,17 +356,6 @@ const COMPANIONS: Companion[] = [
   },
 ]
 
-const EVENT_REWARDS = [
-  'Skin: Kimono des lucioles',
-  'Skin: Robe de givre',
-  'Skin: Tenue de bal celeste',
-  'Personnage invite: Oria',
-  'Personnage invite: Vesper',
-  'Decor: Festival des lanternes',
-  'Decor: Jardin enneige',
-  'Decor: Pluie de meteores',
-]
-
 const MINI_GAMES = [
   {
     name: 'Cuisine minute',
@@ -391,88 +388,103 @@ const VIEW_TABS: { key: ViewKey; label: string; icon: string }[] = [
   { key: 'gallery', label: 'Dev visuels', icon: 'DEV' },
 ]
 
-const MAP_SPOTS: {
+const BUILDING_SHORT_NAMES: Record<string, string> = {
+  inn: 'Auberge',
+  'mist-garden': 'Jardin',
+  'ribbon-workshop': 'Atelier',
+  'clear-spring': 'Source',
+  'moon-farm': 'Ferme',
+  'arcane-library': 'Bibliotheque',
+  'traveler-theater': 'Theatre',
+  'star-market': 'Marche',
+}
+
+type MapSpotDraft = {
   id: string
   buildingId: string
   x: number
   y: number
-  icon: string
   hint: string
   targetView: ViewKey
-}[] = [
+}
+
+const MAP_SPOT_DRAFTS: MapSpotDraft[] = [
   {
-    id: 'map-inn',
-    buildingId: 'inn',
-    x: 20,
-    y: 50,
-    icon: 'INN',
-    hint: 'Mini-jeu auberge et revenus',
-    targetView: 'miniGames',
+    id: 'map-library',
+    buildingId: 'arcane-library',
+    x: 12,
+    y: 10,
+    hint: 'Progression et lore',
+    targetView: 'gallery',
   },
   {
     id: 'map-garden',
     buildingId: 'mist-garden',
-    x: 34,
-    y: 25,
-    icon: 'GRD',
+    x: 18,
+    y: 17,
     hint: 'Vivres, ingredients, cadeaux',
-    targetView: 'buildings',
-  },
-  {
-    id: 'map-workshop',
-    buildingId: 'ribbon-workshop',
-    x: 68,
-    y: 38,
-    icon: 'WRK',
-    hint: 'Soie, cadeaux, craft',
     targetView: 'buildings',
   },
   {
     id: 'map-spring',
     buildingId: 'clear-spring',
-    x: 51,
-    y: 18,
-    icon: 'SPG',
+    x: 50,
+    y: 28,
     hint: 'Repos, mana, relations',
     targetView: 'companions',
   },
   {
-    id: 'map-farm',
-    buildingId: 'moon-farm',
-    x: 18,
-    y: 78,
-    icon: 'FRM',
-    hint: 'Production passive',
-    targetView: 'buildings',
+    id: 'map-market',
+    buildingId: 'star-market',
+    x: 82,
+    y: 13,
+    hint: 'Gacha saisonnier',
+    targetView: 'event',
   },
   {
-    id: 'map-library',
-    buildingId: 'arcane-library',
-    x: 79,
-    y: 24,
-    icon: 'LIB',
-    hint: 'Progression et lore',
-    targetView: 'gallery',
+    id: 'map-inn',
+    buildingId: 'inn',
+    x: 22,
+    y: 49,
+    hint: 'Mini-jeu auberge et revenus',
+    targetView: 'miniGames',
+  },
+  {
+    id: 'map-workshop',
+    buildingId: 'ribbon-workshop',
+    x: 74,
+    y: 38,
+    hint: 'Soie, cadeaux, craft',
+    targetView: 'buildings',
   },
   {
     id: 'map-theater',
     buildingId: 'traveler-theater',
-    x: 60,
-    y: 70,
-    icon: 'THR',
+    x: 58,
+    y: 62,
     hint: 'Concerts et mini-jeux',
     targetView: 'miniGames',
   },
   {
-    id: 'map-market',
-    buildingId: 'star-market',
-    x: 84,
-    y: 62,
-    icon: 'EVE',
-    hint: 'Gacha saisonnier',
-    targetView: 'event',
+    id: 'map-farm',
+    buildingId: 'moon-farm',
+    x: 88,
+    y: 76,
+    hint: 'Production passive',
+    targetView: 'buildings',
   },
 ]
+
+const MAP_LABEL_SPOTS: MapLabelSpot[] = MAP_SPOT_DRAFTS.map((spot) => ({
+  id: spot.id,
+  buildingId: spot.buildingId,
+  x: spot.x,
+  y: spot.y,
+  hint: spot.hint,
+  targetView: spot.targetView,
+}))
+
+const BUILDING_ICON = (buildingId: string) => `/buildings/${buildingId}.png`
 
 const EXTERNAL_ASSET_ROOT = '/companions'
 
@@ -486,17 +498,24 @@ function CompanionVisual({
   companion,
   level,
   compact = false,
+  onOpen,
 }: {
   companion: Companion
   level: number
   compact?: boolean
+  onOpen?: () => void
 }) {
   const [failed, setFailed] = useState(false)
   const scene = companion.scenes[level - 1]
   const externalPath = companionAssetPath(companion.id, level)
 
   return (
-    <div className={`companion-visual ${compact ? 'compact' : ''} ${level >= 4 ? 'mature-slot' : ''}`}>
+    <button
+      className={`companion-visual affinity-${level} ${compact ? 'compact' : ''} ${level >= 4 ? 'mature-slot' : ''}`}
+      type="button"
+      onClick={onOpen}
+      aria-label={`Agrandir ${companion.name} affinite ${level}`}
+    >
       {!failed && (
         <img
           src={externalPath}
@@ -507,9 +526,9 @@ function CompanionVisual({
       <div className="visual-placeholder">
         <strong>{visualFallback(companion, level)}</strong>
         <span>{scene.title}</span>
-        <small>{failed ? 'Placeholder interne' : 'Image externe si presente'}</small>
+        <small>{failed ? 'Placeholder interne' : 'Cliquer pour agrandir'}</small>
       </div>
-    </div>
+    </button>
   )
 }
 
@@ -663,6 +682,18 @@ function App() {
   )
   const [activeView, setActiveView] = useState<ViewKey>('village')
   const [activeBuildingId, setActiveBuildingId] = useState(BUILDINGS[0].id)
+  const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null)
+  const [gachaResults, setGachaResults] = useState<GachaItem[] | null>(null)
+  const [live2dDemoOpen, setLive2dDemoOpen] = useState(false)
+
+  const openCompanionLightbox = (companion: Companion, level: number) => {
+    const images: LightboxImage[] = companion.scenes.map((scene) => ({
+      src: companionAssetPath(companion.id, scene.level),
+      alt: `${companion.name} affinite ${scene.level}`,
+      caption: `${companion.name} — ${scene.title}`,
+    }))
+    setLightbox({ images, index: level - 1 })
+  }
 
   const score = villageScore(game)
   const perMinute = productionPerMinute(game)
@@ -768,25 +799,30 @@ function App() {
     setMessage(`${name} termine. Recompenses ajoutees.`)
   }
 
-  const pullEvent = () => {
-    const cost: Cost = { tickets: 1 }
-    if (!canAfford(game.resources, cost)) {
-      setMessage('Il te faut au moins 1 ticket pour invoquer.')
-      return
+  const startGachaPull = (count: number) => {
+    if (!DEV_UNLIMITED_GACHA) {
+      const cost: Cost = { tickets: count }
+      if (!canAfford(game.resources, cost)) {
+        setMessage(`Il te faut ${count} ticket${count > 1 ? 's' : ''} pour invoquer.`)
+        return
+      }
     }
 
-    const pityHit = (game.eventPulls + 1) % 10 === 0
-    const reward = pityHit
-      ? EVENT_REWARDS[(game.eventPulls / 10) % EVENT_REWARDS.length]
-      : EVENT_REWARDS[Math.floor(Math.random() * EVENT_REWARDS.length)]
+    const items = rollMulti(count, game.eventPulls)
+    const collectibleNames = items
+      .filter((item) => item.kind === 'skin' || item.kind === 'decor' || item.kind === 'guest')
+      .map((item) => item.name)
 
     setGame((current) => ({
       ...current,
-      resources: spendResources(current.resources, cost),
-      skins: Array.from(new Set([...current.skins, reward])),
-      eventPulls: current.eventPulls + 1,
+      resources: DEV_UNLIMITED_GACHA
+        ? current.resources
+        : spendResources(current.resources, { tickets: count }),
+      eventPulls: current.eventPulls + count,
+      skins: Array.from(new Set([...current.skins, ...collectibleNames])),
     }))
-    setMessage(`${pityHit ? 'Pity garanti' : 'Tirage'}: ${reward}.`)
+    setGachaResults(items)
+    setMessage(`Invocation x${count} lancee${DEV_UNLIMITED_GACHA ? ' (mode dev illimite)' : ''}.`)
   }
 
   const resetGame = () => {
@@ -825,6 +861,9 @@ function App() {
 
           return (
             <article className={`panel ${locked ? 'locked' : ''}`} key={building.id}>
+              <div className="building-thumb">
+                <img src={BUILDING_ICON(building.id)} alt="" />
+              </div>
               <div className="card-topline">
                 <span>Niveau {level}</span>
                 <span>{locked ? `Score ${building.unlockAt}` : 'Disponible'}</span>
@@ -884,11 +923,26 @@ function App() {
         <div>
           <h3>Banniere: Festival des lanternes</h3>
           <p>
-            Skins, decors et invites exclusifs. Tirages effectues:{' '}
-            {game.eventPulls}. Prochain pity dans{' '}
-            {10 - (game.eventPulls % 10 || 10)} tirages.
+            Skins, decors et invites exclusifs. Raretes: N, R, SR, SSR, UR, LR.
+            Tirages effectues: {game.eventPulls}. Pity SSR+ toutes les 10
+            invocations, UR a 50, LR a 100.
           </p>
-          <button type="button" onClick={pullEvent}>Tirer x1</button>
+          <div className="gacha-pull-actions">
+            {[1, 10, 50, 100].map((count) => (
+              <button
+                className={count === 10 ? 'primary' : 'secondary'}
+                key={count}
+                type="button"
+                onClick={() => startGachaPull(count)}
+              >
+                Tirer x{count}
+              </button>
+            ))}
+          </div>
+          <small>{formatAmount(game.resources.tickets)} tickets disponibles</small>
+          {DEV_UNLIMITED_GACHA && (
+            <span className="gacha-dev-note">Mode dev: tirages illimites actifs</span>
+          )}
         </div>
         <div className="skin-list">
           {game.skins.length === 0 ? (
@@ -938,8 +992,24 @@ function App() {
 
           return (
             <article className="companion-card" key={companion.id}>
-              <div className="portrait" aria-hidden="true">
-                {companion.name.slice(0, 1)}
+              <div
+                className="portrait portrait-clickable"
+                aria-hidden="true"
+                onClick={() => openCompanionLightbox(companion, 1)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') openCompanionLightbox(companion, 1)
+                }}
+                role="button"
+                tabIndex={0}
+              >
+                <img
+                  src={companionAssetPath(companion.id, 1)}
+                  alt=""
+                  onError={(event) => {
+                    event.currentTarget.style.display = 'none'
+                  }}
+                />
+                <span>{companion.name.slice(0, 1)}</span>
               </div>
               <div className="companion-body">
                 <div className="card-topline">
@@ -949,16 +1019,20 @@ function App() {
                 <h3>{companion.name}</h3>
                 <p>{companion.archetype} - {companion.talent}</p>
                 <small>Cadeau prefere: {companion.favoriteGift}</small>
-                <CompanionVisual companion={companion} level={current.affinity} />
+                <CompanionVisual
+                  companion={companion}
+                  level={current.affinity}
+                  onOpen={() => openCompanionLightbox(companion, current.affinity)}
+                />
                 <div className="scene-box">
                   <strong>{activeScene.title}</strong>
                   <p>{activeScene.summary}</p>
                   <small>{activeScene.artDirection}</small>
                 </div>
-                {game.maturePlaceholders && (
+                {game.maturePlaceholders && current.affinity >= 4 && (
                   <div className="mature-note">
-                    Paliers 4-5: placeholders seulement, avec consentement,
-                    age gate et assets legaux a fournir separement.
+                    Paliers 4-5: contenu mature suggestif uniquement. Tous les
+                    personnages sont adultes et consentants dans la fiction.
                   </div>
                 )}
                 <div className="button-row">
@@ -969,6 +1043,15 @@ function App() {
                     Affinite - {current.affinity >= 5 ? 'max' : costText(affinityCost)}
                   </button>
                 </div>
+                {companion.id === 'lyra' && (
+                  <button
+                    className="secondary live2d-launch"
+                    type="button"
+                    onClick={() => setLive2dDemoOpen(true)}
+                  >
+                    Demo Live2D (Haru)
+                  </button>
+                )}
               </div>
             </article>
           )
@@ -1004,6 +1087,7 @@ function App() {
                   companion={companion}
                   key={scene.level}
                   level={scene.level}
+                  onOpen={() => openCompanionLightbox(companion, scene.level)}
                 />
               ))}
             </div>
@@ -1022,39 +1106,30 @@ function App() {
         <p className="eyebrow">Accueil interactif</p>
         <h2>Havre des Brumes</h2>
         <p>
-          Selectionne un batiment sur la carte pour ouvrir son menu. La carte
-          est un prototype CSS panoramique: les vraies illustrations pourront
-          remplacer chaque zone plus tard.
+          Clique sur le nom d un batiment pour ouvrir son menu et voir la
+          production du niveau actuel.
         </p>
       </div>
 
       <div className="panorama-wrap">
         <div className="panorama-map" aria-label="Carte interactive du village">
-          <div className="river" />
-          <div className="road road-main" />
-          <div className="road road-side" />
-          {MAP_SPOTS.map((spot) => {
-            const building = BUILDINGS.find((item) => item.id === spot.buildingId) ?? BUILDINGS[0]
-            const level = game.buildings[building.id] ?? 1
-            const locked = score < building.unlockAt
-
-            return (
-              <button
-                className={`map-node ${activeBuildingId === building.id ? 'active' : ''} ${locked ? 'locked' : ''}`}
-                key={spot.id}
-                style={{ '--x': `${spot.x}%`, '--y': `${spot.y}%` } as CSSProperties}
-                type="button"
-                onClick={() => {
-                  setActiveBuildingId(building.id)
-                  setMessage(`${building.name}: ${spot.hint}.`)
-                }}
-              >
-                <span className="map-icon">{spot.icon}</span>
-                <span className="map-name">{building.name}</span>
-                <small>Niv. {level}</small>
-              </button>
-            )
-          })}
+          <img alt="" className="panorama-image" draggable={false} src="/village/panorama.png" />
+          <VillageMapLabels
+            activeBuildingId={activeBuildingId}
+            levels={game.buildings}
+            lockedIds={new Set(BUILDINGS.filter((building) => score < building.unlockAt).map((b) => b.id))}
+            shortNames={BUILDING_SHORT_NAMES}
+            spots={MAP_LABEL_SPOTS}
+            onSelect={(spot, locked) => {
+              const building = BUILDINGS.find((item) => item.id === spot.buildingId) ?? BUILDINGS[0]
+              if (locked) {
+                setMessage(`${building.name} se debloque avec un score village de ${building.unlockAt}.`)
+                return
+              }
+              setActiveBuildingId(building.id)
+              setMessage(`${building.name}: ${spot.hint}.`)
+            }}
+          />
         </div>
 
         <aside className="map-detail">
@@ -1076,7 +1151,7 @@ function App() {
               type="button"
               className="secondary"
               onClick={() => {
-                const spot = MAP_SPOTS.find((item) => item.buildingId === selectedBuilding.id)
+                const spot = MAP_LABEL_SPOTS.find((item) => item.buildingId === selectedBuilding.id)
                 setActiveView(spot?.targetView ?? 'buildings')
               }}
             >
@@ -1103,8 +1178,8 @@ function App() {
             <button type="button" onClick={() => playMiniGame({ coins: 75, food: 45 }, 'Collecte rapide')}>
               Tout collecter
             </button>
-            <button type="button" className="secondary" onClick={pullEvent}>
-              Tirage evenement
+            <button type="button" className="secondary" onClick={() => setActiveView('event')}>
+              Ouvrir le gacha
             </button>
           </div>
         </div>
@@ -1162,15 +1237,34 @@ function App() {
             tickets gagnes par production, mini-jeux ou events.
           </p>
           <p>
-            <strong>Contenu adulte.</strong> Le code gere les paliers et
-            emplacements, mais ne contient pas de scene explicite ni d asset
-            copie.
+            <strong>Contenu adulte.</strong> Les paliers 4-5 proposent des scenes
+            suggestives non explicites, avec personnages adultes et consentement
+            clair dans la fiction.
           </p>
         </div>
         <button type="button" className="danger" onClick={resetGame}>
           Reinitialiser la sauvegarde locale
         </button>
       </section>
+
+      {lightbox && (
+        <ImageLightbox
+          images={lightbox.images}
+          index={lightbox.index}
+          onClose={() => setLightbox(null)}
+          onIndexChange={(index) => setLightbox((current) => (current ? { ...current, index } : current))}
+        />
+      )}
+
+      {gachaResults && (
+        <GachaOpening items={gachaResults} onClose={() => setGachaResults(null)} />
+      )}
+
+      {live2dDemoOpen && (
+        <Suspense fallback={null}>
+          <Live2DDemo onClose={() => setLive2dDemoOpen(false)} />
+        </Suspense>
+      )}
     </main>
   )
 }

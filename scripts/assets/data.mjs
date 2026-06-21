@@ -1,0 +1,77 @@
+export const LEVELS = {
+  1: {
+    title: 'Premiere rencontre',
+    subtitle: 'Rencontre',
+    bg: ['#fff8e8', '#b8e4ff', '#ffe8f4'],
+    mood: 'day',
+    blush: 0.15,
+    outfit: 'travel',
+    pose: 'wave',
+  },
+  2: {
+    title: 'Flirt leger',
+    subtitle: 'Premier rendez-vous',
+    bg: ['#ffe8f2', '#ffd9a8', '#fff0d8'],
+    mood: 'warm',
+    blush: 0.35,
+    outfit: 'date',
+    pose: 'shy',
+  },
+  3: {
+    title: 'Moment intime',
+    subtitle: 'Confidence',
+    bg: ['#2a1840', '#6b3f8f', '#ffb8d8'],
+    mood: 'moon',
+    blush: 0.55,
+    outfit: 'gown',
+    pose: 'lean',
+  },
+  4: {
+    title: 'Confidence adulte',
+    subtitle: 'Nuit douce',
+    bg: ['#1a0f24', '#4a2048', '#d65a8a'],
+    mood: 'candle',
+    blush: 0.72,
+    outfit: 'robe',
+    pose: 'recline',
+  },
+  5: {
+    title: 'Lien maximum',
+    subtitle: 'Passion voilee',
+    bg: ['#120818', '#3a1438', '#ff6a9a'],
+    mood: 'ember',
+    blush: 0.88,
+    outfit: 'chemise',
+    pose: 'intimate',
+  },
+}
+
+/** id, name, role, hairA, hairB, eye, skin, accent, accessory, hairStyle, build */
+export const COMPANIONS = [
+  ['lyra', 'Lyra', 'Mage', '#c4b5ff', '#6b46d9', '#5b7cff', '#ffe2d4', '#8b6cf8', 'staff', 'long', 'f'],
+  ['maeve', 'Maeve', 'Marchande', '#ffb07a', '#c45f2a', '#6f8f4a', '#ffdccc', '#e07a3a', 'coin', 'wavy', 'f'],
+  ['seren', 'Seren', 'Chevaliere', '#e8edf5', '#8d99b2', '#6a8fbf', '#f5ddd0', '#9eb0c9', 'sword', 'bob', 'f'],
+  ['nami', 'Nami', 'Cuisiniere', '#ffb09a', '#e05a62', '#d45a48', '#ffd8c8', '#ff7a62', 'spice', 'ponytail', 'f'],
+  ['iris', 'Iris', 'Herboriste', '#b8f0d4', '#3ea872', '#4a9f78', '#ffe8d8', '#6fd4a0', 'flower', 'braid', 'f'],
+  ['kael', 'Kael', 'Barde', '#9aa8f0', '#4a57b8', '#6a7fd8', '#f0dcc8', '#7080e8', 'lute', 'medium', 'n'],
+  ['runa', 'Runa', 'Forgeronne', '#e8a088', '#8a4a38', '#8f6048', '#f8d4c0', '#c07058', 'hammer', 'short', 'f'],
+  ['solene', 'Solene', 'Pretresse', '#fff0b8', '#c9a038', '#c89830', '#ffe8cc', '#e8c060', 'moon', 'long', 'f'],
+  ['talia', 'Talia', 'Exploratrice', '#d8b078', '#8a6030', '#7a9850', '#f0d0b0', '#b88848', 'map', 'messy', 'f'],
+  ['mira', 'Mira', 'Tailleur', '#ffc0e8', '#c04898', '#b05898', '#ffe0d0', '#e878b8', 'needle', 'curly', 'f'],
+  ['asha', 'Asha', 'Gardienne', '#a8e8ff', '#2898c0', '#2898b8', '#ffd8c8', '#48b8d8', 'pearl', 'long', 'f'],
+  ['elwen', 'Elwen', 'Archiviste', '#d8f0a8', '#689838', '#6a9848', '#f8ecd8', '#98c858', 'book', 'elf', 'f'],
+  ['noa', 'Noa', 'Alchimiste', '#b8e8ff', '#3880d0', '#5088d8', '#ffe0d0', '#68a8f0', 'vial', 'twintail', 'f'],
+  ['sora', 'Sora', 'Dresseuse', '#ffd898', '#d08830', '#a87838', '#ffe8c8', '#f0a848', 'bell', 'side', 'f'],
+  ['zelie', 'Zelie', 'Duchesse', '#e8a8f0', '#783880', '#884898', '#ffe0e0', '#b858c0', 'rose', 'elegant', 'f'],
+]
+
+export const BUILDINGS = [
+  { id: 'inn', label: 'Auberge', roof: '#c85a38', wall: '#fff2d8', accent: '#ffb870', icon: 'inn' },
+  { id: 'mist-garden', label: 'Jardin', roof: '#7a58c8', wall: '#f0e8ff', accent: '#98e878', icon: 'garden' },
+  { id: 'ribbon-workshop', label: 'Atelier', roof: '#c84878', wall: '#fff4e8', accent: '#f0a848', icon: 'workshop' },
+  { id: 'clear-spring', label: 'Source', roof: '#58a8e8', wall: '#e8f8ff', accent: '#78d8f8', icon: 'spring' },
+  { id: 'moon-farm', label: 'Ferme', roof: '#d8a030', wall: '#fff8d0', accent: '#88c848', icon: 'farm' },
+  { id: 'arcane-library', label: 'Bibliotheque', roof: '#6858b8', wall: '#f0e8ff', accent: '#c8a8ff', icon: 'library' },
+  { id: 'traveler-theater', label: 'Theatre', roof: '#e07838', wall: '#fff0e0', accent: '#ff8868', icon: 'theater' },
+  { id: 'star-market', label: 'Marche', roof: '#d84868', wall: '#fff4f0', accent: '#ffd848', icon: 'market' },
+]
