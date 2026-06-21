@@ -55,19 +55,26 @@
   position: relative;
 }
 
-.live2d-stage canvas {
+.live2d-canvas-host {
+  inset: 0;
+  position: absolute;
+}
+
+.live2d-canvas-host canvas {
   display: block;
-  height: 100% !important;
-  width: 100% !important;
+  height: 100%;
+  width: 100%;
 }
 
 .live2d-status {
   color: var(--muted);
   inset: 0;
   margin: auto;
+  pointer-events: none;
   position: absolute;
   text-align: center;
   width: 80%;
+  z-index: 2;
 }
 
 .live2d-status-error {
