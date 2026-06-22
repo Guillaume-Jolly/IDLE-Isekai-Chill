@@ -1,13 +1,17 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { GachaOpening } from './components/GachaOpening'
+import { AppNav, type ViewKey } from './components/AppNav'
+import { ResourceStrip } from './components/ResourceStrip'
 import { ImageLightbox, type LightboxImage } from './components/ImageLightbox'
 import { MinigameHub } from './components/minigames/MinigameHub'
 import { MinigamePlayer } from './components/minigames/MinigamePlayer'
 import { QuestBoard } from './components/QuestBoard'
 import { CompanionStatsPanel } from './components/CompanionStatsPanel'
+import { CompanionMiniature } from './components/CompanionMiniature'
 import { InventoryPanel } from './components/InventoryPanel'
 import { PopulationPanel } from './components/PopulationPanel'
-import { VillageMapLabels, type MapLabelSpot } from './components/VillageMapLabels'
+import { VillagePanorama } from './components/VillagePanorama'
+import { type MapLabelSpot } from './components/VillageMapLabels'
 import {
   getActivityById,
 } from './data/buildingActivities'
@@ -20,7 +24,7 @@ import {
   type QuestSave,
 } from './data/infiniteQuests'
 import { createStarterMinigameSave, mergeMinigameSave, type MinigameSave } from './data/minigameSave'
-import { RESOURCE_ROLES } from './data/resources'
+import { type ResourceKey } from './data/resources'
 import { applyGachaItems, DEV_UNLIMITED_GACHA, formatGachaPullSummary, rollMulti, type GachaItem } from './data/gacha'
 import { createEmptyFragmentCounts, FRAGMENTS_PER_STAT, fragmentStatBudget } from './data/companionFragments'
 import {
@@ -42,6 +46,9 @@ import {
   type StatKey,
 } from './data/companionStats'
 import {
+  MAP_LABEL_SPOTS,
+} from './data/villageMap'
+import {
   BUILDING_UNLOCK_STAGE,
   checkStageAdvance,
   computeNeedSatisfaction,
@@ -57,30 +64,6 @@ import './App.css'
 const Live2DDemo = lazy(() =>
   import('./components/Live2DDemo').then((module) => ({ default: module.Live2DDemo })),
 )
-
-type ViewKey =
-  | 'village'
-  | 'buildings'
-  | 'quests'
-  | 'miniGames'
-  | 'event'
-  | 'inventory'
-  | 'companions'
-  | 'gallery'
-
-type ResourceKey =
-  | 'coins'
-  | 'wood'
-  | 'stone'
-  | 'food'
-  | 'silk'
-  | 'mana'
-  | 'renown'
-  | 'ingredients'
-  | 'crystals'
-  | 'gifts'
-  | 'tickets'
-  | 'stardust'
 
 type Resources = Record<ResourceKey, number>
 type Cost = Partial<Resources>
@@ -434,14 +417,14 @@ const CONVERSATION_ACTIVITY_BY_COMPANION: Record<string, string> = {
 }
 
 const VIEW_TABS: { key: ViewKey; label: string; icon: string }[] = [
-  { key: 'village', label: 'Village', icon: 'MAP' },
-  { key: 'buildings', label: 'Batiments', icon: 'UP' },
-  { key: 'quests', label: 'Quetes', icon: 'QT' },
-  { key: 'miniGames', label: 'Mini-jeux', icon: 'MG' },
-  { key: 'event', label: 'Event', icon: 'EV' },
-  { key: 'inventory', label: 'Inventaire', icon: 'IV' },
-  { key: 'companions', label: 'Liens', icon: 'LI' },
-  { key: 'gallery', label: 'Dev visuels', icon: 'DEV' },
+  { key: 'village', label: 'Village', icon: '🏘️' },
+  { key: 'buildings', label: 'Batiments', icon: '🏗️' },
+  { key: 'quests', label: 'Quetes', icon: '📜' },
+  { key: 'miniGames', label: 'Mini-jeux', icon: '🎮' },
+  { key: 'event', label: 'Event', icon: '🎊' },
+  { key: 'inventory', label: 'Inventaire', icon: '🎒' },
+  { key: 'companions', label: 'Liens', icon: '💞' },
+  { key: 'gallery', label: 'Dev visuels', icon: '🛠️' },
 ]
 
 const BUILDING_SHORT_NAMES: Record<string, string> = {
@@ -454,91 +437,6 @@ const BUILDING_SHORT_NAMES: Record<string, string> = {
   'traveler-theater': 'Theatre',
   'star-market': 'Marche',
 }
-
-type MapSpotDraft = {
-  id: string
-  buildingId: string
-  x: number
-  y: number
-  hint: string
-  targetView: ViewKey
-}
-
-const MAP_SPOT_DRAFTS: MapSpotDraft[] = [
-  {
-    id: 'map-library',
-    buildingId: 'arcane-library',
-    x: 12,
-    y: 10,
-    hint: 'Grimoire cache et mana',
-    targetView: 'miniGames',
-  },
-  {
-    id: 'map-garden',
-    buildingId: 'mist-garden',
-    x: 18,
-    y: 17,
-    hint: 'Recolte brumeuse',
-    targetView: 'miniGames',
-  },
-  {
-    id: 'map-spring',
-    buildingId: 'clear-spring',
-    x: 50,
-    y: 28,
-    hint: 'Bulles de source',
-    targetView: 'miniGames',
-  },
-  {
-    id: 'map-market',
-    buildingId: 'star-market',
-    x: 82,
-    y: 13,
-    hint: 'Bazar des etoiles',
-    targetView: 'miniGames',
-  },
-  {
-    id: 'map-inn',
-    buildingId: 'inn',
-    x: 22,
-    y: 49,
-    hint: 'Service express auberge',
-    targetView: 'miniGames',
-  },
-  {
-    id: 'map-workshop',
-    buildingId: 'ribbon-workshop',
-    x: 74,
-    y: 38,
-    hint: 'Fil d or et soie',
-    targetView: 'miniGames',
-  },
-  {
-    id: 'map-theater',
-    buildingId: 'traveler-theater',
-    x: 58,
-    y: 62,
-    hint: 'Concert au theatre',
-    targetView: 'miniGames',
-  },
-  {
-    id: 'map-farm',
-    buildingId: 'moon-farm',
-    x: 88,
-    y: 76,
-    hint: 'Graines lunaires',
-    targetView: 'miniGames',
-  },
-]
-
-const MAP_LABEL_SPOTS: MapLabelSpot[] = MAP_SPOT_DRAFTS.map((spot) => ({
-  id: spot.id,
-  buildingId: spot.buildingId,
-  x: spot.x,
-  y: spot.y,
-  hint: spot.hint,
-  targetView: spot.targetView,
-}))
 
 const BUILDING_ICON = (buildingId: string) => `/buildings/${buildingId}.png`
 
@@ -572,18 +470,19 @@ function CompanionVisual({
       onClick={onOpen}
       aria-label={`Agrandir ${companion.name} affinite ${level}`}
     >
-      {!failed && (
+      {!failed ? (
         <img
           src={externalPath}
           alt={`${companion.name} affinite ${level}`}
           onError={() => setFailed(true)}
         />
+      ) : (
+        <div className="visual-placeholder">
+          <strong>{visualFallback(companion, level)}</strong>
+          <span>{scene.title}</span>
+          <small>Image manquante — {externalPath}</small>
+        </div>
       )}
-      <div className="visual-placeholder">
-        <strong>{visualFallback(companion, level)}</strong>
-        <span>{scene.title}</span>
-        <small>{failed ? 'Placeholder interne' : 'Cliquer pour agrandir'}</small>
-      </div>
     </button>
   )
 }
@@ -700,9 +599,6 @@ const scaleRewardByMultiplier = (reward: Cost, multiplier: number): Cost =>
     ]),
   ) as Cost
 
-const villageScore = (game: GameState) =>
-  Object.values(game.buildings).reduce((total, level) => total + level, 0)
-
 const productionPerMinute = (game: GameState): Resources => {
   const production = emptyResources()
   for (const building of BUILDINGS) {
@@ -770,6 +666,7 @@ const loadInitialSession = () => {
     if (legacyStatPoints > 0) {
       migratedTokens.charm += legacyStatPoints
     }
+    const mergedMinigameSave = mergeMinigameSave(parsed.minigameSave)
     const migrated: GameState = {
       ...createStarterGame(),
       ...parsed,
@@ -787,7 +684,7 @@ const loadInitialSession = () => {
       },
       statTokens: migratedTokens,
       maturePlaceholders: parsed.maturePlaceholders ?? false,
-      minigameSave: mergeMinigameSave(parsed.minigameSave),
+      minigameSave: mergedMinigameSave,
       quests: parsed.quests?.board?.length
         ? {
             board: parsed.quests.board,
@@ -798,6 +695,14 @@ const loadInitialSession = () => {
         ...createStarterPopulation(),
         ...(parsed.village ?? {}),
       },
+    }
+    const hadPetsBefore = (parsed.minigameSave?.pets?.length ?? 0) > 0
+    const petsWiped = hadPetsBefore && migrated.minigameSave.pets.length === 0
+    if (petsWiped) {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ ...parsed, ...migrated, minigameSave: migrated.minigameSave }),
+      )
     }
     return applyOfflineProgress(migrated)
   } catch {
@@ -833,7 +738,6 @@ function App() {
     setLightbox({ images, index: level - 1 })
   }
 
-  const score = villageScore(game)
   const perMinute = productionPerMinute(game)
 
   useEffect(() => {
@@ -1418,24 +1322,38 @@ function App() {
 
           return (
             <article className="companion-card" key={companion.id}>
-              <div
-                className="portrait portrait-clickable"
-                aria-hidden="true"
-                onClick={() => openCompanionLightbox(companion, 1)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') openCompanionLightbox(companion, 1)
-                }}
-                role="button"
-                tabIndex={0}
-              >
-                <img
-                  src={companionAssetPath(companion.id, 1)}
-                  alt=""
-                  onError={(event) => {
-                    event.currentTarget.style.display = 'none'
+              <div className="companion-portrait-wrap">
+                <div
+                  className="portrait portrait-clickable"
+                  aria-label={`Agrandir ${companion.name} — survoler pour le profil RP`}
+                  onClick={() => openCompanionLightbox(companion, 1)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') openCompanionLightbox(companion, 1)
                   }}
-                />
-                <span>{companion.name.slice(0, 1)}</span>
+                  role="button"
+                  tabIndex={0}
+                >
+                  <CompanionMiniature
+                    className="companion-portrait-img"
+                    companionId={companion.id}
+                    name={companion.name}
+                  />
+                  <span>{companion.name.slice(0, 1)}</span>
+                </div>
+                <div className="companion-portrait-tooltip" role="tooltip">
+                  <strong>{companion.archetype}</strong>
+                  <p>{companion.talent}</p>
+                  <p>Cadeau prefere : {companion.favoriteGift}</p>
+                  <hr />
+                  <strong>{activeScene.title}</strong>
+                  <p>{activeScene.summary}</p>
+                  <small>{activeScene.artDirection}</small>
+                  {game.maturePlaceholders && current.affinity >= 4 ? (
+                    <small className="companion-portrait-tooltip-mature">
+                      Paliers 4-5 : contenu mature suggestif, personnages adultes et consentants.
+                    </small>
+                  ) : null}
+                </div>
               </div>
               <div className="companion-body">
                 <div className="card-topline">
@@ -1443,8 +1361,6 @@ function App() {
                   <span>Affinite {current.affinity}/5</span>
                 </div>
                 <h3>{companion.name}</h3>
-                <p>{companion.archetype} - {companion.talent}</p>
-                <small>Cadeau prefere: {companion.favoriteGift}</small>
                 <CompanionStatsPanel
                   fragmentCount={game.companionFragments[companion.id] ?? 0}
                   statTokens={game.statTokens}
@@ -1457,43 +1373,59 @@ function App() {
                   level={current.affinity}
                   onOpen={() => openCompanionLightbox(companion, current.affinity)}
                 />
-                <div className="scene-box">
-                  <strong>{activeScene.title}</strong>
-                  <p>{activeScene.summary}</p>
-                  <small>{activeScene.artDirection}</small>
-                </div>
-                {game.maturePlaceholders && current.affinity >= 4 && (
-                  <div className="mature-note">
-                    Paliers 4-5: contenu mature suggestif uniquement. Tous les
-                    personnages sont adultes et consentants dans la fiction.
+                <div className="companion-actions">
+                  <div className="companion-action-chip">
+                    <button type="button" onClick={() => trainCompanion(companion)}>
+                      Entrainer
+                    </button>
+                    <div className="companion-action-tooltip" role="tooltip">
+                      {costText(trainingCost)}
+                    </div>
                   </div>
-                )}
-                <div className="button-row">
-                  <button type="button" onClick={() => trainCompanion(companion)}>
-                    Entrainer - {costText(trainingCost)}
-                  </button>
-                  <button type="button" className="secondary" onClick={() => raiseAffinity(companion)}>
-                    Affinite - {current.affinity >= 5 ? 'max' : costText(affinityCost)}
-                  </button>
-                  {CONVERSATION_ACTIVITY_BY_COMPANION[companion.id] ? (
+                  <div className="companion-action-chip">
                     <button
                       type="button"
                       className="secondary"
-                      onClick={() => tryLaunchMinigame(CONVERSATION_ACTIVITY_BY_COMPANION[companion.id])}
+                      disabled={current.affinity >= 5}
+                      onClick={() => raiseAffinity(companion)}
                     >
-                      Conversation — {costText(CONVERSATION_LAUNCH_COST)}
+                      Affinite
                     </button>
+                    <div className="companion-action-tooltip" role="tooltip">
+                      {current.affinity >= 5 ? 'Affinite maximale' : costText(affinityCost)}
+                    </div>
+                  </div>
+                  {CONVERSATION_ACTIVITY_BY_COMPANION[companion.id] ? (
+                    <div className="companion-action-chip">
+                      <button
+                        type="button"
+                        className="secondary"
+                        onClick={() =>
+                          tryLaunchMinigame(CONVERSATION_ACTIVITY_BY_COMPANION[companion.id])
+                        }
+                      >
+                        Parler
+                      </button>
+                      <div className="companion-action-tooltip" role="tooltip">
+                        {costText(CONVERSATION_LAUNCH_COST)}
+                      </div>
+                    </div>
+                  ) : null}
+                  {companion.id === 'lyra' ? (
+                    <div className="companion-action-chip">
+                      <button
+                        className="secondary"
+                        type="button"
+                        onClick={() => setLive2dDemoOpen(true)}
+                      >
+                        Live2D
+                      </button>
+                      <div className="companion-action-tooltip" role="tooltip">
+                        Demo Live2D (Haru)
+                      </div>
+                    </div>
                   ) : null}
                 </div>
-                {companion.id === 'lyra' && (
-                  <button
-                    className="secondary live2d-launch"
-                    type="button"
-                    onClick={() => setLive2dDemoOpen(true)}
-                  >
-                    Demo Live2D (Haru)
-                  </button>
-                )}
               </div>
             </article>
           )
@@ -1543,29 +1475,28 @@ function App() {
   )
 
   const renderVillageMap = () => (
-    <>
-      <PopulationPanel
-        buildings={game.buildings}
-        village={game.village}
-        onAdvanceStage={advanceVillageStage}
-      />
-
-      <section className="village-map-panel">
-      <div className="map-copy">
-        <p className="eyebrow">Accueil interactif</p>
-        <h2>Havre des Brumes</h2>
-        <p>
-          Clique sur le nom d un batiment pour ouvrir son menu et voir la
-          production du niveau actuel.
-        </p>
-      </div>
-
+    <section className="village-map-panel">
       <div className="panorama-wrap">
         <div className="panorama-map" aria-label="Carte interactive du village">
-          <img alt="" className="panorama-image" draggable={false} src="/village/panorama.png" />
-          <VillageMapLabels
+          <div className="map-overlay-title">
+            <p className="eyebrow">Havre des Brumes</p>
+            <h2>Explore le village</h2>
+            <p className="map-stage-caption">{getCurrentStage(game.village.stage).name}</p>
+          </div>
+          <VillagePanorama
             activeBuildingId={activeBuildingId}
-            levels={game.buildings}
+            buildingInfos={Object.fromEntries(
+              BUILDINGS.map((building) => [
+                building.id,
+                {
+                  id: building.id,
+                  name: building.name,
+                  role: building.role,
+                  production: `${costText(building.produces)} / min`,
+                },
+              ]),
+            )}
+            buildingLevels={game.buildings}
             lockedIds={
               new Set(
                 BUILDINGS.filter(
@@ -1574,7 +1505,8 @@ function App() {
               )
             }
             shortNames={BUILDING_SHORT_NAMES}
-            spots={MAP_LABEL_SPOTS}
+            spots={MAP_LABEL_SPOTS as MapLabelSpot[]}
+            villageStage={game.village.stage}
             onSelect={(spot, locked) => {
               const building = BUILDINGS.find((item) => item.id === spot.buildingId) ?? BUILDINGS[0]
               if (locked) {
@@ -1626,97 +1558,70 @@ function App() {
           </div>
         </aside>
       </div>
+
+      <button
+        className="village-collect-fab"
+        type="button"
+        onClick={() => playMiniGame({ coins: 75, food: 45 }, 'Collecte rapide')}
+      >
+        Collecter
+      </button>
     </section>
-    </>
   )
 
   return (
     <main className="shell">
-      <section className="top-panel">
-        <div>
-          <p className="eyebrow">Idle isekai chill game</p>
-          <h1>Havre des Brumes</h1>
-          <p className="hero-copy">
-            Un prototype original jouable mobile et PC: recolte hors-ligne,
-            village evolutif, compagnons, affinite et evenements gacha sans
-            microtransactions.
-          </p>
-          <div className="hero-actions">
-            <button type="button" onClick={() => playMiniGame({ coins: 75, food: 45 }, 'Collecte rapide')}>
-              Tout collecter
-            </button>
-            <button type="button" className="secondary" onClick={() => setActiveView('event')}>
-              Ouvrir le gacha
-            </button>
-          </div>
+      <AppNav
+        activeView={activeView}
+        population={game.village.population}
+        tabs={VIEW_TABS}
+        villageStageName={getCurrentStage(game.village.stage).name}
+        onSelect={setActiveView}
+      />
+
+      <div className="shell-main">
+        <ResourceStrip perMinute={perMinute} resources={game.resources} />
+
+        <div className={`view-stage view-stage--${activeView}`}>
+        {activeView === 'village' && renderVillageMap()}
+        {activeView === 'buildings' && renderBuildingCards()}
+        {activeView === 'quests' && renderQuests()}
+        {activeView === 'miniGames' && renderMiniGames()}
+        {activeView === 'event' && renderEvent()}
+        {activeView === 'inventory' && renderInventory()}
+        {activeView === 'companions' && renderCompanions()}
+        {activeView === 'gallery' && (
+          <>
+            {renderGallery()}
+            <section className="design-notes">
+              <h2>Notes de design</h2>
+              <div className="notes-grid">
+                <p>
+                  <strong>Anti-FOMO.</strong> La progression hors-ligne est plafonnee
+                  a une semaine et recoltee au lancement.
+                </p>
+                <p>
+                  <strong>Monetisation.</strong> Le gacha consomme uniquement des
+                  tickets gagnes par production, mini-jeux ou events.
+                </p>
+                <p>
+                  <strong>Contenu adulte.</strong> Les paliers 4-5 proposent des scenes
+                  suggestives non explicites, avec personnages adultes et consentement
+                  clair dans la fiction.
+                </p>
+              </div>
+              <button type="button" className="danger" onClick={resetGame}>
+                Reinitialiser la sauvegarde locale
+              </button>
+            </section>
+          </>
+        )}
         </div>
-        <aside className="status-card">
-          <span>{getCurrentStage(game.village.stage).name}</span>
-          <strong>{Math.floor(game.village.population)} hab.</strong>
-          <small>Score batiments {score}</small>
-          <small>Cap hors-ligne: {OFFLINE_CAP_HOURS} h</small>
-        </aside>
-      </section>
 
-      <nav className="view-tabs" aria-label="Navigation principale">
-        {VIEW_TABS.map((tab) => (
-          <button
-            className={activeView === tab.key ? 'active' : ''}
-            key={tab.key}
-            type="button"
-            onClick={() => setActiveView(tab.key)}
-          >
-            <span>{tab.icon}</span>
-            {tab.label}
-          </button>
-        ))}
-      </nav>
-
-      <section className="message-bar" aria-live="polite">
-        {message}
-      </section>
-
-      <section className="grid resources-grid" aria-label="Ressources">
-        {RESOURCE_KEYS.map((key) => (
-          <article className="resource-card" key={key} title={RESOURCE_ROLES[key]}>
-            <span>{RESOURCE_LABELS[key]}</span>
-            <strong>{formatAmount(game.resources[key])}</strong>
-            <small>+{formatAmount(perMinute[key])} / min</small>
-            <small className="resource-role">{RESOURCE_ROLES[key]}</small>
-          </article>
-        ))}
-      </section>
-
-      {activeView === 'village' && renderVillageMap()}
-      {activeView === 'buildings' && renderBuildingCards()}
-      {activeView === 'quests' && renderQuests()}
-      {activeView === 'miniGames' && renderMiniGames()}
-      {activeView === 'event' && renderEvent()}
-      {activeView === 'inventory' && renderInventory()}
-      {activeView === 'companions' && renderCompanions()}
-      {activeView === 'gallery' && renderGallery()}
-
-      <section className="design-notes">
-        <h2>Notes de design</h2>
-        <div className="notes-grid">
-          <p>
-            <strong>Anti-FOMO.</strong> La progression hors-ligne est plafonnee
-            a une semaine et recoltee au lancement.
-          </p>
-          <p>
-            <strong>Monetisation.</strong> Le gacha consomme uniquement des
-            tickets gagnes par production, mini-jeux ou events.
-          </p>
-          <p>
-            <strong>Contenu adulte.</strong> Les paliers 4-5 proposent des scenes
-            suggestives non explicites, avec personnages adultes et consentement
-            clair dans la fiction.
-          </p>
+        <div aria-live="polite" className="game-toast" role="status">
+          {message}
         </div>
-        <button type="button" className="danger" onClick={resetGame}>
-          Reinitialiser la sauvegarde locale
-        </button>
-      </section>
+      </div>
 
       {lightbox && (
         <ImageLightbox
