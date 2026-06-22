@@ -1,9 +1,20 @@
 # Working Tree Triage — Phase 1.8
 
-> **Date :** 2026-06-22  
-> **HEAD :** `356698f` — `feat: register myrion refuge minigame in hub`  
+> **Date :** 2026-06-22 (mis à jour Phase 1.9)  
+> **HEAD :** `01ddfd0` — `refactor: simplify minigame hub navigation`  
 > **Stash :** `stash@{0}` — `rewrite-git-temp-stash` (conservé, non droppé)  
-> **Périmètre :** inventaire read-only du working tree ; aucune action exécutée sur les fichiers sources.
+> **Périmètre :** inventaire read-only du working tree ; Lot A commité en Phase 1.9.
+
+### Phase 1.9 — Lot A (traité, partiel)
+
+| Élément | Statut |
+|---------|--------|
+| Commit | `01ddfd0` — `refactor: simplify minigame hub navigation` |
+| Fichiers commités | `MinigameHub.tsx`, `ConversationPicker.tsx`, `population.ts` (`BUILDING_UNLOCK_ORDER`) |
+| Exclus volontairement | `gacha.ts` (`DEV_UNLOCK_ALL_MINIGAMES`), `App.css`, `CompanionMiniature` |
+| CSS hub | Déjà sur HEAD dans `Minigames.css` (aucun diff WT) |
+| Reste WT Lot A | `gacha.ts` — intégration flag dev hub (commit futur séparé, hors Phase 1.9) |
+| Portraits picker | `companionAssetPath` (HEAD) ; chibi via `CompanionMiniature` reporté au Lot C |
 
 ---
 
@@ -11,7 +22,7 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Fichiers **modifiés** tracked (`M`) | **26** |
+| Fichiers **modifiés** tracked (`M`) | **23** (−3 vs Phase 1.8 : Lot A commité) |
 | Fichiers **supprimés** tracked (`D`) | **50** |
 | Entrées **untracked** (`??`, git status) | **~230** (fichiers + dossiers) |
 | Fichiers réels sous `??` (estimation) | **~350–400** (dont `.tmp/` ≈ 116 fichiers) |
@@ -30,8 +41,8 @@
 ### Ordre de traitement recommandé
 
 1. **Documenter** (ce fichier) → commit `docs: add working tree triage`
-2. **Lot A** — Hub UI refactor (isolable, dépend de `population.ts` + flag dev)
-3. **Lot C** — Compagnons / inventaire UI (composants + data, relativement isolable)
+2. ~~**Lot A** — Hub UI refactor~~ ✅ Phase 1.9 (`01ddfd0`, partiel — flag dev reporté)
+3. **Lot C** — Compagnons / inventaire UI
 4. **Lot B** — Village / App shell (gros lot, dépend des lots C partiellement)
 5. **Lot D** — Runtime divers (petits diffs, commitables en slice)
 6. **Lot G** — Assets PNG (commits séparés, avant Lot F)
@@ -343,19 +354,15 @@ Légende actions : **CM** commit maintenant · **CL** commit plus tard · **UT**
 
 ---
 
-### Commit 1 — Hub UI
+### Commit 1 — Hub UI ✅ Phase 1.9
 
-**Message :** `refactor: simplify minigame hub navigation`
+**Message :** `refactor: simplify minigame hub navigation` — **commité `01ddfd0`**
 
 | | |
 |---|---|
-| **Inclus** | `MinigameHub.tsx`, `ConversationPicker.tsx`, `population.ts` (`BUILDING_UNLOCK_ORDER`), styles hub dans `App.css`/`Minigames.css` (extraire si possible) |
-| **Exclus** | `gacha.ts` flag dev (sauf décision explicite), village, assets, SVG deletes |
-| **Risque** | Moyen — CSS hub peut être entremêlé dans `App.css` |
-| **Validation** | `npm run build`, hub → ouvrir 2–3 mini-jeux + picker conversations |
-| **TNR** | Hub visible, tri correct, conversations groupées, retour hub OK |
-
-**Prérequis :** Décider si `DEV_UNLOCK_ALL_MINIGAMES` reste uncommitted ou commit séparé `chore: add dev unlock all minigames flag`.
+| **Inclus** | `MinigameHub.tsx`, `ConversationPicker.tsx`, `population.ts` |
+| **Exclus** | `gacha.ts`, `CompanionMiniature`, `App.css` |
+| **Note** | Déblocage via `villageStage >= requiredStage` uniquement ; flag dev WT non commité |
 
 ---
 
