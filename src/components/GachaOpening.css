@@ -156,6 +156,13 @@
   margin: 0;
 }
 
+.gacha-card-summary {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
 .gacha-card.compact h4 {
   font-size: 0.74rem;
 }

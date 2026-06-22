@@ -7,14 +7,17 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "generate:assets": "node scripts/generate-assets.mjs",
-    "generate:gacha-video": "node scripts/build-gacha-video.mjs",
+    "generate:minigame-svgs": "node scripts/generate-palmon-svgs.mjs && node scripts/generate-biome-svgs.mjs",
+    "vectorize:chibi": "node scripts/vectorize-chibi.mjs --demo",
+    "vectorize:one": "node scripts/vectorize-chibi.mjs",
+    "generate:dialogues": "node scripts/generate-companion-scenarios.mjs",
     "setup:live2d": "node scripts/setup-live2d-demo.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "pixi-live2d-display": "^0.4.0",
-    "pixi.js": "^7.4.3",
+    "pixi-live2d-display": "0.4.0",
+    "pixi.js": "6.5.10",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
@@ -29,6 +32,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "ffmpeg-static": "^5.3.0",
     "globals": "^17.6.0",
+    "imagetracerjs": "^1.2.6",
     "sharp": "^0.35.2",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",

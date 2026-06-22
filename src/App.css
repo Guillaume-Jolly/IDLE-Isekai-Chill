@@ -472,6 +472,109 @@ button.danger {
   text-align: left;
 }
 
+.companion-stats {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+.companion-stats-head {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.companion-stats-head small {
+  color: var(--text-muted, #7a6f88);
+}
+
+.companion-stats-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.companion-stat-row {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr auto auto auto;
+}
+
+.companion-fragment-bar {
+  align-items: center;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: auto 1fr auto;
+}
+
+.companion-fragment-bar span {
+  font-size: 0.78rem;
+}
+
+.companion-fragment-track {
+  background: rgba(180, 73, 255, 0.12);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.companion-fragment-fill {
+  background: linear-gradient(90deg, #b449ff, #ff8fd0);
+  border-radius: 999px;
+  height: 100%;
+  min-width: 4px;
+  transition: width 0.25s ease;
+}
+
+.companion-fragment-bar small {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.stat-token-badge {
+  background: rgba(255, 176, 32, 0.18);
+  border-radius: 999px;
+  color: #9a6200;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+}
+
+.companion-stat-row span {
+  font-size: 0.82rem;
+}
+
+.stat-plus {
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 28px;
+  padding: 4px 8px;
+}
+
+.gacha-loot-help {
+  display: grid;
+  gap: 6px;
+}
+
+.gacha-loot-help span {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.85rem;
+}
+
+.gacha-stat-bank {
+  color: #6a9eff;
+  display: block;
+  margin-top: 6px;
+}
+
 .portrait {
   align-items: center;
   aspect-ratio: 1;
@@ -787,9 +890,408 @@ button.danger {
   }
 }
 
+.resource-role {
+  color: var(--text-muted, #7a6f88);
+  display: block;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  margin-top: 4px;
+}
+
+.quest-board {
+  display: grid;
+  gap: 18px;
+}
+
+.quest-board-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quest-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quest-card.ready {
+  border-color: rgba(120, 210, 140, 0.55);
+  box-shadow: 0 0 0 1px rgba(120, 210, 140, 0.25);
+}
+
+.gacha-stat-bank {
+  color: #6a9eff;
+  display: block;
+  margin-top: 6px;
+}
+
+.gacha-loot-help {
+  display: grid;
+  gap: 6px;
+}
+
+.gacha-loot-help span {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.85rem;
+}
+
+.population-panel {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.population-head {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.population-avg {
+  display: grid;
+  gap: 4px;
+  text-align: right;
+}
+
+.population-avg .good {
+  color: #4caf7a;
+}
+
+.population-avg .mid {
+  color: #d4a017;
+}
+
+.population-avg .low {
+  color: #d45a5a;
+}
+
+.population-copy {
+  margin: 0;
+}
+
+.need-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.need-bar-top {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+}
+
+.need-track,
+.archetype-track {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.need-fill,
+.archetype-fill {
+  border-radius: 999px;
+  height: 100%;
+}
+
+.need-fill.good,
+.archetype-fill {
+  background: linear-gradient(90deg, #6ecf8a, #4caf7a);
+}
+
+.need-fill.mid {
+  background: linear-gradient(90deg, #ffd56a, #d4a017);
+}
+
+.need-fill.low {
+  background: linear-gradient(90deg, #ff9f9f, #d45a5a);
+}
+
+.archetype-section,
+.stage-advance-box,
+.future-buildings {
+  display: grid;
+  gap: 10px;
+}
+
+.archetype-bars {
+  display: grid;
+  gap: 8px;
+}
+
+.archetype-row {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(100px, 1fr) 1fr auto;
+}
+
+.archetype-row.active span {
+  color: var(--text-h);
+  font-weight: 800;
+}
+
+.archetype-active.muted {
+  color: var(--text-muted, #7a6f88);
+}
+
+.stage-advance-box ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.stage-blocked {
+  display: grid;
+  gap: 4px;
+}
+
+.future-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.future-card {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+}
+
+.future-tag {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media (max-width: 960px) {
+  .quest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .need-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .future-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .archetype-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .companion-visual img,
   .lightbox-image {
     animation: none !important;
+  }
+}
+
+.inventory-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.inventory-summary {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.inventory-summary-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+}
+
+.inventory-summary-card span {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.82rem;
+}
+
+.inventory-summary-card strong {
+  font-size: 1.35rem;
+}
+
+.inventory-summary-card small {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.75rem;
+}
+
+.inventory-fragment-grid,
+.inventory-section {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.inventory-section-head h3,
+.inventory-fragment-grid h3 {
+  margin: 0 0 4px;
+}
+
+.inventory-section-head p,
+.inventory-fragment-grid p {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.inventory-fragment-grid {
+  padding: 16px 18px;
+}
+
+.inventory-fragment-cards {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  margin-top: 12px;
+}
+
+.inventory-fragment-card {
+  background: rgba(180, 73, 255, 0.06);
+  border: 1px dashed rgba(180, 73, 255, 0.18);
+  border-radius: 12px;
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+}
+
+.inventory-fragment-card.has-stock {
+  background: rgba(180, 73, 255, 0.12);
+  border-color: rgba(180, 73, 255, 0.32);
+  border-style: solid;
+}
+
+.inventory-fragment-count {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.inventory-fragment-track {
+  background: rgba(180, 73, 255, 0.12);
+  border-radius: 999px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.inventory-fragment-fill {
+  background: linear-gradient(90deg, #b449ff, #ff8fd0);
+  border-radius: 999px;
+  height: 100%;
+  min-width: 2px;
+}
+
+.inventory-fragment-card small {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.72rem;
+}
+
+.inventory-section-toggle {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 16px 18px;
+  text-align: left;
+  width: 100%;
+}
+
+.inventory-section-toggle span {
+  color: var(--text-muted, #7a6f88);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.inventory-section-body {
+  border-top: 1px solid var(--border);
+  padding: 0 18px 16px;
+}
+
+.inventory-empty {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.9rem;
+  margin: 14px 0 0;
+}
+
+.inventory-item-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  margin-top: 14px;
+}
+
+.inventory-item {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(180, 73, 255, 0.1);
+  border-radius: 12px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto 1fr auto;
+  padding: 10px 12px;
+}
+
+.inventory-item-icon {
+  font-size: 1.35rem;
+}
+
+.inventory-item-body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.inventory-item-body strong {
+  font-size: 0.92rem;
+}
+
+.inventory-item-body small {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.inventory-item-amount {
+  display: grid;
+  gap: 2px;
+  justify-items: end;
+  text-align: right;
+}
+
+.inventory-item-amount span {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.inventory-item-amount small {
+  color: #9a6200;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+@media (max-width: 960px) {
+  .inventory-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inventory-item-grid {
+    grid-template-columns: 1fr;
   }
 }

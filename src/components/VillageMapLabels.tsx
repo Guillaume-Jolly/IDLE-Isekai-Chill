@@ -3,8 +3,10 @@ import type { CSSProperties } from 'react'
 export type MapTargetView =
   | 'village'
   | 'buildings'
+  | 'quests'
   | 'miniGames'
   | 'event'
+  | 'inventory'
   | 'companions'
   | 'gallery'
 

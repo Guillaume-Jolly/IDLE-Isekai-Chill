@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="star-shore">
+  <defs>
+    <linearGradient id="sky-star-shore" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#182848"/>
+      <stop offset="100%" stop-color="#4888c8"/>
+    </linearGradient>
+    <linearGradient id="ground-star-shore" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd56a"/>
+      <stop offset="100%" stop-color="#ffe8a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky-star-shore)"/>
+  <ellipse cx="960" cy="780" rx="980" ry="420" fill="url(#ground-star-shore)"/>
+  <ellipse cx="200" cy="620" rx="280" ry="200" fill="#ffd56a" opacity="0.55"/>
+  <ellipse cx="1720" cy="640" rx="300" ry="220" fill="#ffd56a" opacity="0.55"/>
+  <circle cx="960" cy="900" r="120" fill="#fff8d0" opacity="0.12"/><circle cx="100" cy="80" r="2" fill="#fff" opacity="0.8"/><circle cx="161" cy="117" r="2" fill="#fff" opacity="0.8"/><circle cx="222" cy="154" r="2" fill="#fff" opacity="0.8"/><circle cx="283" cy="191" r="2" fill="#fff" opacity="0.8"/><circle cx="344" cy="228" r="2" fill="#fff" opacity="0.8"/><circle cx="405" cy="265" r="2" fill="#fff" opacity="0.8"/><circle cx="466" cy="302" r="2" fill="#fff" opacity="0.8"/><circle cx="527" cy="339" r="2" fill="#fff" opacity="0.8"/><circle cx="588" cy="96" r="2" fill="#fff" opacity="0.8"/><circle cx="649" cy="133" r="2" fill="#fff" opacity="0.8"/><circle cx="710" cy="170" r="2" fill="#fff" opacity="0.8"/><circle cx="771" cy="207" r="2" fill="#fff" opacity="0.8"/><circle cx="832" cy="244" r="2" fill="#fff" opacity="0.8"/><circle cx="893" cy="281" r="2" fill="#fff" opacity="0.8"/><circle cx="954" cy="318" r="2" fill="#fff" opacity="0.8"/><circle cx="1015" cy="355" r="2" fill="#fff" opacity="0.8"/><circle cx="1076" cy="112" r="2" fill="#fff" opacity="0.8"/><circle cx="1137" cy="149" r="2" fill="#fff" opacity="0.8"/><circle cx="1198" cy="186" r="2" fill="#fff" opacity="0.8"/><circle cx="1259" cy="223" r="2" fill="#fff" opacity="0.8"/><circle cx="1320" cy="260" r="2" fill="#fff" opacity="0.8"/><circle cx="1381" cy="297" r="2" fill="#fff" opacity="0.8"/><circle cx="1442" cy="334" r="2" fill="#fff" opacity="0.8"/><circle cx="1503" cy="91" r="2" fill="#fff" opacity="0.8"/><circle cx="1564" cy="128" r="2" fill="#fff" opacity="0.8"/><circle cx="1625" cy="165" r="2" fill="#fff" opacity="0.8"/><circle cx="1686" cy="202" r="2" fill="#fff" opacity="0.8"/><circle cx="1747" cy="239" r="2" fill="#fff" opacity="0.8"/><circle cx="1808" cy="276" r="2" fill="#fff" opacity="0.8"/><circle cx="149" cy="313" r="2" fill="#fff" opacity="0.8"/>
+  <ellipse cx="960" cy="720" rx="520" ry="120" fill="#ffe8a8" opacity="0.35"/>
+</svg>

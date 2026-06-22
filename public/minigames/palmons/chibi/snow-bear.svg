@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="snow-bear chibi">
+  <ellipse cx="32" cy="56" rx="18" ry="4" fill="#000" opacity="0.1"/>
+  <ellipse cx="32" cy="38" rx="22" ry="20" fill="#eef4fc"/>
+  <circle cx="32" cy="24" r="16" fill="#eef4fc"/>
+  <circle cx="26" cy="22" r="3" fill="#fff"/><circle cx="38" cy="22" r="3" fill="#fff"/>
+  <circle cx="27" cy="23" r="1.8" fill="#405870"/><circle cx="39" cy="23" r="1.8" fill="#405870"/>
+  <path d="M 26 30 Q 32 34 38 30" fill="none" stroke="#405870" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="32" cy="14" r="5" fill="#98b8d8"/>
+</svg>

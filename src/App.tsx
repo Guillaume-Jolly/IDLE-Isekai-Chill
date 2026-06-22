@@ -1,8 +1,57 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { GachaOpening } from './components/GachaOpening'
 import { ImageLightbox, type LightboxImage } from './components/ImageLightbox'
+import { MinigameHub } from './components/minigames/MinigameHub'
+import { MinigamePlayer } from './components/minigames/MinigamePlayer'
+import { QuestBoard } from './components/QuestBoard'
+import { CompanionStatsPanel } from './components/CompanionStatsPanel'
+import { InventoryPanel } from './components/InventoryPanel'
+import { PopulationPanel } from './components/PopulationPanel'
 import { VillageMapLabels, type MapLabelSpot } from './components/VillageMapLabels'
-import { DEV_UNLIMITED_GACHA, rollMulti, type GachaItem } from './data/gacha'
+import {
+  getActivityById,
+} from './data/buildingActivities'
+import {
+  bumpQuestProgress,
+  createStarterQuestSave,
+  generateQuestBoard,
+  type InfiniteQuest,
+  type QuestKind,
+  type QuestSave,
+} from './data/infiniteQuests'
+import { createStarterMinigameSave, mergeMinigameSave, type MinigameSave } from './data/minigameSave'
+import { RESOURCE_ROLES } from './data/resources'
+import { applyGachaItems, DEV_UNLIMITED_GACHA, formatGachaPullSummary, rollMulti, type GachaItem } from './data/gacha'
+import { createEmptyFragmentCounts, FRAGMENTS_PER_STAT, fragmentStatBudget } from './data/companionFragments'
+import {
+  affinityCostMultiplier,
+  conversationRewardMultiplier,
+  createEmptyStatTokens,
+  mergeCompanionStats,
+  mergeStatTokens,
+  minigameRewardMultiplier,
+  raiseStat,
+  raiseStatDirect,
+  statPointsFromAffinity,
+  statPointsFromLevelUp,
+  statProductionMultiplier,
+  STAT_KEYS,
+  STAT_LABELS,
+  trainingCostMultiplier,
+  type CompanionStats,
+  type StatKey,
+} from './data/companionStats'
+import {
+  BUILDING_UNLOCK_STAGE,
+  checkStageAdvance,
+  computeNeedSatisfaction,
+  createStarterPopulation,
+  getArchetypeProductionMultiplier,
+  getCurrentStage,
+  isBuildingUnlockedByStage,
+  populationGrowthTick,
+  type VillagePopulationState,
+} from './data/population'
 import './App.css'
 
 const Live2DDemo = lazy(() =>
@@ -12,8 +61,10 @@ const Live2DDemo = lazy(() =>
 type ViewKey =
   | 'village'
   | 'buildings'
+  | 'quests'
   | 'miniGames'
   | 'event'
+  | 'inventory'
   | 'companions'
   | 'gallery'
 
@@ -63,16 +114,22 @@ type AffinityScene = {
 type CompanionState = {
   level: number
   affinity: number
+  stats: CompanionStats
+  unspentStatPoints: number
 }
 
 type GameState = {
   resources: Resources
   buildings: Record<string, number>
   companions: Record<string, CompanionState>
-  skins: string[]
+  companionFragments: Record<string, number>
+  statTokens: Record<StatKey, number>
   eventPulls: number
   maturePlaceholders: boolean
   lastSaved: number
+  minigameSave: MinigameSave
+  quests: QuestSave
+  village: VillagePopulationState
 }
 
 type OfflineReport = {
@@ -356,34 +413,33 @@ const COMPANIONS: Companion[] = [
   },
 ]
 
-const MINI_GAMES = [
-  {
-    name: 'Cuisine minute',
-    description: 'Prepare un banquet et gagne vivres, pieces et ingredients.',
-    reward: { food: 180, coins: 120, ingredients: 35 },
-  },
-  {
-    name: 'Livraisons relax',
-    description: 'Optimise une route simple sans energie limitee.',
-    reward: { wood: 120, stone: 90, renown: 18 },
-  },
-  {
-    name: 'Concert au theatre',
-    description: 'Un rythme leger pour booster le renom du village.',
-    reward: { renown: 45, tickets: 1, gifts: 18 },
-  },
-  {
-    name: 'Exploration douce',
-    description: 'Fouille automatique sans risque de blocage.',
-    reward: { mana: 80, crystals: 25, stardust: 9 },
-  },
-] satisfies { name: string; description: string; reward: Cost }[]
+const CONVERSATION_LAUNCH_COST: Cost = { mana: 15, stardust: 3 }
+
+const CONVERSATION_ACTIVITY_BY_COMPANION: Record<string, string> = {
+  lyra: 'library-hearts',
+  maeve: 'market-hearts',
+  seren: 'inn-hearts',
+  nami: 'kitchen-hearts',
+  iris: 'garden-hearts',
+  kael: 'theater-hearts',
+  runa: 'forge-hearts',
+  solene: 'spring-hearts',
+  talia: 'farm-hearts',
+  mira: 'workshop-hearts',
+  asha: 'cascade-hearts',
+  elwen: 'archive-hearts',
+  noa: 'lab-hearts',
+  sora: 'barn-hearts',
+  zelie: 'salon-hearts',
+}
 
 const VIEW_TABS: { key: ViewKey; label: string; icon: string }[] = [
   { key: 'village', label: 'Village', icon: 'MAP' },
   { key: 'buildings', label: 'Batiments', icon: 'UP' },
+  { key: 'quests', label: 'Quetes', icon: 'QT' },
   { key: 'miniGames', label: 'Mini-jeux', icon: 'MG' },
   { key: 'event', label: 'Event', icon: 'EV' },
+  { key: 'inventory', label: 'Inventaire', icon: 'IV' },
   { key: 'companions', label: 'Liens', icon: 'LI' },
   { key: 'gallery', label: 'Dev visuels', icon: 'DEV' },
 ]
@@ -414,39 +470,39 @@ const MAP_SPOT_DRAFTS: MapSpotDraft[] = [
     buildingId: 'arcane-library',
     x: 12,
     y: 10,
-    hint: 'Progression et lore',
-    targetView: 'gallery',
+    hint: 'Grimoire cache et mana',
+    targetView: 'miniGames',
   },
   {
     id: 'map-garden',
     buildingId: 'mist-garden',
     x: 18,
     y: 17,
-    hint: 'Vivres, ingredients, cadeaux',
-    targetView: 'buildings',
+    hint: 'Recolte brumeuse',
+    targetView: 'miniGames',
   },
   {
     id: 'map-spring',
     buildingId: 'clear-spring',
     x: 50,
     y: 28,
-    hint: 'Repos, mana, relations',
-    targetView: 'companions',
+    hint: 'Bulles de source',
+    targetView: 'miniGames',
   },
   {
     id: 'map-market',
     buildingId: 'star-market',
     x: 82,
     y: 13,
-    hint: 'Gacha saisonnier',
-    targetView: 'event',
+    hint: 'Bazar des etoiles',
+    targetView: 'miniGames',
   },
   {
     id: 'map-inn',
     buildingId: 'inn',
     x: 22,
     y: 49,
-    hint: 'Mini-jeu auberge et revenus',
+    hint: 'Service express auberge',
     targetView: 'miniGames',
   },
   {
@@ -454,15 +510,15 @@ const MAP_SPOT_DRAFTS: MapSpotDraft[] = [
     buildingId: 'ribbon-workshop',
     x: 74,
     y: 38,
-    hint: 'Soie, cadeaux, craft',
-    targetView: 'buildings',
+    hint: 'Fil d or et soie',
+    targetView: 'miniGames',
   },
   {
     id: 'map-theater',
     buildingId: 'traveler-theater',
     x: 58,
     y: 62,
-    hint: 'Concerts et mini-jeux',
+    hint: 'Concert au theatre',
     targetView: 'miniGames',
   },
   {
@@ -470,8 +526,8 @@ const MAP_SPOT_DRAFTS: MapSpotDraft[] = [
     buildingId: 'moon-farm',
     x: 88,
     y: 76,
-    hint: 'Production passive',
-    targetView: 'buildings',
+    hint: 'Graines lunaires',
+    targetView: 'miniGames',
   },
 ]
 
@@ -551,16 +607,37 @@ const starterResources = (): Resources => ({
   stardust: 10,
 })
 
+const createCompanionState = (companionId: string, saved?: Partial<CompanionState>): CompanionState => {
+  const statState = mergeCompanionStats(companionId, saved)
+  return {
+    level: saved?.level ?? 1,
+    affinity: saved?.affinity ?? 1,
+    stats: statState.stats,
+    unspentStatPoints: statState.unspentStatPoints,
+  }
+}
+
 const createStarterGame = (): GameState => ({
   resources: starterResources(),
   buildings: Object.fromEntries(BUILDINGS.map((building) => [building.id, 1])),
   companions: Object.fromEntries(
-    COMPANIONS.map((companion) => [companion.id, { level: 1, affinity: 1 }]),
+    COMPANIONS.map((companion) => [companion.id, createCompanionState(companion.id)]),
   ),
-  skins: [],
+  companionFragments: createEmptyFragmentCounts(),
+  statTokens: createEmptyStatTokens(),
   eventPulls: 0,
   maturePlaceholders: false,
   lastSaved: Date.now(),
+  minigameSave: createStarterMinigameSave(),
+  quests: {
+    ...createStarterQuestSave(),
+    board: generateQuestBoard(
+      BUILDINGS.map((building) => building.id),
+      COMPANIONS.map((companion) => companion.id),
+      6,
+    ),
+  },
+  village: createStarterPopulation(),
 })
 
 const formatAmount = (amount: number) =>
@@ -598,6 +675,31 @@ const costText = (cost: Cost) =>
     .map((key) => `${formatAmount(cost[key] ?? 0)} ${RESOURCE_LABELS[key]}`)
     .join(' + ')
 
+const bumpGameQuests = (
+  game: GameState,
+  kind: QuestKind,
+  detail?: { buildingId?: string; companionId?: string; activityId?: string },
+): GameState => ({
+  ...game,
+  quests: {
+    ...game.quests,
+    board: bumpQuestProgress(game.quests.board, kind, detail),
+  },
+})
+
+const scaleCostByMultiplier = (cost: Cost, multiplier: number): Cost =>
+  Object.fromEntries(
+    Object.entries(cost).map(([key, value]) => [key, Math.ceil((value ?? 0) * multiplier)]),
+  ) as Cost
+
+const scaleRewardByMultiplier = (reward: Cost, multiplier: number): Cost =>
+  Object.fromEntries(
+    Object.entries(reward).map(([key, value]) => [
+      key,
+      Math.max(1, Math.round((value ?? 0) * multiplier)),
+    ]),
+  ) as Cost
+
 const villageScore = (game: GameState) =>
   Object.values(game.buildings).reduce((total, level) => total + level, 0)
 
@@ -605,18 +707,26 @@ const productionPerMinute = (game: GameState): Resources => {
   const production = emptyResources()
   for (const building of BUILDINGS) {
     const level = game.buildings[building.id] ?? 0
-    if (level <= 0 || villageScore(game) < building.unlockAt) continue
+    if (level <= 0 || !isBuildingUnlockedByStage(building.id, game.village.stage)) continue
     for (const key of RESOURCE_KEYS) {
-      production[key] += (building.produces[key] ?? 0) * level
+      const base = (building.produces[key] ?? 0) * level
+      production[key] += base * getArchetypeProductionMultiplier(key, game.buildings)
     }
   }
 
   for (const companion of COMPANIONS) {
     const state = game.companions[companion.id]
     if (!state) continue
-    const affectionMultiplier = 1 + state.affinity * 0.08
-    production[companion.bonusResource] +=
-      state.level * 2.5 * affectionMultiplier
+    production[companion.bonusResource] += statProductionMultiplier(
+      state.level,
+      state.affinity,
+      state.stats,
+    )
+  }
+
+  const popBonus = 1 + Math.min(0.15, game.village.population / 2000)
+  for (const key of RESOURCE_KEYS) {
+    production[key] *= popBonus
   }
 
   return production
@@ -654,15 +764,40 @@ const loadInitialSession = () => {
   }
 
   try {
-    const parsed = JSON.parse(raw) as GameState
+    const parsed = JSON.parse(raw) as GameState & { bonusStatPoints?: number }
+    const legacyStatPoints = parsed.bonusStatPoints ?? 0
+    const migratedTokens = mergeStatTokens(parsed.statTokens)
+    if (legacyStatPoints > 0) {
+      migratedTokens.charm += legacyStatPoints
+    }
     const migrated: GameState = {
       ...createStarterGame(),
       ...parsed,
       resources: { ...starterResources(), ...parsed.resources },
       buildings: { ...createStarterGame().buildings, ...parsed.buildings },
-      companions: { ...createStarterGame().companions, ...parsed.companions },
-      skins: parsed.skins ?? [],
+      companions: Object.fromEntries(
+        COMPANIONS.map((companion) => [
+          companion.id,
+          createCompanionState(companion.id, parsed.companions?.[companion.id]),
+        ]),
+      ),
+      companionFragments: {
+        ...createEmptyFragmentCounts(),
+        ...(parsed.companionFragments ?? {}),
+      },
+      statTokens: migratedTokens,
       maturePlaceholders: parsed.maturePlaceholders ?? false,
+      minigameSave: mergeMinigameSave(parsed.minigameSave),
+      quests: parsed.quests?.board?.length
+        ? {
+            board: parsed.quests.board,
+            totalClaimed: parsed.quests.totalClaimed ?? 0,
+          }
+        : createStarterGame().quests,
+      village: {
+        ...createStarterPopulation(),
+        ...(parsed.village ?? {}),
+      },
     }
     return applyOfflineProgress(migrated)
   } catch {
@@ -685,6 +820,9 @@ function App() {
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null)
   const [gachaResults, setGachaResults] = useState<GachaItem[] | null>(null)
   const [live2dDemoOpen, setLive2dDemoOpen] = useState(false)
+  const [activeMinigameActivityId, setActiveMinigameActivityId] = useState<string | null>(null)
+  const [focusMinigameBuildingId, setFocusMinigameBuildingId] = useState<string | null>(null)
+  const passiveQuestTicks = useRef(0)
 
   const openCompanionLightbox = (companion: Companion, level: number) => {
     const images: LightboxImage[] = companion.scenes.map((scene) => ({
@@ -711,7 +849,30 @@ function App() {
         for (const key of RESOURCE_KEYS) {
           gains[key] = tickProduction[key] / 12
         }
-        return { ...current, resources: mergeResources(current.resources, gains) }
+        passiveQuestTicks.current += 1
+        let next: GameState = {
+          ...current,
+          resources: mergeResources(current.resources, gains),
+        }
+        if (passiveQuestTicks.current >= 12) {
+          passiveQuestTicks.current = 0
+          next = bumpGameQuests(next, 'earn-passive')
+        }
+        const needs = computeNeedSatisfaction(next.buildings, next.village.population)
+        const popGain = populationGrowthTick(next.village, needs)
+        if (popGain > 0) {
+          next = {
+            ...next,
+            village: {
+              ...next.village,
+              population: Math.min(
+                getCurrentStage(next.village.stage).popCap,
+                next.village.population + popGain,
+              ),
+            },
+          }
+        }
+        return next
       })
     }, 5000)
 
@@ -719,8 +880,11 @@ function App() {
   }, [])
 
   const updateBuilding = (building: Building) => {
-    if (score < building.unlockAt) {
-      setMessage(`${building.name} se debloque avec un score village de ${building.unlockAt}.`)
+    if (!isBuildingUnlockedByStage(building.id, game.village.stage)) {
+      const requiredStage = BUILDING_UNLOCK_STAGE[building.id] ?? 0
+      setMessage(
+        `${building.name} se debloque au stade ${getCurrentStage(requiredStage).name}.`,
+      )
       return
     }
 
@@ -732,35 +896,52 @@ function App() {
       return
     }
 
-    setGame((current) => ({
-      ...current,
-      resources: spendResources(current.resources, cost),
-      buildings: { ...current.buildings, [building.id]: level + 1 },
-    }))
+    setGame((current) =>
+      bumpGameQuests(
+        {
+          ...current,
+          resources: spendResources(current.resources, cost),
+          buildings: { ...current.buildings, [building.id]: level + 1 },
+        },
+        'upgrade-building',
+        { buildingId: building.id },
+      ),
+    )
     setMessage(`${building.name} passe niveau ${level + 1}.`)
   }
 
   const trainCompanion = (companion: Companion) => {
     const current = game.companions[companion.id]
-    const cost = multiplyCost(
-      { coins: 120, mana: 30, gifts: 12 },
+    const baseCost = multiplyCost(
+      { coins: 120, mana: 30, gifts: 12, food: 25, ingredients: 10 },
       Math.pow(1.35, current.level - 1),
     )
+    const cost = scaleCostByMultiplier(baseCost, trainingCostMultiplier(current.stats))
 
     if (!canAfford(game.resources, cost)) {
       setMessage(`Il manque des ressources pour entrainer ${companion.name}.`)
       return
     }
 
-    setGame((previous) => ({
-      ...previous,
-      resources: spendResources(previous.resources, cost),
-      companions: {
-        ...previous.companions,
-        [companion.id]: { ...current, level: current.level + 1 },
-      },
-    }))
-    setMessage(`${companion.name} gagne un niveau.`)
+    setGame((previous) =>
+      bumpGameQuests(
+        {
+          ...previous,
+          resources: spendResources(previous.resources, cost),
+          companions: {
+            ...previous.companions,
+            [companion.id]: {
+              ...current,
+              level: current.level + 1,
+              unspentStatPoints: current.unspentStatPoints + statPointsFromLevelUp(),
+            },
+          },
+        },
+        'train-companion',
+        { companionId: companion.id },
+      ),
+    )
+    setMessage(`${companion.name} gagne un niveau (+1 point de stat).`)
   }
 
   const raiseAffinity = (companion: Companion) => {
@@ -770,25 +951,112 @@ function App() {
       return
     }
 
-    const cost = multiplyCost(
-      { gifts: 25, renown: 18, silk: 10 },
-      Math.pow(1.55, current.affinity - 1),
-    )
+    const affinityBase: Cost = { gifts: 25, renown: 18, silk: 10 }
+    if (current.affinity >= 3) {
+      affinityBase.stardust = 6
+    }
+    if (current.affinity >= 4) {
+      affinityBase.crystals = 12
+    }
+
+    const scaledBase = multiplyCost(affinityBase, Math.pow(1.55, current.affinity - 1))
+    const cost = scaleCostByMultiplier(scaledBase, affinityCostMultiplier(current.stats))
 
     if (!canAfford(game.resources, cost)) {
       setMessage(`Il manque des cadeaux pour renforcer le lien avec ${companion.name}.`)
       return
     }
 
-    setGame((previous) => ({
-      ...previous,
-      resources: spendResources(previous.resources, cost),
-      companions: {
-        ...previous.companions,
-        [companion.id]: { ...current, affinity: current.affinity + 1 },
-      },
-    }))
-    setMessage(`Affinite ${current.affinity + 1} debloquee avec ${companion.name}.`)
+    const nextAffinity = current.affinity + 1
+    const statBonus = statPointsFromAffinity(nextAffinity)
+
+    setGame((previous) =>
+      bumpGameQuests(
+        {
+          ...previous,
+          resources: spendResources(previous.resources, cost),
+          companions: {
+            ...previous.companions,
+            [companion.id]: {
+              ...current,
+              affinity: nextAffinity,
+              unspentStatPoints: current.unspentStatPoints + statBonus,
+            },
+          },
+        },
+        'raise-affinity',
+        { companionId: companion.id },
+      ),
+    )
+    setMessage(
+      `Affinite ${nextAffinity} avec ${companion.name}${statBonus > 0 ? ` (+${statBonus} pt stat)` : ''}.`,
+    )
+  }
+
+  const assignCompanionStat = (companionId: string, key: StatKey) => {
+    const current = game.companions[companionId]
+    if (!current) return
+
+    if (current.unspentStatPoints > 0) {
+      const next = raiseStat(
+        { stats: current.stats, unspentStatPoints: current.unspentStatPoints },
+        key,
+      )
+      if (!next) {
+        setMessage('Cette stat est au maximum.')
+        return
+      }
+      setGame((previous) => ({
+        ...previous,
+        companions: { ...previous.companions, [companionId]: { ...current, ...next } },
+      }))
+      setMessage(`${STAT_LABELS[key]} augmentée (niveau/affinité).`)
+      return
+    }
+
+    if (game.statTokens[key] > 0) {
+      const nextStats = raiseStatDirect(current.stats, key)
+      if (!nextStats) {
+        setMessage('Cette stat est au maximum.')
+        return
+      }
+      setGame((previous) => ({
+        ...previous,
+        statTokens: { ...previous.statTokens, [key]: previous.statTokens[key] - 1 },
+        companions: {
+          ...previous.companions,
+          [companionId]: { ...current, stats: nextStats },
+        },
+      }))
+      setMessage(`Jeton ${STAT_LABELS[key]} assigné à ${COMPANIONS.find((c) => c.id === companionId)?.name ?? 'ce compagnon'}.`)
+      return
+    }
+
+    const fragmentCount = game.companionFragments[companionId] ?? 0
+    if (fragmentStatBudget(fragmentCount) > 0) {
+      const nextStats = raiseStatDirect(current.stats, key)
+      if (!nextStats) {
+        setMessage('Cette stat est au maximum.')
+        return
+      }
+      setGame((previous) => ({
+        ...previous,
+        companionFragments: {
+          ...previous.companionFragments,
+          [companionId]: fragmentCount - FRAGMENTS_PER_STAT,
+        },
+        companions: {
+          ...previous.companions,
+          [companionId]: { ...current, stats: nextStats },
+        },
+      }))
+      setMessage(
+        `10 fragments échangés — ${STAT_LABELS[key]} +1 pour ${COMPANIONS.find((c) => c.id === companionId)?.name ?? 'ce compagnon'}.`,
+      )
+      return
+    }
+
+    setMessage('Aucun point, fragment ou jeton disponible pour cette stat.')
   }
 
   const playMiniGame = (reward: Cost, name: string) => {
@@ -797,6 +1065,86 @@ function App() {
       resources: mergeResources(current.resources, reward),
     }))
     setMessage(`${name} termine. Recompenses ajoutees.`)
+  }
+
+  const completeMinigame = (
+    activityId: string,
+    reward: Cost,
+    activityName: string,
+    miniScore: number,
+    maxScore: number,
+    options?: { keepOpen?: boolean },
+  ) => {
+    const activity = getActivityById(activityId)
+    const companionState = activity ? game.companions[activity.companionId] : undefined
+    let scaledReward = reward
+
+    if (companionState) {
+      const multiplier =
+        activity?.minigameType === 'conversation'
+          ? conversationRewardMultiplier(companionState.stats)
+          : minigameRewardMultiplier(companionState.stats)
+      scaledReward = scaleRewardByMultiplier(reward, multiplier)
+    }
+
+    setGame((current) => {
+      let next: GameState = {
+        ...current,
+        resources: mergeResources(current.resources, scaledReward),
+      }
+      next = bumpGameQuests(next, 'play-minigame', { activityId })
+      if (activity?.minigameType === 'conversation') {
+        next = bumpGameQuests(next, 'conversation')
+      }
+      return next
+    })
+    if (!options?.keepOpen) {
+      setActiveMinigameActivityId(null)
+    }
+    setMessage(`${activityName} — ${costText(scaledReward)} gagnes (${miniScore}/${maxScore}).`)
+  }
+
+  const tryLaunchMinigame = (activityId: string) => {
+    const activity = getActivityById(activityId)
+    if (!activity) return
+
+    if (activity.minigameType === 'conversation') {
+      if (!canAfford(game.resources, CONVERSATION_LAUNCH_COST)) {
+        setMessage(`Il faut ${costText(CONVERSATION_LAUNCH_COST)} pour lancer une conversation.`)
+        return
+      }
+      setGame((current) => ({
+        ...current,
+        resources: spendResources(current.resources, CONVERSATION_LAUNCH_COST),
+      }))
+    }
+
+    setFocusMinigameBuildingId(activity.buildingId)
+    setActiveMinigameActivityId(activityId)
+  }
+
+  const claimQuest = (questId: string, reward: Cost) => {
+    setGame((current) => ({
+      ...current,
+      resources: mergeResources(current.resources, reward),
+      quests: {
+        totalClaimed: current.quests.totalClaimed + 1,
+        board: current.quests.board.filter((quest) => quest.id !== questId),
+      },
+    }))
+    setMessage(`Quete terminee — ${costText(reward)} recoltes.`)
+  }
+
+  const refreshQuestBoard = (board: InfiniteQuest[]) => {
+    setGame((current) => ({
+      ...current,
+      quests: { ...current.quests, board },
+    }))
+    setMessage('Nouvelles mini-quetes generees.')
+  }
+
+  const saveMinigameProgress = (save: MinigameSave) => {
+    setGame((current) => ({ ...current, minigameSave: save }))
   }
 
   const startGachaPull = (count: number) => {
@@ -809,20 +1157,50 @@ function App() {
     }
 
     const items = rollMulti(count, game.eventPulls)
-    const collectibleNames = items
-      .filter((item) => item.kind === 'skin' || item.kind === 'decor' || item.kind === 'guest')
-      .map((item) => item.name)
+    const pullResult = applyGachaItems(items)
 
+    setGame((current) => {
+      const nextFragments = { ...current.companionFragments }
+      for (const [companionId, delta] of Object.entries(pullResult.fragments)) {
+        nextFragments[companionId] = (nextFragments[companionId] ?? 0) + delta
+      }
+      const nextTokens = { ...current.statTokens }
+      for (const key of STAT_KEYS) {
+        nextTokens[key] += pullResult.statTokens[key]
+      }
+      return {
+        ...current,
+        resources: mergeResources(
+          DEV_UNLIMITED_GACHA
+            ? current.resources
+            : spendResources(current.resources, { tickets: count }),
+          pullResult.resources,
+        ),
+        companionFragments: nextFragments,
+        statTokens: nextTokens,
+        eventPulls: current.eventPulls + count,
+      }
+    })
+    setGachaResults(items)
+    setMessage(
+      `Invocation x${count} — ${formatGachaPullSummary(pullResult)}${DEV_UNLIMITED_GACHA ? ' (mode dev)' : ''}.`,
+    )
+  }
+
+  const advanceVillageStage = () => {
+    const needs = computeNeedSatisfaction(game.buildings, game.village.population)
+    const check = checkStageAdvance(game.village, needs)
+    if (!check.canAdvance) {
+      setMessage(`Stade bloque : ${check.reasons.join(' · ')}`)
+      return
+    }
+
+    const nextStageId = game.village.stage + 1
     setGame((current) => ({
       ...current,
-      resources: DEV_UNLIMITED_GACHA
-        ? current.resources
-        : spendResources(current.resources, { tickets: count }),
-      eventPulls: current.eventPulls + count,
-      skins: Array.from(new Set([...current.skins, ...collectibleNames])),
+      village: { ...current.village, stage: nextStageId },
     }))
-    setGachaResults(items)
-    setMessage(`Invocation x${count} lancee${DEV_UNLIMITED_GACHA ? ' (mode dev illimite)' : ''}.`)
+    setMessage(`Felicitations — ${getCurrentStage(nextStageId).name} debloque !`)
   }
 
   const resetGame = () => {
@@ -842,6 +1220,12 @@ function App() {
 
   const renderBuildingCards = (items = BUILDINGS) => (
     <>
+      <PopulationPanel
+        buildings={game.buildings}
+        village={game.village}
+        onAdvanceStage={advanceVillageStage}
+      />
+
       <section className="section-heading">
         <div>
           <p className="eyebrow">Village</p>
@@ -856,8 +1240,9 @@ function App() {
       <section className="grid building-grid">
         {items.map((building) => {
           const level = game.buildings[building.id] ?? 1
-          const locked = score < building.unlockAt
+          const locked = !isBuildingUnlockedByStage(building.id, game.village.stage)
           const cost = multiplyCost(building.baseCost, Math.pow(1.48, level - 1))
+          const requiredStage = BUILDING_UNLOCK_STAGE[building.id] ?? 0
 
           return (
             <article className={`panel ${locked ? 'locked' : ''}`} key={building.id}>
@@ -866,7 +1251,9 @@ function App() {
               </div>
               <div className="card-topline">
                 <span>Niveau {level}</span>
-                <span>{locked ? `Score ${building.unlockAt}` : 'Disponible'}</span>
+                <span>
+                  {locked ? getCurrentStage(requiredStage).name : 'Disponible'}
+                </span>
               </div>
               <h3>{building.name}</h3>
               <p>{building.role}</p>
@@ -881,29 +1268,28 @@ function App() {
     </>
   )
 
-  const renderMiniGames = () => (
-    <>
-      <section className="section-heading">
-        <div>
-          <p className="eyebrow">Routine</p>
-          <h2>Mini-jeux fixes</h2>
-        </div>
-        <p>Des actions courtes sans energie bloquante pour garder du rythme.</p>
-      </section>
+  const renderQuests = () => (
+    <QuestBoard
+      buildingIds={BUILDINGS.map((building) => building.id)}
+      companionIds={COMPANIONS.map((companion) => companion.id)}
+      quests={game.quests}
+      onClaim={claimQuest}
+      onRefresh={refreshQuestBoard}
+      onLaunchConversation={() => tryLaunchMinigame('spring-hearts')}
+      onLaunchMinigames={() => setActiveView('miniGames')}
+    />
+  )
 
-      <section className="grid mini-grid">
-        {MINI_GAMES.map((miniGame) => (
-          <article className="panel" key={miniGame.name}>
-            <h3>{miniGame.name}</h3>
-            <p>{miniGame.description}</p>
-            <small>Gain: {costText(miniGame.reward)}</small>
-            <button type="button" onClick={() => playMiniGame(miniGame.reward, miniGame.name)}>
-              Jouer
-            </button>
-          </article>
-        ))}
-      </section>
-    </>
+  const renderMiniGames = () => (
+    <MinigameHub
+      buildings={game.buildings}
+      companions={COMPANIONS.map((companion) => ({ id: companion.id, name: companion.name }))}
+      focusBuildingId={focusMinigameBuildingId}
+      resourceLabels={RESOURCE_LABELS}
+      unlockAtByBuilding={BUILDING_UNLOCK_STAGE}
+      villageStage={game.village.stage}
+      onPlay={(activityId) => tryLaunchMinigame(activityId)}
+    />
   )
 
   const renderEvent = () => (
@@ -914,8 +1300,8 @@ function App() {
           <h2>Festival saisonnier sans paiement</h2>
         </div>
         <p>
-          Un ticket par tirage, pity garanti toutes les 10 invocations. Les
-          tickets se gagnent en jeu.
+          Chaque tirage donne des ressources, des fragments de compagnons ou des jetons de stat
+          ciblés. Tous les 10 fragments d&apos;un compagnon = +1 stat sur lui (onglet Liens).
         </p>
       </section>
 
@@ -923,9 +1309,9 @@ function App() {
         <div>
           <h3>Banniere: Festival des lanternes</h3>
           <p>
-            Skins, decors et invites exclusifs. Raretes: N, R, SR, SSR, UR, LR.
-            Tirages effectues: {game.eventPulls}. Pity SSR+ toutes les 10
-            invocations, UR a 50, LR a 100.
+            Lots actifs: ressources, fragments compagnons, jetons de stat (Charme, Esprit…).
+            Raretes: N, R, SR, SSR, UR, LR. Tirages: {game.eventPulls}. Pity SSR+
+            toutes les 10 invocations, UR a 50, LR a 100.
           </p>
           <div className="gacha-pull-actions">
             {[1, 10, 50, 100].map((count) => (
@@ -940,18 +1326,51 @@ function App() {
             ))}
           </div>
           <small>{formatAmount(game.resources.tickets)} tickets disponibles</small>
+          <small className="gacha-stat-bank">
+            Fragments et jetons visibles dans l&apos;onglet Inventaire.
+          </small>
           {DEV_UNLIMITED_GACHA && (
             <span className="gacha-dev-note">Mode dev: tirages illimites actifs</span>
           )}
         </div>
-        <div className="skin-list">
-          {game.skins.length === 0 ? (
-            <span>Aucun lot obtenu pour le moment.</span>
-          ) : (
-            game.skins.map((skin) => <span key={skin}>{skin}</span>)
-          )}
+        <div className="gacha-loot-help">
+          <strong>Table des lots</strong>
+          <span>N / R — ressources + fragments aléatoires</span>
+          <span>R / SR — fragments d&apos;un compagnon précis</span>
+          <span>SR+ — jetons de stat ciblés</span>
+          <span>SSR / LR — packs fragments multiples</span>
         </div>
       </section>
+    </>
+  )
+
+  const renderInventory = () => (
+    <>
+      <section className="section-heading">
+        <div>
+          <p className="eyebrow">Inventaire</p>
+          <h2>Tout ce que tu possèdes</h2>
+        </div>
+        <p>
+          Ressources, fragments, jetons gacha, outils débloqués par les bâtiments,
+          familiers et cultures en cours.
+        </p>
+      </section>
+      <InventoryPanel
+        buildings={game.buildings}
+        companionFragments={game.companionFragments}
+        companions={Object.fromEntries(
+          COMPANIONS.map((companion) => [
+            companion.id,
+            { unspentStatPoints: game.companions[companion.id]?.unspentStatPoints ?? 0 },
+          ]),
+        )}
+        eventPulls={game.eventPulls}
+        minigameSave={game.minigameSave}
+        questsClaimed={game.quests.totalClaimed}
+        resources={game.resources}
+        statTokens={game.statTokens}
+      />
     </>
   )
 
@@ -981,13 +1400,20 @@ function App() {
         {COMPANIONS.map((companion) => {
           const current = game.companions[companion.id]
           const activeScene = companion.scenes[current.affinity - 1]
-          const trainingCost = multiplyCost(
-            { coins: 120, mana: 30, gifts: 12 },
+          const trainingBase = multiplyCost(
+            { coins: 120, mana: 30, gifts: 12, food: 25, ingredients: 10 },
             Math.pow(1.35, current.level - 1),
           )
-          const affinityCost = multiplyCost(
-            { gifts: 25, renown: 18, silk: 10 },
-            Math.pow(1.55, current.affinity - 1),
+          const trainingCost = scaleCostByMultiplier(
+            trainingBase,
+            trainingCostMultiplier(current.stats),
+          )
+          const affinityBase: Cost = { gifts: 25, renown: 18, silk: 10 }
+          if (current.affinity >= 3) affinityBase.stardust = 6
+          if (current.affinity >= 4) affinityBase.crystals = 12
+          const affinityCost = scaleCostByMultiplier(
+            multiplyCost(affinityBase, Math.pow(1.55, current.affinity - 1)),
+            affinityCostMultiplier(current.stats),
           )
 
           return (
@@ -1019,6 +1445,13 @@ function App() {
                 <h3>{companion.name}</h3>
                 <p>{companion.archetype} - {companion.talent}</p>
                 <small>Cadeau prefere: {companion.favoriteGift}</small>
+                <CompanionStatsPanel
+                  fragmentCount={game.companionFragments[companion.id] ?? 0}
+                  statTokens={game.statTokens}
+                  stats={current.stats}
+                  unspentPoints={current.unspentStatPoints}
+                  onAssign={(key) => assignCompanionStat(companion.id, key)}
+                />
                 <CompanionVisual
                   companion={companion}
                   level={current.affinity}
@@ -1042,6 +1475,15 @@ function App() {
                   <button type="button" className="secondary" onClick={() => raiseAffinity(companion)}>
                     Affinite - {current.affinity >= 5 ? 'max' : costText(affinityCost)}
                   </button>
+                  {CONVERSATION_ACTIVITY_BY_COMPANION[companion.id] ? (
+                    <button
+                      type="button"
+                      className="secondary"
+                      onClick={() => tryLaunchMinigame(CONVERSATION_ACTIVITY_BY_COMPANION[companion.id])}
+                    >
+                      Conversation — {costText(CONVERSATION_LAUNCH_COST)}
+                    </button>
+                  ) : null}
                 </div>
                 {companion.id === 'lyra' && (
                   <button
@@ -1101,7 +1543,14 @@ function App() {
   )
 
   const renderVillageMap = () => (
-    <section className="village-map-panel">
+    <>
+      <PopulationPanel
+        buildings={game.buildings}
+        village={game.village}
+        onAdvanceStage={advanceVillageStage}
+      />
+
+      <section className="village-map-panel">
       <div className="map-copy">
         <p className="eyebrow">Accueil interactif</p>
         <h2>Havre des Brumes</h2>
@@ -1117,16 +1566,27 @@ function App() {
           <VillageMapLabels
             activeBuildingId={activeBuildingId}
             levels={game.buildings}
-            lockedIds={new Set(BUILDINGS.filter((building) => score < building.unlockAt).map((b) => b.id))}
+            lockedIds={
+              new Set(
+                BUILDINGS.filter(
+                  (building) => !isBuildingUnlockedByStage(building.id, game.village.stage),
+                ).map((b) => b.id),
+              )
+            }
             shortNames={BUILDING_SHORT_NAMES}
             spots={MAP_LABEL_SPOTS}
             onSelect={(spot, locked) => {
               const building = BUILDINGS.find((item) => item.id === spot.buildingId) ?? BUILDINGS[0]
               if (locked) {
-                setMessage(`${building.name} se debloque avec un score village de ${building.unlockAt}.`)
+                const requiredStage = BUILDING_UNLOCK_STAGE[building.id] ?? 0
+                setMessage(
+                  `${building.name} se debloque au stade ${getCurrentStage(requiredStage).name}.`,
+                )
                 return
               }
               setActiveBuildingId(building.id)
+              setFocusMinigameBuildingId(building.id)
+              setActiveView('miniGames')
               setMessage(`${building.name}: ${spot.hint}.`)
             }}
           />
@@ -1151,16 +1611,23 @@ function App() {
               type="button"
               className="secondary"
               onClick={() => {
-                const spot = MAP_LABEL_SPOTS.find((item) => item.buildingId === selectedBuilding.id)
-                setActiveView(spot?.targetView ?? 'buildings')
+                setFocusMinigameBuildingId(selectedBuilding.id)
+                setActiveView('miniGames')
               }}
             >
-              Option liee
+              Mini-jeu
+            </button>
+            <button type="button" className="secondary" onClick={() => setActiveView('event')}>
+              Gacha
+            </button>
+            <button type="button" className="secondary" onClick={() => setActiveView('companions')}>
+              Liens
             </button>
           </div>
         </aside>
       </div>
     </section>
+    </>
   )
 
   return (
@@ -1184,8 +1651,9 @@ function App() {
           </div>
         </div>
         <aside className="status-card">
-          <span>Score village</span>
-          <strong>{score}</strong>
+          <span>{getCurrentStage(game.village.stage).name}</span>
+          <strong>{Math.floor(game.village.population)} hab.</strong>
+          <small>Score batiments {score}</small>
           <small>Cap hors-ligne: {OFFLINE_CAP_HOURS} h</small>
         </aside>
       </section>
@@ -1210,18 +1678,21 @@ function App() {
 
       <section className="grid resources-grid" aria-label="Ressources">
         {RESOURCE_KEYS.map((key) => (
-          <article className="resource-card" key={key}>
+          <article className="resource-card" key={key} title={RESOURCE_ROLES[key]}>
             <span>{RESOURCE_LABELS[key]}</span>
             <strong>{formatAmount(game.resources[key])}</strong>
             <small>+{formatAmount(perMinute[key])} / min</small>
+            <small className="resource-role">{RESOURCE_ROLES[key]}</small>
           </article>
         ))}
       </section>
 
       {activeView === 'village' && renderVillageMap()}
       {activeView === 'buildings' && renderBuildingCards()}
+      {activeView === 'quests' && renderQuests()}
       {activeView === 'miniGames' && renderMiniGames()}
       {activeView === 'event' && renderEvent()}
+      {activeView === 'inventory' && renderInventory()}
       {activeView === 'companions' && renderCompanions()}
       {activeView === 'gallery' && renderGallery()}
 
@@ -1265,6 +1736,29 @@ function App() {
           <Live2DDemo onClose={() => setLive2dDemoOpen(false)} />
         </Suspense>
       )}
+
+      {activeMinigameActivityId && (() => {
+        const activity = getActivityById(activeMinigameActivityId)
+        if (!activity) return null
+        const building = BUILDINGS.find((item) => item.id === activity.buildingId)
+        const companion = COMPANIONS.find((item) => item.id === activity.companionId)
+        if (!building || !companion) return null
+        return (
+          <MinigamePlayer
+            activity={activity}
+            buildingName={building.name}
+            companionAffinity={game.companions[companion.id]?.affinity ?? 1}
+            companionName={companion.name}
+            minigameSave={game.minigameSave}
+            resourceLabel={RESOURCE_LABELS[activity.focusResource]}
+            onClose={() => setActiveMinigameActivityId(null)}
+            onComplete={(miniScore, maxScore, reward, options) =>
+              completeMinigame(activity.id, reward, activity.name, miniScore, maxScore, options)
+            }
+            onSaveMinigame={saveMinigameProgress}
+          />
+        )
+      })()}
     </main>
   )
 }

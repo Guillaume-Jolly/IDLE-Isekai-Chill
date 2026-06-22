@@ -141,6 +141,7 @@ function GachaCard({
       )}
       <div className="gacha-card-shine" />
       <h4>{item.name}</h4>
+      <p className="gacha-card-summary">{item.summary}</p>
       <small>{meta.label}</small>
     </article>
   )
