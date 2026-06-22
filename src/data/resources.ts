@@ -46,6 +46,21 @@ export const RESOURCE_LABELS: Record<ResourceKey, string> = {
   stardust: 'Poussiere stellaire',
 }
 
+export const RESOURCE_ICONS: Record<ResourceKey, string> = {
+  coins: '💰',
+  wood: '🌲',
+  stone: '🧱',
+  food: '🍞',
+  silk: '🧵',
+  mana: '✨',
+  renown: '👑',
+  ingredients: '🌿',
+  crystals: '💎',
+  gifts: '🎁',
+  tickets: '🎟️',
+  stardust: '🌠',
+}
+
 /** A quoi sert chaque ressource dans le core gameplay. */
 export const RESOURCE_ROLES: Record<ResourceKey, string> = {
   coins: 'Ameliorations batiments, entrainement compagnons',

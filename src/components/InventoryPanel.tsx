@@ -1,9 +1,16 @@
-import { useMemo, useState } from 'react'
-import { buildInventorySnapshot, formatInventoryAmount } from '../data/inventoryView'
-import type { InventorySection } from '../data/inventoryView'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
+import {
+  buildInventorySnapshot,
+  formatInventoryAmount,
+  inventoryGlyphChar,
+  usesInventoryGlyph,
+} from '../data/inventoryView'
+import type { InventoryItem, InventorySection } from '../data/inventoryView'
 import type { MinigameSave } from '../data/minigameSave'
-import type { ResourceKey } from '../data/resources'
+import { RESOURCE_ICONS, type ResourceKey } from '../data/resources'
 import type { StatKey } from '../data/companionStats'
+import './InventoryPanel.css'
 
 type InventoryPanelProps = {
   resources: Record<ResourceKey, number>
@@ -16,6 +23,8 @@ type InventoryPanelProps = {
   questsClaimed: number
 }
 
+const GLYPH_RESOURCE_ICONS = new Set<ResourceKey>(['coins', 'wood', 'stone'])
+
 export function InventoryPanel(props: InventoryPanelProps) {
   const snapshot = useMemo(() => buildInventorySnapshot(props), [props])
   const [expanded, setExpanded] = useState<Record<string, boolean>>({
@@ -26,6 +35,11 @@ export function InventoryPanel(props: InventoryPanelProps) {
     fragments: true,
     'stat-tokens': true,
     'workshop-tools': true,
+    farm: true,
+    pets: true,
+    capture: true,
+    misc: true,
+    'companion-stat-points': true,
   })
 
   const toggleSection = (sectionId: string) => {
@@ -39,61 +53,27 @@ export function InventoryPanel(props: InventoryPanelProps) {
 
   return (
     <div className="inventory-panel">
-      <section className="inventory-summary">
-        <article className="inventory-summary-card">
-          <span>Ressources possédées</span>
+      <section className="inventory-summary inventory-summary-compact">
+        <article className="inventory-summary-chip">
+          <span>📦</span>
           <strong>{nonZeroResources}</strong>
-          <small>types avec stock &gt; 0</small>
+          <small>ressources</small>
         </article>
-        <article className="inventory-summary-card">
-          <span>Fragments</span>
+        <article className="inventory-summary-chip">
+          <span>💞</span>
           <strong>{formatInventoryAmount(snapshot.totalFragments)}</strong>
-          <small>tous compagnons</small>
+          <small>fragments</small>
         </article>
-        <article className="inventory-summary-card">
-          <span>Jetons gacha</span>
+        <article className="inventory-summary-chip">
+          <span>✨</span>
           <strong>{snapshot.totalStatTokens}</strong>
-          <small>stats ciblées</small>
+          <small>jetons</small>
         </article>
-        <article className="inventory-summary-card">
-          <span>Familiers</span>
+        <article className="inventory-summary-chip">
+          <span>🐾</span>
           <strong>{snapshot.petCount}</strong>
-          <small>sanctuaire</small>
+          <small>familiers</small>
         </article>
-      </section>
-
-      <section className="inventory-fragment-grid">
-        <header className="inventory-section-head">
-          <div>
-            <h3>Fragments par compagnon</h3>
-            <p>10 fragments = +1 stat sur le compagnon (onglet Liens).</p>
-          </div>
-        </header>
-        <div className="inventory-fragment-cards">
-          {snapshot.companionRows.map((row) => (
-            <article
-              className={`inventory-fragment-card ${row.fragments > 0 ? 'has-stock' : ''}`}
-              key={row.id}
-            >
-              <strong>{row.name}</strong>
-              <span className="inventory-fragment-count">{row.fragments}</span>
-              <div className="inventory-fragment-track">
-                <div
-                  className="inventory-fragment-fill"
-                  style={{
-                    width: `${(row.fragmentProgress / 10) * 100}%`,
-                  }}
-                />
-              </div>
-              <small>
-                {row.fragmentBudget > 0
-                  ? `${row.fragmentBudget} échange${row.fragmentBudget > 1 ? 's' : ''} prêt${row.fragmentBudget > 1 ? 's' : ''}`
-                  : `${row.fragmentProgress}/10`}
-                {row.unspentStatPoints > 0 && ` · ${row.unspentStatPoints} pt stat`}
-              </small>
-            </article>
-          ))}
-        </div>
       </section>
 
       {snapshot.sections.map((section) => (
@@ -117,7 +97,9 @@ function InventorySectionBlock({
   expanded: boolean
   onToggle: () => void
 }) {
-  const visibleItems = section.items.filter((item) => item.amount > 0)
+  const visibleItems = section.showZeroAmount
+    ? section.items
+    : section.items.filter((item) => item.amount > 0)
   const showEmpty = visibleItems.length === 0
 
   return (
@@ -135,24 +117,170 @@ function InventorySectionBlock({
           {showEmpty ? (
             <p className="inventory-empty">{section.emptyLabel ?? 'Rien pour le moment.'}</p>
           ) : (
-            <div className="inventory-item-grid">
+            <div className="inventory-compact-grid">
               {visibleItems.map((item) => (
-                <article className="inventory-item" key={item.id} title={item.hint}>
-                  {item.icon ? <span className="inventory-item-icon">{item.icon}</span> : null}
-                  <div className="inventory-item-body">
-                    <strong>{item.label}</strong>
-                    <small>{item.hint}</small>
-                  </div>
-                  <div className="inventory-item-amount">
-                    <span>{formatInventoryAmount(item.amount)}</span>
-                    {item.meta ? <small>{item.meta}</small> : null}
-                  </div>
-                </article>
+                <InventoryChip dimmed={item.amount <= 0} item={item} key={item.id} />
               ))}
             </div>
           )}
         </div>
       )}
     </section>
+  )
+}
+
+type TipState = {
+  x: number
+  y: number
+}
+
+function tooltipAnchorFromElement(element: HTMLElement, gap = 8): TipState {
+  const rect = element.getBoundingClientRect()
+  const margin = 12
+  const halfWidth = 170
+  const shell = document.querySelector('.shell')
+  const sidebarWidth = shell
+    ? Number.parseFloat(getComputedStyle(shell).getPropertyValue('--sidebar-width')) || 168
+    : 168
+  const minCenter = sidebarWidth + margin + halfWidth
+  const maxCenter = window.innerWidth - margin - halfWidth
+  const centerX = Math.min(maxCenter, Math.max(minCenter, rect.left + rect.width / 2))
+  return { x: centerX, y: rect.bottom + gap }
+}
+
+function ResourceIcon({ resource, className = '' }: { resource: ResourceKey; className?: string }) {
+  if (GLYPH_RESOURCE_ICONS.has(resource)) {
+    return (
+      <span
+        aria-hidden
+        className={`resource-glyph resource-glyph--${resource} ${className}`.trim()}
+      />
+    )
+  }
+
+  return (
+    <span aria-hidden className={`resource-chip-icon ${className}`.trim()}>
+      {RESOURCE_ICONS[resource]}
+    </span>
+  )
+}
+
+function ChipVisual({ item }: { item: InventoryItem }) {
+  const [imageTier, setImageTier] = useState<'primary' | 'fallback' | 'failed'>('primary')
+
+  const activeSrc =
+    imageTier === 'fallback' && item.imageFallbackSrc ? item.imageFallbackSrc : item.imageSrc
+
+  if (activeSrc && imageTier !== 'failed') {
+    return (
+      <img
+        alt=""
+        className="inventory-chip-image"
+        draggable={false}
+        src={activeSrc}
+        onError={() => {
+          if (imageTier === 'primary' && item.imageFallbackSrc) {
+            setImageTier('fallback')
+            return
+          }
+          setImageTier('failed')
+        }}
+      />
+    )
+  }
+
+  if (item.resourceKey) {
+    return <ResourceIcon className="inventory-chip-resource" resource={item.resourceKey} />
+  }
+
+  if (item.iconKey && usesInventoryGlyph(item.iconKey)) {
+    const glyph = inventoryGlyphChar(item.iconKey) ?? item.icon ?? item.label.slice(0, 1)
+    return (
+      <span
+        aria-hidden
+        className={`inventory-chip-glyph inventory-chip-glyph--${item.iconKey}`}
+      >
+        {glyph}
+      </span>
+    )
+  }
+
+  if (item.icon) {
+    return <span className="inventory-chip-emoji">{item.icon}</span>
+  }
+
+  return <span className="inventory-chip-fallback">{item.label.slice(0, 1)}</span>
+}
+
+function InventoryChip({ item, dimmed = false }: { item: InventoryItem; dimmed?: boolean }) {
+  const [tip, setTip] = useState<TipState | null>(null)
+  const tooltipId = `inv-tip-${item.id}`
+
+  const showTip = useCallback((anchor: HTMLElement) => {
+    setTip(tooltipAnchorFromElement(anchor))
+  }, [])
+
+  const hideTip = useCallback(() => setTip(null), [])
+
+  useEffect(() => {
+    if (!tip) return
+
+    const dismiss = () => hideTip()
+    window.addEventListener('scroll', dismiss, true)
+    window.addEventListener('resize', dismiss)
+    return () => {
+      window.removeEventListener('scroll', dismiss, true)
+      window.removeEventListener('resize', dismiss)
+    }
+  }, [hideTip, tip])
+
+  return (
+    <>
+      <div
+        className={`inventory-chip ${item.badgeOverlay ? 'badge-overlay' : 'inline-qty'}${dimmed ? ' inventory-chip--zero' : ''}${item.showLabel ? ' inventory-chip--labeled' : ''}`}
+      >
+        <button
+          aria-describedby={tip ? tooltipId : undefined}
+          aria-label={`${item.label} : ${formatInventoryAmount(item.amount)}`}
+          className="inventory-chip-button"
+          type="button"
+          onBlur={hideTip}
+          onFocus={(event) => showTip(event.currentTarget)}
+          onMouseEnter={(event) => showTip(event.currentTarget)}
+          onMouseLeave={hideTip}
+        >
+          <span className="inventory-chip-visual">
+            <ChipVisual item={item} />
+            {item.badgeOverlay ? (
+              <span className="inventory-chip-badge">{formatInventoryAmount(item.amount)}</span>
+            ) : null}
+          </span>
+          {item.badgeOverlay ? (
+            item.showLabel ? <span className="inventory-chip-label">{item.label}</span> : null
+          ) : (
+            <>
+              {item.showLabel ? <span className="inventory-chip-label">{item.label}</span> : null}
+              <span className="inventory-chip-qty">{formatInventoryAmount(item.amount)}</span>
+            </>
+          )}
+        </button>
+      </div>
+
+      {tip &&
+        createPortal(
+          <div
+            className="inventory-chip-tooltip inventory-chip-tooltip--fixed"
+            id={tooltipId}
+            role="tooltip"
+            style={{ left: tip.x, top: tip.y }}
+          >
+            <strong>{item.label}</strong>
+            <span>{formatInventoryAmount(item.amount)} en stock</span>
+            {item.meta ? <span className="inventory-chip-tooltip-meta">{item.meta}</span> : null}
+            {item.hint ? <p>{item.hint}</p> : null}
+          </div>,
+          document.body,
+        )}
+    </>
   )
 }

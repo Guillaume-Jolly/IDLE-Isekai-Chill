@@ -1,0 +1,448 @@
+.resource-chip-icon {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.resource-glyph {
+  display: inline-block;
+  flex-shrink: 0;
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
+.resource-glyph--coins {
+  background: radial-gradient(circle at 35% 28%, #fff4b8, #ffd56a 42%, #c89400 100%);
+  border: 1px solid #a87400;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.resource-glyph--coins::after {
+  color: #7a5200;
+  content: 'P';
+  font-size: 0.58rem;
+  font-weight: 900;
+  inset: 0;
+  line-height: 14px;
+  position: absolute;
+  text-align: center;
+}
+
+.resource-glyph--wood {
+  background: linear-gradient(180deg, #c48652 0%, #8b5a2b 55%, #6b3f1f 100%);
+  border-radius: 2px;
+  box-shadow: inset 2px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+.resource-glyph--wood::before {
+  background: rgba(90, 50, 20, 0.35);
+  content: '';
+  height: 100%;
+  left: 35%;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.resource-glyph--wood::after {
+  background: rgba(90, 50, 20, 0.28);
+  content: '';
+  height: 100%;
+  left: 62%;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.resource-glyph--stone {
+  background: linear-gradient(145deg, #b8c0cc 0%, #8b95a3 48%, #6b7280 100%);
+  border-radius: 3px 5px 4px 6px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: rotate(-8deg);
+}
+
+.resource-glyph--stone::after {
+  background: rgba(60, 68, 78, 0.35);
+  border-radius: 50%;
+  content: '';
+  height: 4px;
+  left: 4px;
+  position: absolute;
+  top: 5px;
+  width: 5px;
+}
+
+.inventory-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.inventory-summary-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inventory-summary-chip {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.inventory-summary-chip span {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.inventory-summary-chip strong {
+  color: var(--text-h);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.inventory-summary-chip small {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.72rem;
+}
+
+.inventory-section {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: visible;
+}
+
+.inventory-section-head h3 {
+  color: var(--text-h);
+  margin: 0 0 4px;
+}
+
+.inventory-section-head p {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+.inventory-section-toggle {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--text-h);
+  cursor: pointer;
+  display: flex;
+  font-weight: inherit;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 12px 16px;
+  text-align: left;
+  width: 100%;
+}
+
+.inventory-section-toggle:hover {
+  filter: none;
+  transform: none;
+}
+
+.inventory-section-toggle span {
+  color: var(--text-muted, #7a6f88);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.inventory-section-body {
+  border-top: 1px solid var(--border);
+  overflow: visible;
+  padding: 12px 16px 14px;
+}
+
+.inventory-empty {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.inventory-compact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow: visible;
+}
+
+.inventory-chip {
+  position: relative;
+  z-index: 1;
+}
+
+.inventory-chip:hover,
+.inventory-chip:focus-within {
+  z-index: 20;
+}
+
+.inventory-chip-button {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(153, 90, 139, 0.12);
+  border-radius: 12px;
+  color: var(--text-h);
+  display: inline-flex;
+  font-family: var(--sans);
+  font-weight: 800;
+  gap: 8px;
+  min-height: 44px;
+  padding: 6px 10px 6px 6px;
+}
+
+.inventory-chip-button:hover {
+  filter: none;
+  transform: none;
+}
+
+.inventory-chip--zero .inventory-chip-button {
+  opacity: 0.52;
+}
+
+.inventory-chip.badge-overlay .inventory-chip-button {
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+  padding: 4px;
+  width: 56px;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--labeled .inventory-chip-button {
+  gap: 5px;
+  padding: 6px 4px 8px;
+  width: 80px;
+}
+
+.inventory-chip-visual {
+  align-items: center;
+  background: rgba(255, 248, 252, 0.92);
+  border: 1px solid rgba(153, 90, 139, 0.1);
+  border-radius: 8px;
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.inventory-chip.badge-overlay .inventory-chip-visual {
+  height: 56px;
+  width: 48px;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--labeled .inventory-chip-visual {
+  height: 76px;
+  width: 72px;
+}
+
+.inventory-chip.inline-qty .inventory-chip-visual {
+  height: 28px;
+  width: 28px;
+}
+
+.inventory-chip--labeled .inventory-chip-button {
+  max-width: min(100%, 220px);
+}
+
+.inventory-chip-label {
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--labeled .inventory-chip-label {
+  font-size: 0.68rem;
+  line-height: 1.15;
+  max-width: 100%;
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--labeled .inventory-chip-badge {
+  font-size: 0.68rem;
+  min-width: 20px;
+  padding: 2px 6px;
+}
+
+.inventory-chip-glyph {
+  align-items: center;
+  color: var(--text-h);
+  display: inline-flex;
+  font-size: 1rem;
+  font-weight: 900;
+  height: 100%;
+  justify-content: center;
+  line-height: 1;
+  width: 100%;
+}
+
+.inventory-chip-glyph--star-berry {
+  color: #c89400;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.inventory-chip-glyph--arcane-needle {
+  color: #b449ff;
+}
+
+.inventory-chip-glyph--library-quill {
+  color: #6a4c9c;
+}
+
+.inventory-chip-glyph--golden-thread {
+  color: #d4a017;
+}
+
+.inventory-chip-image {
+  border-radius: 8px;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  width: 100%;
+}
+
+.inventory-chip-emoji {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.inventory-chip-resource {
+  flex-shrink: 0;
+}
+
+.inventory-chip .resource-glyph {
+  height: 20px;
+  width: 20px;
+}
+
+.inventory-chip .resource-glyph--coins::after {
+  font-size: 0.72rem;
+  line-height: 18px;
+}
+
+.inventory-chip .resource-chip-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.inventory-chip-fallback {
+  align-items: center;
+  background: linear-gradient(145deg, #ffd1e4, #bda5ff);
+  border-radius: 8px;
+  color: white;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 900;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.inventory-chip-badge {
+  background: linear-gradient(135deg, #b449ff, #ff8fd0);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  bottom: -2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  color: white;
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1.1;
+  min-width: 18px;
+  padding: 2px 5px;
+  position: absolute;
+  right: -4px;
+  text-align: center;
+}
+
+.inventory-chip-qty {
+  color: var(--text-h);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.inventory-chip-tooltip {
+  backdrop-filter: blur(12px);
+  background: rgba(20, 12, 28, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+  box-sizing: border-box;
+  color: #fff8fc;
+  display: grid;
+  gap: 4px;
+  left: 50%;
+  max-width: min(340px, calc(100vw - 24px));
+  min-width: min(240px, calc(100vw - 24px));
+  opacity: 0;
+  overflow-wrap: break-word;
+  padding: 10px 12px;
+  pointer-events: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  transform: translate(-50%, 4px);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
+  visibility: hidden;
+  width: max-content;
+  z-index: 30;
+}
+
+.inventory-chip-tooltip--fixed {
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  transform: translate(-50%, 0);
+  visibility: visible;
+  z-index: 9999;
+}
+
+.inventory-chip-tooltip strong {
+  color: #fff;
+  font-size: 0.88rem;
+}
+
+.inventory-chip-tooltip span {
+  color: rgba(255, 248, 252, 0.88);
+  font-size: 0.78rem;
+}
+
+.inventory-chip-tooltip-meta {
+  color: #ffd56a !important;
+  font-weight: 700;
+}
+
+.inventory-chip-tooltip p {
+  color: rgba(255, 248, 252, 0.72);
+  font-size: 0.76rem;
+  line-height: 1.35;
+  margin: 2px 0 0;
+}
+
+@media (max-width: 960px) {
+  .inventory-summary-compact {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

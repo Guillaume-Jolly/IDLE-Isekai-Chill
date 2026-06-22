@@ -1,0 +1,9 @@
+.companion-framed-portrait {
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.companion-framed-portrait--chibi {
+  object-fit: contain;
+  object-position: center bottom;
+}

@@ -1,12 +1,16 @@
+import { companionAssetPath, companionMiniaturePath } from './companionAssets'
+import type { StatKey } from './companionStats'
+import { STAT_LABELS } from './companionStats'
+import { palmonChibiPngPath } from './minigameAssets'
 import {
   COMPANION_FRAGMENT_IDS,
   COMPANION_FRAGMENT_NAMES,
   FRAGMENTS_PER_STAT,
   fragmentStatBudget,
 } from './companionFragments'
-import { FARM_CROPS, type FarmPlot, type MinigameSave, type PetState } from './minigameSave'
+import { FARM_CROPS, type FarmCropId, type FarmPlot, type MinigameSave, type PetState } from './minigameSave'
 import { RESOURCE_LABELS, RESOURCE_ROLES, type ResourceKey } from './resources'
-import { STAT_KEYS, STAT_LABELS, totalStatTokens, type StatKey } from './companionStats'
+import { STAT_KEYS, totalStatTokens } from './companionStats'
 
 export type InventoryItem = {
   id: string
@@ -14,7 +18,16 @@ export type InventoryItem = {
   amount: number
   hint?: string
   icon?: string
+  iconKey?: string
   meta?: string
+  imageSrc?: string
+  imageFallbackSrc?: string
+  resourceKey?: ResourceKey
+  speciesId?: string
+  /** Affiche le nom sur la puce (cultures, outils). */
+  showLabel?: boolean
+  /** Quantité en badge sur l'icone (fragments compagnons). */
+  badgeOverlay?: boolean
 }
 
 export type InventorySection = {
@@ -23,6 +36,8 @@ export type InventorySection = {
   description?: string
   items: InventoryItem[]
   emptyLabel?: string
+  /** Afficher aussi les lignes a quantite 0 (ressources, progression). */
+  showZeroAmount?: boolean
 }
 
 export type CompanionInventoryRow = {
@@ -40,6 +55,14 @@ export type InventorySnapshot = {
   totalFragments: number
   totalStatTokens: number
   petCount: number
+}
+
+const STAT_TOKEN_ICONS: Record<StatKey, string> = {
+  charm: '💋',
+  wit: '💡',
+  vigor: '💪',
+  grace: '🌸',
+  insight: '🔮',
 }
 
 const RESOURCE_GROUPS: { id: string; title: string; keys: ResourceKey[] }[] = [
@@ -88,7 +111,7 @@ const WORKSHOP_TOOLS: {
     buildingId: 'ribbon-workshop',
     minLevel: 1,
     hint: 'Atelier des Rubans niv. 1+',
-    icon: '🧲',
+    icon: '⊃',
   },
   {
     id: 'golden-thread',
@@ -96,7 +119,7 @@ const WORKSHOP_TOOLS: {
     buildingId: 'ribbon-workshop',
     minLevel: 2,
     hint: 'Atelier des Rubans niv. 2+',
-    icon: '🧵',
+    icon: '◈',
   },
   {
     id: 'arcane-needle',
@@ -104,7 +127,7 @@ const WORKSHOP_TOOLS: {
     buildingId: 'ribbon-workshop',
     minLevel: 3,
     hint: 'Atelier des Rubans niv. 3+',
-    icon: '🪡',
+    icon: '†',
   },
   {
     id: 'spring-anvil',
@@ -136,7 +159,7 @@ const WORKSHOP_TOOLS: {
     buildingId: 'arcane-library',
     minLevel: 2,
     hint: 'Bibliothèque niv. 2+',
-    icon: '🪶',
+    icon: '✒',
   },
 ]
 
@@ -146,11 +169,13 @@ const buildResourceSections = (resources: Record<ResourceKey, number>): Inventor
   RESOURCE_GROUPS.map((group) => ({
     id: group.id,
     title: group.title,
+    showZeroAmount: true,
     items: group.keys.map((key) => ({
       id: key,
       label: RESOURCE_LABELS[key],
       amount: resources[key] ?? 0,
       hint: RESOURCE_ROLES[key],
+      resourceKey: key,
     })),
   }))
 
@@ -159,7 +184,7 @@ const buildFragmentSection = (
 ): InventorySection => ({
   id: 'fragments',
   title: 'Fragments compagnons',
-  description: `${FRAGMENTS_PER_STAT} fragments = +1 stat sur le compagnon concerné (onglet Liens).`,
+  description: `${FRAGMENTS_PER_STAT} fragments = +1 stat (onglet Liens).`,
   items: COMPANION_FRAGMENT_IDS.map((id) => {
     const amount = fragments[id] ?? 0
     const budget = fragmentStatBudget(amount)
@@ -168,8 +193,18 @@ const buildFragmentSection = (
       id: `frag-${id}`,
       label: COMPANION_FRAGMENT_NAMES[id],
       amount,
-      meta: budget > 0 ? `${budget} échange${budget > 1 ? 's' : ''}` : `${progress}/${FRAGMENTS_PER_STAT}`,
-      hint: amount > 0 ? `Progression vers +1 stat : ${progress}/${FRAGMENTS_PER_STAT}` : 'Aucun fragment',
+      badgeOverlay: true,
+      showLabel: true,
+      imageSrc: companionMiniaturePath(id),
+      imageFallbackSrc: companionAssetPath(id, 1),
+      meta:
+        budget > 0
+          ? `${budget} échange${budget > 1 ? 's' : ''} prêt${budget > 1 ? 's' : ''}`
+          : `${progress}/${FRAGMENTS_PER_STAT} vers +1 stat`,
+      hint:
+        amount > 0
+          ? `${amount} fragment${amount > 1 ? 's' : ''} — échange 10 contre +1 stat sur ${COMPANION_FRAGMENT_NAMES[id]}`
+          : 'Aucun fragment',
     }
   }).filter((item) => item.amount > 0),
   emptyLabel: 'Aucun fragment — invoque au festival pour en obtenir.',
@@ -178,11 +213,12 @@ const buildFragmentSection = (
 const buildStatTokenSection = (statTokens: Record<StatKey, number>): InventorySection => ({
   id: 'stat-tokens',
   title: 'Jetons de stat (gacha)',
-  description: 'Assigne-les sur la stat correspondante d\'un compagnon (onglet Liens).',
+  description: 'Assigne-les sur la stat d\'un compagnon (onglet Liens).',
   items: STAT_KEYS.filter((key) => statTokens[key] > 0).map((key) => ({
     id: `token-${key}`,
     label: STAT_LABELS[key],
     amount: statTokens[key],
+    icon: STAT_TOKEN_ICONS[key],
     hint: `+1 ${STAT_LABELS[key]} au compagnon de ton choix`,
   })),
   emptyLabel: 'Aucun jeton — rareté SR+ au gacha.',
@@ -191,13 +227,15 @@ const buildStatTokenSection = (statTokens: Record<StatKey, number>): InventorySe
 const buildWorkshopSection = (buildings: Record<string, number>): InventorySection => ({
   id: 'workshop-tools',
   title: 'Outils & équipement',
-  description: 'Débloqués par les niveaux de bâtiments du village.',
+  description: 'Débloqués par les niveaux de bâtiments.',
   items: WORKSHOP_TOOLS.filter((tool) => (buildings[tool.buildingId] ?? 0) >= tool.minLevel).map(
     (tool) => ({
       id: tool.id,
       label: tool.label,
       amount: 1,
       icon: tool.icon,
+      iconKey: tool.id,
+      showLabel: true,
       hint: tool.hint,
       meta: 'Possédé',
     }),
@@ -206,20 +244,30 @@ const buildWorkshopSection = (buildings: Record<string, number>): InventorySecti
 })
 
 const buildFarmSection = (farmPlots: FarmPlot[]): InventorySection => {
-  const growing = farmPlots.filter((plot): plot is NonNullable<FarmPlot> => plot !== null)
+  const counts = new Map<FarmCropId, number>()
+  for (const plot of farmPlots) {
+    if (!plot) continue
+    counts.set(plot.cropId, (counts.get(plot.cropId) ?? 0) + 1)
+  }
+
   return {
     id: 'farm',
     title: 'Parcelles ferme lunaire',
-    items: growing.map((plot, index) => {
-      const crop = FARM_CROPS[plot.cropId]
-      return {
-        id: `farm-${index}`,
-        label: crop.label,
-        amount: 1,
-        icon: crop.emoji,
-        hint: crop.hint,
-        meta: 'En croissance',
-      }
+    items: [...counts.entries()].flatMap(([cropId, amount]) => {
+      const crop = FARM_CROPS[cropId]
+      if (!crop) return []
+      return [
+        {
+          id: `farm-crop-${cropId}`,
+          label: crop.label,
+          amount,
+          icon: crop.emoji,
+          iconKey: cropId,
+          showLabel: true,
+          hint: crop.hint,
+          meta: amount > 1 ? `${amount} parcelles` : 'En croissance',
+        },
+      ]
     }),
     emptyLabel: 'Aucune culture en cours — lance la ferme lunaire.',
   }
@@ -232,6 +280,8 @@ const buildPetSection = (pets: PetState[]): InventorySection => ({
     id: pet.id,
     label: pet.name,
     amount: 1,
+    speciesId: pet.speciesId,
+    imageSrc: palmonChibiPngPath(pet.speciesId),
     icon: pet.emoji,
     hint: `${pet.rarity} · faim ${Math.round(pet.hunger)} · joie ${Math.round(pet.joy)}`,
     meta: pet.rarity,
@@ -249,6 +299,7 @@ const buildCaptureSection = (captureStats: MinigameSave['captureStats']): Invent
         id: 'capture-total',
         label: 'Captures totales',
         amount: captureStats.totalCaught,
+        icon: '🎯',
         hint: 'Familiers attrapés en exploration',
       },
       ...(captureStats.bestRarity
@@ -257,6 +308,7 @@ const buildCaptureSection = (captureStats: MinigameSave['captureStats']): Invent
               id: 'capture-best',
               label: 'Meilleure rareté',
               amount: 1,
+              icon: '🏆',
               meta: captureStats.bestRarity,
               hint: 'Record personnel de capture',
             },
@@ -301,8 +353,11 @@ export const buildInventorySnapshot = (input: BuildInventoryInput): InventorySna
       id: `statpt-${row.id}`,
       label: row.name,
       amount: row.unspentStatPoints,
+      badgeOverlay: true,
+      imageSrc: companionMiniaturePath(row.id),
+      imageFallbackSrc: companionAssetPath(row.id, 1),
       hint: 'Points niveau / affinité — onglet Liens',
-      meta: 'À assigner',
+      meta: 'À assigner sur une stat',
     }))
 
   const sections: InventorySection[] = [
@@ -328,17 +383,21 @@ export const buildInventorySnapshot = (input: BuildInventoryInput): InventorySna
     {
       id: 'misc',
       title: 'Progression festival',
+      showZeroAmount: true,
+      emptyLabel: 'Aucune progression enregistree pour le moment.',
       items: [
         {
           id: 'event-pulls',
           label: 'Invocations gacha',
           amount: input.eventPulls,
+          icon: '🎊',
           hint: 'Total de tirages effectués',
         },
         {
           id: 'quests-claimed',
           label: 'Quêtes terminées',
           amount: input.questsClaimed,
+          icon: '📜',
           hint: 'Mini-quêtes réclamées',
         },
       ],
@@ -360,3 +419,43 @@ export const buildInventorySnapshot = (input: BuildInventoryInput): InventorySna
 }
 
 export { formatAmount as formatInventoryAmount, FRAGMENTS_PER_STAT, WORKSHOP_TOOLS }
+
+const INVENTORY_GLYPH_KEYS = new Set([
+  'star-berry',
+  'arcane-needle',
+  'library-quill',
+  'golden-thread',
+  'forge-hammer',
+  'forge-tongs',
+  'spring-anvil',
+  'moon-sickle',
+  'garden-shears',
+])
+
+export const inventoryGlyphChar = (iconKey: string): string | null => {
+  switch (iconKey) {
+    case 'star-berry':
+      return '★'
+    case 'arcane-needle':
+      return '†'
+    case 'library-quill':
+      return '✒'
+    case 'golden-thread':
+      return '◈'
+    case 'forge-hammer':
+      return '⌁'
+    case 'forge-tongs':
+      return '⊃'
+    case 'spring-anvil':
+      return '⛏'
+    case 'moon-sickle':
+      return '☽'
+    case 'garden-shears':
+      return '✂'
+    default:
+      return null
+  }
+}
+
+export const usesInventoryGlyph = (iconKey?: string): iconKey is string =>
+  Boolean(iconKey && INVENTORY_GLYPH_KEYS.has(iconKey))

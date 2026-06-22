@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import type { BuildingActivity } from '../../data/buildingActivities'
-import { companionAssetPath } from '../../data/companionAssets'
 import { getCurrentStage } from '../../data/population'
+import { CompanionMiniature } from '../CompanionMiniature'
 import './Minigames.css'
 
 type CompanionInfo = { id: string; name: string }
@@ -23,11 +23,10 @@ function CompanionPortrait({
   name: string
 }) {
   return (
-    <img
-      alt={name}
+    <CompanionMiniature
       className="mg-conversation-picker-portrait"
-      draggable={false}
-      src={companionAssetPath(companionId, 1)}
+      companionId={companionId}
+      name={name}
     />
   )
 }
