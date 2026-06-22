@@ -1,7 +1,7 @@
 # Working Tree Triage — Phase 1.8
 
 > **Date :** 2026-06-22 (mis à jour Phase 1.9)  
-> **HEAD :** `01ddfd0` — `refactor: simplify minigame hub navigation`  
+> **HEAD :** `e8911a3` — `feat: update companion inventory panels`  
 > **Stash :** `stash@{0}` — `rewrite-git-temp-stash` (conservé, non droppé)  
 > **Périmètre :** inventaire read-only du working tree ; Lot A commité en Phase 1.9.
 
@@ -14,7 +14,15 @@
 | Exclus volontairement | `gacha.ts` (`DEV_UNLOCK_ALL_MINIGAMES`), `App.css`, `CompanionMiniature` |
 | CSS hub | Déjà sur HEAD dans `Minigames.css` (aucun diff WT) |
 | Reste WT Lot A | `gacha.ts` — intégration flag dev hub (commit futur séparé, hors Phase 1.9) |
-| Portraits picker | `companionAssetPath` (HEAD) ; chibi via `CompanionMiniature` reporté au Lot C |
+
+### Phase 1.10 — Lot C (traité)
+
+| Élément | Statut |
+|---------|--------|
+| Commit | `e8911a3` — `feat: update companion inventory panels` |
+| Fichiers commités | `InventoryPanel`, `CompanionStatsPanel`, `CompanionMiniature`, `inventoryView`, `companionAssets`, `resources` (`RESOURCE_ICONS`), `ImageLightbox.css`, CSS dédiés (`InventoryPanel.css`, `CompanionStatsPanel.css`, `CompanionMiniature.css`), `ConversationPicker` (portraits via `CompanionMiniature`) |
+| Exclus | `App.css`, assets PNG, `InventoryChip.tsx`/`ResourceIcon.tsx`/`inventoryIcons.ts` (logique inlinée dans `InventoryPanel.tsx` + glyphes dans `inventoryView.ts`), `utils/tooltipPosition.ts` |
+| Note | Chibi Talia : chemin `/companions/talia/chibi.png` documenté dans `companionAssets` ; PNG non commité — fallback affinity |
 
 ---
 
@@ -42,7 +50,7 @@
 
 1. **Documenter** (ce fichier) → commit `docs: add working tree triage`
 2. ~~**Lot A** — Hub UI refactor~~ ✅ Phase 1.9 (`01ddfd0`, partiel — flag dev reporté)
-3. **Lot C** — Compagnons / inventaire UI
+3. ~~**Lot C** — Compagnons / inventaire UI~~ ✅ Phase 1.10 (`e8911a3`)
 4. **Lot B** — Village / App shell (gros lot, dépend des lots C partiellement)
 5. **Lot D** — Runtime divers (petits diffs, commitables en slice)
 6. **Lot G** — Assets PNG (commits séparés, avant Lot F)
@@ -366,17 +374,14 @@ Légende actions : **CM** commit maintenant · **CL** commit plus tard · **UT**
 
 ---
 
-### Commit 2 — Inventaire / compagnons
+### Commit 2 — Inventaire / compagnons ✅ Phase 1.10
 
-**Message :** `feat: update companion inventory panels`
+**Message :** `feat: update companion inventory panels` — **commité `e8911a3`**
 
 | | |
 |---|---|
-| **Inclus** | `InventoryPanel`, `CompanionStatsPanel`, `InventoryChip`, `ResourceIcon`, `inventoryView`, `inventoryIcons`, `companionAssets`, `resources.ts` (`RESOURCE_ICONS`), `ImageLightbox.css`, `CompanionMiniature.tsx` |
-| **Exclus** | `App.tsx`, village, PNG (sauf si inventaire requiert images — alors après commit 4) |
-| **Risque** | Moyen — images Myrions manquantes si PNG pas commités |
-| **Validation** | build + onglet Inventaire sans 404 massifs |
-| **TNR** | Sections inventaire rendues, lightbox OK |
+| **Inclus** | Voir Phase 1.10 ci-dessus |
+| **Exclus** | `App.css`, PNG, fichiers helper WT orphelins |
 
 ---
 
