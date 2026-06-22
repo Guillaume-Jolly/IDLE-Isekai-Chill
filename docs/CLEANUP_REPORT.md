@@ -32,7 +32,22 @@
 |--------|--------|------------|
 | Stash `rewrite-git-temp-stash` redondant | P2 | Conservé — ne pas drop sans revue manuelle |
 | Lint 36 problèmes préexistants | P2 | Hors périmètre Phase 2 |
-| Flags dev `DEV_UNLIMITED_GACHA`, `DEV_UNLOCK_ALL_MINIGAMES` | P1 | Commités `91e4d2f` — désactiver avant prod |
+| Flags dev `DEV_UNLIMITED_GACHA`, `DEV_UNLOCK_ALL_MINIGAMES` | P1 | Gated via `import.meta.env.DEV` (`830415f`) |
+
+## Panorama village — optimisation asset (2026-06-22)
+
+| | Avant | Après |
+|---|---|---|
+| Chemin HEAD | `public/village/panorama-base.png` | `public/village/panorama-base.webp` |
+| Taille | 86.16 MB (90 344 968 o) | 1.57 MB (1 642 102 o) |
+| Dimensions | 12800×4263 | 12800×4263 |
+| Format | PNG non progressif | WebP q85 |
+| Commit | `5dd5ab9` | `ab0c97b` |
+| Références | `villageMap.ts` → `PANORAMA_BASE_ASSET` | idem (`.webp`) |
+
+**Blob historique :** le PNG 86 MB reste dans l'historique de la branche (`5dd5ab9`). Un merge dans `main` l'introduirait une fois dans l'historique GitHub. HEAD et futurs clones n'utilisent que le WebP.
+
+**Recommandation Git :** merge acceptable pour le runtime ; optionnel `git filter-repo` sur la branche avant merge si on veut un historique sans gros blob. Git LFS non requis pour l'instant (WebP < 2 MB).
 | CSS inventaire dupliqué dans `App.css` | P3 | Styles dédiés existent (`InventoryPanel.css`) |
 
 ## Validations

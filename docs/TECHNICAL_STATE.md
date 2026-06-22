@@ -106,7 +106,7 @@ main.tsx → App.tsx (état global GameState)
 |---------|------------|
 | `companions/<id>/affinity-{1-5}.png` | Portraits compagnons |
 | `companions/<id>/chibi.png` | Miniature (Talia seulement) |
-| `village/panorama-base.png` | Panorama village actif |
+| `village/panorama-base.webp` | Panorama village actif (12800×4263, ~1.6 MB WebP) |
 | `village/buildings-map/<id>.png` | Sprites bâtiments |
 | `minigames/palmons/{species}.png` | Sprites Myrions |
 | `minigames/palmons/chibi/{species}.png` | Chibis Myrions |
