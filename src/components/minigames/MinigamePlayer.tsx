@@ -13,6 +13,7 @@ import { TileMergeGame } from './TileMergeGame'
 import { TimingBarGame } from './TimingBarGame'
 import { TowerDefenseGame } from './TowerDefenseGame'
 import { ConversationGame } from './ConversationGame'
+import { DressageGame } from './DressageGame'
 import type { MinigameCompleteHandler } from './MinigameFrame'
 import type { MinigameSave } from '../../data/minigameSave'
 
@@ -41,6 +42,7 @@ const GAME_BY_TYPE: Record<MinigameType, ComponentType<MinigamePlayerProps>> = {
   'idle-farm': IdleFarmGame,
   'pet-sanctuary': PetSanctuaryGame,
   'familiar-capture': FamiliarCaptureGame,
+  dressage: DressageGame,
   conversation: ConversationGame,
 }
 

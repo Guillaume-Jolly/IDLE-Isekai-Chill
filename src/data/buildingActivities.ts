@@ -27,6 +27,7 @@ export type MinigameType =
   | 'idle-farm'
   | 'pet-sanctuary'
   | 'familiar-capture'
+  | 'dressage'
   | 'conversation'
 
 export type BuildingActivity = {
@@ -353,6 +354,22 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     persistent: true,
   },
   {
+    id: 'farm-dressage',
+    buildingId: 'moon-farm',
+    companionId: 'sora',
+    focusResource: 'gifts',
+    minigameType: 'dressage',
+    name: 'Refuge des Myrions',
+    tagline: 'Enclos — Sora',
+    inspiration: 'Tamagotchi / Neko Atsume / refuge magique',
+    description:
+      'Visite les 8 enclos biome par biome. Tes Myrions capturés y vivent en chibi : nourris-les, câline-les, collecte les ressources de biome.',
+    baseReward: { gifts: 28, renown: 18, stardust: 6 },
+    accent: '#ffd898',
+    icon: '🏡',
+    persistent: true,
+  },
+  {
     id: 'farm-pets',
     buildingId: 'moon-farm',
     companionId: 'sora',
@@ -378,7 +395,7 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     tagline: 'Lisiere — Talia',
     inspiration: 'Palworld / Pokemon GO lite',
     description:
-      'Talia explore six biomes et croise des familiers N a LR. Rencontres illimitees — synchronise ta capture au bon moment.',
+      'Talia explore huit biomes et croise des familiers N a LR. Rencontres illimitees — synchronise ta capture au bon moment.',
     baseReward: { wood: 55, gifts: 30, stardust: 8 },
     accent: '#5ecf8a',
     icon: '🎯',
@@ -451,6 +468,37 @@ export const getActivityById = (activityId: string) =>
 
 export const getActivitiesByBuilding = (buildingId: string) =>
   BUILDING_ACTIVITIES.filter((activity) => activity.buildingId === buildingId)
+
+const buildingOrderIndex = (buildingId: string, order: readonly string[]) => {
+  const index = order.indexOf(buildingId)
+  return index === -1 ? 999 : index
+}
+
+/** Tri hub mini-jeux : stade de deblocage, batiment, gameplay puis conversations. */
+export function sortActivitiesByUnlock(
+  activities: BuildingActivity[],
+  unlockAtByBuilding: Record<string, number>,
+  buildingOrder: readonly string[] = [],
+) {
+  return [...activities].sort((a, b) => {
+    const stageA = unlockAtByBuilding[a.buildingId] ?? 0
+    const stageB = unlockAtByBuilding[b.buildingId] ?? 0
+    if (stageA !== stageB) {
+      return stageA - stageB
+    }
+    const buildingA = buildingOrderIndex(a.buildingId, buildingOrder)
+    const buildingB = buildingOrderIndex(b.buildingId, buildingOrder)
+    if (buildingA !== buildingB) {
+      return buildingA - buildingB
+    }
+    const convA = a.minigameType === 'conversation' ? 1 : 0
+    const convB = b.minigameType === 'conversation' ? 1 : 0
+    if (convA !== convB) {
+      return convA - convB
+    }
+    return a.name.localeCompare(b.name, 'fr')
+  })
+}
 
 export function scaleReward(base: Cost, score: number, maxScore: number): Cost {
   const ratio = Math.max(0.35, Math.min(1.5, score / Math.max(1, maxScore)))
