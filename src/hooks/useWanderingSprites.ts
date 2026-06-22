@@ -24,6 +24,19 @@ const DEFAULT_BOUNDS: WanderingBounds = {
   maxY: 68,
 }
 
+function spawnSprite(
+  item: { id: string; emoji: string; name?: string },
+  index: number,
+): WanderingSprite {
+  return {
+    ...item,
+    x: 18 + (index * 17) % 58,
+    y: 24 + (index * 11) % 38,
+    vx: (index % 2 === 0 ? 1 : -1) * (0.18 + (index % 3) * 0.08),
+    vy: (index % 3 === 0 ? 1 : -1) * (0.14 + (index % 2) * 0.07),
+  }
+}
+
 export function useWanderingSprites(
   items: Array<{ id: string; emoji: string; name?: string }>,
   bounds: WanderingBounds = DEFAULT_BOUNDS,
@@ -31,26 +44,15 @@ export function useWanderingSprites(
   const itemKey = items.map((item) => item.id).join(',')
 
   const [sprites, setSprites] = useState<WanderingSprite[]>(() =>
-    items.map((item, index) => ({
-      ...item,
-      x: 18 + (index * 17) % 58,
-      y: 24 + (index * 11) % 38,
-      vx: (index % 2 === 0 ? 1 : -1) * (0.18 + (index % 3) * 0.08),
-      vy: (index % 3 === 0 ? 1 : -1) * (0.14 + (index % 2) * 0.07),
-    })),
+    items.map((item, index) => spawnSprite(item, index)),
   )
 
   useEffect(() => {
-    setSprites(
-      items.map((item, index) => ({
-        ...item,
-        x: 18 + (index * 17) % 58,
-        y: 24 + (index * 11) % 38,
-        vx: (index % 2 === 0 ? 1 : -1) * (0.18 + (index % 3) * 0.08),
-        vy: (index % 3 === 0 ? 1 : -1) * (0.14 + (index % 2) * 0.07),
-      })),
-    )
-  }, [itemKey, items])
+    setSprites((current) => {
+      const byId = new Map(current.map((sprite) => [sprite.id, sprite]))
+      return items.map((item, index) => byId.get(item.id) ?? spawnSprite(item, index))
+    })
+  }, [itemKey])
 
   useEffect(() => {
     const timer = window.setInterval(() => {

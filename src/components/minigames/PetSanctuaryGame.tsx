@@ -106,7 +106,7 @@ export function PetSanctuaryGame({
             return (
               <button
                 aria-label={`Selectionner ${sprite.name ?? sprite.id}`}
-                className={`mg-wandering-pet ${sprite.id === activePet?.id ? 'active' : ''}`}
+                className={`mg-wandering-pet mg-sprite-hitbox ${sprite.id === activePet?.id ? 'active' : ''}`}
                 key={sprite.id}
                 style={{ left: `${sprite.x}%`, top: `${sprite.y}%` }}
                 type="button"

@@ -21,8 +21,8 @@ const hashString = (value: string) => {
   return hash
 }
 
-const fillText = (text: string, name: string, place: string) =>
-  text.replaceAll('{name}', name).replaceAll('{place}', place)
+const fillText = (text: string | null | undefined, name: string, place: string) =>
+  String(text ?? '').replaceAll('{name}', name).replaceAll('{place}', place)
 
 const shuffle = <T,>(items: T[]) => {
   const copy = [...items]
@@ -92,6 +92,9 @@ const buildRound = (
   const name = profile?.name ?? 'Compagnon'
   const place = profile?.place ?? 'le village'
   const roundScript = script.rounds[roundIndex]
+  if (!roundScript) {
+    throw new Error(`Missing round ${roundIndex} for ${companionId} scenario ${scenarioIndex}`)
+  }
   const preferredTone = getPreferredTone(
     companionId,
     scenarioIndex,

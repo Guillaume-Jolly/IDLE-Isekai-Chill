@@ -19,6 +19,7 @@ type BiomeEncounterSceneProps = {
     name: string
     side?: 'left' | 'right'
     pose?: GuidePose
+    biomeId?: string
   }
 }
 
@@ -36,7 +37,7 @@ export function BiomeEncounterScene({
       aria-label={`Biome ${biome.name}, ${palmon.name}`}
       className={`mg-capture-field mg-capture-field-biome mg-biome-scene ${dimmed ? 'dimmed' : ''}`}
       role="img"
-      style={biomeBgFailed ? { background: biome.fallbackGradient } : undefined}
+      style={{ background: biome.fallbackGradient }}
     >
       {!biomeBgFailed && (
         <BiomeBackground
@@ -48,6 +49,7 @@ export function BiomeEncounterScene({
 
       {guideCompanion && (
         <GuideCompanionCutout
+          biomeId={biome.id}
           companionId={guideCompanion.id}
           name={guideCompanion.name}
           pose={guideCompanion.pose ?? 'point'}
