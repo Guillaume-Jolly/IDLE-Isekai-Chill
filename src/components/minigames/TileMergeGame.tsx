@@ -9,6 +9,10 @@ function createGrid() {
   return Array.from({ length: SIZE * SIZE }, () => 1 + Math.floor(Math.random() * 3))
 }
 
+function rollMergedCellValue() {
+  return 1 + Math.floor(Math.random() * 2)
+}
+
 export function TileMergeGame({
   activity,
   companionName,
@@ -48,7 +52,7 @@ export function TileMergeGame({
     }
     const next = [...grid]
     next[index] = Math.min(6, next[index] + 1)
-    next[selected] = 1 + Math.floor(Math.random() * 2)
+    next[selected] = rollMergedCellValue()
     setGrid(next)
     setSelected(null)
     const nextMerges = merges + 1

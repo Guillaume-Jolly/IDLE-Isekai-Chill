@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { BUILDING_ACTIVITIES, sortActivitiesByUnlock } from '../../data/buildingActivities'
+import { DEV_UNLOCK_ALL_MINIGAMES } from '../../data/gacha'
 import { BUILDING_UNLOCK_ORDER, getCurrentStage } from '../../data/population'
 import { ConversationPicker } from './ConversationPicker'
 import './Minigames.css'
@@ -48,6 +49,7 @@ function isActivityUnlocked(
   villageStage: number,
   unlockAtByBuilding: Record<string, number>,
 ) {
+  if (DEV_UNLOCK_ALL_MINIGAMES) return true
   const requiredStage = unlockAtByBuilding[activityBuildingId] ?? 0
   return villageStage >= requiredStage
 }

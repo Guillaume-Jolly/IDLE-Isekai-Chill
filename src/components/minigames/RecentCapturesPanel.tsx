@@ -1,16 +1,8 @@
-import { getBiome, RARITY_COLORS, type PalmonRarity } from '../../data/wildFamiliars'
+import { getBiome, RARITY_COLORS } from '../../data/wildFamiliars'
+import type { RecentCaptureEntry } from '../../data/recentCaptures'
 import { PalmonSprite } from './PalmonSprite'
 
-export type RecentCaptureEntry = {
-  key: string
-  speciesId: string
-  name: string
-  emoji: string
-  rarity: PalmonRarity
-  biomeId: string
-  success: boolean
-  timestamp: number
-}
+export type { RecentCaptureEntry } from '../../data/recentCaptures'
 
 type RecentCapturesPanelProps = {
   entries: RecentCaptureEntry[]
@@ -77,32 +69,4 @@ export function RecentCapturesPanel({
       </ul>
     </aside>
   )
-}
-
-export function buildRecentCapturesFromPets(
-  pets: Array<{
-    id: string
-    speciesId: string
-    name: string
-    emoji: string
-    rarity: PalmonRarity
-    biomeId: string
-  }>,
-): RecentCaptureEntry[] {
-  return [...pets]
-    .map((pet) => {
-      const match = pet.id.match(/-(\d+)$/)
-      return {
-        key: pet.id,
-        speciesId: pet.speciesId,
-        name: pet.name,
-        emoji: pet.emoji,
-        rarity: pet.rarity,
-        biomeId: pet.biomeId,
-        success: true,
-        timestamp: match ? Number(match[1]) : 0,
-      }
-    })
-    .sort((a, b) => b.timestamp - a.timestamp)
-    .slice(0, 10)
 }

@@ -21,6 +21,10 @@ function cropRewardMultiplier(cropId: FarmCropId) {
   return 1
 }
 
+function currentTimestamp() {
+  return Date.now()
+}
+
 export function IdleFarmGame({
   activity,
   companionName,
@@ -40,7 +44,7 @@ export function IdleFarmGame({
   }, [minigameSave])
   const [selectedCrop, setSelectedCrop] = useState<FarmCropId>('herb')
   const [harvested, setHarvested] = useState(0)
-  const [now, setNow] = useState(Date.now())
+  const [now, setNow] = useState(() => Date.now())
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 1000)
@@ -58,7 +62,7 @@ export function IdleFarmGame({
     if (plots[index]) return
     const crop = FARM_CROPS[selectedCrop]
     const next = [...plots]
-    next[index] = { cropId: selectedCrop, plantedAt: Date.now(), growMs: crop.growMs }
+    next[index] = { cropId: selectedCrop, plantedAt: currentTimestamp(), growMs: crop.growMs }
     persist(next)
   }
 

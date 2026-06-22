@@ -59,7 +59,7 @@ export function TowerDefenseGame({
               grid[enemy.row][enemy.col - 1] === 'wall' &&
               Math.random() > 0.35
 
-            let nextCol = blocked ? enemy.col : enemy.col - 1
+            const nextCol = blocked ? enemy.col : enemy.col - 1
             shooters.forEach((shooter) => {
               if (shooter.row === enemy.row && shooter.col > nextCol && shooter.col - nextCol <= 2) {
                 enemy = { ...enemy, hp: enemy.hp - 1 }

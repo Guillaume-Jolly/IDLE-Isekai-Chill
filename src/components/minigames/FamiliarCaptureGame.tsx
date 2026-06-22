@@ -61,9 +61,10 @@ import { CaptureRingGame } from './CaptureRingGame'
 
 import {
   buildRecentCapturesFromPets,
-  RecentCapturesPanel,
   type RecentCaptureEntry,
-} from './RecentCapturesPanel'
+} from '../../data/recentCaptures'
+
+import { RecentCapturesPanel } from './RecentCapturesPanel'
 
 import { HuntObjectivePicker } from './HuntObjectivePicker'
 
@@ -177,6 +178,8 @@ export function FamiliarCaptureGame({
   const [lastResult, setLastResult] = useState<'success' | 'fail' | null>(null)
 
   const [finalChance, setFinalChance] = useState<number | null>(null)
+
+  const [biomeBgFailed, setBiomeBgFailed] = useState(false)
 
   const [autoReplaySec, setAutoReplaySec] = useState(Math.ceil(AUTO_REPLAY_MS / 1000))
   const [autoCaptureSec, setAutoCaptureSec] = useState(Math.ceil(AUTO_CAPTURE_MS / 1000))
@@ -715,9 +718,6 @@ export function FamiliarCaptureGame({
     return clearAutoReplayTimer
   }, [clearAutoReplayTimer, encounter, pendingDecision, phase, startEncounter])
 
-
-
-  const [biomeBgFailed, setBiomeBgFailed] = useState(false)
   const biome = encounter?.biome
 
 

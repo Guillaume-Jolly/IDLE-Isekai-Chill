@@ -3,8 +3,8 @@ import { createCapturedMyrion, createHuntFavor, type HuntFavor } from './myrionM
 import type { PetState } from './minigameSave'
 import { PALMON_SPECIES } from './wildFamiliars'
 
-/** Panneau debug refuge/chasse — désactiver avant release. */
-export const MYRION_REFUGE_DEBUG = true
+/** Panneau debug refuge/chasse — actif uniquement en dev (Vite). */
+export const MYRION_REFUGE_DEBUG = import.meta.env.DEV
 
 const pick = <T,>(items: T[]) => items[Math.floor(Math.random() * items.length)]
 

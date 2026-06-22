@@ -54,7 +54,10 @@ export const getPanoramaFocusPercent = (stage: number) => {
   return (lastSlot.centerX / PANORAMA_WIDTH) * 100
 }
 
-export const panoramaStageAsset = (_stage: number) => PANORAMA_BASE_ASSET
+export function panoramaStageAsset(_stage: number) {
+  void _stage
+  return PANORAMA_BASE_ASSET
+}
 
 export const panoramaLegacyAsset = '/village/panorama-v1.png'
 

@@ -7,7 +7,6 @@ import {
   NEED_HINTS,
   NEED_KEYS,
   NEED_LABELS,
-  POPULATION_STAGES,
   STAGE_BUILDING_NAMES,
   averageNeeds,
   checkStageAdvance,
@@ -171,5 +170,3 @@ function ArchetypeBar({
     </div>
   )
 }
-
-export const POPULATION_STAGE_NAMES = POPULATION_STAGES.map((stage) => stage.name)

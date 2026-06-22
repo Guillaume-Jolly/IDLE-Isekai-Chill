@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { EchoEgg, PetState, RefugeResourceState } from '../../data/minigameSave'
 import type { RefugeBiomeId } from '../../data/myrionRefuge'
 import { BIOME_RESOURCES } from '../../data/myrionRefuge'
@@ -42,7 +42,12 @@ export function EchoNursery({
 }: EchoNurseryProps) {
   const [parentAId, setParentAId] = useState('')
   const [parentBId, setParentBId] = useState('')
-  const now = Date.now()
+  const [now, setNow] = useState(() => Date.now())
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => window.clearInterval(timer)
+  }, [])
 
   const candidates = useMemo(() => breedablePets(pets, now), [pets, now])
   const parentA = pets.find((pet) => pet.id === parentAId) ?? candidates[0]

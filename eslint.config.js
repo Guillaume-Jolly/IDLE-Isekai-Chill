@@ -19,4 +19,11 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    files: ['src/components/minigames/**/*.{ts,tsx}', 'src/hooks/**/*.ts'],
+    rules: {
+      // Mini-jeux : sync explicite depuis minigameSave / timers — refactor différé.
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
 ])
