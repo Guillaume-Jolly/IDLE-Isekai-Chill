@@ -2,7 +2,7 @@
 export const PANORAMA_WIDTH = 12800
 export const PANORAMA_HEIGHT = 4263
 
-export const PANORAMA_BASE_ASSET = '/village/panorama-base.png'
+export const PANORAMA_BASE_ASSET = '/village/panorama-base.webp'
 
 export const BUILDING_SLOT_ORDER = [
   'inn',

@@ -42,7 +42,7 @@ const ts = `/** Panorama IA — Havre des Brumes (${PANORAMA_WIDTH}×${PANORAMA_
 export const PANORAMA_WIDTH = ${PANORAMA_WIDTH}
 export const PANORAMA_HEIGHT = ${PANORAMA_HEIGHT}
 
-export const PANORAMA_BASE_ASSET = '/village/panorama-base.png'
+export const PANORAMA_BASE_ASSET = '/village/panorama-base.webp'
 
 export const BUILDING_SLOT_ORDER = [
 ${BUILDING_SLOT_ORDER.map((id) => `  '${id}',`).join('\n')}

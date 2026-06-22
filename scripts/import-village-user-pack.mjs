@@ -82,7 +82,7 @@ const BUILDING_MAP_HINTS = {
   'star-market': 'Bazar des etoiles',
 }
 
-const outPano = join(root, 'public', 'village', 'panorama-base.png')
+const outPano = join(root, 'public', 'village', 'panorama-base.webp')
 const outDir = join(root, 'public', 'village', 'buildings-map')
 mkdirSync(outDir, { recursive: true })
 mkdirSync(join(root, 'assets', 'village-layout'), { recursive: true })
@@ -100,10 +100,10 @@ const panoPipeline = sharp(panoInput)
 if (explicitScale && explicitScale !== 1) {
   await panoPipeline
     .resize(outputW, outputH, { kernel: sharp.kernel.lanczos3 })
-    .png({ compressionLevel: 6 })
+    .webp({ quality: 85, effort: 6 })
     .toFile(outPano)
 } else {
-  await panoPipeline.png({ compressionLevel: 6 }).toFile(outPano)
+  await panoPipeline.webp({ quality: 85, effort: 6 }).toFile(outPano)
 }
 
 if (!panoOnly) {
@@ -188,7 +188,7 @@ const villageMapTs = `/** Panorama utilisateur — Campement (${outputW}×${outp
 export const PANORAMA_WIDTH = ${outputW}
 export const PANORAMA_HEIGHT = ${outputH}
 
-export const PANORAMA_BASE_ASSET = '/village/panorama-base.png'
+export const PANORAMA_BASE_ASSET = '/village/panorama-base.webp'
 
 export const BUILDING_SLOT_ORDER = [
 ${SPRITE_ORDER.map((id) => `  '${id}',`).join('\n')}

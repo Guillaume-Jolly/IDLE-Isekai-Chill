@@ -15,7 +15,7 @@ if (!input) {
 }
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const out = join(root, 'public', 'village', 'panorama-base.png')
+const out = join(root, 'public', 'village', 'panorama-base.webp')
 
 const meta = await sharp(input).metadata()
 console.log(`Source: ${meta.width}×${meta.height}`)
@@ -28,7 +28,7 @@ mkdirSync(dirname(out), { recursive: true })
 await sharp(input)
   .extract({ left: 0, top, width: meta.width, height: cropHeight })
   .resize(PANORAMA_WIDTH, PANORAMA_HEIGHT, { kernel: sharp.kernel.lanczos3 })
-  .png({ compressionLevel: 6 })
+  .webp({ quality: 85, effort: 6 })
   .toFile(out)
 
 console.log(`Installed: ${out} (${PANORAMA_WIDTH}×${PANORAMA_HEIGHT})`)
