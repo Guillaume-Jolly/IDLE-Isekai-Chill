@@ -33,11 +33,11 @@ export type GachaPullResult = {
   summaries: string[]
 }
 
-/** Dev: tirages sans coût en tickets */
-export const DEV_UNLIMITED_GACHA = true
+/** Dev: tirages sans coût en tickets — inactif en build production (Vite remplace import.meta.env.DEV). */
+export const DEV_UNLIMITED_GACHA = import.meta.env.DEV
 
-/** Debloque tous les mini-jeux dans le hub (ignore le stade village). */
-export const DEV_UNLOCK_ALL_MINIGAMES = true
+/** Debloque tous les mini-jeux dans le hub — inactif en build production. */
+export const DEV_UNLOCK_ALL_MINIGAMES = import.meta.env.DEV
 
 export const RARITY_ORDER: GachaRarity[] = ['N', 'R', 'SR', 'SSR', 'UR', 'LR']
 
