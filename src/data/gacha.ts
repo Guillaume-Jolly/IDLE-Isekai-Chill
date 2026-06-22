@@ -36,6 +36,9 @@ export type GachaPullResult = {
 /** Dev: tirages sans coût en tickets */
 export const DEV_UNLIMITED_GACHA = true
 
+/** Debloque tous les mini-jeux dans le hub (ignore le stade village). */
+export const DEV_UNLOCK_ALL_MINIGAMES = true
+
 export const RARITY_ORDER: GachaRarity[] = ['N', 'R', 'SR', 'SSR', 'UR', 'LR']
 
 export const RARITY_META: Record<
