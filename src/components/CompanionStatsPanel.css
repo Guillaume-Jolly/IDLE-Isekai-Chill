@@ -1,0 +1,116 @@
+.companion-stats {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  display: grid;
+  gap: 0;
+  overflow: visible;
+  padding: 0;
+}
+
+.companion-stats-toggle {
+  align-items: center;
+  background: transparent;
+  border-radius: 14px;
+  color: var(--text-h);
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 10px 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.companion-stats-toggle:hover {
+  background: rgba(180, 73, 255, 0.06);
+  transform: none;
+}
+
+.companion-stats-toggle-main {
+  display: grid;
+  gap: 2px;
+}
+
+.companion-stats-toggle-main small {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.74rem;
+}
+
+.companion-stats-chevron {
+  color: var(--accent);
+  font-size: 0.82rem;
+  line-height: 1;
+}
+
+.companion-stats-body {
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px 12px;
+}
+
+.companion-stats-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.companion-stat-row {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr auto auto auto;
+}
+
+.companion-fragment-bar {
+  align-items: center;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: auto 1fr auto;
+}
+
+.companion-fragment-bar span {
+  font-size: 0.78rem;
+}
+
+.companion-fragment-track {
+  background: rgba(180, 73, 255, 0.12);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.companion-fragment-fill {
+  background: linear-gradient(90deg, #b449ff, #ff8fd0);
+  border-radius: 999px;
+  height: 100%;
+  min-width: 4px;
+  transition: width 0.25s ease;
+}
+
+.companion-fragment-bar small {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.stat-token-badge {
+  background: rgba(255, 176, 32, 0.18);
+  border-radius: 999px;
+  color: #9a6200;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+}
+
+.companion-stat-row span {
+  font-size: 0.82rem;
+}
+
+.stat-plus {
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 28px;
+  padding: 4px 8px;
+}

@@ -13,21 +13,24 @@
 }
 
 .lightbox-stage {
+  aspect-ratio: 3 / 4;
   display: grid;
   gap: 12px;
   margin: 0;
   max-height: calc(100vh - 140px);
-  max-width: min(920px, 92vw);
+  max-width: min(520px, 72vw);
+  overflow: hidden;
 }
 
 .lightbox-image {
   animation: lightbox-zoom 0.28s ease, companion-breathe 4.8s ease-in-out 0.28s infinite;
   border-radius: 20px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  height: 100%;
   max-height: calc(100vh - 180px);
-  max-width: 100%;
-  object-fit: contain;
-  transform-origin: 50% 62%;
+  object-fit: cover;
+  object-position: center 18%;
+  transform-origin: 50% 40%;
   width: 100%;
 }
 
@@ -111,6 +114,7 @@
 .lightbox-thumbs img {
   height: 100%;
   object-fit: cover;
+  object-position: center 18%;
   width: 100%;
 }
 

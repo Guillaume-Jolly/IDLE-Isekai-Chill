@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="ember-ruins">
+  <defs>
+    <linearGradient id="sky-ember-ruins" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#281820"/>
+      <stop offset="100%" stop-color="#884830"/>
+    </linearGradient>
+    <linearGradient id="ground-ember-ruins" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#985838"/>
+      <stop offset="100%" stop-color="#ffb86b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky-ember-ruins)"/>
+  <ellipse cx="960" cy="780" rx="980" ry="420" fill="url(#ground-ember-ruins)"/>
+  <ellipse cx="200" cy="620" rx="280" ry="200" fill="#985838" opacity="0.55"/>
+  <ellipse cx="1720" cy="640" rx="300" ry="220" fill="#985838" opacity="0.55"/>
+  <rect x="140" y="520" width="80" height="160" fill="#584030" opacity="0.5"/><rect x="1680" y="480" width="100" height="200" fill="#584030" opacity="0.45"/><path d="M 1600 680 L 1700 580 L 1800 680 Z" fill="#684838" opacity="0.4"/>
+  <ellipse cx="960" cy="720" rx="520" ry="120" fill="#ffb86b" opacity="0.35"/>
+</svg>

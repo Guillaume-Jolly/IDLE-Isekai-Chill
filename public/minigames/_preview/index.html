@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pipeline chibi — avant / apres</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #1a2030;
+      color: #eef2ff;
+      margin: 0;
+      padding: 24px;
+    }
+    h1 { font-size: 1.35rem; margin: 0 0 8px; }
+    p.lead { color: #9aa8c8; margin: 0 0 24px; max-width: 52rem; line-height: 1.5; }
+    .card {
+      background: #252d42;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .card h2 { margin: 0 0 16px; font-size: 1.1rem; }
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    figure {
+      margin: 0;
+      background: linear-gradient(135deg, #3a5878 0%, #6a9888 100%);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    figcaption {
+      font-size: 0.78rem;
+      color: #c8d4ec;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    img {
+      max-width: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+    }
+    @media (max-width: 640px) {
+      .compare { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Pipeline PNG IA → SVG chibi</h1>
+  <p class="lead">
+    A gauche : image generee par IA (fond blanc). A droite : meme sujet passe en SVG simplifie
+    (10 couleurs max, fond transparent) — pret pour le mini-jeu sans detourage manuel.
+  </p>
+  
+    <article class="card">
+      <h2>Pousselune (moon-sprout)</h2>
+      <div class="compare">
+        <figure>
+          <figcaption>Avant — PNG IA</figcaption>
+          <img src="before-moon-sprout.png" alt="Pousselune (moon-sprout) avant" />
+        </figure>
+        <figure>
+          <figcaption>Apres — SVG chibi vectorise</figcaption>
+          <img src="after-moon-sprout.svg" alt="Pousselune (moon-sprout) apres" />
+        </figure>
+      </div>
+    </article>
+    <article class="card">
+      <h2>Talia guide (talia-point)</h2>
+      <div class="compare">
+        <figure>
+          <figcaption>Avant — PNG IA</figcaption>
+          <img src="before-talia-point.png" alt="Talia guide (talia-point) avant" />
+        </figure>
+        <figure>
+          <figcaption>Apres — SVG chibi vectorise</figcaption>
+          <img src="after-talia-point.svg" alt="Talia guide (talia-point) apres" />
+        </figure>
+      </div>
+    </article>
+</body>
+</html>

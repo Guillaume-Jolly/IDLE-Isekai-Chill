@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.tools
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +23,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local import / generation temp (not shipped)
+.tmp/
+assets/*-import/
+assets/village-layout/
+public/minigames/_preview/

@@ -58,21 +58,18 @@ function waitForLayout(element: HTMLElement): Promise<{ width: number; height: n
 }
 
 function layoutModel(
-  model: {
-    width: number
-    height: number
-    scale: { set: (value: number) => void }
-    anchor: { set: (x: number, y: number) => void }
-    x: number
-    y: number
-    motion?: (group: string) => void
-  },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  model: any,
   stageWidth: number,
   stageHeight: number,
   startMotion = false,
 ) {
+  const modelWidth = model.internalModel?.width ?? model.width
+  const modelHeight = model.internalModel?.height ?? model.height
+  if (!modelWidth || !modelHeight) return
+
   const scale =
-    Math.min(stageWidth / model.width, stageHeight / model.height) * 0.88
+    Math.min(stageWidth / modelWidth, stageHeight / modelHeight) * 0.88
 
   model.scale.set(scale)
   model.anchor.set(0.5, 1)
@@ -80,6 +77,19 @@ function layoutModel(
   model.y = stageHeight * 0.97
   if (startMotion) {
     model.motion?.('Idle')
+  }
+}
+
+function canvasPointFromEvent(
+  canvas: HTMLCanvasElement,
+  stageWidth: number,
+  stageHeight: number,
+  event: PointerEvent,
+) {
+  const rect = canvas.getBoundingClientRect()
+  return {
+    x: ((event.clientX - rect.left) / rect.width) * stageWidth,
+    y: ((event.clientY - rect.top) / rect.height) * stageHeight,
   }
 }
 
@@ -95,6 +105,35 @@ export function Live2DDemo({ onClose }: Live2DDemoProps) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let live2dModel: any = null
     let resizeObserver: ResizeObserver | null = null
+    let canvas: HTMLCanvasElement | null = null
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (!app || !live2dModel || !canvas) return
+      const point = canvasPointFromEvent(
+        canvas,
+        app.screen.width,
+        app.screen.height,
+        event,
+      )
+      live2dModel.focus(point.x, point.y)
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!app || !live2dModel || !canvas) return
+      const point = canvasPointFromEvent(
+        canvas,
+        app.screen.width,
+        app.screen.height,
+        event,
+      )
+      live2dModel.tap(point.x, point.y)
+    }
+
+    const handleHit = (areas: string[]) => {
+      if (areas.includes('Body')) {
+        void live2dModel?.motion('TapBody')
+      }
+    }
 
     async function boot() {
       try {
@@ -108,8 +147,9 @@ export function Live2DDemo({ onClose }: Live2DDemoProps) {
         }
 
         const PIXI = await import('pixi.js')
-        const { Live2DModel } = await import('pixi-live2d-display/cubism4')
+        const { Live2DModel, config } = await import('pixi-live2d-display/cubism4')
 
+        config.sound = false
         window.PIXI = PIXI
 
         const { width, height } = await waitForLayout(hostRef.current)
@@ -124,16 +164,24 @@ export function Live2DDemo({ onClose }: Live2DDemoProps) {
           width,
         })
 
-        hostRef.current.replaceChildren(application.view as HTMLCanvasElement)
+        canvas = application.view as HTMLCanvasElement
+        hostRef.current.replaceChildren(canvas)
 
-        const modelInstance = await Live2DModel.from(MODEL_PATH, { autoInteract: true })
+        const modelInstance = await Live2DModel.from(MODEL_PATH, { autoInteract: false })
         if (destroyed) {
           application.destroy(true, { children: true, texture: true, baseTexture: true })
           return
         }
 
+        modelInstance.interactive = false
+        modelInstance.interactiveChildren = false
+
         layoutModel(modelInstance, width, height, true)
+        modelInstance.on('hit', handleHit)
         application.stage.addChild(modelInstance as never)
+
+        canvas.addEventListener('pointermove', handlePointerMove)
+        canvas.addEventListener('pointerdown', handlePointerDown)
 
         resizeObserver = new ResizeObserver(() => {
           if (!hostRef.current || !app || !live2dModel) return
@@ -162,7 +210,10 @@ export function Live2DDemo({ onClose }: Live2DDemoProps) {
     return () => {
       destroyed = true
       resizeObserver?.disconnect()
+      canvas?.removeEventListener('pointermove', handlePointerMove)
+      canvas?.removeEventListener('pointerdown', handlePointerDown)
       try {
+        live2dModel?.off('hit', handleHit)
         live2dModel?.destroy()
       } catch {
         /* ignore teardown errors */
@@ -173,6 +224,7 @@ export function Live2DDemo({ onClose }: Live2DDemoProps) {
         /* ignore teardown errors */
       }
       hostRef.current?.replaceChildren()
+      canvas = null
     }
   }, [])
 
