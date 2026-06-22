@@ -12,5 +12,8 @@ export default defineConfig({
   },
   server: {
     allowedHosts: ['.lhr.life', '.loca.lt'],
+    watch: {
+      ignored: ['**/.tmp/**', '**/.tools/**', '**/assets/**'],
+    },
   },
 })

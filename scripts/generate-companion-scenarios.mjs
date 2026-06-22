@@ -448,7 +448,7 @@ for (const companionId of Object.keys(COMPANIONS)) {
       maxAffinity,
       roundToneHints: base.hints,
       rounds: base.rounds.map((round) => ({
-        context: [`${amb}. ${round.context[0]}`, round.context[1]],
+        context: [`${amb}. ${round.context[0]}`, ...round.context.slice(1)].filter(Boolean),
         prompt: round.prompt,
         choices: round.choices.map((c) => ({
           text: c.text,

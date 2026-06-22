@@ -1,47 +1,169 @@
 import { BUILDINGS } from './data.mjs'
 import { escape } from './companion-art.mjs'
+import {
+  BUILDING_SLOTS,
+  PANORAMA_HEIGHT,
+  PANORAMA_WIDTH,
+} from './village-map-layout.mjs'
 
-function detailedHouse(x, y, w, h, roof, wall, accent, label, extra = '') {
-  const roofY = y - h * 0.34
+const BUILDING_BY_ID = Object.fromEntries(BUILDINGS.map((b) => [b.id, b]))
+
+function tierScale(tier) {
+  if (tier >= 3) return 1.18
+  if (tier >= 2) return 1.06
+  return 0.92
+}
+
+function detailedHouse(x, y, w, h, roof, wall, accent, label, extra = '', tier = 2) {
+  const scale = tierScale(tier)
+  const bw = w * scale
+  const bh = h * scale
+  const bx = x - (bw - w) / 2
+  const by = y - (bh - h)
+  const roofY = by - bh * 0.34
+  const tierGlow =
+    tier >= 3
+      ? `<ellipse cx="${x}" cy="${by + bh * 0.5}" rx="${bw * 0.7}" ry="${bh * 0.55}" fill="#ffd878" opacity="0.12"/>`
+      : tier >= 2
+        ? `<rect x="${bx - bw * 0.05}" y="${by - bh * 0.05}" width="${bw * 1.1}" height="${bh * 1.12}" rx="12" fill="none" stroke="#ffd878" stroke-width="2" opacity="0.35"/>`
+        : ''
+
   return `
   <g filter="url(#soft)">
-    <ellipse cx="${x}" cy="${y + h + 18}" rx="${w * 0.55}" ry="14" fill="#000" opacity="0.12"/>
-    <path d="M${x - w * 0.62} ${y} L${x} ${roofY} L${x + w * 0.62} ${y} Z" fill="${roof}" stroke="#5a4030" stroke-width="3"/>
-    <rect x="${x - w * 0.48}" y="${y}" width="${w * 0.96}" height="${h}" rx="8" fill="${wall}" stroke="#7a5840" stroke-width="3"/>
-    <rect x="${x - 14}" y="${y + h * 0.42}" width="28" height="${h * 0.58}" rx="5" fill="#6a4830"/>
-    <rect x="${x - w * 0.3}" y="${y + h * 0.2}" width="26" height="26" rx="4" fill="#ffe898" opacity="0.85"/>
-    <rect x="${x + w * 0.08}" y="${y + h * 0.2}" width="26" height="26" rx="4" fill="#ffe898" opacity="0.85"/>
-    <rect x="${x - w * 0.12}" y="${y + h * 0.08}" width="${w * 0.24}" height="12" rx="3" fill="${accent}" opacity="0.55"/>
+    ${tierGlow}
+    <ellipse cx="${x}" cy="${by + bh + 18}" rx="${bw * 0.55}" ry="14" fill="#000" opacity="0.12"/>
+    <path d="M${bx - bw * 0.62} ${by} L${x} ${roofY} L${bx + bw * 0.62} ${by} Z" fill="${roof}" stroke="#5a4030" stroke-width="3"/>
+    <rect x="${bx - bw * 0.48}" y="${by}" width="${bw * 0.96}" height="${bh}" rx="8" fill="${wall}" stroke="#7a5840" stroke-width="3"/>
+    <rect x="${x - 14}" y="${by + bh * 0.42}" width="28" height="${bh * 0.58}" rx="5" fill="#6a4830"/>
+    <rect x="${bx - bw * 0.3}" y="${by + bh * 0.2}" width="26" height="26" rx="4" fill="#ffe898" opacity="0.85"/>
+    <rect x="${bx + bw * 0.08}" y="${by + bh * 0.2}" width="26" height="26" rx="4" fill="#ffe898" opacity="0.85"/>
+    <rect x="${bx - bw * 0.12}" y="${by + bh * 0.08}" width="${bw * 0.24}" height="12" rx="3" fill="${accent}" opacity="0.55"/>
     ${extra}
-    <text x="${x}" y="${y + h + 38}" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="900" fill="#3a2820">${escape(label)}</text>
+    <text x="${x}" y="${by + bh + 38}" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="900" fill="#3a2820">${escape(label)}</text>
   </g>`
 }
 
-export function villageSvg() {
-  const extras = {
-    inn: `<rect x="248" y="398" width="24" height="18" rx="3" fill="#ffd080" opacity="0.7"/>`,
-    garden: `<circle cx="470" cy="210" r="28" fill="#78d868" opacity="0.55"/><circle cx="490" cy="198" r="22" fill="#98e888" opacity="0.45"/>`,
-    workshop: `<rect x="848" y="318" width="18" height="28" fill="#888" opacity="0.45"/>`,
-    spring: `<ellipse cx="710" cy="175" rx="36" ry="14" fill="#88e8ff" opacity="0.65"/>`,
-    farm: `<rect x="250" y="668" width="80" height="40" fill="#d8c848" opacity="0.45"/>`,
-    library: `<rect x="1080" y="188" width="8" height="50" fill="#684838"/><rect x="1095" y="175" width="8" height="63" fill="#684838"/>`,
-    theater: `<path d="M755 640 Q790 600 825 640" fill="none" stroke="#ffd080" stroke-width="6" opacity="0.55"/>`,
-    market: `<circle cx="1145" cy="510" r="12" fill="#ffd848"/><circle cx="1165" cy="520" r="10" fill="#ff8868"/>`,
+function constructionPlot(x, y, label) {
+  return `
+  <g opacity="0.72">
+    <rect x="${x - 70}" y="${y - 20}" width="140" height="90" rx="6" fill="#c8a878" stroke="#8a6848" stroke-width="2" stroke-dasharray="8 6"/>
+    <line x1="${x - 50}" y1="${y - 20}" x2="${x - 50}" y2="${y - 70}" stroke="#8a6848" stroke-width="4"/>
+    <line x1="${x + 50}" y1="${y - 20}" x2="${x + 50}" y2="${y - 70}" stroke="#8a6848" stroke-width="4"/>
+    <line x1="${x - 50}" y1="${y - 70}" x2="${x + 50}" y2="${y - 70}" stroke="#8a6848" stroke-width="4"/>
+    <text x="${x}" y="${y + 95}" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" fill="#6a5040" opacity="0.8">${escape(label)} — bientot</text>
+  </g>`
+}
+
+function buildingExtras(id, x, y, w, h) {
+  const map = {
+    inn: `<rect x="${x - 30}" y="${y + h * 0.15}" width="24" height="18" rx="3" fill="#ffd080" opacity="0.7"/><circle cx="${x + 55}" cy="${y + h * 0.7}" r="14" fill="#ffe8d0" opacity="0.5"/>`,
+    'mist-garden': `<circle cx="${x - 40}" cy="${y + 20}" r="28" fill="#78d868" opacity="0.55"/><circle cx="${x - 20}" cy="${y + 8}" r="22" fill="#98e888" opacity="0.45"/>`,
+    'ribbon-workshop': `<rect x="${x + 35}" y="${y + 30}" width="18" height="28" fill="#888" opacity="0.45"/>`,
+    'clear-spring': `<ellipse cx="${x}" cy="${y - 15}" rx="36" ry="14" fill="#88e8ff" opacity="0.65"/>`,
+    'moon-farm': `<rect x="${x - 50}" y="${y + h * 0.55}" width="80" height="40" fill="#d8c848" opacity="0.45"/>`,
+    'arcane-library': `<rect x="${x - 25}" y="${y - 35}" width="8" height="50" fill="#684838"/><rect x="${x - 10}" y="${y - 48}" width="8" height="63" fill="#684838"/>`,
+    'traveler-theater': `<path d="M${x - 35} ${y + h * 0.85} Q${x} ${y + h * 0.55} ${x + 35} ${y + h * 0.85}" fill="none" stroke="#ffd080" stroke-width="6" opacity="0.55"/>`,
+    'star-market': `<circle cx="${x - 20}" cy="${y + h * 0.55}" r="12" fill="#ffd848"/><circle cx="${x}" cy="${y + h * 0.62}" r="10" fill="#ff8868"/>`,
+  }
+  return map[id] ?? ''
+}
+
+function companionAnnexes(id, x, y, h) {
+  const annex = {
+    inn: ['🍲', '🌹'],
+    'mist-garden': ['🌿'],
+    'ribbon-workshop': ['🧵', '🔨'],
+    'clear-spring': ['💧', '🫧'],
+    'moon-farm': ['🌾', '🐾'],
+    'arcane-library': ['📚', '🧪', '📜'],
+    'traveler-theater': ['🎵'],
+    'star-market': ['✨'],
+  }[id] ?? []
+
+  return annex
+    .map(
+      (emoji, i) =>
+        `<text x="${x + 58 + i * 22}" y="${y + h * 0.35 + i * 4}" font-size="20" opacity="0.85">${emoji}</text>`,
+    )
+    .join('')
+}
+
+function stageDecor(stage) {
+  const w = PANORAMA_WIDTH
+  const roadOpacity = 0.28 + stage * 0.04
+  const roadWidth = 48 + stage * 12
+
+  let decor = `
+  <path d="M0 720 C${w * 0.15} 680 ${w * 0.35} 690 ${w * 0.5} 710 C${w * 0.65} 730 ${w * 0.85} 700 ${w} 720" fill="none" stroke="#b88858" stroke-width="${roadWidth}" stroke-linecap="round" opacity="${roadOpacity}"/>
+  `
+
+  if (stage >= 0) {
+    decor += `
+    <ellipse cx="180" cy="780" rx="55" ry="18" fill="#8a6848" opacity="0.35"/>
+    <circle cx="160" cy="760" r="22" fill="#ff8868" opacity="0.45"/>
+    <circle cx="175" cy="752" r="18" fill="#ffa868" opacity="0.35"/>
+    `
+  }
+  if (stage >= 1) {
+    decor += Array.from(
+      { length: 12 },
+      (_, i) =>
+        `<rect x="${120 + i * 520}" y="760" width="8" height="48" fill="#8a6848" opacity="0.35"/><line x1="${116 + i * 520}" y1="772" x2="${132 + i * 520}" y2="772" stroke="#a88858" stroke-width="3" opacity="0.4"/>`,
+    ).join('')
+  }
+  if (stage >= 2) {
+    decor += `
+    <circle cx="${w * 0.42}" cy="680" r="28" fill="#88c8e8" opacity="0.55" stroke="#e8ffff" stroke-width="4"/>
+    ${Array.from({ length: 16 }, (_, i) => `<circle cx="${200 + i * 380}" cy="${820 + (i % 2) * 12}" r="4" fill="#ffd878" opacity="0.55"/>`).join('')}
+    `
+  }
+  if (stage >= 3) {
+    decor += Array.from(
+      { length: 8 },
+      (_, i) =>
+        `<line x1="${400 + i * 760}" y1="640" x2="${400 + i * 760}" y2="720" stroke="#c8a858" stroke-width="3" opacity="0.45"/><circle cx="${400 + i * 760}" cy="632" r="10" fill="#ffe898" opacity="0.7"/>`,
+    ).join('')
+  }
+  if (stage >= 4) {
+    decor += `
+    <ellipse cx="${w - 320}" cy="690" rx="80" ry="28" fill="#88d8ff" opacity="0.45"/>
+    <path d="M${w - 420} 650 L${w - 380} 610 L${w - 340} 650 Z" fill="#ffd848" opacity="0.55"/>
+    <path d="M${w - 360} 650 L${w - 320} 600 L${w - 280} 650 Z" fill="#ff8868" opacity="0.5"/>
+    `
   }
 
-  const placements = [
-    [280, 430, 200, 155, BUILDINGS[0], extras.inn],
-    [470, 210, 160, 125, BUILDINGS[1], extras.garden],
-    [860, 330, 170, 135, BUILDINGS[2], extras.workshop],
-    [710, 145, 165, 115, BUILDINGS[3], extras.spring],
-    [290, 690, 180, 120, BUILDINGS[4], extras.farm],
-    [1085, 210, 175, 138, BUILDINGS[5], extras.library],
-    [760, 650, 185, 140, BUILDINGS[6], extras.theater],
-    [1145, 525, 175, 135, BUILDINGS[7], extras.market],
-  ]
+  return decor
+}
+
+/**
+ * Panorama horizontal scrollable — stade 0..4.
+ * @param {number} villageStage — stade de population (batiments visibles si unlockStage <= stage)
+ * @param {Record<string, number>} [buildingLevels] — niveaux pour taille visuelle (gen statique: tier 2)
+ */
+export function scrollPanoramaSvg(villageStage = 4, buildingLevels = {}) {
+  const w = PANORAMA_WIDTH
+  const h = PANORAMA_HEIGHT
+
+  const buildingArt = BUILDING_SLOTS.map((slot) => {
+    const b = BUILDING_BY_ID[slot.id]
+    if (!b) return ''
+    const bw = 175
+    const bh = 135
+    const x = slot.centerX
+    const y = slot.groundY - bh
+
+    if (slot.unlockStage > villageStage) {
+      return constructionPlot(x, slot.groundY, b.label)
+    }
+
+    const level = buildingLevels[slot.id] ?? 2
+    const tier = level >= 7 ? 3 : level >= 4 ? 2 : 1
+    const extra = buildingExtras(slot.id, x, y, bw, bh) + companionAnnexes(slot.id, x, y, bh)
+    return detailedHouse(x, y, bw, bh, b.roof, b.wall, b.accent, b.label, extra, tier)
+  }).join('')
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#7ec8f8"/>
@@ -61,24 +183,21 @@ export function villageSvg() {
       <feGaussianBlur stdDeviation="18"/>
     </filter>
   </defs>
-  <rect width="1920" height="1080" fill="url(#sky)"/>
-  <ellipse cx="280" cy="180" rx="120" ry="120" fill="#fff8d0" opacity="0.85"/>
-  <ellipse cx="310" cy="155" rx="95" ry="95" fill="#ffe880" opacity="0.45"/>
-  ${Array.from({ length: 8 }, (_, i) => `<ellipse cx="${200 + i * 220}" cy="${120 + (i % 3) * 30}" rx="${80 + (i % 3) * 20}" ry="${30 + (i % 2) * 10}" fill="#fff" opacity="0.35" filter="url(#mist)"/>`).join('')}
-  <path d="M0 680 C320 620 480 640 720 700 C920 750 1100 720 1400 680 C1600 655 1780 670 1920 690 L1920 1080 L0 1080 Z" fill="url(#grass)"/>
-  <path d="M-40 920 C280 860 520 880 760 940 C980 990 1180 960 1480 910 C1680 875 1820 890 1960 920 L1960 1080 L-40 1080 Z" fill="#68c8e8" opacity="0.82"/>
-  <path d="M-60 960 C200 930 420 945 640 980 C860 1015 1080 995 1320 965 C1560 935 1740 948 1980 970" fill="none" stroke="#88e8ff" stroke-width="4" opacity="0.35"/>
-  <path d="M-40 720 C260 660 480 660 720 710 C940 755 1120 720 1400 670 C1580 640 1760 655 1960 680" fill="none" stroke="#b88858" stroke-width="88" stroke-linecap="round" opacity="0.42"/>
-  <path d="M360 120 C480 280 600 420 760 560 C860 650 960 760 1080 880" fill="none" stroke="#b88858" stroke-width="58" stroke-linecap="round" opacity="0.32"/>
-  <path d="M80 620 L340 580 L380 820 L110 850 Z" fill="#e8c858" opacity="0.88"/>
-  ${Array.from({ length: 5 }, (_, i) => `<line x1="${100 + i * 55}" y1="650" x2="${130 + i * 55}" y2="780" stroke="#a88830" stroke-width="6" opacity="0.4"/>`).join('')}
-  ${placements.map(([x, y, w, h, b, ex]) => detailedHouse(x, y, w, h, b.roof, b.wall, b.accent, b.label, ex)).join('')}
-  <circle cx="690" cy="500" r="48" fill="#9ed9ff" stroke="#f8fff4" stroke-width="12"/>
-  <circle cx="668" cy="482" r="10" fill="#fff"/>
-  <path d="M610 545 C650 575 740 575 778 540" fill="none" stroke="#6f8d72" stroke-width="12" stroke-linecap="round"/>
-  ${Array.from({ length: 12 }, (_, i) => `<circle cx="${140 + i * 150}" cy="${780 + (i % 2) * 20}" r="5" fill="#ffd878" opacity="0.65"/>`).join('')}
-  <text x="960" y="80" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="900" fill="#fff" opacity="0.55">Havre des Brumes</text>
+  <rect width="${w}" height="${h}" fill="url(#sky)"/>
+  <ellipse cx="320" cy="180" rx="120" ry="120" fill="#fff8d0" opacity="0.85"/>
+  <ellipse cx="350" cy="155" rx="95" ry="95" fill="#ffe880" opacity="0.45"/>
+  ${Array.from({ length: 14 }, (_, i) => `<ellipse cx="${180 + i * 460}" cy="${110 + (i % 3) * 28}" rx="${70 + (i % 3) * 18}" ry="${28 + (i % 2) * 8}" fill="#fff" opacity="0.32" filter="url(#mist)"/>`).join('')}
+  <path d="M0 680 C${w * 0.12} 640 ${w * 0.28} 650 ${w * 0.42} 690 C${w * 0.58} 720 ${w * 0.72} 680 ${w * 0.88} 700 L${w} 710 L${w} ${h} L0 ${h} Z" fill="url(#grass)"/>
+  <path d="M-40 920 C${w * 0.12} 880 ${w * 0.35} 900 ${w * 0.55} 940 C${w * 0.72} 980 ${w * 0.88} 960 ${w + 40} 920 L${w + 40} ${h} L-40 ${h} Z" fill="#68c8e8" opacity="0.82"/>
+  ${stageDecor(villageStage)}
+  ${buildingArt}
+  <text x="${w * 0.5}" y="72" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="46" font-weight="900" fill="#fff" opacity="0.5">Havre des Brumes</text>
 </svg>`
+}
+
+/** @deprecated Utiliser scrollPanoramaSvg — conservé pour compat generate */
+export function villageSvg() {
+  return scrollPanoramaSvg(4)
 }
 
 function buildingIconSvg(building) {
@@ -141,4 +260,4 @@ export function heroBannerSvg() {
 </svg>`
 }
 
-export { buildingIconSvg }
+export { buildingIconSvg, PANORAMA_WIDTH, PANORAMA_HEIGHT }
