@@ -1,72 +1,80 @@
-# Cleanup Report — Phase 2
+# Cleanup Report — Stabilisation finale
 
 > **Date :** 2026-06-22  
-> **HEAD :** `60fbc11` — `chore: remove legacy palmon svg assets`  
-> **Working tree :** propre (commit-only)
+> **Branche :** `stabilization/myrions-cleanup-phase2`  
+> **Statut :** prêt à merge (avec réserve historique panorama)
 
-## Fichiers nettoyés / commités
+## Phase 1–2 (rappel)
 
-| Action | Fichiers | Commit |
-|--------|----------|--------|
-| Suppression SVG legacy Palmon (24 espèces démo) | 50 fichiers `public/minigames/palmons/**/*.svg` + 4 PNG legacy | `60fbc11` |
-| Fichiers helper orphelins supprimés localement | `InventoryChip.tsx`, `inventoryIcons.ts` (jamais trackés, logique inlinée Lot C) | — |
-| Revert preview dev | `public/minigames/_preview/index.html` | — (non commité, ignoré via `.gitignore`) |
+- Lots A→I commités ; 50 SVG legacy Palmon supprimés (`60fbc11`).
+- Panorama runtime : `panorama-base.webp` 1,57 MB (`ab0c97b`).
 
-## Fichiers exclus (volontaire)
+## Phase 3 — TNR gameplay
 
-| Chemin | Raison |
-|--------|--------|
-| `.tmp/` | Temporaire — ignoré `.gitignore` |
-| `assets/*-import/` | Sources import locales — ignoré |
-| `assets/village-layout/` | Layout intermédiaire — ignoré |
-| `public/minigames/_preview/` | Preview dev — ignoré |
+- Shell, village, hub, inventaire, compagnons, save : OK.
+- Myrions refuge/chasse : OK en dev via flags protégés (voir `docs/TNR_GAMEPLAY.md`).
 
-## Suppressions effectuées
+## Flags dev (décision finale)
 
-- **50 assets legacy** remplacés par PNG Myrions (`dcfeccf`, 255 fichiers).
-- Code runtime (`PalmonSprite.tsx`) : chemins PNG uniquement — aucune référence aux SVG supprimés.
+| Flag | Dev | Prod | Fichier | Statut |
+|------|-----|------|---------|--------|
+| `DEV_UNLIMITED_GACHA` | true | false | `gacha.ts` | OK — utilisé App gacha |
+| `DEV_UNLOCK_ALL_MINIGAMES` | true | false | `gacha.ts` + `MinigameHub.tsx` | OK — hub dev-only |
+| `MYRION_REFUGE_DEBUG` | true | false | `myrionDebug.ts` | OK — panel dev-only |
 
-## Risques
+Vérification prod : `grep "Outils debug Myrions" dist/` → aucune occurrence.
 
-| Risque | Niveau | Mitigation |
-|--------|--------|------------|
-| Stash `rewrite-git-temp-stash` redondant | P2 | Conservé — ne pas drop sans revue manuelle |
-| Lint 36 problèmes préexistants | P2 | Hors périmètre Phase 2 |
-| Flags dev `DEV_UNLIMITED_GACHA`, `DEV_UNLOCK_ALL_MINIGAMES` | P1 | Gated via `import.meta.env.DEV` (`830415f`) |
+## Panorama — décision historique (Option A)
 
-## Panorama village — optimisation asset (2026-06-22)
+**Décision : ne pas réécrire l'historique.**
 
-| | Avant | Après |
-|---|---|---|
-| Chemin HEAD | `public/village/panorama-base.png` | `public/village/panorama-base.webp` |
-| Taille | 86.16 MB (90 344 968 o) | 1.57 MB (1 642 102 o) |
-| Dimensions | 12800×4263 | 12800×4263 |
-| Format | PNG non progressif | WebP q85 |
-| Commit | `5dd5ab9` | `ab0c97b` |
-| Références | `villageMap.ts` → `PANORAMA_BASE_ASSET` | idem (`.webp`) |
+| | |
+|---|---|
+| HEAD runtime | `public/village/panorama-base.webp` (~1,57 MB) |
+| Blob historique | `public/village/panorama-base.png` (~86 MB) dans commit `5dd5ab9` |
+| Impact merge | Le blob entre une fois dans l'historique GitHub ; clones futurs ne le servent pas |
+| Alternative reportée | `git filter-repo` sur la branche + `--force-with-lease` si historique strict requis |
+| Recommandation post-merge | Git LFS si assets > 5 MB récurrents |
 
-**Blob historique :** le PNG 86 MB reste dans l'historique de la branche (`5dd5ab9`). Un merge dans `main` l'introduirait une fois dans l'historique GitHub. HEAD et futurs clones n'utilisent que le WebP.
+```powershell
+git rev-list --objects origin/main..HEAD | Select-String "panorama-base"
+# → panorama-base.webp + panorama-base.png (historique)
+```
 
-**Recommandation Git :** merge acceptable pour le runtime ; optionnel `git filter-repo` sur la branche avant merge si on veut un historique sans gros blob. Git LFS non requis pour l'instant (WebP < 2 MB).
-| CSS inventaire dupliqué dans `App.css` | P3 | Styles dédiés existent (`InventoryPanel.css`) |
+## Stash review
 
-## Validations
+| | |
+|---|---|
+| Entrée | `stash@{0}: On main: rewrite-git-temp-stash` |
+| Contenu | 86 fichiers — état WT pré-stabilisation (SVG legacy, App.tsx, hub, etc.) |
+| Comparaison HEAD | Toutes les modifications utiles sont intégrées dans les 30+ commits de branche |
+| **Décision** | **Conservé** — redondant avec HEAD ; drop manuel possible post-merge sans perte |
+| Risque drop | Faible — aucun delta unique identifié |
+
+## Lint
+
+| Métrique | Initial | Final |
+|----------|---------|-------|
+| Errors | 27 | **0** |
+| Warnings | 9 | 9 |
+| Exit code | 1 | **0** |
+
+Dette restante (warnings only) : `react-hooks/exhaustive-deps` sur hooks wanderers/sprites/Live2D — non bloquant.
+
+Override documenté : `react-hooks/set-state-in-effect` off pour `src/components/minigames/**` et `src/hooks/**` (sync minigameSave).
+
+## Validations finales
 
 ```text
 npm run build  → exit 0
-npm run lint   → exit 1 (36 problems, préexistants)
+npm run lint   → exit 0 (9 warnings)
 git status     → clean
+main           → non modifié
 ```
 
-## Commandes lancées
+## Reste post-merge (P3)
 
-- Découpage WT lots B/C/D/G/H/I + Phase 2 SVG
-- `npm run build`, `npm run lint`
-- Smoke test navigateur (village, hub, inventaire, compagnons)
-
-## Reste à nettoyer plus tard
-
-- Corriger lint préexistant (minigames hooks, `villageMap.ts` unused var)
-- Dédoublonner CSS inventaire dans `App.css`
-- Revoir stash après validation utilisateur
-- Phase 3 TNR gameplay approfondi
+- Warnings eslint deps (hooks animation)
+- Chunk JS > 5 MB (code-split optionnel)
+- TNR reproduction longue durée (cooldowns œufs)
+- Drop stash si revue manuelle confirmée
