@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
-  companionGuideCutoutPngPath,
   companionGuideCutoutPath,
+  companionGuideCutoutPngPath,
   type GuidePose,
 } from '../../data/minigameAssets'
 
@@ -10,43 +10,86 @@ type GuideCompanionCutoutProps = {
   name: string
   pose?: GuidePose
   side?: 'left' | 'right'
+  biomeId?: string
+  /** Animation de joie sans changer l image. */
+  celebrate?: boolean
 }
 
-type LoadTier = 'png' | 'svg' | 'hidden'
+type LoadTier = 'biome-pose' | 'biome-point' | 'default-png' | 'svg' | 'hidden'
+
+function guideSrc(
+  companionId: string,
+  pose: GuidePose,
+  biomeId: string | undefined,
+  tier: LoadTier,
+) {
+  if (tier === 'biome-pose' && biomeId) {
+    return companionGuideCutoutPngPath(companionId, pose, biomeId)
+  }
+  if (tier === 'biome-point' && biomeId) {
+    return companionGuideCutoutPngPath(companionId, 'point', biomeId)
+  }
+  if (tier === 'default-png') {
+    return companionGuideCutoutPngPath(companionId, pose)
+  }
+  return companionGuideCutoutPath(companionId, pose)
+}
 
 export function GuideCompanionCutout({
   companionId,
   name,
   pose = 'point',
   side = 'left',
+  biomeId,
+  celebrate = false,
 }: GuideCompanionCutoutProps) {
-  const [tier, setTier] = useState<LoadTier>('png')
+  const [tier, setTier] = useState<LoadTier>(biomeId ? 'biome-pose' : 'default-png')
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null)
 
   useEffect(() => {
-    setTier('png')
-  }, [companionId, pose])
+    setTier(biomeId ? 'biome-pose' : 'default-png')
+  }, [biomeId, companionId])
 
-  if (tier === 'hidden') {
+  const src = useMemo(() => {
+    if (tier === 'hidden') {
+      return null
+    }
+    return guideSrc(companionId, pose, biomeId, tier)
+  }, [companionId, pose, biomeId, tier])
+
+  useEffect(() => {
+    if (!src) {
+      return
+    }
+    const img = new Image()
+    img.src = src
+    if (img.complete) {
+      setLoadedSrc(src)
+    }
+  }, [src])
+
+  if (!src) {
     return null
   }
 
-  const src =
-    tier === 'png'
-      ? companionGuideCutoutPngPath(companionId, pose)
-      : companionGuideCutoutPath(companionId, pose)
+  const isLoaded = loadedSrc === src
 
   return (
-    <div className={`mg-guide-cutout ${side}`}>
+    <div className={`mg-guide-cutout ${side}${celebrate ? ' celebrate' : ''}`}>
       <img
         alt={`${name} guide la capture`}
-        className="mg-guide-cutout-img mg-encounter-pop"
+        className={`mg-guide-cutout-img${isLoaded ? ' mg-guide-idle' : ''}`}
         draggable={false}
+        onLoad={() => {
+          setLoadedSrc(src)
+        }}
         onError={() => {
-          if (tier === 'png') {
-            setTier('svg')
-          } else {
-            setTier('hidden')
-          }
+          setTier((current) => {
+            if (current === 'biome-pose') return 'biome-point'
+            if (current === 'biome-point') return 'default-png'
+            if (current === 'default-png') return 'svg'
+            return 'hidden'
+          })
         }}
         src={src}
       />

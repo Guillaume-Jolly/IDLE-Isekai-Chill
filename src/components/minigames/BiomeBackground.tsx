@@ -7,16 +7,16 @@ type BiomeBackgroundProps = {
   onFailed?: () => void
 }
 
-type Tier = 'svg' | 'png' | 'failed'
+type Tier = 'png' | 'svg' | 'failed'
 
 export function BiomeBackground({ biomeId, className = '', onFailed }: BiomeBackgroundProps) {
-  const [tier, setTier] = useState<Tier>('svg')
+  const [tier, setTier] = useState<Tier>('png')
 
   if (tier === 'failed') {
     return null
   }
 
-  const src = tier === 'svg' ? biomeBackgroundPath(biomeId) : biomeBackgroundPngPath(biomeId)
+  const src = tier === 'png' ? biomeBackgroundPngPath(biomeId) : biomeBackgroundPath(biomeId)
 
   return (
     <img
@@ -24,8 +24,8 @@ export function BiomeBackground({ biomeId, className = '', onFailed }: BiomeBack
       aria-hidden
       className={className}
       onError={() => {
-        if (tier === 'svg') {
-          setTier('png')
+        if (tier === 'png') {
+          setTier('svg')
         } else {
           setTier('failed')
           onFailed?.()

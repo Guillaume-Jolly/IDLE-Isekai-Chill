@@ -3,6 +3,8 @@ import {
   getPalmonAssetPath,
   type PalmonSpriteVariant,
 } from './minigameAssets'
+import { MYRIONS_BIOMES, MYRIONS_SPECIES } from './myrionsCatalog.generated'
+import { MYRION_SPECIES_IDS } from './minigameAssets'
 
 export type PalmonRarity = 'N' | 'R' | 'SR' | 'SSR' | 'UR' | 'LR'
 
@@ -47,6 +49,36 @@ export const RARITY_COLORS: Record<PalmonRarity, string> = {
   LR: '#ffd700',
 }
 
+/** Teintes saturées pour halos et apparition (plus visibles que RARITY_COLORS). */
+export const RARITY_AURA_COLORS: Record<PalmonRarity, string> = {
+  N: '#c8d0dc',
+  R: '#3d8cff',
+  SR: '#a855f7',
+  SSR: '#ff9500',
+  UR: '#ff2d6a',
+  LR: '#ffcc00',
+}
+
+/** Echelle du sprite en rencontre (N petit → LR imposant). */
+export const RARITY_ENCOUNTER_SCALE: Record<PalmonRarity, number> = {
+  N: 0.7,
+  R: 0.8,
+  SR: 0.9,
+  SSR: 1.05,
+  UR: 1.2,
+  LR: 1.38,
+}
+
+/** Echelle chibi dans le refuge — N = 2× la taille de base, puis croissant par rareté. */
+export const RARITY_REFUGE_CHIBI_SCALE: Record<PalmonRarity, number> = {
+  N: 2,
+  R: 2.35,
+  SR: 2.75,
+  SSR: 3.2,
+  UR: 3.7,
+  LR: 4.3,
+}
+
 /** Fenetre de capture : anneau interieur rejoint l exterieur a ~66% du temps. */
 export const RARITY_CAPTURE: Record<
   PalmonRarity,
@@ -62,70 +94,12 @@ export const RARITY_CAPTURE: Record<
 
 export const CAPTURE_SWEET_CENTER = 0.66
 
-export const BIOMES: Biome[] = [
-  {
-    id: 'moon-meadow',
-    name: 'Prairie lunaire',
-    emoji: '🌙',
-    fallbackGradient: 'linear-gradient(180deg, #1a2840 0%, #4a6a90 35%, #9ed56b 100%)',
-  },
-  {
-    id: 'mist-forest',
-    name: 'Foret brumeuse',
-    emoji: '🌫️',
-    fallbackGradient: 'linear-gradient(180deg, #2a3a48 0%, #6a8a78 40%, #3d5a48 100%)',
-  },
-  {
-    id: 'crystal-spring',
-    name: 'Source cristalline',
-    emoji: '💎',
-    fallbackGradient: 'linear-gradient(180deg, #1a3050 0%, #6ec8ff 45%, #a8e8ff 100%)',
-  },
-  {
-    id: 'ember-ruins',
-    name: 'Ruines ardentes',
-    emoji: '🔥',
-    fallbackGradient: 'linear-gradient(180deg, #2a1820 0%, #c05830 50%, #ffb86b 100%)',
-  },
-  {
-    id: 'star-shore',
-    name: 'Rivage etoile',
-    emoji: '🌊',
-    fallbackGradient: 'linear-gradient(180deg, #1a2848 0%, #4a88c8 55%, #ffd56a 100%)',
-  },
-  {
-    id: 'snow-peaks',
-    name: 'Sommets enneiges',
-    emoji: '❄️',
-    fallbackGradient: 'linear-gradient(180deg, #384858 0%, #a8c8e8 50%, #f0f8ff 100%)',
-  },
-]
+export const BIOMES: Biome[] = MYRIONS_BIOMES.map((biome) => ({ ...biome }))
 
-export const PALMON_SPECIES: PalmonSpecies[] = [
-  { id: 'moon-sprout', name: 'Pousselune', emoji: '🌱', rarity: 'N', biomeId: 'moon-meadow' },
-  { id: 'moon-hop', name: 'Sautelune', emoji: '🐰', rarity: 'R', biomeId: 'moon-meadow' },
-  { id: 'moon-glow', name: 'Clairlune', emoji: '✨', rarity: 'SR', biomeId: 'moon-meadow' },
-  { id: 'moon-queen', name: 'Regalune', emoji: '🌙', rarity: 'SSR', biomeId: 'moon-meadow' },
-  { id: 'mist-wisp', name: 'Brumeux', emoji: '💧', rarity: 'N', biomeId: 'mist-forest' },
-  { id: 'mist-fox', name: 'Renard brume', emoji: '🦊', rarity: 'R', biomeId: 'mist-forest' },
-  { id: 'mist-owl', name: 'Noctivox', emoji: '🦉', rarity: 'SR', biomeId: 'mist-forest' },
-  { id: 'mist-spirit', name: 'Esprit brume', emoji: '👻', rarity: 'UR', biomeId: 'mist-forest' },
-  { id: 'spring-drop', name: 'Gouttele', emoji: '💧', rarity: 'N', biomeId: 'crystal-spring' },
-  { id: 'spring-koi', name: 'Koiciel', emoji: '🐟', rarity: 'R', biomeId: 'crystal-spring' },
-  { id: 'spring-pearl', name: 'Nacrenoir', emoji: '🫧', rarity: 'SSR', biomeId: 'crystal-spring' },
-  { id: 'spring-angel', name: 'Angelle', emoji: '🪽', rarity: 'LR', biomeId: 'crystal-spring' },
-  { id: 'ember-puff', name: 'Cendrelin', emoji: '🔥', rarity: 'N', biomeId: 'ember-ruins' },
-  { id: 'ember-salam', name: 'Salambrase', emoji: '🦎', rarity: 'R', biomeId: 'ember-ruins' },
-  { id: 'ember-phoenix', name: 'Braiseaile', emoji: '🐦‍🔥', rarity: 'SSR', biomeId: 'ember-ruins' },
-  { id: 'star-shell', name: 'Coquille', emoji: '🐚', rarity: 'N', biomeId: 'star-shore' },
-  { id: 'star-crab', name: 'Astecrab', emoji: '🦀', rarity: 'R', biomeId: 'star-shore' },
-  { id: 'star-dolphin', name: 'Delphire', emoji: '🐬', rarity: 'SR', biomeId: 'star-shore' },
-  { id: 'star-leviathan', name: 'Leviastre', emoji: '🐋', rarity: 'UR', biomeId: 'star-shore' },
-  { id: 'snow-puff', name: 'Flocon', emoji: '❄️', rarity: 'N', biomeId: 'snow-peaks' },
-  { id: 'snow-bear', name: 'Ours givre', emoji: '🐻‍❄️', rarity: 'R', biomeId: 'snow-peaks' },
-  { id: 'snow-yeti', name: 'Yetinuit', emoji: '🏔️', rarity: 'SR', biomeId: 'snow-peaks' },
-  { id: 'snow-dragon', name: 'Dracogivre', emoji: '🐉', rarity: 'LR', biomeId: 'snow-peaks' },
-]
+export const PALMON_SPECIES: PalmonSpecies[] = MYRIONS_SPECIES.map((species) => ({
+  ...species,
+  rarity: species.rarity as PalmonRarity,
+})).filter((species) => MYRION_SPECIES_IDS.has(species.id))
 
 export const getBiome = (biomeId: string) => BIOMES.find((biome) => biome.id === biomeId)
 
@@ -193,5 +167,7 @@ export const wildToPetState = (
   biomeId: palmon.biomeId,
   hunger: 72,
   joy: 78,
+  energy: 80,
+  affectionLevel: 1,
   lastVisit: now,
 })

@@ -47,7 +47,7 @@ type MinigameFrameProps = {
   stageBackgroundSrc?: string
   stageBackgroundVariant?: 'default' | 'companion-art'
   /** Mise en page dediee conversation (fond artwork plein ecran). */
-  layoutVariant?: 'default' | 'conversation'
+  layoutVariant?: 'default' | 'conversation' | 'fullscreen'
 }
 
 
@@ -83,19 +83,22 @@ export function MinigameFrame({
   companionInScene = false,
   stageBackgroundSrc,
   stageBackgroundVariant = 'default',
-  layoutVariant = 'default',
+  layoutVariant = 'fullscreen',
 
 }: MinigameFrameProps) {
   const showResult = !endless && status !== 'playing'
   const isConversation = layoutVariant === 'conversation'
+  const isFullscreen = layoutVariant === 'fullscreen'
+  const useFullscreenShell = isFullscreen || isConversation
+  const showCompanionColumn = !companionInScene && !useFullscreenShell
 
   return (
 
-    <div className="minigame-overlay" role="dialog" aria-modal="true">
+    <div className={`minigame-overlay${useFullscreenShell ? ' minigame-overlay-fullscreen' : ''}`} role="dialog" aria-modal="true">
 
       <div
 
-        className={`minigame-panel minigame-panel-cinematic ${companionInScene || isConversation ? 'minigame-panel-immersive' : ''} ${isConversation ? 'minigame-panel-conversation' : ''}`}
+        className={`minigame-panel minigame-panel-cinematic ${companionInScene || useFullscreenShell ? 'minigame-panel-immersive' : ''} ${isConversation ? 'minigame-panel-conversation' : ''}${useFullscreenShell ? ' minigame-panel-fullscreen' : ''}`}
 
         style={{ '--mg-accent': activity.accent } as CSSProperties}
 
@@ -152,7 +155,7 @@ export function MinigameFrame({
         <div
           className={`minigame-play-area minigame-play-area-cinematic ${companionInScene ? 'companion-in-scene' : ''}`}
         >
-          {!companionInScene && (
+          {showCompanionColumn && (
             <CompanionPresenter
               accent={activity.accent}
               activityId={activity.id}

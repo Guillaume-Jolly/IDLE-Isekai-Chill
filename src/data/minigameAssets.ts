@@ -1,5 +1,7 @@
 /** Chemins d assets mini-jeux — deposer les PNG generes ici. */
 
+import { MYRIONS_SPECIES } from './myrionsCatalog.generated'
+
 export const MINIGAME_ASSET_ROOT = '/minigames'
 
 export const minigamePresentationPath = (activityId: string) =>
@@ -14,27 +16,37 @@ export const biomeBackgroundPath = (biomeId: string) =>
 export const biomeBackgroundPngPath = (biomeId: string) =>
   `${MINIGAME_ASSET_ROOT}/biomes/${biomeId}.png`
 
-export type PalmonSpriteVariant = 'full' | 'chibi'
+export type PalmonSpriteVariant = 'full' | 'chibi' | 'silhouette'
 
-/** Cutout rencontre — SVG vectoriel sans fond (fallback PNG si present). */
-export const palmonFullPath = (speciesId: string) =>
-  `${MINIGAME_ASSET_ROOT}/palmons/${speciesId}.svg`
+/** Espèces Myrion avec PNG chibi importé (catalogue officiel). */
+export const MYRION_SPECIES_IDS = new Set<string>(MYRIONS_SPECIES.map((species) => species.id))
+
+export const hasMyrionChibiAsset = (speciesId: string) => MYRION_SPECIES_IDS.has(speciesId)
 
 export const palmonFullPngPath = (speciesId: string) =>
   `${MINIGAME_ASSET_ROOT}/palmons/${speciesId}.png`
 
-/** Mascotte chibi qui se balade dans le refuge. */
-export const palmonChibiPath = (speciesId: string) =>
-  `${MINIGAME_ASSET_ROOT}/palmons/chibi/${speciesId}.svg`
-
 export const palmonChibiPngPath = (speciesId: string) =>
   `${MINIGAME_ASSET_ROOT}/palmons/chibi/${speciesId}.png`
 
-/** @deprecated Utiliser palmonFullPath */
-export const palmonSpritePath = palmonFullPath
+/** Silhouette pour l apparition en chasse. */
+export const palmonSilhouettePngPath = (speciesId: string) =>
+  `${MINIGAME_ASSET_ROOT}/palmons/silhouettes/${speciesId}.png`
 
-export const getPalmonAssetPath = (speciesId: string, variant: PalmonSpriteVariant = 'full') =>
-  variant === 'chibi' ? palmonChibiPath(speciesId) : palmonFullPath(speciesId)
+/** @deprecated Anciens SVG proceduraux — utiliser palmonFullPngPath */
+export const palmonFullPath = palmonFullPngPath
+
+/** @deprecated Anciens SVG proceduraux — utiliser palmonChibiPngPath */
+export const palmonChibiPath = palmonChibiPngPath
+
+/** @deprecated Utiliser palmonFullPngPath */
+export const palmonSpritePath = palmonFullPngPath
+
+export const getPalmonAssetPath = (speciesId: string, variant: PalmonSpriteVariant = 'full') => {
+  if (variant === 'chibi') return palmonChibiPngPath(speciesId)
+  if (variant === 'silhouette') return palmonSilhouettePngPath(speciesId)
+  return palmonFullPngPath(speciesId)
+}
 
 export type GuidePose = 'point' | 'cheer' | 'watch'
 
@@ -42,8 +54,14 @@ export type GuidePose = 'point' | 'cheer' | 'watch'
 export const companionGuideCutoutPath = (companionId: string, pose: GuidePose = 'point') =>
   `${MINIGAME_ASSET_ROOT}/guides/${companionId}-${pose}.svg`
 
-export const companionGuideCutoutPngPath = (companionId: string, pose: GuidePose = 'point') =>
-  `${MINIGAME_ASSET_ROOT}/guides/${companionId}-${pose}.png`
+export const companionGuideCutoutPngPath = (
+  companionId: string,
+  pose: GuidePose = 'point',
+  biomeId?: string,
+) =>
+  biomeId
+    ? `${MINIGAME_ASSET_ROOT}/guides/${companionId}-${pose}-${biomeId}.png`
+    : `${MINIGAME_ASSET_ROOT}/guides/${companionId}-${pose}.png`
 
 export const COMPANION_GUIDE_HINTS: Record<string, Partial<Record<GuidePose, string>>> = {
   talia: {
@@ -79,6 +97,8 @@ export const PRESENTATION_GENERATION_HINTS: Record<string, string> = {
   'spring-bubbles': 'Solene, pretresse, fond source thermale vapeur douce, anime gacha',
   'farm-idle': 'Sora, fermiere lunaire, posture detendue, fond champs sous lune, anime gacha',
   'farm-pets': 'Sora, posture maternelle, fond petite ferme familiers mignons, anime gacha',
+  'farm-dressage':
+    'Sora dresseuse, vue enclos lunaire avec familiers chibi qui se promenent, anime gacha',
   'farm-capture':
     'Talia rousse natte longue ruban vert, crop top olive, chemise beige ouverte, short kaki, ceintures cuir, gants sans doigts, collier gemme verte, sac exploratrice — doigt pointe vers palmon, cutout transparent, anime gacha',
   'farm-merge': 'Sora, graines lunaires, fond serre magique, anime gacha',

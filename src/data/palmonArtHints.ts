@@ -123,7 +123,7 @@ export const CAPTURE_GUIDE_ASSETS = [
   {
     companionId: 'talia',
     pose: 'point' as const,
-    path: '/minigames/guides/talia-point.png',
+    path: '/minigames/guides/talia-point-prairie-solaire.png',
     hint:
       'Match public/companions/talia/affinity-1.png — redhead braid, olive crop top, khaki shorts. Pointing right cutout, transparent.',
   },
