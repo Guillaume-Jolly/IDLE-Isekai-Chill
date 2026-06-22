@@ -120,6 +120,18 @@ export const BUILDING_UNLOCK_STAGE: Record<string, number> = {
   'star-market': 4,
 }
 
+/** Ordre d affichage des batiments a stade egal (progression village). */
+export const BUILDING_UNLOCK_ORDER = [
+  'inn',
+  'mist-garden',
+  'ribbon-workshop',
+  'clear-spring',
+  'moon-farm',
+  'arcane-library',
+  'traveler-theater',
+  'star-market',
+] as const
+
 export const STAGE_BUILDING_NAMES: Record<number, string[]> = {
   0: ['Auberge', 'Jardin'],
   1: ['Atelier', 'Source'],
