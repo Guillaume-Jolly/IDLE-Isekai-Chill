@@ -1,9 +1,8 @@
 # Working Tree Triage — Phase 1.8
 
-> **Date :** 2026-06-22 (mis à jour Phase 1.9)  
-> **HEAD :** `e8911a3` — `feat: update companion inventory panels`  
-> **Stash :** `stash@{0}` — `rewrite-git-temp-stash` (conservé, non droppé)  
-> **Périmètre :** inventaire read-only du working tree ; Lot A commité en Phase 1.9.
+> **Date :** 2026-06-22 (mis à jour Phase 2)  
+> **HEAD :** `60fbc11` — working tree propre  
+> **Stash :** `stash@{0}` — `rewrite-git-temp-stash` (conservé, redondant avec HEAD — ne pas drop sans revue)
 
 ### Phase 1.9 — Lot A (traité, partiel)
 
