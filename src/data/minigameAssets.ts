@@ -16,6 +16,10 @@ export const biomeBackgroundPath = (biomeId: string) =>
 export const biomeBackgroundPngPath = (biomeId: string) =>
   `${MINIGAME_ASSET_ROOT}/biomes/${biomeId}.png`
 
+/** Fond biome portrait 9:16 — téléphone uniquement (via `<picture>` ou `layout="portrait"`). */
+export const biomeBackgroundPortraitPngPath = (biomeId: string) =>
+  `${MINIGAME_ASSET_ROOT}/biomes/${biomeId}-portrait.png`
+
 export type PalmonSpriteVariant = 'full' | 'chibi' | 'silhouette'
 
 /** Espèces Myrion avec PNG chibi importé (catalogue officiel). */

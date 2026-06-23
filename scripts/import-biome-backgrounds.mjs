@@ -87,6 +87,18 @@ for (const folder of entries) {
   const dest = join(outDir, `${biomeId}.png`)
   await sharp(picked.file).png().toFile(dest)
   console.log(`OK ${biomeId} ← ${basename(picked.file)} (${picked.width}x${picked.height})`)
+
+  const portraitDest = join(outDir, `${biomeId}-portrait.png`)
+  const cropWidth = Math.min(
+    picked.width,
+    Math.max(1, Math.round(picked.height * (9 / 16))),
+  )
+  const left = Math.max(0, Math.round((picked.width - cropWidth) / 2))
+  await sharp(picked.file)
+    .extract({ left, top: 0, width: cropWidth, height: picked.height })
+    .png()
+    .toFile(portraitDest)
+  console.log(`OK ${biomeId}-portrait ← center crop ${cropWidth}x${picked.height}`)
   copied += 1
 }
 
