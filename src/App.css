@@ -2289,6 +2289,26 @@ button.danger {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.tutorial-objectives {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tutorial-objectives-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tutorial-objectives-grid .tutorial-objective-card.locked {
+  opacity: 0.72;
+}
+
+.tutorial-objectives-grid .tutorial-objective-card.claimed {
+  border-color: rgba(140, 160, 200, 0.35);
+}
+
 .quest-card.ready {
   border-color: rgba(120, 210, 140, 0.55);
   box-shadow: 0 0 0 1px rgba(120, 210, 140, 0.25);

@@ -6,6 +6,7 @@ import { ImageLightbox, type LightboxImage } from './components/ImageLightbox'
 import { MinigameHub } from './components/minigames/MinigameHub'
 import { MinigamePlayer } from './components/minigames/MinigamePlayer'
 import { QuestBoard } from './components/QuestBoard'
+import { TutorialObjectivesPanel } from './components/TutorialObjectivesPanel'
 import { CompanionStatsPanel } from './components/CompanionStatsPanel'
 import { CompanionMiniature } from './components/CompanionMiniature'
 import { InventoryPanel } from './components/InventoryPanel'
@@ -24,6 +25,15 @@ import {
   type QuestKind,
   type QuestSave,
 } from './data/infiniteQuests'
+import {
+  claimTutorialObjective,
+  createStarterTutorialSave,
+  markTutorialSignal,
+  syncTutorialObjectives,
+  type TutorialGameContext,
+  type TutorialObjectiveId,
+  type TutorialObjectiveSave,
+} from './data/tutorialObjectives'
 import { createStarterMinigameSave, mergeMinigameSave, type MinigameSave } from './data/minigameSave'
 import { type ResourceKey } from './data/resources'
 import { applyGachaItems, DEV_UNLIMITED_GACHA, formatGachaPullSummary, rollMulti, type GachaItem } from './data/gacha'
@@ -113,6 +123,7 @@ type GameState = {
   lastSaved: number
   minigameSave: MinigameSave
   quests: QuestSave
+  tutorial: TutorialObjectiveSave
   village: VillagePopulationState
 }
 
@@ -537,7 +548,31 @@ const createStarterGame = (): GameState => ({
       6,
     ),
   },
+  tutorial: createStarterTutorialSave(),
   village: createStarterPopulation(),
+})
+
+const tutorialContext = (game: Pick<GameState, 'resources' | 'buildings' | 'minigameSave'>): TutorialGameContext => ({
+  resources: game.resources,
+  buildings: game.buildings,
+  minigameSave: game.minigameSave,
+})
+
+const withTutorialSync = (game: GameState): GameState => ({
+  ...game,
+  tutorial: syncTutorialObjectives(
+    game.tutorial ?? createStarterTutorialSave(),
+    tutorialContext(game),
+  ),
+})
+
+const withTutorialSignal = (game: GameState, signal: TutorialObjectiveId): GameState => ({
+  ...game,
+  tutorial: markTutorialSignal(
+    game.tutorial ?? createStarterTutorialSave(),
+    signal,
+    tutorialContext(game),
+  ),
 })
 
 const formatAmount = (amount: number) =>
@@ -696,16 +731,25 @@ const loadInitialSession = () => {
         ...createStarterPopulation(),
         ...(parsed.village ?? {}),
       },
+      tutorial: syncTutorialObjectives(
+        parsed.tutorial ?? createStarterTutorialSave(),
+        {
+          resources: { ...starterResources(), ...parsed.resources },
+          buildings: { ...createStarterGame().buildings, ...parsed.buildings },
+          minigameSave: mergedMinigameSave,
+        },
+      ),
     }
+    const synced = withTutorialSync(migrated)
     const hadPetsBefore = (parsed.minigameSave?.pets?.length ?? 0) > 0
-    const petsWiped = hadPetsBefore && migrated.minigameSave.pets.length === 0
+    const petsWiped = hadPetsBefore && synced.minigameSave.pets.length === 0
     if (petsWiped) {
       window.localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify({ ...parsed, ...migrated, minigameSave: migrated.minigameSave }),
+        JSON.stringify({ ...parsed, ...synced, minigameSave: synced.minigameSave }),
       )
     }
-    return applyOfflineProgress(migrated)
+    return applyOfflineProgress(synced)
   } catch {
     return { game: createStarterGame(), report: { cappedHours: 0, gains: emptyResources() } }
   }
@@ -757,6 +801,12 @@ function App() {
   const handleSelectView = useCallback(
     (view: ViewKey) => {
       setActiveView(view)
+      if (view === 'companions') {
+        setGame((current) => withTutorialSignal(current, 'open-companions'))
+      }
+      if (view === 'inventory') {
+        setGame((current) => withTutorialSignal(current, 'open-inventory-familiers'))
+      }
       if (isMobileLayout) {
         setSidebarExpanded(false)
         setMobileNavOpen(false)
@@ -823,7 +873,7 @@ function App() {
             },
           }
         }
-        return next
+        return withTutorialSync(next)
       })
     }, 5000)
 
@@ -848,14 +898,16 @@ function App() {
     }
 
     setGame((current) =>
-      bumpGameQuests(
-        {
-          ...current,
-          resources: spendResources(current.resources, cost),
-          buildings: { ...current.buildings, [building.id]: level + 1 },
-        },
-        'upgrade-building',
-        { buildingId: building.id },
+      withTutorialSync(
+        bumpGameQuests(
+          {
+            ...current,
+            resources: spendResources(current.resources, cost),
+            buildings: { ...current.buildings, [building.id]: level + 1 },
+          },
+          'upgrade-building',
+          { buildingId: building.id },
+        ),
       ),
     )
     setMessage(`${building.name} passe niveau ${level + 1}.`)
@@ -1039,13 +1091,14 @@ function App() {
     }
 
     setGame((current) => {
-      let next: GameState = {
+      let next: GameState = withTutorialSync({
         ...current,
         resources: mergeResources(current.resources, scaledReward),
-      }
+      })
       next = bumpGameQuests(next, 'play-minigame', { activityId })
       if (activity?.minigameType === 'conversation') {
         next = bumpGameQuests(next, 'conversation')
+        next = withTutorialSignal(next, 'play-link')
       }
       return next
     })
@@ -1068,6 +1121,13 @@ function App() {
         ...current,
         resources: spendResources(current.resources, CONVERSATION_LAUNCH_COST),
       }))
+    }
+
+    if (activity.minigameType === 'familiar-capture') {
+      setGame((current) => withTutorialSignal(current, 'open-hunt'))
+    }
+    if (activity.minigameType === 'dressage') {
+      setGame((current) => withTutorialSignal(current, 'open-refuge'))
     }
 
     setFocusMinigameBuildingId(activity.buildingId)
@@ -1096,7 +1156,20 @@ function App() {
   }
 
   const saveMinigameProgress = (save: MinigameSave) => {
-    setGame((current) => ({ ...current, minigameSave: save }))
+    setGame((current) => withTutorialSync({ ...current, minigameSave: save }))
+  }
+
+  const claimTutorialReward = (objectiveId: TutorialObjectiveId, reward: Cost) => {
+    setGame((current) => {
+      const nextTutorial = claimTutorialObjective(current.tutorial, objectiveId)
+      if (!nextTutorial) return current
+      return withTutorialSync({
+        ...current,
+        tutorial: nextTutorial,
+        resources: mergeResources(current.resources, reward),
+      })
+    })
+    setMessage(`Objectif tutoriel complété — ${costText(reward)} récupérés.`)
   }
 
   const startGachaPull = (count: number) => {
@@ -1221,15 +1294,22 @@ function App() {
   )
 
   const renderQuests = () => (
-    <QuestBoard
-      buildingIds={BUILDINGS.map((building) => building.id)}
-      companionIds={COMPANIONS.map((companion) => companion.id)}
-      quests={game.quests}
-      onClaim={claimQuest}
-      onRefresh={refreshQuestBoard}
-      onLaunchConversation={() => tryLaunchMinigame('spring-hearts')}
-      onLaunchMinigames={() => setActiveView('miniGames')}
-    />
+    <>
+      <TutorialObjectivesPanel
+        tutorial={game.tutorial}
+        onClaim={claimTutorialReward}
+        onNavigate={handleSelectView}
+      />
+      <QuestBoard
+        buildingIds={BUILDINGS.map((building) => building.id)}
+        companionIds={COMPANIONS.map((companion) => companion.id)}
+        quests={game.quests}
+        onClaim={claimQuest}
+        onRefresh={refreshQuestBoard}
+        onLaunchConversation={() => tryLaunchMinigame('spring-hearts')}
+        onLaunchMinigames={() => setActiveView('miniGames')}
+      />
+    </>
   )
 
   const renderMiniGames = () => (
