@@ -175,6 +175,58 @@
   overflow: visible;
 }
 
+.inventory-compact-grid--dense {
+  gap: 4px;
+}
+
+.inventory-section-groups {
+  display: grid;
+  gap: 14px;
+}
+
+.inventory-item-group-head h4 {
+  color: var(--text-h);
+  font-size: 0.82rem;
+  margin: 0 0 2px;
+}
+
+.inventory-item-group-head p {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.72rem;
+  margin: 0 0 6px;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--compact .inventory-chip-button {
+  gap: 2px;
+  padding: 3px 2px 4px;
+  width: 40px;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--compact .inventory-chip-visual {
+  height: 26px;
+  width: 26px;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--compact.inventory-chip--labeled .inventory-chip-label {
+  font-size: 0.52rem;
+  line-height: 1.05;
+  max-width: 100%;
+}
+
+.inventory-chip.badge-overlay.inventory-chip--compact .inventory-chip-badge {
+  bottom: -4px;
+  font-size: 0.5rem;
+  min-width: 14px;
+  padding: 0 3px;
+  right: -4px;
+}
+
+.inventory-chip-image--chibi {
+  object-fit: contain;
+  object-position: center bottom;
+  padding: 1px;
+}
+
 .inventory-chip {
   position: relative;
   z-index: 1;

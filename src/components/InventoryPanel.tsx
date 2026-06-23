@@ -97,10 +97,18 @@ function InventorySectionBlock({
   expanded: boolean
   onToggle: () => void
 }) {
+  const filteredGroups = section.groups
+    ?.map((group) => ({
+      ...group,
+      items: group.items.filter((item) => section.showZeroAmount || item.amount > 0),
+    }))
+    .filter((group) => group.items.length > 0)
   const visibleItems = section.showZeroAmount
     ? section.items
     : section.items.filter((item) => item.amount > 0)
-  const showEmpty = visibleItems.length === 0
+  const showEmpty = filteredGroups?.length
+    ? filteredGroups.length === 0
+    : visibleItems.length === 0
 
   return (
     <section className="inventory-section">
@@ -116,6 +124,22 @@ function InventorySectionBlock({
         <div className="inventory-section-body">
           {showEmpty ? (
             <p className="inventory-empty">{section.emptyLabel ?? 'Rien pour le moment.'}</p>
+          ) : filteredGroups?.length ? (
+            <div className="inventory-section-groups">
+              {filteredGroups.map((group) => (
+                <div className="inventory-item-group" key={group.id}>
+                  <div className="inventory-item-group-head">
+                    <h4>{group.title}</h4>
+                    {group.description ? <p>{group.description}</p> : null}
+                  </div>
+                  <div className="inventory-compact-grid inventory-compact-grid--dense">
+                    {group.items.map((item) => (
+                      <InventoryChip dimmed={item.amount <= 0} item={item} key={item.id} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="inventory-compact-grid">
               {visibleItems.map((item) => (
@@ -169,17 +193,19 @@ function ChipVisual({ item }: { item: InventoryItem }) {
   const [imageTier, setImageTier] = useState<'primary' | 'fallback' | 'failed'>('primary')
 
   const activeSrc =
-    imageTier === 'fallback' && item.imageFallbackSrc ? item.imageFallbackSrc : item.imageSrc
+    !item.chibiOnly && imageTier === 'fallback' && item.imageFallbackSrc
+      ? item.imageFallbackSrc
+      : item.imageSrc
 
   if (activeSrc && imageTier !== 'failed') {
     return (
       <img
         alt=""
-        className="inventory-chip-image"
+        className={`inventory-chip-image${item.chibiOnly ? ' inventory-chip-image--chibi' : ''}`}
         draggable={false}
         src={activeSrc}
         onError={() => {
-          if (imageTier === 'primary' && item.imageFallbackSrc) {
+          if (!item.chibiOnly && imageTier === 'primary' && item.imageFallbackSrc) {
             setImageTier('fallback')
             return
           }
@@ -237,7 +263,7 @@ function InventoryChip({ item, dimmed = false }: { item: InventoryItem; dimmed?:
   return (
     <>
       <div
-        className={`inventory-chip ${item.badgeOverlay ? 'badge-overlay' : 'inline-qty'}${dimmed ? ' inventory-chip--zero' : ''}${item.showLabel ? ' inventory-chip--labeled' : ''}`}
+        className={`inventory-chip ${item.badgeOverlay ? 'badge-overlay' : 'inline-qty'}${dimmed ? ' inventory-chip--zero' : ''}${item.showLabel ? ' inventory-chip--labeled' : ''}${item.chipSize === 'compact' ? ' inventory-chip--compact' : ''}`}
       >
         <button
           aria-describedby={tip ? tooltipId : undefined}

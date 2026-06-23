@@ -9,8 +9,10 @@ import {
   fragmentStatBudget,
 } from './companionFragments'
 import { FARM_CROPS, type FarmCropId, type FarmPlot, type MinigameSave, type PetState } from './minigameSave'
+import { normalizeRefugeBiomeId } from './myrionRefuge'
 import { RESOURCE_LABELS, RESOURCE_ROLES, type ResourceKey } from './resources'
 import { STAT_KEYS, totalStatTokens } from './companionStats'
+import { BIOMES, PALMON_RARITIES, type PalmonRarity } from './wildFamiliars'
 
 export type InventoryItem = {
   id: string
@@ -28,6 +30,17 @@ export type InventoryItem = {
   showLabel?: boolean
   /** Quantité en badge sur l'icone (fragments compagnons). */
   badgeOverlay?: boolean
+  /** Puce dense (familiers empilés par biome). */
+  chipSize?: 'compact'
+  /** Ne jamais basculer vers une image non-chibi. */
+  chibiOnly?: boolean
+}
+
+export type InventoryItemGroup = {
+  id: string
+  title: string
+  description?: string
+  items: InventoryItem[]
 }
 
 export type InventorySection = {
@@ -35,6 +48,7 @@ export type InventorySection = {
   title: string
   description?: string
   items: InventoryItem[]
+  groups?: InventoryItemGroup[]
   emptyLabel?: string
   /** Afficher aussi les lignes a quantite 0 (ressources, progression). */
   showZeroAmount?: boolean
@@ -273,21 +287,99 @@ const buildFarmSection = (farmPlots: FarmPlot[]): InventorySection => {
   }
 }
 
-const buildPetSection = (pets: PetState[]): InventorySection => ({
-  id: 'pets',
-  title: 'Familiers',
-  items: pets.map((pet) => ({
-    id: pet.id,
-    label: pet.name,
-    amount: 1,
-    speciesId: pet.speciesId,
-    imageSrc: palmonChibiPngPath(pet.speciesId),
-    icon: pet.emoji,
-    hint: `${pet.rarity} · faim ${Math.round(pet.hunger)} · joie ${Math.round(pet.joy)}`,
-    meta: pet.rarity,
-  })),
-  emptyLabel: 'Aucun familier — capture-les au sanctuaire.',
-})
+const raritySortIndex = (rarity: PalmonRarity) => {
+  const index = PALMON_RARITIES.indexOf(rarity)
+  return index >= 0 ? index : -1
+}
+
+const buildSpeciesStackItems = (pets: PetState[]): InventoryItem[] => {
+  const groups = new Map<string, PetState[]>()
+  for (const pet of pets) {
+    const stack = groups.get(pet.speciesId) ?? []
+    stack.push(pet)
+    groups.set(pet.speciesId, stack)
+  }
+
+  return [...groups.entries()]
+    .sort(([, stackA], [, stackB]) => {
+      const petA = stackA[0]!
+      const petB = stackB[0]!
+      const rankDiff = raritySortIndex(petB.rarity) - raritySortIndex(petA.rarity)
+      if (rankDiff !== 0) return rankDiff
+      return petA.name.localeCompare(petB.name, 'fr')
+    })
+    .map(([speciesId, stack]) => {
+      const representative = stack[0]!
+      const amount = stack.length
+      const shinyCount = stack.filter((entry) => entry.isShiny).length
+      const avgHunger = Math.round(stack.reduce((sum, entry) => sum + entry.hunger, 0) / amount)
+      const avgJoy = Math.round(stack.reduce((sum, entry) => sum + entry.joy, 0) / amount)
+
+      return {
+        id: `pet-species-${speciesId}`,
+        label: representative.name,
+        amount,
+        speciesId,
+        badgeOverlay: true,
+        chipSize: 'compact' as const,
+        chibiOnly: true,
+        showLabel: true,
+        imageSrc: palmonChibiPngPath(speciesId),
+        icon: representative.emoji,
+        meta: representative.rarity,
+        hint:
+          amount > 1
+            ? `${amount} exemplaires${shinyCount ? ` · ${shinyCount} ✨` : ''} · faim moy. ${avgHunger} · joie moy. ${avgJoy}`
+            : `${representative.rarity} · faim ${Math.round(representative.hunger)} · joie ${Math.round(representative.joy)}`,
+      }
+    })
+}
+
+const buildPetSection = (pets: PetState[]): InventorySection => {
+  const byBiome = new Map<string, PetState[]>()
+  for (const pet of pets) {
+    const biomeId = normalizeRefugeBiomeId(pet.biomeId)
+    const stack = byBiome.get(biomeId) ?? []
+    stack.push(pet)
+    byBiome.set(biomeId, stack)
+  }
+
+  const groups: InventoryItemGroup[] = BIOMES.filter((biome) => (byBiome.get(biome.id)?.length ?? 0) > 0).map(
+    (biome) => {
+      const biomePets = byBiome.get(biome.id)!
+      const speciesCount = new Set(biomePets.map((pet) => pet.speciesId)).size
+      return {
+        id: `pets-${biome.id}`,
+        title: `${biome.emoji} ${biome.name}`,
+        description: `${biomePets.length} familier${biomePets.length > 1 ? 's' : ''} · ${speciesCount} espèce${speciesCount > 1 ? 's' : ''}`,
+        items: buildSpeciesStackItems(biomePets),
+      }
+    },
+  )
+
+  const knownBiomeIds = new Set(BIOMES.map((biome) => biome.id))
+  const orphanPets = [...byBiome.entries()]
+    .filter(([biomeId]) => !knownBiomeIds.has(biomeId))
+    .flatMap(([, stack]) => stack)
+  if (orphanPets.length > 0) {
+    const speciesCount = new Set(orphanPets.map((pet) => pet.speciesId)).size
+    groups.push({
+      id: 'pets-other',
+      title: '📦 Autres biomes',
+      description: `${orphanPets.length} familier${orphanPets.length > 1 ? 's' : ''} · ${speciesCount} espèce${speciesCount > 1 ? 's' : ''}`,
+      items: buildSpeciesStackItems(orphanPets),
+    })
+  }
+
+  return {
+    id: 'pets',
+    title: 'Familiers',
+    description: pets.length > 0 ? `${pets.length} au total, regroupés par biome` : undefined,
+    groups,
+    items: [],
+    emptyLabel: 'Aucun familier — capture-les au sanctuaire.',
+  }
+}
 
 const buildCaptureSection = (captureStats: MinigameSave['captureStats']): InventorySection | null => {
   if (!captureStats || captureStats.totalCaught <= 0) return null
