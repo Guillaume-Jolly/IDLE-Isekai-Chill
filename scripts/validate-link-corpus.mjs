@@ -1,12 +1,15 @@
 /**
  * Valide le corpus Lien v2 avant intégration.
- * Usage: node scripts/validate-link-corpus.mjs [--source path/to.json]
+ * Usage: node scripts/validate-link-corpus.mjs [--source path/to.json|.jsonl]
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { createReadStream } from 'node:fs'
+import { createInterface } from 'node:readline'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
+const importDir = join(root, 'assets/link-corpus-import')
 
 const VALID_COMPANION_IDS = new Set([
   'lyra', 'maeve', 'seren', 'nami', 'iris', 'kael', 'runa', 'solene',
@@ -15,17 +18,15 @@ const VALID_COMPANION_IDS = new Set([
 
 const VALID_TONES = new Set(['sincere', 'playful', 'direct', 'romantic'])
 const PLACEHOLDER_RE = /\b(TODO|lorem|undefined|null|FIXME|placeholder)\b/i
+const SKIP_JSON = new Set(['manifest.json'])
 
 const DEFAULT_PATHS = [
   join(root, 'src/data/linkCorpusV2.json'),
-  join(root, 'assets/link-corpus-import/linkCorpusV2.json'),
-  join(root, 'assets/link-corpus-import/wonderland_companion_link_corpus_v2_clean_compact.json'),
+  join(importDir, 'companion_link_conversations.v2.clean.jsonl'),
+  join(importDir, 'wonderland_companion_link_corpus_v2_clean_compact.json'),
 ]
 
-const ZIP_PATH = join(
-  root,
-  'assets/link-corpus-import/wonderland_companion_link_corpus_v2_clean_compact.zip',
-)
+const ZIP_PATH = join(importDir, 'wonderland_companion_link_corpus_v2_clean_compact.zip')
 
 function parseArgs() {
   const args = process.argv.slice(2)
@@ -36,17 +37,113 @@ function parseArgs() {
   return null
 }
 
-function resolveJsonPath(explicit) {
+function resolveSourcePath(explicit) {
   if (explicit && existsSync(explicit)) return explicit
   for (const path of DEFAULT_PATHS) {
     if (existsSync(path)) return path
   }
-  const importDir = join(root, 'assets/link-corpus-import')
   if (existsSync(importDir)) {
-    const json = readdirSync(importDir).find((name) => name.endsWith('.json'))
+    const jsonl = readdirSync(importDir).find((name) => name.endsWith('.jsonl'))
+    if (jsonl) return join(importDir, jsonl)
+    const json = readdirSync(importDir).find((name) => name.endsWith('.json') && !SKIP_JSON.has(name))
     if (json) return join(importDir, json)
   }
   return null
+}
+
+function isV2RawEntry(entry) {
+  return entry.affinity !== undefined && !entry.roundToneHints
+}
+
+async function loadJsonl(path) {
+  const entries = []
+  const rl = createInterface({ input: createReadStream(path, 'utf8'), crlfDelay: Infinity })
+  let lineNo = 0
+  for await (const line of rl) {
+    lineNo += 1
+    const trimmed = line.trim()
+    if (!trimmed) continue
+    try {
+      entries.push(JSON.parse(trimmed))
+    } catch {
+      throw new Error(`JSONL ligne ${lineNo}: parse error`)
+    }
+  }
+  return entries
+}
+
+function loadCorpus(path) {
+  if (path.endsWith('.jsonl')) {
+    throw new Error('JSONL: utiliser loadJsonl async')
+  }
+  const raw = readFileSync(path, 'utf8')
+  const data = JSON.parse(raw)
+  if (Array.isArray(data)) return data
+  if (Array.isArray(data.scenarios)) return data.scenarios
+  if (Array.isArray(data.conversations)) return data.conversations
+  if (data.packs && typeof data.packs === 'object') {
+    return Object.entries(data.packs).flatMap(([companionId, scenarios]) =>
+      scenarios.map((scenario) => ({ ...scenario, companionId })),
+    )
+  }
+  throw new Error('Format JSON non reconnu (attendu: array, { scenarios }, { conversations } ou { packs })')
+}
+
+function validateScriptedRound(round, rp, errors) {
+  if (!Array.isArray(round.context) || round.context.length === 0) {
+    errors.push(`${rp}: context vide ou absent`)
+  } else {
+    round.context.forEach((line, li) => {
+      if (!line?.trim()) errors.push(`${rp}.context[${li}]: texte vide`)
+      if (PLACEHOLDER_RE.test(line)) errors.push(`${rp}.context[${li}]: placeholder détecté`)
+    })
+  }
+  if (!round.prompt?.trim()) {
+    errors.push(`${rp}: prompt vide`)
+  } else if (PLACEHOLDER_RE.test(round.prompt)) {
+    errors.push(`${rp}: placeholder dans prompt`)
+  }
+  if (!Array.isArray(round.choices) || round.choices.length !== 4) {
+    errors.push(`${rp}: choices doit contenir exactement 4 éléments`)
+    return
+  }
+  round.choices.forEach((choice, ci) => {
+    const cp = `${rp}.choices[${ci}]`
+    if (!choice.text?.trim()) errors.push(`${cp}: text vide`)
+    if (!choice.reaction?.trim()) errors.push(`${cp}: reaction vide`)
+    if (!VALID_TONES.has(choice.tone)) errors.push(`${cp}: tone invalide "${choice.tone}"`)
+    if (choice.text && choice.text.length > 420) {
+      errors.push(`${cp}: text trop long (${choice.text.length} chars)`)
+    }
+  })
+}
+
+function validateV2Round(round, rp, errors) {
+  const hasContext =
+    round.narrator?.trim() || round.companionLine?.trim()
+  if (!hasContext) errors.push(`${rp}: narrator/companionLine absent`)
+  if (!round.prompt?.trim()) {
+    errors.push(`${rp}: prompt vide`)
+  } else if (PLACEHOLDER_RE.test(round.prompt)) {
+    errors.push(`${rp}: placeholder dans prompt`)
+  }
+  if (!Array.isArray(round.choices) || round.choices.length !== 4) {
+    errors.push(`${rp}: choices doit contenir exactement 4 éléments`)
+    return
+  }
+  let scoreOnes = 0
+  round.choices.forEach((choice, ci) => {
+    const cp = `${rp}.choices[${ci}]`
+    if (!choice.text?.trim()) errors.push(`${cp}: text vide`)
+    if (!choice.reaction?.trim()) errors.push(`${cp}: reaction vide`)
+    if (!VALID_TONES.has(choice.tone)) errors.push(`${cp}: tone invalide "${choice.tone}"`)
+    if (choice.score !== 0 && choice.score !== 1) errors.push(`${cp}: score invalide (${choice.score})`)
+    if (choice.score === 1) scoreOnes += 1
+    if (choice.text && choice.text.length > 420) {
+      errors.push(`${cp}: text trop long (${choice.text.length} chars)`)
+    }
+  })
+  if (scoreOnes !== 1) errors.push(`${rp}: exactement 1 choix avec score=1 attendu (${scoreOnes} trouvé)`)
 }
 
 function validateScenario(entry, errors, stats, index) {
@@ -71,6 +168,26 @@ function validateScenario(entry, errors, stats, index) {
     stats.ids.add(id)
   }
 
+  const rounds = entry.rounds
+  if (!Array.isArray(rounds) || rounds.length !== 3) {
+    errors.push(`${prefix}: rounds doit être un tableau de 3 éléments`)
+    return
+  }
+
+  stats.conversations += 1
+
+  if (isV2RawEntry(entry)) {
+    const affinity = entry.affinity
+    if (typeof affinity !== 'number' || affinity < 1 || affinity > 5) {
+      errors.push(`${prefix}: affinity invalide (${affinity})`)
+    } else {
+      stats.affinityBuckets.add(`${companionId}:${affinity}`)
+    }
+    if (!entry.title?.trim()) errors.push(`${prefix}: title vide`)
+    rounds.forEach((round, roundIndex) => validateV2Round(round, `${prefix}.rounds[${roundIndex}]`, errors))
+    return
+  }
+
   const minA = entry.minAffinity ?? entry.affinityMin ?? entry.affinity_min
   const maxA = entry.maxAffinity ?? entry.affinityMax ?? entry.affinity_max
   for (const [label, value] of [
@@ -81,81 +198,37 @@ function validateScenario(entry, errors, stats, index) {
       errors.push(`${prefix}: ${label} invalide (${value})`)
     }
   }
-
-  const rounds = entry.rounds
-  if (!Array.isArray(rounds) || rounds.length !== 3) {
-    errors.push(`${prefix}: rounds doit être un tableau de 3 éléments`)
-    return
+  if (typeof minA === 'number' && typeof maxA === 'number') {
+    stats.affinityBuckets.add(`${companionId}:${minA}-${maxA}`)
   }
 
-  stats.conversations += 1
-  if (typeof minA === 'number') stats.affinityBuckets.add(`${companionId}:${minA}-${maxA}`)
-
-  rounds.forEach((round, roundIndex) => {
-    const rp = `${prefix}.rounds[${roundIndex}]`
-    if (!Array.isArray(round.context) || round.context.length === 0) {
-      errors.push(`${rp}: context vide ou absent`)
-    } else {
-      round.context.forEach((line, li) => {
-        if (!line?.trim()) errors.push(`${rp}.context[${li}]: texte vide`)
-        if (PLACEHOLDER_RE.test(line)) errors.push(`${rp}.context[${li}]: placeholder détecté`)
-      })
-    }
-    if (!round.prompt?.trim()) {
-      errors.push(`${rp}: prompt vide`)
-    } else if (PLACEHOLDER_RE.test(round.prompt)) {
-      errors.push(`${rp}: placeholder dans prompt`)
-    }
-    if (!Array.isArray(round.choices) || round.choices.length !== 4) {
-      errors.push(`${rp}: choices doit contenir exactement 4 éléments`)
-      return
-    }
-    round.choices.forEach((choice, ci) => {
-      const cp = `${rp}.choices[${ci}]`
-      if (!choice.text?.trim()) errors.push(`${cp}: text vide`)
-      if (!choice.reaction?.trim()) errors.push(`${cp}: reaction vide`)
-      if (!VALID_TONES.has(choice.tone)) errors.push(`${cp}: tone invalide "${choice.tone}"`)
-      if (choice.text && choice.text.length > 420) {
-        errors.push(`${cp}: text trop long (${choice.text.length} chars)`)
-      }
-    })
-  })
+  rounds.forEach((round, roundIndex) =>
+    validateScriptedRound(round, `${prefix}.rounds[${roundIndex}]`, errors),
+  )
 }
 
-function loadCorpus(path) {
-  const raw = readFileSync(path, 'utf8')
-  const data = JSON.parse(raw)
-  if (Array.isArray(data)) return data
-  if (Array.isArray(data.scenarios)) return data.scenarios
-  if (Array.isArray(data.conversations)) return data.conversations
-  if (data.packs && typeof data.packs === 'object') {
-    return Object.entries(data.packs).flatMap(([companionId, scenarios]) =>
-      scenarios.map((scenario) => ({ ...scenario, companionId })),
-    )
-  }
-  throw new Error('Format JSON non reconnu (attendu: array, { scenarios }, { conversations } ou { packs })')
-}
-
-function main() {
+async function main() {
   const explicit = parseArgs()
-  const jsonPath = resolveJsonPath(explicit)
+  const sourcePath = resolveSourcePath(explicit)
 
-  if (!jsonPath) {
+  if (!sourcePath) {
     if (existsSync(ZIP_PATH)) {
       console.error(`ZIP trouvé: ${ZIP_PATH}`)
-      console.error('Extraction/conversion requise. Lance: node scripts/import-link-corpus-v2.mjs')
+      console.error('Extraction/conversion requise. Lance: npm run import:link-corpus-v2')
       process.exit(2)
     }
     console.error('Corpus Lien v2 introuvable.')
-    console.error('Déposer le zip dans assets/link-corpus-import/ ou passer --source chemin/vers.json')
+    console.error('Déposer le zip/JSONL dans assets/link-corpus-import/ ou passer --source chemin')
     process.exit(2)
   }
 
   let entries
   try {
-    entries = loadCorpus(jsonPath)
+    entries = sourcePath.endsWith('.jsonl')
+      ? await loadJsonl(sourcePath)
+      : loadCorpus(sourcePath)
   } catch (error) {
-    console.error(`Erreur lecture ${jsonPath}:`, error.message)
+    console.error(`Erreur lecture ${sourcePath}:`, error.message)
     process.exit(1)
   }
 
@@ -169,7 +242,7 @@ function main() {
 
   entries.forEach((entry, index) => validateScenario(entry, errors, stats, index))
 
-  console.log(`Source: ${jsonPath}`)
+  console.log(`Source: ${sourcePath}`)
   console.log(`Conversations: ${stats.conversations}`)
   console.log(`Compagnons: ${stats.companions.size}`)
   console.log(`IDs uniques: ${stats.ids.size}`)
