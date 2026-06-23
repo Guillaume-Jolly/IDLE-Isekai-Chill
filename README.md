@@ -74,6 +74,15 @@ contraintes:
 - Assets originaux, commandes legalement, ou sous licence compatible.
 - Aucun asset copie depuis un jeu commercial ou un artiste sans autorisation.
 
+## Backlog et idees
+
+Idees d'amelioration ou de nouveaux modes de jeu notes pour plus tard (sans
+priorite fixe) :
+
+- **[Backlog](docs/BACKLOG.md)** — Top War–like, Capybara Go–like, War Thunder–like, etc.
+
+Pour les taches deja priorisees cote projet, voir [`docs/TODO_PRIORITIZED.md`](docs/TODO_PRIORITIZED.md).
+
 ## Prochaines evolutions possibles
 
 - Ajouter une vraie PWA installable (`manifest.webmanifest` + service worker).
