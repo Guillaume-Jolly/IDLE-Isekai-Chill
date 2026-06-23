@@ -19,6 +19,8 @@
     "vectorize:one": "node scripts/vectorize-chibi.mjs",
     "generate:dialogues": "node scripts/generate-companion-scenarios.mjs",
     "import:myrions": "node scripts/import-myrions-assets.mjs assets/myrions-import/myrions_biomes_v2",
+    "validate:link-corpus": "node scripts/validate-link-corpus.mjs",
+    "import:link-corpus-v2": "node scripts/import-link-corpus-v2.mjs",
     "import:talia": "node scripts/import-talia-companion-pack.mjs",
     "import:chibis": "node scripts/import-myrions-chibis.mjs",
     "import:chibis-9": "node scripts/import-chibis-9-pack.mjs",

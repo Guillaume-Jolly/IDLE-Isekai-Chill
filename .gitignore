@@ -30,3 +30,5 @@ assets/*-import/
 assets/village-layout/
 public/minigames/_preview/
 public/build-info.json
+assets/link-corpus-import/_extract/
+src/data/linkCorpusV2.backup.json
