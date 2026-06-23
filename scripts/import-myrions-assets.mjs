@@ -8,17 +8,15 @@ import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { lookupMyrionManifest, MYRION_MANIFEST_BY_STEM, slugifyStem } from './myrions-name-manifest.mjs'
+import { publicMinigamePaths, repoRoot, sourceMinigamePaths } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const importRoot =
-  process.argv[2] ??
-  join(root, 'assets/myrions-import/myrions_biomes_v2')
+const importRoot = process.argv[2] ?? sourceMinigamePaths.myrionsImportDefault
 
-const publicBiomes = join(root, 'public/minigames/biomes')
-const publicPalmons = join(root, 'public/minigames/palmons')
-const publicChibi = join(root, 'public/minigames/palmons/chibi')
-const publicSilhouettes = join(root, 'public/minigames/palmons/silhouettes')
-const catalogPath = join(root, 'src/data/myrionsCatalog.generated.ts')
+const publicBiomes = publicMinigamePaths.captureBiomes
+const publicPalmons = publicMinigamePaths.captureCutout
+const publicChibi = publicMinigamePaths.dressageChibi
+const publicSilhouettes = publicMinigamePaths.captureSilhouette
+const catalogPath = join(repoRoot, 'src/data/myrionsCatalog.generated.ts')
 
 const BIOME_META = {
   '01_Prairie_solaire': {

@@ -1,4 +1,10 @@
 import { BIOMES, PALMON_SPECIES, getBiome, type Biome, type PalmonSpecies } from './wildFamiliars'
+import {
+  biomeBackgroundPngPath,
+  companionGuideCutoutPngPath,
+  palmonChibiPngPath,
+  palmonFullPngPath,
+} from './minigameAssets'
 
 export type PalmonArtBrief = {
   /** Cutout sans fond — superpose sur le biome en rencontre. */
@@ -82,13 +88,13 @@ export type BiomeGenerationBatch = {
 export function listGenerationPipelineByBiome(): BiomeGenerationBatch[] {
   return BIOMES.map((biome) => ({
     biome,
-    biomePath: `/minigames/biomes/${biome.id}.png`,
+    biomePath: biomeBackgroundPngPath(biome.id),
     biomeHint: BIOME_ART_HINTS[biome.id] ?? biome.name,
     palmons: PALMON_SPECIES.filter((species) => species.biomeId === biome.id).map((species) => ({
       species,
-      cutoutPath: `/minigames/palmons/${species.id}.png`,
+      cutoutPath: palmonFullPngPath(species.id),
       cutoutHint: PALMON_ART_HINTS[species.id].cutout,
-      chibiPath: `/minigames/palmons/chibi/${species.id}.png`,
+      chibiPath: palmonChibiPngPath(species.id),
       chibiHint: PALMON_ART_HINTS[species.id].chibi,
     })),
   }))
@@ -99,13 +105,13 @@ export const listPalmonAssetPaths = () =>
     {
       step: 'cutout' as const,
       biomeId: species.biomeId,
-      path: `/minigames/palmons/${species.id}.png`,
+      path: palmonFullPngPath(species.id),
       hint: PALMON_ART_HINTS[species.id].cutout,
     },
     {
       step: 'chibi' as const,
       biomeId: species.biomeId,
-      path: `/minigames/palmons/chibi/${species.id}.png`,
+      path: palmonChibiPngPath(species.id),
       hint: PALMON_ART_HINTS[species.id].chibi,
     },
   ])
@@ -123,8 +129,8 @@ export const CAPTURE_GUIDE_ASSETS = [
   {
     companionId: 'talia',
     pose: 'point' as const,
-    path: '/minigames/guides/talia-point-prairie-solaire.png',
+    path: companionGuideCutoutPngPath('talia', 'point', 'prairie-solaire'),
     hint:
-      'Match public/companions/talia/affinity-1.png — redhead braid, olive crop top, khaki shorts. Pointing right cutout, transparent.',
+      'Match public/assets/companions/talia/affinity-1.png — redhead braid, olive crop top, khaki shorts. Pointing right cutout, transparent.',
   },
 ]

@@ -6,6 +6,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { oldAssetPaths, publicMinigamePaths } from './minigame-asset-paths.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -113,8 +114,8 @@ async function prepareCutout(inputPath, outputPath) {
 }
 
 const defaults = [
-  join(root, 'assets/source-talia-v2.png'),
-  join(root, 'public/minigames/palmons/moon-sprout.png'),
+  join(oldAssetPaths.sourcesScattered, 'source-talia-v2.png'),
+  join(oldAssetPaths.sourcesScattered, 'source-moon-sprout-v2.png'),
 ]
 
 const inputs = process.argv.length > 2 ? process.argv.slice(2) : defaults
@@ -122,7 +123,7 @@ const inputs = process.argv.length > 2 ? process.argv.slice(2) : defaults
 for (const input of inputs) {
   let output = input
   if (input.includes('source-talia')) {
-    output = join(root, 'public/minigames/guides/talia-point.png')
+    output = join(publicMinigamePaths.captureCompanionTalia, 'point.png')
   }
   await prepareCutout(input, output)
 }

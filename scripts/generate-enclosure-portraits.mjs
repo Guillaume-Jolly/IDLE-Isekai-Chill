@@ -6,9 +6,9 @@ import { readdirSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { publicMinigamePaths } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const enclosureDir = join(root, 'public/minigames/enclosures')
+const enclosureDir = publicMinigamePaths.dressageEnclosures
 const PORTRAIT_RATIO = 9 / 16
 
 async function cropPortraitFromLandscape(inputPath, outputPath) {

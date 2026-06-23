@@ -6,12 +6,11 @@ import { existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { publicMinigamePaths, repoRoot, sourceMinigamePaths } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const importRoot =
-  process.argv[2] ?? join(root, 'assets/talia-import/myrions_chibis_individuels')
-const outputDir = join(root, 'public/minigames/palmons/chibi')
-const catalogPath = join(root, 'src/data/myrionsCatalog.generated.ts')
+const importRoot = process.argv[2] ?? sourceMinigamePaths.dressageChibi
+const outputDir = publicMinigamePaths.dressageChibi
+const catalogPath = join(repoRoot, 'src/data/myrionsCatalog.generated.ts')
 const PADDING = 12
 
 const BIOME_FOLDERS = {

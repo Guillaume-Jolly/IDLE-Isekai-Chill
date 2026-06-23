@@ -1,24 +1,57 @@
-/** Chemins d assets mini-jeux — deposer les PNG generes ici. */
+/** Chemins d'assets mini-jeux — structure sous public/assets/minigames/ */
 
 import { MYRIONS_SPECIES } from './myrionsCatalog.generated'
+import { publicAssetUrl } from './publicAssetUrl'
 
-export const MINIGAME_ASSET_ROOT = '/minigames'
+export const MINIGAME_ASSET_ROOT = publicAssetUrl('assets/minigames')
+export const LEGACY_MINIGAME_ASSET_ROOT = publicAssetUrl('minigames')
+
+export const DRESSAGE_ASSET_ROOT = `${MINIGAME_ASSET_ROOT}/dressage`
+export const CAPTURE_ASSET_ROOT = `${MINIGAME_ASSET_ROOT}/capture`
+export const MINIGAME_HUB_ASSET_ROOT = `${MINIGAME_ASSET_ROOT}/hub`
 
 export const minigamePresentationPath = (activityId: string) =>
-  `${MINIGAME_ASSET_ROOT}/presentations/${activityId}.png`
+  `${MINIGAME_HUB_ASSET_ROOT}/presentations/${activityId}.png`
 
 export const minigameStagePath = (activityId: string) =>
-  `${MINIGAME_ASSET_ROOT}/stages/${activityId}.png`
+  `${MINIGAME_HUB_ASSET_ROOT}/stages/${activityId}.png`
+
+export const enclosureAssetPath = (biomeId: string) =>
+  `${DRESSAGE_ASSET_ROOT}/enclosures/${biomeId}.png`
+
+export const enclosureAssetPathCandidates = (biomeId: string) => [
+  `assets/minigames/dressage/enclosures/${biomeId}.png`,
+  `minigames/enclosures/${biomeId}.png`,
+]
+
+/** Enclos portrait 9:16 — téléphone uniquement. */
+export const enclosurePortraitAssetPath = (biomeId: string) =>
+  `${DRESSAGE_ASSET_ROOT}/enclosures/${biomeId}-portrait.png`
+
+export const enclosurePortraitAssetPathCandidates = (biomeId: string) => [
+  `assets/minigames/dressage/enclosures/${biomeId}-portrait.png`,
+  `minigames/enclosures/${biomeId}-portrait.png`,
+]
 
 export const biomeBackgroundPath = (biomeId: string) =>
-  `${MINIGAME_ASSET_ROOT}/biomes/${biomeId}.svg`
+  `${CAPTURE_ASSET_ROOT}/biomes/${biomeId}.svg`
 
 export const biomeBackgroundPngPath = (biomeId: string) =>
-  `${MINIGAME_ASSET_ROOT}/biomes/${biomeId}.png`
+  `${CAPTURE_ASSET_ROOT}/biomes/${biomeId}.png`
 
-/** Fond biome portrait 9:16 — téléphone uniquement (via `<picture>` ou `layout="portrait"`). */
+export const biomeBackgroundPngPathCandidates = (biomeId: string) => [
+  `assets/minigames/capture/biomes/${biomeId}.png`,
+  `minigames/biomes/${biomeId}.png`,
+]
+
+/** Fond biome portrait 9:16 — téléphone uniquement. */
 export const biomeBackgroundPortraitPngPath = (biomeId: string) =>
-  `${MINIGAME_ASSET_ROOT}/biomes/${biomeId}-portrait.png`
+  `${CAPTURE_ASSET_ROOT}/biomes/${biomeId}-portrait.png`
+
+export const biomeBackgroundPortraitPngPathCandidates = (biomeId: string) => [
+  `assets/minigames/capture/biomes/${biomeId}-portrait.png`,
+  `minigames/biomes/${biomeId}-portrait.png`,
+]
 
 export type PalmonSpriteVariant = 'full' | 'chibi' | 'silhouette'
 
@@ -28,19 +61,34 @@ export const MYRION_SPECIES_IDS = new Set<string>(MYRIONS_SPECIES.map((species) 
 export const hasMyrionChibiAsset = (speciesId: string) => MYRION_SPECIES_IDS.has(speciesId)
 
 export const palmonFullPngPath = (speciesId: string) =>
-  `${MINIGAME_ASSET_ROOT}/palmons/${speciesId}.png`
+  `${CAPTURE_ASSET_ROOT}/myrions/cutout/${speciesId}.png`
+
+export const palmonFullPngPathCandidates = (speciesId: string) => [
+  `assets/minigames/capture/myrions/cutout/${speciesId}.png`,
+  `minigames/palmons/${speciesId}.png`,
+]
 
 export const palmonChibiPngPath = (speciesId: string) =>
-  `${MINIGAME_ASSET_ROOT}/palmons/chibi/${speciesId}.png`
+  `${DRESSAGE_ASSET_ROOT}/myrions/chibi/${speciesId}.png`
 
-/** Silhouette pour l apparition en chasse. */
+export const palmonChibiPngPathCandidates = (speciesId: string) => [
+  `assets/minigames/dressage/myrions/chibi/${speciesId}.png`,
+  `minigames/palmons/chibi/${speciesId}.png`,
+]
+
+/** Silhouette pour l'apparition en chasse. */
 export const palmonSilhouettePngPath = (speciesId: string) =>
-  `${MINIGAME_ASSET_ROOT}/palmons/silhouettes/${speciesId}.png`
+  `${CAPTURE_ASSET_ROOT}/myrions/silhouette/${speciesId}.png`
 
-/** @deprecated Anciens SVG proceduraux — utiliser palmonFullPngPath */
+export const palmonSilhouettePngPathCandidates = (speciesId: string) => [
+  `assets/minigames/capture/myrions/silhouette/${speciesId}.png`,
+  `minigames/palmons/silhouettes/${speciesId}.png`,
+]
+
+/** @deprecated Anciens SVG procéduraux — utiliser palmonFullPngPath */
 export const palmonFullPath = palmonFullPngPath
 
-/** @deprecated Anciens SVG proceduraux — utiliser palmonChibiPngPath */
+/** @deprecated Anciens SVG procéduraux — utiliser palmonChibiPngPath */
 export const palmonChibiPath = palmonChibiPngPath
 
 /** @deprecated Utiliser palmonFullPngPath */
@@ -52,11 +100,20 @@ export const getPalmonAssetPath = (speciesId: string, variant: PalmonSpriteVaria
   return palmonFullPngPath(speciesId)
 }
 
+export const getPalmonAssetPathCandidates = (
+  speciesId: string,
+  variant: PalmonSpriteVariant = 'full',
+) => {
+  if (variant === 'chibi') return palmonChibiPngPathCandidates(speciesId)
+  if (variant === 'silhouette') return palmonSilhouettePngPathCandidates(speciesId)
+  return palmonFullPngPathCandidates(speciesId)
+}
+
 export type GuidePose = 'point' | 'cheer' | 'watch'
 
-/** Detourage compagnon — superposable sur biomes (ex. Talia qui pointe le palmon). */
+/** Détourage compagnon — superposable sur biomes (ex. Talia qui pointe le palmon). */
 export const companionGuideCutoutPath = (companionId: string, pose: GuidePose = 'point') =>
-  `${MINIGAME_ASSET_ROOT}/guides/${companionId}-${pose}.svg`
+  `${CAPTURE_ASSET_ROOT}/companions/${companionId}/${pose}.svg`
 
 export const companionGuideCutoutPngPath = (
   companionId: string,
@@ -64,8 +121,27 @@ export const companionGuideCutoutPngPath = (
   biomeId?: string,
 ) =>
   biomeId
-    ? `${MINIGAME_ASSET_ROOT}/guides/${companionId}-${pose}-${biomeId}.png`
-    : `${MINIGAME_ASSET_ROOT}/guides/${companionId}-${pose}.png`
+    ? `${CAPTURE_ASSET_ROOT}/companions/${companionId}/${pose}-${biomeId}.png`
+    : `${CAPTURE_ASSET_ROOT}/companions/${companionId}/${pose}.png`
+
+export const companionGuideCutoutPngPathCandidates = (
+  companionId: string,
+  pose: GuidePose = 'point',
+  biomeId?: string,
+) => {
+  if (biomeId) {
+    return [
+      `assets/minigames/capture/companions/${companionId}/${pose}-${biomeId}.png`,
+      `minigames/guides/talia-${pose}-${biomeId}.png`,
+      `minigames/guides/${companionId}-${pose}-${biomeId}.png`,
+    ]
+  }
+  return [
+    `assets/minigames/capture/companions/${companionId}/${pose}.png`,
+    `minigames/guides/talia-${pose}.png`,
+    `minigames/guides/${companionId}-${pose}.png`,
+  ]
+}
 
 export const COMPANION_GUIDE_HINTS: Record<string, Partial<Record<GuidePose, string>>> = {
   talia: {
@@ -78,7 +154,7 @@ export const COMPANION_GUIDE_HINTS: Record<string, Partial<Record<GuidePose, str
   },
 }
 
-/** Fallback CSS par batiment si l image de scene n existe pas encore. */
+/** Fallback CSS par batiment si l'image de scene n'existe pas encore. */
 export const STAGE_FALLBACK_CSS: Record<string, string> = {
   inn: 'linear-gradient(165deg, #fff4e8 0%, #ffd9c0 55%, #ffb88a 100%)',
   'mist-garden': 'linear-gradient(165deg, #e8fff0 0%, #b8e8c8 50%, #7ecf8a 100%)',

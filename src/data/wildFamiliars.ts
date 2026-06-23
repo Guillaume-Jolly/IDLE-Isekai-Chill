@@ -12,7 +12,7 @@ export type Biome = {
   id: string
   name: string
   emoji: string
-  /** Fallback CSS si /minigames/biomes/{id}.png absent */
+  /** Fallback CSS si fond biome PNG absent */
   fallbackGradient: string
 }
 
@@ -108,7 +108,7 @@ export const getPalmonImage = (speciesId: string, variant: PalmonSpriteVariant =
 
 export const getBiomeImage = (biomeId: string) => biomeBackgroundPath(biomeId)
 
-/** Biomes dont le PNG de fond existe deja dans public/minigames/biomes/ */
+/** Biomes dont le PNG de fond existe dans public/assets/minigames/capture/biomes/ */
 export const BIOMES_WITH_BACKGROUNDS = BIOMES.map((biome) => biome.id)
 
 export function rollRarity(): PalmonRarity {

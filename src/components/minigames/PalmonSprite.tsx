@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { PalmonSpriteVariant } from '../../data/minigameAssets'
 import {
+  getPalmonAssetPathCandidates,
   hasMyrionChibiAsset,
-  palmonChibiPngPath,
-  palmonFullPngPath,
-  palmonSilhouettePngPath,
 } from '../../data/minigameAssets'
+import { usePublicAssetSrc } from '../../hooks/usePublicAssetSrc'
 
 type PalmonAnim = 'none' | 'reveal' | 'idle' | 'flee' | 'success'
 
@@ -27,12 +26,12 @@ export function PalmonSprite({
   animate = 'none',
   className = '',
 }: PalmonSpriteProps) {
-  const [missing, setMissing] = useState(false)
+  const candidates = useMemo(
+    () => getPalmonAssetPathCandidates(speciesId, variant),
+    [speciesId, variant],
+  )
+  const [src, onAssetError, exhausted] = usePublicAssetSrc(candidates[0], candidates.slice(1))
   const [displayAnim, setDisplayAnim] = useState(animate)
-
-  useEffect(() => {
-    setMissing(false)
-  }, [speciesId, variant])
 
   useEffect(() => {
     if (animate === 'reveal') {
@@ -56,12 +55,6 @@ export function PalmonSprite({
     }
   }
 
-  const src = useMemo(() => {
-    if (variant === 'chibi') return palmonChibiPngPath(speciesId)
-    if (variant === 'silhouette') return palmonSilhouettePngPath(speciesId)
-    return palmonFullPngPath(speciesId)
-  }, [speciesId, variant])
-
   const sizeClass =
     size === 'encounter'
       ? 'encounter'
@@ -84,7 +77,7 @@ export function PalmonSprite({
     return null
   }
 
-  if (missing) {
+  if (exhausted) {
     return null
   }
 
@@ -94,7 +87,7 @@ export function PalmonSprite({
       className={`mg-palmon-img ${sizeClass} ${variant} ${animClass} ${className}`.trim()}
       draggable={false}
       onAnimationEnd={handleAnimationEnd}
-      onError={() => setMissing(true)}
+      onError={onAssetError}
       src={src}
     />
   )

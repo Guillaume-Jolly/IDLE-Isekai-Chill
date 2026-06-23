@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
-  enclosureAssetPath,
-  enclosurePortraitAssetPath,
+  enclosureAssetPathCandidates,
+  enclosurePortraitAssetPathCandidates,
 } from '../../data/myrionRefuge'
 import { useIsMobileRefuge } from '../../hooks/useMediaQuery'
+import { usePublicAssetSrc } from '../../hooks/usePublicAssetSrc'
 
 export type EnclosureBackgroundLayout = 'auto' | 'landscape' | 'portrait'
 
@@ -20,11 +21,6 @@ function initialTier(layout: EnclosureBackgroundLayout, isMobile: boolean): Tier
   return 'png'
 }
 
-function resolveSrc(biomeId: string, tier: Tier) {
-  if (tier === 'portrait-png') return enclosurePortraitAssetPath(biomeId)
-  return enclosureAssetPath(biomeId)
-}
-
 export function EnclosureBackground({
   biomeId,
   className = '',
@@ -34,13 +30,33 @@ export function EnclosureBackground({
   const usePortrait = layout === 'portrait' || (layout === 'auto' && isMobile)
   const [tier, setTier] = useState<Tier>(() => initialTier(layout, isMobile))
 
+  const portraitCandidates = useMemo(
+    () => enclosurePortraitAssetPathCandidates(biomeId),
+    [biomeId],
+  )
+  const landscapeCandidates = useMemo(() => enclosureAssetPathCandidates(biomeId), [biomeId])
+
+  const [portraitSrc, onPortraitError, portraitExhausted] = usePublicAssetSrc(
+    portraitCandidates[0],
+    portraitCandidates.slice(1),
+  )
+  const [landscapeSrc] = usePublicAssetSrc(
+    landscapeCandidates[0],
+    landscapeCandidates.slice(1),
+  )
+
   useEffect(() => {
     setTier(initialTier(layout, isMobile))
   }, [biomeId, isMobile, layout])
 
+  const src = tier === 'portrait-png' ? portraitSrc : landscapeSrc
+
   const handleError = () => {
     if (tier === 'portrait-png') {
-      setTier('png')
+      onPortraitError({} as React.SyntheticEvent<HTMLImageElement>)
+      if (portraitExhausted) {
+        setTier('png')
+      }
     }
   }
 
@@ -52,7 +68,7 @@ export function EnclosureBackground({
         data-bg-orientation={usePortrait && tier === 'portrait-png' ? 'portrait' : 'landscape'}
         draggable={false}
         onError={handleError}
-        src={resolveSrc(biomeId, tier)}
+        src={src}
       />
     </div>
   )

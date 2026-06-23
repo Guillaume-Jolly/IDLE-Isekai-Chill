@@ -1,6 +1,6 @@
 /**
  * Noms officiels Myrions — clé = slug du fichier source (sans .png).
- * id = nom du fichier public/minigames/palmons/{id}.png
+ * id = nom du fichier public/assets/minigames/capture/myrions/cutout/{id}.png
  */
 export const MYRION_MANIFEST_BY_STEM = {
   // 01 — Prairie solaire

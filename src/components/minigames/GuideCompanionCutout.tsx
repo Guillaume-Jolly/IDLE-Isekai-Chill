@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
-  companionGuideCutoutPath,
-  companionGuideCutoutPngPath,
+  companionGuideCutoutPngPathCandidates,
   type GuidePose,
 } from '../../data/minigameAssets'
+import { usePublicAssetSrc } from '../../hooks/usePublicAssetSrc'
 
 type GuideCompanionCutoutProps = {
   companionId: string
@@ -24,22 +24,22 @@ type GuideCompanionCutoutProps = {
 
 type LoadTier = 'biome-pose' | 'biome-point' | 'default-png' | 'svg' | 'hidden'
 
-function guideSrc(
+function tierCandidates(
   companionId: string,
   pose: GuidePose,
   biomeId: string | undefined,
   tier: LoadTier,
-) {
+): string[] {
+  if (tier === 'svg') {
+    return [`assets/minigames/capture/companions/${companionId}/${pose}.svg`]
+  }
   if (tier === 'biome-pose' && biomeId) {
-    return companionGuideCutoutPngPath(companionId, pose, biomeId)
+    return companionGuideCutoutPngPathCandidates(companionId, pose, biomeId)
   }
   if (tier === 'biome-point' && biomeId) {
-    return companionGuideCutoutPngPath(companionId, 'point', biomeId)
+    return companionGuideCutoutPngPathCandidates(companionId, 'point', biomeId)
   }
-  if (tier === 'default-png') {
-    return companionGuideCutoutPngPath(companionId, pose)
-  }
-  return companionGuideCutoutPath(companionId, pose)
+  return companionGuideCutoutPngPathCandidates(companionId, pose)
 }
 
 export function GuideCompanionCutout({
@@ -53,23 +53,29 @@ export function GuideCompanionCutout({
   speech,
 }: GuideCompanionCutoutProps) {
   const [tier, setTier] = useState<LoadTier>(biomeId ? 'biome-pose' : 'default-png')
+  const candidates = useMemo(
+    () => tierCandidates(companionId, pose, biomeId, tier),
+    [companionId, pose, biomeId, tier],
+  )
+  const [src, onError, exhausted] = usePublicAssetSrc(candidates[0], candidates.slice(1))
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null)
 
   useEffect(() => {
     setTier(biomeId ? 'biome-pose' : 'default-png')
-  }, [biomeId, companionId])
-
-  const src = useMemo(() => {
-    if (tier === 'hidden') {
-      return null
-    }
-    return guideSrc(companionId, pose, biomeId, tier)
-  }, [companionId, pose, biomeId, tier])
+  }, [biomeId, companionId, pose])
 
   useEffect(() => {
-    if (!src) {
-      return
-    }
+    if (!exhausted) return
+    setTier((current) => {
+      if (current === 'biome-pose') return 'biome-point'
+      if (current === 'biome-point') return 'default-png'
+      if (current === 'default-png') return 'svg'
+      return 'hidden'
+    })
+  }, [exhausted])
+
+  useEffect(() => {
+    if (!src) return
     const img = new Image()
     img.src = src
     if (img.complete) {
@@ -77,7 +83,7 @@ export function GuideCompanionCutout({
     }
   }, [src])
 
-  if (!src) {
+  if (tier === 'hidden') {
     return null
   }
 
@@ -108,14 +114,7 @@ export function GuideCompanionCutout({
           onLoad={() => {
             setLoadedSrc(src)
           }}
-          onError={() => {
-            setTier((current) => {
-              if (current === 'biome-pose') return 'biome-point'
-              if (current === 'biome-point') return 'default-png'
-              if (current === 'default-png') return 'svg'
-              return 'hidden'
-            })
-          }}
+          onError={onError}
           src={src}
         />
       </div>

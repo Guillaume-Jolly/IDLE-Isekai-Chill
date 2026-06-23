@@ -3,12 +3,11 @@
  * Usage: node scripts/generate-palmon-svgs.mjs
  */
 import { mkdirSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
+import { oldAssetPaths } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const outFull = join(root, 'public/minigames/palmons')
-const outChibi = join(root, 'public/minigames/palmons/chibi')
+const outFull = oldAssetPaths.palmonSvgs
+const outChibi = oldAssetPaths.palmonChibiSvgs
 
 mkdirSync(outFull, { recursive: true })
 mkdirSync(outChibi, { recursive: true })
@@ -158,7 +157,7 @@ for (const [id, art] of Object.entries(SPECIES)) {
 
 console.log(`Generated ${Object.keys(SPECIES).length * 2} SVG files.`)
 
-const guidesDir = join(root, 'public/minigames/guides')
+const guidesDir = oldAssetPaths.guidesLegacy
 mkdirSync(guidesDir, { recursive: true })
 
 const taliaPointSvg = `<?xml version="1.0" encoding="UTF-8"?>

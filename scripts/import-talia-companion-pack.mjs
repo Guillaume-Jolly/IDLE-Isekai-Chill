@@ -4,15 +4,14 @@
  */
 import { mkdirSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { publicMinigamePaths, sourceMinigamePaths, taliaGuideFile } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const importRoot =
-  process.argv[2] ?? join(root, 'assets/talia-import/myrion_companion_pack')
+  process.argv[2] ?? sourceMinigamePaths.captureTaliaCompanionPack
 
-const guidesDir = join(root, 'public/minigames/guides')
-const taliaDir = join(root, 'public/companions/talia')
+const guidesDir = publicMinigamePaths.captureCompanionTalia
+const taliaDir = join(publicMinigamePaths.companions, 'talia')
 
 /** Fichiers du zip → ids biomes du jeu. */
 const BIOME_POSES = {
@@ -229,7 +228,7 @@ for (const [fileName, biomeId] of Object.entries(BIOME_POSES)) {
     continue
   }
   const input = join(importRoot, fileName)
-  const output = join(guidesDir, `talia-point-${biomeId}.png`)
+  const output = join(guidesDir, taliaGuideFile(biomeId))
   console.log(`Guide ${biomeId}`)
   await cutoutPng(input, output)
   if (biomeId === 'prairie-solaire') {
@@ -238,16 +237,16 @@ for (const [fileName, biomeId] of Object.entries(BIOME_POSES)) {
 }
 
 if (defaultGuide) {
-  const fallback = join(guidesDir, 'talia-point.png')
+  const fallback = join(guidesDir, 'point.png')
   await sharp(defaultGuide).png().toFile(fallback)
-  console.log('Default talia-point.png')
+  console.log('Default point.png')
 }
 
 const chibiInput = join(importRoot, CHIBI_FILE)
 if (files.includes(CHIBI_FILE)) {
   console.log('Chibi')
   await cutoutPng(chibiInput, join(taliaDir, 'chibi.png'))
-  console.log('  -> public/companions/talia/chibi.png')
+  console.log('  -> public/assets/companions/talia/chibi.png')
 } else {
   console.warn(`Missing ${CHIBI_FILE}`)
 }

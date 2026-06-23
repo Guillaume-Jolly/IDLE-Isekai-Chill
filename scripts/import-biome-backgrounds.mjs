@@ -1,16 +1,15 @@
 /**
- * Copie les backgrounds biome paysage (1672x941) vers public/minigames/biomes/.
+ * Copie les backgrounds biome paysage (1672x941) vers public/assets/minigames/capture/biomes/.
  * Usage: node scripts/import-biome-backgrounds.mjs [dossier-Talia]
  */
 import { existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { publicMinigamePaths } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const importRoot =
-  process.argv[2] ?? 'C:/Users/guill/Downloads/Slow life isekai/Talia'
-const outDir = join(root, 'public/minigames/biomes')
+const importRoot = process.argv[2] ?? 'C:/Users/guill/Downloads/Slow life isekai/Talia'
+const outDir = publicMinigamePaths.captureBiomes
 
 const BIOME_FOLDERS = {
   '01_Prairie_solaire': 'prairie-solaire',

@@ -5,14 +5,15 @@
  *   node scripts/vectorize-chibi.mjs <input.png> <output.svg> [--preview]
  *   node scripts/vectorize-chibi.mjs --demo   (Pousselune + Talia demo)
  */
-import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync, copyFileSync } from 'node:fs'
 import { dirname, join, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import ImageTracer from 'imagetracerjs'
+import { oldAssetPaths, publicMinigamePaths } from './minigame-asset-paths.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const previewDir = join(root, 'public/minigames/_preview')
+const previewDir = oldAssetPaths.vectorizePreview
 
 const TRACE_OPTIONS = {
   ltres: 1.2,
@@ -178,18 +179,18 @@ async function runDemo() {
   const sources = [
     {
       name: 'Pousselune (moon-sprout)',
-      input: join(root, 'public/minigames/palmons/moon-sprout.png'),
+      input: join(oldAssetPaths.sourcesScattered, 'source-moon-sprout-v2.png'),
       previewBefore: 'before-moon-sprout.png',
       previewAfter: 'after-moon-sprout.svg',
-      gameOutput: join(root, 'public/minigames/palmons/moon-sprout.svg'),
-      chibiOutput: join(root, 'public/minigames/palmons/chibi/moon-sprout.svg'),
+      gameOutput: join(oldAssetPaths.palmonSvgs, 'moon-sprout.svg'),
+      chibiOutput: join(oldAssetPaths.palmonChibiSvgs, 'moon-sprout.svg'),
     },
     {
-      name: 'Talia guide (talia-point)',
-      input: join(root, 'assets/source-talia-v2.png'),
+      name: 'Talia guide (point)',
+      input: join(oldAssetPaths.sourcesScattered, 'source-talia-v2.png'),
       previewBefore: 'before-talia-point.png',
       previewAfter: 'after-talia-point.svg',
-      gameOutput: join(root, 'public/minigames/guides/talia-point.svg'),
+      gameOutput: join(publicMinigamePaths.captureCompanionTalia, 'point.svg'),
     },
   ]
 
@@ -223,8 +224,8 @@ async function runDemo() {
   const html = await buildComparisonHtml(htmlItems)
   const htmlPath = join(previewDir, 'index.html')
   writeFileSync(htmlPath, html, 'utf8')
-  console.log(`\nComparaison : public/minigames/_preview/index.html`)
-  console.log('Ouvre http://localhost:5173/minigames/_preview/index.html en dev')
+  console.log(`\nComparaison : old_assets/previews/vectorize-chibi/index.html`)
+  console.log('Ouvre le fichier HTML localement (non servi en dev)')
 }
 
 const args = process.argv.slice(2)

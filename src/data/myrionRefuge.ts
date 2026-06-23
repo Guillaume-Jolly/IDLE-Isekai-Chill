@@ -1,5 +1,18 @@
+import {
+  enclosureAssetPath,
+  enclosureAssetPathCandidates,
+  enclosurePortraitAssetPath,
+  enclosurePortraitAssetPathCandidates,
+} from './minigameAssets'
 import type { PalmonRarity } from './wildFamiliars'
 import { BIOMES, PALMON_SPECIES } from './wildFamiliars'
+
+export {
+  enclosureAssetPath,
+  enclosureAssetPathCandidates,
+  enclosurePortraitAssetPath,
+  enclosurePortraitAssetPathCandidates,
+}
 
 export type RefugeBiomeId = (typeof BIOMES)[number]['id']
 
@@ -17,16 +30,8 @@ export type BiomeResourceDef = {
   particleClass: string
 }
 
-export const ENCLOSURE_ASSET_ROOT = '/minigames/enclosures'
-
 /** Ratio natif des PNG d enclos (1672×941). */
 export const ENCLOSURE_ASPECT_RATIO = 1672 / 941
-
-export const enclosureAssetPath = (biomeId: string) => `${ENCLOSURE_ASSET_ROOT}/${biomeId}.png`
-
-/** Enclos portrait 9:16 — téléphone uniquement. */
-export const enclosurePortraitAssetPath = (biomeId: string) =>
-  `${ENCLOSURE_ASSET_ROOT}/${biomeId}-portrait.png`
 
 export const ENCLOSURE_PORTRAIT_ASPECT_RATIO = 9 / 16
 

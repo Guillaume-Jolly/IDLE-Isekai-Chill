@@ -6,13 +6,12 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { oldAssetsRoot, publicMinigamePaths, repoRoot, sourceMinigamePaths, taliaGuideFile } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const importRoot =
-  process.argv[2] ?? join(root, 'assets/talia-import/chibis_9_pack_cutout')
-const guidesDir = join(root, 'public/minigames/guides')
-const taliaChibiPath = join(root, 'public/companions/talia/chibi.png')
-const previewDir = join(root, 'public/minigames/_preview/chibis-9-pack')
+const importRoot = process.argv[2] ?? sourceMinigamePaths.captureTaliaChibis9
+const guidesDir = publicMinigamePaths.captureCompanionTalia
+const taliaChibiPath = join(publicMinigamePaths.companions, 'talia', 'chibi.png')
+const previewDir = join(oldAssetsRoot, 'previews', 'chibis-9-pack')
 const PADDING = 12
 
 const BIOME_OUTPUTS = [
@@ -334,7 +333,7 @@ for (const inputPath of files) {
   if (entry.kind === 'chibi') {
     outputPath = taliaChibiPath
   } else {
-    outputPath = join(guidesDir, `talia-point-${entry.biomeId}.png`)
+    outputPath = join(guidesDir, taliaGuideFile(entry.biomeId))
   }
 
   await writePng(rgba, width, height, outputPath)
@@ -346,8 +345,8 @@ for (const inputPath of files) {
   console.log(`OK ${entry.label} -> ${outputPath} (${width}x${height})`)
 }
 
-const prairieGuide = join(guidesDir, 'talia-point-prairie-solaire.png')
-const fallbackGuide = join(guidesDir, 'talia-point.png')
+const prairieGuide = join(guidesDir, taliaGuideFile('prairie-solaire'))
+const fallbackGuide = join(guidesDir, 'point.png')
 if (existsSync(prairieGuide)) {
   await sharp(prairieGuide).png().toFile(fallbackGuide)
   console.log(`Default ${fallbackGuide}`)
@@ -390,7 +389,7 @@ mkdirSync(previewDir, { recursive: true })
 writeFileSync(join(previewDir, 'index.html'), previewHtml, 'utf8')
 
 console.log(`\n${exported.length} images exportees`)
-console.log(`Preview: public/minigames/_preview/chibis-9-pack/index.html`)
+console.log(`Preview: old_assets/previews/chibis-9-pack/index.html`)
 if (unmatched.length) {
   console.warn('Non mappees:', unmatched.join(', '))
 }

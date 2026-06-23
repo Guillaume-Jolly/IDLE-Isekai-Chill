@@ -1,17 +1,15 @@
 /**
- * Importe les backgrounds portrait d'enclos Myrions vers public/minigames/enclosures/.
+ * Importe les backgrounds portrait d'enclos Myrions vers public/assets/minigames/dressage/enclosures/.
  * Usage: node scripts/import-enclosure-portraits.mjs [dossier-zip-extrait]
  */
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { publicMinigamePaths, repoRoot } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const importRoot =
-  process.argv[2] ??
-  join(root, '.tmp/enclos-import')
-const outDir = join(root, 'public/minigames/enclosures')
+const importRoot = process.argv[2] ?? join(repoRoot, '.tmp/enclos-import')
+const outDir = publicMinigamePaths.dressageEnclosures
 
 const BIOME_FOLDERS = {
   '01_Prairie_Solaire': 'prairie-solaire',
