@@ -22,6 +22,7 @@
     "validate:link-corpus": "node scripts/validate-link-corpus.mjs",
     "import:link-corpus-v2": "node scripts/import-link-corpus-v2.mjs",
     "import:talia": "node scripts/import-talia-companion-pack.mjs",
+    "import:disagrea": "node scripts/import-disagrea-assets.mjs",
     "import:chibis": "node scripts/import-myrions-chibis.mjs",
     "import:chibis-9": "node scripts/import-chibis-9-pack.mjs",
     "setup:live2d": "node scripts/setup-live2d-demo.mjs",
