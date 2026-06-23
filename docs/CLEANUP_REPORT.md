@@ -104,6 +104,46 @@
 
 ---
 
+## Session autonome 2026-06-23 (suite) — Phases 0–9
+
+### Phase 0 — État initial
+
+| Métrique | Valeur |
+|----------|--------|
+| Branche | `feature/link-corpus-v2` |
+| HEAD | `47b2900` (Disagrea portraits, commits séparés) |
+| `npm run build` | ✅ |
+| `npm run lint` | ✅ (12 warnings) |
+| `npm run validate:link-corpus` | ✅ 7500 scénarios |
+
+### Fichiers hors scope (non commités, non supprimés)
+
+| Zone | Nature |
+|------|--------|
+| `assets/event-disagrea/` | Catalog import Disagrea |
+| `public/assets/minigames/` | Migration chemins assets |
+| `src/components/CompanionPortrait.*` | Portraits composés (WIP) |
+| `ConversationGame.tsx` (WIP) | UX Lien + portraits (non commité) |
+| Centaines de `deleted:` sous `public/minigames/` | Relocalisation assets |
+
+**Action :** laissé en working tree ; build OK avec ou sans (selon fichiers présents). Ne pas mélanger avec commits corpus/tutoriel.
+
+### Commits session (sans push)
+
+1. `docs: update link corpus validation results`
+2. `feat(progression): add tutorial objectives for 0.10`
+3. `docs: document 0.10 tutorial objective flow` (+ TNR, backlog phases 4–8)
+
+### Phases non codées (documentées)
+
+- Phase 4 exploitation passive → `EXPLOITATION_PASSIVE_BACKLOG.md`
+- Phase 5 papouille refuge → reportée (stable d'abord)
+- Phase 6 course → `RACING_MINIGAME_PROTOTYPE.md`
+- Phase 7 combat → `MYRION_COMBAT_PROTOTYPE.md`
+- Phase 8 donjon → `DUNGEON_EXPLORATION_BACKLOG.md`
+
+---
+
 ## Notes CSS
 
 - `Minigames.css` : ~+2300 lignes — **à splitter plus tard**, pas dans cette session
