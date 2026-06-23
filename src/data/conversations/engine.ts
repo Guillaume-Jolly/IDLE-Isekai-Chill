@@ -3,6 +3,12 @@ import {
   COMPANION_SCENARIO_PACKS,
   SCENARIOS_PER_COMPANION,
 } from './companionScenarios.generated'
+import {
+  getLinkCorpusV2Pack,
+  getLinkCorpusV2Scenario,
+  hasLinkCorpusV2,
+  LINK_CORPUS_V2_SCENARIO_COUNT,
+} from './linkCorpusV2'
 import type {
   CompanionConversation,
   CompanionScenarioSeed,
@@ -113,13 +119,13 @@ const buildRound = (
   }
 }
 
-export const buildConversation = (
+const buildConversationFromScript = (
   companionId: string,
+  script: CompanionScenarioSeed,
   scenarioIndex: number,
 ): CompanionConversation | null => {
   const profile = COMPANION_DIALOGUE_PROFILES[companionId]
-  const script = getCompanionScenario(companionId, scenarioIndex)
-  if (!profile || !script) return null
+  if (!profile) return null
 
   const rounds = [0, 1, 2].map((roundIndex) =>
     buildRound(companionId, script, scenarioIndex, roundIndex),
@@ -136,10 +142,23 @@ export const buildConversation = (
   }
 }
 
-const scenarioIndicesForAffinity = (companionId: string, affinity: number) => {
+export const buildConversation = (
+  companionId: string,
+  scenarioIndex: number,
+): CompanionConversation | null => {
+  const script = getCompanionScenario(companionId, scenarioIndex)
+  if (!script) return null
+  return buildConversationFromScript(companionId, script, scenarioIndex)
+}
+
+const scenarioIndicesForAffinity = (
+  getScenario: (index: number) => CompanionScenarioSeed | null,
+  packSize: number,
+  affinity: number,
+) => {
   const indices: number[] = []
-  for (let index = 0; index < SCENARIOS_PER_COMPANION; index += 1) {
-    const script = getCompanionScenario(companionId, index)
+  for (let index = 0; index < packSize; index += 1) {
+    const script = getScenario(index)
     if (!script) continue
     if (affinity >= script.minAffinity && affinity <= script.maxAffinity) {
       indices.push(index)
@@ -148,45 +167,85 @@ const scenarioIndicesForAffinity = (companionId: string, affinity: number) => {
   return indices
 }
 
-export function pickConversation(companionId: string, affinity: number, avoidId?: string) {
-  if (!COMPANION_DIALOGUE_PROFILES[companionId]) {
-    return null
-  }
-
-  const eligible = scenarioIndicesForAffinity(companionId, affinity)
-  const fullPool = Array.from({ length: SCENARIOS_PER_COMPANION }, (_, index) => index)
+const pickScenarioIndex = (
+  affinity: number,
+  avoidId: string | undefined,
+  getScenario: (index: number) => CompanionScenarioSeed | null,
+  packSize: number,
+) => {
+  const eligible = scenarioIndicesForAffinity(getScenario, packSize, affinity)
+  const fullPool = Array.from({ length: packSize }, (_, index) => index)
   const basePool = eligible.length > 0 ? eligible : fullPool
 
   let candidates = basePool.filter((index) => {
-    const script = getCompanionScenario(companionId, index)
+    const script = getScenario(index)
     return script && script.id !== avoidId
   })
 
   if (candidates.length === 0) {
     candidates = fullPool.filter((index) => {
-      const script = getCompanionScenario(companionId, index)
+      const script = getScenario(index)
       return script && script.id !== avoidId
     })
   }
 
   if (candidates.length === 0 && avoidId) {
-    candidates = fullPool.filter((index) => {
-      const script = getCompanionScenario(companionId, index)
-      return Boolean(script)
-    })
+    candidates = fullPool.filter((index) => Boolean(getScenario(index)))
   }
 
-  const picked = shuffle(candidates)[0]
+  return shuffle(candidates)[0]
+}
+
+function pickConversationV2(companionId: string, affinity: number, avoidId?: string) {
+  const pack = getLinkCorpusV2Pack(companionId)
+  if (pack.length === 0) return null
+
+  const getScenario = (index: number) => getLinkCorpusV2Scenario(companionId, index)
+  const picked = pickScenarioIndex(affinity, avoidId, getScenario, pack.length)
+  if (picked === undefined) return null
+
+  const script = getScenario(picked)
+  if (!script) return null
+
+  return buildConversationFromScript(companionId, script, picked)
+}
+
+function pickConversationLegacy(companionId: string, affinity: number, avoidId?: string) {
+  const getScenario = (index: number) => getCompanionScenario(companionId, index)
+  const picked = pickScenarioIndex(
+    affinity,
+    avoidId,
+    getScenario,
+    SCENARIOS_PER_COMPANION,
+  )
   if (picked === undefined) return null
 
   return buildConversation(companionId, picked)
+}
+
+export function pickConversation(companionId: string, affinity: number, avoidId?: string) {
+  if (!COMPANION_DIALOGUE_PROFILES[companionId]) {
+    return null
+  }
+
+  if (hasLinkCorpusV2) {
+    const v2 = pickConversationV2(companionId, affinity, avoidId)
+    if (v2) return v2
+  }
+
+  return pickConversationLegacy(companionId, affinity, avoidId)
 }
 
 export function scoreFromChoices(scores: number[]) {
   return scores.reduce((sum, value) => sum + value, 0)
 }
 
-export const CONVERSATIONS_PER_COMPANION = SCENARIOS_PER_COMPANION
+export const CONVERSATIONS_PER_COMPANION = hasLinkCorpusV2
+  ? Math.max(
+      SCENARIOS_PER_COMPANION,
+      ...ALL_COMPANION_IDS.map((id) => getLinkCorpusV2Pack(id).length),
+    )
+  : SCENARIOS_PER_COMPANION
 
 export const hasConversationSupport = (companionId: string) =>
   ALL_COMPANION_IDS.includes(companionId)
@@ -199,4 +258,8 @@ export const previewPreferredTones = (companionId: string, scenarioIndex: number
   )
 }
 
-export { COMPANION_SCENARIO_PACKS, SCENARIOS_PER_COMPANION }
+export {
+  COMPANION_SCENARIO_PACKS,
+  LINK_CORPUS_V2_SCENARIO_COUNT,
+  SCENARIOS_PER_COMPANION,
+}
