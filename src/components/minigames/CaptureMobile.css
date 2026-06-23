@@ -1,0 +1,608 @@
+/* Chasse / capture — layout téléphone via .mg-capture-immersive--phone (JS) */
+
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone) {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone) .minigame-play-area-cinematic,
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone) .minigame-stage,
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone) .minigame-stage-inner,
+.minigame-panel-fullscreen .mg-capture-immersive--phone {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  grid-template-rows: unset;
+  height: 100%;
+  margin: 0;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result {
+  --mg-capture-footer-actions: calc(48px + env(safe-area-inset-bottom, 0px));
+  --mg-capture-footer-banner: 0px;
+  --mg-capture-footer-stack: var(--mg-capture-footer-actions);
+  --mg-capture-ring-lift: 8px;
+  background: transparent;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt:has(.mg-capture-result-strip) {
+  --mg-capture-footer-stack: calc(68px + var(--mg-capture-footer-banner) + 52px);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-toolbar {
+  flex-shrink: 0;
+  left: auto;
+  pointer-events: auto;
+  position: relative;
+  right: auto;
+  top: auto;
+  width: 100%;
+  z-index: 2;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--explore .mg-capture-toolbar,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-toolbar,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-toolbar {
+  align-items: flex-end;
+  background: transparent;
+  flex-direction: column;
+  gap: 6px;
+  left: auto;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: calc(8px + env(safe-area-inset-right, 0px));
+  top: calc(8px + env(safe-area-inset-top, 0px));
+  width: auto;
+  z-index: 20;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-hud {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: min(46vw, 180px);
+  pointer-events: auto;
+  width: auto;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-hud {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--explore {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 248, 220, 0.35), transparent 42%),
+    linear-gradient(180deg, #f4fbef 0%, #dcefd4 100%);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-hunt-layout {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-hunt-main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-map-view {
+  background: transparent;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--explore .mg-hunt-main.mg-capture-map-view .mg-biome-map,
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-biome-map {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  margin: 0;
+  max-width: 100%;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding:
+    8px
+    max(12px, env(safe-area-inset-right, 0px))
+    calc(16px + env(safe-area-inset-bottom, 0px))
+    max(12px, env(safe-area-inset-left, 0px));
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-biome-map-grid:not(.mg-biome-map-grid--compact) {
+  gap: clamp(8px, 2vw, 12px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-biome-card:not(.mg-biome-card--compact) {
+  max-width: 100%;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-hunt-layout,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-hunt-layout {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  height: 100%;
+  inset: 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-hunt-main,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-hunt-main {
+  flex: none;
+  height: 100%;
+  min-height: 0;
+  position: relative;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-explore:not(.mg-capture-map-view),
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-explore:not(.mg-capture-map-view) {
+  background: transparent;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-stage-column,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-stage-column {
+  display: block;
+  flex: none;
+  height: 100%;
+  inset: 0;
+  min-height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-scene-slot,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-scene-slot {
+  align-items: stretch;
+  display: block;
+  flex: none;
+  height: 100%;
+  inset: 0;
+  justify-content: stretch;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  min-height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-scene-slot .mg-capture-field-biome,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-scene-slot .mg-capture-field-biome,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-scene-slot .mg-hunt-scene,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-scene-slot .mg-hunt-scene {
+  --mg-bg-overscan: 1.12;
+  aspect-ratio: unset;
+  background: #000;
+  border-radius: 0;
+  height: 100%;
+  inset: 0;
+  isolation: isolate;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  min-height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone.mg-capture-immersive--hunt) .minigame-stage,
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone.mg-capture-immersive--result) .minigame-stage,
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone.mg-capture-immersive--hunt) .minigame-play-area-cinematic,
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone.mg-capture-immersive--result) .minigame-play-area-cinematic {
+  background: transparent;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-hunt-safe,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-hunt-safe {
+  height: 100%;
+  inset: 0;
+  margin: 0;
+  max-width: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-hunt-scene {
+  --mg-wild-slot-x: 50%;
+  --mg-wild-slot-y: 34%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-hunt-scene.entering::before {
+  background: radial-gradient(
+    ellipse 90% 72% at var(--mg-wild-slot-x) var(--mg-wild-slot-y),
+    color-mix(in srgb, var(--mg-rarity-color, #9aa3b2) 52%, transparent) 0%,
+    color-mix(in srgb, var(--mg-rarity-color, #9aa3b2) 28%, transparent) 42%,
+    transparent 72%
+  );
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-wild-myrion-slot {
+  height: 58%;
+  left: var(--mg-wild-slot-x);
+  max-height: min(46dvh, 320px);
+  pointer-events: none;
+  position: absolute;
+  top: var(--mg-wild-slot-y);
+  transform: translate(-50%, -50%);
+  width: min(56%, 210px);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-wild-myrion-anchor {
+  bottom: 10%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-creature-shadow {
+  bottom: 10%;
+  height: calc(22px * var(--mg-rarity-scale, 1));
+  width: calc(min(68%, 150px) * var(--mg-rarity-scale, 1));
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-rarity-approach-glow {
+  animation: mg-rarity-glow-pulse-phone 2.2s ease-out forwards;
+  bottom: 16%;
+  height: min(40vw, 180px);
+  top: auto;
+  transform: translate(-50%, 0);
+  width: min(40vw, 180px);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-rarity-approach-ring {
+  animation: mg-rarity-ring-burst-phone 2.2s ease-out forwards;
+  bottom: 16%;
+  height: min(28vw, 130px);
+  top: auto;
+  transform: translate(-50%, 0);
+  width: min(28vw, 130px);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-palmon-img.encounter.mg-creature-reveal {
+  animation: mg-creature-reveal-phone 2.2s ease-out forwards;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-palmon-img.encounter {
+  max-height: clamp(88px, 20dvh, 150px);
+  max-width: min(48vw, 170px);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-hunt-scene > .mg-guide-cutout,
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-hunt-scene > .mg-guide-cutout.left {
+  bottom: 0;
+  height: clamp(160px, 44dvh, 248px);
+  left: max(2px, env(safe-area-inset-left, 0px));
+  max-height: clamp(160px, 44dvh, 248px);
+  max-width: clamp(148px, 40vw, 196px);
+  overflow: visible;
+  top: auto;
+  width: clamp(148px, 40vw, 196px);
+  z-index: 6;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-hunt-scene > .mg-guide-cutout.has-speech {
+  height: clamp(160px, 44dvh, 248px);
+  max-height: clamp(160px, 44dvh, 248px);
+  max-width: clamp(148px, 40vw, 196px);
+  width: clamp(148px, 40vw, 196px);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-guide-cutout-bubble {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-guide-speech-bubble {
+  border-radius: 11px;
+  max-width: min(7.5rem, 40vw);
+  padding: 4px 7px;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-guide-speech-line {
+  font-size: 0.72rem;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-guide-speech-detail {
+  font-size: 0.54rem;
+  margin-top: 2px;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-biome-capture-layer {
+  align-items: center;
+  display: flex;
+  height: auto;
+  inset: auto auto calc(var(--mg-capture-footer-stack, 52px) + var(--mg-capture-ring-lift, 8px)) 50%;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  transform: translateX(-50%);
+  width: auto;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-biome-capture-layer .mg-capture-ring-btn {
+  height: clamp(96px, 22vw, 124px);
+  margin: 0;
+  position: relative;
+  top: auto;
+  width: clamp(96px, 22vw, 124px);
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-wild-myrion-meta {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-overlay--scene {
+  display: none !important;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-myrion-banner {
+  align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(8, 10, 18, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  bottom: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+  justify-content: center;
+  left: auto;
+  max-width: min(58vw, 220px);
+  padding: 4px 10px;
+  pointer-events: none;
+  position: absolute;
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  top: calc(46px + env(safe-area-inset-top, 0px));
+  width: auto;
+  z-index: 18;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-myrion-banner {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-myrion-banner-name {
+  font-size: clamp(0.82rem, 3.6vw, 0.95rem);
+  margin: 0;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-result-strip,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-result-strip {
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  box-sizing: border-box;
+  display: block;
+  flex-shrink: 0;
+  font-size: clamp(0.72rem, 3vw, 0.82rem);
+  left: auto;
+  max-width: min(72vw, 260px);
+  padding: 8px 10px;
+  pointer-events: none;
+  position: absolute;
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  text-align: right;
+  width: auto;
+  z-index: 19;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt:has(.mg-capture-result-strip) .mg-capture-myrion-banner {
+  top: calc(46px + env(safe-area-inset-top, 0px));
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-strip.success {
+  background: linear-gradient(180deg, rgba(52, 150, 92, 0.94), rgba(28, 102, 62, 0.9));
+  border-top: 1px solid rgba(158, 235, 178, 0.45);
+  color: #fff;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-strip.failed {
+  background: linear-gradient(180deg, rgba(180, 52, 58, 0.94), rgba(120, 28, 38, 0.9));
+  border-top: 1px solid rgba(255, 150, 150, 0.45);
+  color: #fff;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-strip .mg-capture-result-title,
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-strip .mg-capture-result-name,
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-strip .mg-capture-result-chance,
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-strip .mg-capture-result-auto {
+  margin: 0 0 4px;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-actions,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-actions {
+  background: transparent;
+  border: 0;
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: auto;
+  left: auto;
+  min-height: auto;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  top: auto;
+  width: auto;
+  z-index: 22;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-actions-slot {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.8vw, 10px);
+  height: auto;
+  pointer-events: none;
+  position: relative;
+  width: auto;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-start-btn:not(.active),
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-ring-hint:not(.active),
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-actions:not(.active) {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-start-btn.active,
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-ring-hint.active {
+  display: block;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-result-actions.active {
+  display: grid;
+  gap: clamp(6px, 1.8vw, 10px);
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-big-btn {
+  font-size: clamp(0.82rem, 3.4vw, 0.92rem);
+  margin: 0;
+  min-height: 44px;
+  min-width: 0;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone .mg-capture-ring-hint.active {
+  color: rgba(245, 250, 255, 0.9);
+  font-size: clamp(0.74rem, 3vw, 0.82rem);
+  max-width: 100%;
+  text-align: center;
+}
+
+@keyframes mg-rarity-glow-pulse-phone {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.35);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(0.78);
+  }
+
+  70% {
+    opacity: 0.72;
+    transform: translate(-50%, 0) scale(0.98);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(1.08);
+  }
+}
+
+@keyframes mg-rarity-ring-burst-phone {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.2);
+  }
+
+  32% {
+    opacity: 0.95;
+    transform: translate(-50%, 0) scale(0.72);
+  }
+
+  58% {
+    opacity: 0.55;
+    transform: translate(-50%, 0) scale(1.02);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(1.18);
+  }
+}
+
+@keyframes mg-creature-reveal-phone {
+  0% {
+    filter: brightness(0) saturate(0) blur(5px)
+      drop-shadow(0 0 28px var(--mg-rarity-color, #9aa3b2))
+      drop-shadow(0 0 56px var(--mg-rarity-color, #9aa3b2));
+    opacity: 0;
+    transform: scale(0.48) translateY(12px);
+  }
+
+  45% {
+    filter: brightness(0) saturate(0) blur(1.5px)
+      drop-shadow(0 0 36px var(--mg-rarity-color, #9aa3b2))
+      drop-shadow(0 0 72px color-mix(in srgb, var(--mg-rarity-color, #9aa3b2) 85%, white));
+    opacity: 1;
+    transform: scale(0.82) translateY(4px);
+  }
+
+  80% {
+    filter: brightness(0.92) saturate(1.35) blur(0.5px)
+      drop-shadow(0 0 24px var(--mg-rarity-color, #9aa3b2))
+      drop-shadow(0 0 44px color-mix(in srgb, var(--mg-rarity-color, #9aa3b2) 70%, transparent));
+    transform: scale(1.02) translateY(0);
+  }
+
+  100% {
+    filter: saturate(1.12)
+      drop-shadow(0 0 14px var(--mg-rarity-color, #9aa3b2))
+      drop-shadow(0 8px 16px rgba(20, 30, 50, 0.35));
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

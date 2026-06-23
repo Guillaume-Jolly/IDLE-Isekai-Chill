@@ -12,6 +12,7 @@ import { InventoryPanel } from './components/InventoryPanel'
 import { PopulationPanel } from './components/PopulationPanel'
 import { VillagePanorama } from './components/VillagePanorama'
 import { type MapLabelSpot } from './components/VillageMapLabels'
+import { useMediaQuery } from './hooks/useMediaQuery'
 import {
   getActivityById,
 } from './data/buildingActivities'
@@ -414,22 +415,6 @@ const CONVERSATION_ACTIVITY_BY_COMPANION: Record<string, string> = {
   noa: 'lab-hearts',
   sora: 'barn-hearts',
   zelie: 'salon-hearts',
-}
-
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia(query).matches,
-  )
-
-  useEffect(() => {
-    const media = window.matchMedia(query)
-    const sync = () => setMatches(media.matches)
-    sync()
-    media.addEventListener('change', sync)
-    return () => media.removeEventListener('change', sync)
-  }, [query])
-
-  return matches
 }
 
 const VIEW_TABS: { key: ViewKey; label: string; icon: string }[] = [
@@ -1684,7 +1669,12 @@ function App() {
     expanded: isMobileLayout ? true : sidebarExpanded,
     population: game.village.population,
     resourcesPanel: (
-      <ResourceStrip layout="vertical" perMinute={perMinute} resources={game.resources} />
+      <ResourceStrip
+        layout="vertical"
+        perMinute={perMinute}
+        resources={game.resources}
+        variant="flyout"
+      />
     ),
     tabs: VIEW_TABS,
     villageStageName: getCurrentStage(game.village.stage).name,
@@ -1702,23 +1692,16 @@ function App() {
     <main className={shellClasses}>
       {isMobileLayout ? (
         <>
-          {effectiveMobileNavOpen ? (
-            <button
-              aria-label="Fermer le menu"
-              className="shell-nav-backdrop"
-              type="button"
-              onClick={() => setMobileNavOpen(false)}
-            />
-          ) : null}
           <div
+            aria-hidden={!effectiveMobileNavOpen}
             className={`shell-nav-drawer${effectiveMobileNavOpen ? ' shell-nav-drawer--open' : ''}`}
           >
             <AppNav drawer {...navProps} />
           </div>
-          {!activeMinigameActivityId ? (
+          {!activeMinigameActivityId && !effectiveMobileNavOpen ? (
             <button
-              aria-expanded={effectiveMobileNavOpen}
-              aria-label="Ouvrir le menu"
+              aria-expanded={false}
+              aria-label="Menu du village"
               className="shell-menu-fab"
               type="button"
               onClick={() => setMobileNavOpen(true)}
@@ -1821,6 +1804,7 @@ function App() {
               completeMinigame(activity.id, reward, activity.name, miniScore, maxScore, options)
             }
             onSaveMinigame={saveMinigameProgress}
+            onLaunchMinigame={tryLaunchMinigame}
           />
         )
       })()}

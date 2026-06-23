@@ -14,6 +14,7 @@ type ResourceStripProps = {
   perMinute: Record<ResourceKey, number>
   layout?: 'horizontal' | 'vertical'
   compact?: boolean
+  variant?: 'chips' | 'list' | 'flyout'
 }
 
 type TipState = {
@@ -38,6 +39,7 @@ export function ResourceStrip({
   perMinute,
   layout = 'horizontal',
   compact = false,
+  variant = 'chips',
 }: ResourceStripProps) {
   const [tip, setTip] = useState<TipState | null>(null)
 
@@ -67,32 +69,48 @@ export function ResourceStrip({
     production > 0 ? `+${formatAmount(production)} / min` : 'Pas de production passive'
 
   const keys = compact ? COMPACT_KEYS : RESOURCE_KEYS
+  const isList = variant === 'list'
+  const isFlyout = variant === 'flyout'
 
   return (
     <section
       aria-label="Ressources"
-      className={`resource-strip resource-strip--${layout}${compact ? ' resource-strip--compact' : ''}`}
+      className={`resource-strip resource-strip--${layout}${compact ? ' resource-strip--compact' : ''}${isList ? ' resource-strip--list' : ''}${isFlyout ? ' resource-strip--flyout' : ''}`}
     >
       <div className="resource-strip-scroll">
-        {keys.map((key) => (
-          <div className="resource-chip" key={key}>
-            <button
-              aria-describedby={activeKey === key ? `resource-tip-${key}` : undefined}
-              className="resource-chip-button"
-              type="button"
-              onBlur={hideTip}
-              onFocus={(event) => showTip(key, event.currentTarget)}
-              onMouseEnter={(event) => showTip(key, event.currentTarget)}
-              onMouseLeave={hideTip}
-            >
+        {keys.map((key) =>
+          isFlyout ? (
+            <div className="resource-flyout-item" key={key} title={RESOURCE_LABELS[key]}>
               <ResourceIcon resource={key} />
-              <span className="resource-chip-amount">{compactAmount(resources[key])}</span>
-            </button>
-          </div>
-        ))}
+              <span className="resource-flyout-amount">{compactAmount(resources[key])}</span>
+            </div>
+          ) : isList ? (
+            <div className="resource-list-row" key={key}>
+              <ResourceIcon resource={key} />
+              <span className="resource-list-label">{RESOURCE_LABELS[key]}</span>
+              <span className="resource-list-amount">{formatAmount(resources[key])}</span>
+            </div>
+          ) : (
+            <div className="resource-chip" key={key}>
+              <button
+                aria-describedby={activeKey === key ? `resource-tip-${key}` : undefined}
+                className="resource-chip-button"
+                type="button"
+                onBlur={hideTip}
+                onFocus={(event) => showTip(key, event.currentTarget)}
+                onMouseEnter={(event) => showTip(key, event.currentTarget)}
+                onMouseLeave={hideTip}
+              >
+                <ResourceIcon resource={key} />
+                <span className="resource-chip-amount">{compactAmount(resources[key])}</span>
+              </button>
+            </div>
+          ),
+        )}
       </div>
 
-      {tip &&
+      {!isList && !isFlyout &&
+        tip &&
         createPortal(
           <div
             className="resource-chip-tooltip resource-chip-tooltip--fixed"

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { BUILDING_ACTIVITIES, sortActivitiesByUnlock } from '../../data/buildingActivities'
+import { BUILDING_ACTIVITIES, FEATURED_MINIGAME_IDS, sortActivitiesByUnlock } from '../../data/buildingActivities'
 import { DEV_UNLOCK_ALL_MINIGAMES } from '../../data/gacha'
 import { BUILDING_UNLOCK_ORDER, getCurrentStage } from '../../data/population'
 import { ConversationPicker } from './ConversationPicker'
@@ -79,6 +79,19 @@ export function MinigameHub({
   const gameplayActivities = useMemo(
     () => sortedActivities.filter((activity) => activity.minigameType !== 'conversation'),
     [sortedActivities],
+  )
+
+  const featuredActivities = useMemo(
+    () =>
+      FEATURED_MINIGAME_IDS.map((id) => gameplayActivities.find((activity) => activity.id === id)).filter(
+        (activity): activity is (typeof gameplayActivities)[number] => Boolean(activity),
+      ),
+    [gameplayActivities],
+  )
+
+  const otherGameplayActivities = useMemo(
+    () => gameplayActivities.filter((activity) => !FEATURED_MINIGAME_IDS.includes(activity.id)),
+    [gameplayActivities],
   )
 
   const unlockedConversationCount = useMemo(
@@ -172,6 +185,8 @@ export function MinigameHub({
       </section>
 
       <section className="grid mini-grid">
+        {featuredActivities.map((activity) => renderActivityCard(activity))}
+
         {conversationActivities.length > 0 ? (
           <article
             className={`panel minigame-card minigame-card-conversations ${unlockedConversationCount === 0 ? 'locked' : ''}`}
@@ -221,7 +236,7 @@ export function MinigameHub({
           </article>
         ) : null}
 
-        {gameplayActivities.map((activity) => renderActivityCard(activity))}
+        {otherGameplayActivities.map((activity) => renderActivityCard(activity))}
       </section>
 
       {conversationPickerOpen ? (

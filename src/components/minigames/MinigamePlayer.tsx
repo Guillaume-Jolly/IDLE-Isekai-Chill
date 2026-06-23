@@ -27,6 +27,7 @@ type MinigamePlayerProps = {
   minigameSave?: MinigameSave
   onSaveMinigame?: (save: MinigameSave) => void
   companionAffinity?: number
+  onLaunchMinigame?: (activityId: string) => void
 }
 
 const GAME_BY_TYPE: Record<MinigameType, ComponentType<MinigamePlayerProps>> = {

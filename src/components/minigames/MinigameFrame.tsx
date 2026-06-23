@@ -6,9 +6,12 @@ import type { MinigameSave } from '../../data/minigameSave'
 
 import { CompanionPresenter } from './CompanionPresenter'
 
+import { MinigameOverlayChrome } from './MinigameOverlayChrome'
+
 import { MinigameStage } from './MinigameStage'
 
 import './Minigames.css'
+import './MinigameChrome.css'
 
 
 
@@ -48,6 +51,8 @@ type MinigameFrameProps = {
   stageBackgroundVariant?: 'default' | 'companion-art'
   /** Mise en page dediee conversation (fond artwork plein ecran). */
   layoutVariant?: 'default' | 'conversation' | 'fullscreen'
+  /** Le jeu gère son propre dock (ex. HuntSideRail avec fermer intégré). */
+  hideGlobalChrome?: boolean
 }
 
 
@@ -84,6 +89,7 @@ export function MinigameFrame({
   stageBackgroundSrc,
   stageBackgroundVariant = 'default',
   layoutVariant = 'fullscreen',
+  hideGlobalChrome = false,
 
 }: MinigameFrameProps) {
   const showResult = !endless && status !== 'playing'
@@ -104,7 +110,21 @@ export function MinigameFrame({
 
       >
 
-        <header className="minigame-head">
+        {useFullscreenShell && !hideGlobalChrome ? (
+          <MinigameOverlayChrome
+            activity={activity}
+            buildingName={buildingName}
+            companionName={companionName}
+            endless={endless}
+            maxScore={maxScore}
+            resourceLabel={resourceLabel}
+            score={score}
+            scoreLabel={scoreLabel}
+            onClose={onClose}
+          />
+        ) : null}
+
+        <header className="minigame-head" aria-hidden={useFullscreenShell}>
 
           <div>
 
@@ -251,6 +271,9 @@ export type MinigameProps = {
   onSaveMinigame?: (save: MinigameSave) => void
 
   companionAffinity?: number
+
+  /** Lance un autre mini-jeu persistant (ex. chasse ↔ refuge). */
+  onLaunchMinigame?: (activityId: string) => void
 
 }
 

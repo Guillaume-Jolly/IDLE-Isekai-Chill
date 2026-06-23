@@ -13,6 +13,13 @@ type GuideCompanionCutoutProps = {
   biomeId?: string
   /** Animation de joie sans changer l image. */
   celebrate?: boolean
+  /** Réaction douce en cas d échec. */
+  commiserate?: boolean
+  speech?: {
+    line: string
+    detail?: string
+    tone: 'success' | 'failed'
+  }
 }
 
 type LoadTier = 'biome-pose' | 'biome-point' | 'default-png' | 'svg' | 'hidden'
@@ -42,6 +49,8 @@ export function GuideCompanionCutout({
   side = 'left',
   biomeId,
   celebrate = false,
+  commiserate = false,
+  speech,
 }: GuideCompanionCutoutProps) {
   const [tier, setTier] = useState<LoadTier>(biomeId ? 'biome-pose' : 'default-png')
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null)
@@ -75,24 +84,41 @@ export function GuideCompanionCutout({
   const isLoaded = loadedSrc === src
 
   return (
-    <div className={`mg-guide-cutout ${side}${celebrate ? ' celebrate' : ''}`}>
-      <img
-        alt={`${name} guide la capture`}
-        className={`mg-guide-cutout-img${isLoaded ? ' mg-guide-idle' : ''}`}
-        draggable={false}
-        onLoad={() => {
-          setLoadedSrc(src)
-        }}
-        onError={() => {
-          setTier((current) => {
-            if (current === 'biome-pose') return 'biome-point'
-            if (current === 'biome-point') return 'default-png'
-            if (current === 'default-png') return 'svg'
-            return 'hidden'
-          })
-        }}
-        src={src}
-      />
+    <div
+      className={`mg-guide-cutout ${side}${celebrate ? ' celebrate' : ''}${
+        commiserate ? ' commiserate' : ''
+      }${speech ? ' has-speech' : ''}`}
+    >
+      {speech ? (
+        <div
+          className={`mg-guide-speech-bubble tone-${speech.tone}`}
+          key={`${speech.tone}-${speech.line}-${speech.detail ?? ''}`}
+        >
+          <p className="mg-guide-speech-line">{speech.line}</p>
+          {speech.detail ? <p className="mg-guide-speech-detail">{speech.detail}</p> : null}
+        </div>
+      ) : null}
+      <div className="mg-guide-cutout-figure">
+        <img
+          alt={`${name} guide la capture`}
+          className={`mg-guide-cutout-img${
+            isLoaded && !celebrate && !commiserate ? ' mg-guide-idle' : ''
+          }`}
+          draggable={false}
+          onLoad={() => {
+            setLoadedSrc(src)
+          }}
+          onError={() => {
+            setTier((current) => {
+              if (current === 'biome-pose') return 'biome-point'
+              if (current === 'biome-point') return 'default-png'
+              if (current === 'default-png') return 'svg'
+              return 'hidden'
+            })
+          }}
+          src={src}
+        />
+      </div>
     </div>
   )
 }

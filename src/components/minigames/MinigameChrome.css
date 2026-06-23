@@ -1,0 +1,668 @@
+/* Chrome discret — coins, petits boutons, infobulles (tous mini-jeux plein écran) */
+
+.minigame-panel-fullscreen .minigame-head {
+  display: none;
+}
+
+.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:not(:has(.mg-refuge-immersive)):not(:has(.mg-capture-immersive)) {
+  padding: 0;
+}
+
+/* Barre latérale gauche — tous les mini-jeux plein écran */
+
+.mg-minigame-side-rail {
+  align-items: center;
+  background: rgba(8, 10, 18, 0.92);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 6px;
+  height: 100dvh;
+  left: 0;
+  padding:
+    calc(8px + env(safe-area-inset-top, 0px))
+    4px
+    calc(8px + env(safe-area-inset-bottom, 0px));
+  position: fixed;
+  top: 0;
+  width: 52px;
+  z-index: 52;
+}
+
+.mg-hunt-mobile-fabs {
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  left: calc(10px + env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  z-index: 52;
+}
+
+.mg-hunt-mobile-fabs > * {
+  pointer-events: auto;
+}
+
+.mg-side-rail-quit,
+.mg-minigame-side-rail-btn {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: rgba(248, 250, 255, 0.94);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-weight: 700;
+  height: 44px;
+  justify-content: center;
+  line-height: 1;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0;
+  touch-action: manipulation;
+  transition: background 0.15s ease, transform 0.15s ease;
+  width: 44px;
+}
+
+.mg-side-rail-quit {
+  background: rgba(180, 52, 58, 0.22);
+  border-color: rgba(255, 150, 150, 0.35);
+  font-size: 1.15rem;
+}
+
+.mg-side-rail-quit:hover,
+.mg-minigame-side-rail-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mg-side-rail-quit:active,
+.mg-minigame-side-rail-btn:active {
+  transform: scale(0.96);
+}
+
+.mg-minigame-side-rail-btn--info {
+  font-size: 0.72rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.minigame-panel-fullscreen:has(.mg-minigame-side-rail) .minigame-play-area-cinematic {
+  box-sizing: border-box;
+  margin-left: 52px;
+  width: calc(100% - 52px);
+}
+
+.mg-minigame-corner-dock {
+  display: none;
+}
+
+.mg-minigame-corner-dock > * {
+  pointer-events: auto;
+}
+
+.mg-minigame-info-backdrop {
+  background: transparent;
+  border: 0;
+  inset: 0;
+  padding: 0;
+  pointer-events: auto;
+  position: fixed;
+  z-index: 51;
+}
+
+.mg-minigame-info-popover {
+  backdrop-filter: blur(10px);
+  background: rgba(8, 10, 18, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  color: rgba(240, 245, 255, 0.92);
+  left: calc(56px + env(safe-area-inset-left, 0px));
+  max-height: min(42dvh, 280px);
+  max-width: min(72vw, 260px);
+  overflow-y: auto;
+  padding: 10px 12px;
+  pointer-events: auto;
+  position: fixed;
+  top: calc(8px + env(safe-area-inset-top, 0px));
+  z-index: 53;
+}
+
+.mg-minigame-info-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.mg-minigame-info-line {
+  font-size: 0.72rem;
+  margin: 0 0 4px;
+  opacity: 0.92;
+}
+
+.mg-minigame-info-desc {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  margin: 8px 0 0;
+  opacity: 0.78;
+}
+
+/* HuntSideRail — menu + fermer en dock replié (tous écrans en plein écran) */
+.minigame-panel-fullscreen .mg-hunt-menu-fab,
+.minigame-panel-fullscreen .mg-hunt-menu-backdrop,
+.minigame-panel-fullscreen .mg-hunt-menu-drawer {
+  display: block;
+}
+
+.minigame-panel-fullscreen .mg-hunt-rail-desktop {
+  display: none !important;
+}
+
+.minigame-panel-fullscreen .mg-hunt-rail:not(.mg-hunt-rail--menu-open):not(.mg-hunt-rail--desktop-layout) {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-hunt-rail {
+  bottom: auto;
+  flex-direction: column;
+  left: auto;
+  pointer-events: none;
+  position: fixed;
+  right: auto;
+  top: auto;
+  z-index: 49;
+}
+
+.minigame-panel-fullscreen .mg-hunt-rail--menu-open {
+  display: flex;
+}
+
+/* Rail parent z-index 49 < backdrop 118 — le drawer devient incliquable sans ça */
+.minigame-panel-fullscreen .mg-hunt-rail--menu-open {
+  inset: auto;
+  pointer-events: none;
+  z-index: 120;
+}
+
+.minigame-panel-fullscreen .mg-hunt-rail--menu-open .mg-hunt-menu-drawer {
+  pointer-events: auto;
+}
+
+/* PC — onglets latéraux intégrés (pas de drawer) */
+@media (min-width: 768px) {
+  .minigame-panel-fullscreen .mg-hunt-menu-fab,
+  .minigame-panel-fullscreen .mg-hunt-menu-backdrop,
+  .minigame-panel-fullscreen .mg-hunt-menu-drawer {
+    display: none !important;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail-desktop {
+    display: flex !important;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout {
+    bottom: auto;
+    flex-direction: row;
+    flex-shrink: 0;
+    height: 100%;
+    left: auto;
+    max-height: 100%;
+    pointer-events: auto;
+    position: relative;
+    right: auto;
+    top: auto;
+    z-index: 30;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-hunt-rail-desktop {
+    align-items: stretch;
+    display: flex !important;
+    flex-direction: row;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-hunt-rail-tabs {
+    align-self: stretch;
+    border-left: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    flex: 0 0 auto;
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding:
+      calc(8px + env(safe-area-inset-top, 0px))
+      6px
+      calc(12px + env(safe-area-inset-bottom, 0px))
+      4px;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-side-rail-quit {
+    margin: 0;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-hunt-rail-panel {
+    align-self: stretch;
+    border-right: 0;
+    display: flex;
+    flex: 0 0 min(360px, 36vw);
+    flex-direction: column;
+    max-height: none;
+    min-height: 0;
+    overflow: hidden;
+    width: min(360px, 36vw);
+  }
+
+  .minigame-panel-fullscreen:has(.mg-refuge-immersive) .mg-hunt-rail--desktop-layout .mg-hunt-rail-panel {
+    flex: 0 0 min(400px, 38vw);
+    width: min(400px, 38vw);
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-hunt-rail-panel-head {
+    flex-shrink: 0;
+    padding: 12px 12px 10px;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-hunt-rail-panel-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-hunt-rail-desktop {
+    position: relative;
+  }
+
+  .minigame-panel-fullscreen .mg-capture-immersive--explore .mg-hunt-layout {
+    flex-direction: row;
+  }
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-fab {
+  align-items: center;
+  background: rgba(8, 10, 18, 0.62);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  color: rgba(248, 250, 255, 0.94);
+  display: inline-flex;
+  font-size: 0.92rem;
+  height: 34px;
+  justify-content: center;
+  left: auto;
+  line-height: 1;
+  padding: 0;
+  position: static;
+  top: auto;
+  width: 34px;
+}
+
+.minigame-panel-fullscreen .mg-hunt-corner-dock {
+  display: none !important;
+}
+
+.minigame-panel-fullscreen .mg-hunt-mobile-fabs .mg-hunt-menu-fab {
+  align-items: center;
+  background: rgba(14, 10, 22, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  color: #fff5fb;
+  display: inline-flex;
+  font-size: 1.1rem;
+  height: 44px;
+  justify-content: center;
+  left: auto;
+  line-height: 1;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0;
+  position: static;
+  top: auto;
+  width: 44px;
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-backdrop {
+  background: rgba(0, 0, 0, 0.45);
+  border: 0;
+  border-radius: 0;
+  display: block;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: auto;
+  position: fixed;
+  z-index: 118;
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-drawer {
+  background: rgba(8, 10, 18, 0.98);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.32);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  left: 0;
+  max-width: min(96vw, 640px);
+  pointer-events: auto;
+  position: fixed;
+  top: 0;
+  transform: translateX(-100%);
+  transition:
+    transform 0.2s ease,
+    visibility 0.2s ease,
+    width 0.2s ease,
+    max-width 0.2s ease;
+  visibility: hidden;
+  width: min(52vw, 200px);
+  z-index: 120;
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-drawer.open:has(.mg-hunt-rail-panel--drawer) {
+  max-width: min(96vw, 640px);
+  width: min(96vw, 640px);
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-drawer.open:not(:has(.mg-hunt-rail-panel--drawer)) {
+  max-width: min(72vw, 220px);
+  width: min(72vw, 220px);
+}
+
+@media (max-width: 767px) {
+  .minigame-panel-fullscreen .mg-hunt-rail-tabs--drawer .mg-hunt-rail-tab-label {
+    display: none;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail-tabs--drawer {
+    align-self: flex-start;
+    padding: 8px 4px;
+    width: calc(var(--mg-rail-cell, 44px) + 8px);
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail-tabs--drawer .mg-hunt-rail-tab {
+    flex: 0 0 var(--mg-rail-cell, 44px);
+    height: var(--mg-rail-cell, 44px);
+    min-height: var(--mg-rail-cell, 44px);
+    min-width: var(--mg-rail-cell, 44px);
+    padding: 0;
+    width: var(--mg-rail-cell, 44px);
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-menu-drawer.open:not(:has(.mg-hunt-rail-panel--drawer)) {
+    max-width: 56px;
+    width: 56px;
+  }
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-drawer.open {
+  overflow: hidden;
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-drawer-head {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  padding:
+    calc(8px + env(safe-area-inset-top, 0px))
+    10px
+    8px
+    calc(10px + env(safe-area-inset-left, 0px));
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-drawer-actions {
+  align-items: center;
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-quit {
+  backdrop-filter: blur(8px);
+  background: rgba(180, 52, 58, 0.28);
+  border: 1px solid rgba(255, 150, 150, 0.35);
+  border-radius: 8px;
+  color: rgba(255, 240, 240, 0.95);
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 700;
+  min-height: 30px;
+  padding: 4px 8px;
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-drawer-head h4 {
+  font-size: 0.84rem;
+}
+
+.minigame-panel-fullscreen .mg-hunt-menu-close {
+  border-radius: 8px;
+  font-size: 1rem;
+  height: 30px;
+  min-width: 30px;
+  width: 30px;
+}
+
+.minigame-panel-fullscreen .mg-hunt-rail-panel--drawer {
+  font-size: 0.82rem;
+}
+
+/* Chasse — HUD discret en infobulle (coin haut-droit) */
+.minigame-panel-fullscreen .mg-capture-toolbar {
+  background: transparent;
+  left: auto;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: calc(8px + env(safe-area-inset-right, 0px));
+  top: calc(8px + env(safe-area-inset-top, 0px));
+  width: auto;
+  z-index: 20;
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--hunt .mg-capture-toolbar,
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--result .mg-capture-toolbar {
+  background: transparent;
+  flex-direction: column;
+  gap: 6px;
+  left: auto;
+  padding: 0;
+  right: calc(8px + env(safe-area-inset-right, 0px));
+  top: calc(8px + env(safe-area-inset-top, 0px));
+}
+
+.minigame-panel-fullscreen .mg-capture-immersive--phone.mg-capture-immersive--explore .mg-capture-toolbar {
+  background: transparent;
+  left: auto;
+  padding: 0;
+  right: calc(8px + env(safe-area-inset-right, 0px));
+  top: calc(8px + env(safe-area-inset-top, 0px));
+}
+
+.minigame-panel-fullscreen .mg-capture-hud {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: min(46vw, 180px);
+  pointer-events: auto;
+  width: auto;
+}
+
+.minigame-panel-fullscreen .mg-capture-hud-chip {
+  align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(8, 10, 18, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  color: rgba(248, 250, 255, 0.94);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 700;
+  gap: 4px;
+  min-height: 30px;
+  padding: 4px 10px;
+}
+
+.minigame-panel-fullscreen .mg-capture-hud-popover {
+  backdrop-filter: blur(10px);
+  background: rgba(8, 10, 18, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  display: grid;
+  gap: 4px;
+  max-width: min(72vw, 220px);
+  padding: 8px 10px;
+}
+
+.minigame-panel-fullscreen .mg-capture-hud-popover span {
+  backdrop-filter: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-size: 0.66rem;
+  padding: 0;
+  text-align: left;
+  white-space: normal;
+}
+
+.minigame-panel-fullscreen .mg-capture-stats--primary,
+.minigame-panel-fullscreen .mg-capture-stats--secondary {
+  display: contents;
+}
+
+.minigame-panel-fullscreen .mg-capture-hud-details-btn {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-capture-stats--secondary:not(.open) {
+  display: none;
+}
+
+.minigame-panel-fullscreen .mg-capture-flash--toast {
+  backdrop-filter: blur(8px);
+  background: rgba(8, 10, 18, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(240, 245, 255, 0.9);
+  font-size: 0.68rem;
+  margin: 0;
+  max-width: min(64vw, 220px);
+  padding: 5px 8px;
+  pointer-events: none;
+  text-align: right;
+}
+
+.minigame-panel-fullscreen .mg-capture-flash:not(.mg-capture-flash--toast):empty {
+  display: none;
+}
+
+/* Actions chasse — petit bouton coin bas-droit */
+.minigame-panel-fullscreen .mg-capture-actions {
+  background: transparent;
+  border: 0;
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  left: auto;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  top: auto;
+  width: auto;
+  z-index: 22;
+}
+
+.minigame-panel-fullscreen .mg-capture-actions-slot {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+  width: auto;
+}
+
+.minigame-panel-fullscreen .mg-capture-actions .mg-big-btn,
+.minigame-panel-fullscreen .mg-capture-result-actions .mg-big-btn {
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  font-size: 0.78rem;
+  min-height: 38px;
+  min-width: 0;
+  padding: 8px 14px;
+  pointer-events: auto;
+  width: auto;
+}
+
+.minigame-panel-fullscreen .mg-capture-ring-hint.active {
+  backdrop-filter: blur(8px);
+  background: rgba(8, 10, 18, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 0.66rem;
+  max-width: min(58vw, 200px);
+  padding: 5px 8px;
+  pointer-events: none;
+  text-align: right;
+}
+
+.minigame-panel-fullscreen .mg-capture-myrion-banner {
+  backdrop-filter: blur(8px);
+  background: rgba(8, 10, 18, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  bottom: auto;
+  left: auto;
+  max-width: min(58vw, 220px);
+  padding: 4px 10px;
+  pointer-events: none;
+  position: absolute;
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  top: calc(46px + env(safe-area-inset-top, 0px));
+  width: auto;
+  z-index: 18;
+}
+
+.minigame-panel-fullscreen .mg-capture-result-strip {
+  display: none;
+}
+
+/* Téléphone — bandeau bas ; PC — overlay sur la scène */
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone) .mg-capture-result-strip {
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  display: block;
+  font-size: 0.72rem;
+  left: auto;
+  max-width: min(72vw, 260px);
+  padding: 8px 10px;
+  pointer-events: none;
+  position: absolute;
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  width: auto;
+  z-index: 19;
+}
+
+.minigame-panel-fullscreen:has(.mg-capture-immersive--phone) .mg-capture-result-overlay--scene {
+  display: none !important;
+}
