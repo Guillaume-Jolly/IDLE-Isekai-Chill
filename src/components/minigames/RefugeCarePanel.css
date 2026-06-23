@@ -1,0 +1,390 @@
+.mg-refuge-care-panel {
+  background: #f7faf8;
+  border: 1px solid rgba(72, 98, 84, 0.22);
+  border-radius: 12px;
+  box-sizing: border-box;
+  color: #1a2e22;
+  display: grid;
+  gap: 8px;
+  max-width: 100%;
+  min-width: 0;
+  padding: 10px;
+  width: 100%;
+}
+
+/* Drawer latéral — le scroll est géré par .mg-hunt-rail-panel-body */
+.mg-refuge-care-panel--drawer {
+  gap: 6px;
+  max-height: none;
+  overflow: visible;
+  padding: 8px;
+}
+
+.mg-hunt-rail-panel-body .mg-refuge-care-panel--drawer {
+  max-height: none;
+  overflow: visible;
+}
+
+.mg-refuge-care-panel-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.mg-refuge-care-panel-head strong {
+  color: #1a2e22;
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
+.mg-refuge-care-panel-head span {
+  color: #5a7264;
+  display: block;
+  font-size: 0.68rem;
+  line-height: 1.25;
+}
+
+.mg-refuge-care-panel-close {
+  background: #fff;
+  border: 1px solid rgba(72, 98, 84, 0.2);
+  border-radius: 8px;
+  color: #5a7264;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+  min-width: 26px;
+  padding: 2px 7px;
+}
+
+.mg-refuge-care-panel-duplicates {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.mg-refuge-care-panel-nav {
+  display: grid;
+  gap: 4px;
+}
+
+.mg-refuge-care-panel-nav-row {
+  align-items: center;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+}
+
+.mg-refuge-care-panel-nav-label {
+  color: #5a7264;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.mg-refuge-care-panel-nav-count {
+  color: #3d5244;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 2.4rem;
+  text-align: center;
+}
+
+.mg-refuge-care-panel-nav-row button {
+  background: #fff;
+  border: 1px solid rgba(72, 98, 84, 0.2);
+  border-radius: 8px;
+  color: #3d5244;
+  font-size: 0.95rem;
+  line-height: 1;
+  min-width: 26px;
+  padding: 2px 7px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-nav {
+  gap: 3px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-nav-label {
+  font-size: 0.58rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-nav-count {
+  font-size: 0.68rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-nav-row button {
+  min-width: 24px;
+  padding: 1px 6px;
+}
+
+.mg-refuge-care-panel-duplicates button {
+  background: #fff;
+  border: 1px solid rgba(72, 98, 84, 0.2);
+  border-radius: 8px;
+  color: #3d5244;
+  font-size: 0.95rem;
+  line-height: 1;
+  min-width: 26px;
+  padding: 2px 7px;
+}
+
+.mg-refuge-care-panel-duplicates span {
+  color: #5a7264;
+  font-size: 0.72rem;
+}
+
+.mg-refuge-care-panel-stats {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mg-refuge-care-stat {
+  background: #fff;
+  border: 1px solid rgba(72, 98, 84, 0.14);
+  border-radius: 8px;
+  display: grid;
+  gap: 2px;
+  padding: 6px 8px;
+}
+
+.mg-refuge-care-stat span {
+  color: #5a7264;
+  font-size: 0.64rem;
+}
+
+.mg-refuge-care-stat strong {
+  color: #1a2e22;
+  font-size: 0.82rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-head strong {
+  font-size: 0.86rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-head span {
+  font-size: 0.64rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-stats {
+  gap: 4px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-stat {
+  padding: 4px 6px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-stat span {
+  font-size: 0.58rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-stat strong {
+  font-size: 0.76rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-actions {
+  gap: 4px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-actions button {
+  font-size: 1rem;
+  min-height: 30px;
+  padding: 2px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-bulk-grid button {
+  font-size: 0.62rem;
+  min-height: 28px;
+  padding: 3px 4px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-release {
+  font-size: 0.68rem;
+  min-height: 30px;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-details {
+  font-size: 0.68rem;
+}
+
+.mg-refuge-care-panel--drawer .mg-refuge-care-panel-details-body .mg-refuge-link-btn {
+  font-size: 0.68rem;
+  padding: 5px 6px;
+}
+
+.mg-refuge-care-panel-actions {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.mg-refuge-care-panel-actions button {
+  background: #fff;
+  border: 1px solid rgba(72, 98, 84, 0.18);
+  border-radius: 8px;
+  color: #1a2e22;
+  font-size: 0.72rem;
+  min-height: 34px;
+  padding: 4px 2px;
+}
+
+.mg-refuge-care-panel--popover .mg-refuge-care-panel-actions button {
+  font-size: 1rem;
+  min-height: 36px;
+}
+
+.mg-refuge-care-panel-bulk {
+  display: grid;
+  gap: 4px;
+}
+
+.mg-refuge-care-panel-bulk-label {
+  color: #5a7264;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.mg-refuge-care-panel-bulk-grid {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mg-refuge-care-panel-bulk-grid button {
+  background: rgba(61, 168, 106, 0.12);
+  border: 1px solid rgba(47, 158, 94, 0.28);
+  border-radius: 8px;
+  color: #1a2e22;
+  font-size: 0.68rem;
+  min-height: 32px;
+  padding: 4px 6px;
+}
+
+.mg-refuge-care-panel-bulk-grid button:disabled {
+  opacity: 0.45;
+}
+
+.mg-refuge-care-panel-details {
+  font-size: 0.72rem;
+}
+
+.mg-refuge-care-panel-details summary {
+  color: #3d5244;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.mg-refuge-care-panel-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.mg-refuge-care-panel-details-body {
+  display: grid;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.mg-refuge-care-panel-details-body p {
+  color: #5a7264;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.mg-refuge-care-panel-details-body p.warn {
+  color: #9a4a2a;
+}
+
+.mg-refuge-care-panel-details-body .mg-refuge-link-btn {
+  font-size: 0.72rem;
+  padding: 6px 8px;
+  width: 100%;
+}
+
+.mg-refuge-care-panel-release {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(180, 90, 70, 0.35);
+  border-radius: 8px;
+  color: #9a4030;
+  font-size: 0.74rem;
+  min-height: 34px;
+  width: 100%;
+}
+
+.mg-refuge-care-panel-release.confirm {
+  background: rgba(220, 80, 60, 0.14);
+  border-color: rgba(200, 60, 40, 0.55);
+  color: #8a2818;
+  font-weight: 700;
+}
+
+.mg-refuge-care-popover {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 252, 248, 0.94);
+  border: 1px solid rgba(120, 90, 60, 0.18);
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  max-width: min(168px, calc(100% - 24px));
+  padding: 8px;
+  pointer-events: auto;
+  position: absolute;
+  transition: top 0.22s ease, right 0.22s ease, bottom 0.22s ease, left 0.22s ease;
+  width: min(168px, calc(100% - 24px));
+  z-index: 24;
+}
+
+.mg-refuge-care-popover .mg-refuge-care-panel {
+  background: transparent;
+  border: none;
+  gap: 6px;
+  max-height: none;
+  overflow: visible;
+  padding: 0;
+}
+
+.mg-refuge-care-popover--top-left {
+  left: max(12px, env(safe-area-inset-left, 0px));
+  top: max(12px, env(safe-area-inset-top, 0px));
+}
+
+.mg-refuge-care-popover--top-right {
+  right: max(12px, env(safe-area-inset-right, 0px));
+  top: max(12px, env(safe-area-inset-top, 0px));
+}
+
+.mg-refuge-care-popover--bottom-left {
+  bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  left: max(12px, env(safe-area-inset-left, 0px));
+}
+
+.mg-refuge-care-popover--bottom-right {
+  bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
+}
+
+.mg-refuge-care-popover .mg-refuge-care-panel-bulk,
+.mg-refuge-care-popover .mg-refuge-care-panel-details {
+  display: none;
+}
+
+.mg-refuge-care-popover .mg-refuge-care-panel-head span {
+  font-size: 0.62rem;
+}
+
+.mg-refuge-care-popover .mg-refuge-care-stat {
+  padding: 4px 6px;
+}
+
+.mg-refuge-care-popover .mg-refuge-care-stat span {
+  font-size: 0.58rem;
+}
+
+.mg-refuge-care-popover .mg-refuge-care-stat strong {
+  font-size: 0.74rem;
+}

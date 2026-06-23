@@ -24,24 +24,30 @@ export const ENCLOSURE_ASPECT_RATIO = 1672 / 941
 
 export const enclosureAssetPath = (biomeId: string) => `${ENCLOSURE_ASSET_ROOT}/${biomeId}.png`
 
-/** Zone praticable centrale — marge large pour les gros chibis (LR) près du décor. */
+/** Enclos portrait 9:16 — téléphone uniquement. */
+export const enclosurePortraitAssetPath = (biomeId: string) =>
+  `${ENCLOSURE_ASSET_ROOT}/${biomeId}-portrait.png`
+
+export const ENCLOSURE_PORTRAIT_ASPECT_RATIO = 9 / 16
+
+/** Zone praticable (pourcentages du conteneur .mg-enclosure-playfield). */
 export const ENCLOSURE_PLAYFIELD: EnclosureBounds = {
-  minX: 18,
-  maxX: 82,
-  minY: 28,
-  maxY: 72,
+  minX: 14,
+  maxX: 86,
+  minY: 14,
+  maxY: 86,
 }
 
 /** Zone centrale praticable (pourcentages du conteneur). */
 export const ENCLOSURE_BOUNDS: Record<RefugeBiomeId, EnclosureBounds> = {
   'prairie-solaire': ENCLOSURE_PLAYFIELD,
-  'foret-ancienne': { minX: 17, maxX: 83, minY: 28, maxY: 72 },
-  'marais-brumeux': { minX: 18, maxX: 82, minY: 30, maxY: 70 },
-  'montagnes-cristallines': { minX: 18, maxX: 82, minY: 26, maxY: 70 },
+  'foret-ancienne': ENCLOSURE_PLAYFIELD,
+  'marais-brumeux': ENCLOSURE_PLAYFIELD,
+  'montagnes-cristallines': ENCLOSURE_PLAYFIELD,
   'desert-rouge': ENCLOSURE_PLAYFIELD,
-  'rivage-corallien': { minX: 17, maxX: 83, minY: 30, maxY: 70 },
-  'volcan-noir': { minX: 18, maxX: 82, minY: 30, maxY: 68 },
-  'ruines-astrales': { minX: 19, maxX: 81, minY: 30, maxY: 70 },
+  'rivage-corallien': ENCLOSURE_PLAYFIELD,
+  'volcan-noir': ENCLOSURE_PLAYFIELD,
+  'ruines-astrales': ENCLOSURE_PLAYFIELD,
 }
 
 export function clampToEnclosureBounds(

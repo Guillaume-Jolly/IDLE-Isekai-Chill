@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { scaleReward } from '../../data/buildingActivities'
 import {
   BIOME_RESOURCES,
@@ -6,7 +6,6 @@ import {
   MAX_SPECIES_COPIES,
   estimateDailyProduction,
   getBiomeCollectionStatus,
-  enclosureAssetPath,
   normalizeRefugeBiomeId,
   pickEnclosureRepresentatives,
   speciesCopyCount,
@@ -23,8 +22,6 @@ import {
 } from '../../data/minigameSave'
 import {
   compareCapturedMyrion,
-  SUPPORT_STAT_LABELS,
-  TRAIT_LABELS,
   companionAffinityMultiplier,
   computeCompanionBuffTotal,
   maybeGrantRefugeFavor,
@@ -32,32 +29,33 @@ import {
   type HuntFavor,
 } from '../../data/myrionMvp2'
 import {
-  findCompanionForMyrion,
   getLinkedMyrion,
   linkMyrionToCompanion,
-  describeInactiveBuffs,
-  describeLinkedBuffs,
   removeCompanionLinksForPet,
-  rarityLinkLabel,
   unlinkCompanionMyrion,
 } from '../../data/myrionCompanionLinks'
 import { applyReleaseRewards } from '../../data/myrionRelease'
-import {
-  effectiveSupportBuffs,
-  maxSupportBuffSlots,
-} from '../../data/myrionMvp2'
 import { BREED_RESOURCE_COST } from '../../data/myrionMvp3'
 import { type CraftResult } from '../../data/myrionCraft'
-import { formatVisualVariant } from '../../data/myrionVariants'
 import { useEnclosureWanderers } from '../../hooks/useEnclosureWanderers'
+import { useIsMobileRefuge } from '../../hooks/useMediaQuery'
+import { useRefugeCarePopoverAnchor } from '../../hooks/useRefugeCarePopoverAnchor'
 import { BIOMES } from '../../data/wildFamiliars'
 import { CaptureComparePanel } from './CaptureComparePanel'
 import { EchoNursery } from './EchoNursery'
+import { EnclosureBackground } from './EnclosureBackground'
 import { EnclosureChibi } from './EnclosureChibi'
-import { MyrionDebugPanel } from './MyrionDebugPanel'
+import { HuntSideRail } from './HuntSideRail'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
+import { MinigameSwitchPanel } from './MinigameSwitchPanel'
 import { PalmonSprite } from './PalmonSprite'
+import { RefugeBiomeMapPanel } from './RefugeBiomeMapPanel'
+import { RefugeCarePanel, type BulkCareScope } from './RefugeCarePanel'
+import { RefugeCarePopover } from './RefugeCarePopover'
 import { RefugeCraftPanel } from './RefugeCraftPanel'
+import { RefugeSummaryPanel } from './RefugeSummaryPanel'
+
+import './RefugeMobile.css'
 
 const DAY_MS = 86_400_000
 
@@ -98,6 +96,7 @@ export function DressageGame({
   onSaveMinigame,
   onComplete,
   onClose,
+  onLaunchMinigame,
 }: MinigameProps) {
   const [pets, setPets] = useState<PetState[]>(() =>
     refreshPetsOnVisit(minigameSave?.pets ?? []),
@@ -126,8 +125,10 @@ export function DressageGame({
     () => minigameSave?.refugeProgress ?? { shinyDiscovered: false, biomeFavors: {} },
   )
   const [status, setStatus] = useState<'playing' | 'won' | 'lost'>('playing')
-  const [flash, setFlash] = useState(`${companionName} t accueille au refuge.`)
-
+  const [flash, setFlash] = useState(`${companionName} t'accueille au refuge.`)
+  const [openDrawer, setOpenDrawer] = useState<string | null>(null)
+  const [releaseConfirmPending, setReleaseConfirmPending] = useState(false)
+  const isMobileRefuge = useIsMobileRefuge()
   const biomePets = useMemo(
     () => pets.filter((pet) => normalizeRefugeBiomeId(pet.biomeId) === activeBiomeId),
     [activeBiomeId, pets],
@@ -150,29 +151,49 @@ export function DressageGame({
   )
 
   const bounds = ENCLOSURE_BOUNDS[activeBiomeId]
-  const { wanderers, flashBubble } = useEnclosureWanderers(wanderInputs, bounds)
+  const { wanderers, triggerCareReaction } = useEnclosureWanderers(wanderInputs, bounds)
+  const enclosureSlotRef = useRef<HTMLDivElement>(null)
+  const playfieldRef = useRef<HTMLDivElement>(null)
 
   const activePet = pets.find((pet) => pet.id === activePetId) ?? biomePets[0]
+  const activeWanderer =
+    wanderers.find((sprite) => sprite.id === activePetId) ??
+    (activePet
+      ? wanderers.find((sprite) => {
+          const rep = enclosurePets.find((entry) => entry.id === sprite.id)
+          return rep?.speciesId === activePet.speciesId
+        }) ?? null
+      : null)
+  const showCarePopover =
+    isMobileRefuge &&
+    Boolean(activePet && activeWanderer) &&
+    enclosurePets.some((pet) => pet.speciesId === activePet?.speciesId)
+  const carePopoverAnchor = useRefugeCarePopoverAnchor(
+    enclosureSlotRef,
+    playfieldRef,
+    activeWanderer,
+    showCarePopover,
+    isMobileRefuge,
+  )
+
   const speciesSiblings = useMemo(
-    () => (activePet ? pets.filter((pet) => pet.speciesId === activePet.speciesId) : []),
-    [activePet, pets],
+    () =>
+      activePet
+        ? biomePets.filter((pet) => pet.speciesId === activePet.speciesId)
+        : [],
+    [activePet, biomePets],
+  )
+  const biomeSpeciesList = useMemo(
+    () => [...enclosurePets].sort((a, b) => a.name.localeCompare(b.name, 'fr')),
+    [enclosurePets],
   )
   const siblingIndex = activePet
     ? speciesSiblings.findIndex((pet) => pet.id === activePet.id)
     : -1
+  const biomeSpeciesIndex = activePet
+    ? biomeSpeciesList.findIndex((pet) => pet.speciesId === activePet.speciesId)
+    : -1
   const resourceDef = BIOME_RESOURCES[activeBiomeId]
-  const resourceAmount = refugeResources[activeBiomeId]?.amount ?? 0
-  const biomeFavorBonus = refugeProgress.biomeFavors?.[activeBiomeId] ?? 0
-  const collectionStatus = useMemo(
-    () => getBiomeCollectionStatus(pets, activeBiomeId),
-    [activeBiomeId, pets],
-  )
-  const dailyProduction = estimateDailyProduction(
-    pets,
-    activeBiomeId,
-    biomeFavorBonus,
-    collectionStatus.collectionBonusPercent,
-  )
 
   useEffect(() => {
     if (!minigameSave) return
@@ -180,6 +201,10 @@ export function DressageGame({
     setEchoEggs(minigameSave.echoEggs ?? [])
     setActivePetId('')
   }, [minigameSave?.saveVersion, minigameSave?.pets.length])
+
+  useEffect(() => {
+    setReleaseConfirmPending(false)
+  }, [activePetId])
 
   useEffect(() => {
     if (!activePet && biomePets[0]) {
@@ -252,9 +277,9 @@ export function DressageGame({
 
   const feed = () => {
     if (!activePet) return
+    triggerCareReaction(activePet.id, 'feed')
     const patched = { ...activePet, hunger: activePet.hunger + 22, joy: activePet.joy + 6 }
     updatePet(activePet.id, { hunger: patched.hunger, joy: patched.joy })
-    flashBubble(activePet.id, 'star')
     grantCareResource()
     if (!grantCareFavor(patched, 'feed')) {
       setFlash(`${activePet.name} savoure sa friandise.`)
@@ -266,10 +291,9 @@ export function DressageGame({
       setFlash('Pas assez d energie — laisse-le se reposer un peu.')
       return
     }
+    triggerCareReaction(activePet.id, 'play')
     const patched = { ...activePet, joy: activePet.joy + 24, energy: activePet.energy - 12 }
     updatePet(activePet.id, { joy: patched.joy, energy: patched.energy })
-    flashBubble(activePet.id, 'surprised', 900)
-    window.setTimeout(() => flashBubble(activePet.id, 'star'), 400)
     if (!grantCareFavor(patched, 'play')) {
       setFlash(`${activePet.name} court joyeusement !`)
     }
@@ -277,6 +301,7 @@ export function DressageGame({
 
   const cuddle = () => {
     if (!activePet) return
+    triggerCareReaction(activePet.id, 'cuddle')
     const patched = {
       ...activePet,
       joy: activePet.joy + 14,
@@ -291,7 +316,6 @@ export function DressageGame({
       hunger: patched.hunger,
       affectionLevel: patched.affectionLevel,
     })
-    flashBubble(activePet.id, 'heart', 2200)
     if (!grantCareFavor(patched, 'cuddle')) {
       setFlash(`Câlin réussi — ${activePet.name} ronronne doucement.`)
     }
@@ -299,6 +323,7 @@ export function DressageGame({
 
   const observe = () => {
     if (!activePet) return
+    triggerCareReaction(activePet.id, 'observe')
     updatePet(activePet.id, { joy: activePet.joy + 4 })
     setFlash(`${activePet.name} semble ${activePet.joy > 70 ? 'curieux et heureux' : 'un peu timide'}.`)
   }
@@ -320,8 +345,70 @@ export function DressageGame({
     setCompanionLinks(removeCompanionLinksForPet(companionLinks, activePet.id))
     setPets((current) => current.filter((pet) => pet.id !== activePet.id))
     setActivePetId('')
+    setReleaseConfirmPending(false)
     setFlash(`${activePet.name} retourne à la nature — ${rewards.summary}.`)
   }
+
+  const selectEnclosurePet = useCallback(
+    (petId: string) => {
+      setActivePetId(petId)
+      setReleaseConfirmPending(false)
+      if (!isMobileRefuge) {
+        setOpenDrawer('care')
+      }
+    },
+    [isMobileRefuge],
+  )
+
+  const bulkCare = useCallback(
+    (scope: BulkCareScope) => {
+      const targets =
+        scope === 'biome'
+          ? pets.filter((pet) => normalizeRefugeBiomeId(pet.biomeId) === activeBiomeId)
+          : pets
+      if (targets.length === 0) return
+
+      const visibleIds = new Set(enclosurePets.map((pet) => pet.id))
+      const targetIds = new Set(targets.map((pet) => pet.id))
+
+      setPets((current) =>
+        current.map((pet) => {
+          if (!targetIds.has(pet.id)) return pet
+          return {
+            ...pet,
+            hunger: Math.min(100, pet.hunger + 12),
+            joy: Math.min(100, pet.joy + 8),
+            energy: Math.min(100, pet.energy + 4),
+            lastVisit: Date.now(),
+          }
+        }),
+      )
+      setCarePoints((value) => value + targets.length)
+      setRefugeResources((current) => {
+        const state = current[activeBiomeId] ?? { amount: 0, lastTickAt: Date.now() }
+        return {
+          ...current,
+          [activeBiomeId]: {
+            ...state,
+            amount: Math.round((state.amount + targets.length * 0.1) * 10) / 10,
+          },
+        }
+      })
+
+      for (const pet of targets) {
+        if (visibleIds.has(pet.id)) {
+          triggerCareReaction(pet.id, 'cuddle')
+        }
+      }
+
+      setFlash(
+        scope === 'biome'
+          ? `Soins enclos — ${targets.length} Myrion(s) du biome.`
+          : `Soins refuge — ${targets.length} Myrion(s) soignés.`,
+      )
+    },
+    [activeBiomeId, enclosurePets, pets, triggerCareReaction],
+  )
 
   const finishVisit = () => {
     const mood =
@@ -388,12 +475,41 @@ export function DressageGame({
     ? companionAffinityMultiplier(activity.companionId, activePet)
     : 1
 
+  const handleReleaseClick = () => {
+    if (!activePet) return
+    if (activePet.isShiny) {
+      setFlash('Impossible de relâcher un shiny.')
+      return
+    }
+    const copies = speciesCopyCount(pets, activePet.speciesId)
+    if (copies <= 1) {
+      setFlash('Impossible de relâcher le seul exemplaire de cette espèce.')
+      return
+    }
+    if (!releaseConfirmPending) {
+      setReleaseConfirmPending(true)
+      setFlash(`Confirme le relâcher de ${activePet.name}.`)
+      return
+    }
+    releasePet()
+  }
+
   const cycleDuplicate = (delta: number) => {
     if (!activePet || speciesSiblings.length <= 1) return
     const index = speciesSiblings.findIndex((pet) => pet.id === activePet.id)
     const next =
       speciesSiblings[(index + delta + speciesSiblings.length) % speciesSiblings.length]
     setActivePetId(next.id)
+    setReleaseConfirmPending(false)
+  }
+
+  const cycleBiomePet = (delta: number) => {
+    if (!activePet || biomeSpeciesList.length <= 1) return
+    const index = biomeSpeciesList.findIndex((pet) => pet.speciesId === activePet.speciesId)
+    const next =
+      biomeSpeciesList[(index + delta + biomeSpeciesList.length) % biomeSpeciesList.length]
+    setActivePetId(next.id)
+    setReleaseConfirmPending(false)
   }
 
   const selectPetFromStable = (petId: string) => {
@@ -502,164 +618,184 @@ export function DressageGame({
     setEchoEggs((current) => current.map((entry) => (entry.id === egg.id ? egg : entry)))
   }
 
-  const petCard = activePet ? (
-    <div className="mg-refuge-pet-card">
-      <div className="mg-refuge-pet-head">
-        <strong>
-          {activePet.name}
-          {activePet.isShiny ? ' ✨' : ''}
-          {activePet.visualVariant ? ` · ${formatVisualVariant(activePet.visualVariant)}` : ''}
-        </strong>
-        <span>
-          {activePet.rarity} · {speciesCount}/{MAX_SPECIES_COPIES} exemplaires
-        </span>
-      </div>
-      {activePet.personality || activePet.traits?.length ? (
-        <p className="mg-refuge-meta-line">
-          {activePet.personality ?? ''}
-          {activePet.traits?.length
-            ? `${activePet.personality ? ' · ' : ''}${activePet.traits.map((trait) => TRAIT_LABELS[trait] ?? trait).join(', ')}`
-            : ''}
-        </p>
-      ) : null}
-      {activePet.supportBuffs && activePet.supportBuffs.length > 0 ? (
-        <p className="mg-refuge-meta-line">
-          Buffs actifs ({effectiveSupportBuffs(activePet).length}/{maxSupportBuffSlots(activePet)}) :{' '}
-          {effectiveSupportBuffs(activePet)
-            .map((buff) => `${SUPPORT_STAT_LABELS[buff.stat]} +${buff.value}`)
-            .join(' · ')}
-        </p>
-      ) : null}
-      {describeInactiveBuffs(activePet) ? (
-        <p className="mg-refuge-meta-line warn">{describeInactiveBuffs(activePet)}</p>
-      ) : null}
-      <p className="mg-refuge-meta-line">
-        Soutien {companionName} : +{companionSupport.toFixed(1)} (×{affinityMult.toFixed(2)})
-        {linkedMyrion ? ` · lié : ${linkedMyrion.name}` : ''}
-      </p>
-      {isLinkedToActiveCompanion ? (
-        <p className="mg-refuge-meta-line">{describeLinkedBuffs(activePet, activity.companionId)}</p>
-      ) : null}
-      <p className="mg-refuge-meta-line">
-        Liaison compagnon : {rarityLinkLabel(activePet.rarity)}
-        {findCompanionForMyrion(companionLinks, activePet.id)
-          ? ` · déjà lié ailleurs`
-          : ''}
-      </p>
-      <button className="secondary mg-refuge-link-btn" type="button" onClick={toggleCompanionLink}>
-        {isLinkedToActiveCompanion
-          ? `Délier de ${companionName}`
-          : `Lier à ${companionName}`}
-      </button>
-      <p className="mg-refuge-meta-line">
-        Lignée {activePet.lineagePotential ?? 0}/100 · Gen. {activePet.generation ?? 0}
-        {activePet.lrBlessing ? ' · Bénédiction LR' : ''}
-      </p>
-      {speciesCount > 1 ? (
-        <div className="mg-refuge-duplicate-nav">
-          <button aria-label="Exemplaire précédent" type="button" onClick={() => cycleDuplicate(-1)}>
-            ‹
-          </button>
-          <span>
-            Exemplaire {siblingIndex + 1}/{speciesCount}
-          </span>
-          <button aria-label="Exemplaire suivant" type="button" onClick={() => cycleDuplicate(1)}>
-            ›
-          </button>
-        </div>
-      ) : null}
-      <div className="mg-pet-meters">
-        <label>
-          Faim
-          <progress max={100} value={activePet.hunger} />
-        </label>
-        <label>
-          Humeur
-          <progress max={100} value={activePet.joy} />
-        </label>
-        <label>
-          Énergie
-          <progress max={100} value={activePet.energy} />
-        </label>
-        <label>
-          Affection
-          <progress max={5} value={activePet.affectionLevel} />
-        </label>
-      </div>
-      <div className="mg-pet-actions">
-        <button type="button" onClick={feed}>
-          🍎 Nourrir
-        </button>
-        <button type="button" onClick={cuddle}>
-          💜 Câliner
-        </button>
-        <button type="button" onClick={play}>
-          🎾 Jouer
-        </button>
-        <button type="button" onClick={observe}>
-          👀 Observer
-        </button>
-        {speciesCount > 1 ? (
-          <button
-            className={speciesCount > MAX_SPECIES_COPIES ? 'warn' : ''}
-            type="button"
-            onClick={releasePet}
-          >
-            🕊️ Relâcher
-          </button>
-        ) : null}
-      </div>
-    </div>
+  const carePanel = activePet ? (
+    <RefugeCarePanel
+      affinityMult={affinityMult}
+      biomePetCount={biomePets.length}
+      companionId={activity.companionId}
+      companionLinks={companionLinks}
+      companionName={companionName}
+      companionSupport={companionSupport}
+      isLinkedToActiveCompanion={isLinkedToActiveCompanion}
+      linkedMyrion={linkedMyrion}
+      pet={activePet}
+      refugePetCount={pets.length}
+      releaseConfirmPending={releaseConfirmPending}
+      siblingIndex={Math.max(0, siblingIndex)}
+      speciesCount={speciesCount}
+      speciesSiblingCount={speciesSiblings.length}
+      biomeSpeciesIndex={Math.max(0, biomeSpeciesIndex)}
+      biomeSpeciesCount={biomeSpeciesList.length}
+      variant="drawer"
+      onBulkCare={bulkCare}
+      onCuddle={cuddle}
+      onCycleBiomePet={cycleBiomePet}
+      onCycleDuplicate={cycleDuplicate}
+      onFeed={feed}
+      onObserve={observe}
+      onPlay={play}
+      onReleaseClick={handleReleaseClick}
+      onToggleCompanionLink={toggleCompanionLink}
+    />
   ) : null
 
-  const biomeTabs = (
-    <div className="mg-refuge-biome-tabs" role="tablist">
-      {BIOMES.map((biome) => {
-        const inBiome = pets.filter((pet) => normalizeRefugeBiomeId(pet.biomeId) === biome.id)
-        const count = inBiome.length
-        const species = uniqueSpeciesCount(inBiome)
-        return (
-          <button
-            aria-selected={activeBiomeId === biome.id}
-            className={`mg-refuge-tab ${activeBiomeId === biome.id ? 'active' : ''}`}
-            key={biome.id}
-            role="tab"
-            type="button"
-            onClick={() => {
-              setActiveBiomeId(biome.id as RefugeBiomeId)
-              setActivePetId('')
-            }}
-          >
-            <span aria-hidden>{biome.emoji}</span>
-            <span>{biome.name.split(' ')[0]}</span>
-            <small>{count > species ? `${species}·${count}` : count}</small>
-          </button>
-        )
-      })}
-    </div>
-  )
+  const selectRefugeBiome = useCallback((biomeId: RefugeBiomeId) => {
+    setActiveBiomeId(biomeId)
+    setActivePetId('')
+    setOpenDrawer(null)
+  }, [])
 
-  const resourceBar = (
-    <div className="mg-refuge-resource-bar">
-      <span>
-        {resourceDef.resourceEmoji} {resourceDef.resourceName} : {resourceAmount}
-      </span>
-              <span>+{dailyProduction}/jour</span>
-              <span>
-                Collection {collectionStatus.normalOwned}/{collectionStatus.totalSpecies}
-                {collectionStatus.shinyComplete
-                  ? ' · shiny +30%'
-                  : collectionStatus.normalComplete
-                    ? ' · +10%'
-                    : ''}
-                {' · '}
-                Shiny {collectionStatus.shinyOwned}/{collectionStatus.totalSpecies}
-              </span>
-              <span>Soins {carePoints}</span>
-              <span>Faveurs chasse {huntFavors.length}</span>
-              {biomeFavorBonus > 0 ? <span>Faveur biome +{biomeFavorBonus}</span> : null}
-    </div>
-  )
+  const refugeDrawers = useMemo(() => {
+    const drawers = [
+      {
+        id: 'biomes',
+        label: 'Biomes',
+        icon: '🗺️',
+        badge: pets.length,
+        content: (
+          <>
+            <p className="mg-flash mg-refuge-flash">{flash}</p>
+            <RefugeBiomeMapPanel
+              activeBiomeId={activeBiomeId}
+              pets={pets}
+              variant="compact"
+              onSelect={selectRefugeBiome}
+            />
+          </>
+        ),
+      },
+      {
+        id: 'summary',
+        label: 'Récapitulatif',
+        icon: '📊',
+        content: (
+          <RefugeSummaryPanel
+            activeBiomeId={activeBiomeId}
+            carePoints={carePoints}
+            huntFavorsCount={huntFavors.length}
+            pets={pets}
+            refugeProgress={refugeProgress}
+            refugeResources={refugeResources}
+          />
+        ),
+      },
+      {
+        id: 'care',
+        label: 'Soins',
+        icon: '💜',
+        badge: activePet ? undefined : '!',
+        content: carePanel ?? (
+          <p className="mg-refuge-stable-empty">Aucun Myrion dans cet enclos.</p>
+        ),
+      },
+      {
+        id: 'tools',
+        label: 'Outils',
+        icon: '🧰',
+        content: (
+          <div className="mg-refuge-tools-grid">
+            <div className="mg-refuge-side-stat">
+              <span className="mg-refuge-side-label">Humeur refuge</span>
+              <strong>{avgMood}/100</strong>
+            </div>
+            <button
+              className="mg-refuge-stable-btn"
+              type="button"
+              onClick={() => {
+                setShowStable(true)
+                setOpenDrawer(null)
+              }}
+            >
+              <span aria-hidden>🏠</span>
+              <span>Étables</span>
+              <small>{pets.length} Myrions</small>
+            </button>
+            <button
+              className="mg-refuge-stable-btn"
+              type="button"
+              onClick={() => {
+                setShowCraft(true)
+                setOpenDrawer(null)
+              }}
+            >
+              <span aria-hidden>⚗️</span>
+              <span>Atelier</span>
+              <small>craft</small>
+            </button>
+            <button
+              className="mg-refuge-stable-btn"
+              type="button"
+              onClick={() => {
+                setShowNursery(true)
+                setOpenDrawer(null)
+              }}
+            >
+              <span aria-hidden>🥚</span>
+              <span>Nid d&apos;Écho</span>
+              <small>{echoEggs.length} œuf(s)</small>
+            </button>
+            {status === 'playing' ? (
+              <button
+                className="primary mg-big-btn mg-refuge-finish mg-refuge-finish-drawer"
+                type="button"
+                onClick={finishVisit}
+              >
+                Terminer la visite
+              </button>
+            ) : null}
+          </div>
+        ),
+      },
+    ]
+
+    if (onLaunchMinigame) {
+      drawers.push({
+        id: 'capture',
+        label: 'Chasse',
+        icon: '🎯',
+        content: (
+          <MinigameSwitchPanel
+            description="Explore les biomes, croise des Myrions sauvages et tente ta capture au bon moment."
+            icon="🎯"
+            launchLabel="Ouvrir la chasse"
+            title="Chasse aux Familiers"
+            onLaunch={() => onLaunchMinigame('farm-capture')}
+          />
+        ),
+      })
+    }
+
+    return drawers
+  }, [
+    activePet,
+    avgMood,
+    activeBiomeId,
+    carePoints,
+    echoEggs.length,
+    huntFavors.length,
+    refugeProgress,
+    refugeResources,
+    bulkCare,
+    carePanel,
+    companionLinks,
+    companionName,
+    finishVisit,
+    flash,
+    onLaunchMinigame,
+    pets.length,
+    selectRefugeBiome,
+    status,
+  ])
 
   return (
     <MinigameFrame
@@ -669,6 +805,7 @@ export function DressageGame({
       companionMood="Sanctuaire vivant — douceur et soin."
       companionName={companionName}
       endless
+      hideGlobalChrome
       maxScore={100}
       onClose={onClose}
       onRestart={restart}
@@ -677,147 +814,92 @@ export function DressageGame({
       scoreLabel="Humeur refuge"
       status={status}
     >
-      <div className="mg-refuge mg-refuge-immersive">
+      <div className="mg-refuge mg-refuge-immersive mg-refuge-immersive--mobile">
         <div className="mg-refuge-layout">
           <div className="mg-refuge-body">
+            <HuntSideRail
+              drawers={refugeDrawers}
+              fabAriaLabel="Menu refuge"
+              menuAriaLabel="Options du refuge"
+              menuTitle="Refuge"
+              openId={openDrawer}
+              onCloseMinigame={onClose}
+              onOpenChange={setOpenDrawer}
+            />
             <div className="mg-refuge-enclosure-wrap">
-              <div className="mg-refuge-enclosure-slot">
+              <div className="mg-refuge-enclosure-slot" ref={enclosureSlotRef}>
                 <div
                   aria-label={`Enclos ${resourceDef.resourceName}`}
                   className={`mg-enclosure ${resourceDef.particleClass}`}
                   role="img"
                 >
-                  <img
-                    alt=""
+                  <EnclosureBackground
+                    biomeId={activeBiomeId}
                     className="mg-enclosure-bg"
-                    draggable={false}
-                    src={enclosureAssetPath(activeBiomeId)}
+                    layout="auto"
                   />
-                  <div className="mg-enclosure-playfield" />
                   <div aria-hidden className="mg-enclosure-particles" />
+                  <div className="mg-enclosure-playfield" ref={playfieldRef}>
 
-                  {wanderers.map((sprite) => {
-                    const pet = enclosurePets.find((entry) => entry.id === sprite.id)
-                    if (!pet) return null
-                    const copies = speciesCopyCount(pets, pet.speciesId)
-                    return (
-                      <EnclosureChibi
-                        key={sprite.id}
-                        duplicateCount={copies > 1 ? copies : undefined}
-                        rarity={pet.rarity}
-                        selected={
-                          activePet?.speciesId === pet.speciesId &&
-                          normalizeRefugeBiomeId(activePet.biomeId) === activeBiomeId
-                        }
-                        sprite={sprite}
-                        onSelect={() => setActivePetId(pet.id)}
-                      />
-                    )
-                  })}
+                    {wanderers.map((sprite) => {
+                      const pet = enclosurePets.find((entry) => entry.id === sprite.id)
+                      if (!pet) return null
+                      const copies = speciesCopyCount(pets, pet.speciesId)
+                      return (
+                        <EnclosureChibi
+                          key={sprite.id}
+                          duplicateCount={copies > 1 ? copies : undefined}
+                          rarity={pet.rarity}
+                          selected={activePet?.speciesId === pet.speciesId}
+                          sprite={sprite}
+                          onSelect={() => selectEnclosurePet(pet.id)}
+                        />
+                      )
+                    })}
 
-                  {enclosurePets.length === 0 ? (
-                    <p className="mg-enclosure-empty">
-                      Aucun Myrion ici — va chasser dans ce biome pour peupler l enclos !
-                    </p>
-                  ) : null}
+                    {enclosurePets.length === 0 ? (
+                      <p className="mg-enclosure-empty">
+                        Aucun Myrion ici — va chasser dans ce biome pour peupler l enclos !
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
+
+                {showCarePopover && activePet && activeWanderer ? (
+                  <RefugeCarePopover
+                    affinityMult={affinityMult}
+                    anchor={carePopoverAnchor}
+                    biomePetCount={biomePets.length}
+                    companionId={activity.companionId}
+                    companionLinks={companionLinks}
+                    companionName={companionName}
+                    companionSupport={companionSupport}
+                    isLinkedToActiveCompanion={isLinkedToActiveCompanion}
+                    linkedMyrion={linkedMyrion}
+                    pet={activePet}
+                    refugePetCount={pets.length}
+                    releaseConfirmPending={releaseConfirmPending}
+                    siblingIndex={Math.max(0, siblingIndex)}
+                    speciesCount={speciesCount}
+                    speciesSiblingCount={speciesSiblings.length}
+                    biomeSpeciesIndex={Math.max(0, biomeSpeciesIndex)}
+                    biomeSpeciesCount={biomeSpeciesList.length}
+                    onBulkCare={bulkCare}
+                    onClose={() => setActivePetId('')}
+                    onCuddle={cuddle}
+                    onCycleBiomePet={cycleBiomePet}
+                    onCycleDuplicate={cycleDuplicate}
+                    onFeed={feed}
+                    onObserve={observe}
+                    onPlay={play}
+                    onReleaseClick={handleReleaseClick}
+                    onToggleCompanionLink={toggleCompanionLink}
+                  />
+                ) : null}
               </div>
             </div>
 
-            <aside className="mg-refuge-ui-rail">
-              <p className="mg-flash mg-refuge-flash">{flash}</p>
-              {biomeTabs}
-              {resourceBar}
-              <div className="mg-refuge-side-stat">
-                <span className="mg-refuge-side-label">Humeur refuge</span>
-                <strong>{avgMood}/100</strong>
-              </div>
-              <button
-                className="mg-refuge-stable-btn"
-                type="button"
-                onClick={() => setShowStable(true)}
-              >
-                <span aria-hidden>🏠</span>
-                <span>Étables</span>
-                <small>{pets.length} Myrions</small>
-              </button>
-              <button
-                className="mg-refuge-stable-btn"
-                type="button"
-                onClick={() => setShowCraft(true)}
-              >
-                <span aria-hidden>⚗️</span>
-                <span>Atelier</span>
-                <small>craft</small>
-              </button>
-              <button
-                className="mg-refuge-stable-btn"
-                type="button"
-                onClick={() => setShowNursery(true)}
-              >
-                <span aria-hidden>🥚</span>
-                <span>Nid d&apos;Écho</span>
-                <small>{echoEggs.length} œuf(s)</small>
-              </button>
-              <MyrionDebugPanel
-                activeBiomeId={activeBiomeId}
-                pets={pets}
-                onClearAll={() => {
-                  setEchoEggs([])
-                  setActivePetId('')
-                }}
-                onFlash={setFlash}
-                onHuntFavorsChange={setHuntFavors}
-                onPetsChange={setPets}
-                onRefugeProgressChange={(patch) =>
-                  setRefugeProgress((current) => ({ ...current, ...patch }))
-                }
-              />
-              <div className="mg-refuge-rail-pet">{petCard}</div>
-              {status === 'playing' ? (
-                <button
-                  className="primary mg-big-btn mg-refuge-finish mg-refuge-finish-rail"
-                  type="button"
-                  onClick={finishVisit}
-                >
-                  Terminer la visite
-                </button>
-              ) : null}
-            </aside>
           </div>
-
-          <footer className="mg-refuge-fill mg-refuge-fill-bottom">
-            <div className="mg-refuge-fill-bottom-inner">
-              <p className="mg-flash mg-refuge-flash mg-refuge-flash-mobile">{flash}</p>
-              <div className="mg-refuge-mobile-controls">
-                {biomeTabs}
-                {resourceBar}
-                <button className="mg-refuge-stable-link" type="button" onClick={() => setShowStable(true)}>
-                  🏠 Étables ({pets.length})
-                </button>
-              </div>
-              <MyrionDebugPanel
-                activeBiomeId={activeBiomeId}
-                pets={pets}
-                onClearAll={() => {
-                  setEchoEggs([])
-                  setActivePetId('')
-                }}
-                onFlash={setFlash}
-                onHuntFavorsChange={setHuntFavors}
-                onPetsChange={setPets}
-                onRefugeProgressChange={(patch) =>
-                  setRefugeProgress((current) => ({ ...current, ...patch }))
-                }
-              />
-              <div className="mg-refuge-pet-card-mobile">{petCard}</div>
-              {status === 'playing' ? (
-                <button className="primary mg-big-btn mg-refuge-finish" type="button" onClick={finishVisit}>
-                  Terminer la visite
-                </button>
-              ) : null}
-            </div>
-          </footer>
         </div>
 
         {showStable ? (

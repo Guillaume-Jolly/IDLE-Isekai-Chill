@@ -37,12 +37,18 @@ export function EnclosureChibi({
         {
           left: `${sprite.x}%`,
           top: `${sprite.y}%`,
+          zIndex: Math.round(sprite.y),
           '--mg-chibi-scale': scale,
         } as CSSProperties
       }
       type="button"
       onClick={onSelect}
     >
+      {sprite.actionPop ? (
+        <span aria-hidden className="mg-chibi-action-pop">
+          {sprite.actionPop}
+        </span>
+      ) : null}
       {sprite.bubble !== 'none' ? (
         <span aria-hidden className="mg-chibi-bubble">
           {BUBBLE_EMOJI[sprite.bubble]}

@@ -1,0 +1,259 @@
+/* Refuge / dressage — plein écran via .mg-refuge-immersive--mobile (JS, pas de @media seul) */
+
+.minigame-panel-fullscreen:has(.mg-refuge-immersive--mobile) {
+  background: #000;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen:has(.mg-refuge-immersive--mobile) .minigame-play-area-cinematic,
+.minigame-panel-fullscreen:has(.mg-refuge-immersive--mobile) .minigame-stage,
+.minigame-panel-fullscreen:has(.mg-refuge-immersive--mobile) .minigame-stage-inner,
+.minigame-panel-fullscreen .mg-refuge-immersive--mobile {
+  background: #000;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+.minigame-panel-fullscreen .mg-refuge-immersive--mobile {
+  gap: 0;
+}
+
+.mg-refuge-immersive--mobile .mg-refuge-layout {
+  --mg-enclosure-ratio: 0.562799;
+  background: #000;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.mg-refuge-immersive--mobile .mg-refuge-body {
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
+  inset: 0;
+  min-height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+
+.mg-refuge-immersive--mobile .mg-refuge-ui-rail,
+.mg-refuge-immersive--mobile .mg-refuge-fill-bottom {
+  display: none !important;
+}
+
+.mg-refuge-immersive--mobile .mg-refuge-enclosure-wrap {
+  align-items: stretch;
+  container-type: normal;
+  height: 100%;
+  inset: 0;
+  justify-content: stretch;
+  margin: 0;
+  max-height: none;
+  min-height: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.mg-refuge-immersive--mobile .mg-refuge-enclosure-slot {
+  aspect-ratio: unset;
+  flex: none;
+  height: 100%;
+  inset: 0;
+  max-height: none;
+  min-height: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.mg-refuge-immersive--mobile .mg-enclosure {
+  aspect-ratio: unset;
+  border-radius: 0;
+  height: 100%;
+  inset: 0;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  min-height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+
+.mg-enclosure-bg-wrap {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg-wrap {
+  inset: 0;
+}
+
+/* Téléphone — portrait étiré pour remplir l'écran sans bandes noires */
+@media (max-width: 899px) {
+  .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg-wrap {
+    align-items: stretch;
+    display: block;
+  }
+
+  .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg {
+    block-size: 100%;
+    display: block;
+    height: 100%;
+    inset: 0;
+    margin: 0;
+    max-block-size: none;
+    max-height: none;
+    max-inline-size: none;
+    max-width: none;
+    min-block-size: 100%;
+    min-height: 100%;
+    min-inline-size: 100%;
+    min-width: 100%;
+    object-fit: fill;
+    object-position: center center;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+/* PC — paysage, image entière légèrement écrasée pour remplir l'enclos */
+@media (min-width: 900px) {
+  .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg[data-bg-orientation='landscape'] {
+    block-size: 100%;
+    display: block;
+    height: 100%;
+    inset: 0;
+    margin: 0;
+    max-block-size: none;
+    max-height: none;
+    max-inline-size: none;
+    max-width: none;
+    min-block-size: 100%;
+    min-height: 100%;
+    min-inline-size: 100%;
+    min-width: 100%;
+    object-fit: fill;
+    object-position: center center;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.mg-refuge-immersive--mobile .mg-enclosure-playfield {
+  inset: 10% 12% 14% 12%;
+  z-index: 2;
+}
+
+.mg-refuge-immersive--mobile .mg-enclosure-empty {
+  font-size: clamp(0.78rem, 3.2vw, 0.88rem);
+  max-width: min(88%, 320px);
+  padding: 0 12px;
+}
+
+.mg-refuge-immersive--mobile .mg-enclosure-chibi {
+  --mg-chibi-base: 28px;
+}
+
+.mg-refuge-immersive--mobile .mg-enclosure-chibi .mg-chibi-bubble {
+  font-size: 0.62rem;
+  max-width: 7rem;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-flash {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-pet-card {
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-pet-actions {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-stable-btn,
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-tool-btn {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  color: #fff;
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  padding: 10px 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-tools-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-side-stat {
+  margin-bottom: 8px;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-finish-drawer {
+  margin-top: 8px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .mg-refuge-immersive--mobile .mg-refuge-body {
+    flex-direction: row;
+    inset: auto;
+    position: relative;
+  }
+
+  .mg-refuge-immersive--mobile .mg-refuge-body > .mg-hunt-rail.mg-hunt-rail--desktop-layout {
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  .mg-refuge-immersive--mobile .mg-refuge-enclosure-wrap {
+    flex: 1 1 0;
+    height: 100%;
+    inset: auto;
+    min-height: 0;
+    position: relative;
+  }
+
+  .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot {
+    height: 100%;
+    inset: auto;
+    position: relative;
+    width: 100%;
+  }
+}
