@@ -2,40 +2,35 @@
 
 > **Date :** 2026-06-23  
 > **Branche :** `feature/link-corpus-v2`  
-> **Référence produit :** `wonderland_companion_link_corpus_v2_clean_compact.zip` (docs/GAMEPLAY_LOOP.md)
+> **Référence produit :** `wonderland_companion_link_corpus_v2_clean_compact.zip`
 
 ---
 
 ## Décision
 
-**BLOCAGE — corpus introuvable dans le dépôt et le workspace.**
-
-L'intégration gameplay (ConversationGame, données V2, fallback) **n'a pas été démarrée** conformément au plan : pas d'improvisation sans source réelle.
-
-**Prochaine étape utilisateur :** déposer le zip dans `assets/link-corpus-import/` puis relancer :
-
-```bash
-npm run validate:link-corpus
-node scripts/import-link-corpus-v2.mjs
-```
+**INTÉGRÉ — corpus V2 validé, importé et branché dans ConversationGame avec fallback legacy.**
 
 ---
 
 ## Phase 1 — Localisation du corpus
 
-### Chemins recherchés
+### Chemins utilisés
 
 | Chemin | Résultat |
 |--------|----------|
-| `wonderland_companion_link_corpus_v2_clean_compact.zip` (racine repo) | ❌ absent |
-| `assets/link-corpus-import/` | ❌ dossier absent |
-| `assets/*corpus*` | ❌ |
-| `**/*.zip` (repo) | ❌ aucun zip |
-| `docs/GAMEPLAY_LOOP.md` | ✅ référence le nom de fichier attendu |
+| `assets/link-corpus-import/wonderland_companion_link_corpus_v2_clean_compact.zip` | ✅ présent (~2 Mo) |
+| `assets/link-corpus-import/companion_link_conversations.v2.clean.jsonl` | ✅ source de vérité (~39 Mo) |
+| `assets/link-corpus-import/manifest.json` | ✅ métadonnées (7 500 conversations) |
+| `src/data/linkCorpusV2.json` | ✅ généré (~39 Mo, format ScenarioScript) |
 
-### Contenu zip
+### Import
 
-Non listé — archive absente.
+```bash
+npm run import:link-corpus-v2   # JSONL → linkCorpusV2.json
+npm run validate:link-corpus    # exit 0
+```
+
+Le script d'import lit en priorité le JSONL (recommandé par le pack) ; le zip sert de secours. Conversion V2 → `ScenarioScript` : `affinity` → `minAffinity`/`maxAffinity`, `narrator`/`companionLine` → `context[]`, `score=1` → `roundToneHints`.
 
 ---
 
@@ -43,23 +38,33 @@ Non listé — archive absente.
 
 | Métrique | Valeur |
 |----------|--------|
-| Compagnons couverts (V2) | — |
-| Conversations totales (V2) | — |
-| Couverture affinité 1–5 | — |
+| Compagnons couverts (V2) | **15** |
+| Conversations totales (V2) | **7 500** |
+| Entrées rejetées à l'import | **0** |
+| Conversations / compagnon / affinité | **100** |
+| Couverture affinité 1 | 1 500 (100 × 15) |
+| Couverture affinité 2 | 1 500 |
+| Couverture affinité 3 | 1 500 |
+| Couverture affinité 4 | 1 500 |
+| Couverture affinité 5 | 1 500 |
 
 ---
 
 ## Exemples d'entrées (V2)
 
-*Non disponibles — corpus absent.*
+Voir `assets/link-corpus-import/sample_lyra-aff1-001.json` (format source) et `src/data/linkCorpusV2.json` entrée `lyra-aff1-001` (format moteur).
+
+**Source V2 (extrait) :** id `lyra-aff1-001`, affinity 1, 3 rounds, 4 choix/round, tons `sincere`/`playful`/`direct`/`romantic`, score 0|1 par choix.
+
+**Converti moteur :** `roundToneHints: ["sincere","sincere","sincere"]`, `context` = `[contexte global, narrator, companionLine]`, choix sans champ `score` (scoring runtime via `getPreferredTone`).
 
 ---
 
 ## Problèmes détectés
 
-1. **Corpus source manquant** — bloquant pour intégration.
-2. Format V2 **non confirmé** sans ouverture du zip (hypothèse : JSON compact par compagnon/scénario).
-3. Données legacy déjà présentes : `companionScenarios.generated.ts` (~5 Mo, 200 scénarios × 15 compagnons).
+1. ~~Corpus source manquant~~ — résolu.
+2. **Taille bundle** : `linkCorpusV2.json` (~39 Mo) est bundlé dans le chunk principal (~36 Mo gzip ~1,8 Mo). Acceptable pour test ; code-splitting possible ultérieurement.
+3. Données legacy conservées : `companionScenarios.generated.ts` (~5 Mo, 200 scénarios × 15 compagnons) — fallback actif si pack V2 vide pour un compagnon/affinité.
 
 ---
 
@@ -69,82 +74,43 @@ Non listé — archive absente.
 
 | Fichier | Rôle |
 |---------|------|
-| `src/components/minigames/ConversationGame.tsx` | UI mini-jeu Lien (3 rounds, 4 choix) |
-| `src/components/minigames/MinigamePlayer.tsx` | Route `minigameType: 'conversation'` |
-| `src/data/companionDialogues.ts` | Réexport API publique |
-| `src/data/conversations/engine.ts` | `pickConversation`, `buildConversation`, scoring |
-| `src/data/conversations/types.ts` | Types `CompanionConversation`, `ScenarioScript` |
-| `src/data/conversations/profiles.ts` | 15 profils compagnons + `toneWeights` |
-| `src/data/conversations/companionScenarios.generated.ts` | **Source actuelle** (legacy généré) |
-| `scripts/generate-companion-scenarios.mjs` | Générateur procédural legacy |
+| `src/components/minigames/ConversationGame.tsx` | UI mini-jeu Lien (inchangé) |
+| `src/data/conversations/engine.ts` | `pickConversation` V2-first + fallback legacy |
+| `src/data/conversations/linkCorpusV2.ts` | Loader pack V2 depuis JSON |
+| `src/data/linkCorpusV2.json` | **Source V2 runtime** |
+| `src/data/conversations/companionScenarios.generated.ts` | **Legacy** (conservé) |
+| `scripts/import-link-corpus-v2.mjs` | Import JSONL/zip → JSON |
+| `scripts/validate-link-corpus.mjs` | Validation V2 raw + ScenarioScript |
 
-### Format attendu par le code (legacy)
+### Sélection conversation (implémenté)
 
-```typescript
-type ScenarioScript = {
-  id: string                    // ex. "lyra-s0"
-  title: string
-  minAffinity: number           // 1–5
-  maxAffinity: number           // 1–5
-  roundToneHints: [DialogueTone, DialogueTone, DialogueTone]
-  rounds: [ScriptedRound, ScriptedRound, ScriptedRound]
-}
+1. `pickConversation(companionId, affinity, avoidId?)` tente le pack V2 (`getLinkCorpusV2Pack`).
+2. Filtre par `minAffinity ≤ affinity ≤ maxAffinity` (V2 : égalité stricte sur le palier).
+3. Si pool V2 vide → fallback `COMPANION_SCENARIO_PACKS` (legacy 200 scénarios).
+4. Score et récompenses : inchangés (`ConversationGame.finish()`).
 
-type ScriptedRound = {
-  context: string[]             // bulles contexte (supports {name}, {place})
-  prompt: string                // question du compagnon
-  choices: [ScriptedChoice × 4] // exactement 4 choix
-}
+### Fallback
 
-type ScriptedChoice = {
-  text: string
-  tone: 'sincere' | 'playful' | 'direct' | 'romantic'
-  reaction: string
-}
-```
-
-Pack runtime : `COMPANION_SCENARIO_PACKS[companionId]: ScenarioScript[]`  
-Constante : `SCENARIOS_PER_COMPANION = 200`
-
-### Compagnons valides (`ALL_COMPANION_IDS`)
-
-`lyra`, `maeve`, `seren`, `nami`, `iris`, `kael`, `runa`, `solene`, `talia`, `mira`, `asha`, `elwen`, `noa`, `sora`, `zelie` (15)
-
-### Sélection conversation
-
-- `pickConversation(companionId, affinity, avoidId?)` filtre par `minAffinity` / `maxAffinity`.
-- Évite la répétition immédiate via `avoidId` (session restart).
-- Score : choix dont le `tone` = ton préféré du round → +1 (max 3 sur 3 rounds).
-- Récompenses : inchangées dans `ConversationGame.finish()` selon score.
-
-### Fallback actuel
-
-- Pas de pack pour `companionId` → `pickConversation` retourne `null`.
-- UI : *« Pas encore de dialogue pour ce compagnon. »* (`ConversationGame.tsx` L46–61).
-
-### Points d'intégration V2 (prévus, non implémentés)
-
-1. `src/data/conversations/linkCorpusV2.ts` ou JSON importé — pack V2 typé.
-2. `pickConversation()` — tenter V2 d'abord, fallback `COMPANION_SCENARIO_PACKS`.
-3. `scripts/import-link-corpus-v2.mjs` — conversion zip → JSON/TS.
-4. Flag optionnel `USE_LINK_CORPUS_V2` (env/dev) si besoin A/B — **non ajouté** (corpus absent).
+| Cas | Comportement |
+|-----|--------------|
+| Compagnon avec pack V2 + affinité couverte | Scénario V2 |
+| Pack V2 absent ou affinité sans entrée | Legacy `companionScenarios.generated.ts` |
+| Aucun dialogue | UI « Pas encore de dialogue pour ce compagnon. » |
 
 ---
 
-## Mapping proposé V2 → moteur
+## Mapping V2 → moteur (appliqué)
 
-| Champ V2 (hypothèse) | Cible moteur |
-|----------------------|--------------|
-| `companionId` / `companion` | clé pack + validation `ALL_COMPANION_IDS` |
-| `affinityMin` / `affinityMax` | `minAffinity`, `maxAffinity` |
-| `id` / `scenarioId` | `ScenarioScript.id` (unique global) |
+| Champ V2 | Cible moteur |
+|----------|--------------|
+| `companionId` | clé pack + validation |
+| `affinity` | `minAffinity`, `maxAffinity` |
+| `id` | `ScenarioScript.id` |
 | `title` | `ScenarioScript.title` |
-| `rounds[].context` | `string[]` |
-| `rounds[].prompt` | `prompt` |
-| `rounds[].choices[]` | 4 entrées `{ text, tone, reaction }` |
-| `roundToneHints` | déduire ou fournir explicitement |
-
-**Conversion nécessaire** tant que le format zip n'est pas audité.
+| `context` (top) + `round.narrator` + `round.companionLine` | `rounds[].context[]` |
+| `round.prompt` | `prompt` |
+| `round.choices[]` | `{ text, tone, reaction }` |
+| choix `score=1` | `roundToneHints[roundIndex]` |
 
 ---
 
@@ -155,8 +121,6 @@ Constante : `SCENARIOS_PER_COMPANION = 200`
 | Compagnons | 15 |
 | Scénarios / compagnon | 200 |
 | Total scénarios | 3 000 |
-| Rounds / scénario | 3 |
-| Choix / round | 4 |
 
 ---
 
@@ -164,8 +128,18 @@ Constante : `SCENARIOS_PER_COMPANION = 200`
 
 | Critère | Statut |
 |---------|--------|
-| Corpus localisé | ❌ |
-| Format confirmé | ❌ |
-| Script validation | ✅ scaffold (`scripts/validate-link-corpus.mjs`) |
-| Script import | ✅ scaffold (`scripts/import-link-corpus-v2.mjs`, bloqué sans zip) |
-| Branchement ConversationGame | ⏸ reporté |
+| Corpus localisé | ✅ |
+| Format confirmé | ✅ JSONL + conversion ScenarioScript |
+| Script validation | ✅ `npm run validate:link-corpus` |
+| Script import | ✅ `npm run import:link-corpus-v2` |
+| Branchement ConversationGame | ✅ via `engine.ts` |
+| Build / lint | ✅ (warnings préexistants hors scope) |
+
+---
+
+## Cleanup / suivi
+
+- [ ] Test manuel in-game (voir `docs/MANUAL_TEST_LINK_CORPUS.md`)
+- [ ] Passe narrative humaine avant canon final (corpus généré par règles)
+- [ ] Option future : lazy-load / code-split `linkCorpusV2.json` pour réduire le bundle initial
+- [ ] Push après validation utilisateur
