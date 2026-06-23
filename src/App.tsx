@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { GachaOpening } from './components/GachaOpening'
 import { AppNav, type ViewKey } from './components/AppNav'
 import { ResourceStrip } from './components/ResourceStrip'
@@ -416,6 +416,22 @@ const CONVERSATION_ACTIVITY_BY_COMPANION: Record<string, string> = {
   zelie: 'salon-hearts',
 }
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches,
+  )
+
+  useEffect(() => {
+    const media = window.matchMedia(query)
+    const sync = () => setMatches(media.matches)
+    sync()
+    media.addEventListener('change', sync)
+    return () => media.removeEventListener('change', sync)
+  }, [query])
+
+  return matches
+}
+
 const VIEW_TABS: { key: ViewKey; label: string; icon: string }[] = [
   { key: 'village', label: 'Village', icon: '🏘️' },
   { key: 'buildings', label: 'Batiments', icon: '🏗️' },
@@ -721,6 +737,43 @@ function App() {
       : 'Bienvenue dans ton village chill.',
   )
   const [activeView, setActiveView] = useState<ViewKey>('village')
+  const isMobileLayout = useMediaQuery('(max-width: 767px)')
+  const [sidebarExpanded, setSidebarExpanded] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches,
+  )
+  const [villagePanelOpen, setVillagePanelOpen] = useState(false)
+
+  useEffect(() => {
+    const mobile = window.matchMedia('(max-width: 767px)')
+    const desktop = window.matchMedia('(min-width: 1024px)')
+
+    const collapseOnMobile = (event: MediaQueryListEvent) => {
+      if (event.matches) setSidebarExpanded(false)
+    }
+    const expandOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setSidebarExpanded(true)
+    }
+
+    mobile.addEventListener('change', collapseOnMobile)
+    desktop.addEventListener('change', expandOnDesktop)
+    return () => {
+      mobile.removeEventListener('change', collapseOnMobile)
+      desktop.removeEventListener('change', expandOnDesktop)
+    }
+  }, [])
+
+  const handleSelectView = useCallback(
+    (view: ViewKey) => {
+      setActiveView(view)
+      if (isMobileLayout) {
+        setSidebarExpanded(false)
+      }
+      if (view !== 'village') {
+        setVillagePanelOpen(false)
+      }
+    },
+    [isMobileLayout],
+  )
   const [activeBuildingId, setActiveBuildingId] = useState(BUILDINGS[0].id)
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null)
   const [gachaResults, setGachaResults] = useState<GachaItem[] | null>(null)
@@ -1474,14 +1527,48 @@ function App() {
     </>
   )
 
+  const renderVillageBuildingPanel = () => (
+    <>
+      <div className="card-topline">
+        <span>Niveau {selectedBuildingLevel}</span>
+        <span>Menu batiment</span>
+      </div>
+      <h3>{selectedBuilding.name}</h3>
+      <p>{selectedBuilding.role}</p>
+      <small>Production: {costText(selectedBuilding.produces)} / min</small>
+      <button type="button" onClick={() => updateBuilding(selectedBuilding)}>
+        Ameliorer - {costText(selectedBuildingCost)}
+      </button>
+      <div className="button-row compact">
+        <button type="button" className="secondary" onClick={() => handleSelectView('buildings')}>
+          Gestion
+        </button>
+        <button
+          type="button"
+          className="secondary"
+          onClick={() => {
+            setFocusMinigameBuildingId(selectedBuilding.id)
+            handleSelectView('miniGames')
+          }}
+        >
+          Mini-jeu
+        </button>
+        <button type="button" className="secondary" onClick={() => handleSelectView('event')}>
+          Gacha
+        </button>
+        <button type="button" className="secondary" onClick={() => handleSelectView('companions')}>
+          Liens
+        </button>
+      </div>
+    </>
+  )
+
   const renderVillageMap = () => (
     <section className="village-map-panel">
-      <div className="panorama-wrap">
+      <div className="panorama-wrap panorama-wrap--fullscreen">
         <div className="panorama-map" aria-label="Carte interactive du village">
-          <div className="map-overlay-title">
-            <p className="eyebrow">Havre des Brumes</p>
-            <h2>Explore le village</h2>
-            <p className="map-stage-caption">{getCurrentStage(game.village.stage).name}</p>
+          <div className="map-overlay-badge">
+            <span className="map-stage-caption">{getCurrentStage(game.village.stage).name}</span>
           </div>
           <VillagePanorama
             activeBuildingId={activeBuildingId}
@@ -1518,49 +1605,37 @@ function App() {
               }
               setActiveBuildingId(building.id)
               setFocusMinigameBuildingId(building.id)
-              setActiveView('miniGames')
+              setVillagePanelOpen(true)
               setMessage(`${building.name}: ${spot.hint}.`)
             }}
           />
         </div>
 
-        <aside className="map-detail">
-          <div className="card-topline">
-            <span>Niveau {selectedBuildingLevel}</span>
-            <span>Menu batiment</span>
-          </div>
-          <h3>{selectedBuilding.name}</h3>
-          <p>{selectedBuilding.role}</p>
-          <small>Production: {costText(selectedBuilding.produces)} / min</small>
-          <button type="button" onClick={() => updateBuilding(selectedBuilding)}>
-            Ameliorer - {costText(selectedBuildingCost)}
-          </button>
-          <div className="button-row compact">
-            <button type="button" className="secondary" onClick={() => setActiveView('buildings')}>
-              Gestion
-            </button>
+        {villagePanelOpen ? (
+          <>
             <button
+              aria-label="Fermer le panneau batiment"
+              className="map-detail-backdrop"
               type="button"
-              className="secondary"
-              onClick={() => {
-                setFocusMinigameBuildingId(selectedBuilding.id)
-                setActiveView('miniGames')
-              }}
-            >
-              Mini-jeu
-            </button>
-            <button type="button" className="secondary" onClick={() => setActiveView('event')}>
-              Gacha
-            </button>
-            <button type="button" className="secondary" onClick={() => setActiveView('companions')}>
-              Liens
-            </button>
-          </div>
-        </aside>
+              onClick={() => setVillagePanelOpen(false)}
+            />
+            <aside className="map-detail map-detail-sheet map-detail-sheet--open">
+              <button
+                aria-label="Fermer"
+                className="map-detail-close"
+                type="button"
+                onClick={() => setVillagePanelOpen(false)}
+              >
+                ×
+              </button>
+              {renderVillageBuildingPanel()}
+            </aside>
+          </>
+        ) : null}
       </div>
 
       <button
-        className="village-collect-fab"
+        className={`village-collect-fab${villagePanelOpen ? ' village-collect-fab--panel-open' : ''}`}
         type="button"
         onClick={() => playMiniGame({ coins: 75, food: 45 }, 'Collecte rapide')}
       >
@@ -1569,18 +1644,38 @@ function App() {
     </section>
   )
 
+  const showTopResourceStrip =
+    !sidebarExpanded &&
+    activeView !== 'village' &&
+    (activeView === 'event' || !isMobileLayout)
+
+  const topStripCompact = isMobileLayout && activeView === 'event'
+
   return (
-    <main className="shell">
+    <main
+      className={`shell${sidebarExpanded ? ' shell--sidebar-expanded' : ' shell--sidebar-collapsed'}`}
+    >
       <AppNav
         activeView={activeView}
+        expanded={sidebarExpanded}
         population={game.village.population}
+        resourcesPanel={
+          <ResourceStrip layout="vertical" perMinute={perMinute} resources={game.resources} />
+        }
         tabs={VIEW_TABS}
         villageStageName={getCurrentStage(game.village.stage).name}
-        onSelect={setActiveView}
+        onSelect={handleSelectView}
+        onToggleExpanded={() => setSidebarExpanded((current) => !current)}
       />
 
       <div className="shell-main">
-        <ResourceStrip perMinute={perMinute} resources={game.resources} />
+        {showTopResourceStrip ? (
+          <ResourceStrip
+            compact={topStripCompact}
+            perMinute={perMinute}
+            resources={game.resources}
+          />
+        ) : null}
 
         <div className={`view-stage view-stage--${activeView}`}>
         {activeView === 'village' && renderVillageMap()}

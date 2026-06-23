@@ -12,6 +12,8 @@ import { ResourceIcon } from './ResourceIcon'
 type ResourceStripProps = {
   resources: Record<ResourceKey, number>
   perMinute: Record<ResourceKey, number>
+  layout?: 'horizontal' | 'vertical'
+  compact?: boolean
 }
 
 type TipState = {
@@ -29,7 +31,14 @@ const compactAmount = (amount: number) => {
   return formatAmount(value)
 }
 
-export function ResourceStrip({ resources, perMinute }: ResourceStripProps) {
+const COMPACT_KEYS: ResourceKey[] = ['coins', 'tickets', 'mana']
+
+export function ResourceStrip({
+  resources,
+  perMinute,
+  layout = 'horizontal',
+  compact = false,
+}: ResourceStripProps) {
   const [tip, setTip] = useState<TipState | null>(null)
 
   const showTip = useCallback((key: ResourceKey, anchor: HTMLElement) => {
@@ -57,10 +66,15 @@ export function ResourceStrip({ resources, perMinute }: ResourceStripProps) {
   const productionLabel =
     production > 0 ? `+${formatAmount(production)} / min` : 'Pas de production passive'
 
+  const keys = compact ? COMPACT_KEYS : RESOURCE_KEYS
+
   return (
-    <section aria-label="Ressources" className="resource-strip">
+    <section
+      aria-label="Ressources"
+      className={`resource-strip resource-strip--${layout}${compact ? ' resource-strip--compact' : ''}`}
+    >
       <div className="resource-strip-scroll">
-        {RESOURCE_KEYS.map((key) => (
+        {keys.map((key) => (
           <div className="resource-chip" key={key}>
             <button
               aria-describedby={activeKey === key ? `resource-tip-${key}` : undefined}

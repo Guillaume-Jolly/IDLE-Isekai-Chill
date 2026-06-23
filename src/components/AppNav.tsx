@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 export type ViewKey =
   | 'village'
   | 'buildings'
@@ -19,6 +21,9 @@ type AppNavProps = {
   tabs: NavTab[]
   villageStageName: string
   population: number
+  expanded: boolean
+  resourcesPanel?: ReactNode
+  onToggleExpanded: () => void
   onSelect: (view: ViewKey) => void
 }
 
@@ -27,41 +32,73 @@ export function AppNav({
   tabs,
   villageStageName,
   population,
+  expanded,
+  resourcesPanel,
+  onToggleExpanded,
   onSelect,
 }: AppNavProps) {
+  const handleSelect = (view: ViewKey) => {
+    onSelect(view)
+  }
+
   return (
-    <nav aria-label="Navigation principale" className="app-sidebar">
-      <div className="app-sidebar-brand">
-        <span aria-hidden="true" className="app-sidebar-brand-icon">
-          🌙
-        </span>
-        <div className="app-sidebar-brand-copy">
-          <strong>Havre</strong>
-          <span>des Brumes</span>
+    <nav
+      aria-expanded={expanded}
+      aria-label="Navigation principale"
+      className={`app-sidebar${expanded ? ' app-sidebar--expanded' : ' app-sidebar--collapsed'}`}
+    >
+      <div className="app-sidebar-head">
+        <div className="app-sidebar-brand">
+          <span aria-hidden="true" className="app-sidebar-brand-icon">
+            🌙
+          </span>
+          <div className="app-sidebar-brand-copy">
+            <strong>Havre</strong>
+            <span>des Brumes</span>
+          </div>
         </div>
+        <button
+          aria-controls="app-sidebar-body"
+          aria-expanded={expanded}
+          aria-label={expanded ? 'Replier le menu' : 'Deplier le menu'}
+          className="app-sidebar-toggle"
+          type="button"
+          onClick={onToggleExpanded}
+        >
+          <span aria-hidden="true">{expanded ? '‹' : '›'}</span>
+        </button>
       </div>
 
-      <div className="app-sidebar-tabs">
-        {tabs.map((tab) => (
-          <button
-            aria-current={activeView === tab.key ? 'page' : undefined}
-            className={activeView === tab.key ? 'active' : ''}
-            key={tab.key}
-            title={tab.label}
-            type="button"
-            onClick={() => onSelect(tab.key)}
-          >
-            <span aria-hidden="true" className="app-sidebar-tab-icon">
-              {tab.icon}
-            </span>
-            <span className="app-sidebar-tab-label">{tab.label}</span>
-          </button>
-        ))}
-      </div>
+      <div className="app-sidebar-body" id="app-sidebar-body">
+        <div className="app-sidebar-tabs">
+          {tabs.map((tab) => (
+            <button
+              aria-current={activeView === tab.key ? 'page' : undefined}
+              aria-label={tab.label}
+              className={activeView === tab.key ? 'active' : ''}
+              key={tab.key}
+              title={tab.label}
+              type="button"
+              onClick={() => handleSelect(tab.key)}
+            >
+              <span aria-hidden="true" className="app-sidebar-tab-icon">
+                {tab.icon}
+              </span>
+              <span className="app-sidebar-tab-label">{tab.label}</span>
+            </button>
+          ))}
+        </div>
 
-      <div className="app-sidebar-status">
-        <span>{villageStageName}</span>
-        <strong>{Math.floor(population)} hab.</strong>
+        {expanded && resourcesPanel ? (
+          <div aria-label="Ressources" className="app-sidebar-resources">
+            {resourcesPanel}
+          </div>
+        ) : null}
+
+        <div className="app-sidebar-status">
+          <span className="app-sidebar-status-stage">{villageStageName}</span>
+          <strong>{Math.floor(population)} hab.</strong>
+        </div>
       </div>
     </nav>
   )
