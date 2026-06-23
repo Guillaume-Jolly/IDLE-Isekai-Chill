@@ -107,4 +107,18 @@
 ## Notes CSS
 
 - `Minigames.css` : ~+2300 lignes — **à splitter plus tard**, pas dans cette session
+
+---
+
+## Session 2026-06-23 — Corpus Lien v2 (branche `feature/link-corpus-v2`)
+
+| Item | Statut |
+|------|--------|
+| Push `main` → origin | ✅ `bc4c118..56de371` |
+| Branche feature | ✅ `feature/link-corpus-v2` |
+| Corpus zip localisé | ❌ absent du repo |
+| Intégration ConversationGame | ⏸ bloquée (corpus absent) |
+| Scripts | ✅ `validate-link-corpus`, `import-link-corpus-v2` (scaffold) |
+| Docs | ✅ `LINK_CORPUS_V2_AUDIT.md`, `MANUAL_TEST_LINK_CORPUS.md` |
+| Push branche feature | ❌ (règle session) |
 - Doublons potentiels entre `MinigameChrome.css`, `RefugeMobile.css`, `CaptureMobile.css` — pas de fusion risquée effectuée
