@@ -1,0 +1,27 @@
+---
+description: Core project rules for Wonderland / IDLE-Isekai-Chill
+alwaysApply: true
+---
+
+# Wonderland Core Rules
+
+Read `AGENTS.md`, `.ai/project-context.md`, `.ai/current-state.md`, and `.ai/next-task.md` before agentic changes.
+
+Hard constraints:
+
+- Keep changes small and reviewable.
+- Do not modify, delete, rename, move, compress, or replace assets without explicit user approval.
+- Do not change save data formats without a migration path.
+- Do not mix unrelated feature, refactor, and bugfix work.
+- Prefer surgical fixes over broad rewrites.
+- Check call sites before changing exported types, IDs, or APIs.
+- Keep Myrion species objectives, variant tracking, and shiny tracking separate.
+- When release/capture/refuge logic is affected, check rewards, biome favor, link cleanup, and counters.
+- When companion conversations are affected, check personality, affinity level, fallback behavior, and corpus validation.
+- Run relevant validation from `package.json`; do not call a task done if the build fails.
+
+Current package scripts to consider:
+
+- `npm run build`
+- `npm run lint`
+- `npm run validate:link-corpus`
