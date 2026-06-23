@@ -28,7 +28,9 @@ import {
 
 import {
   updateCaptureStats,
+  revertCaptureStats,
   type MinigameSave,
+  type PendingHuntCapture,
   type PetState,
   type RefugeProgressState,
 } from '../../data/minigameSave'
@@ -47,10 +49,19 @@ import {
 } from '../../data/myrionMvp2'
 import { linkedMyrionCaptureBonus, removeCompanionLinksForPet } from '../../data/myrionCompanionLinks'
 import { applyReleaseRewards } from '../../data/myrionRelease'
+import {
+  buildPendingCaptureSnapshots,
+  pendingIdsMatchingCondition,
+  pendingIdsMatchingKeepCondition,
+  previewKeepPending,
+  type PendingBulkKeepCondition,
+  type PendingBulkReleaseCondition,
+} from '../../data/pendingCaptures'
 
 import {
   PALMON_RARITIES,
   RARITY_CAPTURE,
+  RARITY_COLORS,
   type WildEncounter,
   getBiome,
 } from '../../data/wildFamiliars'
@@ -68,7 +79,9 @@ import { RecentCapturesPanel } from './RecentCapturesPanel'
 
 import { HuntObjectivePicker } from './HuntObjectivePicker'
 
-import { HuntAutoDecisionSettingsPanel } from './HuntAutoDecisionSettings'
+import { HuntCapturePolicyPanel } from './HuntCapturePolicyPanel'
+
+import { PendingCapturesPanel } from './PendingCapturesPanel'
 
 import { HuntActiveFavorsPanel } from './HuntActiveFavorsPanel'
 
@@ -81,6 +94,9 @@ import { MyrionDebugPanel } from './MyrionDebugPanel'
 import { HuntScene } from './HuntScene'
 
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
+import { MinigameSwitchPanel } from './MinigameSwitchPanel'
+import './CaptureMobile.css'
+import { useIsMobileCapture } from '../../hooks/useMediaQuery'
 import { MYRION_REFUGE_DEBUG } from '../../data/myrionDebug'
 
 
@@ -109,6 +125,8 @@ export function FamiliarCaptureGame({
 
   onClose,
 
+  onLaunchMinigame,
+
 }: MinigameProps) {
 
   const [pets, setPets] = useState<PetState[]>(() => minigameSave?.pets ?? [])
@@ -129,6 +147,10 @@ export function FamiliarCaptureGame({
     () => minigameSave?.huntAutoDecision ?? {},
   )
 
+  const [pendingHuntCaptures, setPendingHuntCaptures] = useState<PendingHuntCapture[]>(
+    () => minigameSave?.pendingHuntCaptures ?? [],
+  )
+
   const [refugeProgress, setRefugeProgress] = useState<RefugeProgressState>(
     () => minigameSave?.refugeProgress ?? { shinyDiscovered: false, biomeFavors: {} },
   )
@@ -138,6 +160,9 @@ export function FamiliarCaptureGame({
   )
 
   const [openDrawer, setOpenDrawer] = useState<HuntDrawerId | null>(null)
+  const [sideMenuOpen, setSideMenuOpen] = useState(false)
+
+  const isGamePaused = sideMenuOpen || openDrawer !== null
 
   const [compareResult, setCompareResult] = useState<CaptureCompareResult | null>(null)
 
@@ -146,7 +171,7 @@ export function FamiliarCaptureGame({
   const pendingDecision = Boolean(compareResult && lastCapturedPet)
 
   useEffect(() => {
-    if (pendingDecision) {
+    if (pendingDecision && compareResult?.overflowRequired) {
       setOpenDrawer('decision')
     }
   }, [pendingDecision, compareResult?.overflowRequired])
@@ -173,22 +198,32 @@ export function FamiliarCaptureGame({
 
   const [stability, setStability] = useState(100)
 
-  const [flash, setFlash] = useState('Explore les biomes — des Myrions sauvages t attendent.')
+  const [flash, setFlash] = useState("Explore les biomes — des Myrions sauvages t'attendent.")
+  const [hudDetailsOpen, setHudDetailsOpen] = useState(false)
 
   const [lastResult, setLastResult] = useState<'success' | 'fail' | null>(null)
 
   const [finalChance, setFinalChance] = useState<number | null>(null)
 
   const [biomeBgFailed, setBiomeBgFailed] = useState(false)
+  const isMobileCapture = useIsMobileCapture()
 
   const [autoReplaySec, setAutoReplaySec] = useState(Math.ceil(AUTO_REPLAY_MS / 1000))
   const [autoCaptureSec, setAutoCaptureSec] = useState(Math.ceil(AUTO_CAPTURE_MS / 1000))
 
   const revealTimerRef = useRef<number | null>(null)
-  const autoReplayTimerRef = useRef<number | null>(null)
+  const revealDeadlineRef = useRef<number | null>(null)
+  const revealRemainingRef = useRef<number | null>(null)
+  const autoCaptureDeadlineRef = useRef<number | null>(null)
+  const autoCaptureRemainingRef = useRef<number | null>(null)
+  const autoReplayDeadlineRef = useRef<number | null>(null)
+  const autoReplayRemainingRef = useRef<number | null>(null)
   const autoReplayIntervalRef = useRef<number | null>(null)
   const autoCaptureTimerRef = useRef<number | null>(null)
   const autoCaptureIntervalRef = useRef<number | null>(null)
+  const autoReplayTimerRef = useRef<number | null>(null)
+  const capturePauseStartRef = useRef<number | null>(null)
+  const gamePausedRef = useRef(false)
 
   const timingGradesRef = useRef<TimingGrade[]>([])
   const huntPhaseRef = useRef(huntPhase)
@@ -196,6 +231,60 @@ export function FamiliarCaptureGame({
   useEffect(() => {
     huntPhaseRef.current = huntPhase
   }, [huntPhase])
+
+  useEffect(() => {
+    gamePausedRef.current = isGamePaused
+  }, [isGamePaused])
+
+  const clearRevealTimer = useCallback(() => {
+    if (revealTimerRef.current) {
+      window.clearTimeout(revealTimerRef.current)
+      revealTimerRef.current = null
+    }
+    revealDeadlineRef.current = null
+  }, [])
+
+  const scheduleReveal = useCallback(
+    (delayMs: number, encounterHint?: WildEncounter) => {
+      clearRevealTimer()
+      if (delayMs <= 0) {
+        revealRemainingRef.current = null
+        setHuntPhase('appeared')
+        const hintBonus = pickActiveHuntFavors(huntFavors)
+          .filter((favor) => favor.category === 'hint')
+          .reduce((sum, favor) => sum + favor.value, 0)
+        const target = encounterHint ?? encounter
+        if (target) {
+          setFlash(
+            hintBonus > 0
+              ? `${target.palmon.name} [${target.palmon.rarity}] — indice actif (niv. ${Math.round(hintBonus)})`
+              : `${target.palmon.name} [${target.palmon.rarity}] — capture auto dans 3s…`,
+          )
+        }
+        return
+      }
+
+      revealDeadlineRef.current = Date.now() + delayMs
+      revealTimerRef.current = window.setTimeout(() => {
+        revealTimerRef.current = null
+        revealDeadlineRef.current = null
+        revealRemainingRef.current = null
+        setHuntPhase('appeared')
+        const hintBonus = pickActiveHuntFavors(huntFavors)
+          .filter((favor) => favor.category === 'hint')
+          .reduce((sum, favor) => sum + favor.value, 0)
+        const target = encounterHint ?? encounter
+        if (target) {
+          setFlash(
+            hintBonus > 0
+              ? `${target.palmon.name} [${target.palmon.rarity}] — indice actif (niv. ${Math.round(hintBonus)})`
+              : `${target.palmon.name} [${target.palmon.rarity}] — capture auto dans 3s…`,
+          )
+        }
+      }, delayMs)
+    },
+    [clearRevealTimer, encounter, huntFavors],
+  )
 
   const clearAutoCaptureTimer = useCallback(() => {
     if (autoCaptureTimerRef.current) {
@@ -206,6 +295,7 @@ export function FamiliarCaptureGame({
       window.clearInterval(autoCaptureIntervalRef.current)
       autoCaptureIntervalRef.current = null
     }
+    autoCaptureDeadlineRef.current = null
   }, [])
 
   const clearAutoReplayTimer = useCallback(() => {
@@ -217,6 +307,7 @@ export function FamiliarCaptureGame({
       window.clearInterval(autoReplayIntervalRef.current)
       autoReplayIntervalRef.current = null
     }
+    autoReplayDeadlineRef.current = null
   }, [])
 
 
@@ -231,6 +322,7 @@ export function FamiliarCaptureGame({
       companionMyrionLinks?: Partial<Record<string, string>>
       refugeResources?: MinigameSave['refugeResources']
       huntAutoDecision?: HuntAutoDecisionSettings
+      pendingHuntCaptures?: PendingHuntCapture[]
     }) => {
       if (!minigameSave || !onSaveMinigame) return
       onSaveMinigame({
@@ -243,6 +335,7 @@ export function FamiliarCaptureGame({
         companionMyrionLinks: patch.companionMyrionLinks ?? companionLinks,
         refugeResources: patch.refugeResources ?? minigameSave.refugeResources,
         huntAutoDecision: patch.huntAutoDecision ?? huntAutoDecision,
+        pendingHuntCaptures: patch.pendingHuntCaptures ?? pendingHuntCaptures,
         echoEggs: minigameSave.echoEggs ?? [],
       })
     },
@@ -253,6 +346,7 @@ export function FamiliarCaptureGame({
       huntFavors,
       minigameSave,
       onSaveMinigame,
+      pendingHuntCaptures,
       pets,
       refugeProgress,
       searchObjectives,
@@ -307,6 +401,342 @@ export function FamiliarCaptureGame({
     setFlash(`${compareResult.weakestDuplicate.name} remplacé par ${lastCapturedPet.name}.`)
     closeCompare()
   }, [closeCompare, compareResult, companionLinks, lastCapturedPet, persist, pets])
+
+  const deferPendingCapture = useCallback(() => {
+    if (!lastCapturedPet) return
+    const nextPets = pets.filter((pet) => pet.id !== lastCapturedPet.id)
+    const nextStats = revertCaptureStats(captureStats, lastCapturedPet.rarity)
+    const pendingEntry: PendingHuntCapture = {
+      id: lastCapturedPet.id,
+      pet: lastCapturedPet,
+      capturedAt: Date.now(),
+      biomeId: lastCapturedPet.biomeId,
+    }
+    const nextPending = [...pendingHuntCaptures, pendingEntry]
+    setPets(nextPets)
+    setCaptureStats(nextStats)
+    setSessionCaught((value) => Math.max(0, value - 1))
+    setPendingHuntCaptures(nextPending)
+    persist({ pets: nextPets, captureStats: nextStats, pendingHuntCaptures: nextPending })
+    setFlash(`${lastCapturedPet.name} mis en attente (${nextPending.length} à trier).`)
+    closeCompare()
+  }, [captureStats, closeCompare, lastCapturedPet, pendingHuntCaptures, persist, pets])
+
+  const releasePendingCapture = useCallback(
+    (pendingId: string) => {
+      const entry = pendingHuntCaptures.find((item) => item.id === pendingId)
+      if (!entry || !minigameSave) return
+
+      const nextPending = pendingHuntCaptures.filter((item) => item.id !== pendingId)
+      const rewards = applyReleaseRewards(
+        entry.pet,
+        refugeProgress,
+        minigameSave.refugeResources ?? {},
+      )
+      setPendingHuntCaptures(nextPending)
+      setRefugeProgress(rewards.refugeProgress)
+      persist({
+        pendingHuntCaptures: nextPending,
+        refugeProgress: rewards.refugeProgress,
+        refugeResources: rewards.refugeResources,
+      })
+      setFlash(`${entry.pet.name} relâché — ${rewards.summary}.`)
+    },
+    [minigameSave, pendingHuntCaptures, persist, refugeProgress],
+  )
+
+  const releasePendingCapturesBulk = useCallback(
+    (ids: string[]) => {
+      if (ids.length === 0 || !minigameSave) return
+
+      let nextProgress = refugeProgress
+      let nextResources = minigameSave.refugeResources ?? {}
+      const releasedNames: string[] = []
+
+      for (const pendingId of ids) {
+        const entry = pendingHuntCaptures.find((item) => item.id === pendingId)
+        if (!entry) continue
+        const rewards = applyReleaseRewards(entry.pet, nextProgress, nextResources)
+        nextProgress = rewards.refugeProgress
+        nextResources = rewards.refugeResources
+        releasedNames.push(entry.pet.name)
+      }
+
+      const idSet = new Set(ids)
+      const nextPending = pendingHuntCaptures.filter((item) => !idSet.has(item.id))
+
+      setPendingHuntCaptures(nextPending)
+      setRefugeProgress(nextProgress)
+      persist({
+        pendingHuntCaptures: nextPending,
+        refugeProgress: nextProgress,
+        refugeResources: nextResources,
+      })
+      setFlash(
+        releasedNames.length === 1
+          ? `${releasedNames[0]} relâché.`
+          : `${releasedNames.length} Myrions relâchés.`,
+      )
+    },
+    [minigameSave, pendingHuntCaptures, persist, refugeProgress],
+  )
+
+  const releaseAllPendingCaptures = useCallback(() => {
+    releasePendingCapturesBulk(pendingHuntCaptures.map((entry) => entry.id))
+  }, [pendingHuntCaptures, releasePendingCapturesBulk])
+
+  const releasePendingByCondition = useCallback(
+    (condition: PendingBulkReleaseCondition) => {
+      const snapshots = buildPendingCaptureSnapshots(
+        pendingHuntCaptures,
+        pets,
+        searchObjectives,
+      )
+      const ids = pendingIdsMatchingCondition(snapshots, condition)
+      releasePendingCapturesBulk(ids)
+    },
+    [pendingHuntCaptures, pets, releasePendingCapturesBulk, searchObjectives],
+  )
+
+  const keepPendingCapture = useCallback(
+    (pendingId: string) => {
+      const entry = pendingHuntCaptures.find((item) => item.id === pendingId)
+      if (!entry) return
+
+      const preview = previewKeepPending(entry, pets, pendingHuntCaptures, searchObjectives)
+      if (preview.overflowRequired && !preview.weakestDuplicate) {
+        setFlash(
+          `${entry.pet.name} — refuge saturé pour cette espèce. Relâche un exemplaire ou utilise Relâcher.`,
+        )
+        return
+      }
+
+      let nextPets = [...pets]
+      let nextLinks = companionLinks
+      if (preview.overflowRequired && preview.weakestDuplicate) {
+        const removed = preview.weakestDuplicate
+        nextPets = nextPets.filter((pet) => pet.id !== removed.id)
+        nextLinks = removeCompanionLinksForPet(nextLinks, removed.id)
+      }
+
+      nextPets = [...nextPets, entry.pet]
+      const nextPending = pendingHuntCaptures.filter((item) => item.id !== pendingId)
+      const nextStats = updateCaptureStats(captureStats, entry.pet.rarity)
+      const nextRefugeProgress: RefugeProgressState = {
+        ...refugeProgress,
+        shinyDiscovered:
+          refugeProgress.shinyDiscovered || entry.pet.isShiny || Boolean(entry.pet.visualVariant),
+      }
+
+      setPets(nextPets)
+      setCompanionLinks(nextLinks)
+      setPendingHuntCaptures(nextPending)
+      setCaptureStats(nextStats)
+      setRefugeProgress(nextRefugeProgress)
+      setSessionCaught((value) => value + 1)
+
+      const reward = scaleReward(
+        activity.baseReward,
+        PALMON_RARITIES.indexOf(entry.pet.rarity) + 1,
+        6,
+      )
+      onComplete(PALMON_RARITIES.indexOf(entry.pet.rarity) + 1, 6, reward, { keepOpen: true })
+
+      persist({
+        pets: nextPets,
+        companionMyrionLinks: nextLinks,
+        captureStats: nextStats,
+        pendingHuntCaptures: nextPending,
+        refugeProgress: nextRefugeProgress,
+      })
+
+      if (preview.overflowRequired && preview.weakestDuplicate) {
+        setFlash(
+          `${entry.pet.name} ajouté au refuge (remplace ${preview.weakestDuplicate.name}).`,
+        )
+        return
+      }
+
+      setFlash(`${entry.pet.name} ajouté au refuge.`)
+    },
+    [
+      activity.baseReward,
+      captureStats,
+      companionLinks,
+      onComplete,
+      pendingHuntCaptures,
+      persist,
+      pets,
+      refugeProgress,
+      searchObjectives,
+    ],
+  )
+
+  const keepPendingCapturesBulk = useCallback(
+    (ids: string[], options?: { replaceOnOverflow?: boolean }) => {
+      if (ids.length === 0) return
+
+      const replaceOnOverflow = options?.replaceOnOverflow ?? true
+      let nextPets = [...pets]
+      let nextLinks = companionLinks
+      let nextPending = [...pendingHuntCaptures]
+      let nextStats = captureStats
+      let nextRefugeProgress = refugeProgress
+      const keptNames: string[] = []
+      const replacedNames: string[] = []
+      let skipped = 0
+
+      for (const pendingId of ids) {
+        const entry = nextPending.find((item) => item.id === pendingId)
+        if (!entry) continue
+
+        const preview = previewKeepPending(entry, nextPets, nextPending, searchObjectives)
+
+        if (preview.overflowRequired) {
+          if (!replaceOnOverflow) {
+            skipped += 1
+            continue
+          }
+          if (!preview.weakestDuplicate) {
+            skipped += 1
+            continue
+          }
+          nextPets = nextPets.filter((pet) => pet.id !== preview.weakestDuplicate!.id)
+          nextLinks = removeCompanionLinksForPet(nextLinks, preview.weakestDuplicate!.id)
+          replacedNames.push(preview.weakestDuplicate.name)
+        }
+
+        nextPets = [...nextPets, entry.pet]
+        nextPending = nextPending.filter((item) => item.id !== pendingId)
+        nextStats = updateCaptureStats(nextStats, entry.pet.rarity)
+        nextRefugeProgress = {
+          ...nextRefugeProgress,
+          shinyDiscovered:
+            nextRefugeProgress.shinyDiscovered ||
+            entry.pet.isShiny ||
+            Boolean(entry.pet.visualVariant),
+        }
+        keptNames.push(entry.pet.name)
+
+        const reward = scaleReward(
+          activity.baseReward,
+          PALMON_RARITIES.indexOf(entry.pet.rarity) + 1,
+          6,
+        )
+        onComplete(PALMON_RARITIES.indexOf(entry.pet.rarity) + 1, 6, reward, { keepOpen: true })
+      }
+
+      if (keptNames.length === 0) {
+        setFlash(
+          skipped > 0
+            ? 'Aucun Myrion gardé — refuge saturé ou critère non rempli.'
+            : 'Aucun Myrion à garder.',
+        )
+        return
+      }
+
+      setPets(nextPets)
+      setCompanionLinks(nextLinks)
+      setPendingHuntCaptures(nextPending)
+      setCaptureStats(nextStats)
+      setRefugeProgress(nextRefugeProgress)
+      setSessionCaught((value) => value + keptNames.length)
+
+      persist({
+        pets: nextPets,
+        companionMyrionLinks: nextLinks,
+        captureStats: nextStats,
+        pendingHuntCaptures: nextPending,
+        refugeProgress: nextRefugeProgress,
+      })
+
+      const replaceNote =
+        replacedNames.length > 0
+          ? ` · ${replacedNames.length} remplacement${replacedNames.length > 1 ? 's' : ''}`
+          : ''
+      const skipNote =
+        skipped > 0 ? ` · ${skipped} ignoré${skipped > 1 ? 's' : ''} (pas de place)` : ''
+
+      setFlash(
+        keptNames.length === 1
+          ? `${keptNames[0]} ajouté au refuge${replaceNote}${skipNote}.`
+          : `${keptNames.length} Myrions ajoutés au refuge${replaceNote}${skipNote}.`,
+      )
+    },
+    [
+      activity.baseReward,
+      captureStats,
+      companionLinks,
+      onComplete,
+      pendingHuntCaptures,
+      persist,
+      pets,
+      refugeProgress,
+      searchObjectives,
+    ],
+  )
+
+  const keepAllPendingCaptures = useCallback(() => {
+    keepPendingCapturesBulk(pendingHuntCaptures.map((entry) => entry.id), {
+      replaceOnOverflow: true,
+    })
+  }, [keepPendingCapturesBulk, pendingHuntCaptures])
+
+  const keepPendingByCondition = useCallback(
+    (condition: PendingBulkKeepCondition) => {
+      const snapshots = buildPendingCaptureSnapshots(
+        pendingHuntCaptures,
+        pets,
+        searchObjectives,
+      )
+      const ids = pendingIdsMatchingKeepCondition(
+        snapshots,
+        condition,
+        pets,
+        pendingHuntCaptures,
+      )
+      keepPendingCapturesBulk(ids, {
+        replaceOnOverflow: condition === 'all',
+      })
+    },
+    [keepPendingCapturesBulk, pendingHuntCaptures, pets, searchObjectives],
+  )
+
+  const handleCapturePolicyChange = useCallback(
+    (nextSettings: HuntAutoDecisionSettings) => {
+      setHuntAutoDecision(nextSettings)
+      persist({ huntAutoDecision: nextSettings })
+
+      if (!lastCapturedPet || !compareResult) return
+
+      const autoAction = resolveAutoCaptureDecision(compareResult, searchObjectives, nextSettings)
+      if (autoAction === 'keep' && !compareResult.overflowRequired) {
+        closeCompare()
+        return
+      }
+      if (autoAction === 'release' && !compareResult.protectFromAutoRelease) {
+        handleReleaseNewCapture()
+        return
+      }
+      if (autoAction === 'replace' && compareResult.weakestDuplicate) {
+        handleReplaceWeakestCapture()
+        return
+      }
+      if (autoAction === 'defer') {
+        deferPendingCapture()
+      }
+    },
+    [
+      closeCompare,
+      compareResult,
+      deferPendingCapture,
+      handleReleaseNewCapture,
+      handleReplaceWeakestCapture,
+      lastCapturedPet,
+      persist,
+      searchObjectives,
+    ],
+  )
 
 
 
@@ -368,15 +798,31 @@ export function FamiliarCaptureGame({
         const nextPet = createCapturedMyrion(palmon, instanceId, Date.now(), {
           shinyBonus: favorModifiers.shinyBonus,
         })
-        const nextPets = [...pets, nextPet]
+        const comparison = compareCapturedMyrion(nextPet, pets, searchObjectives)
+        const autoAction = resolveAutoCaptureDecision(comparison, searchObjectives, huntAutoDecision)
+
+        if (autoAction === 'defer') {
+          const pendingEntry: PendingHuntCapture = {
+            id: instanceId,
+            pet: nextPet,
+            capturedAt: Date.now(),
+            biomeId: encounter.biome.id,
+          }
+          const nextPending = [...pendingHuntCaptures, pendingEntry]
+          setPendingHuntCaptures(nextPending)
+          persist({ huntFavors: nextFavors, pendingHuntCaptures: nextPending })
+          setFlash(
+            `${nextPet.name} en attente de tri (${nextPending.length}) — aucun point tant qu'il n'est pas traité.`,
+          )
+          return
+        }
+
         const nextStats = updateCaptureStats(captureStats, palmon.rarity)
-        const comparison = compareCapturedMyrion(nextPet, nextPets, searchObjectives)
         const nextRefugeProgress: RefugeProgressState = {
           ...refugeProgress,
           shinyDiscovered:
             refugeProgress.shinyDiscovered || nextPet.isShiny || Boolean(nextPet.visualVariant),
         }
-        const autoAction = resolveAutoCaptureDecision(comparison, searchObjectives, huntAutoDecision)
 
         setCaptureStats(nextStats)
         setRefugeProgress(nextRefugeProgress)
@@ -400,7 +846,23 @@ export function FamiliarCaptureGame({
             refugeResources: rewards.refugeResources,
           })
           setFlash(`${nextPet.name} relâché automatiquement — ${rewards.summary}.`)
+        } else if (autoAction === 'replace' && comparison.weakestDuplicate) {
+          const toRemove = comparison.weakestDuplicate.id
+          const nextPets = pets.filter((pet) => pet.id !== toRemove)
+          const nextLinks = removeCompanionLinksForPet(companionLinks, toRemove)
+          const nextPetsWithNew = [...nextPets, nextPet]
+          setCompanionLinks(nextLinks)
+          setPets(nextPetsWithNew)
+          persist({
+            pets: nextPetsWithNew,
+            captureStats: nextStats,
+            huntFavors: nextFavors,
+            refugeProgress: nextRefugeProgress,
+            companionMyrionLinks: nextLinks,
+          })
+          setFlash(`${comparison.weakestDuplicate.name} remplacé par ${nextPet.name}.`)
         } else if (autoAction === 'keep') {
+          const nextPets = [...pets, nextPet]
           setPets(nextPets)
           persist({
             pets: nextPets,
@@ -410,6 +872,7 @@ export function FamiliarCaptureGame({
           })
           setFlash(`${nextPet.name} gardé automatiquement.`)
         } else {
+          const nextPets = [...pets, nextPet]
           setPets(nextPets)
           setLastCapturedPet(nextPet)
           setCompareResult(comparison)
@@ -440,10 +903,12 @@ export function FamiliarCaptureGame({
       huntAutoDecision,
       minigameSave?.refugeResources,
       onComplete,
+      pendingHuntCaptures,
       persist,
       pets,
       refugeProgress,
       searchObjectives,
+      companionLinks,
     ],
   )
 
@@ -469,9 +934,6 @@ export function FamiliarCaptureGame({
       if (!biome) return
 
       const next = rollEncounterInBiome(biome, playerCollection, huntFavors)
-      const hintBonus = pickActiveHuntFavors(huntFavors)
-        .filter((favor) => favor.category === 'hint')
-        .reduce((sum, favor) => sum + favor.value, 0)
       setBiomeBgFailed(false)
       setEncounter(next)
       setPhase('hunt')
@@ -483,29 +945,26 @@ export function FamiliarCaptureGame({
       setCaptureAttempt(1)
       setStability(100)
       setFlash(`${next.biome.emoji} ${next.biome.name} — une presence se dessine…`)
+      setOpenDrawer(null)
 
-      if (revealTimerRef.current) {
-        window.clearTimeout(revealTimerRef.current)
-      }
-      revealTimerRef.current = window.setTimeout(() => {
-        setHuntPhase('appeared')
-        setFlash(
-          hintBonus > 0
-            ? `${next.palmon.name} [${next.palmon.rarity}] — indice actif (niv. ${Math.round(hintBonus)})`
-            : `${next.palmon.name} [${next.palmon.rarity}] — capture auto dans 3s…`,
-        )
-      }, REVEAL_MS)
+      revealRemainingRef.current = null
+      scheduleReveal(REVEAL_MS, next)
     },
-    [clearAutoCaptureTimer, clearAutoReplayTimer, compareResult, huntFavors, lastCapturedPet, playerCollection],
+    [clearAutoCaptureTimer, clearAutoReplayTimer, compareResult, lastCapturedPet, playerCollection, scheduleReveal],
   )
 
   const returnToMap = useCallback(() => {
     clearAutoReplayTimer()
     clearAutoCaptureTimer()
+    clearRevealTimer()
+    revealRemainingRef.current = null
+    autoCaptureRemainingRef.current = null
+    autoReplayRemainingRef.current = null
+    capturePauseStartRef.current = null
     setPhase('explore')
     setEncounter(null)
     setFlash('Choisis un biome debloque pour continuer ta chasse.')
-  }, [clearAutoCaptureTimer, clearAutoReplayTimer])
+  }, [clearAutoCaptureTimer, clearAutoReplayTimer, clearRevealTimer])
 
   const replayBiome = useCallback(() => {
     if (!encounter || pendingDecision) {
@@ -536,6 +995,96 @@ export function FamiliarCaptureGame({
     setFlash('Synchronise l anneau magique au bon moment.')
   }, [clearAutoCaptureTimer, encounter])
 
+  const scheduleAutoCapture = useCallback(
+    (remainingMs: number) => {
+      clearAutoCaptureTimer()
+      autoCaptureRemainingRef.current = null
+      autoCaptureDeadlineRef.current = Date.now() + remainingMs
+      setAutoCaptureSec(Math.max(0, Math.ceil(remainingMs / 1000)))
+
+      autoCaptureIntervalRef.current = window.setInterval(() => {
+        if (!autoCaptureDeadlineRef.current) return
+        setAutoCaptureSec(
+          Math.max(0, Math.ceil((autoCaptureDeadlineRef.current - Date.now()) / 1000)),
+        )
+      }, 250)
+
+      autoCaptureTimerRef.current = window.setTimeout(() => {
+        autoCaptureTimerRef.current = null
+        autoCaptureDeadlineRef.current = null
+        beginCapture()
+      }, remainingMs)
+    },
+    [beginCapture, clearAutoCaptureTimer],
+  )
+
+  const scheduleAutoReplay = useCallback(
+    (remainingMs: number, biomeId: string) => {
+      clearAutoReplayTimer()
+      autoReplayRemainingRef.current = null
+      autoReplayDeadlineRef.current = Date.now() + remainingMs
+      setAutoReplaySec(Math.max(0, Math.ceil(remainingMs / 1000)))
+
+      autoReplayIntervalRef.current = window.setInterval(() => {
+        if (!autoReplayDeadlineRef.current) return
+        setAutoReplaySec(
+          Math.max(0, Math.ceil((autoReplayDeadlineRef.current - Date.now()) / 1000)),
+        )
+      }, 250)
+
+      autoReplayTimerRef.current = window.setTimeout(() => {
+        autoReplayTimerRef.current = null
+        autoReplayDeadlineRef.current = null
+        startEncounter(biomeId)
+      }, remainingMs)
+    },
+    [clearAutoReplayTimer, startEncounter],
+  )
+
+  useEffect(() => {
+    if (isGamePaused) {
+      if (revealTimerRef.current && revealDeadlineRef.current) {
+        revealRemainingRef.current = Math.max(0, revealDeadlineRef.current - Date.now())
+        clearRevealTimer()
+      }
+
+      if (autoCaptureTimerRef.current && autoCaptureDeadlineRef.current) {
+        autoCaptureRemainingRef.current = Math.max(0, autoCaptureDeadlineRef.current - Date.now())
+        clearAutoCaptureTimer()
+      }
+
+      if (autoReplayTimerRef.current && autoReplayDeadlineRef.current) {
+        autoReplayRemainingRef.current = Math.max(0, autoReplayDeadlineRef.current - Date.now())
+        clearAutoReplayTimer()
+      }
+
+      if (huntPhase === 'capturing' && capturePauseStartRef.current === null) {
+        capturePauseStartRef.current = performance.now()
+      }
+      return
+    }
+
+    if (capturePauseStartRef.current !== null) {
+      const pauseMs = performance.now() - capturePauseStartRef.current
+      capturePauseStartRef.current = null
+      setCaptureStartedAt((startedAt) => startedAt + pauseMs)
+    }
+
+    if (phase === 'hunt' && huntPhase === 'entering' && revealRemainingRef.current !== null) {
+      const remaining = revealRemainingRef.current
+      revealRemainingRef.current = null
+      scheduleReveal(remaining)
+    }
+  }, [
+    clearAutoCaptureTimer,
+    clearAutoReplayTimer,
+    clearRevealTimer,
+    huntPhase,
+    isGamePaused,
+    phase,
+    scheduleReveal,
+  ])
+
 
 
   useEffect(() => {
@@ -555,6 +1104,11 @@ export function FamiliarCaptureGame({
 
 
     const tick = (now: number) => {
+
+      if (gamePausedRef.current) {
+        frame = window.requestAnimationFrame(tick)
+        return
+      }
 
       const progress = Math.min(1, (now - captureStartedAt) / durationMs)
 
@@ -668,55 +1222,58 @@ export function FamiliarCaptureGame({
 
   useEffect(
     () => () => {
-      if (revealTimerRef.current) {
-        window.clearTimeout(revealTimerRef.current)
-      }
+      clearRevealTimer()
       clearAutoReplayTimer()
       clearAutoCaptureTimer()
     },
-    [clearAutoCaptureTimer, clearAutoReplayTimer],
+    [clearAutoCaptureTimer, clearAutoReplayTimer, clearRevealTimer],
   )
 
   useEffect(() => {
     if (phase !== 'hunt' || huntPhase !== 'appeared' || !encounter) {
       clearAutoCaptureTimer()
+      autoCaptureRemainingRef.current = null
       return
     }
+    if (isGamePaused) return
+    if (autoCaptureTimerRef.current) return
 
-    setAutoCaptureSec(Math.ceil(AUTO_CAPTURE_MS / 1000))
-
-    autoCaptureIntervalRef.current = window.setInterval(() => {
-      setAutoCaptureSec((value) => Math.max(0, value - 1))
-    }, 1000)
-
-    autoCaptureTimerRef.current = window.setTimeout(() => {
-      autoCaptureTimerRef.current = null
-      beginCapture()
-    }, AUTO_CAPTURE_MS)
+    const remaining = autoCaptureRemainingRef.current ?? AUTO_CAPTURE_MS
+    autoCaptureRemainingRef.current = null
+    scheduleAutoCapture(remaining)
 
     return clearAutoCaptureTimer
-  }, [beginCapture, clearAutoCaptureTimer, encounter, huntPhase, phase])
+  }, [
+    clearAutoCaptureTimer,
+    encounter,
+    huntPhase,
+    isGamePaused,
+    phase,
+    scheduleAutoCapture,
+  ])
 
   useEffect(() => {
     if (phase !== 'result' || !encounter || pendingDecision) {
       clearAutoReplayTimer()
+      autoReplayRemainingRef.current = null
       return
     }
+    if (isGamePaused) return
+    if (autoReplayTimerRef.current) return
 
-    const biomeId = encounter.biome.id
-    setAutoReplaySec(Math.ceil(AUTO_REPLAY_MS / 1000))
-
-    autoReplayIntervalRef.current = window.setInterval(() => {
-      setAutoReplaySec((value) => Math.max(0, value - 1))
-    }, 1000)
-
-    autoReplayTimerRef.current = window.setTimeout(() => {
-      autoReplayTimerRef.current = null
-      startEncounter(biomeId)
-    }, AUTO_REPLAY_MS)
+    const remaining = autoReplayRemainingRef.current ?? AUTO_REPLAY_MS
+    autoReplayRemainingRef.current = null
+    scheduleAutoReplay(remaining, encounter.biome.id)
 
     return clearAutoReplayTimer
-  }, [clearAutoReplayTimer, encounter, pendingDecision, phase, startEncounter])
+  }, [
+    clearAutoReplayTimer,
+    encounter,
+    isGamePaused,
+    pendingDecision,
+    phase,
+    scheduleAutoReplay,
+  ])
 
   const biome = encounter?.biome
 
@@ -740,8 +1297,26 @@ export function FamiliarCaptureGame({
     [compareResult?.overflowRequired],
   )
 
+  const launchDressageMinigame = useCallback(() => {
+    persist({})
+    onLaunchMinigame?.('farm-dressage')
+  }, [onLaunchMinigame, persist])
+
   const sideDrawers = useMemo(() => {
     const drawers = []
+
+    drawers.push({
+      id: 'biome' as const,
+      label: 'Biomes',
+      icon: '🗺️',
+      content: (
+        <BiomeMapPanel
+          collection={playerCollection}
+          variant="compact"
+          onExplore={startEncounter}
+        />
+      ),
+    })
 
     if (pendingDecision && lastCapturedPet && compareResult) {
       drawers.push({
@@ -751,14 +1326,23 @@ export function FamiliarCaptureGame({
         badge: '!',
         pinned: compareResult.overflowRequired,
         content: (
-          <CaptureComparePanel
-            embedded
-            pet={lastCapturedPet}
-            result={compareResult}
-            onClose={closeCompare}
-            onReleaseNew={handleReleaseNewCapture}
-            onReplaceWeakest={handleReplaceWeakestCapture}
-          />
+          <>
+            <HuntCapturePolicyPanel
+              pendingCount={pendingHuntCaptures.length}
+              settings={huntAutoDecision}
+              title="Politique pour la suite"
+              onChange={handleCapturePolicyChange}
+            />
+            <CaptureComparePanel
+              embedded
+              pet={lastCapturedPet}
+              result={compareResult}
+              onClose={closeCompare}
+              onDefer={deferPendingCapture}
+              onReleaseNew={handleReleaseNewCapture}
+              onReplaceWeakest={handleReplaceWeakestCapture}
+            />
+          </>
         ),
       })
     }
@@ -770,8 +1354,7 @@ export function FamiliarCaptureGame({
       badge: searchObjectives.length,
       content: (
         <>
-          <HuntAutoDecisionSettingsPanel
-            objectives={searchObjectives}
+          <HuntCapturePolicyPanel
             settings={huntAutoDecision}
             onChange={(nextSettings) => {
               setHuntAutoDecision(nextSettings)
@@ -787,6 +1370,26 @@ export function FamiliarCaptureGame({
             }}
           />
         </>
+      ),
+    })
+
+    drawers.push({
+      id: 'pending' as const,
+      label: 'En attente',
+      icon: '⏳',
+      badge: pendingHuntCaptures.length,
+      content: (
+        <PendingCapturesPanel
+          entries={pendingHuntCaptures}
+          objectives={searchObjectives}
+          refugePets={pets}
+          onKeep={keepPendingCapture}
+          onKeepAll={keepAllPendingCaptures}
+          onKeepMatching={keepPendingByCondition}
+          onRelease={releasePendingCapture}
+          onReleaseAll={releaseAllPendingCaptures}
+          onReleaseMatching={releasePendingByCondition}
+        />
       ),
     })
 
@@ -807,6 +1410,23 @@ export function FamiliarCaptureGame({
       badge: activeFavors.length,
       content: <HuntActiveFavorsPanel active={activeFavors} queuedCount={queuedFavorCount} />,
     })
+
+    if (onLaunchMinigame) {
+      drawers.push({
+        id: 'refuge' as const,
+        label: 'Refuge',
+        icon: '🏡',
+        content: (
+          <MinigameSwitchPanel
+            description="Visite tes Myrions dans les enclos, nourris-les et collecte les ressources de biome."
+            icon="🏡"
+            launchLabel="Ouvrir le refuge"
+            title="Refuge des Myrions"
+            onLaunch={launchDressageMinigame}
+          />
+        ),
+      })
+    }
 
     if (MYRION_REFUGE_DEBUG) {
       drawers.push({
@@ -841,23 +1461,57 @@ export function FamiliarCaptureGame({
     activeFavors.length,
     closeCompare,
     compareResult,
+    deferPendingCapture,
+    handleCapturePolicyChange,
     handleReleaseNewCapture,
     handleReplaceWeakestCapture,
+    keepPendingCapture,
+    keepAllPendingCaptures,
+    keepPendingByCondition,
     lastCapturedPet,
     pendingDecision,
+    pendingHuntCaptures,
     persist,
     pets,
     phase,
+    playerCollection,
     queuedFavorCount,
     recentCaptures,
+    releaseAllPendingCaptures,
+    releasePendingByCondition,
+    releasePendingCapture,
     huntAutoDecision,
     refugeProgress,
     searchObjectives,
+    startEncounter,
+    launchDressageMinigame,
+    onLaunchMinigame,
     activeFavors,
     huntFavors,
   ])
 
+  const captureResultSpeech =
+    phase === 'result' && encounter
+      ? {
+          line: lastResult === 'success' ? 'Bravo !' : 'Dommage…',
+          detail:
+            lastResult === 'success'
+              ? finalChance !== null
+                ? `${encounter.palmon.name} · ${Math.round(finalChance)}%`
+                : encounter.palmon.name
+              : `${encounter.palmon.name} s'est echappe`,
+          tone: (lastResult === 'success' ? 'success' : 'failed') as 'success' | 'failed',
+        }
+      : undefined
 
+  const captureResultHint =
+    phase === 'result' && encounter ? (
+      pendingDecision ? (
+        <p className="mg-capture-result-hint warn">Decision requise — panneau Decisions</p>
+      ) : autoReplaySec > 0 ? (
+        <p className="mg-capture-result-hint">Relance auto dans {autoReplaySec}s…</p>
+      ) : null
+    ) : null
 
   return (
 
@@ -888,6 +1542,7 @@ export function FamiliarCaptureGame({
       endless
 
       layoutVariant="fullscreen"
+      hideGlobalChrome
 
       maxScore={999}
 
@@ -905,44 +1560,60 @@ export function FamiliarCaptureGame({
 
     >
 
-      <div className={`mg-capture mg-capture-immersive mg-capture-immersive--${phase}`}>
+      <div
+        className={`mg-capture mg-capture-immersive mg-capture-immersive--${phase}${
+          isMobileCapture ? ' mg-capture-immersive--phone' : ''
+        }`}
+      >
 
         <div className="mg-capture-toolbar">
+          {flash ? <p className="mg-capture-flash mg-capture-flash--toast">{flash}</p> : null}
 
-          <p className="mg-capture-flash">{flash}</p>
-
-          <div className="mg-capture-stats">
-
-            <span>Session {sessionCaught}</span>
-
-            <span>Total {captureStats?.totalCaught ?? 0}</span>
-
-            <span>Best {captureStats?.bestRarity ?? '—'}</span>
-
-            <span>Faveurs {huntFavors.length}</span>
-
-            <span>Actives {activeFavors.length}/3</span>
-            {linkedCaptureBonus > 0 ? (
-              <span>Myrion lié +{linkedCaptureBonus.toFixed(1)} capture</span>
+          <div className="mg-capture-hud">
+            <button
+              aria-expanded={hudDetailsOpen}
+              className="mg-capture-hud-chip"
+              type="button"
+              onClick={() => setHudDetailsOpen((open) => !open)}
+            >
+              <span aria-hidden="true">📊</span>
+              <span>{sessionCaught} · {activeFavors.length}/3</span>
+            </button>
+            {hudDetailsOpen ? (
+              <div className="mg-capture-hud-popover">
+                <div className="mg-capture-stats mg-capture-stats--primary">
+                  <span>Session {sessionCaught}</span>
+                  <span>Total {captureStats?.totalCaught ?? 0}</span>
+                  <span>Best {captureStats?.bestRarity ?? '—'}</span>
+                  <span>Actives {activeFavors.length}/3</span>
+                </div>
+                <div className="mg-capture-stats mg-capture-stats--secondary open">
+                  <span>Faveurs {huntFavors.length}</span>
+                  <span>En attente {queuedFavorCount}</span>
+                  {linkedCaptureBonus > 0 ? (
+                    <span>Myrion lié +{linkedCaptureBonus.toFixed(1)} capture</span>
+                  ) : null}
+                </div>
+              </div>
             ) : null}
-
           </div>
-
         </div>
 
 
 
         {phase === 'explore' && (
           <div className="mg-hunt-layout">
+            <HuntSideRail
+              canClose={(id) => canCloseDrawer(id as HuntDrawerId)}
+              drawers={sideDrawers}
+              openId={openDrawer}
+              onCloseMinigame={onClose}
+              onMenuOpenChange={setSideMenuOpen}
+              onOpenChange={(id) => setOpenDrawer(id as HuntDrawerId | null)}
+            />
             <div className="mg-hunt-main mg-capture-map-view">
               <BiomeMapPanel collection={playerCollection} onExplore={startEncounter} />
             </div>
-            <HuntSideRail
-              canClose={canCloseDrawer}
-              drawers={sideDrawers}
-              openId={openDrawer}
-              onOpenChange={setOpenDrawer}
-            />
           </div>
         )}
 
@@ -951,10 +1622,22 @@ export function FamiliarCaptureGame({
         {(phase === 'hunt' || phase === 'result') && biome && encounter && (
 
           <div className="mg-hunt-layout">
+            <HuntSideRail
+              canClose={(id) => canCloseDrawer(id as HuntDrawerId)}
+              drawers={sideDrawers}
+              openId={openDrawer}
+              onCloseMinigame={onClose}
+              onMenuOpenChange={setSideMenuOpen}
+              onOpenChange={(id) => setOpenDrawer(id as HuntDrawerId | null)}
+            />
             <div className="mg-hunt-main mg-capture-explore">
             <div className="mg-capture-stage-column">
 
-            <div className="mg-capture-scene-slot">
+            <div
+              className={`mg-capture-scene-slot${
+                isMobileCapture ? ' mg-capture-scene-slot--portrait' : ''
+              }`}
+            >
 
               <HuntScene
 
@@ -977,65 +1660,34 @@ export function FamiliarCaptureGame({
                   ) : undefined
                 }
 
-                guideCompanion={guideCompanion}
+                guideCompanion={{
+                  ...guideCompanion,
+                  speech: captureResultSpeech,
+                }}
 
                 huntPhase={huntPhase}
 
                 palmon={encounter.palmon}
 
-                resultOverlay={
-
-                  phase === 'result' ? (
-
-                    <div
-
-                      className={`mg-capture-result-overlay ${
-
-                        lastResult === 'success' ? 'success' : 'failed'
-
-                      }`}
-
-                    >
-
-                      <p className="mg-capture-result-title">
-
-                        {lastResult === 'success' ? 'Capture reussie !' : 'Myrion echappe'}
-
-                      </p>
-
-                      {finalChance !== null && (
-
-                        <p className="mg-capture-result-chance">{Math.round(finalChance)}% de chance</p>
-
-                      )}
-
-                      <p className="mg-capture-result-name">
-
-                        {encounter.palmon.name} [{encounter.palmon.rarity}]
-
-                      </p>
-
-                      {pendingDecision ? (
-                        <p className="mg-capture-result-auto warn">
-                          Décision requise — panneau 📋 Décision
-                        </p>
-                      ) : autoReplaySec > 0 ? (
-                        <p className="mg-capture-result-auto">
-                          Relance auto dans {autoReplaySec}s…
-                        </p>
-                      ) : null}
-
-                    </div>
-
-                  ) : undefined
-
-                }
-
                 onBiomeBgError={() => setBiomeBgFailed(true)}
+
+                paused={isGamePaused}
 
               />
 
             </div>
+
+            {huntPhase !== 'entering' ? (
+              <div className="mg-capture-myrion-banner">
+                <p className="mg-capture-myrion-banner-name">{encounter.palmon.name}</p>
+                <span
+                  className="mg-rarity-badge"
+                  style={{ color: RARITY_COLORS[encounter.palmon.rarity] }}
+                >
+                  {encounter.palmon.rarity}
+                </span>
+              </div>
+            ) : null}
 
             <div className={`mg-capture-actions ${lastResult === 'success' ? 'success' : ''}`}>
               <div className="mg-capture-actions-slot">
@@ -1063,6 +1715,7 @@ export function FamiliarCaptureGame({
                   aria-hidden={phase !== 'result'}
                   className={`mg-capture-result-actions${phase === 'result' ? ' active' : ''}`}
                 >
+                  {captureResultHint}
                   <button
                     className="primary mg-big-btn"
                     disabled={pendingDecision}
@@ -1081,12 +1734,6 @@ export function FamiliarCaptureGame({
             </div>
 
             </div>
-            <HuntSideRail
-              canClose={canCloseDrawer}
-              drawers={sideDrawers}
-              openId={openDrawer}
-              onOpenChange={setOpenDrawer}
-            />
           </div>
 
         )}

@@ -7,6 +7,7 @@ import { BiomeAmbientParticles } from './BiomeAmbientParticles'
 import { BiomeBackground } from './BiomeBackground'
 import { GuideCompanionCutout } from './GuideCompanionCutout'
 import { PalmonSprite } from './PalmonSprite'
+import { useIsMobileCapture } from '../../hooks/useMediaQuery'
 import './Minigames.css'
 
 type HuntSceneProps = {
@@ -21,8 +22,14 @@ type HuntSceneProps = {
     name: string
     side?: 'left' | 'right'
     pose?: GuidePose
+    speech?: {
+      line: string
+      detail?: string
+      tone: 'success' | 'failed'
+    }
   }
   resultOverlay?: ReactNode
+  paused?: boolean
 }
 
 export function HuntScene({
@@ -34,7 +41,9 @@ export function HuntScene({
   captureUi,
   guideCompanion,
   resultOverlay,
+  paused = false,
 }: HuntSceneProps) {
+  const isMobile = useIsMobileCapture()
   const showIdentity = huntPhase !== 'entering'
   const showApproachFx = huntPhase === 'entering'
   const myrionAnim =
@@ -51,6 +60,12 @@ export function HuntScene({
     '--mg-rarity-scale': RARITY_ENCOUNTER_SCALE[palmon.rarity],
   } as CSSProperties
 
+  const sceneBackground = biomeBgFailed
+    ? biome.fallbackGradient
+    : isMobile
+      ? '#000'
+      : biome.fallbackGradient
+
   return (
     <div
       aria-label={`Biome ${biome.name}, ${palmon.name}`}
@@ -58,10 +73,10 @@ export function HuntScene({
         huntPhase === 'entering' ? 'entering' : ''
       } ${huntPhase === 'capturing' ? 'capturing' : ''} ${
         huntPhase === 'success' ? 'capture-success' : ''
-      } ${huntPhase === 'failed' ? 'capture-failed' : ''}`}
+      } ${huntPhase === 'failed' ? 'capture-failed' : ''}${paused ? ' paused' : ''}`}
       role="img"
       style={{
-        background: biome.fallbackGradient,
+        background: sceneBackground,
         ...rarityStyle,
       }}
     >
@@ -69,6 +84,7 @@ export function HuntScene({
         <BiomeBackground
           biomeId={biome.id}
           className="mg-capture-biome-bg"
+          layout={isMobile ? 'portrait' : 'landscape'}
           onFailed={onBiomeBgError}
         />
       )}
@@ -79,10 +95,12 @@ export function HuntScene({
         <GuideCompanionCutout
           biomeId={biome.id}
           celebrate={huntPhase === 'success'}
+          commiserate={huntPhase === 'failed'}
           companionId={guideCompanion.id}
           name={guideCompanion.name}
           pose="point"
           side={guideCompanion.side ?? 'left'}
+          speech={guideCompanion.speech}
         />
       )}
 

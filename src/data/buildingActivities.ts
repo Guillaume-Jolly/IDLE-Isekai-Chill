@@ -30,6 +30,13 @@ export type MinigameType =
   | 'dressage'
   | 'conversation'
 
+/** Mini-jeux peaufinés — affichés en tête du hub (avant le tri stade/bâtiment). */
+export const FEATURED_MINIGAME_IDS: readonly string[] = [
+  'farm-capture',
+  'farm-dressage',
+  'farm-pets',
+]
+
 export type BuildingActivity = {
   id: string
   buildingId: string
@@ -474,13 +481,23 @@ const buildingOrderIndex = (buildingId: string, order: readonly string[]) => {
   return index === -1 ? 999 : index
 }
 
-/** Tri hub mini-jeux : stade de deblocage, batiment, gameplay puis conversations. */
+const featuredMinigameIndex = (activityId: string) => {
+  const index = FEATURED_MINIGAME_IDS.indexOf(activityId)
+  return index === -1 ? 999 : index
+}
+
+/** Tri hub mini-jeux : peaufinés, stade de deblocage, batiment, gameplay puis conversations. */
 export function sortActivitiesByUnlock(
   activities: BuildingActivity[],
   unlockAtByBuilding: Record<string, number>,
   buildingOrder: readonly string[] = [],
 ) {
   return [...activities].sort((a, b) => {
+    const featuredA = featuredMinigameIndex(a.id)
+    const featuredB = featuredMinigameIndex(b.id)
+    if (featuredA !== featuredB) {
+      return featuredA - featuredB
+    }
     const stageA = unlockAtByBuilding[a.buildingId] ?? 0
     const stageB = unlockAtByBuilding[b.buildingId] ?? 0
     if (stageA !== stageB) {

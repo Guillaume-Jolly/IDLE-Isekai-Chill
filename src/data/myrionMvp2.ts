@@ -82,23 +82,66 @@ export type CaptureCompareResult = {
   details: string[]
   objectiveResults: ObjectiveCheckResult[]
   weakestDuplicate?: PetState
+  beatsWeakest: boolean
   recommendRelease: boolean
   protectFromAutoRelease: boolean
   overflowRequired: boolean
   speciesCopyCount: number
 }
 
+export type HuntAutoDecisionMode =
+  | 'keep_all'
+  | 'release_all'
+  | 'replace_stronger'
+  | 'defer_sort'
+
 export type HuntAutoDecisionSettings = {
+  mode?: HuntAutoDecisionMode
+  /** @deprecated Anciennes options — migrées vers `mode`. */
   autoKeepIfRoom?: boolean
   autoReleaseIfObjectivesMiss?: boolean
-  /** Confirmé par le joueur : relâcher même sans objectifs définis. */
   autoReleaseWithoutObjectivesConfirmed?: boolean
 }
 
 export const DEFAULT_HUNT_AUTO_DECISION: HuntAutoDecisionSettings = {
-  autoKeepIfRoom: false,
-  autoReleaseIfObjectivesMiss: false,
-  autoReleaseWithoutObjectivesConfirmed: false,
+  mode: 'keep_all',
+}
+
+export const HUNT_CAPTURE_POLICY_OPTIONS: Array<{
+  mode: HuntAutoDecisionMode
+  label: string
+  description: string
+}> = [
+  {
+    mode: 'keep_all',
+    label: 'Tout garder par la suite',
+    description: 'Ajoute chaque capture au refuge si une place est disponible (< 11 exemplaires par espèce).',
+  },
+  {
+    mode: 'release_all',
+    label: 'Tout relâcher par la suite',
+    description: 'Relâche automatiquement les captures communes. Shiny, variantes et objectifs atteints restent en confirmation manuelle.',
+  },
+  {
+    mode: 'replace_stronger',
+    label: 'Remplacer uniquement les plus forts',
+    description: 'Garde les nouveaux spécimens plus puissants et remplace le plus faible en cas de stock plein.',
+  },
+  {
+    mode: 'defer_sort',
+    label: 'Trier plus tard',
+    description:
+      'Met les captures en attente : aucun point ni ajout au refuge tant que tu ne les as pas triées.',
+  },
+]
+
+export function normalizeHuntAutoDecision(
+  settings?: HuntAutoDecisionSettings,
+): { mode: HuntAutoDecisionMode } {
+  if (settings?.mode) return { mode: settings.mode }
+  if (settings?.autoKeepIfRoom) return { mode: 'keep_all' }
+  if (settings?.autoReleaseIfObjectivesMiss) return { mode: 'release_all' }
+  return { mode: DEFAULT_HUNT_AUTO_DECISION.mode ?? 'keep_all' }
 }
 
 export function searchObjectivesMet(comparison: CaptureCompareResult): boolean {
@@ -106,40 +149,37 @@ export function searchObjectivesMet(comparison: CaptureCompareResult): boolean {
   return comparison.objectiveResults.some((result) => result.status === 'hit')
 }
 
-export function shouldAutoReleaseCapture(
-  comparison: CaptureCompareResult,
-  objectives: HuntSearchObjective[],
-  settings: HuntAutoDecisionSettings,
-): boolean {
-  if (!settings.autoReleaseIfObjectivesMiss) return false
-  if (comparison.overflowRequired) return false
-  if (comparison.protectFromAutoRelease) return false
-
-  if (objectives.length === 0) {
-    return settings.autoReleaseWithoutObjectivesConfirmed === true
-  }
-
-  return !searchObjectivesMet(comparison)
-}
-
-export function shouldAutoKeepCapture(
-  comparison: CaptureCompareResult,
-  settings: HuntAutoDecisionSettings,
-): boolean {
-  if (!settings.autoKeepIfRoom) return false
-  if (comparison.overflowRequired) return false
-  return true
-}
-
-export type AutoCaptureDecision = 'keep' | 'release' | 'manual'
+export type AutoCaptureDecision = 'keep' | 'release' | 'replace' | 'defer' | 'manual'
 
 export function resolveAutoCaptureDecision(
   comparison: CaptureCompareResult,
-  objectives: HuntSearchObjective[],
+  _objectives: HuntSearchObjective[],
   settings: HuntAutoDecisionSettings,
 ): AutoCaptureDecision {
-  if (shouldAutoReleaseCapture(comparison, objectives, settings)) return 'release'
-  if (shouldAutoKeepCapture(comparison, settings)) return 'keep'
+  const { mode } = normalizeHuntAutoDecision(settings)
+
+  if (mode === 'defer_sort') {
+    return 'defer'
+  }
+
+  if (mode === 'keep_all') {
+    if (comparison.overflowRequired) return 'manual'
+    return 'keep'
+  }
+
+  if (mode === 'release_all') {
+    if (comparison.protectFromAutoRelease) return 'manual'
+    return 'release'
+  }
+
+  if (mode === 'replace_stronger') {
+    if (comparison.overflowRequired) {
+      if (comparison.protectFromAutoRelease) return 'manual'
+      return comparison.beatsWeakest ? 'replace' : 'release'
+    }
+    return 'keep'
+  }
+
   return 'manual'
 }
 
@@ -594,9 +634,10 @@ export function compareCapturedMyrion(
 
   const overflowRequired = copies > MAX_SPECIES_COPIES
   const withMeta = (
-    result: Omit<CaptureCompareResult, 'overflowRequired' | 'speciesCopyCount'>,
+    result: Omit<CaptureCompareResult, 'overflowRequired' | 'speciesCopyCount' | 'beatsWeakest'>,
   ): CaptureCompareResult => ({
     ...result,
+    beatsWeakest,
     overflowRequired,
     speciesCopyCount: copies,
     headline: overflowRequired ? `11e exemplaire — choix obligatoire` : result.headline,

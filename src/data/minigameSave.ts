@@ -69,6 +69,13 @@ export type PetState = {
 
 }
 
+export type PendingHuntCapture = {
+  id: string
+  pet: PetState
+  capturedAt: number
+  biomeId: string
+}
+
 export type EchoEgg = {
   id: string
   parentAId: string
@@ -120,6 +127,8 @@ export type MinigameSave = {
   searchObjectives?: import('./myrionMvp2').HuntSearchObjective[]
 
   huntAutoDecision?: import('./myrionMvp2').HuntAutoDecisionSettings
+
+  pendingHuntCaptures?: PendingHuntCapture[]
 
   echoEggs?: EchoEgg[]
 
@@ -251,10 +260,10 @@ export function createStarterMinigameSave(): MinigameSave {
     searchObjectives: [],
 
     huntAutoDecision: {
-      autoKeepIfRoom: false,
-      autoReleaseIfObjectivesMiss: false,
-      autoReleaseWithoutObjectivesConfirmed: false,
+      mode: 'keep_all',
     },
+
+    pendingHuntCaptures: [],
 
     echoEggs: [],
 
@@ -303,6 +312,8 @@ export function mergeMinigameSave(partial?: Partial<MinigameSave>): MinigameSave
     searchObjectives: partial?.searchObjectives ?? [],
 
     huntAutoDecision: partial?.huntAutoDecision ?? starter.huntAutoDecision,
+
+    pendingHuntCaptures: partial?.pendingHuntCaptures ?? starter.pendingHuntCaptures,
 
     echoEggs: shouldWipePets ? [] : (partial?.echoEggs ?? []),
 
@@ -373,6 +384,27 @@ export function updateCaptureStats(
     [rarity]: (current.caughtByRarity?.[rarity] ?? 0) + 1,
   } }
 
+}
+
+export function revertCaptureStats(
+  stats: MinigameSave['captureStats'],
+  rarity: PalmonRarity,
+): MinigameSave['captureStats'] {
+  const current = stats ?? { totalCaught: 0, bestRarity: null }
+  const nextTotal = Math.max(0, current.totalCaught - 1)
+  const nextByRarity = { ...current.caughtByRarity }
+  const prevCount = nextByRarity[rarity] ?? 0
+  if (prevCount <= 1) {
+    delete nextByRarity[rarity]
+  } else {
+    nextByRarity[rarity] = prevCount - 1
+  }
+
+  return {
+    totalCaught: nextTotal,
+    bestRarity: current.bestRarity,
+    caughtByRarity: nextByRarity,
+  }
 }
 
 

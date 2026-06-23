@@ -43,6 +43,7 @@ export function BiomeEncounterScene({
         <BiomeBackground
           biomeId={biome.id}
           className="mg-capture-biome-bg"
+          layout="auto"
           onFailed={onBiomeBgError}
         />
       )}

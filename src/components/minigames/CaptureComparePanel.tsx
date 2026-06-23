@@ -11,6 +11,7 @@ type CaptureComparePanelProps = {
   onClose: () => void
   onReplaceWeakest?: () => void
   onReleaseNew?: () => void
+  onDefer?: () => void
   embedded?: boolean
 }
 
@@ -20,6 +21,7 @@ export function CaptureComparePanel({
   onClose,
   onReplaceWeakest,
   onReleaseNew,
+  onDefer,
   embedded = false,
 }: CaptureComparePanelProps) {
   const canReplace = result.overflowRequired && result.weakestDuplicate && onReplaceWeakest
@@ -123,6 +125,11 @@ export function CaptureComparePanel({
                 Relâcher le nouveau
               </button>
             ) : null}
+            {onDefer ? (
+              <button className="secondary" type="button" onClick={onDefer}>
+                Mettre en attente
+              </button>
+            ) : null}
           </>
         ) : (
           <>
@@ -132,6 +139,11 @@ export function CaptureComparePanel({
             {onReleaseNew ? (
               <button className="secondary" type="button" onClick={onReleaseNew}>
                 Relâcher le Myrion
+              </button>
+            ) : null}
+            {onDefer ? (
+              <button className="secondary" type="button" onClick={onDefer}>
+                Mettre en attente
               </button>
             ) : null}
             {result.recommendRelease ? (

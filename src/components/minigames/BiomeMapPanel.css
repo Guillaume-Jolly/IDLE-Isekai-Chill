@@ -1,0 +1,347 @@
+/* Carte biomes — styles partagés chasse + refuge */
+
+.mg-biome-map {
+  --mg-biome-surface: #ffffff;
+  --mg-biome-surface-soft: #f4faf6;
+  --mg-biome-border: rgba(72, 98, 84, 0.22);
+  --mg-biome-text: #1a2e22;
+  --mg-biome-text-muted: #5a7264;
+  --mg-biome-accent: #2f9e5e;
+  --mg-biome-accent-soft: rgba(47, 158, 94, 0.14);
+  --mg-biome-accent-border: rgba(47, 158, 94, 0.52);
+  --mg-biome-active-ring: rgba(47, 158, 94, 0.24);
+  --mg-biome-complete-border: rgba(201, 152, 32, 0.72);
+  --mg-biome-complete-bg: rgba(255, 213, 106, 0.94);
+  --mg-biome-header: #1a2e22;
+  --mg-biome-header-muted: #4a6358;
+  --mg-biome-meta: #5a7264;
+  --mg-biome-progress-track: rgba(72, 98, 84, 0.14);
+  --mg-biome-progress-fill: linear-gradient(90deg, #6ecf8a, #3da86a);
+  --mg-biome-shadow: 0 2px 10px rgba(26, 46, 34, 0.08);
+  color: var(--mg-biome-text);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 4px 2px 12px;
+  width: 100%;
+}
+
+.mg-hunt-rail-panel-body .mg-biome-map {
+  --mg-biome-header-muted: rgba(235, 245, 238, 0.78);
+  --mg-biome-meta: rgba(235, 245, 238, 0.72);
+}
+
+.mg-hunt-rail-panel-body button.mg-biome-card--compact {
+  background: var(--mg-biome-surface);
+  border: 1px solid var(--mg-biome-border);
+  color: var(--mg-biome-text);
+  padding: 0;
+}
+
+.mg-biome-map-head {
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+.mg-biome-map-title {
+  color: var(--mg-biome-header);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.mg-biome-map-sub,
+.mg-biome-map-compact-meta {
+  color: var(--mg-biome-header-muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.mg-biome-map--compact {
+  gap: 8px;
+  padding: 0;
+}
+
+.mg-biome-map-compact-meta {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.mg-biome-map-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  width: 100%;
+}
+
+@media (max-width: 420px) {
+  .mg-biome-map-grid:not(.mg-biome-map-grid--compact) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mg-biome-map-grid--compact {
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 420px) {
+  .mg-biome-map-grid--compact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ——— Cartes (plein + compact partagent la même palette) ——— */
+
+.mg-biome-card,
+button.mg-biome-card--compact {
+  appearance: none;
+  background: var(--mg-biome-surface);
+  border: 1px solid var(--mg-biome-border);
+  border-radius: 12px;
+  box-shadow: var(--mg-biome-shadow);
+  color: var(--mg-biome-text);
+  display: grid;
+  font: inherit;
+  gap: 0;
+  overflow: hidden;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.mg-biome-card--compact {
+  border-radius: 10px;
+  cursor: default;
+  touch-action: manipulation;
+}
+
+.mg-biome-card.unlocked,
+.mg-biome-card--compact.unlocked {
+  border-color: var(--mg-biome-accent-border);
+}
+
+.mg-biome-card--compact.unlocked {
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.12s ease;
+}
+
+.mg-biome-card--compact.unlocked:hover {
+  border-color: var(--mg-biome-accent);
+  box-shadow: 0 4px 14px rgba(47, 158, 94, 0.16);
+}
+
+.mg-biome-card--compact.unlocked:active {
+  transform: scale(0.98);
+}
+
+.mg-biome-card.active,
+.mg-biome-card--compact.active {
+  border-color: var(--mg-biome-accent);
+  box-shadow:
+    0 0 0 2px var(--mg-biome-active-ring),
+    var(--mg-biome-shadow);
+}
+
+.mg-biome-card.complete,
+.mg-biome-card--compact.complete {
+  border-color: var(--mg-biome-complete-border);
+  box-shadow:
+    0 0 0 1px rgba(255, 213, 106, 0.22),
+    var(--mg-biome-shadow);
+}
+
+.mg-biome-card.locked,
+.mg-biome-card--compact.locked {
+  background: var(--mg-biome-surface-soft);
+}
+
+.mg-biome-card-visual {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+}
+
+.mg-biome-card--compact .mg-biome-card-visual {
+  aspect-ratio: 5 / 4;
+}
+
+.mg-biome-card-bg,
+.mg-biome-card--compact .mg-biome-card-bg {
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+}
+
+.mg-biome-card--compact .mg-enclosure-bg-wrap {
+  inset: 0;
+  position: absolute;
+}
+
+.mg-biome-card--compact .mg-enclosure-bg {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.mg-biome-card.locked .mg-biome-card-bg,
+.mg-biome-card--compact.locked .mg-biome-card-bg {
+  filter: grayscale(0.65) brightness(0.72);
+}
+
+.mg-biome-card-lock {
+  align-items: center;
+  backdrop-filter: blur(2px);
+  background: rgba(16, 24, 20, 0.42);
+  color: #fff;
+  display: grid;
+  font-size: 1.6rem;
+  inset: 0;
+  justify-items: center;
+  position: absolute;
+}
+
+.mg-biome-card--compact .mg-biome-card-lock {
+  font-size: 1.1rem;
+}
+
+.mg-biome-card-complete {
+  background: var(--mg-biome-complete-bg);
+  border-radius: 999px;
+  color: #5a3a00;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  padding: 4px 8px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.mg-biome-card--compact .mg-biome-card-complete {
+  font-size: 0.58rem;
+  padding: 2px 5px;
+  right: 4px;
+  top: 4px;
+}
+
+.mg-biome-card-body {
+  background: var(--mg-biome-surface);
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+}
+
+.mg-biome-card--compact .mg-biome-card-body {
+  gap: 4px;
+  padding: 6px 7px 7px;
+}
+
+.mg-biome-card-body h5 {
+  color: var(--mg-biome-text);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.mg-biome-card--compact .mg-biome-card-body h5 {
+  font-size: 0.72rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mg-biome-card-meta,
+.mg-biome-card-ratio,
+.mg-biome-card-condition {
+  color: var(--mg-biome-text-muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.mg-biome-card--compact .mg-biome-card-meta,
+.mg-biome-card--compact .mg-biome-card-ratio,
+.mg-biome-card--compact .mg-biome-card-condition {
+  font-size: 0.64rem;
+  line-height: 1.25;
+}
+
+.mg-biome-card--compact .mg-biome-card-condition {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.mg-biome-card-progress {
+  color: var(--mg-biome-text-muted);
+  display: grid;
+  font-size: 0.72rem;
+  gap: 4px;
+}
+
+.mg-biome-card-bar {
+  background: var(--mg-biome-progress-track);
+  border-radius: 999px;
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.mg-biome-card--compact .mg-biome-card-bar {
+  height: 4px;
+}
+
+.mg-biome-card-fill {
+  background: var(--mg-biome-progress-fill);
+  display: block;
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
+.mg-biome-explore-btn {
+  background: var(--mg-biome-progress-fill);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  min-height: 36px;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.mg-biome-card--compact.unlocked:focus-visible {
+  outline: 2px solid var(--mg-biome-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 899px) {
+  .mg-biome-map-title {
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+  }
+
+  .mg-biome-map-sub,
+  .mg-biome-map-compact-meta {
+    overflow-wrap: anywhere;
+  }
+
+  .mg-biome-card-body h5,
+  .mg-biome-card-meta,
+  .mg-biome-card-condition {
+    hyphens: auto;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+}

@@ -18,8 +18,6 @@ const CATEGORY_LABELS: Record<HuntFavor['category'], string> = {
 }
 
 export function HuntActiveFavorsPanel({ active, queuedCount }: HuntActiveFavorsPanelProps) {
-  if (active.length === 0 && queuedCount === 0) return null
-
   return (
     <section aria-label="Faveurs de chasse actives" className="mg-hunt-favors">
       <header className="mg-hunt-favors-head">
