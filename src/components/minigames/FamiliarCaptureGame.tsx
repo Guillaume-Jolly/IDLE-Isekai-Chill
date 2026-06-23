@@ -905,7 +905,7 @@ export function FamiliarCaptureGame({
 
     >
 
-      <div className="mg-capture mg-capture-immersive">
+      <div className={`mg-capture mg-capture-immersive mg-capture-immersive--${phase}`}>
 
         <div className="mg-capture-toolbar">
 

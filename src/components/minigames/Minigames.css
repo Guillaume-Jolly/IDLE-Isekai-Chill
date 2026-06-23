@@ -4931,3 +4931,233 @@
   min-width: 0;
   padding: 5px 6px;
 }
+
+/* —— Mobile chasse / refuge / gacha overlay —— */
+@media (max-width: 767px) {
+  .mg-myrion-debug {
+    display: none !important;
+  }
+
+  .mg-capture-immersive--explore .mg-capture-toolbar {
+    background: rgba(244, 251, 239, 0.96);
+    flex-shrink: 0;
+    padding:
+      calc(44px + env(safe-area-inset-top, 0px))
+      max(10px, env(safe-area-inset-right, 0px))
+      8px
+      max(10px, env(safe-area-inset-left, 0px));
+    position: relative;
+    right: auto;
+    top: auto;
+    z-index: 2;
+  }
+
+  .mg-capture-immersive--explore .mg-capture-flash {
+    color: rgba(40, 52, 44, 0.88);
+    flex: 1 1 100%;
+    font-size: 0.76rem;
+    min-width: 0;
+    text-shadow: none;
+  }
+
+  .mg-capture-immersive--explore .mg-capture-stats {
+    display: none;
+  }
+
+  .mg-capture-immersive--hunt .mg-capture-toolbar,
+  .mg-capture-immersive--result .mg-capture-toolbar {
+    padding:
+      calc(44px + env(safe-area-inset-top, 0px))
+      max(8px, env(safe-area-inset-right, 0px))
+      6px
+      max(8px, env(safe-area-inset-left, 0px));
+  }
+
+  .mg-capture-immersive--hunt .mg-capture-flash,
+  .mg-capture-immersive--result .mg-capture-flash {
+    display: none;
+  }
+
+  .mg-capture-immersive--result .mg-capture-stats {
+    display: none;
+  }
+
+  .minigame-panel-fullscreen .mg-capture-stats {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    justify-content: flex-start;
+    margin: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .minigame-panel-fullscreen .mg-capture-stats::-webkit-scrollbar {
+    display: none;
+  }
+
+  .minigame-panel-fullscreen .mg-capture-stats span {
+    backdrop-filter: blur(6px);
+    background: rgba(8, 10, 18, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    flex: 0 0 auto;
+    font-size: 0.66rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  .mg-hunt-layout {
+    flex-direction: column;
+    min-height: 0;
+    padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mg-hunt-rail {
+    bottom: 0;
+    flex-direction: column;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: auto;
+    z-index: 45;
+  }
+
+  .mg-hunt-rail-tabs {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    flex-direction: row;
+    gap: 4px;
+    justify-content: space-around;
+    padding:
+      6px
+      max(8px, env(safe-area-inset-right, 0px))
+      calc(6px + env(safe-area-inset-bottom, 0px))
+      max(8px, env(safe-area-inset-left, 0px));
+  }
+
+  .mg-hunt-rail-tab {
+    flex: 1 1 0;
+    min-height: 44px;
+    min-width: 0;
+    padding: 6px 4px;
+  }
+
+  .mg-hunt-rail-tab-label {
+    display: none;
+  }
+
+  .mg-hunt-rail-panel {
+    background: rgba(8, 10, 18, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px 16px 0 0;
+    bottom: calc(54px + env(safe-area-inset-bottom, 0px));
+    inset: auto 0 calc(54px + env(safe-area-inset-bottom, 0px)) 0;
+    max-height: min(48dvh, 360px);
+    position: fixed;
+    width: auto;
+    z-index: 46;
+  }
+
+  .mg-hunt-main.mg-capture-map-view .mg-biome-map {
+    padding:
+      8px
+      max(10px, env(safe-area-inset-right, 0px))
+      calc(64px + env(safe-area-inset-bottom, 0px))
+      max(10px, env(safe-area-inset-left, 0px));
+  }
+
+  .minigame-panel-fullscreen .mg-biome-map-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mg-biome-map-head {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mg-biome-map-title {
+    font-size: 1rem;
+  }
+
+  .mg-capture-result-overlay {
+    inset: auto 10px calc(120px + env(safe-area-inset-bottom, 0px)) 10px;
+    max-width: none;
+    position: absolute;
+    transform: none;
+    z-index: 12;
+  }
+
+  .mg-capture-result-title,
+  .mg-capture-result-name,
+  .mg-capture-result-chance,
+  .mg-capture-result-auto {
+    margin: 0;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+  }
+
+  .mg-capture-actions {
+    background: linear-gradient(180deg, transparent, rgba(6, 8, 16, 0.92) 40%);
+    height: auto;
+    min-height: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mg-capture-actions-slot .mg-capture-ring-hint.active {
+    bottom: 0;
+    font-size: 0.76rem;
+    max-width: min(92vw, 360px);
+    position: relative;
+  }
+
+  .mg-capture-result-actions {
+    display: grid;
+    gap: 8px;
+    width: min(92vw, 420px);
+  }
+
+  .mg-capture-result-actions .secondary {
+    font-size: 0.82rem;
+  }
+
+  .mg-refuge-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .mg-refuge-fill-bottom {
+    order: -1;
+  }
+
+  .mg-refuge-enclosure-wrap {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .mg-refuge-enclosure-slot {
+    max-height: min(38dvh, calc(100vw / var(--mg-enclosure-ratio)));
+  }
+
+  .mg-refuge-resource-bar {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.72rem;
+    gap: 6px 10px;
+    justify-content: center;
+    line-height: 1.35;
+  }
+
+  .mg-refuge-resource-bar span {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    padding: 3px 8px;
+  }
+
+  .mg-refuge-biome-tabs {
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+}

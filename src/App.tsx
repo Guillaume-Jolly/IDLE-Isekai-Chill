@@ -731,17 +731,24 @@ const initialSession = loadInitialSession()
 function App() {
   const [game, setGame] = useState<GameState>(initialSession.game)
   const [offlineReport] = useState<OfflineReport>(initialSession.report)
-  const [message, setMessage] = useState(
+  const [message, setMessage] = useState(() =>
     offlineReport.cappedHours > 0.01
-      ? `Progression hors-ligne recoltee: ${offlineReport.cappedHours.toFixed(1)} h.`
-      : 'Bienvenue dans ton village chill.',
+      ? `Hors-ligne +${offlineReport.cappedHours.toFixed(1)} h`
+      : '',
   )
   const [activeView, setActiveView] = useState<ViewKey>('village')
   const isMobileLayout = useMediaQuery('(max-width: 767px)')
   const [sidebarExpanded, setSidebarExpanded] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches,
   )
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [villagePanelOpen, setVillagePanelOpen] = useState(false)
+
+  useEffect(() => {
+    if (!message) return
+    const timer = window.setTimeout(() => setMessage(''), 3200)
+    return () => window.clearTimeout(timer)
+  }, [message])
 
   useEffect(() => {
     const mobile = window.matchMedia('(max-width: 767px)')
@@ -767,6 +774,7 @@ function App() {
       setActiveView(view)
       if (isMobileLayout) {
         setSidebarExpanded(false)
+        setMobileNavOpen(false)
       }
       if (view !== 'village') {
         setVillagePanelOpen(false)
@@ -781,6 +789,7 @@ function App() {
   const [activeMinigameActivityId, setActiveMinigameActivityId] = useState<string | null>(null)
   const [focusMinigameBuildingId, setFocusMinigameBuildingId] = useState<string | null>(null)
   const passiveQuestTicks = useRef(0)
+  const effectiveMobileNavOpen = mobileNavOpen && !activeMinigameActivityId
 
   const openCompanionLightbox = (companion: Companion, level: number) => {
     const images: LightboxImage[] = companion.scenes.map((scene) => ({
@@ -1077,6 +1086,7 @@ function App() {
     }
 
     setFocusMinigameBuildingId(activity.buildingId)
+    setMobileNavOpen(false)
     setActiveMinigameActivityId(activityId)
   }
 
@@ -1349,7 +1359,7 @@ function App() {
               }))
             }
           />
-          Afficher les emplacements mature non explicites
+          Afficher les scenes avancees
         </label>
       </section>
 
@@ -1645,28 +1655,81 @@ function App() {
   )
 
   const showTopResourceStrip =
+    !isMobileLayout &&
     !sidebarExpanded &&
     activeView !== 'village' &&
-    (activeView === 'event' || !isMobileLayout)
+    activeView !== 'miniGames' &&
+    activeView !== 'companions' &&
+    activeView !== 'inventory'
 
-  const topStripCompact = isMobileLayout && activeView === 'event'
+  const topStripCompact = activeView === 'event'
+
+  const shellClasses = [
+    'shell',
+    isMobileLayout ? 'shell--mobile' : '',
+    isMobileLayout
+      ? effectiveMobileNavOpen
+        ? 'shell--mobile-nav-open'
+        : 'shell--mobile-nav-closed'
+      : sidebarExpanded
+        ? 'shell--sidebar-expanded'
+        : 'shell--sidebar-collapsed',
+    activeMinigameActivityId ? 'shell--minigame-active' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  const navProps = {
+    activeView,
+    expanded: isMobileLayout ? true : sidebarExpanded,
+    population: game.village.population,
+    resourcesPanel: (
+      <ResourceStrip layout="vertical" perMinute={perMinute} resources={game.resources} />
+    ),
+    tabs: VIEW_TABS,
+    villageStageName: getCurrentStage(game.village.stage).name,
+    onSelect: handleSelectView,
+    onToggleExpanded: () => {
+      if (isMobileLayout) {
+        setMobileNavOpen(false)
+        return
+      }
+      setSidebarExpanded((current) => !current)
+    },
+  }
 
   return (
-    <main
-      className={`shell${sidebarExpanded ? ' shell--sidebar-expanded' : ' shell--sidebar-collapsed'}`}
-    >
-      <AppNav
-        activeView={activeView}
-        expanded={sidebarExpanded}
-        population={game.village.population}
-        resourcesPanel={
-          <ResourceStrip layout="vertical" perMinute={perMinute} resources={game.resources} />
-        }
-        tabs={VIEW_TABS}
-        villageStageName={getCurrentStage(game.village.stage).name}
-        onSelect={handleSelectView}
-        onToggleExpanded={() => setSidebarExpanded((current) => !current)}
-      />
+    <main className={shellClasses}>
+      {isMobileLayout ? (
+        <>
+          {effectiveMobileNavOpen ? (
+            <button
+              aria-label="Fermer le menu"
+              className="shell-nav-backdrop"
+              type="button"
+              onClick={() => setMobileNavOpen(false)}
+            />
+          ) : null}
+          <div
+            className={`shell-nav-drawer${effectiveMobileNavOpen ? ' shell-nav-drawer--open' : ''}`}
+          >
+            <AppNav drawer {...navProps} />
+          </div>
+          {!activeMinigameActivityId ? (
+            <button
+              aria-expanded={effectiveMobileNavOpen}
+              aria-label="Ouvrir le menu"
+              className="shell-menu-fab"
+              type="button"
+              onClick={() => setMobileNavOpen(true)}
+            >
+              <span aria-hidden="true">☰</span>
+            </button>
+          ) : null}
+        </>
+      ) : (
+        <AppNav {...navProps} />
+      )}
 
       <div className="shell-main">
         {showTopResourceStrip ? (
@@ -1713,9 +1776,11 @@ function App() {
         )}
         </div>
 
-        <div aria-live="polite" className="game-toast" role="status">
-          {message}
-        </div>
+        {message ? (
+          <div aria-live="polite" className="game-toast" role="status">
+            {message}
+          </div>
+        ) : null}
       </div>
 
       {lightbox && (

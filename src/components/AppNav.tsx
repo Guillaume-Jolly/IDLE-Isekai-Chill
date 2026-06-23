@@ -22,6 +22,7 @@ type AppNavProps = {
   villageStageName: string
   population: number
   expanded: boolean
+  drawer?: boolean
   resourcesPanel?: ReactNode
   onToggleExpanded: () => void
   onSelect: (view: ViewKey) => void
@@ -33,6 +34,7 @@ export function AppNav({
   villageStageName,
   population,
   expanded,
+  drawer = false,
   resourcesPanel,
   onToggleExpanded,
   onSelect,
@@ -45,7 +47,7 @@ export function AppNav({
     <nav
       aria-expanded={expanded}
       aria-label="Navigation principale"
-      className={`app-sidebar${expanded ? ' app-sidebar--expanded' : ' app-sidebar--collapsed'}`}
+      className={`app-sidebar${expanded ? ' app-sidebar--expanded' : ' app-sidebar--collapsed'}${drawer ? ' app-sidebar--drawer' : ''}`}
     >
       <div className="app-sidebar-head">
         <div className="app-sidebar-brand">
@@ -60,12 +62,12 @@ export function AppNav({
         <button
           aria-controls="app-sidebar-body"
           aria-expanded={expanded}
-          aria-label={expanded ? 'Replier le menu' : 'Deplier le menu'}
+          aria-label={drawer || expanded ? 'Fermer le menu' : 'Ouvrir le menu'}
           className="app-sidebar-toggle"
           type="button"
           onClick={onToggleExpanded}
         >
-          <span aria-hidden="true">{expanded ? '‹' : '›'}</span>
+          <span aria-hidden="true">{drawer || expanded ? '×' : '☰'}</span>
         </button>
       </div>
 
@@ -91,6 +93,7 @@ export function AppNav({
 
         {expanded && resourcesPanel ? (
           <div aria-label="Ressources" className="app-sidebar-resources">
+            <p className="app-sidebar-resources-title">Ressources</p>
             {resourcesPanel}
           </div>
         ) : null}
