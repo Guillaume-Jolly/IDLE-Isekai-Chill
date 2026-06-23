@@ -32,3 +32,12 @@ See `.ai/cleanup-inventory.md` for the categorized plan.
 ## Writer Coordination
 
 Cursor is paused. Codex may take the next bounded step from `.ai/next-task.md`. Cursor should stay in review/read mode until Codex writes `.ai/codex-report.md` and `.ai/cursor-review-instructions.md`.
+
+## Update - 2026-06-24
+
+Completed steps:
+
+- `6f62dd4 docs: add ai coordination layer`
+- `27b3fb7 chore(assets): migrate minigame assets`
+
+Build and lint passed after staging the migration commit. Cursor should review `27b3fb7` before the next writer step. The next likely step is visual smoke testing of migrated minigame assets, unless review finds a small fix.

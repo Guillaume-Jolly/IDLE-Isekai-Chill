@@ -37,3 +37,20 @@ Previous observed validation in this session:
 ## Cursor review instructions
 
 Review `.ai/cleanup-inventory.md` and `.ai/next-task.md`. If Codex starts the migration pass, keep Cursor in review mode until a fresh report is written.
+
+## Update - 2026-06-24 migration commit
+
+Commit created:
+
+- `27b3fb7 chore(assets): migrate minigame assets`
+
+Scope included the generic `public/minigames/*` -> `public/assets/minigames/*` migration, Vite legacy rewrites, minigame asset helpers/fallback hooks, and related import/generation scripts.
+
+Scope intentionally excluded Disagrea/event-specific assets and runtime wiring. I checked staged paths for `disagrea` and event species filenames including `archanielle`, `chimerelle`, `chirodemon`, `cupichoc`, `explosia`, `royalet`, and `supremarc`; no staged paths matched.
+
+Validation before commit:
+
+- `npm run build` passed.
+- `npm run lint` passed with 0 errors and 12 existing warnings.
+
+Remaining risk: visual smoke testing of hunt/refuge/minigame screens is still pending.
