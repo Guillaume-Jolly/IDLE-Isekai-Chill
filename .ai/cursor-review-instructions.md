@@ -52,3 +52,22 @@ Questions:
 Validation already run: `npm run build` passed; `npm run lint` passed with 0 errors and 12 existing warnings.
 
 Keep Cursor in review-only mode unless Codex explicitly delegates a bounded fix.
+
+## Update - 2026-06-24 conversation result flow review
+
+Review now:
+
+- commit `252ac98 feat(minigames): add conversation result flow`
+- `.ai/codex-report.md`
+- `.ai/next-task.md`
+
+Questions:
+
+1. Does the result phase preserve the expected completion semantics and only call `onComplete` after the player clicks `Terminer`?
+2. Is the reward preview aligned with the companion charm multiplier that `App.tsx` applies during completion?
+3. Does restart still reroll/reset conversation state cleanly?
+4. Did any Disagrea/event-specific runtime or assets slip into this commit?
+
+Validation already run in an isolated clean worktree: `npm run build` passed; `npm run lint` passed with 0 errors and 11 existing warnings.
+
+Keep Cursor in review-only mode unless Codex explicitly delegates a bounded fix.

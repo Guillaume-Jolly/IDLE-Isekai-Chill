@@ -116,3 +116,29 @@ Validation was run against an isolated clean worktree with only the staged portr
 - `npm run lint` passed with 0 errors and 12 existing warnings.
 
 Next safe action: split the remaining conversation UX/reward/recap WIP into its own commit, or let Cursor review/split it before Disagrea runtime wiring.
+
+## Update - 2026-06-24 conversation result flow commit
+
+Commit created:
+
+- `252ac98 feat(minigames): add conversation result flow`
+
+Included:
+
+- `ConversationGame.tsx` result phase, pending reward confirmation, recap list, success/fail feedback effects, and layered companion portrait usage.
+- `Minigames.css` conversation layout, feedback, result, and responsive styles.
+- `App.tsx` wiring for the companion charm reward multiplier so the displayed reward preview matches the reward scaling applied on completion.
+- `MinigameFrame.tsx` / `MinigamePlayer.tsx` prop typing for that preview multiplier.
+
+Excluded:
+
+- Disagrea/event companion chibi additions in `src/data/companionAssets.ts`.
+- All Disagrea assets/runtime files.
+- Release packaging and generated artifacts.
+
+Validation was run against an isolated clean worktree with only the staged conversation patch applied:
+
+- `npm run build` passed.
+- `npm run lint` passed with 0 errors and 11 existing warnings.
+
+Next safe action: Cursor review of `252ac98`, then proceed to a bounded Disagrea asset staging/import pass if review is clean.

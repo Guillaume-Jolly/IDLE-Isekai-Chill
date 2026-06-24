@@ -1,64 +1,64 @@
-﻿# Next Task
+# Next Task
 
 ## Active Task
 
-Prepare the repository for a safe Disagrea release by isolating the companion portrait runtime before Disagrea runtime wiring.
+Review the newly isolated conversation result flow, then prepare the first bounded Disagrea asset staging/import pass.
 
-## Decision
+## Completed Sequence
 
-Codex is allowed to continue the sequencing decision. The minigame asset migration is committed and reviewed; browser smoke was blocked in Codex, but fallback asset checks passed. Disagrea runtime wiring still waits until the companion portrait runtime is isolated and validated.
+Safe commits already created:
 
-## Next Bounded Writer Step
+1. `6f62dd4 docs: add ai coordination layer`
+2. `27b3fb7 chore(assets): migrate minigame assets`
+3. `2415b82 feat(companions): add layered portrait runtime`
+4. `252ac98 feat(minigames): add conversation result flow`
 
-Work only on Commit 3 from `.ai/cleanup-inventory.md`: companion portrait runtime.
+## Immediate Review Step
 
-Goals:
+Cursor should stay review-only and inspect `252ac98`.
 
-1. Isolate the layered/affinity portrait runtime from unrelated Disagrea content.
-2. Keep the commit reviewable and separate from event assets/runtime wiring.
-3. Preserve existing user/Cursor WIP outside this scope.
+Focus:
 
-## Scope
+- The conversation result screen should not double-apply rewards.
+- The displayed reward preview should match the completion reward after `App.tsx` applies companion charm scaling.
+- Restart should still pick a fresh conversation and reset all result/feedback state.
+- The commit should not include Disagrea assets or runtime wiring.
 
-Allowed for the next code/runtime pass:
+## Next Bounded Writer Step After Review
 
-- `src/components/CompanionPortrait.tsx`
-- `src/components/CompanionPortrait.css`
-- `src/hooks/useCompanionPortraitAssets.ts`
-- `src/hooks/usePublicAssetSrc.ts`
-- `src/data/publicAssetUrl.ts`
-- `src/data/companionPortraitHints.ts`
-- related minimal edits in `src/components/CompanionMiniature.tsx`, `src/components/ImageLightbox.tsx`, `src/components/ImageLightbox.css`, `src/components/minigames/ConversationGame.tsx`, and `src/components/minigames/Minigames.css`
+If review is clean, Codex may isolate the Disagrea asset staging/import layer without gameplay runtime wiring.
+
+Allowed:
+
+- Disagrea static asset folders that are already present and intentionally staged.
+- minimal asset catalog/docs needed to describe what was imported.
+- `src/data/companionAssets.ts` only for Disagrea chibi availability if the corresponding public files are committed in the same asset pass.
 - `.ai/codex-report.md`
 - `.ai/cursor-review-instructions.md`
 
-## Out Of Scope
+Out of scope until the following pass:
 
 - `src/data/eventDisagreaPack.ts`
-- `assets/event-disagrea/*`
-- `assets/events/disagrea/*`
-- `public/companions/{etna,flonne,laharl,pleinair}/*`
-- `public/assets/minigames/capture/biomes/disagrea-event*`
-- `public/assets/minigames/dressage/enclosures/disagrea-event*`
-- Disagrea/event Myrion cutouts or chibis
-- new gameplay/economy logic
-- save format changes
-- broad UI redesign
-- release packaging
+- gameplay/runtime integration of Disagrea events.
+- quest/event availability toggles.
+- release packaging.
+- broad cleanup of unrelated dirty files.
 
 ## Validation
 
-For the companion portrait runtime pass:
+For the Disagrea asset staging/import pass:
 
 ```bash
 npm run build
 npm run lint
 ```
 
-If build/lint pass, perform or request a visual smoke check of the companion conversation screen and image lightbox. If browser access is blocked, document the limitation and request Cursor review/smoke.
+Also run file-level asset existence/dimension checks for every staged Disagrea public image. If browser smoke is available, ask Cursor to visually confirm the Disagrea companion miniatures and event minigame assets.
 
 ## References
 
 - `.ai/cleanup-inventory.md`
+- `.ai/current-state.md`
+- `.ai/codex-report.md`
 - `.ai/cursor-outbox.md`
 - `AGENTS.md`

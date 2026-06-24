@@ -59,3 +59,22 @@ Completed:
 The commit was validated in an isolated clean worktree with only the staged portrait patch applied. Build and lint passed; lint still reports 12 existing warnings.
 
 Remaining WIP now includes conversation UX/reward/recap changes and Disagrea-specific companion chibi additions. Disagrea runtime wiring is still out of scope.
+
+## Update - 2026-06-24 conversation result flow committed
+
+Completed:
+
+- `252ac98 feat(minigames): add conversation result flow`
+
+Included:
+
+- conversation result screen before closing the minigame;
+- reward preview aligned with the companion charm multiplier;
+- per-round success/fail feedback, recap, and responsive conversation panel styling.
+
+Validation was run in an isolated clean worktree with only the staged conversation patch applied:
+
+- `npm run build` passed.
+- `npm run lint` passed with 0 errors and 11 existing warnings.
+
+Remaining WIP now centers on Disagrea-specific asset/runtime staging plus unrelated local release/tooling artifacts. Next safest step is Cursor review of `252ac98`, then a bounded Disagrea asset staging/import pass if review is clean.
