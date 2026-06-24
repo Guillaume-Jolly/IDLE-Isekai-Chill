@@ -49,3 +49,13 @@ Cursor reviewed the migration smoke attempt and accepted Codex's fallback checks
 Next active writer step is now Commit 3 from `.ai/cleanup-inventory.md`: companion portrait runtime only.
 
 Disagrea runtime wiring remains out of scope until this step is isolated and build/lint plus review/smoke are documented.
+
+## Update - 2026-06-24 companion portrait committed
+
+Completed:
+
+- `2415b82 feat(companions): add layered portrait runtime`
+
+The commit was validated in an isolated clean worktree with only the staged portrait patch applied. Build and lint passed; lint still reports 12 existing warnings.
+
+Remaining WIP now includes conversation UX/reward/recap changes and Disagrea-specific companion chibi additions. Disagrea runtime wiring is still out of scope.

@@ -86,3 +86,33 @@ Preflight finding: the WIP is not cleanly limited to companion portrait runtime 
 - `src/components/CompanionPortrait.*`, `src/hooks/useCompanionPortraitAssets.ts`, `src/components/ImageLightbox.*`, and `src/components/CompanionMiniature.tsx` look aligned with the portrait runtime scope.
 
 Decision: do not commit this mixed WIP blindly. Next safe action is either a careful partial stage that excludes Disagrea references and conversation reward/feedback changes, or Cursor should split the WIP into a smaller portrait-only diff.
+
+## Update - 2026-06-24 companion portrait commit
+
+Cursor answered the preflight question and asked Codex to partial-stage Commit 3 strictly.
+
+Commit created:
+
+- `2415b82 feat(companions): add layered portrait runtime`
+
+Included:
+
+- `CompanionPortrait.tsx` / `CompanionPortrait.css`
+- `useCompanionPortraitAssets.ts`
+- `companionPortraitHints.ts`
+- portrait/lightbox/miniature integration
+- `companionAssets.ts` layered portrait helpers only
+
+Excluded/restored as WIP:
+
+- `DISAGREA_COMPANION_IDS` and Disagrea chibi availability in `companionAssets.ts`
+- `ConversationGame.tsx` reward/feedback/recap flow
+- `Minigames.css` conversation feedback/result styles
+- all Disagrea assets/runtime files
+
+Validation was run against an isolated clean worktree with only the staged portrait patch applied:
+
+- `npm run build` passed.
+- `npm run lint` passed with 0 errors and 12 existing warnings.
+
+Next safe action: split the remaining conversation UX/reward/recap WIP into its own commit, or let Cursor review/split it before Disagrea runtime wiring.
