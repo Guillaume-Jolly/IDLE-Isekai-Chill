@@ -1,0 +1,89 @@
+.companion-portrait {
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center 18%;
+  position: absolute;
+  transform-origin: 50% 40%;
+  width: 100%;
+  z-index: 1;
+}
+
+.companion-portrait--layered {
+  display: grid;
+  height: 100%;
+  inset: 0;
+  overflow: hidden;
+  place-items: stretch;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.companion-portrait--loading {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.companion-portrait-bg {
+  grid-area: 1 / 1;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+}
+
+.companion-portrait-cutout,
+.companion-portrait--cutout {
+  animation: companion-breathe 5s ease-in-out infinite;
+  grid-area: 1 / 1;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  transform-origin: 50% 40%;
+  width: 100%;
+  will-change: transform;
+}
+
+.companion-portrait--composed {
+  animation: companion-breathe 5s ease-in-out infinite;
+}
+
+.companion-visual.affinity-4 .companion-portrait-cutout,
+.companion-visual.affinity-4 .companion-portrait--cutout,
+.companion-visual.affinity-4 .companion-portrait--composed,
+.companion-visual.affinity-5 .companion-portrait-cutout,
+.companion-visual.affinity-5 .companion-portrait--cutout,
+.companion-visual.affinity-5 .companion-portrait--composed {
+  animation-duration: 4.5s;
+}
+
+.lightbox-portrait-stack {
+  aspect-ratio: 3 / 4;
+  max-height: min(78vh, 920px);
+  position: relative;
+  width: min(92vw, 640px);
+}
+
+.lightbox-portrait-stack .companion-portrait-bg,
+.lightbox-portrait-stack .companion-portrait-cutout,
+.lightbox-portrait-stack .companion-portrait--cutout,
+.lightbox-portrait-stack .companion-portrait--composed {
+  animation: none;
+  position: absolute;
+}
+
+.mg-conversation-portrait-stack {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.mg-conversation-portrait-stack .companion-portrait-bg,
+.mg-conversation-portrait-stack .companion-portrait-cutout,
+.mg-conversation-portrait-stack .companion-portrait--cutout,
+.mg-conversation-portrait-stack .companion-portrait--composed {
+  animation: none;
+  position: absolute;
+}

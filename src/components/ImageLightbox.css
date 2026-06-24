@@ -103,6 +103,7 @@
   height: 64px;
   overflow: hidden;
   padding: 0;
+  position: relative;
   width: 48px;
 }
 
@@ -111,10 +112,23 @@
   box-shadow: 0 0 18px rgba(255, 176, 32, 0.45);
 }
 
-.lightbox-thumbs img {
+.lightbox-thumbs .lightbox-portrait-stack,
+.lightbox-thumbs .companion-portrait--layered {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.lightbox-thumbs img,
+.lightbox-thumbs .companion-portrait-bg,
+.lightbox-thumbs .companion-portrait-cutout,
+.lightbox-thumbs .companion-portrait--cutout,
+.lightbox-thumbs .companion-portrait--composed {
+  animation: none;
   height: 100%;
   object-fit: cover;
   object-position: center 18%;
+  position: absolute;
   width: 100%;
 }
 

@@ -1,10 +1,50 @@
 import { useEffect } from 'react'
+import { CompanionPortrait } from './CompanionPortrait'
+import { useCompanionPortraitAssets } from '../hooks/useCompanionPortraitAssets'
 import './ImageLightbox.css'
+import './CompanionPortrait.css'
 
 export type LightboxImage = {
   src: string
   alt: string
   caption?: string
+  /** Affiche cutout + background si les fichiers existent. */
+  companionId?: string
+  level?: number
+}
+
+type LightboxStageProps = {
+  image: LightboxImage
+}
+
+function LightboxCompanionSlide({
+  image,
+}: {
+  image: LightboxImage & { companionId: string; level: number }
+}) {
+  const portrait = useCompanionPortraitAssets(image.companionId, image.level)
+
+  if (portrait.mode !== 'loading' && portrait.mode !== 'missing') {
+    return (
+      <div className="lightbox-portrait-stack">
+        <CompanionPortrait
+          alt={image.alt}
+          companionId={image.companionId}
+          level={image.level}
+        />
+      </div>
+    )
+  }
+
+  return <img className="lightbox-image" src={image.src} alt={image.alt} />
+}
+
+function LightboxStageContent({ image }: LightboxStageProps) {
+  if (image.companionId && image.level) {
+    return <LightboxCompanionSlide image={{ ...image, companionId: image.companionId, level: image.level }} />
+  }
+
+  return <img className="lightbox-image" src={image.src} alt={image.alt} />
 }
 
 type ImageLightboxProps = {
@@ -50,7 +90,7 @@ export function ImageLightbox({
       </button>
 
       <figure className="lightbox-stage">
-        <img className="lightbox-image" src={current.src} alt={current.alt} />
+        <LightboxStageContent image={current} />
         <figcaption className="lightbox-caption">
           {current.caption ?? current.alt}
           <span>
@@ -77,7 +117,15 @@ export function ImageLightbox({
               type="button"
               onClick={() => onIndexChange(thumbIndex)}
             >
-              <img src={image.src} alt="" />
+              {image.companionId && image.level ? (
+                <CompanionPortrait
+                  alt=""
+                  companionId={image.companionId}
+                  level={image.level}
+                />
+              ) : (
+                <img src={image.src} alt="" />
+              )}
             </button>
           ))}
         </div>
