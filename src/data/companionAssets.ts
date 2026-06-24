@@ -98,8 +98,14 @@ export const companionChibiPathCandidates = (companionId: string) => [
   `companions/${companionId}/chibi.png`,
 ]
 
+/** Compagnons invités Event Disagrea (assets importés via import-disagrea-assets.mjs). */
+export const DISAGREA_COMPANION_IDS = ['etna', 'flonne', 'laharl', 'pleinair'] as const
+
 /** Compagnons avec un vrai fichier chibi.png (miniatures inventaire). */
-export const COMPANIONS_WITH_CHIBI = new Set(['talia'])
+export const COMPANIONS_WITH_CHIBI = new Set([
+  'talia',
+  ...DISAGREA_COMPANION_IDS,
+])
 
 /** Miniature : chibi si dispo, sinon portrait affinity de base. */
 export const companionMiniaturePath = (companionId: string, level = 1) =>
