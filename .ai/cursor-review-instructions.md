@@ -53,6 +53,24 @@ Validation already run: `npm run build` passed; `npm run lint` passed with 0 err
 
 Keep Cursor in review-only mode unless Codex explicitly delegates a bounded fix.
 
+## Update - 2026-06-24 Disagrea runtime assets review
+
+Review now:
+
+- commit `01cb8e6 chore(assets): stage disagrea runtime assets`
+- `.ai/codex-report.md`
+- `.ai/next-task.md`
+
+Questions:
+
+1. Are the staged public PNG paths and names correct for Disagrea runtime use?
+2. Does `companionAssets.ts` limit itself to Disagrea chibi availability?
+3. Did source/staging archives, release artifacts, `eventDisagreaPack.ts`, or unrelated dirty files stay out?
+
+Validation already run: PNG header/dimension check passed for all 38 staged images; `npm run build` passed; `npm run lint` passed with 0 errors and 11 existing warnings.
+
+Keep Cursor in review-only mode unless Codex explicitly delegates a bounded fix.
+
 ## Update - 2026-06-24 conversation result flow review
 
 Review now:

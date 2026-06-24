@@ -78,3 +78,31 @@ Validation was run in an isolated clean worktree with only the staged conversati
 - `npm run lint` passed with 0 errors and 11 existing warnings.
 
 Remaining WIP now centers on Disagrea-specific asset/runtime staging plus unrelated local release/tooling artifacts. Next safest step is Cursor review of `252ac98`, then a bounded Disagrea asset staging/import pass if review is clean.
+
+## Update - 2026-06-24 Disagrea runtime assets committed
+
+Completed:
+
+- `01cb8e6 chore(assets): stage disagrea runtime assets`
+
+Included:
+
+- Disagrea event backgrounds for capture and dressage.
+- 16 Disagrea Myrion cutouts for capture.
+- 16 Disagrea Myrion chibis for dressage/refuge display.
+- `companionAssets.ts` chibi availability for `etna`, `flonne`, `laharl`, and `pleinair`.
+
+Excluded:
+
+- `src/data/eventDisagreaPack.ts` runtime wiring.
+- Disagrea source/staging folders under `assets/`.
+- untracked catalog/composite scripts.
+- release packaging.
+
+Validation:
+
+- PNG header/dimension check passed for all 38 staged images.
+- `npm run build` passed.
+- `npm run lint` passed with 0 errors and 11 existing warnings.
+
+Next safest step: Cursor review of `01cb8e6`, then Disagrea runtime wiring in a separate commit.

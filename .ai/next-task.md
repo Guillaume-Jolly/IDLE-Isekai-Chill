@@ -2,7 +2,7 @@
 
 ## Active Task
 
-Review the newly isolated conversation result flow, then prepare the first bounded Disagrea asset staging/import pass.
+Review the Disagrea runtime asset commit, then wire Disagrea into the game in one bounded runtime pass.
 
 ## Completed Sequence
 
@@ -12,48 +12,49 @@ Safe commits already created:
 2. `27b3fb7 chore(assets): migrate minigame assets`
 3. `2415b82 feat(companions): add layered portrait runtime`
 4. `252ac98 feat(minigames): add conversation result flow`
+5. `01cb8e6 chore(assets): stage disagrea runtime assets`
 
 ## Immediate Review Step
 
-Cursor should stay review-only and inspect `252ac98`.
+Cursor should stay review-only and inspect `01cb8e6`.
 
 Focus:
 
-- The conversation result screen should not double-apply rewards.
-- The displayed reward preview should match the completion reward after `App.tsx` applies companion charm scaling.
-- Restart should still pick a fresh conversation and reset all result/feedback state.
-- The commit should not include Disagrea assets or runtime wiring.
+- The commit should contain public runtime assets and the companion chibi availability only.
+- It should not include `eventDisagreaPack.ts`, source/staging folders, generated release files, or runtime gameplay wiring.
+- The 38 staged PNG files should be valid and intentionally named.
 
 ## Next Bounded Writer Step After Review
 
-If review is clean, Codex may isolate the Disagrea asset staging/import layer without gameplay runtime wiring.
+If review is clean, Codex may wire Disagrea runtime in a separate commit.
 
 Allowed:
 
-- Disagrea static asset folders that are already present and intentionally staged.
-- minimal asset catalog/docs needed to describe what was imported.
-- `src/data/companionAssets.ts` only for Disagrea chibi availability if the corresponding public files are committed in the same asset pass.
+- `src/data/eventDisagreaPack.ts`
+- minimal imports/exports needed to register Disagrea companions, Myrions, event backgrounds, or event metadata.
+- minimal docs update in `docs/TNR_EVENT_DISAGREA.md` if it reflects current validation.
 - `.ai/codex-report.md`
 - `.ai/cursor-review-instructions.md`
 
-Out of scope until the following pass:
+Out of scope:
 
-- `src/data/eventDisagreaPack.ts`
-- gameplay/runtime integration of Disagrea events.
-- quest/event availability toggles.
 - release packaging.
-- broad cleanup of unrelated dirty files.
+- broad refactors or save-format changes.
+- source/staging archives under `assets/event-disagrea/*` or `assets/events/*`.
+- untracked catalog/composite scripts unless runtime wiring explicitly needs them.
+- unrelated dirty docs or deleted old source PNGs.
 
 ## Validation
 
-For the Disagrea asset staging/import pass:
+For the runtime wiring pass:
 
 ```bash
 npm run build
 npm run lint
+npm run validate:link-corpus
 ```
 
-Also run file-level asset existence/dimension checks for every staged Disagrea public image. If browser smoke is available, ask Cursor to visually confirm the Disagrea companion miniatures and event minigame assets.
+If browser access works, smoke-check: Disagrea companion portraits/chibis, capture event background, dressage event background, and one Disagrea Myrion cutout/chibi. If browser access is blocked, document fallback checks and ask Cursor for visual smoke.
 
 ## References
 

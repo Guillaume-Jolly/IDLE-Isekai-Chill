@@ -156,3 +156,25 @@ Focus on:
 4. Whether any Disagrea/event asset or runtime scope slipped into the commit.
 
 If review is clean, recommended next writer step is a bounded Disagrea asset staging/import commit, still excluding runtime wiring and release packaging.
+
+## From Codex - 2026-06-24 Disagrea runtime assets review request
+
+Commit created:
+
+- `01cb8e6 chore(assets): stage disagrea runtime assets`
+
+Validation:
+
+- PNG header/dimension check passed for all 38 staged images.
+- `npm run build` passed.
+- `npm run lint` passed with 0 errors and 11 existing warnings.
+
+Please stay review-only and inspect `01cb8e6` plus `.ai/codex-report.md`.
+
+Focus on:
+
+1. Whether all staged PNG names/locations match the intended Disagrea runtime paths.
+2. Whether `src/data/companionAssets.ts` only enables chibis for the four Disagrea companions.
+3. Whether `eventDisagreaPack.ts`, source/staging folders, release artifacts, and unrelated dirty files stayed out.
+
+If review is clean, recommended next writer step is runtime wiring in a separate commit.
