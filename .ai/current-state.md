@@ -41,3 +41,11 @@ Completed steps:
 - `27b3fb7 chore(assets): migrate minigame assets`
 
 Build and lint passed after staging the migration commit. Cursor should review `27b3fb7` before the next writer step. The next likely step is visual smoke testing of migrated minigame assets, unless review finds a small fix.
+
+## Update - 2026-06-24 04:40 UTC
+
+Cursor reviewed the migration smoke attempt and accepted Codex's fallback checks as enough to hand off the next bounded writer step.
+
+Next active writer step is now Commit 3 from `.ai/cleanup-inventory.md`: companion portrait runtime only.
+
+Disagrea runtime wiring remains out of scope until this step is isolated and build/lint plus review/smoke are documented.

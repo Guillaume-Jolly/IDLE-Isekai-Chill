@@ -2,41 +2,45 @@
 
 ## Active Task
 
-Prepare the repository for a safe Disagrea release by isolating the asset migration before Disagrea runtime wiring.
+Prepare the repository for a safe Disagrea release by isolating the companion portrait runtime before Disagrea runtime wiring.
 
 ## Decision
 
-Codex is allowed to make the sequencing decision: aim to get Disagrea online, but do not publish or merge it if the migrated asset base cannot pass build/lint and a basic visual smoke test.
+Codex is allowed to continue the sequencing decision. The minigame asset migration is committed and reviewed; browser smoke was blocked in Codex, but fallback asset checks passed. Disagrea runtime wiring still waits until the companion portrait runtime is isolated and validated.
 
 ## Next Bounded Writer Step
 
-1. Commit or otherwise isolate the AI coordination layer first.
-2. Then work only on the minigame asset path migration:
-   - old tracked runtime paths under `public/minigames/*`;
-   - new runtime paths under `public/assets/minigames/*`;
-   - path rewrite/config/data/script changes required to make those assets resolve.
-3. Do not include Disagrea gameplay/runtime wiring in the migration commit.
+Work only on Commit 3 from `.ai/cleanup-inventory.md`: companion portrait runtime.
+
+Goals:
+
+1. Isolate the layered/affinity portrait runtime from unrelated Disagrea content.
+2. Keep the commit reviewable and separate from event assets/runtime wiring.
+3. Preserve existing user/Cursor WIP outside this scope.
 
 ## Scope
 
-Allowed for the next code/assets pass:
+Allowed for the next code/runtime pass:
 
-- `public/minigames/*`
-- `public/assets/minigames/*`
-- `vite.config.ts`
-- `src/data/minigameAssets.ts`
-- `src/data/palmonArtHints.ts`
-- `src/data/wildFamiliars.ts`
-- asset path helper/import scripts directly tied to minigame asset migration
+- `src/components/CompanionPortrait.tsx`
+- `src/components/CompanionPortrait.css`
+- `src/hooks/useCompanionPortraitAssets.ts`
+- `src/hooks/usePublicAssetSrc.ts`
+- `src/data/publicAssetUrl.ts`
+- `src/data/companionPortraitHints.ts`
+- related minimal edits in `src/components/CompanionMiniature.tsx`, `src/components/ImageLightbox.tsx`, `src/components/ImageLightbox.css`, `src/components/minigames/ConversationGame.tsx`, and `src/components/minigames/Minigames.css`
 - `.ai/codex-report.md`
 - `.ai/cursor-review-instructions.md`
 
 ## Out Of Scope
 
 - `src/data/eventDisagreaPack.ts`
-- `public/companions/{etna,flonne,laharl,pleinair}/*`
 - `assets/event-disagrea/*`
 - `assets/events/disagrea/*`
+- `public/companions/{etna,flonne,laharl,pleinair}/*`
+- `public/assets/minigames/capture/biomes/disagrea-event*`
+- `public/assets/minigames/dressage/enclosures/disagrea-event*`
+- Disagrea/event Myrion cutouts or chibis
 - new gameplay/economy logic
 - save format changes
 - broad UI redesign
@@ -44,14 +48,14 @@ Allowed for the next code/assets pass:
 
 ## Validation
 
-For the migration pass:
+For the companion portrait runtime pass:
 
 ```bash
 npm run build
 npm run lint
 ```
 
-If build/lint pass, perform a visual smoke check of minigame asset rendering before moving to Disagrea runtime wiring.
+If build/lint pass, perform or request a visual smoke check of the companion conversation screen and image lightbox. If browser access is blocked, document the limitation and request Cursor review/smoke.
 
 ## References
 
