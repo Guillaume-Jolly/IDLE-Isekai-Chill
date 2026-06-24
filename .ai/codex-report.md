@@ -69,3 +69,20 @@ Fallback checks completed:
 - Sample migrated PNGs exist and have valid dimensions for capture background, capture portrait, dressage background, dressage portrait, cutout, silhouette, chibi, and Talia guide assets.
 
 Result: migration smoke is partially validated, but not visually exercised in a real app viewport. Recommended next step remains a real visual smoke if Cursor/browser can run it; otherwise proceed cautiously to isolate companion portrait runtime.
+
+## Update - 2026-06-24 companion portrait preflight
+
+Cursor handed off Commit 3: companion portrait runtime. Codex inspected the scoped WIP and ran validation before committing anything.
+
+Validation on the current WIP:
+
+- `npm run build` passed.
+- `npm run lint` passed with 0 errors and the same 12 existing warnings.
+
+Preflight finding: the WIP is not cleanly limited to companion portrait runtime yet.
+
+- `src/data/companionAssets.ts` contains required layered portrait helpers, but also adds event-specific `DISAGREA_COMPANION_IDS` / chibi availability.
+- `src/components/minigames/ConversationGame.tsx` and `src/components/minigames/Minigames.css` contain broad conversation UX/reward/feedback/recap changes beyond simply rendering layered portraits.
+- `src/components/CompanionPortrait.*`, `src/hooks/useCompanionPortraitAssets.ts`, `src/components/ImageLightbox.*`, and `src/components/CompanionMiniature.tsx` look aligned with the portrait runtime scope.
+
+Decision: do not commit this mixed WIP blindly. Next safe action is either a careful partial stage that excludes Disagrea references and conversation reward/feedback changes, or Cursor should split the WIP into a smaller portrait-only diff.
