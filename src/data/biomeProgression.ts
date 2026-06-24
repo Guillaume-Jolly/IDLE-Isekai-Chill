@@ -229,7 +229,10 @@ function pickSpeciesForRarity(
   }
 
   const fallback = PALMON_SPECIES.filter((species) => species.biomeId === biomeId)
-  return fallback[Math.floor(Math.random() * fallback.length)]
+  if (fallback.length > 0) {
+    return fallback[Math.floor(Math.random() * fallback.length)]
+  }
+  return PALMON_SPECIES[Math.floor(Math.random() * PALMON_SPECIES.length)]
 }
 
 export function rollRarityForBiome(

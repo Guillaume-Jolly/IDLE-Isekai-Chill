@@ -18,6 +18,8 @@ import {
 
   type TimingGrade,
 
+  resolveHuntGuideCompanion,
+
 } from '../../data/captureHunt'
 
 import {
@@ -1279,11 +1281,14 @@ export function FamiliarCaptureGame({
 
 
 
-  const guideCompanion = {
-    id: activity.companionId,
-    name: companionName,
-    side: 'left' as const,
-  }
+  const guideCompanion = useMemo(
+    () =>
+      resolveHuntGuideCompanion(encounter?.biome.id ?? '', {
+        companionId: activity.companionId,
+        name: companionName,
+      }),
+    [activity.companionId, companionName, encounter?.biome.id],
+  )
 
 
 

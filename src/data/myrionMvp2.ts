@@ -256,6 +256,7 @@ export const BIOME_AFFINITY_TAGS: Record<RefugeBiomeId, string> = {
   'rivage-corallien': 'rivage',
   'volcan-noir': 'volcan',
   'ruines-astrales': 'astral',
+  'disagrea-event': 'volcan',
 }
 
 export const COMPANION_PROFILES: Record<string, { name: string; tags: string[] }> = {
@@ -434,7 +435,9 @@ export function rollSupportBuffs(rarity: PalmonRarity, traits: string[]): Suppor
 
 export function rollAffinityTags(biomeId: string, traits: string[]): string[] {
   const biome = normalizeRefugeBiomeId(biomeId)
-  const tags = new Set<string>([BIOME_AFFINITY_TAGS[biome], 'nature'])
+  const biomeTag = BIOME_AFFINITY_TAGS[biome]
+  const tags = new Set<string>(['nature'])
+  if (biomeTag) tags.add(biomeTag)
   if (traits.includes('joueur')) tags.add('joueur')
   if (traits.includes('calme') || traits.includes('apaisant')) tags.add('calme')
   if (traits.includes('curieux') || traits.includes('pisteur')) tags.add('curieux')
@@ -499,8 +502,10 @@ export function createCapturedMyrion(
 }
 
 export function countSharedTags(a: string[], b: string[]): number {
-  const setB = new Set(b.map((tag) => tag.toLowerCase()))
-  return a.filter((tag) => setB.has(tag.toLowerCase())).length
+  const normalizedA = a.filter((tag): tag is string => typeof tag === 'string' && tag.length > 0)
+  const normalizedB = b.filter((tag): tag is string => typeof tag === 'string' && tag.length > 0)
+  const setB = new Set(normalizedB.map((tag) => tag.toLowerCase()))
+  return normalizedA.filter((tag) => setB.has(tag.toLowerCase())).length
 }
 
 export function companionAffinityMultiplier(companionId: string, pet: PetState): number {

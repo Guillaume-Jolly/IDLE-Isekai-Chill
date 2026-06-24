@@ -1,3 +1,4 @@
+import { DISAGREA_BIOME, DISAGREA_COMPANIONS } from './eventDisagreaPack'
 import type { PalmonRarity } from './wildFamiliars'
 import { CAPTURE_SWEET_CENTER, RARITY_CAPTURE } from './wildFamiliars'
 import type { HuntFavorModifiers } from './myrionMvp2'
@@ -55,6 +56,27 @@ export const BIOME_AMBIENT: Record<string, AmbientParticleKind> = {
   'rivage-corallien': 'bubbles',
   'volcan-noir': 'embers',
   'ruines-astrales': 'stars',
+  [DISAGREA_BIOME.id]: 'embers',
+}
+
+/** Override du compagnon guide en chasse pour certains biomes (ex. event Disagrea). */
+export const HUNT_BIOME_GUIDE: Record<string, { companionId: string; name: string }> = {
+  [DISAGREA_BIOME.id]: {
+    companionId: 'etna',
+    name: DISAGREA_COMPANIONS.etna.displayName,
+  },
+}
+
+export function resolveHuntGuideCompanion(
+  biomeId: string,
+  fallback: { companionId: string; name: string },
+): { id: string; name: string; side: 'left' } {
+  const override = HUNT_BIOME_GUIDE[biomeId]
+  return {
+    id: override?.companionId ?? fallback.companionId,
+    name: override?.name ?? fallback.name,
+    side: 'left',
+  }
 }
 
 /** Biomes favoris du compagnon Talia (bonus capture). */

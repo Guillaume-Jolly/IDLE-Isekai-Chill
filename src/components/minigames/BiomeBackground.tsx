@@ -38,14 +38,22 @@ export function BiomeBackground({
     [biomeId],
   )
   const landscapeCandidates = useMemo(() => biomeBackgroundPngPathCandidates(biomeId), [biomeId])
+  const portraitFallbackCandidates = useMemo(
+    () => portraitCandidates.slice(1),
+    [portraitCandidates],
+  )
+  const landscapeFallbackCandidates = useMemo(
+    () => landscapeCandidates.slice(1),
+    [landscapeCandidates],
+  )
 
   const [portraitSrc, onPortraitError, portraitExhausted] = usePublicAssetSrc(
     portraitCandidates[0],
-    portraitCandidates.slice(1),
+    portraitFallbackCandidates,
   )
   const [landscapeSrc, onLandscapeError, landscapeExhausted] = usePublicAssetSrc(
     landscapeCandidates[0],
-    landscapeCandidates.slice(1),
+    landscapeFallbackCandidates,
   )
 
   useEffect(() => {

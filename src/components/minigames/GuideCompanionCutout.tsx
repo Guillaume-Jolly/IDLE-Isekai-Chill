@@ -57,7 +57,8 @@ export function GuideCompanionCutout({
     () => tierCandidates(companionId, pose, biomeId, tier),
     [companionId, pose, biomeId, tier],
   )
-  const [src, onError, exhausted] = usePublicAssetSrc(candidates[0], candidates.slice(1))
+  const fallbackCandidates = useMemo(() => candidates.slice(1), [candidates])
+  const [src, onError, exhausted] = usePublicAssetSrc(candidates[0], fallbackCandidates)
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null)
 
   useEffect(() => {
