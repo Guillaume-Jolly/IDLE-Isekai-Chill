@@ -1556,7 +1556,7 @@
 }
 
 .minigame-panel-conversation .minigame-stage-inner > .mg-conversation {
-  --conversation-dock-width: min(300px, 32vw);
+  --conversation-dock-width: min(460px, 40vw);
   height: 100%;
   inset: 0;
   position: absolute;
@@ -4254,11 +4254,14 @@
 }
 
 .mg-conversation {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--conversation-dock-width, 300px);
   height: 100%;
+  max-width: 100%;
   min-height: 0;
   min-width: 0;
+  overflow-x: hidden;
   pointer-events: none;
   width: 100%;
 }
@@ -4292,31 +4295,40 @@
   backdrop-filter: blur(14px);
   background: rgba(10, 5, 16, 0.94);
   border-left: 1px solid rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  font-family: var(--sans);
+  gap: 8px;
   grid-column: 2;
   grid-row: 1;
   max-height: 100%;
+  max-width: 100%;
   min-height: 0;
   min-width: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 12px 14px 14px;
+  overflow: hidden;
+  padding: 14px 16px 16px;
   pointer-events: auto;
   width: 100%;
+}
+
+.mg-conversation-dock > * {
+  max-width: 100%;
+  min-width: 0;
 }
 
 .minigame-panel-conversation .mg-conversation-head {
   color: rgba(255, 255, 255, 0.95);
   display: grid;
+  flex-shrink: 0;
+  font-family: var(--sans);
   gap: 6px;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .mg-conversation-head.compact {
-  align-items: center;
-  gap: 8px;
+  align-items: start;
+  gap: 6px;
   grid-template-columns: minmax(0, 1fr) auto;
 }
 
@@ -4324,7 +4336,33 @@
   display: none;
 }
 
+.mg-conversation-head-main {
+  min-width: 0;
+}
+
+.mg-conversation-head-main .eyebrow,
 .mg-conversation-head-main h3 {
+  overflow-wrap: break-word;
+}
+
+.mg-conversation-head-main .eyebrow {
+  color: rgba(255, 180, 220, 0.88);
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  margin: 0 0 2px;
+  text-transform: uppercase;
+}
+
+.mg-conversation-head-main h3 {
+  font-family: var(--sans);
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
   margin: 0;
 }
 
@@ -4337,7 +4375,10 @@
 
 .mg-conversation-progress {
   color: rgba(255, 255, 255, 0.72);
-  font-size: 0.78rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .minigame-panel-conversation .minigame-head h3 {
@@ -4372,25 +4413,40 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
   border-radius: 12px;
+  box-sizing: border-box;
   color: rgba(255, 255, 255, 0.94);
-  display: block;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  font-family: var(--sans);
+  gap: 10px;
+  max-width: 100%;
+  min-height: 0;
   min-width: 0;
+  overflow: hidden;
   padding: 12px;
   width: 100%;
 }
 
 .mg-conversation-dialogue-block,
 .mg-conversation-actions-block {
+  box-sizing: border-box;
   display: block;
+  max-width: 100%;
+  min-width: 0;
   width: 100%;
 }
 
 .mg-conversation-dialogue-block {
-  margin-bottom: 12px;
+  flex: 1 1 auto;
+  margin-bottom: 0;
+  min-height: 0;
 }
 
 .mg-conversation-actions-block {
   clear: both;
+  flex-shrink: 0;
+  margin-top: auto;
 }
 
 .minigame-panel-conversation .mg-conversation-panel small {
@@ -4401,6 +4457,10 @@
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.18);
   color: #fff;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.38;
 }
 
 .minigame-panel-conversation .mg-conversation-choice:hover {
@@ -4429,7 +4489,7 @@
 
 .mg-conversation-choices {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
 }
 
@@ -4441,10 +4501,16 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+@media (max-width: 1024px) {
+  .minigame-panel-conversation .minigame-stage-inner > .mg-conversation {
+    --conversation-dock-width: min(400px, 44vw);
+  }
+}
+
 @media (max-width: 900px) {
   .mg-conversation {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(160px, 34vh) minmax(0, 1fr);
+    grid-template-rows: minmax(140px, 30vh) minmax(0, 1fr);
   }
 
   .mg-conversation-viewport {
@@ -4459,6 +4525,14 @@
     grid-row: 2;
   }
 
+  .mg-conversation-head.compact {
+    grid-template-columns: 1fr;
+  }
+
+  .mg-conversation-head-meta {
+    align-items: flex-start;
+  }
+
   .minigame-stage-bg-companion {
     width: 100%;
   }
@@ -4469,32 +4543,26 @@
     grid-template-columns: 1fr;
   }
 
-  .mg-conversation-head.compact {
-    grid-template-columns: 1fr;
-  }
-
-  .mg-conversation-head-meta {
-    align-items: flex-start;
-  }
-
   .mg-conversation-dock {
     padding: 10px 12px 12px;
   }
 }
 
 .mg-conversation-choice {
+  box-sizing: border-box;
   display: block;
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   height: auto;
-  line-height: 1.4;
+  line-height: 1.38;
+  max-width: 100%;
   min-width: 0;
-  padding: 10px 12px;
+  overflow-wrap: break-word;
+  padding: 8px 10px;
   position: static;
   text-align: left;
   white-space: normal;
   width: 100%;
   word-break: normal;
-  overflow-wrap: break-word;
 }
 
 .mg-conversation-reaction {
@@ -4506,20 +4574,23 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: min(32vh, 240px);
+  max-width: 100%;
   min-width: 0;
-  overflow-y: auto;
+  overflow: visible;
   width: 100%;
 }
 
 .mg-dialogue-bubble {
-  border-radius: 12px;
+  border-radius: 10px;
   box-sizing: border-box;
   display: block;
   flex: 0 0 auto;
+  font-family: var(--sans);
   height: auto;
-  line-height: 1.5;
+  hyphens: auto;
+  line-height: 1.45;
   margin: 0;
+  max-width: 100%;
   overflow-wrap: break-word;
   position: static;
   width: 100%;
@@ -4527,35 +4598,674 @@
 }
 
 .mg-dialogue-bubble-narrator {
-  background: rgba(0, 0, 0, 0.28);
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 0.82rem;
-  font-style: italic;
-  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: none;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0 8px 8px 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.48;
+  padding: 8px 10px 8px 12px;
 }
 
 .mg-dialogue-bubble-companion {
-  background: rgba(180, 73, 255, 0.22);
-  border: 1px solid rgba(180, 73, 255, 0.35);
-  border-radius: 12px 12px 12px 4px;
-  color: rgba(255, 255, 255, 0.96);
-  font-size: 0.88rem;
+  background: rgba(180, 73, 255, 0.2);
+  border: 1px solid rgba(180, 73, 255, 0.32);
+  border-radius: 10px 10px 10px 4px;
+  color: rgba(255, 255, 255, 0.98);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.42;
   padding: 10px 12px;
 }
 
 .mg-dialogue-bubble-player {
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 12px 12px 4px 12px;
-  color: rgba(255, 255, 255, 0.94);
-  font-size: 0.86rem;
-  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px 10px 4px 10px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.42;
+  padding: 9px 12px;
 }
 
 .mg-dialogue-bubble-reaction {
   border-color: rgba(255, 200, 120, 0.45);
   box-shadow: 0 0 0 1px rgba(255, 200, 120, 0.12);
+}
+
+.mg-dialogue-bubble-player--success {
+  animation: mg-conversation-bubble-success 0.55s ease-out;
+  border-color: rgba(126, 207, 138, 0.55);
+  box-shadow: 0 0 14px rgba(126, 207, 138, 0.22);
+}
+
+.mg-dialogue-bubble-player--fail {
+  animation: mg-conversation-bubble-fail 0.55s ease-out;
+  border-color: rgba(255, 140, 150, 0.5);
+  box-shadow: 0 0 12px rgba(255, 100, 110, 0.18);
+}
+
+.mg-dialogue-bubble-reaction--success {
+  animation: mg-conversation-bubble-success 0.65s ease-out 0.08s both;
+  border-color: rgba(158, 235, 178, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(158, 235, 178, 0.2),
+    0 0 18px rgba(126, 207, 138, 0.16);
+}
+
+.mg-dialogue-bubble-reaction--fail {
+  animation: mg-conversation-bubble-fail 0.65s ease-out 0.08s both;
+  border-color: rgba(255, 160, 170, 0.48);
+  box-shadow:
+    0 0 0 1px rgba(255, 140, 150, 0.18),
+    0 0 16px rgba(200, 80, 90, 0.14);
+}
+
+.mg-conversation-feedback-toast {
+  animation: mg-conversation-toast-pop 0.72s cubic-bezier(0.34, 1.12, 0.64, 1) both;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  left: 50%;
+  letter-spacing: 0.04em;
+  margin: 0;
+  padding: 8px 16px;
+  pointer-events: none;
+  position: absolute;
+  top: max(12px, env(safe-area-inset-top, 0px));
+  transform: translateX(-50%);
+  z-index: 4;
+}
+
+.mg-conversation-feedback-toast--success {
+  background: rgba(40, 120, 70, 0.88);
+  border: 1px solid rgba(158, 235, 178, 0.55);
+  box-shadow: 0 8px 24px rgba(40, 140, 80, 0.35);
+  color: #eafff0;
+}
+
+.mg-conversation-feedback-toast--fail {
+  background: rgba(120, 40, 50, 0.88);
+  border: 1px solid rgba(255, 160, 170, 0.5);
+  box-shadow: 0 8px 24px rgba(140, 40, 50, 0.32);
+  color: #ffe8ec;
+}
+
+.mg-conversation-feedback-toast--t2 {
+  font-size: 1rem;
+  padding: 9px 18px;
+}
+
+.mg-conversation-feedback-toast--t3 {
+  animation-duration: 0.85s;
+  font-size: 1.08rem;
+  padding: 10px 20px;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+}
+
+.mg-conversation-fx-ring {
+  animation: mg-conversation-fx-ring 0.85s ease-out forwards;
+  border-radius: 50%;
+  bottom: 8%;
+  height: 40%;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 55%;
+  z-index: 2;
+}
+
+.mg-conversation-fx-ring--success {
+  border: 2px solid rgba(158, 235, 178, 0.65);
+  box-shadow: 0 0 24px rgba(126, 207, 138, 0.35);
+}
+
+.mg-conversation-fx-ring--fail {
+  border: 2px solid rgba(255, 160, 170, 0.55);
+  box-shadow: 0 0 20px rgba(200, 80, 90, 0.28);
+}
+
+.mg-conversation-fx-ring--t2 {
+  animation-duration: 1s;
+}
+
+.mg-conversation-fx-ring--t3 {
+  animation-duration: 1.15s;
+}
+
+.mg-conversation-fx-burst {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+
+.mg-conversation-fx-burst span {
+  animation: mg-conversation-fx-particle 0.9s ease-out forwards;
+  animation-delay: calc(var(--fx-i, 0) * 0.04s);
+  border-radius: 50%;
+  height: 8px;
+  left: 50%;
+  opacity: 0;
+  position: absolute;
+  top: 62%;
+  width: 8px;
+}
+
+.mg-conversation-fx-burst--success span {
+  background: radial-gradient(circle, #fff 0%, rgba(158, 235, 178, 0.95) 55%, transparent 100%);
+  box-shadow: 0 0 10px rgba(158, 235, 178, 0.65);
+}
+
+.mg-conversation-fx-burst--fail span {
+  animation-name: mg-conversation-fx-particle-fail;
+  background: radial-gradient(circle, #fff 0%, rgba(255, 160, 170, 0.9) 55%, transparent 100%);
+  box-shadow: 0 0 8px rgba(255, 140, 150, 0.5);
+}
+
+.mg-conversation-fx-burst--t2 span {
+  height: 10px;
+  width: 10px;
+}
+
+.mg-conversation-fx-burst--t3 span {
+  animation-duration: 1.05s;
+  height: 12px;
+  width: 12px;
+}
+
+.mg-conversation-fx-burst span:nth-child(3n + 1) {
+  --fx-angle: -72deg;
+  --fx-dist: 58px;
+}
+
+.mg-conversation-fx-burst span:nth-child(3n + 2) {
+  --fx-angle: 18deg;
+  --fx-dist: 72px;
+}
+
+.mg-conversation-fx-burst span:nth-child(3n) {
+  --fx-angle: 108deg;
+  --fx-dist: 64px;
+}
+
+.mg-conversation-fx-burst--t2 span:nth-child(3n + 1) {
+  --fx-dist: 78px;
+}
+
+.mg-conversation-fx-burst--t2 span:nth-child(3n + 2) {
+  --fx-dist: 94px;
+}
+
+.mg-conversation-fx-burst--t2 span:nth-child(3n) {
+  --fx-dist: 86px;
+}
+
+.mg-conversation-fx-burst--t3 span:nth-child(3n + 1) {
+  --fx-dist: 98px;
+}
+
+.mg-conversation-fx-burst--t3 span:nth-child(3n + 2) {
+  --fx-dist: 118px;
+}
+
+.mg-conversation-fx-burst--t3 span:nth-child(3n) {
+  --fx-dist: 108px;
+}
+
+.mg-conversation-viewport--success::after {
+  animation: mg-conversation-vignette-success 0.9s ease-out forwards;
+  background: radial-gradient(circle at 50% 70%, rgba(126, 207, 138, 0.28), transparent 62%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.mg-conversation-viewport--fail::after {
+  animation: mg-conversation-vignette-fail 0.9s ease-out forwards;
+  background: radial-gradient(circle at 50% 70%, rgba(200, 80, 90, 0.22), transparent 62%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.mg-conversation-viewport--t2::after {
+  animation-duration: 1.05s;
+}
+
+.mg-conversation-viewport--t3::after {
+  animation-duration: 1.2s;
+}
+
+.mg-conversation-viewport--success.mg-conversation-viewport--t3::after {
+  background: radial-gradient(circle at 50% 68%, rgba(158, 235, 178, 0.38), transparent 58%);
+}
+
+.mg-conversation-viewport--fail.mg-conversation-viewport--t3::after {
+  background: radial-gradient(circle at 50% 68%, rgba(255, 120, 130, 0.32), transparent 58%);
+}
+
+.mg-conversation-portrait--success.mg-conversation-portrait--t1 {
+  animation: mg-conversation-portrait-success-1 0.75s ease-out;
+}
+
+.mg-conversation-portrait--success.mg-conversation-portrait--t2 {
+  animation: mg-conversation-portrait-success-2 0.9s ease-out;
+}
+
+.mg-conversation-portrait--success.mg-conversation-portrait--t3 {
+  animation: mg-conversation-portrait-success-3 1.05s ease-out;
+}
+
+.mg-conversation-portrait--fail.mg-conversation-portrait--t1 {
+  animation: mg-conversation-portrait-fail-1 0.65s ease-in-out;
+}
+
+.mg-conversation-portrait--fail.mg-conversation-portrait--t2 {
+  animation: mg-conversation-portrait-fail-2 0.8s ease-in-out;
+}
+
+.mg-conversation-portrait--fail.mg-conversation-portrait--t3 {
+  animation: mg-conversation-portrait-fail-3 0.95s ease-in-out;
+}
+
+@keyframes mg-conversation-toast-pop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px) scale(0.82);
+  }
+
+  55% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes mg-conversation-bubble-success {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.96);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes mg-conversation-bubble-fail {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-3px);
+  }
+
+  40% {
+    transform: translateX(3px);
+  }
+
+  60% {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes mg-conversation-fx-ring {
+  0% {
+    opacity: 0.85;
+    transform: translateX(-50%) scale(0.35);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.65);
+  }
+}
+
+@keyframes mg-conversation-fx-particle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--fx-angle, 0deg)) translateY(0) scale(0.4);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--fx-angle, 0deg)) translateY(calc(-1 * var(--fx-dist, 60px)))
+      scale(1);
+  }
+}
+
+@keyframes mg-conversation-fx-particle-fail {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--fx-angle, 0deg)) translateY(0) scale(0.4);
+  }
+
+  25% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--fx-angle, 0deg)) translateY(var(--fx-dist, 48px))
+      scale(0.85);
+  }
+}
+
+@keyframes mg-conversation-vignette-success {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes mg-conversation-vignette-fail {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes mg-conversation-portrait-success-1 {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.015) translateY(-4px);
+  }
+}
+
+@keyframes mg-conversation-portrait-success-2 {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+
+  35% {
+    filter: brightness(1.08);
+    transform: scale(1.03) translateY(-10px);
+  }
+
+  60% {
+    filter: brightness(1.04);
+    transform: scale(1.015) translateY(-4px);
+  }
+}
+
+@keyframes mg-conversation-portrait-success-3 {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+
+  30% {
+    filter: brightness(1.12);
+    transform: scale(1.045) translateY(-16px);
+  }
+
+  55% {
+    filter: brightness(1.06);
+    transform: scale(1.02) translateY(-6px);
+  }
+}
+
+@keyframes mg-conversation-portrait-fail-1 {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes mg-conversation-portrait-fail-2 {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: translateX(0) scale(1);
+  }
+
+  20% {
+    filter: brightness(0.92);
+    transform: translateX(-6px) rotate(-0.6deg);
+  }
+
+  40% {
+    filter: brightness(0.88);
+    transform: translateX(6px) rotate(0.6deg);
+  }
+
+  60% {
+    filter: brightness(0.9);
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes mg-conversation-portrait-fail-3 {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: translateX(0) scale(1) translateY(0);
+  }
+
+  15% {
+    filter: brightness(0.85);
+    transform: translateX(-8px) rotate(-1deg);
+  }
+
+  35% {
+    filter: brightness(0.82);
+    transform: translateX(8px) rotate(1deg);
+  }
+
+  55% {
+    filter: brightness(0.86);
+    transform: translateX(-5px) scale(0.985);
+  }
+
+  75% {
+    filter: brightness(0.9);
+    transform: translateX(0) scale(0.99) translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-conversation-portrait--success,
+  .mg-conversation-portrait--fail,
+  .mg-conversation-fx-ring,
+  .mg-conversation-fx-burst span,
+  .mg-conversation-feedback-toast,
+  .mg-dialogue-bubble-player--success,
+  .mg-dialogue-bubble-player--fail,
+  .mg-dialogue-bubble-reaction--success,
+  .mg-dialogue-bubble-reaction--fail,
+  .mg-conversation-viewport--success::after,
+  .mg-conversation-viewport--fail::after {
+    animation: none !important;
+  }
+}
+
+.mg-conversation-result {
+  flex: 1 1 auto;
+  gap: 12px;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.mg-conversation-result-summary {
+  display: grid;
+  gap: 6px;
+}
+
+.mg-conversation-result-score {
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.mg-conversation-result-score strong {
+  color: #fff;
+  font-size: 1.12rem;
+}
+
+.mg-conversation-result-affinity {
+  color: rgba(255, 220, 180, 0.95);
+  font-size: 0.86rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.mg-conversation-result-affinity-value {
+  color: #9ef5b8;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.mg-conversation-result-reward {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.mg-conversation-recap-list {
+  display: grid;
+  gap: 6px;
+}
+
+.mg-conversation-recap-title {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.mg-conversation-recap {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mg-conversation-recap summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  gap: 8px;
+  justify-content: space-between;
+  list-style: none;
+  padding: 10px 12px;
+  user-select: none;
+}
+
+.mg-conversation-recap summary::-webkit-details-marker {
+  display: none;
+}
+
+.mg-conversation-recap summary::after {
+  color: rgba(255, 255, 255, 0.45);
+  content: '▾';
+  font-size: 0.75rem;
+  transition: transform 0.18s ease;
+}
+
+.mg-conversation-recap[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.mg-conversation-recap-badge {
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+}
+
+.mg-conversation-recap-badge.success {
+  background: rgba(40, 120, 70, 0.35);
+  color: #b8f5c8;
+}
+
+.mg-conversation-recap-badge.fail {
+  background: rgba(120, 40, 50, 0.35);
+  color: #ffc8d0;
+}
+
+.mg-conversation-recap-body {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  gap: 6px;
+  padding: 8px 10px 10px;
+}
+
+.mg-conversation-recap-body .mg-dialogue-bubble-player--success,
+.mg-conversation-recap-body .mg-dialogue-bubble-player--fail,
+.mg-conversation-recap-body .mg-dialogue-bubble-reaction--success,
+.mg-conversation-recap-body .mg-dialogue-bubble-reaction--fail {
+  animation: none;
+}
+
+.mg-conversation-result .mg-big-btn {
+  flex-shrink: 0;
+  margin-top: 4px;
+  width: 100%;
 }
 
 .mg-big-btn {
@@ -6445,6 +7155,9 @@
   .minigame-panel-fullscreen .minigame-play-area-cinematic,
   .minigame-panel-fullscreen .minigame-stage,
   .minigame-panel-fullscreen .minigame-stage-inner,
+  .minigame-panel-conversation .mg-conversation,
+  .minigame-panel-conversation .mg-conversation-dock,
+  .minigame-panel-conversation .mg-conversation-panel,
   .mg-hunt-main,
   .mg-capture-immersive,
   .mg-hunt-layout {

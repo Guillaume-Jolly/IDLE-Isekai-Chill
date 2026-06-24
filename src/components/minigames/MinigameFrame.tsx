@@ -272,6 +272,9 @@ export type MinigameProps = {
 
   companionAffinity?: number
 
+  /** Bonus charme appliqué aux récompenses conversation (aperçu résultat). */
+  conversationRewardMultiplier?: number
+
   /** Lance un autre mini-jeu persistant (ex. chasse ↔ refuge). */
   onLaunchMinigame?: (activityId: string) => void
 

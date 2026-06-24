@@ -1871,12 +1871,16 @@ function App() {
         const building = BUILDINGS.find((item) => item.id === activity.buildingId)
         const companion = COMPANIONS.find((item) => item.id === activity.companionId)
         if (!building || !companion) return null
+        const companionState = game.companions[companion.id]
         return (
           <MinigamePlayer
             activity={activity}
             buildingName={building.name}
-            companionAffinity={game.companions[companion.id]?.affinity ?? 1}
+            companionAffinity={companionState?.affinity ?? 1}
             companionName={companion.name}
+            conversationRewardMultiplier={
+              companionState ? conversationRewardMultiplier(companionState.stats) : 1
+            }
             minigameSave={game.minigameSave}
             resourceLabel={RESOURCE_LABELS[activity.focusResource]}
             onClose={() => setActiveMinigameActivityId(null)}

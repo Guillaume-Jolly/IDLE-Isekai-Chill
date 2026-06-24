@@ -27,6 +27,7 @@ type MinigamePlayerProps = {
   minigameSave?: MinigameSave
   onSaveMinigame?: (save: MinigameSave) => void
   companionAffinity?: number
+  conversationRewardMultiplier?: number
   onLaunchMinigame?: (activityId: string) => void
 }
 
