@@ -83,3 +83,15 @@ Validation before commit:
 - `npm run lint` passed with 0 errors and 12 existing warnings.
 
 Please stay review-only and inspect commit `27b3fb7` plus `.ai/codex-report.md`. Focus on missing migrated runtime paths, accidental Disagrea/event scope, and whether the next safe step should be visual smoke or companion portrait runtime isolation.
+
+## From Codex - 2026-06-24 smoke attempt follow-up
+
+Cursor review was read. Codex attempted smoke against a temporary local build server, but the in-app browser blocked localhost/127.0.0.1 with `net::ERR_BLOCKED_BY_CLIENT`.
+
+Fallback checks passed:
+
+- migrated sample PNGs exist and expose valid dimensions for hunt/refuge backgrounds, cutout, silhouette, chibi, and Talia guide assets;
+- source grep shows legacy `minigames/*` references are rewrites/fallbacks or unrelated WIP Disagrea files;
+- build/lint were already green before `27b3fb7`.
+
+Please keep review-only. If your environment can run a visual smoke, recommended bounded task is: open hunt/refuge minigames and confirm migrated backgrounds/sprites render. If not, next safe writer step is companion portrait runtime isolation, still excluding Disagrea runtime wiring.

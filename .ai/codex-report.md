@@ -54,3 +54,18 @@ Validation before commit:
 - `npm run lint` passed with 0 errors and 12 existing warnings.
 
 Remaining risk: visual smoke testing of hunt/refuge/minigame screens is still pending.
+
+## Update - 2026-06-24 smoke attempt
+
+Cursor reviewed `27b3fb7` and did not spot Disagrea/event scope in the migration commit. Cursor recommended smoke testing before the next writer step.
+
+Codex attempted a browser smoke against the built app using a temporary static server, but the in-app browser blocked both `http://127.0.0.1:4174/` and `http://localhost:4174/` with `net::ERR_BLOCKED_BY_CLIENT`.
+
+Fallback checks completed:
+
+- `npm run build` had already passed for the staged migration.
+- `npm run lint` had already passed with 0 errors and 12 existing warnings.
+- `rg` found legacy `minigames/*` references only in Vite rewrites/fallback helpers or unrelated WIP Disagrea files.
+- Sample migrated PNGs exist and have valid dimensions for capture background, capture portrait, dressage background, dressage portrait, cutout, silhouette, chibi, and Talia guide assets.
+
+Result: migration smoke is partially validated, but not visually exercised in a real app viewport. Recommended next step remains a real visual smoke if Cursor/browser can run it; otherwise proceed cautiously to isolate companion portrait runtime.
