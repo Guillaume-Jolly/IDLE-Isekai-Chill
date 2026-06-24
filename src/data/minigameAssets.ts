@@ -1,6 +1,7 @@
 /** Chemins d'assets mini-jeux — structure sous public/assets/minigames/ */
 
 import { MYRIONS_SPECIES } from './myrionsCatalog.generated'
+import { DISAGREA_LEGENDARY_MYRION, DISAGREA_MYRIONS } from './eventDisagreaPack'
 import { publicAssetUrl } from './publicAssetUrl'
 
 export const MINIGAME_ASSET_ROOT = publicAssetUrl('assets/minigames')
@@ -56,7 +57,11 @@ export const biomeBackgroundPortraitPngPathCandidates = (biomeId: string) => [
 export type PalmonSpriteVariant = 'full' | 'chibi' | 'silhouette'
 
 /** Espèces Myrion avec PNG chibi importé (catalogue officiel). */
-export const MYRION_SPECIES_IDS = new Set<string>(MYRIONS_SPECIES.map((species) => species.id))
+export const MYRION_SPECIES_IDS = new Set<string>([
+  ...MYRIONS_SPECIES.map((species) => species.id),
+  ...DISAGREA_MYRIONS.map((species) => species.id),
+  DISAGREA_LEGENDARY_MYRION.id,
+])
 
 export const hasMyrionChibiAsset = (speciesId: string) => MYRION_SPECIES_IDS.has(speciesId)
 

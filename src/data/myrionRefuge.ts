@@ -53,6 +53,7 @@ export const ENCLOSURE_BOUNDS: Record<RefugeBiomeId, EnclosureBounds> = {
   'rivage-corallien': ENCLOSURE_PLAYFIELD,
   'volcan-noir': ENCLOSURE_PLAYFIELD,
   'ruines-astrales': ENCLOSURE_PLAYFIELD,
+  'disagrea-event': ENCLOSURE_PLAYFIELD,
 }
 
 export function clampToEnclosureBounds(
@@ -114,6 +115,12 @@ export const BIOME_RESOURCES: Record<RefugeBiomeId, BiomeResourceDef> = {
     resourceName: 'Poussière astrale',
     resourceEmoji: '✨',
     particleClass: 'mg-particles-stars',
+  },
+  'disagrea-event': {
+    id: 'disagrea-event',
+    resourceName: 'Fragment Disagrea',
+    resourceEmoji: '🔥',
+    particleClass: 'mg-particles-ember',
   },
 }
 

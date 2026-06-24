@@ -9,6 +9,7 @@ import { QuestBoard } from './components/QuestBoard'
 import { TutorialObjectivesPanel } from './components/TutorialObjectivesPanel'
 import { CompanionStatsPanel } from './components/CompanionStatsPanel'
 import { CompanionMiniature } from './components/CompanionMiniature'
+import { CompanionPortrait } from './components/CompanionPortrait'
 import { InventoryPanel } from './components/InventoryPanel'
 import { PopulationPanel } from './components/PopulationPanel'
 import { VillagePanorama } from './components/VillagePanorama'
@@ -37,6 +38,7 @@ import {
 import { createStarterMinigameSave, mergeMinigameSave, type MinigameSave } from './data/minigameSave'
 import { type ResourceKey } from './data/resources'
 import { applyGachaItems, DEV_UNLIMITED_GACHA, formatGachaPullSummary, rollMulti, type GachaItem } from './data/gacha'
+import { companionAssetPath } from './data/companionAssets'
 import { createEmptyFragmentCounts, FRAGMENTS_PER_STAT, fragmentStatBudget } from './data/companionFragments'
 import {
   affinityCostMultiplier,
@@ -406,6 +408,42 @@ const COMPANIONS: Companion[] = [
     bonusResource: 'coins',
     scenes: makeScenes('Zelie', 'le salon des invites', 'suite aux rideaux sombres'),
   },
+  {
+    id: 'etna',
+    name: 'Etna',
+    archetype: 'Vassale démoniaque invitée',
+    talent: '+cristaux d event',
+    favoriteGift: 'Ruban pourpre',
+    bonusResource: 'crystals',
+    scenes: makeScenes('Etna', 'la faille Disagrea', 'repaire pourpre'),
+  },
+  {
+    id: 'flonne',
+    name: 'Flonne',
+    archetype: 'Guérisseuse angélique invitée',
+    talent: '+cadeaux de lien',
+    favoriteGift: 'Cloche d ange',
+    bonusResource: 'gifts',
+    scenes: makeScenes('Flonne', 'la faille Disagrea', 'chapelle pastel'),
+  },
+  {
+    id: 'laharl',
+    name: 'Laharl',
+    archetype: 'Overlord invité',
+    talent: '+renom',
+    favoriteGift: 'Cape rouge',
+    bonusResource: 'renown',
+    scenes: makeScenes('Laharl', 'la faille Disagrea', 'trône miniature'),
+  },
+  {
+    id: 'pleinair',
+    name: 'Pleinair',
+    archetype: 'Mascotte silencieuse invitée',
+    talent: '+poussiere stellaire',
+    favoriteGift: 'Lapin peluche',
+    bonusResource: 'stardust',
+    scenes: makeScenes('Pleinair', 'la faille Disagrea', 'atelier silencieux'),
+  },
 ]
 
 const CONVERSATION_LAUNCH_COST: Cost = { mana: 15, stardust: 3 }
@@ -452,11 +490,6 @@ const BUILDING_SHORT_NAMES: Record<string, string> = {
 
 const BUILDING_ICON = (buildingId: string) => `/buildings/${buildingId}.png`
 
-const EXTERNAL_ASSET_ROOT = '/companions'
-
-const companionAssetPath = (companionId: string, level: number) =>
-  `${EXTERNAL_ASSET_ROOT}/${companionId}/affinity-${level}.png`
-
 const visualFallback = (companion: Companion, level: number) =>
   `${companion.name.slice(0, 1)}${level}`
 
@@ -471,7 +504,6 @@ function CompanionVisual({
   compact?: boolean
   onOpen?: () => void
 }) {
-  const [failed, setFailed] = useState(false)
   const scene = companion.scenes[level - 1]
   const externalPath = companionAssetPath(companion.id, level)
 
@@ -482,19 +514,18 @@ function CompanionVisual({
       onClick={onOpen}
       aria-label={`Agrandir ${companion.name} affinite ${level}`}
     >
-      {!failed ? (
-        <img
-          src={externalPath}
-          alt={`${companion.name} affinite ${level}`}
-          onError={() => setFailed(true)}
-        />
-      ) : (
-        <div className="visual-placeholder">
-          <strong>{visualFallback(companion, level)}</strong>
-          <span>{scene.title}</span>
-          <small>Image manquante — {externalPath}</small>
-        </div>
-      )}
+      <CompanionPortrait
+        alt={`${companion.name} affinite ${level}`}
+        companionId={companion.id}
+        level={level}
+        fallback={
+          <div className="visual-placeholder">
+            <strong>{visualFallback(companion, level)}</strong>
+            <span>{scene.title}</span>
+            <small>Image manquante — {externalPath}</small>
+          </div>
+        }
+      />
     </button>
   )
 }
@@ -831,6 +862,8 @@ function App() {
       src: companionAssetPath(companion.id, scene.level),
       alt: `${companion.name} affinite ${scene.level}`,
       caption: `${companion.name} — ${scene.title}`,
+      companionId: companion.id,
+      level: scene.level,
     }))
     setLightbox({ images, index: level - 1 })
   }

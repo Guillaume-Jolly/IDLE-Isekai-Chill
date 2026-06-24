@@ -45,6 +45,7 @@ export const BIOME_UNLOCK_REQUIREMENTS: BiomeUnlockRequirement[] = [
   { biomeId: 'rivage-corallien', requiredTotalCaptured: 36, requiredRarityCounts: { SSR: 3 } },
   { biomeId: 'volcan-noir', requiredTotalCaptured: 48, requiredRarityCounts: { UR: 1 } },
   { biomeId: 'ruines-astrales', requiredTotalCaptured: 60, requiredRarityCounts: { UR: 3 } },
+  { biomeId: 'disagrea-event', requiredTotalCaptured: 0 },
 ]
 
 const MYRION_IDS = new Set(PALMON_SPECIES.map((species) => species.id))

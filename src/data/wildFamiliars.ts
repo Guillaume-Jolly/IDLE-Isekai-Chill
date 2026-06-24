@@ -3,6 +3,7 @@ import {
   getPalmonAssetPath,
   type PalmonSpriteVariant,
 } from './minigameAssets'
+import { DISAGREA_BIOME, DISAGREA_LEGENDARY_MYRION, DISAGREA_MYRIONS } from './eventDisagreaPack'
 import { MYRIONS_BIOMES, MYRIONS_SPECIES } from './myrionsCatalog.generated'
 import { MYRION_SPECIES_IDS } from './minigameAssets'
 
@@ -94,12 +95,30 @@ export const RARITY_CAPTURE: Record<
 
 export const CAPTURE_SWEET_CENTER = 0.66
 
-export const BIOMES: Biome[] = MYRIONS_BIOMES.map((biome) => ({ ...biome }))
+export const BIOMES: Biome[] = [...MYRIONS_BIOMES, DISAGREA_BIOME].map((biome) => ({
+  ...biome,
+}))
 
-export const PALMON_SPECIES: PalmonSpecies[] = MYRIONS_SPECIES.map((species) => ({
-  ...species,
-  rarity: species.rarity as PalmonRarity,
-})).filter((species) => MYRION_SPECIES_IDS.has(species.id))
+export const PALMON_SPECIES: PalmonSpecies[] = [
+  ...MYRIONS_SPECIES.map((species) => ({
+    ...species,
+    rarity: species.rarity as PalmonRarity,
+  })),
+  ...DISAGREA_MYRIONS.map((species) => ({
+    id: species.id,
+    name: species.name,
+    emoji: species.emoji,
+    rarity: species.rarity as PalmonRarity,
+    biomeId: DISAGREA_BIOME.id,
+  })),
+  {
+    id: DISAGREA_LEGENDARY_MYRION.id,
+    name: DISAGREA_LEGENDARY_MYRION.name,
+    emoji: DISAGREA_LEGENDARY_MYRION.emoji,
+    rarity: DISAGREA_LEGENDARY_MYRION.rarity as PalmonRarity,
+    biomeId: DISAGREA_BIOME.id,
+  },
+].filter((species) => MYRION_SPECIES_IDS.has(species.id))
 
 export const getBiome = (biomeId: string) => BIOMES.find((biome) => biome.id === biomeId)
 
