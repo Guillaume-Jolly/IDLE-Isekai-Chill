@@ -8,14 +8,10 @@ import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { lookupMyrionManifest, MYRION_MANIFEST_BY_STEM, slugifyStem } from './myrions-name-manifest.mjs'
-import { publicMinigamePaths, repoRoot, sourceMinigamePaths } from './minigame-asset-paths.mjs'
+import { backgroundAssetPaths, myrionAssetPaths, repoRoot, sourceMinigamePaths } from './minigame-asset-paths.mjs'
 
 const importRoot = process.argv[2] ?? sourceMinigamePaths.myrionsImportDefault
 
-const publicBiomes = publicMinigamePaths.captureBiomes
-const publicPalmons = publicMinigamePaths.captureCutout
-const publicChibi = publicMinigamePaths.dressageChibi
-const publicSilhouettes = publicMinigamePaths.captureSilhouette
 const catalogPath = join(repoRoot, 'src/data/myrionsCatalog.generated.ts')
 
 const BIOME_META = {
@@ -421,10 +417,8 @@ function resolveLayout(folderPath) {
 const biomes = []
 const species = []
 
-mkdirSync(publicBiomes, { recursive: true })
-mkdirSync(publicPalmons, { recursive: true })
-mkdirSync(publicChibi, { recursive: true })
-mkdirSync(publicSilhouettes, { recursive: true })
+mkdirSync(backgroundAssetPaths.root, { recursive: true })
+mkdirSync(myrionAssetPaths.root, { recursive: true })
 
 console.log(`Import from: ${importRoot}`)
 
@@ -460,7 +454,8 @@ for (const folder of folders) {
     continue
   }
 
-  const bgDest = join(publicBiomes, `${meta.id}.png`)
+  const bgDest = backgroundAssetPaths.captureWide(meta.id)
+  mkdirSync(dirname(bgDest), { recursive: true })
   await sharp(bgSrc).png().toFile(bgDest)
   console.log(`BG  ${meta.id} ← ${basename(bgSrc)}`)
   biomes.push(meta)
@@ -488,20 +483,24 @@ for (const folder of folders) {
       const name = manifest?.name ?? gameNameFromStem(stem)
       const rarity = manifest?.rarity ?? assignRarity(ranked, rank)
       const src = join(layout.myrDir, file)
-      const cutout = join(publicPalmons, `${id}.png`)
-      const silhouette = join(publicSilhouettes, `${id}.png`)
+      const cutout = myrionAssetPaths.cutout(meta.id, id)
+      const silhouette = myrionAssetPaths.silhouette(meta.id, id)
       const tolerance = /fond_(uni|violet|vert|cyan|turquoise|orange|rose)/i.test(stem) ? 48 : 56
       await chromaCutout(src, cutout, silhouette, tolerance)
       console.log(`PAL ${id} (${name}, ${rarity})${manifest ? ' [manifest]' : ''}`)
 
       if (/chibi/i.test(stem)) {
-        await sharp(cutout).png().toFile(join(publicChibi, `${id}.png`))
+        await sharp(cutout).png().toFile(myrionAssetPaths.chibi(meta.id, id))
         console.log(`  ↳ chibi ${id}`)
       }
 
       if (manifest && legacySlug !== id) {
-        for (const dir of [publicPalmons, publicSilhouettes, publicChibi]) {
-          const legacy = join(dir, `${legacySlug}.png`)
+        for (const resolver of [
+          (legacyId) => myrionAssetPaths.cutout(meta.id, legacyId),
+          (legacyId) => myrionAssetPaths.silhouette(meta.id, legacyId),
+          (legacyId) => myrionAssetPaths.chibi(meta.id, legacyId),
+        ]) {
+          const legacy = resolver(legacySlug)
           if (existsSync(legacy)) {
             try {
               unlinkSync(legacy)
@@ -525,8 +524,8 @@ for (const folder of folders) {
     }
 
     const src = join(layout.famDir, file)
-    const cutout = join(publicPalmons, `${parsed.id}.png`)
-    const silhouette = join(publicSilhouettes, `${parsed.id}.png`)
+    const cutout = myrionAssetPaths.cutout(meta.id, parsed.id)
+    const silhouette = myrionAssetPaths.silhouette(meta.id, parsed.id)
     await chromaCutout(src, cutout, silhouette)
     console.log(`PAL ${parsed.id} (${parsed.name}, ${parsed.rarity})`)
 
@@ -541,13 +540,20 @@ for (const folder of folders) {
 }
 
 const validIds = new Set(species.map((s) => s.id))
-for (const dir of [publicPalmons, publicSilhouettes, publicChibi]) {
-  if (!existsSync(dir)) continue
-  for (const file of readdirSync(dir).filter((f) => f.endsWith('.png'))) {
-    const id = basename(file, '.png')
-    if (!validIds.has(id)) {
-      unlinkSync(join(dir, file))
-      console.log(`DEL orphan ${dir}/${file}`)
+if (existsSync(myrionAssetPaths.root)) {
+  for (const biomeId of readdirSync(myrionAssetPaths.root)) {
+    const biomeDir = join(myrionAssetPaths.root, biomeId)
+    if (!existsSync(biomeDir)) continue
+    for (const variant of ['cutout', 'silhouette', 'chibi']) {
+      const dir = join(biomeDir, variant)
+      if (!existsSync(dir)) continue
+      for (const file of readdirSync(dir).filter((f) => f.endsWith('.png'))) {
+        const id = basename(file, '.png')
+        if (!validIds.has(id)) {
+          unlinkSync(join(dir, file))
+          console.log(`DEL orphan ${biomeId}/${variant}/${file}`)
+        }
+      }
     }
   }
 }

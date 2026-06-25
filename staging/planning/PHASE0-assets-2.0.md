@@ -1,4 +1,4 @@
-# Phase 0 — Assets 2.0 Cleanup
+# Assets 2.0 — Roadmap
 
 Updated: 2026-06-25  
 Owner: Guillaume (user) + Cursor  
@@ -18,12 +18,27 @@ Codex: **hors équipe** — coordination via user uniquement.
 
 ---
 
-## Phase 0 livrables
+## Phase 0 — COMPLETE
 
 - [x] Script `scripts/inventory-assets-manifest.mjs`
 - [x] `staging/planning/asset-manifest.json`
-- [ ] Push snapshot → `origin/Backup`
+- [x] Push snapshot → `origin/Backup` (commit `06961a1`)
 - [x] Ce fichier + mise à jour état projet
+
+---
+
+## Phase 1 — COMPLETE
+
+Playbooks agents dans `staging/playbooks/` :
+
+- [x] `README.md` + index
+- [x] `00-project-onboarding.md`
+- [x] `01-new-companion.md`
+- [x] `02-gacha-event.md`
+- [x] `03-emotion-cutouts-and-nsfw.md`
+- [x] `04-asset-promote-pipeline.md`
+- [x] `05-assets-2.0-migration.md`
+- [x] `06-tnr-checklist.md`
 
 ---
 
@@ -45,15 +60,17 @@ Input chatgpt/    # ne pas toucher
 
 ---
 
-## Prochaine phase (1)
+## Phase 2 — COMPLETE (2026-06-25)
 
-Playbooks agents dans `staging/` :
-- nouveau compagnon (checklist DA + assets + code)
-- nouveau gacha event
-- cutouts v4 / NSFW
-- promote pipeline
+Moves physiques par lots + TNR entre chaque lot.
 
-Puis phase 2 : moves physiques par lots + TNR.
+Ordre exécuté : Gacha → Background → Myrions → Compagnons → legacy cleanup.
+
+TNR final : `staging/planning/tnr-2026-06-25-phase2-complete.md`
+
+---
+
+## Phase 3 — EN ATTENTE
 
 ---
 

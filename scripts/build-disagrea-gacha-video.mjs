@@ -11,9 +11,9 @@ import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 
 const root = process.cwd()
-const assetsDir = path.join(root, 'assets', 'gacha', 'event', 'disagrea')
-const framesDir = path.join(root, 'public', 'gacha', 'cinema', 'disagrea', 'frames')
-const outDir = path.join(root, 'public', 'gacha', 'cinema', 'disagrea')
+const assetsDir = path.join(root, 'assets', 'Gacha', 'cinema', 'disagrea')
+const framesDir = path.join(root, 'assets', 'Gacha', 'cinema', 'disagrea', 'frames')
+const outDir = path.join(root, 'assets', 'Gacha', 'cinema', 'disagrea')
 
 const VARIANTS = [
   { id: 'n', reveal: 'reveal-n.png' },
@@ -81,7 +81,7 @@ async function buildVariant({ id, reveal }) {
       '+faststart',
       outMp4,
     ],
-    `public/gacha/cinema/disagrea/opening-${id}.mp4`,
+    `assets/Gacha/cinema/disagrea/opening-${id}.mp4`,
   )
 }
 
@@ -95,4 +95,4 @@ for (const variant of VARIANTS) {
   await buildVariant(variant)
 }
 
-console.log('Done — optional MP4 per rarity in public/gacha/cinema/disagrea/')
+console.log('Done — optional MP4 per rarity in assets/Gacha/cinema/disagrea/')

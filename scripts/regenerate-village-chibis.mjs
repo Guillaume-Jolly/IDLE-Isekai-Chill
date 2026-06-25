@@ -13,11 +13,10 @@ import { copyFileSync, existsSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromaKeyPng } from './chroma-key-png.mjs'
-import { oldAssetsRoot, publicMinigamePaths, repoRoot } from './minigame-asset-paths.mjs'
+import { companionAssetPaths, oldAssetsRoot, repoRoot } from './minigame-asset-paths.mjs'
 
 const ROOT = repoRoot
 const STAGING = join(ROOT, 'staging/companion-visual-pack')
-const PUBLIC = publicMinigamePaths.companions
 const ARCHIVE = join(oldAssetsRoot, 'companion-chibis-replaced')
 
 function usage() {
@@ -63,7 +62,8 @@ async function promoteOne(companionId) {
   }
 
   const stagingV2 = join(STAGING, 'village', companionId, 'chibi', `companion-${companionId}-chibi-v2.png`)
-  const prodPath = join(PUBLIC, companionId, 'chibi.png')
+  const prodPath = companionAssetPaths.chibi(companionId)
+  mkdirSync(dirname(prodPath), { recursive: true })
   const archivePath = join(ARCHIVE, companionId, 'chibi-v1-wrong-colors.png')
 
   mkdirSync(dirname(stagingV2), { recursive: true })

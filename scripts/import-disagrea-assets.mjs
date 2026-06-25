@@ -9,17 +9,21 @@
 import { copyFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import sharp from 'sharp'
-import { publicMinigamePaths, repoRoot } from './minigame-asset-paths.mjs'
+import { backgroundAssetPaths, companionAssetPaths, myrionAssetPaths, repoRoot } from './minigame-asset-paths.mjs'
 
 const eventRoot = join(repoRoot, 'assets', 'event-disagrea')
 const generatedRoot = join(eventRoot, 'generated')
-const backgroundsRoot = join(eventRoot, 'backgrounds')
+const backgroundsRoot = backgroundAssetPaths.disagreaEventSources
 
-const companionsPublic = publicMinigamePaths.companions
-const captureCutout = publicMinigamePaths.captureCutout
-const dressageChibi = publicMinigamePaths.dressageChibi
-const captureBiomes = publicMinigamePaths.captureBiomes
-const dressageEnclosures = publicMinigamePaths.dressageEnclosures
+const DISAGREA_BIOME = 'disagrea-event'
+const captureBackgroundPaths = {
+  wide: backgroundAssetPaths.captureWide('disagrea-event'),
+  portrait: backgroundAssetPaths.capturePortrait('disagrea-event'),
+}
+const dressageBackgroundPaths = {
+  wide: backgroundAssetPaths.dressageWide('disagrea-event'),
+  portrait: backgroundAssetPaths.dressagePortrait('disagrea-event'),
+}
 
 const DISAGREA_COMPANIONS = ['etna', 'flonne', 'laharl', 'pleinair']
 
@@ -249,7 +253,7 @@ let missing = 0
 async function importCompanionCutouts() {
   for (const id of DISAGREA_COMPANIONS) {
     const srcDir = join(generatedRoot, 'companions', id)
-    const destDir = join(companionsPublic, id)
+    const destDir = join(companionAssetPaths.root, id, 'Autres', 'layered-import')
     mkdirSync(destDir, { recursive: true })
 
     for (let level = 1; level <= 5; level += 1) {
@@ -266,7 +270,8 @@ async function importCompanionCutouts() {
     }
 
     const chibiSrc = join(srcDir, 'chibi.png')
-    const chibiDest = join(destDir, 'chibi.png')
+    const chibiDest = companionAssetPaths.chibi(id)
+    mkdirSync(dirname(chibiDest), { recursive: true })
     if (existsSync(chibiSrc)) {
       console.log(`Chibi ${id}`)
       await cutoutPng(chibiSrc, chibiDest)
@@ -282,7 +287,7 @@ function importCompanionBackgrounds() {
   for (const id of DISAGREA_COMPANIONS) {
     const folder = AFFINITY_FOLDER[id]
     const srcDir = join(backgroundsRoot, 'affinity', folder)
-    const destDir = join(companionsPublic, id)
+    const destDir = join(companionAssetPaths.root, id, 'Autres', 'layered-import')
     mkdirSync(destDir, { recursive: true })
 
     const mobileEarly = join(srcDir, `${folder}_affinity_01_03_mobile.png`)
@@ -329,7 +334,8 @@ function importCompanionBackgrounds() {
 async function importMyrions() {
   for (const id of MYRION_IDS) {
     const cutoutSrc = join(generatedRoot, 'myrions', 'cutout', `${id}.png`)
-    const cutoutDest = join(captureCutout, `${id}.png`)
+    const cutoutDest = myrionAssetPaths.cutout(DISAGREA_BIOME, id)
+    mkdirSync(dirname(cutoutDest), { recursive: true })
     if (existsSync(cutoutSrc)) {
       console.log(`Myrion cutout ${id}`)
       await cutoutPng(cutoutSrc, cutoutDest)
@@ -340,7 +346,8 @@ async function importMyrions() {
     }
 
     const chibiSrc = join(generatedRoot, 'myrions', 'chibi', `${id}.png`)
-    const chibiDest = join(dressageChibi, `${id}.png`)
+    const chibiDest = myrionAssetPaths.chibi(DISAGREA_BIOME, id)
+    mkdirSync(dirname(chibiDest), { recursive: true })
     if (existsSync(chibiSrc)) {
       console.log(`Myrion chibi ${id}`)
       await cutoutPng(chibiSrc, chibiDest)
@@ -357,22 +364,22 @@ function importMinigameBackgrounds() {
   const mappings = [
     {
       src: 'myrion_hunt_mobile.png',
-      dest: join(captureBiomes, 'disagrea-event-portrait.png'),
+      dest: captureBackgroundPaths.portrait,
       label: 'chasse mobile',
     },
     {
       src: 'myrion_hunt_pc.png',
-      dest: join(captureBiomes, 'disagrea-event.png'),
+      dest: captureBackgroundPaths.wide,
       label: 'chasse pc',
     },
     {
       src: 'myrion_training_enclosure_mobile.png',
-      dest: join(dressageEnclosures, 'disagrea-event-portrait.png'),
+      dest: dressageBackgroundPaths.portrait,
       label: 'dressage mobile',
     },
     {
       src: 'myrion_training_enclosure_pc.png',
-      dest: join(dressageEnclosures, 'disagrea-event.png'),
+      dest: dressageBackgroundPaths.wide,
       label: 'dressage pc',
     },
   ]

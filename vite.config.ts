@@ -6,51 +6,9 @@ import { promisify } from 'node:util'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { getGitBuildInfo, refreshPublicBuildInfo, syncPublicBuildInfo } from './vite.git-build-info'
+import { legacyPublicAssetPlugin, repoAssetsPlugin } from './vite.repo-assets'
 
-const LEGACY_ASSET_REWRITES: Array<[RegExp, string]> = [
-  [/^\/minigames\/enclosures\/(.+)$/, '/assets/minigames/dressage/enclosures/$1'],
-  [/^\/minigames\/palmons\/chibi\/(.+)$/, '/assets/minigames/dressage/myrions/chibi/$1'],
-  [/^\/minigames\/palmons\/silhouettes\/(.+)$/, '/assets/minigames/capture/myrions/silhouette/$1'],
-  [/^\/minigames\/palmons\/(.+)$/, '/assets/minigames/capture/myrions/cutout/$1'],
-  [/^\/minigames\/biomes\/(.+)$/, '/assets/minigames/capture/biomes/$1'],
-  [/^\/minigames\/guides\/talia-point-(.+)\.png$/, '/assets/minigames/capture/companions/talia/point-$1.png'],
-  [/^\/minigames\/guides\/talia-point\.png$/, '/assets/minigames/capture/companions/talia/point.png'],
-  [/^\/minigames\/guides\/(.+)$/, '/assets/minigames/capture/companions/$1'],
-  [/^\/minigames\/presentations\/(.+)$/, '/assets/minigames/hub/presentations/$1'],
-  [/^\/minigames\/stages\/(.+)$/, '/assets/minigames/hub/stages/$1'],
-  [/^\/companions\/(.+)$/, '/assets/companions/$1'],
-]
-
-function rewriteLegacyAssetUrl(pathname: string): string | null {
-  for (const [pattern, replacement] of LEGACY_ASSET_REWRITES) {
-    const next = pathname.replace(pattern, replacement)
-    if (next !== pathname) {
-      return next
-    }
-  }
-  return null
-}
-
-function legacyPublicAssetPlugin(): Plugin {
-  return {
-    name: 'legacy-public-asset-rewrites',
-    configureServer(server) {
-      server.middlewares.use((req, _res, next) => {
-        const pathname = req.url?.split('?')[0]
-        if (!pathname) {
-          next()
-          return
-        }
-        const rewritten = rewriteLegacyAssetUrl(pathname)
-        if (rewritten) {
-          const query = req.url?.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''
-          req.url = `${rewritten}${query}`
-        }
-        next()
-      })
-    },
-  }
-}
+const repoRoot = fileURLToPath(new URL('.', import.meta.url))
 
 function appBuildInfoPlugin(): Plugin {
   return {
@@ -108,9 +66,33 @@ function appBuildInfoPlugin(): Plugin {
   }
 }
 
+function resolveEventDisagreaDevAsset(relative: string, baseDir: string, companionsDir: string): string | null {
+  const integratedMatch = /^integrated\/companions\/([^/]+)\/(.+\.png)$/.exec(relative)
+  if (integratedMatch) {
+    const companionId = integratedMatch[1]
+    const fileName = integratedMatch[2]
+    const integratedPath = normalize(
+      join(companionsDir, companionId, 'Autres', 'disagrea-integrated', fileName),
+    )
+    if (
+      integratedPath.startsWith(companionsDir) &&
+      existsSync(integratedPath) &&
+      statSync(integratedPath).isFile()
+    ) {
+      return integratedPath
+    }
+  }
+
+  const filePath = normalize(join(baseDir, relative))
+  if (!filePath.startsWith(baseDir) || !existsSync(filePath) || !statSync(filePath).isFile()) {
+    return null
+  }
+  return filePath
+}
+
 function repoEventDisagreaAssetsPlugin(): Plugin {
-  const root = fileURLToPath(new URL('.', import.meta.url))
-  const baseDir = join(root, 'assets', 'event-disagrea')
+  const baseDir = join(repoRoot, 'assets', 'event-disagrea')
+  const companionsDir = join(repoRoot, 'assets', 'Compagnons')
 
   return {
     name: 'repo-event-disagrea-dev-assets',
@@ -118,8 +100,8 @@ function repoEventDisagreaAssetsPlugin(): Plugin {
       server.middlewares.use('/dev-assets/event-disagrea', (req, res, next) => {
         const pathname = req.url?.split('?')[0] ?? '/'
         const relative = decodeURIComponent(pathname.replace(/^\/+/, ''))
-        const filePath = normalize(join(baseDir, relative))
-        if (!filePath.startsWith(baseDir) || !existsSync(filePath) || !statSync(filePath).isFile()) {
+        const filePath = resolveEventDisagreaDevAsset(relative, baseDir, companionsDir)
+        if (!filePath) {
           next()
           return
         }
@@ -135,8 +117,7 @@ function repoEventDisagreaAssetsPlugin(): Plugin {
 }
 
 function repoStagingCompanionVisualPackPlugin(): Plugin {
-  const root = fileURLToPath(new URL('.', import.meta.url))
-  const baseDir = join(root, 'staging', 'companion-visual-pack')
+  const baseDir = join(repoRoot, 'staging', 'companion-visual-pack')
 
   return {
     name: 'repo-staging-companion-visual-pack-dev-assets',
@@ -161,8 +142,6 @@ function repoStagingCompanionVisualPackPlugin(): Plugin {
 const execFileAsync = promisify(execFile)
 
 function devRevealInExplorerPlugin(): Plugin {
-  const repoRoot = normalize(fileURLToPath(new URL('.', import.meta.url)))
-
   return {
     name: 'dev-reveal-in-explorer',
     configureServer(server) {
@@ -225,6 +204,7 @@ export default defineConfig({
   plugins: [
     react(),
     legacyPublicAssetPlugin(),
+    repoAssetsPlugin(repoRoot),
     repoEventDisagreaAssetsPlugin(),
     repoStagingCompanionVisualPackPlugin(),
     devRevealInExplorerPlugin(),

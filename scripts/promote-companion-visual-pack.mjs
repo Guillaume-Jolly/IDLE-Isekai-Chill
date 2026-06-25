@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Promotion staging/companion-visual-pack → prod (public/assets + assets/event-disagrea).
+ * Promotion staging/companion-visual-pack → prod (assets/Compagnons/).
  *
  * Usage: node scripts/promote-companion-visual-pack.mjs
  */
@@ -16,15 +16,13 @@ import {
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromaKeyPng } from './chroma-key-png.mjs'
-import { publicMinigamePaths, repoRoot } from './minigame-asset-paths.mjs'
+import { companionAssetPaths, repoRoot } from './minigame-asset-paths.mjs'
 import { VILLAGE_CHIBI_IDS, VILLAGE_COMPANIONS } from './staging/companion-visual-pack-data.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = repoRoot
 const STAGING = join(ROOT, 'staging/companion-visual-pack')
-const PUBLIC_COMPANIONS = publicMinigamePaths.companions
-const INTEGRATED_ROOT = join(ROOT, 'assets/event-disagrea/integrated/companions')
-const ASSETS_BG = join(ROOT, 'assets/event-disagrea/backgrounds')
+const ASSETS_BG = join(ROOT, 'assets/Background/disagrea-event')
 
 const DISAGREA_IDS = ['etna', 'flonne', 'laharl', 'pleinair']
 const VILLAGE_IDS = Object.keys(VILLAGE_COMPANIONS)
@@ -57,7 +55,8 @@ async function promoteEmotionCutouts() {
         'cutouts',
         `companion-${id}-emotion-${emotion}-cutout-v2.png`,
       )
-      const dest = join(PUBLIC_COMPANIONS, id, `emotion-${emotion}.png`)
+      const dest = companionAssetPaths.emotion(id, emotion)
+      mkdirSync(dirname(dest), { recursive: true })
       if (!existsSync(src)) {
         noteLeftover(src, 'Cutout émotion manquant en staging')
         continue
@@ -73,7 +72,8 @@ async function promoteEmotionCutouts() {
 async function promoteChibis() {
   for (const id of VILLAGE_CHIBI_IDS) {
     const src = join(STAGING, 'village', id, 'chibi', `companion-${id}-chibi-v1.png`)
-    const dest = join(PUBLIC_COMPANIONS, id, 'chibi.png')
+    const dest = companionAssetPaths.chibi(id)
+    mkdirSync(dirname(dest), { recursive: true })
     if (!existsSync(src)) {
       noteLeftover(src, 'Chibi manquant en staging')
       continue
@@ -108,8 +108,7 @@ function nsfwStagingSource(id) {
 function promoteNsfwIntegrated() {
   for (const id of DISAGREA_IDS) {
     const src = nsfwStagingSource(id)
-    const dest = join(
-      INTEGRATED_ROOT,
+    const dest = companionAssetPaths.disagreaIntegrated(
       id,
       `companion-${id}-affinity-04-nsfw-scene-v1.png`,
     )
@@ -202,7 +201,7 @@ function updateValidatedManifest() {
   const manifestPath = join(ROOT, 'assets/event-disagrea/integrated/VALIDATED_MANIFEST.json')
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
   for (const id of DISAGREA_IDS) {
-    const entry = `integrated/companions/${id}/companion-${id}-affinity-04-nsfw-scene-v1.png`
+    const entry = `Compagnons/${id}/Autres/disagrea-integrated/companion-${id}-affinity-04-nsfw-scene-v1.png`
     if (!manifest.files.includes(entry)) manifest.files.push(entry)
   }
   manifest.count = manifest.files.length

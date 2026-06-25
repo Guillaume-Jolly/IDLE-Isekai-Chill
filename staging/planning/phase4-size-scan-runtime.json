@@ -1,0 +1,421 @@
+{
+  "total": {
+    "count": 786,
+    "bytes": 868912155,
+    "avgKb": 1079.6,
+    "maxKb": 4216.4
+  },
+  "thresholds": {
+    "over500kb": 500,
+    "over1mb": 394
+  },
+  "criticalSummary": {
+    "biomeCaptureWide": {
+      "count": 9,
+      "bytes": 34385218,
+      "avgKb": 3731,
+      "maxKb": 4216.4,
+      "files": [
+        {
+          "rel": "assets/Background/ruines-astrales/capture-wide.png",
+          "kb": 4216.4
+        },
+        {
+          "rel": "assets/Background/rivage-corallien/capture-wide.png",
+          "kb": 4061.5
+        },
+        {
+          "rel": "assets/Background/montagnes-cristallines/capture-wide.png",
+          "kb": 4034.7
+        },
+        {
+          "rel": "assets/Background/foret-ancienne/capture-wide.png",
+          "kb": 4019.8
+        },
+        {
+          "rel": "assets/Background/prairie-solaire/capture-wide.png",
+          "kb": 3996.1
+        }
+      ]
+    },
+    "biomeCapturePortrait": {
+      "count": 9,
+      "bytes": 11854742,
+      "avgKb": 1286.3,
+      "maxKb": 2605.3,
+      "files": [
+        {
+          "rel": "assets/Background/disagrea-event/capture-portrait.png",
+          "kb": 2605.3
+        },
+        {
+          "rel": "assets/Background/foret-ancienne/capture-portrait.png",
+          "kb": 1303.9
+        },
+        {
+          "rel": "assets/Background/ruines-astrales/capture-portrait.png",
+          "kb": 1283.7
+        },
+        {
+          "rel": "assets/Background/marais-brumeux/capture-portrait.png",
+          "kb": 1127.3
+        },
+        {
+          "rel": "assets/Background/montagnes-cristallines/capture-portrait.png",
+          "kb": 1122
+        }
+      ]
+    },
+    "biomeDressageWide": {
+      "count": 9,
+      "bytes": 20249308,
+      "avgKb": 2197.2,
+      "maxKb": 2658.5,
+      "files": [
+        {
+          "rel": "assets/Background/disagrea-event/dressage-wide.png",
+          "kb": 2658.5
+        },
+        {
+          "rel": "assets/Background/ruines-astrales/dressage-wide.png",
+          "kb": 2594.5
+        },
+        {
+          "rel": "assets/Background/foret-ancienne/dressage-wide.png",
+          "kb": 2388.6
+        },
+        {
+          "rel": "assets/Background/marais-brumeux/dressage-wide.png",
+          "kb": 2192.1
+        },
+        {
+          "rel": "assets/Background/volcan-noir/dressage-wide.png",
+          "kb": 2117.5
+        }
+      ]
+    },
+    "biomeDressagePortrait": {
+      "count": 9,
+      "bytes": 19599746,
+      "avgKb": 2126.7,
+      "maxKb": 2594.8,
+      "files": [
+        {
+          "rel": "assets/Background/disagrea-event/dressage-portrait.png",
+          "kb": 2594.8
+        },
+        {
+          "rel": "assets/Background/ruines-astrales/dressage-portrait.png",
+          "kb": 2249.9
+        },
+        {
+          "rel": "assets/Background/foret-ancienne/dressage-portrait.png",
+          "kb": 2232.3
+        },
+        {
+          "rel": "assets/Background/rivage-corallien/dressage-portrait.png",
+          "kb": 2121.3
+        },
+        {
+          "rel": "assets/Background/prairie-solaire/dressage-portrait.png",
+          "kb": 2116.1
+        }
+      ]
+    },
+    "myrionCutout": {
+      "count": 102,
+      "bytes": 147450582,
+      "avgKb": 1411.7,
+      "maxKb": 3091.1,
+      "files": [
+        {
+          "rel": "assets/Myrions/disagrea-event/cutout/chimerelle.png",
+          "kb": 3091.1
+        },
+        {
+          "rel": "assets/Myrions/disagrea-event/cutout/explosia.png",
+          "kb": 3007.2
+        },
+        {
+          "rel": "assets/Myrions/disagrea-event/cutout/supremarc.png",
+          "kb": 2743.7
+        },
+        {
+          "rel": "assets/Myrions/disagrea-event/cutout/flammecaille.png",
+          "kb": 2572.9
+        },
+        {
+          "rel": "assets/Myrions/prairie-solaire/cutout/paladigrain.png",
+          "kb": 2438.9
+        }
+      ]
+    },
+    "companionAffinite": {
+      "count": 95,
+      "bytes": 226024401,
+      "avgKb": 2323.4,
+      "maxKb": 2858.5,
+      "files": [
+        {
+          "rel": "assets/Compagnons/sora/affinite/affinity-1.png",
+          "kb": 2858.5
+        },
+        {
+          "rel": "assets/Compagnons/mira/affinite/affinity-1.png",
+          "kb": 2822
+        },
+        {
+          "rel": "assets/Compagnons/asha/affinite/affinity-1.png",
+          "kb": 2802.9
+        },
+        {
+          "rel": "assets/Compagnons/elwen/affinite/affinity-1.png",
+          "kb": 2775.6
+        },
+        {
+          "rel": "assets/Compagnons/flonne/affinite/affinity-1.png",
+          "kb": 2747.4
+        }
+      ]
+    },
+    "companionChibi": {
+      "count": 19,
+      "bytes": 24588075,
+      "avgKb": 1263.8,
+      "maxKb": 1835.1,
+      "files": [
+        {
+          "rel": "assets/Compagnons/noa/chibis/chibi.png",
+          "kb": 1835.1
+        },
+        {
+          "rel": "assets/Compagnons/asha/chibis/chibi.png",
+          "kb": 1519.2
+        },
+        {
+          "rel": "assets/Compagnons/talia/chibis/chibi.png",
+          "kb": 1502.1
+        },
+        {
+          "rel": "assets/Compagnons/elwen/chibis/chibi.png",
+          "kb": 1485.7
+        },
+        {
+          "rel": "assets/Compagnons/maeve/chibis/chibi.png",
+          "kb": 1397.1
+        }
+      ]
+    },
+    "gacha": {
+      "count": 29,
+      "bytes": 47618362,
+      "avgKb": 1603.5,
+      "maxKb": 3088.4,
+      "files": [
+        {
+          "rel": "assets/gacha/events/disagrea-opening-banner.png",
+          "kb": 3088.4
+        },
+        {
+          "rel": "assets/gacha/cinema/hostess-opening.png",
+          "kb": 2805.4
+        },
+        {
+          "rel": "assets/gacha/events/festival-lanterns-banner.png",
+          "kb": 2689.1
+        },
+        {
+          "rel": "assets/gacha/sources/frames/frame-05.png",
+          "kb": 2570.6
+        },
+        {
+          "rel": "assets/gacha/cinema/reveal-burst.png",
+          "kb": 2412.1
+        }
+      ]
+    },
+    "guideCutout": {
+      "count": 9,
+      "bytes": 14538108,
+      "avgKb": 1577.5,
+      "maxKb": 1866.9,
+      "files": [
+        {
+          "rel": "assets/Compagnons/talia/Autres/guide/point-desert-rouge.png",
+          "kb": 1866.9
+        },
+        {
+          "rel": "assets/Compagnons/talia/Autres/guide/point-ruines-astrales.png",
+          "kb": 1861.2
+        },
+        {
+          "rel": "assets/Compagnons/talia/Autres/guide/point-montagnes-cristallines.png",
+          "kb": 1716.1
+        },
+        {
+          "rel": "assets/Compagnons/talia/Autres/guide/point-marais-brumeux.png",
+          "kb": 1605
+        },
+        {
+          "rel": "assets/Compagnons/talia/Autres/guide/point-volcan-noir.png",
+          "kb": 1572.6
+        }
+      ]
+    },
+    "publicRuntime": {
+      "count": 28,
+      "bytes": 9265225,
+      "avgKb": 323.1,
+      "maxKb": 1603.6,
+      "files": [
+        {
+          "rel": "public/village/panorama-base.webp",
+          "kb": 1603.6
+        },
+        {
+          "rel": "public/live2d/haru/Haru.2048/texture_00.png",
+          "kb": 1491
+        },
+        {
+          "rel": "public/live2d/haru/Haru.2048/texture_01.png",
+          "kb": 1160.8
+        },
+        {
+          "rel": "public/assets/minigames/capture/companions/etna/point-disagrea-event.png",
+          "kb": 942.2
+        },
+        {
+          "rel": "public/assets/minigames/capture/companions/etna/point.png",
+          "kb": 942.2
+        }
+      ]
+    }
+  },
+  "typicalCaptureSceneKb": {
+    "desktop": 5143,
+    "mobile": 2698,
+    "note": "1 biome bg + 1 myrion cutout; guide cutout optional (~200-400KB)"
+  },
+  "top20Runtime": [
+    {
+      "rel": "assets/Background/ruines-astrales/capture-wide.png",
+      "bytes": 4317619,
+      "kb": 4216.4,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/rivage-corallien/capture-wide.png",
+      "bytes": 4158999,
+      "kb": 4061.5,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/montagnes-cristallines/capture-wide.png",
+      "bytes": 4131515,
+      "kb": 4034.7,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/foret-ancienne/capture-wide.png",
+      "bytes": 4116307,
+      "kb": 4019.8,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/prairie-solaire/capture-wide.png",
+      "bytes": 4091958,
+      "kb": 3996.1,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/marais-brumeux/capture-wide.png",
+      "bytes": 3674511,
+      "kb": 3588.4,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/desert-rouge/capture-wide.png",
+      "bytes": 3666669,
+      "kb": 3580.7,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/volcan-noir/capture-wide.png",
+      "bytes": 3302330,
+      "kb": 3224.9,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Myrions/disagrea-event/cutout/chimerelle.png",
+      "bytes": 3165258,
+      "kb": 3091.1,
+      "category": "cutout-alpha"
+    },
+    {
+      "rel": "assets/gacha/events/disagrea-opening-banner.png",
+      "bytes": 3162489,
+      "kb": 3088.4,
+      "category": "gacha"
+    },
+    {
+      "rel": "assets/Myrions/disagrea-event/cutout/explosia.png",
+      "bytes": 3079386,
+      "kb": 3007.2,
+      "category": "cutout-alpha"
+    },
+    {
+      "rel": "assets/Compagnons/sora/affinite/affinity-1.png",
+      "bytes": 2927138,
+      "kb": 2858.5,
+      "category": "companion"
+    },
+    {
+      "rel": "assets/Background/disagrea-event/capture-wide.png",
+      "bytes": 2925310,
+      "kb": 2856.7,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Background/disagrea-event/minigame/myrion_hunt_pc.png",
+      "bytes": 2925310,
+      "kb": 2856.7,
+      "category": "background"
+    },
+    {
+      "rel": "assets/Compagnons/mira/affinite/affinity-1.png",
+      "bytes": 2889752,
+      "kb": 2822,
+      "category": "companion"
+    },
+    {
+      "rel": "assets/gacha/cinema/hostess-opening.png",
+      "bytes": 2872737,
+      "kb": 2805.4,
+      "category": "gacha"
+    },
+    {
+      "rel": "assets/Compagnons/asha/affinite/affinity-1.png",
+      "bytes": 2870135,
+      "kb": 2802.9,
+      "category": "companion"
+    },
+    {
+      "rel": "assets/Compagnons/elwen/affinite/affinity-1.png",
+      "bytes": 2842222,
+      "kb": 2775.6,
+      "category": "companion"
+    },
+    {
+      "rel": "assets/Compagnons/flonne/affinite/affinity-1.png",
+      "bytes": 2813361,
+      "kb": 2747.4,
+      "category": "companion"
+    },
+    {
+      "rel": "assets/Myrions/disagrea-event/cutout/supremarc.png",
+      "bytes": 2809542,
+      "kb": 2743.7,
+      "category": "cutout-alpha"
+    }
+  ]
+}

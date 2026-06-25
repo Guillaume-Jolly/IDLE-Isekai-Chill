@@ -6,11 +6,11 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { oldAssetsRoot, publicMinigamePaths, repoRoot, sourceMinigamePaths, taliaGuideFile } from './minigame-asset-paths.mjs'
+import { companionAssetPaths, guideCutoutAssetPaths, oldAssetsRoot, repoRoot, sourceMinigamePaths, taliaGuideFile } from './minigame-asset-paths.mjs'
 
 const importRoot = process.argv[2] ?? sourceMinigamePaths.captureTaliaChibis9
-const guidesDir = publicMinigamePaths.captureCompanionTalia
-const taliaChibiPath = join(publicMinigamePaths.companions, 'talia', 'chibi.png')
+const guidesDir = guideCutoutAssetPaths.root('talia')
+const taliaChibiPath = companionAssetPaths.chibi('talia')
 const previewDir = join(oldAssetsRoot, 'previews', 'chibis-9-pack')
 const PADDING = 12
 

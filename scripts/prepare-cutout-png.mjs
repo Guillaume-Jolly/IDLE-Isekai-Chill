@@ -6,7 +6,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { oldAssetPaths, publicMinigamePaths } from './minigame-asset-paths.mjs'
+import { guideCutoutAssetPaths, oldAssetPaths } from './minigame-asset-paths.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -123,7 +123,7 @@ const inputs = process.argv.length > 2 ? process.argv.slice(2) : defaults
 for (const input of inputs) {
   let output = input
   if (input.includes('source-talia')) {
-    output = join(publicMinigamePaths.captureCompanionTalia, 'point.png')
+    output = guideCutoutAssetPaths.file('talia', 'point.png')
   }
   await prepareCutout(input, output)
 }

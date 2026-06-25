@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-06-25T06:05:37.970Z",
+  "generatedAt": "2026-06-25T07:43:31.703Z",
   "repoRoot": "C:/Dev/Project/IDLE Isekai Chill",
   "phase": 0,
   "totals": {
-    "imageFiles": 1990,
+    "imageFiles": 1736,
     "byExtension": {
-      ".png": 1963,
+      ".png": 1709,
       ".svg": 19,
       ".webp": 8
     },
     "byClass": {
-      "input-chatgpt": 9,
-      "source:disagrea": 44,
-      "other": 346,
-      "source:gacha": 8,
+      "input-chatgpt": 25,
+      "runtime:background": 56,
+      "runtime:companions": 304,
+      "runtime:myrions": 289,
+      "other": 388,
       "source:minigames": 103,
-      "archive": 227,
-      "runtime:companions": 270,
-      "runtime:minigames": 337,
-      "runtime:legacy-companions": 270,
-      "runtime:gacha": 42,
+      "archive": 235,
+      "runtime:minigames": 2,
       "runtime:village": 26,
       "staging": 308
     },
     "byTopBucket": {
-      "Input chatgpt/etna_gacha_8_images_pack": 9,
-      "assets/event-disagrea": 44,
-      "assets/gacha-frames": 3,
-      "assets/gacha": 8,
+      "Input chatgpt/etna_gacha_8_images_pack": 8,
+      "Input chatgpt/pack_event_invocation": 17,
+      "assets/Background": 56,
+      "assets/Compagnons": 304,
+      "assets/Myrions": 289,
+      "assets/gacha": 45,
       "assets/minigames": 103,
       "assets/myrions-import": 149,
       "assets/source-moon-sprout-chibi.png": 1,
@@ -40,10 +40,9 @@
       "old_assets/companion-chibis-replaced": 6,
       "old_assets/companions": 159,
       "old_assets/event-disagrea": 62,
-      "public/assets": 607,
-      "public/companions": 270,
+      "old_assets/gacha-event-disagrea-source-2026-06-25": 8,
+      "public/assets": 2,
       "public/favicon.svg": 1,
-      "public/gacha": 42,
       "public/generated-backup": 75,
       "public/icons.svg": 1,
       "public/live2d": 2,
@@ -67,7 +66,7 @@
       "hash": "7c7f1272d202dc9b",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Etna/Etna_affinity_01_03_mobile.png",
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_01_03_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-1.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-2.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-3.png"
@@ -77,7 +76,7 @@
       "hash": "5cfdded5b8b424ac",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Etna/Etna_affinity_01_03_pc.png",
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_01_03_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-1-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-2-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-3-wide.png"
@@ -87,7 +86,7 @@
       "hash": "2e115a15a5e87d3c",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Flonne/Flonne_affinity_01_03_mobile.png",
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_01_03_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-1.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-2.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-3.png"
@@ -97,7 +96,7 @@
       "hash": "652c4d98b5a3d164",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Flonne/Flonne_affinity_01_03_pc.png",
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_01_03_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-1-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-2-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-3-wide.png"
@@ -107,7 +106,7 @@
       "hash": "44533d0957de9b7f",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Laharl/Laharl_affinity_01_03_mobile.png",
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_01_03_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-1.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-2.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-3.png"
@@ -117,7 +116,7 @@
       "hash": "233e38482752fdde",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Laharl/Laharl_affinity_01_03_pc.png",
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_01_03_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-1-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-2-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-3-wide.png"
@@ -127,7 +126,7 @@
       "hash": "f4a434c90293b96a",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Pleinair/Pleinair_affinity_01_03_mobile.png",
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_01_03_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-1.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-2.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-3.png"
@@ -137,27 +136,17 @@
       "hash": "c64f925738070892",
       "count": 4,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Pleinair/Pleinair_affinity_01_03_pc.png",
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_01_03_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-1-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-2-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-3-wide.png"
       ]
     },
     {
-      "hash": "061d517c03bb8ab6",
-      "count": 4,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/etna/companion-etna-affinity-04-nsfw-scene-v1.png",
-        "public/assets/companions/etna/affinity-4-nsfw.png",
-        "public/companions/etna/affinity-4-nsfw.png",
-        "staging/companion-visual-pack/disagrea/etna/tests/companion-etna-affinity-05-lit-batch5-v5-v4-final-tweak.png"
-      ]
-    },
-    {
       "hash": "64692a9515371ddc",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Etna/Etna_affinity_04_05_mobile.png",
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_04_05_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-4.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-5.png"
       ]
@@ -166,7 +155,7 @@
       "hash": "10e29dd5a5616d1e",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Etna/Etna_affinity_04_05_pc.png",
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_04_05_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-4-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/etna/background-5-wide.png"
       ]
@@ -175,7 +164,7 @@
       "hash": "971d35f4cae36c43",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Flonne/Flonne_affinity_04_05_mobile.png",
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_04_05_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-4.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-5.png"
       ]
@@ -184,7 +173,7 @@
       "hash": "be440572c6855e66",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Flonne/Flonne_affinity_04_05_pc.png",
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_04_05_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-4-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/flonne/background-5-wide.png"
       ]
@@ -193,7 +182,7 @@
       "hash": "e399b20405574ba5",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Laharl/Laharl_affinity_04_05_mobile.png",
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_04_05_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-4.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-5.png"
       ]
@@ -202,7 +191,7 @@
       "hash": "1fee746c4ff31cd9",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Laharl/Laharl_affinity_04_05_pc.png",
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_04_05_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-4-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/laharl/background-5-wide.png"
       ]
@@ -211,7 +200,7 @@
       "hash": "11e025fae7e0ab47",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Pleinair/Pleinair_affinity_04_05_mobile.png",
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_04_05_mobile.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-4.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-5.png"
       ]
@@ -220,279 +209,18 @@
       "hash": "b6a9daf4388d0881",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/backgrounds/affinity/Pleinair/Pleinair_affinity_04_05_pc.png",
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_04_05_pc.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-4-wide.png",
         "old_assets/event-disagrea/public-layered-legacy/pleinair/background-5-wide.png"
       ]
     },
     {
-      "hash": "f04a5e48ed206ddb",
+      "hash": "061d517c03bb8ab6",
       "count": 3,
       "paths": [
-        "assets/event-disagrea/integrated/companions/etna/companion-etna-affinity-01-scene-originale-v1.png",
-        "public/assets/companions/etna/affinity-1.png",
-        "public/companions/etna/affinity-1.png"
-      ]
-    },
-    {
-      "hash": "485641babb885055",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/etna/companion-etna-affinity-02-flirt-proche-scene-originale-v1.png",
-        "public/assets/companions/etna/affinity-2.png",
-        "public/companions/etna/affinity-2.png"
-      ]
-    },
-    {
-      "hash": "38d45cfdc352da69",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/etna/companion-etna-affinity-03-vulnerable-complicite-scene-originale-v1.png",
-        "public/assets/companions/etna/affinity-3.png",
-        "public/companions/etna/affinity-3.png"
-      ]
-    },
-    {
-      "hash": "1c6fefbecad0e6a3",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/etna/companion-etna-affinity-04-intime-soft-scene-originale-v1.png",
-        "public/assets/companions/etna/affinity-4.png",
-        "public/companions/etna/affinity-4.png"
-      ]
-    },
-    {
-      "hash": "5da20836195f43e9",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/etna/companion-etna-affinity-05-peak-bond-scene-originale-v1.png",
-        "public/assets/companions/etna/affinity-5.png",
-        "public/companions/etna/affinity-5.png"
-      ]
-    },
-    {
-      "hash": "e81df076b9c914ef",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/flonne/companion-flonne-affinity-01-scene-originale-v1.png",
-        "public/assets/companions/flonne/affinity-1.png",
-        "public/companions/flonne/affinity-1.png"
-      ]
-    },
-    {
-      "hash": "f88889a6c6ee93ef",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/flonne/companion-flonne-affinity-02-flirt-proche-scene-originale-v1.png",
-        "public/assets/companions/flonne/affinity-2.png",
-        "public/companions/flonne/affinity-2.png"
-      ]
-    },
-    {
-      "hash": "ffd340dc73bd549f",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/flonne/companion-flonne-affinity-03-vulnerable-complicite-scene-originale-v1.png",
-        "public/assets/companions/flonne/affinity-3.png",
-        "public/companions/flonne/affinity-3.png"
-      ]
-    },
-    {
-      "hash": "97f915c72ceeb99b",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/flonne/companion-flonne-affinity-04-intime-soft-scene-originale-v1.png",
-        "public/assets/companions/flonne/affinity-4.png",
-        "public/companions/flonne/affinity-4.png"
-      ]
-    },
-    {
-      "hash": "08841756638859ec",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/flonne/companion-flonne-affinity-04-nsfw-scene-v1.png",
-        "public/assets/companions/flonne/affinity-4-nsfw.png",
-        "public/companions/flonne/affinity-4-nsfw.png"
-      ]
-    },
-    {
-      "hash": "b1516301da89c7df",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/flonne/companion-flonne-affinity-05-peak-bond-scene-originale-v1.png",
-        "public/assets/companions/flonne/affinity-5.png",
-        "public/companions/flonne/affinity-5.png"
-      ]
-    },
-    {
-      "hash": "e32cbb42d4a0b1bc",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/laharl/companion-laharl-affinity-01-scene-originale-v1.png",
-        "public/assets/companions/laharl/affinity-1.png",
-        "public/companions/laharl/affinity-1.png"
-      ]
-    },
-    {
-      "hash": "d85e02747056d095",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/laharl/companion-laharl-affinity-02-flirt-proche-scene-originale-v1.png",
-        "public/assets/companions/laharl/affinity-2.png",
-        "public/companions/laharl/affinity-2.png"
-      ]
-    },
-    {
-      "hash": "f0bdc668aaac3b1d",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/laharl/companion-laharl-affinity-03-vulnerable-complicite-scene-originale-v1.png",
-        "public/assets/companions/laharl/affinity-3.png",
-        "public/companions/laharl/affinity-3.png"
-      ]
-    },
-    {
-      "hash": "52f51b9240a59b6a",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/laharl/companion-laharl-affinity-04-intime-soft-scene-originale-v1.png",
-        "public/assets/companions/laharl/affinity-4.png",
-        "public/companions/laharl/affinity-4.png"
-      ]
-    },
-    {
-      "hash": "23552a0c0cfd0606",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/laharl/companion-laharl-affinity-04-nsfw-scene-v1.png",
-        "public/assets/companions/laharl/affinity-4-nsfw.png",
-        "public/companions/laharl/affinity-4-nsfw.png"
-      ]
-    },
-    {
-      "hash": "3d0edc0be365bf94",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/laharl/companion-laharl-affinity-05-peak-bond-scene-originale-v1.png",
-        "public/assets/companions/laharl/affinity-5.png",
-        "public/companions/laharl/affinity-5.png"
-      ]
-    },
-    {
-      "hash": "d8b67a1a2aa834a2",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/pleinair/companion-pleinair-affinity-01-scene-originale-v1.png",
-        "public/assets/companions/pleinair/affinity-1.png",
-        "public/companions/pleinair/affinity-1.png"
-      ]
-    },
-    {
-      "hash": "3406f4372aa51a09",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/pleinair/companion-pleinair-affinity-02-flirt-proche-scene-originale-v1.png",
-        "public/assets/companions/pleinair/affinity-2.png",
-        "public/companions/pleinair/affinity-2.png"
-      ]
-    },
-    {
-      "hash": "cb3b8abbde1fa7ff",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/pleinair/companion-pleinair-affinity-03-vulnerable-complicite-scene-originale-v1.png",
-        "public/assets/companions/pleinair/affinity-3.png",
-        "public/companions/pleinair/affinity-3.png"
-      ]
-    },
-    {
-      "hash": "319ac31947c00be8",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/pleinair/companion-pleinair-affinity-04-intime-soft-scene-originale-v1.png",
-        "public/assets/companions/pleinair/affinity-4.png",
-        "public/companions/pleinair/affinity-4.png"
-      ]
-    },
-    {
-      "hash": "ed9401a42be2436f",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/pleinair/companion-pleinair-affinity-04-nsfw-scene-v1.png",
-        "public/assets/companions/pleinair/affinity-4-nsfw.png",
-        "public/companions/pleinair/affinity-4-nsfw.png"
-      ]
-    },
-    {
-      "hash": "e3a31141a113ecd4",
-      "count": 3,
-      "paths": [
-        "assets/event-disagrea/integrated/companions/pleinair/companion-pleinair-affinity-05-peak-bond-scene-originale-v1.png",
-        "public/assets/companions/pleinair/affinity-5.png",
-        "public/companions/pleinair/affinity-5.png"
-      ]
-    },
-    {
-      "hash": "c4b53098ba316f76",
-      "count": 3,
-      "paths": [
-        "old_assets/companions/solene/cutouts/emotion-annoyed-v2-archived.png",
-        "public/assets/companions/solene/emotion-annoyed.png",
-        "public/companions/solene/emotion-annoyed.png"
-      ]
-    },
-    {
-      "hash": "a060b908fcc6f442",
-      "count": 3,
-      "paths": [
-        "old_assets/companions/solene/cutouts/emotion-happy-v2-archived.png",
-        "public/assets/companions/solene/emotion-happy.png",
-        "public/companions/solene/emotion-happy.png"
-      ]
-    },
-    {
-      "hash": "1d94927d21ff9dd8",
-      "count": 3,
-      "paths": [
-        "old_assets/companions/solene/cutouts/emotion-neutral-v2-archived.png",
-        "public/assets/companions/solene/emotion-neutral.png",
-        "public/companions/solene/emotion-neutral.png"
-      ]
-    },
-    {
-      "hash": "f4508f98dc5c47a3",
-      "count": 3,
-      "paths": [
-        "old_assets/companions/solene/cutouts/emotion-romantic-v2-archived.png",
-        "public/assets/companions/solene/emotion-romantic.png",
-        "public/companions/solene/emotion-romantic.png"
-      ]
-    },
-    {
-      "hash": "5691b72aec676250",
-      "count": 3,
-      "paths": [
-        "old_assets/companions/solene/cutouts/emotion-sad-v2-archived.png",
-        "public/assets/companions/solene/emotion-sad.png",
-        "public/companions/solene/emotion-sad.png"
-      ]
-    },
-    {
-      "hash": "613bacd8a5df0b8f",
-      "count": 3,
-      "paths": [
-        "old_assets/companions/solene/cutouts/emotion-shy-v2-archived.png",
-        "public/assets/companions/solene/emotion-shy.png",
-        "public/companions/solene/emotion-shy.png"
-      ]
-    },
-    {
-      "hash": "eb420e043e25da4d",
-      "count": 3,
-      "paths": [
-        "old_assets/companions/solene/cutouts/emotion-surprised-v2-archived.png",
-        "public/assets/companions/solene/emotion-surprised.png",
-        "public/companions/solene/emotion-surprised.png"
+        "assets/Compagnons/etna/Autres/disagrea-integrated/companion-etna-affinity-04-nsfw-scene-v1.png",
+        "assets/Compagnons/etna/NSFW/affinity-4-nsfw.png",
+        "staging/companion-visual-pack/disagrea/etna/tests/companion-etna-affinity-05-lit-batch5-v5-v4-final-tweak.png"
       ]
     },
     {
@@ -505,291 +233,505 @@
       ]
     },
     {
-      "hash": "15cdec5f0791d727",
+      "hash": "49da471a47b778ae",
       "count": 3,
       "paths": [
-        "public/assets/companions/asha/affinity-1.png",
-        "public/companions/asha/affinity-1.png",
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v1.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v1.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v1.png"
+      ]
+    },
+    {
+      "hash": "724e0b9a05a33bf4",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v11.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v11.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v11.png"
+      ]
+    },
+    {
+      "hash": "3cc2f13bc94e16e2",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v12.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v12.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v12.png"
+      ]
+    },
+    {
+      "hash": "a2e075a5a388fbfc",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v2.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v2.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v2.png"
+      ]
+    },
+    {
+      "hash": "13c8fabe3d22ca8e",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v9.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v9.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v9.png"
+      ]
+    },
+    {
+      "hash": "cfdd4c1dcfd36ce7",
+      "count": 3,
+      "paths": [
+        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4.png",
+        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4b.png",
+        "staging/skinline-premium/companions/etna/companion-etna-skinline-premium.png"
+      ]
+    },
+    {
+      "hash": "98226ce8274115f6",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/capture-portrait.png",
+        "assets/Background/disagrea-event/minigame/myrion_hunt_mobile.png"
+      ]
+    },
+    {
+      "hash": "249430a362f6fb6d",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/capture-wide.png",
+        "assets/Background/disagrea-event/minigame/myrion_hunt_pc.png"
+      ]
+    },
+    {
+      "hash": "f0395e0d3c65289f",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/dressage-portrait.png",
+        "assets/Background/disagrea-event/minigame/myrion_training_enclosure_mobile.png"
+      ]
+    },
+    {
+      "hash": "2810883bfe9abb0c",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/dressage-wide.png",
+        "assets/Background/disagrea-event/minigame/myrion_training_enclosure_pc.png"
+      ]
+    },
+    {
+      "hash": "15cdec5f0791d727",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/asha/affinite/affinity-1.png",
         "public/generated-backup/asha-affinity-1.png"
       ]
     },
     {
       "hash": "3eb1f6557e63f161",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/asha/affinity-2.png",
-        "public/companions/asha/affinity-2.png",
+        "assets/Compagnons/asha/affinite/affinity-2.png",
         "public/generated-backup/asha-affinity-2.png"
       ]
     },
     {
       "hash": "ddb1527cb847a060",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/asha/affinity-3.png",
-        "public/companions/asha/affinity-3.png",
+        "assets/Compagnons/asha/affinite/affinity-3.png",
         "public/generated-backup/asha-affinity-3.png"
       ]
     },
     {
       "hash": "0d8345fda3febf62",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/asha/affinity-4.png",
-        "public/companions/asha/affinity-4.png",
+        "assets/Compagnons/asha/affinite/affinity-4.png",
         "public/generated-backup/asha-affinity-4.png"
       ]
     },
     {
       "hash": "919202d6c5e049a1",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/asha/affinity-5.png",
-        "public/companions/asha/affinity-5.png",
+        "assets/Compagnons/asha/affinite/affinity-5.png",
         "public/generated-backup/asha-affinity-5.png"
       ]
     },
     {
       "hash": "194b77cde9ac88f9",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/asha/chibi.png",
-        "public/companions/asha/chibi.png",
+        "assets/Compagnons/asha/chibis/chibi.png",
         "staging/companion-visual-pack/village/asha/chibi/companion-asha-chibi-v2.png"
       ]
     },
     {
       "hash": "4fdccca2a2fb6ac7",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/elwen/affinity-1.png",
-        "public/companions/elwen/affinity-1.png",
+        "assets/Compagnons/elwen/affinite/affinity-1.png",
         "public/generated-backup/elwen-affinity-1.png"
       ]
     },
     {
       "hash": "11516948d221ba17",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/elwen/affinity-2.png",
-        "public/companions/elwen/affinity-2.png",
+        "assets/Compagnons/elwen/affinite/affinity-2.png",
         "public/generated-backup/elwen-affinity-2.png"
       ]
     },
     {
       "hash": "b35a65d5ad25100c",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/elwen/affinity-3.png",
-        "public/companions/elwen/affinity-3.png",
+        "assets/Compagnons/elwen/affinite/affinity-3.png",
         "public/generated-backup/elwen-affinity-3.png"
       ]
     },
     {
       "hash": "2b4e58ba0af58823",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/elwen/affinity-4.png",
-        "public/companions/elwen/affinity-4.png",
+        "assets/Compagnons/elwen/affinite/affinity-4.png",
         "public/generated-backup/elwen-affinity-4.png"
       ]
     },
     {
       "hash": "34eff4db5ba58991",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/elwen/affinity-5.png",
-        "public/companions/elwen/affinity-5.png",
+        "assets/Compagnons/elwen/affinite/affinity-5.png",
         "public/generated-backup/elwen-affinity-5.png"
       ]
     },
     {
-      "hash": "244619b4838ba763",
-      "count": 3,
+      "hash": "f04a5e48ed206ddb",
+      "count": 2,
       "paths": [
-        "public/assets/companions/iris/affinity-1.png",
-        "public/companions/iris/affinity-1.png",
+        "assets/Compagnons/etna/Autres/disagrea-integrated/companion-etna-affinity-01-scene-originale-v1.png",
+        "assets/Compagnons/etna/affinite/affinity-1.png"
+      ]
+    },
+    {
+      "hash": "485641babb885055",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/Autres/disagrea-integrated/companion-etna-affinity-02-flirt-proche-scene-originale-v1.png",
+        "assets/Compagnons/etna/affinite/affinity-2.png"
+      ]
+    },
+    {
+      "hash": "38d45cfdc352da69",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/Autres/disagrea-integrated/companion-etna-affinity-03-vulnerable-complicite-scene-originale-v1.png",
+        "assets/Compagnons/etna/affinite/affinity-3.png"
+      ]
+    },
+    {
+      "hash": "1c6fefbecad0e6a3",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/Autres/disagrea-integrated/companion-etna-affinity-04-intime-soft-scene-originale-v1.png",
+        "assets/Compagnons/etna/affinite/affinity-4.png"
+      ]
+    },
+    {
+      "hash": "5da20836195f43e9",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/Autres/disagrea-integrated/companion-etna-affinity-05-peak-bond-scene-originale-v1.png",
+        "assets/Compagnons/etna/affinite/affinity-5.png"
+      ]
+    },
+    {
+      "hash": "e81df076b9c914ef",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/Autres/disagrea-integrated/companion-flonne-affinity-01-scene-originale-v1.png",
+        "assets/Compagnons/flonne/affinite/affinity-1.png"
+      ]
+    },
+    {
+      "hash": "f88889a6c6ee93ef",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/Autres/disagrea-integrated/companion-flonne-affinity-02-flirt-proche-scene-originale-v1.png",
+        "assets/Compagnons/flonne/affinite/affinity-2.png"
+      ]
+    },
+    {
+      "hash": "ffd340dc73bd549f",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/Autres/disagrea-integrated/companion-flonne-affinity-03-vulnerable-complicite-scene-originale-v1.png",
+        "assets/Compagnons/flonne/affinite/affinity-3.png"
+      ]
+    },
+    {
+      "hash": "97f915c72ceeb99b",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/Autres/disagrea-integrated/companion-flonne-affinity-04-intime-soft-scene-originale-v1.png",
+        "assets/Compagnons/flonne/affinite/affinity-4.png"
+      ]
+    },
+    {
+      "hash": "08841756638859ec",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/Autres/disagrea-integrated/companion-flonne-affinity-04-nsfw-scene-v1.png",
+        "assets/Compagnons/flonne/NSFW/affinity-4-nsfw.png"
+      ]
+    },
+    {
+      "hash": "b1516301da89c7df",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/Autres/disagrea-integrated/companion-flonne-affinity-05-peak-bond-scene-originale-v1.png",
+        "assets/Compagnons/flonne/affinite/affinity-5.png"
+      ]
+    },
+    {
+      "hash": "244619b4838ba763",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/iris/affinite/affinity-1.png",
         "public/generated-backup/iris-affinity-1.png"
       ]
     },
     {
       "hash": "737c2d7da9f62596",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/iris/affinity-2.png",
-        "public/companions/iris/affinity-2.png",
+        "assets/Compagnons/iris/affinite/affinity-2.png",
         "public/generated-backup/iris-affinity-2.png"
       ]
     },
     {
       "hash": "de3541407ebf5991",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/iris/affinity-3.png",
-        "public/companions/iris/affinity-3.png",
+        "assets/Compagnons/iris/affinite/affinity-3.png",
         "public/generated-backup/iris-affinity-3.png"
       ]
     },
     {
       "hash": "9b09ac26a951c2ae",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/iris/affinity-4.png",
-        "public/companions/iris/affinity-4.png",
+        "assets/Compagnons/iris/affinite/affinity-4.png",
         "public/generated-backup/iris-affinity-4.png"
       ]
     },
     {
       "hash": "5e29ba439b75b59e",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/iris/affinity-5.png",
-        "public/companions/iris/affinity-5.png",
+        "assets/Compagnons/iris/affinite/affinity-5.png",
         "public/generated-backup/iris-affinity-5.png"
       ]
     },
     {
       "hash": "c915b23a7d56d75e",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/kael/affinity-1.png",
-        "public/companions/kael/affinity-1.png",
+        "assets/Compagnons/kael/affinite/affinity-1.png",
         "public/generated-backup/kael-affinity-1.png"
       ]
     },
     {
       "hash": "faee43bd63ac579c",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/kael/affinity-2.png",
-        "public/companions/kael/affinity-2.png",
+        "assets/Compagnons/kael/affinite/affinity-2.png",
         "public/generated-backup/kael-affinity-2.png"
       ]
     },
     {
       "hash": "164aa4cfbfda262e",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/kael/affinity-3.png",
-        "public/companions/kael/affinity-3.png",
+        "assets/Compagnons/kael/affinite/affinity-3.png",
         "public/generated-backup/kael-affinity-3.png"
       ]
     },
     {
       "hash": "dc54a92ffcb0cb8b",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/kael/affinity-4.png",
-        "public/companions/kael/affinity-4.png",
+        "assets/Compagnons/kael/affinite/affinity-4.png",
         "public/generated-backup/kael-affinity-4.png"
       ]
     },
     {
       "hash": "8f158e42fbe417b1",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/kael/affinity-5.png",
-        "public/companions/kael/affinity-5.png",
+        "assets/Compagnons/kael/affinite/affinity-5.png",
         "public/generated-backup/kael-affinity-5.png"
       ]
     },
     {
       "hash": "72b954bb4c1e8084",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/kael/chibi.png",
-        "public/companions/kael/chibi.png",
+        "assets/Compagnons/kael/chibis/chibi.png",
         "staging/companion-visual-pack/village/kael/chibi/companion-kael-chibi-v2.png"
       ]
     },
     {
-      "hash": "4689396740de72ed",
-      "count": 3,
+      "hash": "e32cbb42d4a0b1bc",
+      "count": 2,
       "paths": [
-        "public/assets/companions/lyra/affinity-1.png",
-        "public/companions/lyra/affinity-1.png",
+        "assets/Compagnons/laharl/Autres/disagrea-integrated/companion-laharl-affinity-01-scene-originale-v1.png",
+        "assets/Compagnons/laharl/affinite/affinity-1.png"
+      ]
+    },
+    {
+      "hash": "d85e02747056d095",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/Autres/disagrea-integrated/companion-laharl-affinity-02-flirt-proche-scene-originale-v1.png",
+        "assets/Compagnons/laharl/affinite/affinity-2.png"
+      ]
+    },
+    {
+      "hash": "f0bdc668aaac3b1d",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/Autres/disagrea-integrated/companion-laharl-affinity-03-vulnerable-complicite-scene-originale-v1.png",
+        "assets/Compagnons/laharl/affinite/affinity-3.png"
+      ]
+    },
+    {
+      "hash": "52f51b9240a59b6a",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/Autres/disagrea-integrated/companion-laharl-affinity-04-intime-soft-scene-originale-v1.png",
+        "assets/Compagnons/laharl/affinite/affinity-4.png"
+      ]
+    },
+    {
+      "hash": "23552a0c0cfd0606",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/Autres/disagrea-integrated/companion-laharl-affinity-04-nsfw-scene-v1.png",
+        "assets/Compagnons/laharl/NSFW/affinity-4-nsfw.png"
+      ]
+    },
+    {
+      "hash": "3d0edc0be365bf94",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/Autres/disagrea-integrated/companion-laharl-affinity-05-peak-bond-scene-originale-v1.png",
+        "assets/Compagnons/laharl/affinite/affinity-5.png"
+      ]
+    },
+    {
+      "hash": "4689396740de72ed",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/lyra/affinite/affinity-1.png",
         "public/generated-backup/lyra-affinity-1.png"
       ]
     },
     {
       "hash": "1bb87b92e2bbf6b3",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/lyra/affinity-2.png",
-        "public/companions/lyra/affinity-2.png",
+        "assets/Compagnons/lyra/affinite/affinity-2.png",
         "public/generated-backup/lyra-affinity-2.png"
       ]
     },
     {
       "hash": "988faf7c5f04dfff",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/lyra/affinity-3.png",
-        "public/companions/lyra/affinity-3.png",
+        "assets/Compagnons/lyra/affinite/affinity-3.png",
         "public/generated-backup/lyra-affinity-3.png"
       ]
     },
     {
       "hash": "78a0d0638f0ea675",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/lyra/affinity-4.png",
-        "public/companions/lyra/affinity-4.png",
+        "assets/Compagnons/lyra/affinite/affinity-4.png",
         "public/generated-backup/lyra-affinity-4.png"
       ]
     },
     {
       "hash": "92309330c0072b96",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/lyra/affinity-5.png",
-        "public/companions/lyra/affinity-5.png",
+        "assets/Compagnons/lyra/affinite/affinity-5.png",
         "public/generated-backup/lyra-affinity-5.png"
       ]
     },
     {
       "hash": "9924f7021d0f707b",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/maeve/affinity-1.png",
-        "public/companions/maeve/affinity-1.png",
+        "assets/Compagnons/maeve/affinite/affinity-1.png",
         "public/generated-backup/maeve-affinity-1.png"
       ]
     },
     {
       "hash": "d0ae619cc6621b88",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/maeve/affinity-2.png",
-        "public/companions/maeve/affinity-2.png",
+        "assets/Compagnons/maeve/affinite/affinity-2.png",
         "public/generated-backup/maeve-affinity-2.png"
       ]
     },
     {
       "hash": "51086eca55c1eb9d",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/maeve/affinity-3.png",
-        "public/companions/maeve/affinity-3.png",
+        "assets/Compagnons/maeve/affinite/affinity-3.png",
         "public/generated-backup/maeve-affinity-3.png"
       ]
     },
     {
       "hash": "43929a588091ee7e",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/maeve/affinity-4.png",
-        "public/companions/maeve/affinity-4.png",
+        "assets/Compagnons/maeve/affinite/affinity-4.png",
         "public/generated-backup/maeve-affinity-4.png"
       ]
     },
     {
       "hash": "b3d8afe3b3ec7279",
-      "count": 3,
+      "count": 2,
       "paths": [
-        "public/assets/companions/maeve/affinity-5.png",
-        "public/companions/maeve/affinity-5.png",
+        "assets/Compagnons/maeve/affinite/affinity-5.png",
         "public/generated-backup/maeve-affinity-5.png"
+      ]
+    },
+    {
+      "hash": "5abe722da1ff3f25",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/maeve/chibis/chibi.png",
+        "staging/companion-visual-pack/village/maeve/chibi/companion-maeve-chibi-v2.png"
+      ]
+    },
+    {
+      "hash": "8fe02e003c2e5872",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/mira/affinite/affinity-1.png",
+        "public/generated-backup/mira-affinity-1.png"
+      ]
+    },
+    {
+      "hash": "44fdcc29c60ba8e7",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/mira/affinite/affinity-2.png",
+        "public/generated-backup/mira-affinity-2.png"
       ]
     }
   ],

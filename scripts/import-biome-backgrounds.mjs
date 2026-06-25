@@ -1,15 +1,14 @@
 /**
- * Copie les backgrounds biome paysage (1672x941) vers public/assets/minigames/capture/biomes/.
+ * Copie les backgrounds biome paysage (1672x941) vers assets/Background/{biomeId}/.
  * Usage: node scripts/import-biome-backgrounds.mjs [dossier-Talia]
  */
 import { existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { publicMinigamePaths } from './minigame-asset-paths.mjs'
+import { publicMinigamePaths, backgroundAssetPaths } from './minigame-asset-paths.mjs'
 
 const importRoot = process.argv[2] ?? 'C:/Users/guill/Downloads/Slow life isekai/Talia'
-const outDir = publicMinigamePaths.captureBiomes
 
 const BIOME_FOLDERS = {
   '01_Prairie_solaire': 'prairie-solaire',
@@ -58,7 +57,7 @@ async function pickLandscapeBackground(bgDir) {
   return best
 }
 
-mkdirSync(outDir, { recursive: true })
+mkdirSync(backgroundAssetPaths.root, { recursive: true })
 
 const entries = readdirSync(importRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
@@ -83,11 +82,12 @@ for (const folder of entries) {
     continue
   }
 
-  const dest = join(outDir, `${biomeId}.png`)
+  const dest = backgroundAssetPaths.captureWide(biomeId)
+  mkdirSync(dirname(dest), { recursive: true })
   await sharp(picked.file).png().toFile(dest)
   console.log(`OK ${biomeId} ← ${basename(picked.file)} (${picked.width}x${picked.height})`)
 
-  const portraitDest = join(outDir, `${biomeId}-portrait.png`)
+  const portraitDest = backgroundAssetPaths.capturePortrait(biomeId)
   const cropWidth = Math.min(
     picked.width,
     Math.max(1, Math.round(picked.height * (9 / 16))),

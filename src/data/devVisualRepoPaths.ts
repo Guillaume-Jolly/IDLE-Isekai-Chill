@@ -6,7 +6,7 @@ export function publicCompanionRepoPath(companionId: string, filename: string): 
 }
 
 export function integratedDisagreaRepoPath(companionId: string, filename: string): DevVisualRepoPath {
-  return `assets/event-disagrea/integrated/companions/${companionId}/${filename}`
+  return `assets/Compagnons/${companionId}/Autres/disagrea-integrated/${filename}`
 }
 
 export function stagingCompanionRepoPath(relativePath: string): DevVisualRepoPath {

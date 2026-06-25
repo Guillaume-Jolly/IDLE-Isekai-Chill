@@ -13,8 +13,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 
 const INPUT_DIR = join(ROOT, 'Input chatgpt', 'etna_gacha_8_images_pack')
-const ASSETS_DIR = join(ROOT, 'assets', 'gacha', 'event', 'disagrea')
-const PUBLIC_DIR = join(ROOT, 'public', 'gacha', 'cinema', 'disagrea')
+const ASSETS_DIR = join(ROOT, 'assets', 'Gacha', 'cinema', 'disagrea')
+const PUBLIC_DIR = join(ROOT, 'assets', 'Gacha', 'cinema', 'disagrea')
 
 /** Source ChatGPT → nom canonique */
 const FRAME_MAP = [
@@ -74,6 +74,6 @@ const manifest = {
   note: 'Diaporama JS : départ → intermédiaire → flash rareté (ou multi). Vidéo plus tard via build:disagrea-gacha-video.',
 }
 
-writeFileSync(join(ASSETS_DIR, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`)
+writeFileSync(join(ROOT, 'assets', 'Gacha', 'event', 'disagrea', 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`)
 
-console.log(`\n${imported}/${FRAME_MAP.length} frames → assets/gacha/event/disagrea + public/gacha/cinema/disagrea`)
+console.log(`\n${imported}/${FRAME_MAP.length} frames → assets/Gacha/cinema/disagrea (+ manifest in assets/Gacha/event/disagrea/)`)

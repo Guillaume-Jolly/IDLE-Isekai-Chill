@@ -10,9 +10,9 @@ import { existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import { COMPANIONS } from './assets/data.mjs'
-import { publicMinigamePaths } from './minigame-asset-paths.mjs'
+import { companionAssetPaths } from './minigame-asset-paths.mjs'
 
-const companionsRoot = publicMinigamePaths.companions
+const companionsRoot = companionAssetPaths.root
 const PORTRAIT_WIDTH = 768
 
 function pathsFor(companionId, level) {
@@ -21,7 +21,7 @@ function pathsFor(companionId, level) {
     dir,
     cutout: join(dir, `cutout-${level}.png`),
     background: join(dir, `background-${level}.png`),
-    output: join(dir, `affinity-${level}.png`),
+    output: companionAssetPaths.affinite(companionId, level),
   }
 }
 

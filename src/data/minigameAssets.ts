@@ -1,4 +1,4 @@
-/** Chemins d'assets mini-jeux — structure sous public/assets/minigames/ */
+/** Chemins d'assets mini-jeux — URLs runtime stables, servies depuis assets/ via repoAssetsPlugin. */
 
 import { MYRIONS_SPECIES } from './myrionsCatalog.generated'
 import { DISAGREA_LEGENDARY_MYRION, DISAGREA_MYRIONS } from './eventDisagreaPack'

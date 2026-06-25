@@ -20,11 +20,10 @@ import {
   cutoutPrompt,
   cutoutStyleAnchor,
 } from './staging/companion-visual-pack-data.mjs'
-import { oldAssetsRoot, publicMinigamePaths, repoRoot } from './minigame-asset-paths.mjs'
+import { companionAssetPaths, oldAssetsRoot, repoRoot } from './minigame-asset-paths.mjs'
 
 const ROOT = repoRoot
 const STAGING = join(ROOT, 'staging/companion-visual-pack')
-const PUBLIC = publicMinigamePaths.companions
 const LEGACY_ARCHIVE = join(oldAssetsRoot, 'companion-emotion-cutouts-replaced')
 const EMOTIONS = JSON.parse(readFileSync(join(STAGING, 'data/emotions.json'), 'utf8')).emotions
 
@@ -109,7 +108,7 @@ function printPrompt(companionId, emotionId) {
 function archiveObsoleteOne(companionId) {
   let moved = 0
   for (const em of EMOTIONS) {
-    const src = join(PUBLIC, companionId, `emotion-${em.id}.png`)
+    const src = companionAssetPaths.emotion(companionId, em.id)
     if (!existsSync(src)) continue
     const dest = moveToArchive(src, companionId, em.id)
     console.log(`  → ${dest.replace(/\\/g, '/')}`)
@@ -148,7 +147,7 @@ function migrateLegacyArchives() {
 /** Compagnons dont le staging v3 est complet mais pas encore promu — skip si public vide. */
 function pendingArchiveIds() {
   return ALL_CUTOUT_COMPANION_IDS.filter((id) => {
-    const hasPublic = existsSync(join(PUBLIC, id, 'emotion-neutral.png'))
+    const hasPublic = existsSync(companionAssetPaths.emotion(id, 'neutral'))
     const stagingComplete = EMOTIONS.every((em) => existsSync(stagingPath(id, em.id)))
     return hasPublic && !stagingComplete
   })
@@ -159,7 +158,8 @@ async function promoteOne(companionId) {
 
   for (const em of EMOTIONS) {
     const src = stagingPath(companionId, em.id)
-    const dest = join(PUBLIC, companionId, `emotion-${em.id}.png`)
+    const dest = companionAssetPaths.emotion(companionId, em.id)
+    mkdirSync(dirname(dest), { recursive: true })
     if (!existsSync(src)) {
       console.warn(`  skip ${em.id}: missing ${src.replace(/\\/g, '/')}`)
       continue

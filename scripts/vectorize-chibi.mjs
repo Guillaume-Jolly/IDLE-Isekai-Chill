@@ -10,7 +10,7 @@ import { dirname, join, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import ImageTracer from 'imagetracerjs'
-import { oldAssetPaths, publicMinigamePaths } from './minigame-asset-paths.mjs'
+import { guideCutoutAssetPaths, oldAssetPaths } from './minigame-asset-paths.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const previewDir = oldAssetPaths.vectorizePreview
@@ -190,7 +190,7 @@ async function runDemo() {
       input: join(oldAssetPaths.sourcesScattered, 'source-talia-v2.png'),
       previewBefore: 'before-talia-point.png',
       previewAfter: 'after-talia-point.svg',
-      gameOutput: join(publicMinigamePaths.captureCompanionTalia, 'point.svg'),
+      gameOutput: guideCutoutAssetPaths.file('talia', 'point.svg'),
     },
   ]
 

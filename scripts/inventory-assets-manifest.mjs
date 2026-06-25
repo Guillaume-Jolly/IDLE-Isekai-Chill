@@ -44,13 +44,15 @@ function topBucket(rel) {
 
 function classify(rel) {
   const p = rel.replace(/\\/g, '/')
-  if (p.startsWith('public/assets/companions/')) return 'runtime:companions'
+  if (p.startsWith('assets/Compagnons/')) return 'runtime:companions'
+  if (p.startsWith('assets/Myrions/')) return 'runtime:myrions'
   if (p.startsWith('public/assets/minigames/')) return 'runtime:minigames'
   if (p.startsWith('public/gacha/')) return 'runtime:gacha'
   if (p.startsWith('public/village/')) return 'runtime:village'
+  if (p.startsWith('assets/Background/')) return 'runtime:background'
   if (p.startsWith('assets/event-disagrea/')) return 'source:disagrea'
   if (p.startsWith('assets/minigames/')) return 'source:minigames'
-  if (p.startsWith('assets/gacha/')) return 'source:gacha'
+  if (p.startsWith('assets/Gacha/')) return 'source:gacha'
   if (p.startsWith('old_assets/')) return 'archive'
   if (p.startsWith('staging/')) return 'staging'
   if (p.startsWith('Input chatgpt/')) return 'input-chatgpt'

@@ -152,12 +152,12 @@ export function integratedOutputPath(
   const lv = String(level).padStart(2, '0')
   const name = slug ? `affinity-${lv}-${slug}` : `affinity-${lv}-scene-originale-v1`
   if (pack === 'disagrea') {
-    return `assets/event-disagrea/integrated/companions/${companionId}/companion-${companionId}-${name}.png`
+  return `assets/Compagnons/${companionId}/Autres/disagrea-integrated/companion-${companionId}-${name}.png`
   }
   return `assets/integrated-portraits/village/${companionId}/companion-${companionId}-${name}.png`
 }
 
 /** Scène intégrée peak-plus (ex-L6) — nommée affinity-04-nsfw, option NSFW requise. */
 export function integratedNsfwOutputPath(companionId: DisagreaCompanionId): string {
-  return `assets/event-disagrea/integrated/companions/${companionId}/companion-${companionId}-affinity-04-nsfw-scene-v1.png`
+  return `assets/Compagnons/${companionId}/Autres/disagrea-integrated/companion-${companionId}-affinity-04-nsfw-scene-v1.png`
 }

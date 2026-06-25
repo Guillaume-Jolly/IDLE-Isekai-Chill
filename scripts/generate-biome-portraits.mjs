@@ -3,12 +3,12 @@
  * Usage: node scripts/generate-biome-portraits.mjs
  */
 import { existsSync, readdirSync } from 'node:fs'
-import { basename, dirname, join } from 'node:path'
+import { basename, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { publicMinigamePaths } from './minigame-asset-paths.mjs'
+import { backgroundAssetPaths } from './minigame-asset-paths.mjs'
 
-const biomeDir = publicMinigamePaths.captureBiomes
+const biomeRoot = backgroundAssetPaths.root
 const PORTRAIT_RATIO = 9 / 16
 
 async function cropPortraitFromLandscape(inputPath, outputPath) {
@@ -35,16 +35,16 @@ async function cropPortraitFromLandscape(inputPath, outputPath) {
   )
 }
 
-const files = readdirSync(biomeDir).filter(
-  (file) => file.endsWith('.png') && !file.endsWith('-portrait.png'),
-)
+const files = readdirSync(biomeRoot, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
 
 let generated = 0
 
-for (const file of files) {
-  const inputPath = join(biomeDir, file)
-  const biomeId = file.replace(/\.png$/, '')
-  const outputPath = join(biomeDir, `${biomeId}-portrait.png`)
+for (const biomeId of files) {
+  const inputPath = backgroundAssetPaths.captureWide(biomeId)
+  if (!existsSync(inputPath)) continue
+  const outputPath = backgroundAssetPaths.capturePortrait(biomeId)
   await cropPortraitFromLandscape(inputPath, outputPath)
   generated += 1
 }

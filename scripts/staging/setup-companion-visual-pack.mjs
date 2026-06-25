@@ -27,7 +27,7 @@ function ensureDir(p) {
 }
 
 function copyBackgrounds() {
-  const srcRoot = join(ROOT, 'assets/event-disagrea/backgrounds')
+  const srcRoot = join(ROOT, 'assets/Background/disagrea-event')
   if (!existsSync(srcRoot)) {
     console.warn('⚠ backgrounds source missing:', srcRoot)
     return 0

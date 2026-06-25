@@ -125,7 +125,7 @@ export function GachaOpening({ items, variant = 'festival', onClose }: GachaOpen
           <p className="gacha-cinema-caption">{caption}</p>
           {variant === 'festival' && videoFailed && (
             <p className="gacha-cinema-hint">
-              Place une vraie boucle dans <code>public/gacha/cinema/opening.mp4</code>
+              Place une vraie boucle dans <code>assets/Gacha/cinema/opening.mp4</code>
             </p>
           )}
         </div>

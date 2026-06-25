@@ -5,9 +5,10 @@ import { existsSync } from 'node:fs'
 import sharp from 'sharp'
 
 const root = process.cwd()
-const framesDir = path.join(root, 'public', 'gacha', 'cinema', 'frames')
-const outDir = path.join(root, 'public', 'gacha', 'cinema')
-const assetsDir = path.join(root, 'assets', 'gacha-frames')
+const gachaDir = path.join(root, 'assets', 'Gacha', 'cinema')
+const framesDir = path.join(gachaDir, 'frames')
+const outDir = gachaDir
+const assetsDir = path.join(root, 'assets', 'Gacha', 'sources', 'frames')
 
 const frameSources = [
   path.join(outDir, 'hostess-intro.png'),
@@ -73,7 +74,7 @@ await runFfmpeg(
     '0',
     path.join(outDir, 'opening.webm'),
   ],
-  'public/gacha/cinema/opening.webm',
+  'assets/Gacha/cinema/opening.webm',
 )
 
 await runFfmpeg(
@@ -91,7 +92,7 @@ await runFfmpeg(
     '+faststart',
     path.join(outDir, 'opening.mp4'),
   ],
-  'public/gacha/cinema/opening.mp4',
+  'assets/Gacha/cinema/opening.mp4',
 )
 
 await runFfmpeg(
@@ -109,5 +110,5 @@ await runFfmpeg(
     '86',
     path.join(outDir, 'opening.webp'),
   ],
-  'public/gacha/cinema/opening.webp',
+  'assets/Gacha/cinema/opening.webp',
 )

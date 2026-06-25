@@ -11,7 +11,7 @@
 import { copyFileSync, existsSync, mkdirSync, readdirSync, renameSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { oldAssetsRoot } from './minigame-asset-paths.mjs'
+import { companionAssetPaths, oldAssetsRoot } from './minigame-asset-paths.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -46,11 +46,11 @@ const LEGACY_PATTERNS = [
 ]
 
 const archiveRoot = join(oldAssetsRoot, 'event-disagrea', 'public-layered-legacy')
-const integratedRoot = join(ROOT, 'assets', 'event-disagrea', 'integrated', 'companions')
-const publicRoot = join(ROOT, 'public', 'assets', 'companions')
+const integratedRoot = companionAssetPaths.root
+const publicRoot = companionAssetPaths.root
 
 function archiveLegacyFiles(companionId) {
-  const srcDir = join(publicRoot, companionId)
+  const srcDir = join(publicRoot, companionId, 'Autres', 'layered-import')
   const destDir = join(archiveRoot, companionId)
   if (!existsSync(srcDir)) return 0
   let moved = 0
@@ -72,8 +72,8 @@ for (const id of DISAGREA_IDS) {
   archived += archiveLegacyFiles(id)
 
   for (const { level, integratedFilename } of AFFINITY_LEVELS) {
-    const src = join(integratedRoot, id, integratedFilename(id))
-    const dest = join(publicRoot, id, `affinity-${level}.png`)
+    const src = companionAssetPaths.disagreaIntegrated(id, integratedFilename(id))
+    const dest = companionAssetPaths.affinite(id, level)
     if (!existsSync(src)) {
       console.warn(`  missing ${src}`)
       continue
@@ -84,8 +84,11 @@ for (const id of DISAGREA_IDS) {
     promoted += 1
   }
 
-  const nsfwSrc = join(integratedRoot, id, `companion-${id}-affinity-04-nsfw-scene-v1.png`)
-  const nsfwDest = join(publicRoot, id, 'affinity-4-nsfw.png')
+  const nsfwSrc = companionAssetPaths.disagreaIntegrated(
+    id,
+    `companion-${id}-affinity-04-nsfw-scene-v1.png`,
+  )
+  const nsfwDest = companionAssetPaths.nsfw(id)
   if (existsSync(nsfwSrc)) {
     copyFileSync(nsfwSrc, nsfwDest)
     console.log('  ✓ affinity-4-nsfw.png')

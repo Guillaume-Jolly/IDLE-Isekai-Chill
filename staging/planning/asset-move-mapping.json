@@ -1,0 +1,248 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-25T14:00:00.000Z",
+  "notes": [
+    "Phase 2 complete — all lots executed 2026-06-25.",
+    "Phase 3 complete — unified repoAssetsPlugin, Talia guides migrated 2026-06-25.",
+    "Runtime URLs unchanged; served via vite.repo-assets.ts from assets/Gacha|Background|Myrions|Compagnons/.",
+    "Legacy public/companions/ mirror removed (hardlinked to public/assets/companions/ on Windows)."
+  ],
+  "lots": {
+    "gacha": [
+      {
+        "from": "public/gacha/icons/",
+        "to": "assets/Gacha/icons/",
+        "class": "runtime:gacha",
+        "runtimeRefs": [
+          "src/data/gacha.ts",
+          "src/data/disagreaGacha.ts",
+          "src/data/rewardToastEntries.ts",
+          "src/components/FestivalEventBanner.tsx"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/gacha/events/",
+        "to": "assets/Gacha/events/",
+        "class": "runtime:gacha",
+        "runtimeRefs": [
+          "src/data/festivalGacha.ts",
+          "src/data/disagreaGacha.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/gacha/cinema/",
+        "to": "assets/Gacha/cinema/",
+        "class": "runtime:gacha",
+        "runtimeRefs": [
+          "src/components/GachaOpening.tsx",
+          "src/data/disagreaGachaCinema.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "assets/gacha-frames/",
+        "to": "assets/Gacha/sources/frames/",
+        "class": "source:gacha",
+        "runtimeRefs": [
+          "scripts/build-gacha-video.mjs"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "assets/gacha/event/disagrea/manifest.json",
+        "to": "assets/Gacha/event/disagrea/manifest.json",
+        "class": "source:gacha",
+        "runtimeRefs": [
+          "scripts/import-disagrea-gacha-cinema.mjs"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "assets/gacha/event/disagrea/*.png",
+        "to": "old_assets/gacha-event-disagrea-source-2026-06-25/",
+        "class": "archive",
+        "runtimeRefs": [],
+        "note": "Duplicates of assets/Gacha/cinema/disagrea/ after public move",
+        "status": "done"
+      }
+    ],
+    "background": [
+      {
+        "from": "public/assets/minigames/capture/biomes/{biomeId}.png",
+        "to": "assets/Background/{biomeId}/capture-wide.png",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/data/minigameAssets.ts",
+          "src/components/minigames/BiomeBackground.tsx",
+          "vite.config.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/minigames/capture/biomes/{biomeId}-portrait.png",
+        "to": "assets/Background/{biomeId}/capture-portrait.png",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/components/minigames/BiomeBackground.tsx"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/minigames/dressage/enclosures/{biomeId}.png",
+        "to": "assets/Background/{biomeId}/dressage-wide.png",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/data/minigameAssets.ts",
+          "src/components/minigames/EnclosureBackground.tsx",
+          "vite.config.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/minigames/dressage/enclosures/{biomeId}-portrait.png",
+        "to": "assets/Background/{biomeId}/dressage-portrait.png",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/components/minigames/EnclosureBackground.tsx"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "assets/event-disagrea/backgrounds/",
+        "to": "assets/Background/disagrea-event/",
+        "class": "source:disagrea",
+        "runtimeRefs": [
+          "src/data/eventDisagreaPack.ts",
+          "src/data/disagreaStory.ts",
+          "scripts/import-disagrea-assets.mjs",
+          "scripts/promote-companion-visual-pack.mjs"
+        ],
+        "status": "done"
+      }
+    ],
+    "myrions": [
+      {
+        "from": "public/assets/minigames/capture/myrions/cutout/{speciesId}.png",
+        "to": "assets/Myrions/{biomeId}/cutout/{speciesId}.png",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/data/minigameAssets.ts",
+          "vite.config.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/minigames/dressage/myrions/chibi/{speciesId}.png",
+        "to": "assets/Myrions/{biomeId}/chibi/{speciesId}.png",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/data/minigameAssets.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/minigames/capture/myrions/silhouette/{speciesId}.png",
+        "to": "assets/Myrions/{biomeId}/silhouette/{speciesId}.png",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/data/minigameAssets.ts",
+          "vite.config.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "assets/minigames/",
+        "to": "assets/Myrions/ (partial) + assets/Background/",
+        "class": "source:minigames",
+        "runtimeRefs": [],
+        "note": "Source chibi/cutout trees retained under assets/minigames/; no runtime duplicates archived",
+        "status": "done"
+      }
+    ],
+    "companions": [
+      {
+        "from": "public/assets/companions/{id}/affinity-{n}.png",
+        "to": "assets/Compagnons/{id}/affinite/affinity-{n}.png",
+        "class": "runtime:companions",
+        "runtimeRefs": [
+          "src/data/companionAssets.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/companions/{id}/emotion-*.png",
+        "to": "assets/Compagnons/{id}/cutouts/",
+        "class": "runtime:companions",
+        "runtimeRefs": [
+          "src/data/companionAssets.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/companions/{id}/chibi.png",
+        "to": "assets/Compagnons/{id}/chibis/chibi.png",
+        "class": "runtime:companions",
+        "runtimeRefs": [
+          "src/data/companionAssets.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "public/assets/companions/{id}/affinity-4-nsfw.png",
+        "to": "assets/Compagnons/{id}/NSFW/affinity-4-nsfw.png",
+        "class": "runtime:companions",
+        "runtimeRefs": [
+          "src/data/companionAssets.ts"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "assets/event-disagrea/integrated/companions/",
+        "to": "assets/Compagnons/{id}/Autres/disagrea-integrated/",
+        "class": "source:disagrea",
+        "runtimeRefs": [
+          "src/data/eventDisagreaPack.ts",
+          "src/data/devVisualRepoPaths.ts"
+        ],
+        "status": "done"
+      }
+    ],
+    "legacy": [
+      {
+        "from": "public/companions/",
+        "to": "old_assets/public-companions-legacy/",
+        "class": "runtime:legacy-companions",
+        "runtimeRefs": [
+          "vite.repo-assets.ts",
+          "src/data/companionAssets.ts"
+        ],
+        "note": "Hardlinked mirror — git D entries + README redirect; content in assets/Compagnons/",
+        "status": "done"
+      }
+    ],
+    "phase3": [
+      {
+        "from": "public/assets/minigames/capture/companions/talia/*.png",
+        "to": "assets/Compagnons/talia/Autres/guide/",
+        "class": "runtime:minigames",
+        "runtimeRefs": [
+          "src/data/minigameAssets.ts",
+          "vite.repo-assets.ts",
+          "scripts/minigame-asset-paths.mjs"
+        ],
+        "status": "done"
+      },
+      {
+        "from": "vite.config.ts (4 repo plugins)",
+        "to": "vite.repo-assets.ts (repoAssetsPlugin)",
+        "class": "infra:vite",
+        "runtimeRefs": [
+          "vite.config.ts"
+        ],
+        "status": "done"
+      }
+    ]
+  }
+}

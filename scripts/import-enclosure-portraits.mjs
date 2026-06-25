@@ -1,15 +1,15 @@
 /**
- * Importe les backgrounds portrait d'enclos Myrions vers public/assets/minigames/dressage/enclosures/.
+ * Importe les backgrounds portrait d'enclos Myrions vers assets/Background/{biomeId}/.
  * Usage: node scripts/import-enclosure-portraits.mjs [dossier-zip-extrait]
  */
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { publicMinigamePaths, repoRoot } from './minigame-asset-paths.mjs'
+import { backgroundAssetPaths, repoRoot } from './minigame-asset-paths.mjs'
 
 const importRoot = process.argv[2] ?? join(repoRoot, '.tmp/enclos-import')
-const outDir = publicMinigamePaths.dressageEnclosures
+const outDir = backgroundAssetPaths.root
 
 const BIOME_FOLDERS = {
   '01_Prairie_Solaire': 'prairie-solaire',
@@ -92,7 +92,8 @@ for (const folder of folders) {
     continue
   }
 
-  const outPath = join(outDir, `${biomeId}-portrait.png`)
+  const outPath = backgroundAssetPaths.dressagePortrait(biomeId)
+  mkdirSync(dirname(outPath), { recursive: true })
   copyFileSync(source, outPath)
 
   const meta = await sharp(outPath).metadata()
@@ -108,4 +109,4 @@ if (portraitWidth > 0 && portraitHeight > 0) {
   console.log(`Portrait ratio: ${portraitWidth}x${portraitHeight} (${ratio.toFixed(6)})`)
 }
 
-console.log(`Done: ${copied} portrait enclosure(s) → ${outDir}`)
+console.log(`Done: ${copied} portrait enclosure(s) → ${backgroundAssetPaths.root}`)

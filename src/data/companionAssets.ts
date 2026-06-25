@@ -1,6 +1,6 @@
 import { publicAssetUrl } from './publicAssetUrl'
 
-/** Dossier public : public/assets/companions/ */
+/** Runtime URL root — source-of-truth: assets/Compagnons/ (via repoAssetsPlugin). */
 export const COMPANION_ASSET_ROOT = publicAssetUrl('assets/companions')
 
 /** Ancien emplacement : public/companions/ */
@@ -156,7 +156,7 @@ export const companionEmotionCutoutPathCandidates = (
 
 /** Scène intégrée NSFW (ex-L6 peak-plus) — palier logique 4, affichée si option NSFW. */
 export const companionIntegratedNsfwRelative = (companionId: string) =>
-  `assets/event-disagrea/integrated/companions/${companionId}/companion-${companionId}-affinity-04-nsfw-scene-v1.png`
+  `assets/Compagnons/${companionId}/Autres/disagrea-integrated/companion-${companionId}-affinity-04-nsfw-scene-v1.png`
 
 /** Compagnons avec chibi.png (tous les villageois + Disagrea). */
 export const COMPANIONS_WITH_CHIBI = new Set([

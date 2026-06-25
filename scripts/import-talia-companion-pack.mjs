@@ -5,13 +5,18 @@
 import { mkdirSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import sharp from 'sharp'
-import { publicMinigamePaths, sourceMinigamePaths, taliaGuideFile } from './minigame-asset-paths.mjs'
+import {
+  companionAssetPaths,
+  guideCutoutAssetPaths,
+  sourceMinigamePaths,
+  taliaGuideFile,
+} from './minigame-asset-paths.mjs'
 
 const importRoot =
   process.argv[2] ?? sourceMinigamePaths.captureTaliaCompanionPack
 
-const guidesDir = publicMinigamePaths.captureCompanionTalia
-const taliaDir = join(publicMinigamePaths.companions, 'talia')
+const guidesDir = guideCutoutAssetPaths.root('talia')
+const taliaChibiPath = companionAssetPaths.chibi('talia')
 
 /** Fichiers du zip → ids biomes du jeu. */
 const BIOME_POSES = {
@@ -245,8 +250,8 @@ if (defaultGuide) {
 const chibiInput = join(importRoot, CHIBI_FILE)
 if (files.includes(CHIBI_FILE)) {
   console.log('Chibi')
-  await cutoutPng(chibiInput, join(taliaDir, 'chibi.png'))
-  console.log('  -> public/assets/companions/talia/chibi.png')
+  await cutoutPng(chibiInput, taliaChibiPath)
+  console.log('  -> assets/Compagnons/talia/chibis/chibi.png')
 } else {
   console.warn(`Missing ${CHIBI_FILE}`)
 }

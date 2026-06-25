@@ -6,10 +6,9 @@ import { existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { publicMinigamePaths, repoRoot, sourceMinigamePaths } from './minigame-asset-paths.mjs'
+import { myrionAssetPaths, repoRoot, sourceMinigamePaths } from './minigame-asset-paths.mjs'
 
 const importRoot = process.argv[2] ?? sourceMinigamePaths.dressageChibi
-const outputDir = publicMinigamePaths.dressageChibi
 const catalogPath = join(repoRoot, 'src/data/myrionsCatalog.generated.ts')
 const PADDING = 12
 
@@ -414,7 +413,7 @@ function listChibiFiles(dir) {
 }
 
 const catalog = loadSpeciesCatalog()
-mkdirSync(outputDir, { recursive: true })
+mkdirSync(myrionAssetPaths.root, { recursive: true })
 
 const files = listChibiFiles(importRoot)
 const results = []
@@ -432,7 +431,8 @@ for (const inputPath of files) {
     continue
   }
 
-  const outputPath = join(outputDir, `${speciesId}.png`)
+  const outputPath = myrionAssetPaths.chibi(biomeId, speciesId)
+  mkdirSync(dirname(outputPath), { recursive: true })
   const { rgba, width, height } = await cutoutChibi(inputPath)
 
   await sharp(Buffer.from(rgba), {
@@ -445,7 +445,7 @@ for (const inputPath of files) {
   console.log(`OK ${speciesId} (${width}x${height})`)
 }
 
-console.log(`\n${results.length} chibis exportes -> ${outputDir}`)
+console.log(`\n${results.length} chibis exportes -> ${myrionAssetPaths.root}`)
 if (missing.length) {
   console.warn(`\n${missing.length} fichier(s) non mappe(s):`)
   for (const path of missing) console.warn(`  - ${path}`)
