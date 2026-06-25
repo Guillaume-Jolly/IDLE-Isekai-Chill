@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "profiles": {
+    "etna": {
+      "id": "etna",
+      "name": "Etna",
+      "place": "le repaire pourpre sous la lune",
+      "personalityHint": "Etna est vassale démoniaque — sarcastique, fière, taquine mais loyale.",
+      "toneWeights": { "sincere": 4, "playful": 10, "direct": 9, "romantic": 5 },
+      "defaultEmotion": "playful"
+    },
+    "flonne": {
+      "id": "flonne",
+      "name": "Flonne",
+      "place": "le palais céleste pastel",
+      "personalityHint": "Flonne est angélique — optimiste, naïve, sincère, parfois maladroite.",
+      "toneWeights": { "sincere": 10, "playful": 8, "direct": 3, "romantic": 7 },
+      "defaultEmotion": "happy"
+    },
+    "laharl": {
+      "id": "laharl",
+      "name": "Laharl",
+      "place": "le château gothique démoniaque",
+      "personalityHint": "Laharl est overlord — arrogant, compétitif, cache une vulnérabilité rare.",
+      "toneWeights": { "sincere": 5, "playful": 6, "direct": 10, "romantic": 3 },
+      "defaultEmotion": "annoyed"
+    },
+    "pleinair": {
+      "id": "pleinair",
+      "name": "Pleinair",
+      "place": "le jardin aux lapins silencieux",
+      "personalityHint": "Pleinair est silencieuse — peu de mots, douceur discrète, attachement aux peluches.",
+      "toneWeights": { "sincere": 10, "playful": 4, "direct": 2, "romantic": 2 },
+      "defaultEmotion": "neutral"
+    }
+  },
+  "emotionReactions": {
+    "etna": { "sincere": "neutral", "playful": "playful", "direct": "annoyed", "romantic": "shy" },
+    "flonne": { "sincere": "happy", "playful": "playful", "direct": "surprised", "romantic": "shy" },
+    "laharl": { "sincere": "neutral", "playful": "annoyed", "direct": "happy", "romantic": "shy" },
+    "pleinair": { "sincere": "happy", "playful": "surprised", "direct": "neutral", "romantic": "shy" }
+  },
+  "conversations": [
+    {
+      "id": "etna-faille-accueil",
+      "companionId": "etna",
+      "title": "Consultante en stratégie",
+      "personalityHint": "Etna teste le joueur avec du sarcasme.",
+      "minAffinity": 0,
+      "maxAffinity": 2,
+      "rounds": [
+        {
+          "context": ["Etna te regarde depuis le balcon lunaire.", "« Alors, c'est toi le héros du havre ? »"],
+          "prompt": "Tu comptes me convaincre de rester comment ?",
+          "choices": [
+            { "text": "En te montrant qu'ici on se bat pour les autres.", "tone": "sincere", "score": 1, "reaction": "…Pas mal. J'aime les gens utiles.", "emotion": "neutral" },
+            { "text": "En pariant que tu finiras par adorer nos Myrions.", "tone": "playful", "score": 1, "reaction": "Hah ! Tu paries gros.", "emotion": "playful" },
+            { "text": "Je ne te convaincs pas — tu restes parce que tu veux.", "tone": "direct", "score": 1, "reaction": "Direct. J'apprécie.", "emotion": "annoyed" },
+            { "text": "Avec un sourire qui vaut mille discours.", "tone": "romantic", "score": 0, "reaction": "…Flatterie basique. Next.", "emotion": "annoyed" }
+          ]
+        },
+        {
+          "context": ["Elle croise les bras, ailes repliées."],
+          "prompt": "Le havre est trop calme. Tu n'as pas peur de t'ennuyer ?",
+          "choices": [
+            { "text": "Le calme laisse de la place aux vraies aventures.", "tone": "sincere", "score": 1, "reaction": "Philosophe, hein ?", "emotion": "neutral" },
+            { "text": "J'ai prévu des embrouilles rien que pour toi.", "tone": "playful", "score": 1, "reaction": "Enfin quelque chose d'intéressant !", "emotion": "happy" },
+            { "text": "L'ennui, c'est ton problème, pas le mien.", "tone": "direct", "score": 0, "reaction": "Grognon.", "emotion": "annoyed" },
+            { "text": "Avec toi, je ne m'ennuie jamais.", "tone": "romantic", "score": 1, "reaction": "…Tss. Continue.", "emotion": "shy" }
+          ]
+        },
+        {
+          "context": ["La lune se reflète sur ses bottes oversize."],
+          "prompt": "Dernière question : pourquoi je devrais faire confiance à quelqu'un d'ici ?",
+          "choices": [
+            { "text": "Parce qu'on t'a accueillie sans te juger.", "tone": "sincere", "score": 1, "reaction": "…Vrai.", "emotion": "sad" },
+            { "text": "Parce que nos Myrions te suivent déjà.", "tone": "playful", "score": 1, "reaction": "Ils sont mignons, j'avoue.", "emotion": "happy" },
+            { "text": "Tu n'es pas obligée de faire confiance.", "tone": "direct", "score": 1, "reaction": "Au moins tu mens pas.", "emotion": "neutral" },
+            { "text": "Parce que je te vois, pas ton titre.", "tone": "romantic", "score": 1, "reaction": "…Idiot.", "emotion": "shy" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flonne-palais-accueil",
+      "companionId": "flonne",
+      "title": "Guérisseuse angélique",
+      "minAffinity": 0,
+      "maxAffinity": 2,
+      "rounds": [
+        {
+          "context": ["Flonne arrive dans un tourbillon de rubans.", "« Bonjour ! Le havre a-t-il besoin de soins ? »"],
+          "prompt": "Comment puis-je aider en premier ?",
+          "choices": [
+            { "text": "En écoutant ce que les villageois ressentent.", "tone": "sincere", "score": 1, "reaction": "Oui ! L'écoute, c'est magique aussi !", "emotion": "happy" },
+            { "text": "En organisant une fête de bienvenue.", "tone": "playful", "score": 1, "reaction": "Une fête ! Avec des fleurs !", "emotion": "happy" },
+            { "text": "En priorisant les blessures du terrain.", "tone": "direct", "score": 1, "reaction": "Compris ! Trousse prête !", "emotion": "neutral" },
+            { "text": "En restant près de moi, juste un instant.", "tone": "romantic", "score": 0, "reaction": "Oh… euh, d'accord ?", "emotion": "shy" }
+          ]
+        },
+        {
+          "context": ["Elle sort un petit carnet de plantes."],
+          "prompt": "Ici, tout le monde semble si… détendu. C'est normal ?",
+          "choices": [
+            { "text": "C'est le but du havre : un refuge.", "tone": "sincere", "score": 1, "reaction": "Alors je veux le protéger !", "emotion": "happy" },
+            { "text": "Normal ? Attends de voir nos mini-jeux !", "tone": "playful", "score": 1, "reaction": "Des jeux ! Comme à la maison !", "emotion": "surprised" },
+            { "text": "Oui. Ne cherche pas de crise partout.", "tone": "direct", "score": 0, "reaction": "M-moi ? Jamais !", "emotion": "surprised" },
+            { "text": "Détendu… comme quand on respire ensemble.", "tone": "romantic", "score": 1, "reaction": "…C'est joli.", "emotion": "shy" }
+          ]
+        },
+        {
+          "context": ["Un ruban rose flotte dans la brise."],
+          "prompt": "Tu crois que l'amour peut guérir une faille dimensionnelle ?",
+          "choices": [
+            { "text": "L'amour ne ferme pas les failles, mais il tient debout.", "tone": "sincere", "score": 1, "reaction": "Je… je crois que tu as raison.", "emotion": "sad" },
+            { "text": "Seulement si on chante très fort !", "tone": "playful", "score": 1, "reaction": "Alors répétition ce soir !", "emotion": "playful" },
+            { "text": "Non. Il faut de la stratégie.", "tone": "direct", "score": 0, "reaction": "Oh… d'accord.", "emotion": "sad" },
+            { "text": "Avec toi, j'y crois un peu.", "tone": "romantic", "score": 1, "reaction": "M-moi aussi… un peu.", "emotion": "romantic" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "laharl-chateau-accueil",
+      "companionId": "laharl",
+      "title": "Jeune overlord",
+      "minAffinity": 0,
+      "maxAffinity": 2,
+      "rounds": [
+        {
+          "context": ["Laharl t'observe depuis un trône de fortune.", "« Hmph. Un autre prétendant au titre de héros ? »"],
+          "prompt": "Prouve que ce havre vaut mon temps.",
+          "choices": [
+            { "text": "En te montrant comment on protège les nôtres.", "tone": "sincere", "score": 1, "reaction": "…Pas mal pour un villageois.", "emotion": "neutral" },
+            { "text": "En te défiant au prochain mini-jeu.", "tone": "playful", "score": 1, "reaction": "Ha ! Tu vas perdre.", "emotion": "happy" },
+            { "text": "Ton temps t'appartient. Reste ou pars.", "tone": "direct", "score": 1, "reaction": "…Audacieux.", "emotion": "annoyed" },
+            { "text": "Parce que tu brilles quand tu te détends.", "tone": "romantic", "score": 0, "reaction": "Qu-quoi ?! Absurde !", "emotion": "surprised" }
+          ]
+        },
+        {
+          "context": ["Il ajuste son écharpe rouge."],
+          "prompt": "Ici personne ne m'appelle 'Votre Majesté'. Ça m'agace.",
+          "choices": [
+            { "text": "Ici on te respecte sans titres.", "tone": "sincere", "score": 1, "reaction": "…Hm.", "emotion": "neutral" },
+            { "text": "Je peux t'appeler 'Boss' si tu veux.", "tone": "playful", "score": 1, "reaction": "Boss ! J'aime bien.", "emotion": "playful" },
+            { "text": "Alors impose-le. Ou accepte.", "tone": "direct", "score": 1, "reaction": "…Tch. D'accord.", "emotion": "annoyed" },
+            { "text": "Tu es plus qu'un titre, Laharl.", "tone": "romantic", "score": 1, "reaction": "…Ferme-la.", "emotion": "shy" }
+          ]
+        },
+        {
+          "context": ["La salle gothique résonne de ton pas."],
+          "prompt": "Si la faille se referme, je repars. Tu le comprends ?",
+          "choices": [
+            { "text": "Oui. Et je serai content de t'avoir connu.", "tone": "sincere", "score": 1, "reaction": "…Idiot.", "emotion": "sad" },
+            { "text": "Alors on la garde ouverte avec des Myrions !", "tone": "playful", "score": 0, "reaction": "Ce n'est pas un robinet.", "emotion": "annoyed" },
+            { "text": "Compris. Agissons avant.", "tone": "direct", "score": 1, "reaction": "Voilà un plan.", "emotion": "neutral" },
+            { "text": "Même un instant compte.", "tone": "romantic", "score": 1, "reaction": "…Tss.", "emotion": "shy" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pleinair-jardin-accueil",
+      "companionId": "pleinair",
+      "title": "Mascotte silencieuse",
+      "minAffinity": 0,
+      "maxAffinity": 2,
+      "rounds": [
+        {
+          "context": ["Pleinair serre son lapin en peluche.", "Elle hoche la tête une fois."],
+          "prompt": "…",
+          "choices": [
+            { "text": "Tu peux rester aussi longtemps que tu veux.", "tone": "sincere", "score": 1, "reaction": "…*hoche la tête*", "emotion": "happy" },
+            { "text": "Ton lapin a l'air d'approuver.", "tone": "playful", "score": 1, "reaction": "…*petit sourire*", "emotion": "playful" },
+            { "text": "Pas besoin de parler. Je comprends.", "tone": "direct", "score": 1, "reaction": "…*regard doux*", "emotion": "neutral" },
+            { "text": "Je suis content que tu sois là.", "tone": "romantic", "score": 0, "reaction": "…*regard ailleurs*", "emotion": "shy" }
+          ]
+        },
+        {
+          "context": ["Des rubans pastel flottent autour d'elle."],
+          "prompt": "… ?",
+          "choices": [
+            { "text": "Le jardin te plaît ?", "tone": "sincere", "score": 1, "reaction": "…Oui.", "emotion": "happy" },
+            { "text": "Course jusqu'au banc !", "tone": "playful", "score": 1, "reaction": "…!", "emotion": "surprised" },
+            { "text": "Dis-moi ce dont tu as besoin.", "tone": "direct", "score": 0, "reaction": "…*", "emotion": "neutral" },
+            { "text": "Reste près de moi ce soir.", "tone": "romantic", "score": 0, "reaction": "…*", "emotion": "shy" }
+          ]
+        },
+        {
+          "context": ["Elle tend le lapin vers toi, hésitante."],
+          "prompt": "… ?",
+          "choices": [
+            { "text": "Je le garderai en sécurité.", "tone": "sincere", "score": 1, "reaction": "…Merci.", "emotion": "happy" },
+            { "text": "Il a besoin d'un nom ?", "tone": "playful", "score": 1, "reaction": "…Lapin.", "emotion": "playful" },
+            { "text": "Garde-le. C'est ton ami.", "tone": "direct", "score": 1, "reaction": "…*", "emotion": "neutral" },
+            { "text": "Comme toi, il est précieux.", "tone": "romantic", "score": 1, "reaction": "…*", "emotion": "shy" }
+          ]
+        }
+      ]
+    }
+  ]
+}

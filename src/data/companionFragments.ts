@@ -15,6 +15,10 @@ export const COMPANION_FRAGMENT_IDS = [
   'noa',
   'sora',
   'zelie',
+  'etna',
+  'flonne',
+  'laharl',
+  'pleinair',
 ] as const
 
 export type CompanionFragmentId = (typeof COMPANION_FRAGMENT_IDS)[number]
@@ -35,6 +39,10 @@ export const COMPANION_FRAGMENT_NAMES: Record<CompanionFragmentId, string> = {
   noa: 'Noa',
   sora: 'Sora',
   zelie: 'Zelie',
+  etna: 'Etna',
+  flonne: 'Flonne',
+  laharl: 'Laharl',
+  pleinair: 'Pleinair',
 }
 
 /** Fragments nécessaires pour +1 stat sur le compagnon associé. */

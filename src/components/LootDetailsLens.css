@@ -1,0 +1,968 @@
+.loot-details-lens {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  width: 32px;
+}
+
+.loot-details-lens:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: none;
+}
+
+.loot-details-lens-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.loot-details-lens--dark {
+  background: rgba(20, 14, 28, 0.08);
+  border-color: rgba(20, 14, 28, 0.12);
+}
+
+.loot-details-backdrop {
+  background: rgba(6, 8, 16, 0.55);
+  border: 0;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 140;
+}
+
+.loot-details-dialog {
+  background: #fff9fd;
+  border: 1px solid rgba(20, 14, 28, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 18px 48px rgba(20, 14, 28, 0.22);
+  color: #2a1830;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  left: 50%;
+  max-height: min(86dvh, 760px);
+  max-width: min(92vw, 720px);
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 720px);
+  z-index: 141;
+}
+
+.loot-details-dialog-head {
+  align-items: center;
+  border-bottom: 1px solid rgba(20, 14, 28, 0.08);
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.loot-details-dialog-head h4 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.loot-details-close {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 0;
+}
+
+.loot-details-dialog-body {
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 14px 16px 18px;
+}
+
+.loot-details-sections {
+  display: grid;
+  gap: 18px;
+}
+
+.loot-details-sections h5 {
+  font-size: 0.92rem;
+  margin: 0 0 8px;
+}
+
+.loot-details-hint,
+.loot-details-note {
+  color: rgba(42, 24, 48, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0 0 8px;
+}
+
+.loot-details-rate-list {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.loot-details-rate-list li {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 36px minmax(0, 1fr) 52px;
+}
+
+.loot-details-rarity {
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.loot-details-bar-wrap {
+  background: rgba(20, 14, 28, 0.08);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.loot-details-bar {
+  border-radius: 999px;
+  display: block;
+  height: 100%;
+}
+
+.loot-details-pct {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.loot-details-loot-table-wrap {
+  max-height: 280px;
+  overflow: auto;
+}
+
+.loot-details-loot-table-wrap--short {
+  max-height: 220px;
+}
+
+.loot-details-loot-table {
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  width: 100%;
+}
+
+.loot-details-loot-table th,
+.loot-details-loot-table td {
+  border-bottom: 1px solid rgba(20, 14, 28, 0.08);
+  padding: 8px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.loot-details-loot-table td small {
+  color: rgba(42, 24, 48, 0.65);
+  display: block;
+  margin-top: 2px;
+}
+
+.loot-details-icon-wrap {
+  align-items: center;
+  background: rgba(20, 14, 28, 0.06);
+  border: 1px solid rgba(20, 14, 28, 0.08);
+  border-radius: 10px;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 34px;
+  justify-content: center;
+  width: 34px;
+}
+
+.loot-details-icon {
+  display: block;
+  height: 22px;
+  object-fit: contain;
+  width: 22px;
+}
+
+.loot-details-species-cell {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.loot-details-species-label {
+  min-width: 0;
+}
+
+.loot-details-species-thumb {
+  display: block;
+  flex-shrink: 0;
+  height: 28px;
+  object-fit: contain;
+  width: 28px;
+}
+
+.loot-details-species-thumb--emoji {
+  align-items: center;
+  display: inline-flex;
+  font-size: 1.1rem;
+  height: 28px;
+  justify-content: center;
+  line-height: 1;
+  width: 28px;
+}
+
+.loot-details-hint--tight {
+  margin-bottom: 8px;
+  margin-top: -2px;
+}
+
+.loot-details-tier-sections {
+  display: grid;
+  gap: 8px;
+  max-height: 320px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.loot-details-tier-section {
+  background: rgba(20, 14, 28, 0.03);
+  border: 1px solid rgba(20, 14, 28, 0.08);
+  border-left: 3px solid var(--tier-color, rgba(20, 14, 28, 0.2));
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.loot-details-tier-head {
+  align-items: center;
+  background: rgba(20, 14, 28, 0.04);
+  border-bottom: 1px solid rgba(20, 14, 28, 0.06);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 7px 10px;
+}
+
+.loot-details-tier-badge {
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.loot-details-tier-totals {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+  font-weight: 700;
+  gap: 4px;
+}
+
+.loot-details-tier-sep {
+  color: rgba(42, 24, 48, 0.35);
+  font-weight: 400;
+}
+
+.loot-details-tier-count {
+  color: rgba(42, 24, 48, 0.55);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.loot-details-tier-species {
+  display: grid;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.loot-details-tier-species li {
+  align-items: center;
+  border-bottom: 1px solid rgba(20, 14, 28, 0.05);
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 6px 10px;
+}
+
+.loot-details-tier-species li:last-child {
+  border-bottom: 0;
+}
+
+.loot-details-tier-pcts {
+  display: inline-grid;
+  gap: 2px 12px;
+  grid-template-columns: auto auto;
+  text-align: right;
+}
+
+.loot-details-tier-pct {
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.loot-details-compact-table tfoot td,
+.loot-details-loot-table tfoot td {
+  border-bottom: 0;
+  border-top: 2px solid rgba(20, 14, 28, 0.12);
+  font-weight: 800;
+  padding-top: 8px;
+}
+
+.loot-details-total-row td:first-child {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.loot-details-rate-total {
+  border-top: 1px solid rgba(20, 14, 28, 0.1);
+  font-weight: 800;
+  margin-top: 4px;
+  padding-top: 6px;
+}
+
+.minigame-panel-fullscreen .loot-details-compact-table tfoot td,
+.minigame-panel-fullscreen .loot-details-loot-table tfoot td {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.minigame-panel-fullscreen .loot-details-rate-total {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.loot-details-guide {
+  background: rgba(20, 14, 28, 0.04);
+  border: 1px solid rgba(20, 14, 28, 0.08);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  padding: 12px;
+}
+
+.loot-details-guide-summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.92rem;
+  font-weight: 800;
+  gap: 8px;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  user-select: none;
+}
+
+.loot-details-guide-summary::-webkit-details-marker {
+  display: none;
+}
+
+.loot-details-guide-summary::after {
+  color: rgba(42, 24, 48, 0.45);
+  content: '▸';
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: transform 0.16s ease;
+}
+
+.loot-details-guide[open] .loot-details-guide-summary::after {
+  transform: rotate(90deg);
+}
+
+.loot-details-guide-summary:focus-visible {
+  border-radius: 8px;
+  outline: 2px solid rgba(120, 72, 160, 0.55);
+  outline-offset: 2px;
+}
+
+.loot-details-guide-body {
+  border-top: 1px solid rgba(20, 14, 28, 0.08);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.loot-details-guide h5 {
+  margin: 0 0 10px;
+}
+
+.loot-details-guide-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-bottom: 10px;
+}
+
+.loot-details-guide-block {
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.loot-details-guide-block--lr {
+  background: rgba(255, 176, 32, 0.1);
+  margin-bottom: 10px;
+}
+
+.loot-details-guide-block-title {
+  font-size: 0.74rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.loot-details-bullets--compact li {
+  font-size: 0.78rem;
+  margin-bottom: 2px;
+}
+
+.loot-details-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.loot-details-checklist li {
+  align-items: flex-start;
+  display: flex;
+  font-size: 0.8rem;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.loot-details-checklist li:last-child {
+  margin-bottom: 0;
+}
+
+.loot-details-checklist li.pending strong {
+  color: rgba(42, 24, 48, 0.88);
+}
+
+.loot-details-checklist li.done {
+  color: rgba(42, 24, 48, 0.65);
+}
+
+.loot-details-checklist li small {
+  color: rgba(42, 24, 48, 0.62);
+  display: block;
+  font-size: 0.74rem;
+  margin-top: 2px;
+}
+
+.loot-details-checklist-mark {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 20px;
+  justify-content: center;
+  line-height: 1;
+  margin-top: 1px;
+  width: 20px;
+}
+
+.loot-details-checklist-mark svg {
+  display: block;
+}
+
+.loot-details-checklist-mark--ok {
+  background: rgba(31, 157, 85, 0.16);
+  border: 1.5px solid #1f9d55;
+  color: #178f47;
+}
+
+.loot-details-checklist-mark--ko {
+  background: rgba(214, 59, 59, 0.14);
+  border: 1.5px solid #d63b3b;
+  color: #c62828;
+}
+
+.minigame-panel-fullscreen .loot-details-checklist li .loot-details-checklist-mark--ok {
+  background: rgba(95, 217, 138, 0.18);
+  border-color: #5fd98a;
+  color: #5fd98a;
+}
+
+.minigame-panel-fullscreen .loot-details-checklist li .loot-details-checklist-mark--ko {
+  background: rgba(255, 122, 122, 0.16);
+  border-color: #ff7a7a;
+  color: #ff7a7a;
+}
+
+.loot-details-favor-guides {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.loot-details-favor-guides li {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  display: grid;
+  font-size: 0.78rem;
+  gap: 3px;
+  line-height: 1.35;
+  padding: 8px 10px;
+}
+
+.loot-details-favor-guides li.active {
+  border: 1px solid rgba(120, 72, 160, 0.25);
+}
+
+.loot-details-favor-guides-head {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.loot-details-favor-guides li small {
+  color: rgba(42, 24, 48, 0.62);
+  font-size: 0.72rem;
+}
+
+.loot-details-favor-tag {
+  background: rgba(120, 72, 160, 0.14);
+  border-radius: 999px;
+  color: rgba(80, 40, 110, 0.95);
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  text-transform: uppercase;
+}
+
+.loot-details-favor-tag--rates {
+  background: rgba(255, 176, 32, 0.18);
+  color: rgba(120, 70, 0, 0.95);
+}
+
+.minigame-panel-fullscreen .loot-details-guide {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.minigame-panel-fullscreen .loot-details-guide-summary::after {
+  color: rgba(255, 245, 251, 0.55);
+}
+
+.minigame-panel-fullscreen .loot-details-guide-body {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.minigame-panel-fullscreen .loot-details-guide-block {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.minigame-panel-fullscreen .loot-details-guide-block--lr {
+  background: rgba(255, 176, 32, 0.12);
+}
+
+.minigame-panel-fullscreen .loot-details-checklist li.pending strong,
+.minigame-panel-fullscreen .loot-details-checklist li.done {
+  color: rgba(255, 245, 251, 0.85);
+}
+
+.minigame-panel-fullscreen .loot-details-checklist li small,
+.minigame-panel-fullscreen .loot-details-favor-guides li small {
+  color: rgba(255, 245, 251, 0.58);
+}
+
+.minigame-panel-fullscreen .loot-details-favor-guides li {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.minigame-panel-fullscreen .loot-details-tier-section {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.minigame-panel-fullscreen .loot-details-tier-head {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.minigame-panel-fullscreen .loot-details-tier-count,
+.minigame-panel-fullscreen .loot-details-tier-sep {
+  color: rgba(255, 245, 251, 0.55);
+}
+
+.minigame-panel-fullscreen .loot-details-tier-species li {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.loot-details-featured-section {
+  background: linear-gradient(135deg, rgba(255, 176, 32, 0.08), rgba(255, 90, 138, 0.06));
+  border: 1px solid rgba(20, 14, 28, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.loot-details-featured-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.loot-details-featured-grid li {
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(20, 14, 28, 0.08);
+  border-radius: 12px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}
+
+.loot-details-featured-meta {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.loot-details-featured-name {
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.loot-details-featured-summary {
+  color: rgba(42, 24, 48, 0.68);
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+
+.loot-details-featured-foot {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.loot-details-featured-rarity {
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.loot-details-featured-pct {
+  color: rgba(42, 24, 48, 0.72);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.loot-details-loot-icon-cell {
+  width: 42px;
+}
+
+.loot-details-rate-list--compact {
+  gap: 6px;
+}
+
+.loot-details-rate-list--compact li {
+  grid-template-columns: 32px minmax(0, 1fr) 48px;
+}
+
+.loot-details-compact-section h5,
+.loot-details-pity-section h5 {
+  margin-bottom: 6px;
+}
+
+.loot-details-pity-section .loot-details-bullets li {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 520px) {
+  .loot-details-featured-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.loot-details-loot-table--compact td small {
+  display: inline;
+  margin-left: 6px;
+}
+
+.loot-details-bullets {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.loot-details-bullets li {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  margin-bottom: 4px;
+}
+
+.loot-details-dual-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.loot-details-subtitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.loot-details-compact-table {
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.loot-details-compact-table th,
+.loot-details-compact-table td {
+  border-bottom: 1px solid rgba(20, 14, 28, 0.08);
+  padding: 6px 4px;
+}
+
+.loot-details-biome-picker {
+  display: grid;
+  font-size: 0.82rem;
+  font-weight: 700;
+  gap: 6px;
+}
+
+.loot-details-biome-picker select {
+  appearance: auto;
+  background: #fff;
+  border: 1px solid rgba(20, 14, 28, 0.14);
+  border-radius: 10px;
+  color: #2a1830;
+  color-scheme: light;
+  font: inherit;
+  padding: 8px 10px;
+}
+
+.loot-details-biome-picker select option {
+  background: #fff9fd;
+  color: #2a1830;
+}
+
+.loot-details-biome.locked {
+  opacity: 0.72;
+}
+
+@media (min-width: 768px) {
+  .loot-details-dual-grid {
+    grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
+  }
+}
+
+.minigame-panel-fullscreen .loot-details-dialog {
+  background: rgba(14, 10, 22, 0.96);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff5fb;
+}
+
+.minigame-panel-fullscreen .loot-details-hint,
+.minigame-panel-fullscreen .loot-details-note {
+  color: rgba(255, 245, 251, 0.72);
+}
+
+.minigame-panel-fullscreen .loot-details-loot-table th,
+.minigame-panel-fullscreen .loot-details-loot-table td,
+.minigame-panel-fullscreen .loot-details-compact-table th,
+.minigame-panel-fullscreen .loot-details-compact-table td {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.minigame-panel-fullscreen .loot-details-loot-table td small {
+  color: rgba(255, 245, 251, 0.65);
+}
+
+.minigame-panel-fullscreen .loot-details-featured-section {
+  background: linear-gradient(135deg, rgba(255, 176, 32, 0.12), rgba(255, 90, 138, 0.1));
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.minigame-panel-fullscreen .loot-details-featured-grid li {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.minigame-panel-fullscreen .loot-details-featured-summary,
+.minigame-panel-fullscreen .loot-details-featured-pct {
+  color: rgba(255, 245, 251, 0.68);
+}
+
+.minigame-panel-fullscreen .loot-details-icon-wrap {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.minigame-panel-fullscreen .loot-details-biome-picker {
+  color: rgba(248, 250, 255, 0.88);
+}
+
+.minigame-panel-fullscreen .loot-details-biome-picker select {
+  background: rgba(8, 10, 18, 0.95);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: rgba(248, 250, 255, 0.92);
+  color-scheme: dark;
+}
+
+.minigame-panel-fullscreen .loot-details-biome-picker select option {
+  background: #0e0a16;
+  color: #fff5fb;
+}
+
+.mg-capture-toolbar .loot-details-lens {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.mg-capture-pause-btn {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  height: 32px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+}
+
+.mg-capture-pause-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: none;
+}
+
+.mg-capture-pause-btn.active {
+  background: rgba(180, 73, 255, 0.35);
+  border-color: rgba(255, 180, 255, 0.45);
+  color: #fff;
+}
+
+.minigame-panel-fullscreen .mg-capture-pause-btn {
+  backdrop-filter: blur(8px);
+  background: rgba(8, 10, 18, 0.62);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  color: rgba(248, 250, 255, 0.94);
+}
+
+.minigame-panel-fullscreen .mg-capture-pause-btn.active {
+  background: rgba(180, 73, 255, 0.42);
+  border-color: rgba(255, 180, 255, 0.5);
+  color: #fff;
+}
+
+.event-panel-title-row,
+.event-disagrea-banner-title-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.loot-details-hover-tip {
+  border-bottom: 1px dashed rgba(42, 24, 48, 0.28);
+  cursor: help;
+  display: inline-block;
+  outline: none;
+}
+
+.loot-details-hover-tip:focus-visible {
+  border-bottom-color: rgba(120, 72, 160, 0.85);
+  box-shadow: 0 2px 0 rgba(120, 72, 160, 0.35);
+}
+
+.loot-details-hover-tip-popup {
+  backdrop-filter: blur(12px);
+  background: rgba(20, 12, 28, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  box-sizing: border-box;
+  color: #fff8fc;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  max-height: min(78dvh, 540px);
+  max-width: min(400px, calc(100vw - 24px));
+  min-width: min(280px, calc(100vw - 24px));
+  opacity: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 10px 12px;
+  pointer-events: auto;
+  position: fixed;
+  transition: opacity 0.14s ease;
+  width: max-content;
+  z-index: 150;
+}
+
+.loot-details-hover-tip-popup--ready {
+  opacity: 1;
+}
+
+.loot-details-hover-tip-popup--gameplay {
+  max-width: min(360px, calc(100vw - 24px));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
+}
+
+.loot-details-hover-tip-sections {
+  display: grid;
+  gap: 10px;
+}
+
+.loot-details-hover-tip-section + .loot-details-hover-tip-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 8px;
+}
+
+.loot-details-hover-tip-section-title {
+  color: rgba(255, 220, 180, 0.95);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+.loot-details-hover-tip-title {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.loot-details-hover-tip-lines {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.loot-details-hover-tip-lines li {
+  margin-bottom: 4px;
+}
+
+.loot-details-hover-tip-lines li:last-child {
+  margin-bottom: 0;
+}
+
+.minigame-panel-fullscreen .loot-details-hover-tip {
+  border-bottom-color: rgba(255, 245, 251, 0.35);
+}
+

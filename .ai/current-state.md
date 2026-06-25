@@ -1,108 +1,31 @@
 ﻿# Current State
 
-Last updated: 2026-06-24 by Codex.
+Last updated: 2026-06-25 by Cursor (user-only coordination).
 
-## Decision
+## Active initiative
 
-The desired direction is to get Disagrea online, but only after the working tree is split into safe, reviewable steps.
+**Assets 2.0 cleanup** — Phase 0 in progress.
 
-Current safest sequence:
+- User is sole interlocutor (Codex out of loop).
+- Target: single `assets/` tree, `old_assets/` archive, preserve `staging/` + `Input chatgpt/`.
+- Backup branch: `origin/Backup` (snapshot before moves).
 
-1. Coordination layer.
-2. Minigame asset path migration.
-3. Companion portrait runtime.
-4. Disagrea asset staging/import.
-5. Disagrea runtime wiring.
-6. Release packaging.
+## Phase 0 status
 
-## Repository State Warning
+- Manifest: `staging/planning/asset-manifest.json` (~1990 images indexed).
+- Plan: `staging/planning/PHASE0-assets-2.0.md`.
+- Cutouts v3 promotion: **stopped** per user — cleanup priority.
 
-The working tree is intentionally but heavily dirty. Cursor reported it was interrupted during a large migration/import task and is now paused.
+## Validation baseline (before asset moves)
 
-Observed categories:
+Run before/after each major phase:
 
-- AI coordination files are untracked and safe to isolate first.
-- The migration from `public/minigames/*` to `public/assets/minigames/*` is partially represented as tracked deletions plus untracked replacements.
-- Disagrea assets exist in staging/runtime folders but should not be mixed with the generic minigame asset migration.
-- Runtime code has WIP changes for minigames, portraits, image lightbox, and asset URL helpers.
-- Release artifacts are present and should stay out of gameplay commits until validation passes.
+```bash
+npm run build
+npm run lint
+npm run validate:link-corpus
+```
 
-See `.ai/cleanup-inventory.md` for the categorized plan.
+## Next step
 
-## Writer Coordination
-
-Cursor is paused. Codex may take the next bounded step from `.ai/next-task.md`. Cursor should stay in review/read mode until Codex writes `.ai/codex-report.md` and `.ai/cursor-review-instructions.md`.
-
-## Update - 2026-06-24
-
-Completed steps:
-
-- `6f62dd4 docs: add ai coordination layer`
-- `27b3fb7 chore(assets): migrate minigame assets`
-
-Build and lint passed after staging the migration commit. Cursor should review `27b3fb7` before the next writer step. The next likely step is visual smoke testing of migrated minigame assets, unless review finds a small fix.
-
-## Update - 2026-06-24 04:40 UTC
-
-Cursor reviewed the migration smoke attempt and accepted Codex's fallback checks as enough to hand off the next bounded writer step.
-
-Next active writer step is now Commit 3 from `.ai/cleanup-inventory.md`: companion portrait runtime only.
-
-Disagrea runtime wiring remains out of scope until this step is isolated and build/lint plus review/smoke are documented.
-
-## Update - 2026-06-24 companion portrait committed
-
-Completed:
-
-- `2415b82 feat(companions): add layered portrait runtime`
-
-The commit was validated in an isolated clean worktree with only the staged portrait patch applied. Build and lint passed; lint still reports 12 existing warnings.
-
-Remaining WIP now includes conversation UX/reward/recap changes and Disagrea-specific companion chibi additions. Disagrea runtime wiring is still out of scope.
-
-## Update - 2026-06-24 conversation result flow committed
-
-Completed:
-
-- `252ac98 feat(minigames): add conversation result flow`
-
-Included:
-
-- conversation result screen before closing the minigame;
-- reward preview aligned with the companion charm multiplier;
-- per-round success/fail feedback, recap, and responsive conversation panel styling.
-
-Validation was run in an isolated clean worktree with only the staged conversation patch applied:
-
-- `npm run build` passed.
-- `npm run lint` passed with 0 errors and 11 existing warnings.
-
-Remaining WIP now centers on Disagrea-specific asset/runtime staging plus unrelated local release/tooling artifacts. Next safest step is Cursor review of `252ac98`, then a bounded Disagrea asset staging/import pass if review is clean.
-
-## Update - 2026-06-24 Disagrea runtime assets committed
-
-Completed:
-
-- `01cb8e6 chore(assets): stage disagrea runtime assets`
-
-Included:
-
-- Disagrea event backgrounds for capture and dressage.
-- 16 Disagrea Myrion cutouts for capture.
-- 16 Disagrea Myrion chibis for dressage/refuge display.
-- `companionAssets.ts` chibi availability for `etna`, `flonne`, `laharl`, and `pleinair`.
-
-Excluded:
-
-- `src/data/eventDisagreaPack.ts` runtime wiring.
-- Disagrea source/staging folders under `assets/`.
-- untracked catalog/composite scripts.
-- release packaging.
-
-Validation:
-
-- PNG header/dimension check passed for all 38 staged images.
-- `npm run build` passed.
-- `npm run lint` passed with 0 errors and 11 existing warnings.
-
-Next safest step: Cursor review of `01cb8e6`, then Disagrea runtime wiring in a separate commit.
+Phase 0: push snapshot to `origin/Backup`, then Phase 1 playbooks in `staging/`.

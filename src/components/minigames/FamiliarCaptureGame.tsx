@@ -86,6 +86,8 @@ import { HuntCapturePolicyPanel } from './HuntCapturePolicyPanel'
 import { PendingCapturesPanel } from './PendingCapturesPanel'
 
 import { HuntActiveFavorsPanel } from './HuntActiveFavorsPanel'
+import { HuntDropRatesContent } from '../HuntDropRatesContent'
+import { LootDetailsLens } from '../LootDetailsLens'
 
 import { HuntSideRail, type HuntDrawerId } from './HuntSideRail'
 
@@ -100,6 +102,12 @@ import { MinigameSwitchPanel } from './MinigameSwitchPanel'
 import './CaptureMobile.css'
 import { useIsMobileCapture } from '../../hooks/useMediaQuery'
 import { MYRION_REFUGE_DEBUG } from '../../data/myrionDebug'
+import {
+  playCaptureFailure,
+  playCaptureSuccess,
+  playMyrionEncounterCry,
+  resumeHuntAudio,
+} from '../../audio/huntAudio'
 
 
 
@@ -163,8 +171,10 @@ export function FamiliarCaptureGame({
 
   const [openDrawer, setOpenDrawer] = useState<HuntDrawerId | null>(null)
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
+  const [lootDetailsOpen, setLootDetailsOpen] = useState(false)
+  const [manualPause, setManualPause] = useState(false)
 
-  const isGamePaused = sideMenuOpen || openDrawer !== null
+  const isGamePaused = sideMenuOpen || openDrawer !== null || lootDetailsOpen || manualPause
 
   const [compareResult, setCompareResult] = useState<CaptureCompareResult | null>(null)
 
@@ -229,6 +239,8 @@ export function FamiliarCaptureGame({
 
   const timingGradesRef = useRef<TimingGrade[]>([])
   const huntPhaseRef = useRef(huntPhase)
+  const lastEncounterCryRef = useRef<string | null>(null)
+  const lastCaptureOutcomeSoundRef = useRef<string | null>(null)
 
   useEffect(() => {
     huntPhaseRef.current = huntPhase
@@ -237,6 +249,42 @@ export function FamiliarCaptureGame({
   useEffect(() => {
     gamePausedRef.current = isGamePaused
   }, [isGamePaused])
+
+  useEffect(() => {
+    const resume = () => {
+      void resumeHuntAudio()
+    }
+    window.addEventListener('pointerdown', resume, { once: true })
+    return () => window.removeEventListener('pointerdown', resume)
+  }, [])
+
+  useEffect(() => {
+    if (isGamePaused || !encounter || huntPhase !== 'appeared') return
+    const token = `${encounter.palmon.id}-${encounter.biome.id}-appeared`
+    if (lastEncounterCryRef.current === token) return
+    lastEncounterCryRef.current = token
+
+    void resumeHuntAudio().then(() => {
+      playMyrionEncounterCry(encounter.palmon.id, encounter.palmon.rarity)
+    })
+  }, [encounter, huntPhase, isGamePaused])
+
+  useEffect(() => {
+    if (isGamePaused || !encounter) return
+    if (huntPhase !== 'success' && huntPhase !== 'failed') return
+
+    const token = `${encounter.palmon.id}-${huntPhase}`
+    if (lastCaptureOutcomeSoundRef.current === token) return
+    lastCaptureOutcomeSoundRef.current = token
+
+    void resumeHuntAudio().then(() => {
+      if (huntPhase === 'success') {
+        playCaptureSuccess()
+      } else {
+        playCaptureFailure()
+      }
+    })
+  }, [encounter, huntPhase, isGamePaused])
 
   const clearRevealTimer = useCallback(() => {
     if (revealTimerRef.current) {
@@ -946,6 +994,9 @@ export function FamiliarCaptureGame({
       setLastGrade(null)
       setCaptureAttempt(1)
       setStability(100)
+      lastEncounterCryRef.current = null
+      lastCaptureOutcomeSoundRef.current = null
+      setManualPause(false)
       setFlash(`${next.biome.emoji} ${next.biome.name} — une presence se dessine…`)
       setOpenDrawer(null)
 
@@ -963,6 +1014,7 @@ export function FamiliarCaptureGame({
     autoCaptureRemainingRef.current = null
     autoReplayRemainingRef.current = null
     capturePauseStartRef.current = null
+    setManualPause(false)
     setPhase('explore')
     setEncounter(null)
     setFlash('Choisis un biome debloque pour continuer ta chasse.')
@@ -1575,6 +1627,27 @@ export function FamiliarCaptureGame({
           {flash ? <p className="mg-capture-flash mg-capture-flash--toast">{flash}</p> : null}
 
           <div className="mg-capture-hud">
+            <button
+              aria-label={manualPause ? 'Reprendre la chasse' : 'Mettre en pause'}
+              aria-pressed={manualPause}
+              className={`mg-capture-pause-btn${manualPause ? ' active' : ''}`}
+              title={manualPause ? 'Reprendre' : 'Pause'}
+              type="button"
+              onClick={() => setManualPause((paused) => !paused)}
+            >
+              <span aria-hidden="true">{manualPause ? '▶' : '⏸'}</span>
+            </button>
+            <LootDetailsLens
+              label="Voir les taux de drop des Myrions"
+              title="Taux de rencontre — Chasse"
+              onOpenChange={setLootDetailsOpen}
+            >
+              <HuntDropRatesContent
+                collection={playerCollection}
+                focusBiomeId={encounter?.biome.id}
+                huntFavors={huntFavors}
+              />
+            </LootDetailsLens>
             <button
               aria-expanded={hudDetailsOpen}
               className="mg-capture-hud-chip"

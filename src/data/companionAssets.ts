@@ -79,16 +79,47 @@ export type CompanionPortraitLayerSources = {
   composed: string[]
 }
 
+const companionAffinityNsfwRelative = (companionId: string) =>
+  `assets/companions/${companionId}/affinity-4-nsfw.png`
+
+export const companionAffinityNsfwPath = (companionId: string) =>
+  publicAssetUrl(companionAffinityNsfwRelative(companionId))
+
+export const companionAffinityNsfwPathCandidates = (companionId: string) => [
+  companionAffinityNsfwRelative(companionId),
+]
+
+/** Compagnons invités Event Disagrea. */
+export const DISAGREA_COMPANION_IDS = ['etna', 'flonne', 'laharl', 'pleinair'] as const
+
+export type DisagreaCompanionIdFromAssets = (typeof DISAGREA_COMPANION_IDS)[number]
+
+function isDisagreaCompanion(companionId: string): companionId is DisagreaCompanionIdFromAssets {
+  return (DISAGREA_COMPANION_IDS as readonly string[]).includes(companionId)
+}
+
 export const companionPortraitLayerSources = (
   companionId: string,
   level = 1,
   sceneId?: string,
-): CompanionPortraitLayerSources => ({
-  cutout: companionCutoutPathCandidates(companionId, level),
-  background: companionBackgroundPathCandidates(companionId, level),
-  sceneBackground: sceneId ? companionSceneBackgroundPathCandidates(sceneId) : undefined,
-  composed: companionAssetPathCandidates(companionId, level),
-})
+): CompanionPortraitLayerSources => {
+  /** Disagrea : portraits intégrés L1–L5 en affinity-N (plus de cutout+background). */
+  if (isDisagreaCompanion(companionId)) {
+    return {
+      cutout: [],
+      background: [],
+      composed: companionAssetPathCandidates(companionId, level),
+      sceneBackground: sceneId ? companionSceneBackgroundPathCandidates(sceneId) : undefined,
+    }
+  }
+
+  return {
+    cutout: companionCutoutPathCandidates(companionId, level),
+    background: companionBackgroundPathCandidates(companionId, level),
+    sceneBackground: sceneId ? companionSceneBackgroundPathCandidates(sceneId) : undefined,
+    composed: companionAssetPathCandidates(companionId, level),
+  }
+}
 
 export const companionChibiPath = (companionId: string) =>
   publicAssetUrl(`assets/companions/${companionId}/chibi.png`)
@@ -98,12 +129,52 @@ export const companionChibiPathCandidates = (companionId: string) => [
   `companions/${companionId}/chibi.png`,
 ]
 
-/** Compagnons invités Event Disagrea (assets importés via import-disagrea-assets.mjs). */
-export const DISAGREA_COMPANION_IDS = ['etna', 'flonne', 'laharl', 'pleinair'] as const
+/** Émotions cutout (staging v2 → public emotion-*.png). */
+export const COMPANION_EMOTION_IDS = [
+  'neutral',
+  'happy',
+  'shy',
+  'annoyed',
+  'sad',
+  'surprised',
+  'romantic',
+  'playful',
+] as const
 
-/** Compagnons avec un vrai fichier chibi.png (miniatures inventaire). */
+export type CompanionEmotionId = (typeof COMPANION_EMOTION_IDS)[number]
+
+const companionEmotionCutoutRelative = (companionId: string, emotion: CompanionEmotionId) =>
+  `assets/companions/${companionId}/emotion-${emotion}.png`
+
+export const companionEmotionCutoutPath = (companionId: string, emotion: CompanionEmotionId) =>
+  publicAssetUrl(companionEmotionCutoutRelative(companionId, emotion))
+
+export const companionEmotionCutoutPathCandidates = (
+  companionId: string,
+  emotion: CompanionEmotionId,
+) => [companionEmotionCutoutRelative(companionId, emotion)]
+
+/** Scène intégrée NSFW (ex-L6 peak-plus) — palier logique 4, affichée si option NSFW. */
+export const companionIntegratedNsfwRelative = (companionId: string) =>
+  `assets/event-disagrea/integrated/companions/${companionId}/companion-${companionId}-affinity-04-nsfw-scene-v1.png`
+
+/** Compagnons avec chibi.png (tous les villageois + Disagrea). */
 export const COMPANIONS_WITH_CHIBI = new Set([
+  'lyra',
+  'maeve',
+  'seren',
+  'nami',
+  'iris',
+  'kael',
+  'runa',
+  'solene',
   'talia',
+  'mira',
+  'asha',
+  'elwen',
+  'noa',
+  'sora',
+  'zelie',
   ...DISAGREA_COMPANION_IDS,
 ])
 

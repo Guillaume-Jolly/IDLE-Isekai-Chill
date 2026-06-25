@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "note": "Extension staging — à fusionner dans src/data/disagreaStory.ts après validation",
+  "chapters": [
+    {
+      "id": "liens-etna",
+      "title": "Chapitre — Etna, vassale du balcon",
+      "subtitle": "Du sarcasme à la confiance",
+      "companionId": "etna",
+      "pages": [
+        {
+          "id": "etna-liens-1",
+          "location": "Balcon lunaire",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/etna/backgrounds/Etna_affinity_01_03_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/etna/backgrounds/Etna_affinity_01_03_mobile.png",
+          "companionId": "etna",
+          "emotion": "playful",
+          "paragraphs": [
+            "Etna observe le havre comme une générale qui évalue un nouveau territoire.",
+            "« Consultante en stratégie », dit-elle. Personne n'est dupe — elle protège ce qu'elle finit par aimer."
+          ]
+        },
+        {
+          "id": "etna-liens-2",
+          "location": "Repaire pourpre, soir",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/etna/backgrounds/Etna_affinity_01_03_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/etna/backgrounds/Etna_affinity_01_03_mobile.png",
+          "companionId": "etna",
+          "emotion": "shy",
+          "paragraphs": [
+            "Un soir, elle avoue à demi-mot que la faille lui rappelle une maison qu'elle n'a jamais eue.",
+            "Le havre n'a pas de boss final — seulement des gens qui reviennent. Et ça, pour une démone, c'est déroutant."
+          ]
+        },
+        {
+          "id": "etna-liens-3",
+          "location": "Chambre gothique vampirique",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/etna/backgrounds/Etna_affinity_04_05_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/etna/backgrounds/Etna_affinity_04_05_mobile.png",
+          "companionId": "etna",
+          "emotion": "romantic",
+          "paragraphs": [
+            "Quand l'intimité grandit, Etna ne change pas de tenue — seulement de regard.",
+            "Impatiemment, presque tendrement, elle attend que tu comprennes sans qu'elle ait à le dire."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "liens-flonne",
+      "title": "Chapitre — Flonne, lumière du palais",
+      "subtitle": "Guérir autrement que par les bandages",
+      "companionId": "flonne",
+      "pages": [
+        {
+          "id": "flonne-liens-1",
+          "location": "Chapelle angélique",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/flonne/backgrounds/Flonne_affinity_01_03_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/flonne/backgrounds/Flonne_affinity_01_03_mobile.png",
+          "companionId": "flonne",
+          "emotion": "happy",
+          "paragraphs": [
+            "Flonne apporte des fleurs, des chansons, et parfois trop de bandages.",
+            "Son palais pastel brille encore dans la faille — preuve qu'un autre monde peut coexister avec le havre."
+          ]
+        },
+        {
+          "id": "flonne-liens-2",
+          "location": "Terrasse céleste au crépuscule",
+          "companionId": "flonne",
+          "emotion": "sad",
+          "paragraphs": [
+            "Elle craint parfois de ne pas être assez « angélique » pour ceux qu'elle soigne.",
+            "Tu lui réponds que la bonté n'a pas besoin d'ailes pour être vraie."
+          ]
+        },
+        {
+          "id": "flonne-liens-3",
+          "location": "Chambre angélique romantique",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/flonne/backgrounds/Flonne_affinity_04_05_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/flonne/backgrounds/Flonne_affinity_04_05_mobile.png",
+          "companionId": "flonne",
+          "emotion": "romantic",
+          "paragraphs": [
+            "Sous la lune, Flonne chuchote que guérir une faille, c'est peut-être apprendre à rester."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "liens-laharl",
+      "title": "Chapitre — Laharl, trône de fortune",
+      "subtitle": "Fierté d'un overlord adolescent",
+      "companionId": "laharl",
+      "pages": [
+        {
+          "id": "laharl-liens-1",
+          "location": "Salle gothique du château",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/laharl/backgrounds/Laharl_affinity_01_03_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/laharl/backgrounds/Laharl_affinity_01_03_mobile.png",
+          "companionId": "laharl",
+          "emotion": "annoyed",
+          "paragraphs": [
+            "Laharl exige qu'on le respecte — puis s'énerve quand on le traite comme un égal.",
+            "Le havre lui apprend qu'un roi peut marcher pieds nus dans l'herbe sans perdre sa couronne intérieure."
+          ]
+        },
+        {
+          "id": "laharl-liens-2",
+          "location": "Arène d'entraînement",
+          "companionId": "laharl",
+          "emotion": "happy",
+          "paragraphs": [
+            "Contre toi, il rit pour la première fois sans compter les points.",
+            "Les Myrions de la faille le suivent comme une armée miniature — il prétend ne pas être touché."
+          ]
+        },
+        {
+          "id": "laharl-liens-3",
+          "location": "Chambre gothique royale",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/laharl/backgrounds/Laharl_affinity_04_05_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/laharl/backgrounds/Laharl_affinity_04_05_mobile.png",
+          "companionId": "laharl",
+          "emotion": "shy",
+          "paragraphs": [
+            "Écharpe desserrée, regard ailleurs : Laharl avoue qu'il repartira si la faille se ferme — mais pas sans regret."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "liens-pleinair",
+      "title": "Chapitre — Pleinair, silence des lapins",
+      "subtitle": "Présence sans mots",
+      "companionId": "pleinair",
+      "pages": [
+        {
+          "id": "pleinair-liens-1",
+          "location": "Jardin aux lapins",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/pleinair/backgrounds/Pleinair_affinity_01_03_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/pleinair/backgrounds/Pleinair_affinity_01_03_mobile.png",
+          "companionId": "pleinair",
+          "emotion": "neutral",
+          "paragraphs": [
+            "Pleinair ne promet rien. Elle reste — et parfois, c'est la promesse la plus claire.",
+            "Son monde pastel semble plus doux que les autres, mais la faille l'a tirée comme les trois invités avant elle."
+          ]
+        },
+        {
+          "id": "pleinair-liens-2",
+          "location": "Coin lecture sous les rubans",
+          "companionId": "pleinair",
+          "emotion": "happy",
+          "paragraphs": [
+            "Elle partage son lapin en peluche, puis un livre d'images sans texte.",
+            "Tu comprends : l'affection ici n'a pas besoin d'intimité adulte pour être profonde."
+          ]
+        },
+        {
+          "id": "pleinair-liens-3",
+          "location": "Chambre pastel féerique",
+          "backgroundWide": "staging/companion-visual-pack/disagrea/pleinair/backgrounds/Pleinair_affinity_04_05_pc.png",
+          "backgroundPortrait": "staging/companion-visual-pack/disagrea/pleinair/backgrounds/Pleinair_affinity_04_05_mobile.png",
+          "companionId": "pleinair",
+          "emotion": "happy",
+          "paragraphs": [
+            "Dans sa chambre de peluches, Pleinair t'offre un coin du plaid — pas un serment romantique, un abri."
+          ]
+        }
+      ]
+    }
+  ]
+}

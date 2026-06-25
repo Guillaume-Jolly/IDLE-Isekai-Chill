@@ -178,6 +178,47 @@ export function canSpawnLrInBiome(biomeId: string, collection: PlayerCollection)
   return true
 }
 
+export type LrUnlockStep = {
+  id: string
+  label: string
+  done: boolean
+  action: string
+}
+
+/** Étapes pour activer le poids LR (0,5) dans un biome. */
+export function getLrUnlockSteps(biomeId: string, collection: PlayerCollection): LrUnlockStep[] {
+  const unlocked = isBiomeUnlocked(biomeId, collection)
+  const progress = getBiomeProgress(biomeId, collection)
+  const hasSsrPlus = hasSsrPlusInBiome(biomeId, collection)
+  const target70 = Math.ceil(progress.total * 0.7)
+
+  return [
+    {
+      id: 'biome',
+      label: 'Biome accessible à la chasse',
+      done: unlocked,
+      action: unlocked ? 'Condition remplie.' : formatUnlockCondition(biomeId),
+    },
+    {
+      id: 'progress',
+      label: `Bestiaire du biome ≥ 70 % (${progress.caught}/${progress.total})`,
+      done: progress.ratio >= 0.7,
+      action:
+        progress.ratio >= 0.7
+          ? 'Condition remplie.'
+          : `Capture encore ${Math.max(0, target70 - progress.caught)} espèce(s) différente(s) dans ce biome (objectif ${target70}).`,
+    },
+    {
+      id: 'ssrplus',
+      label: 'Au moins un SSR, UR ou LR capturé dans ce biome',
+      done: hasSsrPlus,
+      action: hasSsrPlus
+        ? 'Condition remplie.'
+        : 'Continue la chasse ici jusqu’à capturer un Myrion SSR, UR ou LR.',
+    },
+  ]
+}
+
 export function getDailyLrSpecies(biomeId: string, date = new Date()): PalmonSpecies | null {
   const lrs = PALMON_SPECIES.filter(
     (species) => species.biomeId === biomeId && species.rarity === 'LR',
@@ -235,11 +276,11 @@ function pickSpeciesForRarity(
   return PALMON_SPECIES[Math.floor(Math.random() * PALMON_SPECIES.length)]
 }
 
-export function rollRarityForBiome(
+export function getBiomeRarityWeights(
   biomeId: string,
   collection: PlayerCollection,
   huntFavors: HuntFavor[] = [],
-): PalmonRarity {
+): Record<PalmonRarity, number> {
   const active = pickActiveHuntFavors(huntFavors)
   const rarityBonus = active
     .filter((favor) => favor.category === 'rarity')
@@ -263,6 +304,28 @@ export function rollRarityForBiome(
     weights.UR += shift * 0.15
     if (weights.LR > 0) weights.LR += shift * 0.05
   }
+
+  return weights
+}
+
+export function rarityWeightsToPercentages(
+  weights: Record<PalmonRarity, number>,
+): Record<PalmonRarity, number> {
+  const total = PALMON_RARITIES.reduce((sum, rarity) => sum + weights[rarity], 0)
+  return Object.fromEntries(
+    PALMON_RARITIES.map((rarity) => [
+      rarity,
+      total > 0 ? (weights[rarity] / total) * 100 : 0,
+    ]),
+  ) as Record<PalmonRarity, number>
+}
+
+export function rollRarityForBiome(
+  biomeId: string,
+  collection: PlayerCollection,
+  huntFavors: HuntFavor[] = [],
+): PalmonRarity {
+  const weights = getBiomeRarityWeights(biomeId, collection, huntFavors)
 
   const roll = Math.random() * 100
   let cumulative = 0

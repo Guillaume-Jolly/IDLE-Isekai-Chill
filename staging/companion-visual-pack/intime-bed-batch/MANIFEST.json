@@ -1,0 +1,62 @@
+{
+  "batchId": "intime-bed-universe",
+  "outputDir": "staging/companion-visual-pack/intime-bed-batch",
+  "updatedAt": "2026-06-24",
+  "note": "v4 déplacées vers staging/skinline-premium/ — voir AFFINITY_REPLACEMENT.md pour v1–v3",
+  "totalPng": 70,
+  "naming": {
+    "standard": "companion-{id}-intime-bed-v{1|2|3}.png",
+    "etnaAllFours": "companion-etna-intime-bed-allfours-{v1|v2|v9|v11|v12}.png",
+    "etnaSide": "companion-etna-intime-bed-side-{v1|v2|v9|v11|v12}.png",
+    "etnaWide": "companion-etna-intime-bed-wide-{v1|v3|v5|v8|v9|v11}.png"
+  },
+  "rounds": {
+    "v1": { "label": "Base — univers + pose classique + tenue ref", "count": 18, "prodCandidate": "affinity-4" },
+    "v2": { "label": "Variété têtes/poses + halter/shorts si filtre OK", "count": 18, "prodCandidate": "affinity-4 ou 5" },
+    "v3": { "label": "Push extrême — angles inversés, miroirs, caméra reculée", "count": 18, "prodCandidate": "affinity-5 recommandé" }
+  },
+  "skinlinePremium": {
+    "movedTo": "staging/skinline-premium/",
+    "canonical": "companions/{id}/companion-{id}-skinline-premium*.png",
+    "archiveOriginalNames": "staging/skinline-premium/_batch-v4-original/"
+  },
+  "v3Poses": {
+    "lyra": "fenêtre, torsion dos complet regard par-dessus épaule",
+    "maeve": "pied sur lit, main dans cheveux, regard over-shoulder",
+    "seren": "tête inversée hors oreiller",
+    "nami": "regard par-dessus tasse / vapeur",
+    "iris": "visage caché derrière bouquet, un œil",
+    "kael": "genou relevé, menton sur genou, regard de côté",
+    "runa": "étirement bras levés, bâillement puis regard caméra",
+    "solene": "starfish bras ouverts, tête basculée",
+    "talia": "pendue à l'envers au bord du lit",
+    "mira": "visage dans rideau de rubans",
+    "asha": "regard via reflet miroir",
+    "elwen": "tête à l'envers, livre au-dessus du visage",
+    "noa": "fiole tenue devant le visage, regard autour",
+    "sora": "nichée sous couvertures, oreilles et yeux visibles",
+    "zelie": "drapée hors du lit, regard vers le bas",
+    "flonne": "ailes ouvertes, tête en arrière, bras ouverts",
+    "laharl": "sprawl de côté, tête sur poing (m)",
+    "pleinair": "enterrée sous peluches lapin (cozy)",
+    "etna": "wide + allfours/side (pas v3 standard)"
+  },
+  "etnaExtras": [
+    "companion-etna-intime-bed-allfours-v1.png",
+    "companion-etna-intime-bed-allfours-v2.png",
+    "companion-etna-intime-bed-allfours-v9.png",
+    "companion-etna-intime-bed-allfours-v11.png",
+    "companion-etna-intime-bed-allfours-v12.png",
+    "companion-etna-intime-bed-side-v1.png",
+    "companion-etna-intime-bed-side-v2.png",
+    "companion-etna-intime-bed-side-v9.png",
+    "companion-etna-intime-bed-side-v11.png",
+    "companion-etna-intime-bed-side-v12.png",
+    "companion-etna-intime-bed-wide-v1.png",
+    "companion-etna-intime-bed-wide-v3.png",
+    "companion-etna-intime-bed-wide-v5.png",
+    "companion-etna-intime-bed-wide-v8.png",
+    "companion-etna-intime-bed-wide-v9.png",
+    "companion-etna-intime-bed-wide-v11.png"
+  ]
+}

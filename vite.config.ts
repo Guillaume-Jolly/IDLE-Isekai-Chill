@@ -1,3 +1,8 @@
+import { createReadStream, existsSync, statSync } from 'node:fs'
+import { dirname, join, normalize } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { getGitBuildInfo, refreshPublicBuildInfo, syncPublicBuildInfo } from './vite.git-build-info'
@@ -103,9 +108,128 @@ function appBuildInfoPlugin(): Plugin {
   }
 }
 
+function repoEventDisagreaAssetsPlugin(): Plugin {
+  const root = fileURLToPath(new URL('.', import.meta.url))
+  const baseDir = join(root, 'assets', 'event-disagrea')
+
+  return {
+    name: 'repo-event-disagrea-dev-assets',
+    configureServer(server) {
+      server.middlewares.use('/dev-assets/event-disagrea', (req, res, next) => {
+        const pathname = req.url?.split('?')[0] ?? '/'
+        const relative = decodeURIComponent(pathname.replace(/^\/+/, ''))
+        const filePath = normalize(join(baseDir, relative))
+        if (!filePath.startsWith(baseDir) || !existsSync(filePath) || !statSync(filePath).isFile()) {
+          next()
+          return
+        }
+        if (filePath.endsWith('.png')) {
+          res.setHeader('Content-Type', 'image/png')
+        } else if (filePath.endsWith('.json')) {
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+        }
+        createReadStream(filePath).pipe(res)
+      })
+    },
+  }
+}
+
+function repoStagingCompanionVisualPackPlugin(): Plugin {
+  const root = fileURLToPath(new URL('.', import.meta.url))
+  const baseDir = join(root, 'staging', 'companion-visual-pack')
+
+  return {
+    name: 'repo-staging-companion-visual-pack-dev-assets',
+    configureServer(server) {
+      server.middlewares.use('/dev-assets/staging-companion-visual-pack', (req, res, next) => {
+        const pathname = req.url?.split('?')[0] ?? '/'
+        const relative = decodeURIComponent(pathname.replace(/^\/+/, ''))
+        const filePath = normalize(join(baseDir, relative))
+        if (!filePath.startsWith(baseDir) || !existsSync(filePath) || !statSync(filePath).isFile()) {
+          next()
+          return
+        }
+        if (filePath.endsWith('.png')) {
+          res.setHeader('Content-Type', 'image/png')
+        }
+        createReadStream(filePath).pipe(res)
+      })
+    },
+  }
+}
+
+const execFileAsync = promisify(execFile)
+
+function devRevealInExplorerPlugin(): Plugin {
+  const repoRoot = normalize(fileURLToPath(new URL('.', import.meta.url)))
+
+  return {
+    name: 'dev-reveal-in-explorer',
+    configureServer(server) {
+      server.middlewares.use('/dev-api/reveal-in-explorer', (req, res) => {
+        if (req.method !== 'POST') {
+          res.statusCode = 405
+          res.end(JSON.stringify({ ok: false, error: 'method-not-allowed' }))
+          return
+        }
+
+        let body = ''
+        req.on('data', (chunk) => {
+          body += chunk
+        })
+        req.on('end', async () => {
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+
+          try {
+            const parsed = JSON.parse(body) as { repoPath?: string }
+            const repoPath = parsed.repoPath?.replace(/\\/g, '/')
+            if (!repoPath || repoPath.includes('..')) {
+              res.statusCode = 400
+              res.end(JSON.stringify({ ok: false, error: 'invalid-path' }))
+              return
+            }
+
+            const absolutePath = normalize(join(repoRoot, repoPath))
+            if (!absolutePath.startsWith(repoRoot)) {
+              res.statusCode = 403
+              res.end(JSON.stringify({ ok: false, error: 'forbidden' }))
+              return
+            }
+            if (!existsSync(absolutePath)) {
+              res.statusCode = 404
+              res.end(JSON.stringify({ ok: false, error: 'not-found', absolutePath }))
+              return
+            }
+
+            if (process.platform === 'win32') {
+              await execFileAsync('explorer.exe', [`/select,${absolutePath}`])
+            } else if (process.platform === 'darwin') {
+              await execFileAsync('open', ['-R', absolutePath])
+            } else {
+              await execFileAsync('xdg-open', [dirname(absolutePath)])
+            }
+
+            res.end(JSON.stringify({ ok: true, absolutePath }))
+          } catch {
+            res.statusCode = 500
+            res.end(JSON.stringify({ ok: false, error: 'server-error' }))
+          }
+        })
+      })
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), legacyPublicAssetPlugin(), appBuildInfoPlugin()],
+  plugins: [
+    react(),
+    legacyPublicAssetPlugin(),
+    repoEventDisagreaAssetsPlugin(),
+    repoStagingCompanionVisualPackPlugin(),
+    devRevealInExplorerPlugin(),
+    appBuildInfoPlugin(),
+  ],
   build: {
     // Évite le conflit avec public/assets/ (images de jeu servies sous /assets/…)
     assetsDir: '_vite',
@@ -119,7 +243,15 @@ export default defineConfig({
   server: {
     allowedHosts: ['.lhr.life', '.loca.lt'],
     watch: {
-      ignored: ['**/.tmp/**', '**/.tools/**', '**/assets/**', '**/AGENTS.md'],
+      ignored: [
+        '**/.tmp/**',
+        '**/.tools/**',
+        '**/assets/**',
+        '**/old_assets/**',
+        '**/staging/**',
+        '**/scripts/vendor/**',
+        '**/AGENTS.md',
+      ],
     },
   },
 })

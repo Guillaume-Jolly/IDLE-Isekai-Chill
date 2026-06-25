@@ -1,4 +1,5 @@
 import { type ReactNode, useEffect, useId, useState } from 'react'
+import { MinigameSettingsButton } from './MinigameSettingsButton'
 import { MinigameSideRailQuit } from './MinigameSideRailQuit'
 import './Minigames.css'
 
@@ -102,6 +103,39 @@ export function HuntSideRail({
   const quitButton =
     onCloseMinigame ? <MinigameSideRailQuit onClose={onCloseMinigame} /> : null
 
+  const settingsButton = <MinigameSettingsButton />
+
+  const renderDrawerTabs = (groupSuffix: string) =>
+    drawers.map((drawer) => {
+      const selected = openId === drawer.id
+      const locked = selected && canClose && !canClose(drawer.id)
+      return (
+        <button
+          aria-controls={`${groupId}-${groupSuffix}-${drawer.id}`}
+          aria-expanded={selected}
+          aria-label={drawer.label}
+          aria-selected={selected}
+          className={`mg-hunt-rail-tab ${selected ? 'active' : ''} ${drawer.pinned ? 'pinned' : ''}`}
+          key={drawer.id}
+          role="tab"
+          title={drawer.label}
+          type="button"
+          onClick={() => selectDrawer(drawer.id)}
+        >
+          <span aria-hidden>{drawer.icon}</span>
+          <span className="mg-hunt-rail-tab-label">{drawer.label}</span>
+          {drawer.badge !== undefined && drawer.badge !== 0 ? (
+            <span className="mg-hunt-rail-badge">{drawer.badge}</span>
+          ) : null}
+          {locked ? (
+            <span className="mg-hunt-rail-lock" title="Décision requise">
+              !
+            </span>
+          ) : null}
+        </button>
+      )
+    })
+
   return (
     <>
       {useDrawerMenu && !menuOpen ? (
@@ -116,6 +150,12 @@ export function HuntSideRail({
             <span aria-hidden="true">☰</span>
             {urgentDrawer ? <span aria-hidden className="mg-hunt-menu-fab-badge" /> : null}
           </button>
+        </div>
+      ) : null}
+
+      {useDrawerMenu && !menuOpen ? (
+        <div aria-label="Paramètres" className="mg-hunt-settings-dock">
+          {settingsButton}
         </div>
       ) : null}
 
@@ -150,38 +190,13 @@ export function HuntSideRail({
           </header>
 
           <div className="mg-hunt-drawer-body">
-            <div className="mg-hunt-rail-tabs mg-hunt-rail-tabs--drawer" role="tablist">
-            {quitButton}
-            {drawers.map((drawer) => {
-              const selected = openId === drawer.id
-              const locked = selected && canClose && !canClose(drawer.id)
-              return (
-                <button
-                  aria-controls={`${groupId}-${drawer.id}`}
-                  aria-expanded={selected}
-                  aria-label={drawer.label}
-                  aria-selected={selected}
-                  className={`mg-hunt-rail-tab ${selected ? 'active' : ''} ${drawer.pinned ? 'pinned' : ''}`}
-                  key={drawer.id}
-                  role="tab"
-                  title={drawer.label}
-                  type="button"
-                  onClick={() => selectDrawer(drawer.id)}
-                >
-                  <span aria-hidden>{drawer.icon}</span>
-                  <span className="mg-hunt-rail-tab-label">{drawer.label}</span>
-                  {drawer.badge !== undefined && drawer.badge !== 0 ? (
-                    <span className="mg-hunt-rail-badge">{drawer.badge}</span>
-                  ) : null}
-                  {locked ? (
-                    <span className="mg-hunt-rail-lock" title="Décision requise">
-                      !
-                    </span>
-                  ) : null}
-                </button>
-              )
-            })}
-          </div>
+            <div className="mg-hunt-rail-tabs mg-hunt-rail-tabs--drawer">
+              <div className="mg-hunt-rail-tabs-scroll" role="tablist">
+                {quitButton}
+                {renderDrawerTabs('drawer')}
+              </div>
+              <div className="mg-hunt-rail-tabs-footer">{settingsButton}</div>
+            </div>
 
           {active ? (
             <section
@@ -211,36 +226,12 @@ export function HuntSideRail({
         </div>
 
         <div className="mg-hunt-rail-desktop">
-          <div className="mg-hunt-rail-tabs" role="tablist">
-            {quitButton}
-            {drawers.map((drawer) => {
-              const selected = openId === drawer.id
-              const locked = selected && canClose && !canClose(drawer.id)
-              return (
-                <button
-                  aria-controls={`${groupId}-desktop-${drawer.id}`}
-                  aria-expanded={selected}
-                  aria-selected={selected}
-                  className={`mg-hunt-rail-tab ${selected ? 'active' : ''} ${drawer.pinned ? 'pinned' : ''}`}
-                  key={drawer.id}
-                  role="tab"
-                  title={drawer.label}
-                  type="button"
-                  onClick={() => selectDrawer(drawer.id)}
-                >
-                  <span aria-hidden>{drawer.icon}</span>
-                  <span className="mg-hunt-rail-tab-label">{drawer.label}</span>
-                  {drawer.badge !== undefined && drawer.badge !== 0 ? (
-                    <span className="mg-hunt-rail-badge">{drawer.badge}</span>
-                  ) : null}
-                  {locked ? (
-                    <span className="mg-hunt-rail-lock" title="Décision requise">
-                      !
-                    </span>
-                  ) : null}
-                </button>
-              )
-            })}
+          <div className="mg-hunt-rail-tabs">
+            <div className="mg-hunt-rail-tabs-scroll" role="tablist">
+              {quitButton}
+              {renderDrawerTabs('desktop')}
+            </div>
+            <div className="mg-hunt-rail-tabs-footer">{settingsButton}</div>
           </div>
 
           {active ? (

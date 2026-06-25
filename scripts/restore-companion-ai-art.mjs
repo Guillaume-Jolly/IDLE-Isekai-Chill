@@ -1,17 +1,16 @@
 /**
  * Restaure les portraits IA depuis public/generated-backup/
- * vers public/companions/<id>/affinity-<n>.png
+ * vers public/assets/companions/<id>/affinity-<n>.png
  *
  * Usage: npm run restore:companions
  */
 import { mkdirSync } from 'node:fs'
 import { copyFileSync, readdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { publicMinigamePaths, repoRoot } from './minigame-asset-paths.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const backup = join(root, 'public/generated-backup')
-const companions = join(root, 'public/companions')
+const backup = join(repoRoot, 'public/generated-backup')
+const companions = publicMinigamePaths.companions
 
 const files = readdirSync(backup).filter((name) => /-affinity-\d+\.png$/.test(name))
 if (files.length === 0) {

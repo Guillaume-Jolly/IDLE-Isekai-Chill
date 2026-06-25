@@ -1,0 +1,208 @@
+.dev-visual-filters-card {
+  background: rgba(18, 12, 28, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 16px 18px;
+}
+
+.dev-visual-filters {
+  display: grid;
+  gap: 14px;
+}
+
+@media (min-width: 720px) {
+  .dev-visual-filters {
+    align-items: end;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dev-visual-field--checkbox {
+    grid-column: 1 / -1;
+  }
+}
+
+.dev-visual-field {
+  display: grid;
+  gap: 8px;
+}
+
+.dev-visual-field-label {
+  color: rgba(255, 248, 252, 0.82);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.dev-visual-field select {
+  appearance: none;
+  background:
+    rgba(8, 6, 14, 0.85)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f5d0ff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E")
+    no-repeat right 12px center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #fff5fb;
+  cursor: pointer;
+  font: inherit;
+  padding: 11px 36px 11px 12px;
+  width: 100%;
+}
+
+.dev-visual-field select:focus-visible {
+  border-color: rgba(255, 176, 32, 0.55);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 176, 32, 0.18);
+}
+
+.dev-visual-field--checkbox {
+  align-items: start;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+}
+
+.dev-visual-field--checkbox input {
+  accent-color: #ffb020;
+  margin-top: 3px;
+}
+
+.dev-visual-field--checkbox span {
+  color: rgba(255, 248, 252, 0.92);
+  display: grid;
+  font-size: 0.92rem;
+  gap: 4px;
+}
+
+.dev-visual-field--checkbox small {
+  color: rgba(255, 248, 252, 0.58);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.dev-visual-note {
+  color: rgba(255, 248, 252, 0.58);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.dev-visual-note code {
+  color: rgba(255, 210, 150, 0.88);
+}
+
+/* 1 compagnon par ligne → bande de 5 visuels en pleine largeur */
+.dev-visual-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+.dev-visual-empty {
+  color: rgba(255, 248, 252, 0.62);
+  margin: 0;
+  padding: 24px 8px;
+  text-align: center;
+}
+
+.dev-visual-card {
+  background: rgba(18, 12, 28, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 16px;
+}
+
+.dev-visual-card header {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  justify-content: space-between;
+}
+
+.dev-visual-card h3 {
+  color: #fff5fb;
+  margin: 0;
+}
+
+.dev-visual-card header small {
+  color: rgba(255, 248, 252, 0.55);
+}
+
+.dev-visual-section h4 {
+  color: rgba(255, 248, 252, 0.62);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+/* Même grille que .affinity-strip (Liens) — 5 colonnes pleine largeur */
+.dev-visual-strip {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  width: 100%;
+}
+
+.dev-visual-cell {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.dev-visual-label {
+  color: rgba(255, 248, 252, 0.78);
+  font-size: 0.68rem;
+  line-height: 1.15;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dev-visual-cell.kind-integrated-nsfw .dev-visual-label {
+  color: rgba(255, 180, 210, 0.92);
+}
+
+/* Même gabarit que .companion-visual (Liens), thème sombre galerie dev */
+.view-stage--gallery .dev-visual-strip .companion-visual {
+  animation: none;
+  background:
+    radial-gradient(circle at 35% 24%, rgba(255, 255, 255, 0.16), transparent 17%),
+    radial-gradient(circle at 75% 68%, rgba(255, 255, 255, 0.08), transparent 16%),
+    linear-gradient(145deg, #5a3058, #3a2850);
+  border-color: rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  min-height: clamp(168px, 14vw, 240px);
+  width: 100%;
+}
+
+.view-stage--gallery .dev-visual-strip .companion-visual.mature-slot {
+  background:
+    radial-gradient(circle at 45% 22%, rgba(255, 255, 255, 0.12), transparent 18%),
+    radial-gradient(circle at 76% 76%, rgba(255, 120, 180, 0.14), transparent 20%),
+    linear-gradient(145deg, #392044, #6a2850);
+  border-color: rgba(255, 140, 196, 0.22);
+}
+
+.view-stage--gallery .dev-visual-strip .companion-visual.kind-chibi img {
+  object-fit: contain;
+  object-position: center center;
+  padding: 8px;
+}
+
+@media (max-width: 640px) {
+  .dev-visual-strip {
+    gap: 6px;
+    grid-template-columns: repeat(5, minmax(72px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+}

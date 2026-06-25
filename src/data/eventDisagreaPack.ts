@@ -34,12 +34,12 @@ export const CUTOUT_BACKGROUND = {
 /** Ancres visuelles du JEU (style à copier). */
 export const APP_STYLE_ANCHORS = {
   /** Compagnon event validé — référence de rendu prioritaire. */
-  companionRenderApproved: 'public/assets/companions/etna/cutout-1.png',
+  companionRenderApproved: 'public/assets/companions/etna/affinity-1.png',
   companionRender: 'public/assets/companions/talia/affinity-1.png',
   myrionFull: 'public/assets/minigames/capture/myrions/cutout/moussprout.png',
   myrionFullApproved: 'public/assets/minigames/capture/myrions/cutout/prinnettenoire.png',
   myrionChibi: 'public/assets/minigames/dressage/myrions/chibi/moussprout.png',
-  eventBackgroundMood: 'public/assets/companions/flonne/background-1.png',
+  eventBackgroundMood: 'public/assets/companions/flonne/affinity-1.png',
 }
 
 /** Mob légendaire LR — fusion des 4 compagnons event. */
@@ -89,7 +89,7 @@ export const DISAGREA_COMPANIONS: Record<
 > = {
   etna: {
     displayName: 'Etna',
-    identityRef: 'assets/event-disagrea/sources/references/Etna/D1_Etna.webp',
+    identityRef: 'old_assets/event-disagrea/sources/references/Etna/D1_Etna.webp',
     dna: 'demon vassal girl archetype, magenta twin ponytails, red eyes, tiny bat wings, heart-tip tail, mischievous energy',
     palette: 'magenta hair, black and plum outfit accents, gold buckles, soft purple wing membranes',
     levels: {
@@ -103,7 +103,7 @@ export const DISAGREA_COMPANIONS: Record<
   },
   flonne: {
     displayName: 'Flonne',
-    identityRef: 'assets/event-disagrea/sources/references/Flonne/D1_Flonne.webp',
+    identityRef: 'old_assets/event-disagrea/sources/references/Flonne/D1_Flonne.webp',
     dna: 'angelic healer archetype, long blonde hair with pink highlights, blue eyes, ribbon bows, pure cheerful aura',
     palette: 'white, sky blue, soft pink, gold cross motif',
     levels: {
@@ -117,7 +117,7 @@ export const DISAGREA_COMPANIONS: Record<
   },
   laharl: {
     displayName: 'Laharl',
-    identityRef: 'assets/event-disagrea/sources/references/Laharl/DRPG_Laharl_Artwork_1.webp',
+    identityRef: 'old_assets/event-disagrea/sources/references/Laharl/DRPG_Laharl_Artwork_1.webp',
     dna: 'YOUNG MALE demon overlord boy, bright BLUE spiky hair with two long antenna ahoge strands, red eyes, pointed ears, arrogant charisma — NOT female',
     palette: 'blue hair, crimson red scarf, red pants, black belt gold buckle, dark purple boots',
     levels: {
@@ -131,7 +131,8 @@ export const DISAGREA_COMPANIONS: Record<
   },
   pleinair: {
     displayName: 'Pleinair',
-    identityRef: 'assets/event-disagrea/sources/references/Pleinair/PleinairMW.webp',
+    /** Backlog : docs/BACKLOG.md — Event Disagrea / Pleinair (L2–5 proximité enfant, pas intimité adulte). */
+    identityRef: 'old_assets/event-disagrea/sources/references/Pleinair/PleinairMW.webp',
     dna: 'quiet kuudere demon girl archetype, short light blue hair, red eyes, oversized red bow, bunny motif',
     palette: 'ice blue hair, white dress, red bow and trim, pastel bunny plush',
     levels: {
@@ -359,12 +360,10 @@ export function disagreaStyleReferencePaths(repoRoot: string) {
 
 /** Chemins runtime (public/) — staging IA reste sous assets/event-disagrea/. */
 export const DISAGREA_ASSET_PATHS = {
-  companionCutout: (id: DisagreaCompanionId, level: number) =>
-    `assets/companions/${id}/cutout-${level}.png`,
-  companionBackground: (id: DisagreaCompanionId, level: number) =>
-    `assets/companions/${id}/background-${level}.png`,
-  companionBackgroundWide: (id: DisagreaCompanionId, level: number) =>
-    `assets/companions/${id}/background-${level}-wide.png`,
+  companionAffinity: (id: DisagreaCompanionId, level: number) =>
+    `assets/companions/${id}/affinity-${level}.png`,
+  companionAffinityNsfw: (id: DisagreaCompanionId) =>
+    `assets/companions/${id}/affinity-4-nsfw.png`,
   companionChibi: (id: DisagreaCompanionId) => `assets/companions/${id}/chibi.png`,
   myrionCutout: (id: string) => `assets/minigames/capture/myrions/cutout/${id}.png`,
   myrionChibi: (id: string) => `assets/minigames/dressage/myrions/chibi/${id}.png`,

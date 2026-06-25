@@ -20,6 +20,7 @@
   flex-shrink: 0;
   gap: 6px;
   height: 100dvh;
+  justify-content: space-between;
   left: 0;
   padding:
     calc(8px + env(safe-area-inset-top, 0px))
@@ -29,6 +30,20 @@
   top: 0;
   width: 52px;
   z-index: 52;
+}
+
+.mg-minigame-side-rail-main,
+.mg-minigame-side-rail-foot {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 6px;
+  width: 100%;
+}
+
+.mg-minigame-side-rail-foot {
+  margin-top: auto;
 }
 
 .mg-hunt-mobile-fabs {
@@ -47,8 +62,21 @@
   pointer-events: auto;
 }
 
+.mg-hunt-settings-dock {
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  left: calc(10px + env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  position: fixed;
+  z-index: 52;
+}
+
+.mg-hunt-settings-dock > * {
+  pointer-events: auto;
+}
+
 .mg-side-rail-quit,
-.mg-minigame-side-rail-btn {
+.mg-minigame-side-rail-btn,
+.mg-side-rail-settings {
   align-items: center;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -76,12 +104,14 @@
 }
 
 .mg-side-rail-quit:hover,
-.mg-minigame-side-rail-btn:hover {
+.mg-minigame-side-rail-btn:hover,
+.mg-side-rail-settings:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
 .mg-side-rail-quit:active,
-.mg-minigame-side-rail-btn:active {
+.mg-minigame-side-rail-btn:active,
+.mg-side-rail-settings:active {
   transform: scale(0.96);
 }
 
@@ -239,12 +269,14 @@
     height: 100%;
     max-height: 100%;
     min-height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
+  }
+
+  .minigame-panel-fullscreen .mg-hunt-rail--desktop-layout .mg-hunt-rail-tabs-scroll {
     padding:
       calc(8px + env(safe-area-inset-top, 0px))
       6px
-      calc(12px + env(safe-area-inset-bottom, 0px))
+      6px
       4px;
   }
 

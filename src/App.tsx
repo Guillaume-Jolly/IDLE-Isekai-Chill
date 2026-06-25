@@ -1,5 +1,11 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
-import { GachaOpening } from './components/GachaOpening'
+import { CompanionVisualDevGallery } from './components/CompanionVisualDevGallery'
+import { GachaOpening, type GachaOpeningVariant } from './components/GachaOpening'
+import { SettingsPanel } from './components/SettingsPanel'
+import { DisagreaEventBanner } from './components/DisagreaEventBanner'
+import { DisagreaStoryPanel } from './components/DisagreaStoryPanel'
+import { FestivalEventBanner } from './components/FestivalEventBanner'
+import { useRewardToasts } from './components/RewardToastProvider'
 import { AppNav, type ViewKey } from './components/AppNav'
 import { ResourceStrip } from './components/ResourceStrip'
 import { ImageLightbox, type LightboxImage } from './components/ImageLightbox'
@@ -36,8 +42,25 @@ import {
   type TutorialObjectiveSave,
 } from './data/tutorialObjectives'
 import { createStarterMinigameSave, mergeMinigameSave, type MinigameSave } from './data/minigameSave'
+import {
+  createStableDemoSeed,
+  isStablePresetBuild,
+  mergeStableDemoSeed,
+  resolveGameStorageKey,
+  shouldResetStableDemoSave,
+} from './data/stableDemoSave'
+import {
+  fetchStableCloudSaveRaw,
+  isStableCloudSaveEnabled,
+  pushStableCloudSaveRaw,
+} from './data/stableCloudSave'
 import { type ResourceKey } from './data/resources'
 import { applyGachaItems, DEV_UNLIMITED_GACHA, formatGachaPullSummary, rollMulti, type GachaItem } from './data/gacha'
+import { rollDisagreaMulti } from './data/disagreaGacha'
+import {
+  payloadsFromCost,
+  payloadsFromGachaResult,
+} from './data/rewardToastEntries'
 import { companionAssetPath } from './data/companionAssets'
 import { createEmptyFragmentCounts, FRAGMENTS_PER_STAT, fragmentStatBudget } from './data/companionFragments'
 import {
@@ -121,6 +144,7 @@ type GameState = {
   companionFragments: Record<string, number>
   statTokens: Record<StatKey, number>
   eventPulls: number
+  disagreaEventPulls: number
   maturePlaceholders: boolean
   lastSaved: number
   minigameSave: MinigameSave
@@ -134,7 +158,7 @@ type OfflineReport = {
   gains: Resources
 }
 
-const STORAGE_KEY = 'idle-isekai-chill-game-v1'
+const STORAGE_KEY = resolveGameStorageKey()
 const OFFLINE_CAP_HOURS = 168
 
 const RESOURCE_KEYS: ResourceKey[] = [
@@ -568,6 +592,7 @@ const createStarterGame = (): GameState => ({
   companionFragments: createEmptyFragmentCounts(),
   statTokens: createEmptyStatTokens(),
   eventPulls: 0,
+  disagreaEventPulls: 0,
   maturePlaceholders: false,
   lastSaved: Date.now(),
   minigameSave: createStarterMinigameSave(),
@@ -716,16 +741,27 @@ const applyOfflineProgress = (game: GameState): { game: GameState; report: Offli
   }
 }
 
-const loadInitialSession = () => {
-  if (typeof window === 'undefined') {
-    return { game: createStarterGame(), report: { cappedHours: 0, gains: emptyResources() } }
-  }
+const createInitialGame = (): GameState => {
+  const base = createStarterGame()
+  if (!isStablePresetBuild()) return base
 
-  const raw = window.localStorage.getItem(STORAGE_KEY)
-  if (!raw) {
-    return { game: createStarterGame(), report: { cappedHours: 0, gains: emptyResources() } }
+  const seed = createStableDemoSeed()
+  const merged = mergeStableDemoSeed(base, seed)
+  return {
+    ...merged,
+    companions: Object.fromEntries(
+      COMPANIONS.map((companion) => [
+        companion.id,
+        createCompanionState(
+          companion.id,
+          seed.companionLevels[companion.id] ?? { level: 10, affinity: 5 },
+        ),
+      ]),
+    ),
   }
+}
 
+const hydrateGameFromRaw = (raw: string): { game: GameState; report: OfflineReport } | null => {
   try {
     const parsed = JSON.parse(raw) as GameState & { bonusStatPoints?: number }
     const legacyStatPoints = parsed.bonusStatPoints ?? 0
@@ -750,6 +786,7 @@ const loadInitialSession = () => {
         ...(parsed.companionFragments ?? {}),
       },
       statTokens: migratedTokens,
+      disagreaEventPulls: parsed.disagreaEventPulls ?? 0,
       maturePlaceholders: parsed.maturePlaceholders ?? false,
       minigameSave: mergedMinigameSave,
       quests: parsed.quests?.board?.length
@@ -782,7 +819,27 @@ const loadInitialSession = () => {
     }
     return applyOfflineProgress(synced)
   } catch {
-    return { game: createStarterGame(), report: { cappedHours: 0, gains: emptyResources() } }
+    return null
+  }
+}
+
+const loadInitialSession = () => {
+  if (typeof window === 'undefined') {
+    return { game: createInitialGame(), report: { cappedHours: 0, gains: emptyResources() } }
+  }
+
+  if (shouldResetStableDemoSave()) {
+    window.localStorage.removeItem(STORAGE_KEY)
+  }
+
+  const raw = window.localStorage.getItem(STORAGE_KEY)
+  if (!raw) {
+    return { game: createInitialGame(), report: { cappedHours: 0, gains: emptyResources() } }
+  }
+
+  return hydrateGameFromRaw(raw) ?? {
+    game: createInitialGame(),
+    report: { cappedHours: 0, gains: emptyResources() },
   }
 }
 
@@ -791,6 +848,7 @@ const initialSession = loadInitialSession()
 function App() {
   const [game, setGame] = useState<GameState>(initialSession.game)
   const [offlineReport] = useState<OfflineReport>(initialSession.report)
+  const { pushRewardPayloads } = useRewardToasts()
   const [message, setMessage] = useState(() =>
     offlineReport.cappedHours > 0.01
       ? `Hors-ligne +${offlineReport.cappedHours.toFixed(1)} h`
@@ -850,7 +908,10 @@ function App() {
   )
   const [activeBuildingId, setActiveBuildingId] = useState(BUILDINGS[0].id)
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null)
-  const [gachaResults, setGachaResults] = useState<GachaItem[] | null>(null)
+  const [gachaOpening, setGachaOpening] = useState<{
+    items: GachaItem[]
+    variant: GachaOpeningVariant
+  } | null>(null)
   const [live2dDemoOpen, setLive2dDemoOpen] = useState(false)
   const [activeMinigameActivityId, setActiveMinigameActivityId] = useState<string | null>(null)
   const [focusMinigameBuildingId, setFocusMinigameBuildingId] = useState<string | null>(null)
@@ -872,8 +933,38 @@ function App() {
 
   useEffect(() => {
     const payload: GameState = { ...game, lastSaved: Date.now() }
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
+    const raw = JSON.stringify(payload)
+    window.localStorage.setItem(STORAGE_KEY, raw)
+    if (!isStableCloudSaveEnabled()) return
+    const timer = window.setTimeout(() => {
+      void pushStableCloudSaveRaw(raw)
+    }, 1500)
+    return () => window.clearTimeout(timer)
   }, [game])
+
+  useEffect(() => {
+    if (!isStableCloudSaveEnabled()) return
+    let cancelled = false
+    void (async () => {
+      const cloudRaw = await fetchStableCloudSaveRaw()
+      if (cancelled || !cloudRaw) return
+      const cloudSession = hydrateGameFromRaw(cloudRaw)
+      if (!cloudSession) return
+      const localRaw = window.localStorage.getItem(STORAGE_KEY)
+      const localSession = localRaw ? hydrateGameFromRaw(localRaw) : null
+      const cloudTime = cloudSession.game.lastSaved ?? 0
+      const localTime = localSession?.game.lastSaved ?? 0
+      if (cloudTime >= localTime) {
+        setGame(cloudSession.game)
+        window.localStorage.setItem(STORAGE_KEY, cloudRaw)
+      } else if (localRaw) {
+        await pushStableCloudSaveRaw(localRaw)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -1096,6 +1187,7 @@ function App() {
   }
 
   const playMiniGame = (reward: Cost, name: string) => {
+    pushRewardPayloads(payloadsFromCost(reward))
     setGame((current) => ({
       ...current,
       resources: mergeResources(current.resources, reward),
@@ -1138,6 +1230,7 @@ function App() {
     if (!options?.keepOpen) {
       setActiveMinigameActivityId(null)
     }
+    pushRewardPayloads(payloadsFromCost(scaledReward))
     setMessage(`${activityName} — ${costText(scaledReward)} gagnes (${miniScore}/${maxScore}).`)
   }
 
@@ -1169,6 +1262,7 @@ function App() {
   }
 
   const claimQuest = (questId: string, reward: Cost) => {
+    pushRewardPayloads(payloadsFromCost(reward))
     setGame((current) => ({
       ...current,
       resources: mergeResources(current.resources, reward),
@@ -1193,6 +1287,7 @@ function App() {
   }
 
   const claimTutorialReward = (objectiveId: TutorialObjectiveId, reward: Cost) => {
+    pushRewardPayloads(payloadsFromCost(reward))
     setGame((current) => {
       const nextTutorial = claimTutorialObjective(current.tutorial, objectiveId)
       if (!nextTutorial) return current
@@ -1216,6 +1311,7 @@ function App() {
 
     const items = rollMulti(count, game.eventPulls)
     const pullResult = applyGachaItems(items)
+    pushRewardPayloads(payloadsFromGachaResult(pullResult))
 
     setGame((current) => {
       const nextFragments = { ...current.companionFragments }
@@ -1239,9 +1335,50 @@ function App() {
         eventPulls: current.eventPulls + count,
       }
     })
-    setGachaResults(items)
+    setGachaOpening({ items, variant: 'festival' })
     setMessage(
       `Invocation x${count} — ${formatGachaPullSummary(pullResult)}${DEV_UNLIMITED_GACHA ? ' (mode dev)' : ''}.`,
+    )
+  }
+
+  const startDisagreaGachaPull = (count: number) => {
+    if (!DEV_UNLIMITED_GACHA) {
+      const cost: Cost = { tickets: count }
+      if (!canAfford(game.resources, cost)) {
+        setMessage(`Il te faut ${count} ticket${count > 1 ? 's' : ''} pour invoquer.`)
+        return
+      }
+    }
+
+    const items = rollDisagreaMulti(count, game.disagreaEventPulls)
+    const pullResult = applyGachaItems(items)
+    pushRewardPayloads(payloadsFromGachaResult(pullResult))
+
+    setGame((current) => {
+      const nextFragments = { ...current.companionFragments }
+      for (const [companionId, delta] of Object.entries(pullResult.fragments)) {
+        nextFragments[companionId] = (nextFragments[companionId] ?? 0) + delta
+      }
+      const nextTokens = { ...current.statTokens }
+      for (const key of STAT_KEYS) {
+        nextTokens[key] += pullResult.statTokens[key]
+      }
+      return {
+        ...current,
+        resources: mergeResources(
+          DEV_UNLIMITED_GACHA
+            ? current.resources
+            : spendResources(current.resources, { tickets: count }),
+          pullResult.resources,
+        ),
+        companionFragments: nextFragments,
+        statTokens: nextTokens,
+        disagreaEventPulls: current.disagreaEventPulls + count,
+      }
+    })
+    setGachaOpening({ items, variant: 'disagrea' })
+    setMessage(
+      `Disagrea x${count} — ${formatGachaPullSummary(pullResult)}${DEV_UNLIMITED_GACHA ? ' (mode dev)' : ''}.`,
     )
   }
 
@@ -1358,7 +1495,7 @@ function App() {
   )
 
   const renderEvent = () => (
-    <>
+    <div className="event-view-stack">
       <section className="section-heading">
         <div>
           <p className="eyebrow">Evenement</p>
@@ -1370,43 +1507,20 @@ function App() {
         </p>
       </section>
 
-      <section className="event-panel">
-        <div>
-          <h3>Banniere: Festival des lanternes</h3>
-          <p>
-            Lots actifs: ressources, fragments compagnons, jetons de stat (Charme, Esprit…).
-            Raretes: N, R, SR, SSR, UR, LR. Tirages: {game.eventPulls}. Pity SSR+
-            toutes les 10 invocations, UR a 50, LR a 100.
-          </p>
-          <div className="gacha-pull-actions">
-            {[1, 10, 50, 100].map((count) => (
-              <button
-                className={count === 10 ? 'primary' : 'secondary'}
-                key={count}
-                type="button"
-                onClick={() => startGachaPull(count)}
-              >
-                Tirer x{count}
-              </button>
-            ))}
-          </div>
-          <small>{formatAmount(game.resources.tickets)} tickets disponibles</small>
-          <small className="gacha-stat-bank">
-            Fragments et jetons visibles dans l&apos;onglet Inventaire.
-          </small>
-          {DEV_UNLIMITED_GACHA && (
-            <span className="gacha-dev-note">Mode dev: tirages illimites actifs</span>
-          )}
-        </div>
-        <div className="gacha-loot-help">
-          <strong>Table des lots</strong>
-          <span>N / R — ressources + fragments aléatoires</span>
-          <span>R / SR — fragments d&apos;un compagnon précis</span>
-          <span>SR+ — jetons de stat ciblés</span>
-          <span>SSR / LR — packs fragments multiples</span>
-        </div>
-      </section>
-    </>
+      <DisagreaEventBanner
+        pulls={game.disagreaEventPulls}
+        tickets={Math.floor(game.resources.tickets ?? 0)}
+        onPull={startDisagreaGachaPull}
+      />
+
+      <DisagreaStoryPanel />
+
+      <FestivalEventBanner
+        pulls={game.eventPulls}
+        tickets={Math.floor(game.resources.tickets ?? 0)}
+        onPull={startGachaPull}
+      />
+    </div>
   )
 
   const renderInventory = () => (
@@ -1603,35 +1717,11 @@ function App() {
           <h2>Galerie visuels compagnons</h2>
         </div>
         <p>
-          Cette vue ignore le deblocage. Ajoute plus tard tes fichiers externes
-          dans <code>public/companions/&lt;id&gt;/affinity-&lt;niveau&gt;.png</code>.
+          Catalogue dev : paliers d&apos;affinité, émotions, chibis et variantes NSFW Disagrea.
         </p>
       </section>
 
-      <section className="gallery-grid">
-        {COMPANIONS.map((companion) => (
-          <article className="gallery-card" key={companion.id}>
-            <div>
-              <h3>{companion.name}</h3>
-              <p>{companion.archetype}</p>
-            </div>
-            <div className="affinity-strip">
-              {companion.scenes.map((scene) => (
-                <CompanionVisual
-                  compact
-                  companion={companion}
-                  key={scene.level}
-                  level={scene.level}
-                  onOpen={() => openCompanionLightbox(companion, scene.level)}
-                />
-              ))}
-            </div>
-            <small className="asset-path">
-              Exemple: {companionAssetPath(companion.id, 1)}
-            </small>
-          </article>
-        ))}
-      </section>
+      <CompanionVisualDevGallery />
     </>
   )
 
@@ -1844,6 +1934,7 @@ function App() {
         {activeView === 'event' && renderEvent()}
         {activeView === 'inventory' && renderInventory()}
         {activeView === 'companions' && renderCompanions()}
+        {activeView === 'settings' && <SettingsPanel />}
         {activeView === 'gallery' && (
           <>
             {renderGallery()}
@@ -1888,8 +1979,12 @@ function App() {
         />
       )}
 
-      {gachaResults && (
-        <GachaOpening items={gachaResults} onClose={() => setGachaResults(null)} />
+      {gachaOpening && (
+        <GachaOpening
+          items={gachaOpening.items}
+          variant={gachaOpening.variant}
+          onClose={() => setGachaOpening(null)}
+        />
       )}
 
       {live2dDemoOpen && (

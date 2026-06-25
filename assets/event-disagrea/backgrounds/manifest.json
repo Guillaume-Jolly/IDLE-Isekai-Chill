@@ -1,0 +1,178 @@
+[
+  {
+    "category": "affinity_background",
+    "character": "Laharl",
+    "affinity": "affinity-01-03",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Laharl/Laharl_affinity_01_03_mobile.png",
+    "source_file": "salle_gothique_avec_lumière_tamisée.png",
+    "notes": "Mobile background for intimacy levels 1-3; gothic demon-castle hall, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Etna",
+    "affinity": "affinity-01-03",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Etna/Etna_affinity_01_03_mobile.png",
+    "source_file": "balcon_avec_vue_sur_le_château_lunaire.png",
+    "notes": "Mobile background for intimacy levels 1-3; moonlit gothic balcony/lounge, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Flonne",
+    "affinity": "affinity-01-03",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Flonne/Flonne_affinity_01_03_mobile.png",
+    "source_file": "palais_céleste_pastel_et_lumineux.png",
+    "notes": "Mobile background for intimacy levels 1-3; bright angelic palace/chapel, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Pleinair",
+    "affinity": "affinity-01-03",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Pleinair/Pleinair_affinity_01_03_mobile.png",
+    "source_file": "chambre_pastel_et_décor_de_lapin.png",
+    "notes": "Mobile background for intimacy levels 1-3; pastel bunny room, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Laharl",
+    "affinity": "affinity-04-05",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Laharl/Laharl_affinity_04_05_mobile.png",
+    "source_file": "chambre_gothique_royale_au_crépuscule.png",
+    "notes": "Mobile intimate background for intimacy levels 4-5; royal gothic bedroom with visible bed, no character."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Etna",
+    "affinity": "affinity-04-05",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Etna/Etna_affinity_04_05_mobile.png",
+    "source_file": "chambre_gothique_vampirique_et_féerique.png",
+    "notes": "Mobile intimate background for intimacy levels 4-5; vampiric demon bedroom with visible bed, no character."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Flonne",
+    "affinity": "affinity-04-05",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Flonne/Flonne_affinity_04_05_mobile.png",
+    "source_file": "chambre_fantaisie_angélique_et_romantique.png",
+    "notes": "Mobile intimate background for intimacy levels 4-5; angelic romantic bedroom with visible bed, no character."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Pleinair",
+    "affinity": "affinity-04-05",
+    "format": "mobile_portrait",
+    "file": "affinity_backgrounds/Pleinair/Pleinair_affinity_04_05_mobile.png",
+    "source_file": "chambre_pastel_féerique_de_lapin.png",
+    "notes": "Mobile intimate background for intimacy levels 4-5; cozy bunny bedroom with visible bed, no character."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Laharl",
+    "affinity": "affinity-01-03",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Laharl/Laharl_affinity_01_03_pc.png",
+    "source_file": "salle_de_château_gothique_à_minuit.png",
+    "notes": "PC wide background for intimacy levels 1-3; gothic demon-castle hall, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Etna",
+    "affinity": "affinity-01-03",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Etna/Etna_affinity_01_03_pc.png",
+    "source_file": "chambre_gothique_sous_la_lumière_lunaire.png",
+    "notes": "PC wide background for intimacy levels 1-3; moonlit gothic balcony/lounge, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Flonne",
+    "affinity": "affinity-01-03",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Flonne/Flonne_affinity_01_03_pc.png",
+    "source_file": "palais_céleste_et_chapelle_féerique.png",
+    "notes": "PC wide background for intimacy levels 1-3; bright angelic palace/chapel, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Pleinair",
+    "affinity": "affinity-01-03",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Pleinair/Pleinair_affinity_01_03_pc.png",
+    "source_file": "pièce_kawaii_aux_bunnies_et_rubans.png",
+    "notes": "PC wide background for intimacy levels 1-3; pastel bunny room, open center for character sprite."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Laharl",
+    "affinity": "affinity-04-05",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Laharl/Laharl_affinity_04_05_pc.png",
+    "source_file": "chambre_gothique_luxueuse_à_la_lueur_des_bougies.png",
+    "notes": "PC wide intimate background for intimacy levels 4-5; gothic bedroom with visible bed, no character."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Etna",
+    "affinity": "affinity-04-05",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Etna/Etna_affinity_04_05_pc.png",
+    "source_file": "chambre_gothique_noire_et_dorée.png",
+    "notes": "PC wide intimate background for intimacy levels 4-5; darker royal demon bedroom with visible bed, no character."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Flonne",
+    "affinity": "affinity-04-05",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Flonne/Flonne_affinity_04_05_pc.png",
+    "source_file": "chambre_angélique_romantique_et_lumineuse.png",
+    "notes": "PC wide intimate background for intimacy levels 4-5; angelic romantic bedroom with visible bed, no character."
+  },
+  {
+    "category": "affinity_background",
+    "character": "Pleinair",
+    "affinity": "affinity-04-05",
+    "format": "pc_wide",
+    "file": "affinity_backgrounds/Pleinair/Pleinair_affinity_04_05_pc.png",
+    "source_file": "chambre_de_rêve_inspirée_des_lapins.png",
+    "notes": "PC wide intimate background for intimacy levels 4-5; cozy bunny bedroom with visible bed, no character."
+  },
+  {
+    "category": "minigame_background",
+    "id": "myrion_hunt_mobile",
+    "format": "mobile_portrait",
+    "file": "minigame_backgrounds/myrion_hunt_mobile.png",
+    "source_file": "courtyard_gothique_sous_la_lune_magique.png",
+    "notes": "Mobile portrait hunting background; gothic/celestial courtyard, empty center for hunt UI and Myrions."
+  },
+  {
+    "category": "minigame_background",
+    "id": "myrion_hunt_pc",
+    "format": "pc_wide",
+    "file": "minigame_backgrounds/myrion_hunt_pc.png",
+    "source_file": "cour_de_rêve_gothique_illuminée.png",
+    "notes": "PC wide hunting background; extended gothic/celestial courtyard, empty center for hunt UI and Myrions."
+  },
+  {
+    "category": "minigame_background",
+    "id": "myrion_training_enclosure_mobile",
+    "format": "mobile_portrait",
+    "file": "minigame_backgrounds/myrion_training_enclosure_mobile.png",
+    "source_file": "arène_gothique_pastel_et_magique.png",
+    "notes": "Mobile portrait training enclosure; details on image edges, large playable center."
+  },
+  {
+    "category": "minigame_background",
+    "id": "myrion_training_enclosure_pc",
+    "format": "pc_wide",
+    "file": "minigame_backgrounds/myrion_training_enclosure_pc.png",
+    "source_file": "cour_intérieure_enchantée_et_romantique.png",
+    "notes": "PC wide training enclosure; details on left/right edges, large playable center."
+  }
+]

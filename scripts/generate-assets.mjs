@@ -27,7 +27,7 @@ let companionSkipped = 0
 let companionGenerated = 0
 for (const companion of COMPANIONS) {
   for (let level = 1; level <= 5; level += 1) {
-    const file = path.join(root, 'public', 'companions', companion[0], `affinity-${level}.png`)
+    const file = path.join(root, 'public', 'assets', 'companions', companion[0], `affinity-${level}.png`)
     if (await fileExists(file)) {
       companionSkipped += 1
       continue

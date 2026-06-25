@@ -11,6 +11,7 @@ export type ViewKey =
   | 'inventory'
   | 'companions'
   | 'gallery'
+  | 'settings'
 
 type NavTab = {
   key: ViewKey
@@ -106,60 +107,77 @@ export function AppNav({
       </div>
 
       <div className="app-sidebar-body" id="app-sidebar-body">
-        <div className="app-sidebar-tabs">
-          {tabs.map((tab) => (
-            <button
-              aria-current={activeView === tab.key ? 'page' : undefined}
-              aria-label={tab.label}
-              className={activeView === tab.key ? 'active' : ''}
-              key={tab.key}
-              title={tab.label}
-              type="button"
-              onClick={() => handleSelect(tab.key)}
-            >
-              <span aria-hidden="true" className="app-sidebar-tab-icon">
-                {tab.icon}
-              </span>
-              <span className="app-sidebar-tab-label">{tab.label}</span>
-            </button>
-          ))}
-
-          {resourcesPanel ? (
-            <div className="app-sidebar-resources-wrap" ref={resourcesWrapRef}>
+        <div className="app-sidebar-scroll">
+          <div className="app-sidebar-tabs">
+            {tabs.map((tab) => (
               <button
-                aria-expanded={resourcesOpen}
-                aria-haspopup="true"
-                aria-label="Ressources"
-                className={`app-sidebar-tab-resources${resourcesOpen ? ' active' : ''}`}
-                title="Ressources"
+                aria-current={activeView === tab.key ? 'page' : undefined}
+                aria-label={tab.label}
+                className={activeView === tab.key ? 'active' : ''}
+                key={tab.key}
+                title={tab.label}
                 type="button"
-                onClick={() => setResourcesOpen((open) => !open)}
+                onClick={() => handleSelect(tab.key)}
               >
                 <span aria-hidden="true" className="app-sidebar-tab-icon">
-                  💎
+                  {tab.icon}
                 </span>
-                <span className="app-sidebar-tab-label">Ressources</span>
+                <span className="app-sidebar-tab-label">{tab.label}</span>
               </button>
+            ))}
 
-              {resourcesOpen ? (
-                <div aria-label="Ressources" className="app-sidebar-resources-flyout" role="dialog">
-                  {resourcesPanel}
-                  <button
-                    className="app-sidebar-inventory-link"
-                    type="button"
-                    onClick={openInventory}
-                  >
-                    Détails → Inventaire
-                  </button>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
+            {resourcesPanel ? (
+              <div className="app-sidebar-resources-wrap" ref={resourcesWrapRef}>
+                <button
+                  aria-expanded={resourcesOpen}
+                  aria-haspopup="true"
+                  aria-label="Ressources"
+                  className={`app-sidebar-tab-resources${resourcesOpen ? ' active' : ''}`}
+                  title="Ressources"
+                  type="button"
+                  onClick={() => setResourcesOpen((open) => !open)}
+                >
+                  <span aria-hidden="true" className="app-sidebar-tab-icon">
+                    💎
+                  </span>
+                  <span className="app-sidebar-tab-label">Ressources</span>
+                </button>
+
+                {resourcesOpen ? (
+                  <div aria-label="Ressources" className="app-sidebar-resources-flyout" role="dialog">
+                    {resourcesPanel}
+                    <button
+                      className="app-sidebar-inventory-link"
+                      type="button"
+                      onClick={openInventory}
+                    >
+                      Détails → Inventaire
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        <div className="app-sidebar-status">
-          <span className="app-sidebar-status-stage">{villageStageName}</span>
-          <strong>{Math.floor(population)} hab.</strong>
+        <div className="app-sidebar-footer">
+          <div className="app-sidebar-status">
+            <span className="app-sidebar-status-stage">{villageStageName}</span>
+            <strong>{Math.floor(population)} hab.</strong>
+          </div>
+          <button
+            aria-current={activeView === 'settings' ? 'page' : undefined}
+            aria-label="Paramètres"
+            className={`app-sidebar-settings${activeView === 'settings' ? ' active' : ''}`}
+            title="Paramètres"
+            type="button"
+            onClick={() => handleSelect('settings')}
+          >
+            <span aria-hidden="true" className="app-sidebar-tab-icon">
+              ⚙️
+            </span>
+            <span className="app-sidebar-tab-label">Paramètres</span>
+          </button>
         </div>
       </div>
     </nav>

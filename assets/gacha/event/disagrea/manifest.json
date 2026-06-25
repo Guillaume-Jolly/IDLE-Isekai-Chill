@@ -1,0 +1,22 @@
+{
+  "event": "disagrea",
+  "source": "Input chatgpt/etna_gacha_8_images_pack",
+  "frames": {
+    "start": "start.png",
+    "intermediate": "intermediate.png",
+    "reveals": {
+      "N": "reveal-n.png",
+      "SR": "reveal-sr.png",
+      "SSR": "reveal-ssr.png",
+      "UR": "reveal-ur.png",
+      "LR": "reveal-lr.png",
+      "multi": "reveal-multi.png"
+    }
+  },
+  "sequence": [
+    "start",
+    "intermediate",
+    "reveal"
+  ],
+  "note": "Diaporama JS : départ → intermédiaire → flash rareté (ou multi). Vidéo plus tard via build:disagrea-gacha-video."
+}

@@ -1,0 +1,141 @@
+.reward-toast-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  left: 50%;
+  max-width: min(92vw, 360px);
+  pointer-events: none;
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  transform: translateX(-50%);
+  width: max-content;
+  z-index: 220;
+}
+
+.reward-toast {
+  align-items: center;
+  animation: reward-toast-enter 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  backdrop-filter: blur(12px);
+  background:
+    linear-gradient(135deg, rgba(42, 16, 32, 0.94) 0%, rgba(141, 42, 86, 0.9) 52%, rgba(42, 16, 32, 0.94) 100%);
+  border: 1px solid rgba(255, 213, 106, 0.45);
+  border-radius: 18px;
+  box-shadow:
+    0 14px 36px rgba(42, 16, 32, 0.45),
+    0 0 24px rgba(255, 90, 138, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #fff5fb;
+  display: flex;
+  gap: 12px;
+  min-width: min(92vw, 280px);
+  overflow: hidden;
+  padding: 10px 14px 10px 10px;
+  position: relative;
+}
+
+.reward-toast--exit {
+  animation: reward-toast-exit 0.42s cubic-bezier(0.55, 0, 1, 0.45) both;
+}
+
+.reward-toast-glow {
+  background: radial-gradient(circle at 20% 50%, rgba(255, 213, 106, 0.22), transparent 62%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.reward-toast-icon-wrap {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 213, 106, 0.25);
+  border-radius: 14px;
+  display: flex;
+  flex-shrink: 0;
+  height: 48px;
+  justify-content: center;
+  position: relative;
+  width: 48px;
+  z-index: 1;
+}
+
+.reward-toast-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.reward-toast-icon-emoji {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.reward-toast-icon-img {
+  display: block;
+  height: 28px;
+  object-fit: contain;
+  width: 28px;
+}
+
+.reward-toast-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.reward-toast-amount {
+  background: linear-gradient(90deg, #ffd56a 0%, #ffb8d8 55%, #ff5a8a 100%);
+  background-clip: text;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.reward-toast-label {
+  color: rgba(255, 245, 251, 0.82);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+@keyframes reward-toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-120%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reward-toast-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-120%);
+  }
+}
+
+@media (max-width: 767px) {
+  .reward-toast-stack {
+    max-width: calc(100vw - 24px);
+  }
+
+  .reward-toast {
+    min-width: 0;
+    width: 100%;
+  }
+}

@@ -1,50 +1,102 @@
-import { useEffect } from 'react'
-import { CompanionPortrait } from './CompanionPortrait'
+import { useEffect, useState } from 'react'
 import { useCompanionPortraitAssets } from '../hooks/useCompanionPortraitAssets'
+import { revealInExplorer } from '../utils/revealInExplorer'
 import './ImageLightbox.css'
-import './CompanionPortrait.css'
 
 export type LightboxImage = {
   src: string
   alt: string
   caption?: string
-  /** Affiche cutout + background si les fichiers existent. */
+  /** Chemin relatif repo — lien Explorateur (dev). */
+  repoPath?: string
+  /** Résout cutout + background ou composé si présents. */
   companionId?: string
   level?: number
 }
 
+export type LightboxImageFit = 'cover' | 'contain'
+
 type LightboxStageProps = {
   image: LightboxImage
+  imageFit: LightboxImageFit
 }
 
 function LightboxCompanionSlide({
   image,
+  imageFit,
 }: {
   image: LightboxImage & { companionId: string; level: number }
+  imageFit: LightboxImageFit
 }) {
   const portrait = useCompanionPortraitAssets(image.companionId, image.level)
+  const fullClass = imageFit === 'contain' ? ' lightbox-image--full' : ''
 
-  if (portrait.mode !== 'loading' && portrait.mode !== 'missing') {
+  if (portrait.mode === 'loading') {
+    return <div aria-hidden className="lightbox-image lightbox-image--loading" />
+  }
+
+  if (portrait.mode === 'missing') {
+    return <img className={`lightbox-image${fullClass}`} src={image.src} alt={image.alt} />
+  }
+
+  if (portrait.composedSrc && (imageFit === 'contain' || portrait.mode === 'composed')) {
     return (
-      <div className="lightbox-portrait-stack">
-        <CompanionPortrait
+      <img
+        className={`lightbox-image${fullClass}`}
+        src={portrait.composedSrc}
+        alt={image.alt}
+      />
+    )
+  }
+
+  if (portrait.mode === 'layered' && portrait.backgroundSrc && portrait.cutoutSrc) {
+    return (
+      <div className={`lightbox-portrait-stack${imageFit === 'contain' ? ' lightbox-portrait-stack--full' : ''}`}>
+        <img
+          alt=""
+          aria-hidden
+          className="lightbox-layer lightbox-layer--bg"
+          src={portrait.backgroundSrc}
+        />
+        <img
           alt={image.alt}
-          companionId={image.companionId}
-          level={image.level}
+          className="lightbox-layer lightbox-layer--cutout"
+          src={portrait.cutoutSrc}
         />
       </div>
     )
   }
 
-  return <img className="lightbox-image" src={image.src} alt={image.alt} />
-}
-
-function LightboxStageContent({ image }: LightboxStageProps) {
-  if (image.companionId && image.level) {
-    return <LightboxCompanionSlide image={{ ...image, companionId: image.companionId, level: image.level }} />
+  if (portrait.cutoutSrc) {
+    return (
+      <img
+        className={`lightbox-image${fullClass}`}
+        src={portrait.cutoutSrc}
+        alt={image.alt}
+      />
+    )
   }
 
-  return <img className="lightbox-image" src={image.src} alt={image.alt} />
+  return <img className={`lightbox-image${fullClass}`} src={image.src} alt={image.alt} />
+}
+
+function LightboxStageContent({ image, imageFit }: LightboxStageProps) {
+  if (image.companionId && image.level) {
+    return (
+      <LightboxCompanionSlide
+        image={{ ...image, companionId: image.companionId, level: image.level }}
+        imageFit={imageFit}
+      />
+    )
+  }
+
+  return (
+    <img
+      className={`lightbox-image${imageFit === 'contain' ? ' lightbox-image--full' : ''}`}
+      src={image.src}
+      alt={image.alt}
+    />
+  )
 }
 
 type ImageLightboxProps = {
@@ -52,6 +104,10 @@ type ImageLightboxProps = {
   index: number
   onClose: () => void
   onIndexChange: (nextIndex: number) => void
+  /** contain = image entière (zoom Liens). cover = recadrage carte. */
+  imageFit?: LightboxImageFit
+  /** Affiche le lien « Ouvrir dans l'Explorateur » (dev galerie). */
+  showExplorerLink?: boolean
 }
 
 export function ImageLightbox({
@@ -59,8 +115,16 @@ export function ImageLightbox({
   index,
   onClose,
   onIndexChange,
+  imageFit = 'contain',
+  showExplorerLink = false,
 }: ImageLightboxProps) {
   const current = images[index]
+  const stageClass = imageFit === 'contain' ? 'lightbox-stage lightbox-stage--full' : 'lightbox-stage'
+  const [explorerError, setExplorerError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setExplorerError(null)
+  }, [index])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -73,6 +137,22 @@ export function ImageLightbox({
   }, [images.length, index, onClose, onIndexChange])
 
   if (!current) return null
+
+  const canReveal =
+    showExplorerLink && import.meta.env.DEV && Boolean(current.repoPath)
+
+  const handleReveal = async () => {
+    if (!current.repoPath) return
+    setExplorerError(null)
+    const result = await revealInExplorer(current.repoPath)
+    if (!result.ok) {
+      setExplorerError(
+        result.error === 'not-found'
+          ? 'Fichier introuvable sur le disque.'
+          : "Impossible d'ouvrir l'Explorateur.",
+      )
+    }
+  }
 
   return (
     <div className="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Visionneuse">
@@ -89,10 +169,27 @@ export function ImageLightbox({
         ‹
       </button>
 
-      <figure className="lightbox-stage">
-        <LightboxStageContent image={current} />
+      <figure className={stageClass}>
+        <LightboxStageContent image={current} imageFit={imageFit} />
         <figcaption className="lightbox-caption">
-          {current.caption ?? current.alt}
+          <span className="lightbox-caption-main">
+            {current.caption ?? current.alt}
+            {canReveal && (
+              <button
+                className="lightbox-explorer-link"
+                type="button"
+                onClick={handleReveal}
+                title={current.repoPath}
+              >
+                Ouvrir dans l&apos;Explorateur
+              </button>
+            )}
+            {explorerError && (
+              <span className="lightbox-explorer-error" role="alert">
+                {explorerError}
+              </span>
+            )}
+          </span>
           <span>
             {index + 1} / {images.length}
           </span>
@@ -113,19 +210,11 @@ export function ImageLightbox({
           {images.map((image, thumbIndex) => (
             <button
               className={thumbIndex === index ? 'active' : ''}
-              key={`${image.src}-${thumbIndex}`}
+              key={image.alt + thumbIndex}
               type="button"
               onClick={() => onIndexChange(thumbIndex)}
             >
-              {image.companionId && image.level ? (
-                <CompanionPortrait
-                  alt=""
-                  companionId={image.companionId}
-                  level={image.level}
-                />
-              ) : (
-                <img src={image.src} alt="" />
-              )}
+              <img src={image.src} alt="" />
             </button>
           ))}
         </div>

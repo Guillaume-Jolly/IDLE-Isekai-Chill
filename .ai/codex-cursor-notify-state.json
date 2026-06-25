@@ -1,0 +1,6 @@
+﻿{
+  "last_notified_at_paris": "2026-06-25T00:27:47+02:00",
+  "cursor_outbox_sha256": "CE7659A0B9A967C58EBACEA2F6317F5D32C3F6A157810900BB650A51A47E0253",
+  "cursor_heartbeat_sha256": "41590934451EDAC073AF584E29A0E80266429E5F594A5676B15E42DB41F82EC6",
+  "last_summary": "Cursor reported STAGING PROGRESS at 00:28: milestone 1 complete, six staging files created, top findings listed, cutouts 96/152 active, cleanup not safe."
+}

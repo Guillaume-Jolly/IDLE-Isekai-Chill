@@ -23,11 +23,21 @@
     "import:link-corpus-v2": "node scripts/import-link-corpus-v2.mjs",
     "import:talia": "node scripts/import-talia-companion-pack.mjs",
     "import:disagrea": "node scripts/import-disagrea-assets.mjs",
+    "promote:companion-visual-pack": "node scripts/promote-companion-visual-pack.mjs",
+    "regenerate:village-chibis": "node scripts/regenerate-village-chibis.mjs",
+    "promote:disagrea-integrated-affinity": "node scripts/promote-disagrea-integrated-affinity.mjs",
+    "build:disagrea-gacha-video": "node scripts/build-disagrea-gacha-video.mjs",
     "import:chibis": "node scripts/import-myrions-chibis.mjs",
     "import:chibis-9": "node scripts/import-chibis-9-pack.mjs",
     "setup:live2d": "node scripts/setup-live2d-demo.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:stable": "node scripts/build-stable-release.mjs",
+    "build:stable:prod": "node scripts/build-stable-release.mjs --confirm-prod",
+    "tls:stable": "node scripts/generate-stable-tls.mjs",
+    "trust:stable": "powershell -ExecutionPolicy Bypass -File scripts/trust-stable-tls.ps1",
+    "serve:stable": "node scripts/serve-stable.mjs",
+    "launcher:stable": "node scripts/stable-launcher.mjs"
   },
   "dependencies": {
     "pixi-live2d-display": "0.4.0",

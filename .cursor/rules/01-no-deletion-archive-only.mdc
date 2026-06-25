@@ -1,0 +1,33 @@
+---
+description: Interdiction absolue de supprimer fichiers/dossiers — archiver ou commenter uniquement
+alwaysApply: true
+---
+
+# Aucune suppression — archivage uniquement
+
+## Règle absolue
+
+**Ne jamais supprimer** de fichiers, dossiers ou assets du projet, y compris :
+
+- `old_assets/`, `staging/`, `release/`, `assets/*-import/`, brouillons gitignorés
+- PNG, sources IA, catalogues, previews, scripts locaux
+- Même si gitignoré, « obsolète », « doublon », « reliquat dev », ou « nettoyage » demandé
+
+**Interdit :** `Remove-Item`, `rm -rf`, `git clean`, `git restore` sur suppressions massives, `Delete` tool sur dossiers d’assets, `Remove-Item -Force`.
+
+## À la place
+
+1. **Déplacer** vers un dossier d’archive explicite, ex. `old_assets/` ou `archive/YYYY-MM-DD-<motif>/`
+2. **Commenter** du code mort plutôt que le retirer, si c’est du source
+3. **Demander confirmation explicite** fichier par fichier si l’utilisateur demande un vrai retrait — et proposer déplacement d’abord
+
+## Nettoyage / tri
+
+- « Nettoyer » ≠ supprimer. Lire : trier, gitignore, documenter, déplacer vers archive.
+- Ne jamais interpréter « images dans old_assets » comme une consigne de vider `old_assets/`.
+- Les dossiers marqués à ignorer dans `.gitignore` sont **à conserver sur disque**.
+
+## Git
+
+- Pas de `git add` + suppression de sources non versionnées sans accord.
+- Pas de commit qui retire des assets utiles sans revue utilisateur.

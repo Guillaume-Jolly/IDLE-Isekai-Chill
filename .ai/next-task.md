@@ -2,51 +2,63 @@
 
 ## Active Task
 
-Review the Disagrea runtime asset commit, then wire Disagrea into the game in one bounded runtime pass.
+Coordinate the overnight asset cleanup without colliding with Cursor's current asset work.
 
-## Completed Sequence
+## User Goal
 
-Safe commits already created:
+The repository has generated/runtime/source assets spread across too many folders. The desired long-term structure is:
 
-1. `6f62dd4 docs: add ai coordination layer`
-2. `27b3fb7 chore(assets): migrate minigame assets`
-3. `2415b82 feat(companions): add layered portrait runtime`
-4. `252ac98 feat(minigames): add conversation result flow`
-5. `01cb8e6 chore(assets): stage disagrea runtime assets`
+- `assets/`
+  - `Compagnons/<id>/affinite/`
+  - `Compagnons/<id>/cutouts/`
+  - `Compagnons/<id>/chibis/`
+  - `Compagnons/<id>/NSFW/`
+  - `Compagnons/<id>/Autres/<source-or-batch-name>/`
+  - `Background/<id_biome>/`
+  - `Myrions/<id_biome>/`
+- `old_assets/` for generated/loose/unused assets that should be kept but no longer used by runtime.
+- `staging/` untouched.
+- `Input chatgpt/` untouched.
 
-## Immediate Review Step
+Additional cleanup target: empty folders and folders that contain only scattered `.md` files should be inventoried and proposed for grouping, compilation, or deletion.
 
-Cursor should stay review-only and inspect `01cb8e6`.
+## Writer Coordination
 
-Focus:
+**Cutout agent (Cursor, separate session)** is the active writer for:
+- `staging/companion-visual-pack/village/*/cutouts/`
+- `staging/companion-visual-pack/disagrea/*/cutouts/`
+- `public/assets/companions/*/emotion-*.png` (promotion)
+- `scripts/regenerate-emotion-cutouts.mjs promote`
 
-- The commit should contain public runtime assets and the companion chibi availability only.
-- It should not include `eventDisagreaPack.ts`, source/staging folders, generated release files, or runtime gameplay wiring.
-- The 38 staged PNG files should be valid and intentionally named.
+**Cursor (this session)** is standby/coordination only — 30s heartbeat in `.ai/cursor-heartbeat.md`.
 
-## Next Bounded Writer Step After Review
+**Codex** may do read-only inventory immediately and edit `.ai/*` coordination files. Do not move/delete/rename active cutout paths until heartbeat reports cutout work complete.
 
-If review is clean, Codex may wire Disagrea runtime in a separate commit.
+See `.ai/cursor-outbox.md` section « Cursor Coordination — 2026-06-24 » for full answers.
 
-Allowed:
+## Immediate Step
 
-- `src/data/eventDisagreaPack.ts`
-- minimal imports/exports needed to register Disagrea companions, Myrions, event backgrounds, or event metadata.
-- minimal docs update in `docs/TNR_EVENT_DISAGREA.md` if it reflects current validation.
-- `.ai/codex-report.md`
-- `.ai/cursor-review-instructions.md`
+Monitor `.ai/cursor-heartbeat.md` for cutout progress. When cutouts v3 promotion is complete, proceed with read-only full inventory per user goal below.
 
-Out of scope:
+Wait for Cursor heartbeat signal **STANDBY COMPLETE** before any physical asset moves.
 
-- release packaging.
-- broad refactors or save-format changes.
-- source/staging archives under `assets/event-disagrea/*` or `assets/events/*`.
-- untracked catalog/composite scripts unless runtime wiring explicitly needs them.
-- unrelated dirty docs or deleted old source PNGs.
+## First Safe Codex Work After Cursor Standby
 
-## Validation
+1. Inventory the full asset/document sprawl.
+2. Categorize paths into:
+   - runtime-used assets;
+   - generated but unused assets;
+   - source/reference assets;
+   - active work directories to preserve untouched;
+   - docs-only folders;
+   - release/build artifacts;
+   - empty folders.
+3. Produce a proposed move/delete/archive plan before moving files.
+4. Confirm the backup strategy. User created a GitHub `Backup` branch for safety; do not push or overwrite remote branches unless explicitly authorized.
 
-For the runtime wiring pass:
+## Validation For Any Cleanup Commit
+
+After physical moves or code path rewrites:
 
 ```bash
 npm run build
@@ -54,12 +66,13 @@ npm run lint
 npm run validate:link-corpus
 ```
 
-If browser access works, smoke-check: Disagrea companion portraits/chibis, capture event background, dressage event background, and one Disagrea Myrion cutout/chibi. If browser access is blocked, document fallback checks and ask Cursor for visual smoke.
+If runtime public asset paths change, perform or request visual smoke checks for companions, Myrions, gacha, minigames, and Disagrea event assets.
 
-## References
+## Hard Exclusions
 
-- `.ai/cleanup-inventory.md`
-- `.ai/current-state.md`
-- `.ai/codex-report.md`
-- `.ai/cursor-outbox.md`
-- `AGENTS.md`
+- Do not touch `staging/`.
+- Do not touch `Input chatgpt/`.
+- Do not push to `main`.
+- Do not force-push or overwrite `Backup` without explicit user authorization.
+- Do not delete assets permanently; move uncertain unused assets to `old_assets/`.
+

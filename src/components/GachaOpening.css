@@ -29,6 +29,21 @@
   width: 100%;
 }
 
+.gacha-cinema-slideshow {
+  animation: gacha-slideshow-pulse 0.45s ease;
+}
+
+@keyframes gacha-slideshow-pulse {
+  from {
+    opacity: 0.88;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .gacha-cinema-video,
 .gacha-cinema-poster {
   height: 100%;

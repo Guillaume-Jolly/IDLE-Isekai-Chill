@@ -31,7 +31,32 @@ assets/*-import/
 assets/link-corpus-import/*
 !assets/link-corpus-import/README.md
 assets/village-layout/
-public/minigames/_preview/
+public/minigames/
+old_assets/previews/
 public/build-info.json
 assets/link-corpus-import/_extract/
 src/data/linkCorpusV2.backup.json
+
+# Event Disagrea — brouillons / pipeline intermédiaire (non versionnés)
+old_assets/event-disagrea/
+assets/event-disagrea/integrated/companions/*/tests/
+assets/integrated-portraits/GENERATION_JOBS.json
+
+# Staging companion visuals — JSON tracked, PNG local until validated
+staging/companion-visual-pack/**/*.png
+staging/companion-visual-pack/data/GENERATION_QUEUE.json
+
+# Build stable isolée (dist + secrets locaux — archives conservées)
+deploy/stable/dist/
+deploy/stable/archive/
+deploy/stable/.env.stable.local
+deploy/stable/BUILD_INFO.json
+deploy/stable/certs/*.pem
+deploy/stable/certs/*.pfx
+deploy/stable/certs/*.cer
+deploy/stable/data/**
+!deploy/stable/data/.gitkeep
+deploy/stable/launcher-ui/*.png
+deploy/stable/launcher-ui/app.ico
+deploy/stable/launcher-ui/icon-source.png
+Launch IDLE Isekai Chill.lnk

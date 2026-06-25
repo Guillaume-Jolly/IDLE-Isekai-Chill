@@ -22,6 +22,14 @@
   overflow: hidden;
 }
 
+.lightbox-stage--full {
+  aspect-ratio: auto;
+  justify-items: center;
+  max-width: min(94vw, 1024px);
+  overflow: visible;
+  width: auto;
+}
+
 .lightbox-image {
   animation: lightbox-zoom 0.28s ease, companion-breathe 4.8s ease-in-out 0.28s infinite;
   border-radius: 20px;
@@ -34,13 +42,96 @@
   width: 100%;
 }
 
+.lightbox-image--full {
+  animation: lightbox-zoom 0.28s ease;
+  display: block;
+  height: auto;
+  max-height: min(88vh, calc(100vh - 160px));
+  max-width: min(94vw, 1024px);
+  object-fit: contain;
+  object-position: center center;
+  width: auto;
+}
+
+.lightbox-image--loading {
+  animation: none;
+  background: rgba(255, 255, 255, 0.08);
+  min-height: min(60vh, 480px);
+  min-width: min(40vw, 320px);
+}
+
+.lightbox-portrait-stack {
+  aspect-ratio: 3 / 4;
+  max-height: min(78vh, 920px);
+  position: relative;
+  width: min(92vw, 640px);
+}
+
+.lightbox-portrait-stack--full {
+  aspect-ratio: auto;
+  height: min(88vh, calc(100vh - 160px));
+  max-width: min(94vw, 1024px);
+  width: min(94vw, 1024px);
+}
+
+.lightbox-layer {
+  inset: 0;
+  position: absolute;
+}
+
+.lightbox-portrait-stack--full .lightbox-layer {
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  width: 100%;
+}
+
+.lightbox-portrait-stack:not(.lightbox-portrait-stack--full) .lightbox-layer {
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  width: 100%;
+}
+
 .lightbox-caption {
   color: #fff;
   display: flex;
+  flex-wrap: wrap;
   font-size: 0.95rem;
   font-weight: 700;
-  gap: 12px;
+  gap: 8px 12px;
   justify-content: space-between;
+  width: 100%;
+}
+
+.lightbox-caption-main {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.lightbox-explorer-link {
+  background: transparent;
+  border: 0;
+  color: rgba(255, 210, 120, 0.95);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lightbox-explorer-link:hover {
+  color: #ffd278;
+}
+
+.lightbox-explorer-error {
+  color: rgba(255, 140, 140, 0.95);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 .lightbox-caption span {
@@ -127,7 +218,7 @@
   animation: none;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center center;
   position: absolute;
   width: 100%;
 }

@@ -406,6 +406,8 @@ const rollWeightedRarity = (boost = 0): GachaRarity => {
 const fragmentCountForItem = (item: GachaItem) => {
   if (item.id === 'ssr-frag-triple') return 3
   if (item.id === 'lr-frag-burst') return 5
+  if (item.id === 'disagrea-lr-jackpot') return 5
+  if (item.id === 'disagrea-frag-etna-lr') return 3
   return 1
 }
 

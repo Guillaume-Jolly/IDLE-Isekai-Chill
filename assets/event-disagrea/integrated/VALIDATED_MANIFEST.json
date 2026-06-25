@@ -1,0 +1,37 @@
+{
+  "event": "disagrea",
+  "validatedAt": "2026-06-24",
+  "pipeline": "integrated-scene-originale-v1",
+  "count": 24,
+  "files": [
+    "integrated/companions/etna/companion-etna-affinity-01-scene-originale-v1.png",
+    "integrated/companions/etna/companion-etna-affinity-02-flirt-proche-scene-originale-v1.png",
+    "integrated/companions/etna/companion-etna-affinity-03-vulnerable-complicite-scene-originale-v1.png",
+    "integrated/companions/etna/companion-etna-affinity-04-intime-soft-scene-originale-v1.png",
+    "integrated/companions/etna/companion-etna-affinity-05-peak-bond-scene-originale-v1.png",
+    "integrated/companions/flonne/companion-flonne-affinity-01-scene-originale-v1.png",
+    "integrated/companions/flonne/companion-flonne-affinity-02-flirt-proche-scene-originale-v1.png",
+    "integrated/companions/flonne/companion-flonne-affinity-03-vulnerable-complicite-scene-originale-v1.png",
+    "integrated/companions/flonne/companion-flonne-affinity-04-intime-soft-scene-originale-v1.png",
+    "integrated/companions/flonne/companion-flonne-affinity-05-peak-bond-scene-originale-v1.png",
+    "integrated/companions/laharl/companion-laharl-affinity-01-scene-originale-v1.png",
+    "integrated/companions/laharl/companion-laharl-affinity-02-flirt-proche-scene-originale-v1.png",
+    "integrated/companions/laharl/companion-laharl-affinity-03-vulnerable-complicite-scene-originale-v1.png",
+    "integrated/companions/laharl/companion-laharl-affinity-04-intime-soft-scene-originale-v1.png",
+    "integrated/companions/laharl/companion-laharl-affinity-05-peak-bond-scene-originale-v1.png",
+    "integrated/companions/pleinair/companion-pleinair-affinity-01-scene-originale-v1.png",
+    "integrated/companions/pleinair/companion-pleinair-affinity-02-flirt-proche-scene-originale-v1.png",
+    "integrated/companions/pleinair/companion-pleinair-affinity-03-vulnerable-complicite-scene-originale-v1.png",
+    "integrated/companions/pleinair/companion-pleinair-affinity-04-intime-soft-scene-originale-v1.png",
+    "integrated/companions/pleinair/companion-pleinair-affinity-05-peak-bond-scene-originale-v1.png",
+    "integrated/companions/etna/companion-etna-affinity-04-nsfw-scene-v1.png",
+    "integrated/companions/flonne/companion-flonne-affinity-04-nsfw-scene-v1.png",
+    "integrated/companions/laharl/companion-laharl-affinity-04-nsfw-scene-v1.png",
+    "integrated/companions/pleinair/companion-pleinair-affinity-04-nsfw-scene-v1.png"
+  ],
+  "notes": {
+    "pleinair": "Backlog: docs/BACKLOG.md § Event Disagrea — Pleinair (paliers 2–5 proximité enfant/parent, pas intimité adulte).",
+    "etnaNsfw": "affinity-04-nsfw = batch5-v5 lit validée (companion-etna-affinity-05-lit-batch5-v5-v4-final-tweak.png), pas le peak-plus générique L6."
+  },
+  "nsfwNote": "affinity-04-nsfw = scènes intégrées peak-plus (ex-L6). Etna = variante lit batch5-v5 validée. Affichées si option NSFW activée."
+}

@@ -36,20 +36,30 @@ npm run build
 
 ## Ajouter des visuels externes
 
-La galerie developpement cherche automatiquement les fichiers dans:
+Portraits compagnons en **deux couches** (recommandé) :
 
 ```text
-public/companions/<companion-id>/affinity-<level>.png
+public/assets/companions/<companion-id>/cutout-<level>.png      # personnage détouré
+public/assets/companions/<companion-id>/background-<level>.png  # décor seul
 ```
 
-Exemple:
+Fonds partagés (mini-jeux, variantes) : `public/assets/companions/backgrounds/<scene-id>.png`
+
+Legacy (portrait composé en un seul fichier, toujours supporté) :
 
 ```text
-public/companions/lyra/affinity-1.png
-public/companions/lyra/affinity-2.png
-public/companions/lyra/affinity-3.png
-public/companions/lyra/affinity-4.png
-public/companions/lyra/affinity-5.png
+public/assets/companions/<companion-id>/affinity-<level>.png
+```
+
+Briefs IA : `src/data/companionPortraitHints.ts` — doc détaillée : [`public/assets/companions/README.md`](public/assets/companions/README.md)
+
+Export PNG plat optionnel : `node scripts/composite-companion-portrait.mjs lyra 3`
+
+Mini-jeux Myrions (refuge, chasse) : voir [`assets/minigames/README.md`](assets/minigames/README.md).
+
+```text
+public/assets/minigames/dressage/...
+public/assets/minigames/capture/...
 ```
 
 Si un fichier n'existe pas encore, l'app affiche un placeholder colore avec le
@@ -79,7 +89,7 @@ contraintes:
 Idees d'amelioration ou de nouveaux modes de jeu notes pour plus tard (sans
 priorite fixe) :
 
-- **[Backlog](docs/BACKLOG.md)** — Top War–like, Capybara Go–like, War Thunder–like, etc.
+- **[Backlog](docs/BACKLOG.md)** — idées mini-jeux (Top War, refuge + compagnons, etc.)
 
 Pour les taches deja priorisees cote projet, voir [`docs/TODO_PRIORITIZED.md`](docs/TODO_PRIORITIZED.md).
 

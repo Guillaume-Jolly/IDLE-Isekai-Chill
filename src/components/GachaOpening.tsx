@@ -1,8 +1,14 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { bestRarity, RARITY_META, type GachaItem } from '../data/gacha'
+import {
+  DISAGREA_CINEMA_STEP_MS,
+  DISAGREA_CINEMA_TOTAL_MS,
+  disagreaGachaCinemaFrames,
+} from '../data/disagreaGachaCinema'
 import './GachaOpening.css'
 
 type Phase = 'cinema' | 'summary'
+export type GachaOpeningVariant = 'festival' | 'disagrea'
 
 const GOLD_MULTI = '#ffd878'
 const OPENING_MP4 = '/gacha/cinema/opening.mp4'
@@ -10,13 +16,15 @@ const OPENING_POSTER = '/gacha/cinema/hostess-intro.png'
 
 type GachaOpeningProps = {
   items: GachaItem[]
+  variant?: GachaOpeningVariant
   onClose: () => void
 }
 
-export function GachaOpening({ items, onClose }: GachaOpeningProps) {
+export function GachaOpening({ items, variant = 'festival', onClose }: GachaOpeningProps) {
   const [phase, setPhase] = useState<Phase>('cinema')
   const [showReward, setShowReward] = useState(false)
   const [videoFailed, setVideoFailed] = useState(false)
+  const [cinemaFrameIndex, setCinemaFrameIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
   const highlight = bestRarity(items)
   const multiPull = items.length > 1
@@ -24,28 +32,65 @@ export function GachaOpening({ items, onClose }: GachaOpeningProps) {
   const spotlight =
     items.length === 1 ? items[0] : items.find((item) => item.rarity === highlight) ?? items[0]
 
+  const disagreaFrames = useMemo(
+    () => (variant === 'disagrea' ? disagreaGachaCinemaFrames(items) : []),
+    [items, variant],
+  )
+
+  const cinemaDurationMs = variant === 'disagrea' ? DISAGREA_CINEMA_TOTAL_MS : 4000
+  const rewardDelayMs = variant === 'disagrea' ? 2000 : 2600
+
   useEffect(() => {
-    const rewardTimer = window.setTimeout(() => setShowReward(true), 2600)
-    const summaryTimer = window.setTimeout(() => setPhase('summary'), 4000)
+    const rewardTimer = window.setTimeout(() => setShowReward(true), rewardDelayMs)
+    const summaryTimer = window.setTimeout(() => setPhase('summary'), cinemaDurationMs)
     return () => {
       window.clearTimeout(rewardTimer)
       window.clearTimeout(summaryTimer)
     }
-  }, [])
+  }, [cinemaDurationMs, rewardDelayMs])
+
+  useEffect(() => {
+    if (variant !== 'disagrea') return undefined
+    setCinemaFrameIndex(0)
+    const timers: number[] = []
+    let elapsed = 0
+    DISAGREA_CINEMA_STEP_MS.forEach((_stepMs, index) => {
+      if (index === 0) return
+      elapsed += DISAGREA_CINEMA_STEP_MS[index - 1]
+      timers.push(window.setTimeout(() => setCinemaFrameIndex(index), elapsed))
+    })
+    return () => timers.forEach((id) => window.clearTimeout(id))
+  }, [variant, disagreaFrames])
 
   useEffect(() => {
     const video = videoRef.current
-    if (!video || phase !== 'cinema' || videoFailed) return
+    if (!video || phase !== 'cinema' || videoFailed || variant !== 'festival') return
     video.currentTime = 0
     void video.play().catch(() => setVideoFailed(true))
-  }, [phase, videoFailed])
+  }, [phase, videoFailed, variant])
+
+  const caption =
+    variant === 'disagrea'
+      ? multiPull
+        ? `Faille Disagrea x${items.length} — invocation arc-en-ciel`
+        : `Faille Disagrea — ${RARITY_META[highlight].label}`
+      : multiPull
+        ? `Invocation x${items.length} — lumiere doree du festival`
+        : `Decouverte ${highlight} — ${RARITY_META[highlight].label}`
 
   return (
     <div className="gacha-overlay" role="dialog" aria-modal="true" aria-label="Invocation gacha">
       {phase === 'cinema' && (
         <div className="gacha-cinema">
           <div className="gacha-cinema-stage">
-            {!videoFailed ? (
+            {variant === 'disagrea' ? (
+              <img
+                key={cinemaFrameIndex}
+                alt=""
+                className="gacha-cinema-poster gacha-cinema-slideshow"
+                src={disagreaFramesSafe(disagreaFrames, cinemaFrameIndex)}
+              />
+            ) : !videoFailed ? (
               <video
                 ref={videoRef}
                 autoPlay
@@ -77,12 +122,8 @@ export function GachaOpening({ items, onClose }: GachaOpeningProps) {
             </div>
           </div>
 
-          <p className="gacha-cinema-caption">
-            {multiPull
-              ? `Invocation x${items.length} — lumiere doree du festival`
-              : `Decouverte ${highlight} — ${RARITY_META[highlight].label}`}
-          </p>
-          {videoFailed && (
+          <p className="gacha-cinema-caption">{caption}</p>
+          {variant === 'festival' && videoFailed && (
             <p className="gacha-cinema-hint">
               Place une vraie boucle dans <code>public/gacha/cinema/opening.mp4</code>
             </p>
@@ -114,6 +155,12 @@ export function GachaOpening({ items, onClose }: GachaOpeningProps) {
     </div>
   )
 }
+
+function disagreaFramesSafe(frames: string[], index: number) {
+  return frames[index] ?? frames[frames.length - 1] ?? DISAGREA_CINEMA_FRAMES_FALLBACK
+}
+
+const DISAGREA_CINEMA_FRAMES_FALLBACK = '/gacha/cinema/disagrea/start.png'
 
 function GachaCard({
   item,
