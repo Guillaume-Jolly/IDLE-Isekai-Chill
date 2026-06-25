@@ -1,78 +1,44 @@
-# Next Task
+﻿# Next Task
 
 ## Active Task
 
-**Assets 2.0 — Phase 5: main commit prep**
+**Post–V2 baseline — gameplay and corpus quality**
 
-Phase 4 WebP assessed and **deferred** (2026-06-25). Assessment: `staging/planning/phase4-webp-assessment.md`.
+`origin/main` = Assets 2.0 + link corpus V2 (`60eb5d5`). Report: `staging/planning/phase5-main-v2-baseline.md`.
 
-## User Goal
+## P0 (do first)
 
-Single `assets/` source-of-truth tree with minimal `public/`:
+| ID | Task | Validation |
+|----|------|------------|
+| P0-smoke | Manual smoke: chasse (Talia guide, cutouts), dressage chibi, companion affinity/emotion, gacha, Disagrea | TNR checklist in `tnr-2026-06-25-phase3.md` |
+| B4 | Wire `emotion-{emotion}.png` in ConversationGame | Liens tab visual smoke |
+| B1 | Companion-specific `context[2]` per round (R2/R3) | Sample 5/companion + playtest |
 
-- `assets/Compagnons/<id>/affinite|cutouts|chibis|NSFW|Autres/<batch>/` ✅
-- `assets/Background/<biomeId>/` ✅
-- `assets/Myrions/<biomeId>/` ✅
-- `assets/Gacha/` ✅
-- Unified Vite plugin (`vite.repo-assets.ts`) ✅
-- `old_assets/` for archived unused assets
-- `staging/` and `Input chatgpt/` untouched
+## P1 (next)
 
-## Immediate Step
+| ID | Task | Notes |
+|----|------|-------|
+| B2 | Companion-voice transition pool (min 8 per companion) | Generator change |
+| B3 | De-duplicate player choice text (~870 repeats) | Import pipeline |
+| pub-mirror | Residual `public/assets/` PNG mirrors — move duplicates to `old_assets/` only | No deletes |
+| lint-8 | Fix 8 eslint errors when touching those files | See phase5 baseline |
 
-**Relecture globale avec user** — `staging/planning/global-2.0-readiness-audit.md`
+## P2 (deferred / polish)
 
-⚠️ **Aucun push `main` autorisé** — user n'a pas donné le go pour écraser main. Phase 5 subagent lancé par erreur ; rien n'a été poussé sur main.
+- **WebP**: reopen only with perf evidence (`phase4-webp-assessment.md`)
+- **I6**: code-split `linkCorpusV2.json` (~39 MB bundle)
+- Corpus polish I1–I5, P1–P4 in `staging/planning/conversation-v2-fix-backlog.md`
 
-Ordre :
-1. Valider checklist P0 ensemble (Input chatgpt, TNR, smoke)
-2. Commit baseline local + Backup
-3. P1 optionnel (miroirs public/assets, lint)
-4. **Go explicite user** requis pour tout push main
+## Hard exclusions
 
-## Phase 4 outcome (deferred)
+- Do not delete assets — move to `old_assets/`.
+- Do not touch secrets (`.env`).
+- Do not resume cutouts v3 mass promote without explicit user request.
 
-- Verdict: **DEFER** — WebP not necessary before 2.0 commit
-- 1 149 images scanned (`assets/` + `public/`), 667 > 1 MB; runtime critical path ~2.7–5.1 MB per capture scene (on-demand)
-- WebP already in use: village `panorama-base.webp`, gacha `opening.webm`/`.webp`, cinema frames 00–05
-- If perf issues later: selective opaque biome backgrounds only (~40–50 MB potential savings) — requires user approval
-
-## Completed (Phase 3)
-
-- Consolidated 4 vite plugins → `repoAssetsPlugin` in `vite.repo-assets.ts`
-- `legacyPublicAssetPlugin` + mapping table exported from same module
-- Talia guide cutouts: `public/.../talia/` → `assets/Compagnons/talia/Autres/guide/` (10 files)
-- Scripts: `minigame-asset-paths.mjs` + 5 import/promote scripts → `assets/` paths
-- Redirect READMEs updated (gacha, biomes, myrions, companions, talia guides)
-- Manifest regenerated (1720 images)
-
-## Coordination
-
-- **Guillaume (user)** — sole decision maker. No Codex coordination.
-- Cutouts v3 promote: **stopped** — do not resume without explicit user request.
-- Backup before major work: `git push origin HEAD:Backup --force` (user authorized).
-- **No commit** unless user explicitly asks.
-
-## Validation For Any Cleanup Commit
+## Validation for any commit
 
 ```bash
 npm run build
 npm run lint
 npm run validate:link-corpus
 ```
-
-Visual smoke: companions, Myrions, gacha, minigames, Disagrea event, Talia guide overlay — see TNR checklist.
-
-## Hard Exclusions
-
-- Do not delete assets — move to `old_assets/`.
-- Do not touch `Input chatgpt/`.
-- Do not push to `main` without user sign-off.
-- Do not remove content from `staging/` (OK to add/move .md to planning).
-- Do not convert assets to WebP unless user explicitly reopens Phase 4 after perf evidence.
-
-## Phase 5 blockers (none critical)
-
-- ~606 PNG mirrors under `public/assets/` (~189 MB) — archive target before clean baseline
-- Readiness audit: `staging/planning/global-2.0-readiness-audit.md`
-- Lint: 8 errors + 13 warnings pre-existing (confirmed 2026-06-25)

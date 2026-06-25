@@ -1,45 +1,40 @@
 ﻿# Current State
 
-Last updated: 2026-06-25 by Cursor (Phase 4 assessment COMPLETE — DEFER).
+Last updated: 2026-06-25 by Cursor (Phase 5 COMPLETE — main = V2 baseline).
 
 ## Active initiative
 
-**Assets 2.0 cleanup** — Phase 4 assessed and deferred; Phase 5 next.
+**Build on V2 baseline** — `origin/main` and `origin/Backup` at `60eb5d5`.
 
 - User is sole interlocutor (Codex out of loop).
-- Target: single `assets/` tree, `old_assets/` archive, preserve `staging/` + `Input chatgpt/`.
-- Backup branch: `origin/Backup` (snapshot commit `06961a1`).
+- Single `assets/` tree + unified `vite.repo-assets.ts`; `staging/` + `Input chatgpt/` preserved.
+- Phase 4 WebP: **deferred** (`staging/planning/phase4-webp-assessment.md`).
 
 ## Phase status
 
 | Phase | Status | Artefacts |
 |-------|--------|-----------|
-| 0 | ✅ Done | `asset-manifest.json`, inventory script, Backup push |
-| 1 | ✅ Done | `staging/playbooks/` (00–06) |
-| 2 | ✅ Done | All lots: Gacha, Background, Myrions, Compagnons, legacy — TNR `tnr-2026-06-25-phase2-complete.md` |
-| 3 | ✅ Done | Unified `vite.repo-assets.ts`, Talia guides migrated — TNR `tnr-2026-06-25-phase3.md` |
-| 4 | ⏸️ **Deferred** | WebP not required — `staging/planning/phase4-webp-assessment.md`, size scans in `staging/planning/phase4-size-scan*.json` |
-| 5 | — | Prep commit `main` 2.0 |
+| 0–3 | Done | Playbooks, TNR phase2/3, `vite.repo-assets.ts` |
+| 4 | Deferred | WebP assessment + size scans |
+| 5 | Done | `staging/planning/phase5-main-v2-baseline.md`; main force-pushed to V2 |
 
 ## Decisions locked
 
 - No file deletions — archive to `old_assets/` only.
-- Cutouts v3 mass promote: **stopped** — cleanup priority.
-- French folder names on disk (`Compagnons/affinite/...`, `Gacha/`, `Background/`, `Myrions/`).
-- Runtime URLs unchanged; served from `assets/` via unified `repoAssetsPlugin` (`vite.repo-assets.ts`).
-- Guide cutouts: `assets/Compagnons/{id}/Autres/guide/` → `/assets/minigames/capture/companions/{id}/`.
-- **Phase 4 WebP: deferred** — large PNGs exist (biome bgs 3–4 MB) but on-demand loading + existing partial WebP (village, gacha opening) = no clear need before 2.0 commit.
+- French folder names on disk; runtime URLs unchanged.
+- Cutouts v3 mass promote: stopped unless user reopens.
 
 ## Validation baseline
 
 ```bash
 npm run build
-npm run lint
+npm run lint          # 8 pre-existing errors
 npm run validate:link-corpus
+node scripts/inventory-assets-manifest.mjs
 ```
 
-Last TNR: `staging/planning/tnr-2026-06-25-phase3.md` — build OK, lint pre-existing failures, validate OK.
+Last TNR at baseline push: build OK, lint fail (pre-existing), corpus OK, manifest OK.
 
 ## Next step
 
-**Relecture globale collaborative** — `staging/planning/global-2.0-readiness-audit.md`. Pas de push main sans go explicite user.
+Manual smoke + P0 conversation UI (emotion cutouts). See `.ai/next-task.md`.
