@@ -13,8 +13,10 @@ import {
   SECTION_WIDTH,
 } from './assets/village-map-layout.mjs'
 
+import { pipelineReferencesRoot } from './minigame-asset-paths.mjs'
+
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const outDir = join(root, 'assets', 'village-layout')
+const outDir = join(pipelineReferencesRoot, 'village-layout')
 mkdirSync(outDir, { recursive: true })
 
 const padW = Math.round(SECTION_WIDTH * 0.62)

@@ -1,4 +1,4 @@
-# 04 — Pipeline promote assets
+﻿# 04 — Pipeline promote assets
 
 Staging / sources → runtime jouable, avec archive.
 
@@ -47,7 +47,7 @@ node scripts/chroma-key-png.mjs staging/.../cutout-v3.png .tmp/test-out.png
 
 ```bash
 node scripts/inventory-assets-manifest.mjs
-# → staging/planning/asset-manifest.json
+# → docs/traceability/assets/asset-manifest.json
 ```
 
 Comparer `totals.byClass` et `duplicateSamples` entre promotes.

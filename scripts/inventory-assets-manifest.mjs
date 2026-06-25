@@ -50,9 +50,14 @@ function classify(rel) {
   if (p.startsWith('public/gacha/')) return 'runtime:gacha'
   if (p.startsWith('public/village/')) return 'runtime:village'
   if (p.startsWith('assets/Background/')) return 'runtime:background'
-  if (p.startsWith('assets/event-disagrea/')) return 'source:disagrea'
-  if (p.startsWith('assets/minigames/')) return 'source:minigames'
-  if (p.startsWith('assets/Gacha/')) return 'source:gacha'
+  if (p.startsWith('scripts/references/')) return 'source:pipeline-references'
+  if (p.startsWith('old_assets/prompts-archive/')) return 'source:prompts-archive'
+  if (p.startsWith('assets/Prompts/')) return 'source:prompts-legacy'
+  if (p.startsWith('assets/event-disagrea/')) return 'source:disagrea-legacy'
+  if (p.startsWith('assets/minigames/')) return 'source:minigames-legacy'
+  if (p.startsWith('assets/Gacha/') || p.startsWith('assets/gacha/')) return 'runtime:gacha'
+  if (p.startsWith('assets/UI/')) return 'runtime:ui'
+  if (p.startsWith('assets/References/')) return 'source:references'
   if (p.startsWith('old_assets/')) return 'archive'
   if (p.startsWith('staging/')) return 'staging'
   if (p.startsWith('Input chatgpt/')) return 'input-chatgpt'
@@ -69,7 +74,7 @@ const outArg = process.argv.indexOf('--out')
 const outPath =
   outArg >= 0 && process.argv[outArg + 1]
     ? process.argv[outArg + 1]
-    : join(ROOT, 'staging/planning/asset-manifest.json')
+    : join(ROOT, 'docs/traceability/assets/asset-manifest.json')
 
 const files = []
 for (const root of SCAN_ROOTS) {

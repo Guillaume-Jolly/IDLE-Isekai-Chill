@@ -1,0 +1,13 @@
+{
+  "version": "v2-clean",
+  "conversation_count": 7500,
+  "choice_count": 90000,
+  "per_companion_per_affinity": 100,
+  "format": "jsonl/json/typescript",
+  "quality_notes": [
+    "No raw internal IDs in visible dialogue fields",
+    "French player-facing labels",
+    "Non-explicit increasing intimacy",
+    "Validator included"
+  ]
+}

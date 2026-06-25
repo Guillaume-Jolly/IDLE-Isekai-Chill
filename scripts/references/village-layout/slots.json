@@ -1,0 +1,86 @@
+{
+  "PANORAMA_WIDTH": 6400,
+  "PANORAMA_HEIGHT": 1080,
+  "BUILDING_SLOTS": [
+    {
+      "id": "inn",
+      "centerX": 400,
+      "unlockStage": 0,
+      "groundY": 540,
+      "groundBottomPercent": 50,
+      "widthPercent": 9,
+      "labelYPercent": 40,
+      "label": "Auberge"
+    },
+    {
+      "id": "mist-garden",
+      "centerX": 1200,
+      "unlockStage": 0,
+      "groundY": 500,
+      "groundBottomPercent": 53.7,
+      "widthPercent": 9,
+      "labelYPercent": 36,
+      "label": "Jardin"
+    },
+    {
+      "id": "ribbon-workshop",
+      "centerX": 2000,
+      "unlockStage": 1,
+      "groundY": 530,
+      "groundBottomPercent": 50.9,
+      "widthPercent": 9,
+      "labelYPercent": 40,
+      "label": "Atelier"
+    },
+    {
+      "id": "clear-spring",
+      "centerX": 2800,
+      "unlockStage": 1,
+      "groundY": 490,
+      "groundBottomPercent": 54.6,
+      "widthPercent": 9,
+      "labelYPercent": 36,
+      "label": "Source"
+    },
+    {
+      "id": "moon-farm",
+      "centerX": 3600,
+      "unlockStage": 2,
+      "groundY": 540,
+      "groundBottomPercent": 50,
+      "widthPercent": 9,
+      "labelYPercent": 40,
+      "label": "Ferme"
+    },
+    {
+      "id": "arcane-library",
+      "centerX": 4400,
+      "unlockStage": 2,
+      "groundY": 510,
+      "groundBottomPercent": 52.8,
+      "widthPercent": 9,
+      "labelYPercent": 36,
+      "label": "Bibliotheque"
+    },
+    {
+      "id": "traveler-theater",
+      "centerX": 5200,
+      "unlockStage": 3,
+      "groundY": 500,
+      "groundBottomPercent": 53.7,
+      "widthPercent": 9,
+      "labelYPercent": 40,
+      "label": "Theatre"
+    },
+    {
+      "id": "star-market",
+      "centerX": 6000,
+      "unlockStage": 4,
+      "groundY": 530,
+      "groundBottomPercent": 50.9,
+      "widthPercent": 9,
+      "labelYPercent": 36,
+      "label": "Bazar"
+    }
+  ]
+}

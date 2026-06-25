@@ -11,6 +11,8 @@ export function contentTypeForAsset(pathname: string): string | null {
   if (pathname.endsWith('.webp')) return 'image/webp'
   if (pathname.endsWith('.svg')) return 'image/svg+xml'
   if (pathname.endsWith('.json')) return 'application/json; charset=utf-8'
+  if (pathname.endsWith('.moc3')) return 'application/octet-stream'
+  if (pathname.endsWith('.js')) return 'text/javascript; charset=utf-8'
   if (pathname.endsWith('.md')) return 'text/markdown; charset=utf-8'
   if (pathname.endsWith('.mp4')) return 'video/mp4'
   if (pathname.endsWith('.webm')) return 'video/webm'
@@ -95,6 +97,7 @@ const GUIDE_CUTOUT_SOURCE_SUBDIR = 'Autres/guide'
 
 type RepoAssetRoots = {
   gacha: string
+  live2d: string
   background: string
   myrions: string
   companions: string
@@ -216,9 +219,21 @@ function resolveGachaFile(pathname: string, baseDir: string): string | null {
   return filePath
 }
 
+function resolveLive2dFile(pathname: string, baseDir: string): string | null {
+  if (!pathname.startsWith('/live2d/')) return null
+  const relative = decodeURIComponent(pathname.replace(/^\/live2d\//, ''))
+  if (!relative || relative.includes('..')) return null
+  const filePath = normalize(join(baseDir, relative))
+  if (!filePath.startsWith(baseDir) || !existsSync(filePath) || !statSync(filePath).isFile()) {
+    return null
+  }
+  return filePath
+}
+
 function resolveRepoAssetFile(pathname: string, roots: RepoAssetRoots, myrionIndex: Map<string, string>): string | null {
   return (
     resolveGachaFile(pathname, roots.gacha) ??
+    resolveLive2dFile(pathname, roots.live2d) ??
     resolveBackgroundAssetFile(pathname, roots.background) ??
     resolveMyrionFile(pathname, myrionIndex) ??
     resolveCompanionAssetFile(pathname, roots.companions) ??
@@ -311,10 +326,17 @@ function copyGachaAssets(baseDir: string, distRoot: string) {
   })
 }
 
-/** Single plugin: Gacha, Background, Myrions, Compagnons, guide cutouts. */
+function copyLive2dAssets(baseDir: string, distRoot: string) {
+  const outDir = join(distRoot, 'live2d')
+  if (!existsSync(baseDir)) return
+  cpSync(baseDir, outDir, { recursive: true })
+}
+
+/** Single plugin: Gacha, Live2D, Background, Myrions, Compagnons, guide cutouts. */
 export function repoAssetsPlugin(repoRoot: string): Plugin {
   const roots: RepoAssetRoots = {
     gacha: join(repoRoot, 'assets', 'Gacha'),
+    live2d: join(repoRoot, 'assets', 'Live2D'),
     background: join(repoRoot, 'assets', 'Background'),
     myrions: join(repoRoot, 'assets', 'Myrions'),
     companions: join(repoRoot, 'assets', 'Compagnons'),
@@ -345,6 +367,7 @@ export function repoAssetsPlugin(repoRoot: string): Plugin {
       myrionIndex = buildMyrionAssetIndex(roots.myrions)
       const distRoot = join(repoRoot, 'dist')
       copyGachaAssets(roots.gacha, distRoot)
+      copyLive2dAssets(roots.live2d, distRoot)
       copyBackgroundAssets(roots.background, distRoot)
       copyMyrionAssets(myrionIndex, distRoot)
       copyCompanionAssets(roots.companions, distRoot)

@@ -9,9 +9,10 @@
 import { copyFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import sharp from 'sharp'
-import { backgroundAssetPaths, companionAssetPaths, myrionAssetPaths, repoRoot } from './minigame-asset-paths.mjs'
+import { backgroundAssetPaths, companionAssetPaths, disagreaPromptArchiveRoot, myrionAssetPaths, oldAssetsRoot, repoRoot } from './minigame-asset-paths.mjs'
 
-const eventRoot = join(repoRoot, 'assets', 'event-disagrea')
+/** IA staging cutouts/chibis — archived under old_assets/prompts-archive/disagrea/ */
+const eventRoot = disagreaPromptArchiveRoot
 const generatedRoot = join(eventRoot, 'generated')
 const backgroundsRoot = backgroundAssetPaths.disagreaEventSources
 
@@ -360,7 +361,7 @@ async function importMyrions() {
 }
 
 function importMinigameBackgrounds() {
-  const minigameDir = join(backgroundsRoot, 'minigame')
+  const minigameDir = join(oldAssetsRoot, 'Background', 'disagrea-event', 'minigame')
   const mappings = [
     {
       src: 'myrion_hunt_mobile.png',

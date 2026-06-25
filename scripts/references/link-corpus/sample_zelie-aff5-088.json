@@ -1,0 +1,138 @@
+{
+  "id": "zelie-aff5-088",
+  "companionId": "zelie",
+  "companionName": "Zelie",
+  "affinity": 5,
+  "tierName": "Lien maximum",
+  "maturity": "deep-bond",
+  "arc": "cadeau",
+  "arcLabel": "Cadeau",
+  "topic": "incubation",
+  "topicLabel": "Œuf Écho",
+  "title": "Cadeau — Œuf Écho",
+  "setting": "le salon des invités",
+  "context": "Pendant un rangement tardif, tu retrouves Zelie au salon des invités. Elle replace un gant avec une lenteur calculée. Le sujet touche un œuf Écho qui réagit à votre présence ; le moment peut être pleinement assumé.",
+  "preferredTones": [
+    "romantic"
+  ],
+  "primaryTone": "romantic",
+  "gameRefs": {
+    "resource": "pièces et renom",
+    "favoriteGift": "Rose noire",
+    "biomes": [
+      "Ruines astrales"
+    ],
+    "building": "la suite aux rideaux sombres",
+    "minigame": "Salon des secrets",
+    "myrionPreference": "un Myrion noble des Ruines astrales"
+  },
+  "rounds": [
+    {
+      "id": "zelie-aff5-088-r1",
+      "beat": "ouverture",
+      "narrator": "Un détail lié à un œuf Écho qui réagit à votre présence suffit à suspendre le geste de Zelie.",
+      "companionLine": "Ce lien n'a plus besoin d'être prouvé à chaque phrase. Zelie sourit comme si chaque réponse était aussi une négociation politique. Ce sujet ne passe pas inaperçu.",
+      "prompt": "Comment réponds-tu à Zelie sur l'œuf Écho ?",
+      "choices": [
+        {
+          "tone": "direct",
+          "text": "Si tu veux une réponse nette, la voilà : je reste, mais je ne force rien. Je ne vais pas chercher une victoire de dialogue.",
+          "score": 0,
+          "reaction": "Zelie se ferme légèrement devant cette réponse trop sèche."
+        },
+        {
+          "tone": "romantic",
+          "text": "Je ne cherche plus la bonne distance ; avec toi, elle s'est construite toute seule.",
+          "score": 1,
+          "reaction": "Zelie baisse la voix. La tendresse arrive sans forcer le passage."
+        },
+        {
+          "tone": "sincere",
+          "text": "Je ne suis pas là pour gagner une scène. Je suis là parce que ce que tu dis mérite attention. Ce n'est pas un score qui m'intéresse ici.",
+          "score": 0,
+          "reaction": "Zelie hoche la tête sans vraiment s'ouvrir davantage."
+        },
+        {
+          "tone": "playful",
+          "text": "Je sens le piège subtil. Je m'y avance quand même, mais avec des bottes propres. Je veux d'abord comprendre ton regard.",
+          "score": 0,
+          "reaction": "La légèreté sonne comme une échappatoire."
+        }
+      ]
+    },
+    {
+      "id": "zelie-aff5-088-r2",
+      "beat": "tension",
+      "narrator": "La question paraît simple, mais elle teste ta manière de respecter ses limites.",
+      "companionLine": "Tu connais assez mes défenses pour ne plus les confondre avec un refus. Ce que j'attends, c'est le contrôle, pas une réponse parfaite. Elle attend une réponse qui ne traite pas ce moment comme un simple détour.",
+      "prompt": "Quelle réponse respecte le mieux ce moment avec Zelie ?",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je ne cherche plus la bonne distance ; avec toi, elle s'est construite toute seule.",
+          "score": 1,
+          "reaction": "Zelie garde le silence une seconde de plus, et c'est une réponse."
+        },
+        {
+          "tone": "sincere",
+          "text": "Si ce sujet te touche, je peux l'entendre sans le transformer en promesse facile.",
+          "score": 0,
+          "reaction": "La réponse reste propre, pourtant elle manque le centre du moment."
+        },
+        {
+          "tone": "playful",
+          "text": "Si un Myrion nous observe, j'espère qu'il apprécie au moins l'effort.",
+          "score": 0,
+          "reaction": "Zelie sourit par politesse, mais la porte reste entrouverte seulement."
+        },
+        {
+          "tone": "direct",
+          "text": "On peut traiter le problème maintenant, puis parler de ce qu'il remue vraiment. Je ne veux pas transformer ce sujet en prétexte vide.",
+          "score": 0,
+          "reaction": "La netteté devient raideur, et le moment perd de sa souplesse."
+        }
+      ]
+    },
+    {
+      "id": "zelie-aff5-088-r3",
+      "beat": "retombée",
+      "narrator": "La brume du campement rend la fin de l'échange plus douce, mais pas moins importante.",
+      "companionLine": "Reste encore. Pas parce que je doute, mais parce que j'en ai envie. Il y a là-dedans un sceau d'exil caché dans un coffret sans armoiries. Ce sujet restera entre vous, au moins pour ce soir.",
+      "prompt": "Comment termines-tu l'échange sans forcer la suite ?",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Je ne suis pas là pour gagner une scène. Je suis là parce que ce que tu dis mérite attention.",
+          "score": 0,
+          "reaction": "Zelie hoche la tête sans vraiment s'ouvrir davantage."
+        },
+        {
+          "tone": "playful",
+          "text": "Je peux faire semblant d'être parfaitement calme, mais ce moment rend l'exercice suspect.",
+          "score": 0,
+          "reaction": "La légèreté sonne comme une échappatoire."
+        },
+        {
+          "tone": "direct",
+          "text": "Si tu veux une réponse nette, la voilà : je reste, mais je ne force rien.",
+          "score": 0,
+          "reaction": "Zelie se ferme légèrement devant cette réponse trop sèche."
+        },
+        {
+          "tone": "romantic",
+          "text": "Ce lien est devenu un endroit où je reviens, pas une récompense que je réclame.",
+          "score": 1,
+          "reaction": "Zelie garde le silence une seconde de plus, et c'est une réponse."
+        }
+      ]
+    }
+  ],
+  "affinityUnlockText": "Le lien avec Zelie atteint son point d'ancrage maximal.",
+  "maxAffinityText": "Zelie connaît déjà la place que tu occupes auprès d'elle.",
+  "resultTexts": {
+    "perfect": "Zelie garde le sourire plus longtemps que prévu. Les trois réponses étaient justes.",
+    "good": "Zelie accepte l'échange avec chaleur, malgré une hésitation.",
+    "poor": "Zelie reste polie, mais la distance revient nettement.",
+    "neutral": "Zelie classe ce moment parmi les conversations ordinaires du campement."
+  }
+}

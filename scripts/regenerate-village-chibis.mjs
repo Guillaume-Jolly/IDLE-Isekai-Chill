@@ -17,7 +17,8 @@ import { companionAssetPaths, oldAssetsRoot, repoRoot } from './minigame-asset-p
 
 const ROOT = repoRoot
 const STAGING = join(ROOT, 'staging/companion-visual-pack')
-const ARCHIVE = join(oldAssetsRoot, 'companion-chibis-replaced')
+const archiveCompanionChibis = (companionId) =>
+  join(oldAssetsRoot, 'Compagnons', companionId, 'chibis-replaced')
 
 function usage() {
   console.error('Usage: node scripts/regenerate-village-chibis.mjs [--raw <filename>] <companionId> [...]')
@@ -64,7 +65,7 @@ async function promoteOne(companionId) {
   const stagingV2 = join(STAGING, 'village', companionId, 'chibi', `companion-${companionId}-chibi-v2.png`)
   const prodPath = companionAssetPaths.chibi(companionId)
   mkdirSync(dirname(prodPath), { recursive: true })
-  const archivePath = join(ARCHIVE, companionId, 'chibi-v1-wrong-colors.png')
+  const archivePath = join(archiveCompanionChibis(companionId), 'chibi-v1-wrong-colors.png')
 
   mkdirSync(dirname(stagingV2), { recursive: true })
   mkdirSync(dirname(archivePath), { recursive: true })
@@ -89,6 +90,6 @@ for (const id of ids) {
   if (await promoteOne(id)) ok += 1
 }
 
-console.log(`\n${ok}/${ids.length} chibis promus. Archives: old_assets/companion-chibis-replaced/`)
+console.log(`\n${ok}/${ids.length} chibis promus. Archives: old_assets/Compagnons/{id}/chibis-replaced/`)
 
 if (ok !== ids.length) process.exit(1)

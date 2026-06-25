@@ -1,0 +1,141 @@
+{
+  "id": "talia-aff2-044",
+  "companionId": "talia",
+  "companionName": "Talia",
+  "affinity": 2,
+  "tierName": "Flirt léger",
+  "maturity": "soft-flirt",
+  "arc": "rumeur",
+  "arcLabel": "Rumeur",
+  "topic": "biome",
+  "topicLabel": "Biome familier",
+  "title": "Rumeur — Biome familier",
+  "setting": "la lisière de la forêt",
+  "context": "Alors que les Myrions dorment, tu retrouves Talia à la lisière de la forêt. Elle replie une carte couverte de traces de doigts. Le sujet touche une sortie vers la Forêt ancienne ; les sous-entendus doivent rester doux.",
+  "preferredTones": [
+    "playful",
+    "direct"
+  ],
+  "primaryTone": "playful",
+  "gameRefs": {
+    "resource": "bois",
+    "favoriteGift": "Carte ancienne",
+    "biomes": [
+      "Prairie solaire",
+      "Forêt ancienne",
+      "Marais brumeux"
+    ],
+    "building": "la ferme lunaire",
+    "minigame": "Chasse guidée",
+    "myrionPreference": "un Myrion pisteur de la Forêt ancienne"
+  },
+  "rounds": [
+    {
+      "id": "talia-aff2-044-r1",
+      "beat": "ouverture",
+      "narrator": "Talia relève les yeux quand le sujet arrive sur une sortie vers la Forêt ancienne.",
+      "companionLine": "Tu commences à remarquer des choses que les autres laissent passer. Talia parle déjà comme si le chemin existait sous vos pieds. Ce sujet ne passe pas inaperçu.",
+      "prompt": "Comment réponds-tu à Talia sur le biome familier ?",
+      "choices": [
+        {
+          "tone": "direct",
+          "text": "Je peux agir, écouter ou partir. Choisis ce qui t'aide le plus. Le reste peut attendre quelques respirations.",
+          "score": 1,
+          "reaction": "La réponse tranche proprement sans devenir froide."
+        },
+        {
+          "tone": "romantic",
+          "text": "Je veux rester près de toi sans transformer chaque silence en déclaration. Ce n'est pas un score qui m'intéresse ici.",
+          "score": 0,
+          "reaction": "Le moment devient plus chargé que nécessaire."
+        },
+        {
+          "tone": "sincere",
+          "text": "Je ne veux pas deviner à ta place. Dis-moi seulement ce que tu veux bien confier. Je veux d'abord comprendre ton regard.",
+          "score": 0,
+          "reaction": "La réponse reste propre, pourtant elle manque le centre du moment."
+        },
+        {
+          "tone": "playful",
+          "text": "Je sens le piège subtil. Je m'y avance quand même, mais avec des bottes propres. Je ne vais pas chercher une victoire de dialogue.",
+          "score": 1,
+          "reaction": "La tension se défait sans que le sujet perde son importance."
+        }
+      ]
+    },
+    {
+      "id": "talia-aff2-044-r2",
+      "beat": "tension",
+      "narrator": "La question paraît simple, mais elle teste ta manière de respecter ses limites.",
+      "companionLine": "Je ne sais pas encore si je dois sourire ou me méfier. Ce que j'attends, c'est l'élan, pas une réponse parfaite. Elle attend une réponse qui ne traite pas ce moment comme un simple détour.",
+      "prompt": "Quelle réponse respecte le mieux ce moment avec Talia ?",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je veux rester près de toi sans transformer chaque silence en déclaration. Je connais assez le campement pour savoir quand il faut baisser la voix.",
+          "score": 0,
+          "reaction": "La tendresse arrive trop tôt ; Talia recule d'un demi-pas."
+        },
+        {
+          "tone": "sincere",
+          "text": "Je ne veux pas deviner à ta place. Dis-moi seulement ce que tu veux bien confier. Même un Myrion pisteur de la Forêt ancienne comprendrait qu'il faut y aller doucement.",
+          "score": 0,
+          "reaction": "Talia entend l'effort, mais ce n'est pas exactement ce qu'il fallait ici."
+        },
+        {
+          "tone": "playful",
+          "text": "Je sens le piège subtil. Je m'y avance quand même, mais avec des bottes propres. Je connais assez le campement pour savoir quand il faut baisser la voix.",
+          "score": 1,
+          "reaction": "Talia semble apprécier que tu allèges sans esquiver."
+        },
+        {
+          "tone": "direct",
+          "text": "Dis-moi la limite, et je la respecterai. Le reste peut attendre. Même un Myrion pisteur de la Forêt ancienne comprendrait qu'il faut y aller doucement.",
+          "score": 1,
+          "reaction": "Le direct fonctionne parce qu'il ne cherche pas à dominer."
+        }
+      ]
+    },
+    {
+      "id": "talia-aff2-044-r3",
+      "beat": "retombée",
+      "narrator": "Le moment pourrait finir là ; pourtant Talia attend encore une nuance.",
+      "companionLine": "Ce n'est pas une conversation anodine, même si elle en a l'air. Il y a là-dedans l'envie de trouver un lieu qui donne encore envie de repartir ensemble. Ce sujet restera entre vous, au moins pour ce soir.",
+      "prompt": "Comment termines-tu l'échange sans forcer la suite ?",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Si ce sujet te touche, je peux l'entendre sans le transformer en promesse facile. Je veux que tu gardes de ce moment quelque chose de net.",
+          "score": 0,
+          "reaction": "Talia entend l'effort, mais ce n'est pas exactement ce qu'il fallait ici."
+        },
+        {
+          "tone": "playful",
+          "text": "Je vais tenter une réponse digne. Préviens le village, c'est assez rare. Je veux que tu gardes de ce moment quelque chose de net.",
+          "score": 1,
+          "reaction": "Talia semble apprécier que tu allèges sans esquiver."
+        },
+        {
+          "tone": "direct",
+          "text": "On peut traiter le problème maintenant, puis parler de ce qu'il remue vraiment. Je veux que tu gardes de ce moment quelque chose de net.",
+          "score": 1,
+          "reaction": "Le direct fonctionne parce qu'il ne cherche pas à dominer."
+        },
+        {
+          "tone": "romantic",
+          "text": "J'aime bien cette façon qu'on a de se trouver sans l'avoir vraiment prévu. Je préfère finir proprement plutôt que forcer une dernière phrase.",
+          "score": 0,
+          "reaction": "La tendresse arrive trop tôt ; Talia recule d'un demi-pas."
+        }
+      ]
+    }
+  ],
+  "affinityUnlockText": "Talia répond désormais avec une complicité plus visible.",
+  "maxAffinityText": "Talia connaît déjà la place que tu occupes auprès d'elle.",
+  "resultTexts": {
+    "perfect": "Talia garde le sourire plus longtemps que prévu. Les trois réponses étaient justes.",
+    "good": "Talia accepte l'échange avec chaleur, malgré une hésitation.",
+    "poor": "Talia reste polie, mais la distance revient nettement.",
+    "neutral": "Talia classe ce moment parmi les conversations ordinaires du campement."
+  }
+}

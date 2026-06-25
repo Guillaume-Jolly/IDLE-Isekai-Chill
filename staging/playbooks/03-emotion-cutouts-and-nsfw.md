@@ -87,11 +87,22 @@ Avant v4 :
 
 ---
 
-## Runtime UI (à brancher)
+## Fichiers code (si branchement UI conversation)
 
-Aujourd'hui ConversationGame **n'affiche pas** les emotion cutouts par round.  
-Mapping proposé : `staging/story/emotion-cutout-usage-map.md`  
-Backlog code : `staging/planning/conversation-v2-fix-backlog.md` item B4.
+| Fichier | Action |
+|---------|--------|
+| `src/components/minigames/ConversationGame.tsx` | Affichage cutout par round (backlog B4) |
+| `staging/story/emotion-cutout-usage-map.md` | Mapping émotion → cutout |
+
+---
+
+## Fichiers data prompts
+
+| Fichier | Rôle |
+|---------|------|
+| `scripts/staging/companion-visual-pack-data.mjs` | DNA, identityLock, prompts v3 |
+| `staging/companion-visual-pack/data/emotions.json` | 8 émotions |
+| `staging/companion-visual-pack/CUTOUT_STYLE.md` | DA — **attention conflit v2/v3**, suivre pack-data |
 
 ---
 

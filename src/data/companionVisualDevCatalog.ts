@@ -273,7 +273,7 @@ export function buildCompanionDevVisualSections(
 
     sections.push({
       kind: 'integrated',
-      title: 'Source intégrée (assets/) — miroir affinity',
+      title: 'Source intégrée (affinite/) — miroir runtime',
       entries: INTEGRATED_LEVELS.map(({ level, filename, label }) => {
         const id = companionId as DisagreaCompanionId
         const file = filename(id)

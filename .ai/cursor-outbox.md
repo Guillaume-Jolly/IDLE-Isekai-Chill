@@ -535,7 +535,7 @@ Codex + user confirmé : démarrage tâches **staging-only**.
 Fichiers prévus :
 - `staging/reviews/link-corpus-v2-manual-review.md`
 - `staging/story/chapter-seed-pack-emotion-cutouts.md`
-- (optionnel) `staging/planning/asset-taxonomy-proposal.md`
+- (optionnel) `docs/traceability/assets/asset-taxonomy-proposal.md`
 
 Boundaries respectées : pas de `src/`, `public/`, commits, ni zones cutouts actives.
 
@@ -577,7 +577,7 @@ Prochain fichier : `staging/reviews/link-corpus-v2-conversation-audit.md`
 | `staging/planning/conversation-v2-fix-backlog.md` | ✅ blocking/important/polish |
 | `staging/story/emotion-cutout-usage-map.md` | ✅ tone→cutout map |
 | `staging/story/chapter-seed-pack-emotion-cutouts.md` | ✅ 7 chapter seeds |
-| `staging/planning/asset-taxonomy-proposal.md` | ✅ draft taxonomy |
+| `docs/traceability/assets/asset-taxonomy-proposal.md` | ✅ draft taxonomy |
 
 **Top 5 findings :**
 1. R2/R3 transitions repeated ~1500× each — immersion breaking  

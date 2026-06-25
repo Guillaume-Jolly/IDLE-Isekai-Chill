@@ -1,6 +1,6 @@
 /**
  * Importe le corpus Lien v2 → src/data/linkCorpusV2.json (format ScenarioScript).
- * Source : JSONL dans assets/link-corpus-import/ ou zip compact.
+ * Source : JSONL dans scripts/references/link-corpus/ ou zip compact.
  * Ne modifie pas companionScenarios.generated.ts (legacy conservé).
  */
 import { execSync } from 'node:child_process'
@@ -10,9 +10,11 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const importDir = join(root, 'assets/link-corpus-import')
+import { oldAssetsRoot, pipelineReferencesRoot } from './minigame-asset-paths.mjs'
+
+const importDir = join(pipelineReferencesRoot, 'link-corpus')
 const jsonlPath = join(importDir, 'companion_link_conversations.v2.clean.jsonl')
-const zipPath = join(importDir, 'wonderland_companion_link_corpus_v2_clean_compact.zip')
+const zipPath = join(oldAssetsRoot, 'prompts-archive/link-corpus-import/wonderland_companion_link_corpus_v2_clean_compact.zip')
 const extractDir = join(importDir, '_extract')
 const outPath = join(root, 'src/data/linkCorpusV2.json')
 const backupPath = join(root, 'src/data/linkCorpusV2.backup.json')
@@ -164,7 +166,7 @@ async function resolveSourceEntries() {
   }
 
   throw new Error(
-    `Corpus introuvable. Déposer ${jsonlPath} ou ${zipPath} (voir assets/link-corpus-import/README.md)`,
+    `Corpus introuvable. Déposer ${jsonlPath} ou ${zipPath} (voir scripts/references/link-corpus/README.md)`,
   )
 }
 

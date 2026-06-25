@@ -1,0 +1,139 @@
+{
+  "id": "seren-aff4-037",
+  "companionId": "seren",
+  "companionName": "Seren",
+  "affinity": 4,
+  "tierName": "Confidence adulte",
+  "maturity": "mature-suggestive",
+  "arc": "promenade",
+  "arcLabel": "Promenade",
+  "topic": "favor",
+  "topicLabel": "Faveur de chasse",
+  "title": "Promenade — Faveur de chasse",
+  "setting": "la place du village",
+  "context": "Devant les lanternes du marché, tu retrouves Seren à la place du village. Elle vérifie la boucle de son gant. Le sujet touche une faveur de chasse obtenue au refuge ; les défenses tombent par endroits.",
+  "preferredTones": [
+    "direct",
+    "sincere"
+  ],
+  "primaryTone": "direct",
+  "gameRefs": {
+    "resource": "renom",
+    "favoriteGift": "Pierre polie",
+    "biomes": [
+      "Marais brumeux"
+    ],
+    "building": "l'auberge",
+    "minigame": "Garde du havre",
+    "myrionPreference": "un Myrion calme du Marais brumeux"
+  },
+  "rounds": [
+    {
+      "id": "seren-aff4-037-r1",
+      "beat": "ouverture",
+      "narrator": "Tu comprends vite que ce sujet n'est qu'un prétexte pour jauger ta présence.",
+      "companionLine": "Je n'ai pas besoin d'une déclaration. J'ai besoin d'une présence fiable. Seren se tient droite, même quand sa voix baisse. Ce sujet ne passe pas inaperçu.",
+      "prompt": "Comment réponds-tu à Seren sur la faveur de chasse ?",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je peux entendre ce qui tremble derrière tes mots, et rester quand même. Je ne vais pas chercher une victoire de dialogue.",
+          "score": 0,
+          "reaction": "La tendresse arrive trop tôt ; Seren recule d'un demi-pas."
+        },
+        {
+          "tone": "sincere",
+          "text": "Je préfère te répondre sans embellir. Le sujet compte, mais ta manière de le vivre compte davantage. Je veux d'abord comprendre ton regard.",
+          "score": 1,
+          "reaction": "La réponse trouve une place juste ; Seren ne détourne pas le regard."
+        },
+        {
+          "tone": "playful",
+          "text": "On dirait une petite quête secondaire. Sauf que la récompense, c'est de ne pas être idiot. Je veux d'abord comprendre ton regard.",
+          "score": 0,
+          "reaction": "Le trait arrive trop vite et laisse le vrai sujet de côté."
+        },
+        {
+          "tone": "direct",
+          "text": "Le sujet est simple à nommer, pas forcément simple à porter. On avance proprement. Je peux avancer à ton rythme.",
+          "score": 1,
+          "reaction": "La réponse tranche proprement sans devenir froide."
+        }
+      ]
+    },
+    {
+      "id": "seren-aff4-037-r2",
+      "beat": "tension",
+      "narrator": "Tu sens qu'une mauvaise réponse refermerait la porte sans bruit.",
+      "companionLine": "Je te laisse voir une part de moi que je garde d'habitude fermée. Ce que j'attends, c'est l'honneur, pas une réponse parfaite. Elle attend une réponse qui ne traite pas ce moment comme un simple détour.",
+      "prompt": "Quelle réponse respecte le mieux ce moment avec Seren ?",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Je préfère une vérité imparfaite à une jolie phrase qui ne te rejoint pas. Le refuge peut attendre ; ce moment-là non.",
+          "score": 1,
+          "reaction": "Tu sens que cette honnêteté ouvre un passage net."
+        },
+        {
+          "tone": "playful",
+          "text": "Je pourrais répondre avec panache, mais je vais garder assez de bon sens pour ne pas tout gâcher. Pierre polie n'aurait aucune valeur si je l'offrais sans attention.",
+          "score": 0,
+          "reaction": "La légèreté sonne comme une échappatoire."
+        },
+        {
+          "tone": "direct",
+          "text": "Dis-moi la limite, et je la respecterai. Le reste peut attendre. Je connais assez le campement pour savoir quand il faut baisser la voix.",
+          "score": 1,
+          "reaction": "Tu poses une limite claire, et Seren paraît la respecter."
+        },
+        {
+          "tone": "romantic",
+          "text": "Je peux entendre ce qui tremble derrière tes mots, et rester quand même.",
+          "score": 0,
+          "reaction": "Seren ne rejette pas la phrase, mais elle n'y entre pas encore."
+        }
+      ]
+    },
+    {
+      "id": "seren-aff4-037-r3",
+      "beat": "retombée",
+      "narrator": "Un Myrion passe au loin, et le calme revient assez pour choisir tes mots.",
+      "companionLine": "Cette confiance m'oblige plus qu'elle ne me rassure. Il y a là-dedans une lame émoussée qu'elle garde en souvenir d'un serment brisé. Ce sujet restera entre vous, au moins pour ce soir.",
+      "prompt": "Comment termines-tu l'échange sans forcer la suite ?",
+      "choices": [
+        {
+          "tone": "playful",
+          "text": "Je peux faire semblant d'être parfaitement calme, mais ce moment rend l'exercice suspect.",
+          "score": 0,
+          "reaction": "Le trait arrive trop vite et laisse le vrai sujet de côté."
+        },
+        {
+          "tone": "direct",
+          "text": "Je ne confonds pas confiance et permission. Tu gardes la main. Après ça, je te laisserai reprendre la place du village sans bruit.",
+          "score": 1,
+          "reaction": "Le direct fonctionne parce qu'il ne cherche pas à dominer."
+        },
+        {
+          "tone": "romantic",
+          "text": "Ta confiance me touche plus que n'importe quelle récompense du village.",
+          "score": 0,
+          "reaction": "La tendresse arrive trop tôt ; Seren recule d'un demi-pas."
+        },
+        {
+          "tone": "sincere",
+          "text": "Si ce sujet te touche, je peux l'entendre sans le transformer en promesse facile.",
+          "score": 1,
+          "reaction": "Seren accepte la nuance sans te demander d'en faire davantage."
+        }
+      ]
+    }
+  ],
+  "affinityUnlockText": "La confiance de Seren devient plus profonde et plus exigeante.",
+  "maxAffinityText": "Le lien avec Seren est déjà au maximum ; il ne reste qu'à l'habiter correctement.",
+  "resultTexts": {
+    "perfect": "L'échange trouve son rythme exact ; Seren paraît plus légère en repartant.",
+    "good": "La conversation avance. Tout n'était pas parfait, mais rien n'a été abîmé.",
+    "poor": "L'échange se termine proprement, sans vraie ouverture supplémentaire.",
+    "neutral": "Rien ne se ferme, rien ne s'ouvre vraiment. Le lien attendra une meilleure occasion."
+  }
+}

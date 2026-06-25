@@ -20,11 +20,12 @@
 |----|------|-------|
 | B2 | Companion-voice transition pool (min 8 per companion) | Generator change |
 | B3 | De-duplicate player choice text (~870 repeats) | Import pipeline |
-| pub-mirror | Residual `public/assets/` PNG mirrors — move duplicates to `old_assets/` only | No deletes |
+| pub-mirror | ~~Residual `public/assets/` PNG mirrors~~ → **done** 2026-06-25 ; village orphelins → `old_assets/public-mirror/village/` | `old_assets-cleanup-log.md` |
 | lint-8 | Fix 8 eslint errors when touching those files | See phase5 baseline |
 
 ## P2 (deferred / polish)
 
+- **Dev asset cache** (tête backlog) — préchargement ou lazy-load + cache persistant entre onglets en dev ; voir `docs/BACKLOG.md` § Dev — cache / chargement assets
 - **WebP**: reopen only with perf evidence (`phase4-webp-assessment.md`)
 - **I6**: code-split `linkCorpusV2.json` (~39 MB bundle)
 - Corpus polish I1–I5, P1–P4 in `staging/planning/conversation-v2-fix-backlog.md`

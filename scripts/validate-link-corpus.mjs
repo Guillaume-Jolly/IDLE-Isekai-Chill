@@ -9,7 +9,9 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const importDir = join(root, 'assets/link-corpus-import')
+import { pipelineReferencesRoot } from './minigame-asset-paths.mjs'
+
+const importDir = join(pipelineReferencesRoot, 'link-corpus')
 
 const VALID_COMPANION_IDS = new Set([
   'lyra', 'maeve', 'seren', 'nami', 'iris', 'kael', 'runa', 'solene',
@@ -218,7 +220,7 @@ async function main() {
       process.exit(2)
     }
     console.error('Corpus Lien v2 introuvable.')
-    console.error('Déposer le zip/JSONL dans assets/link-corpus-import/ ou passer --source chemin')
+    console.error('Déposer le zip/JSONL dans scripts/references/link-corpus/ ou passer --source chemin')
     process.exit(2)
   }
 

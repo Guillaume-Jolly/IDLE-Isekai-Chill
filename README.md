@@ -1,102 +1,152 @@
-# Idle Isekai Chill Game
+# Idle Isekai Chill
 
-Prototype original de jeu idle cozy fantasy jouable sur telephone et PC.
+> **Agents & contributeurs** — lire en premier : [`docs/agent-guide/README.md`](docs/agent-guide/README.md)  
+> (hiérarchie projet, playbooks, versionnement, checklists fichiers).
 
-Le projet est separe du repo `mtg_project` et ne contient aucun code, asset,
-texte, personnage ou batiment copie depuis un jeu existant.
+Prototype de jeu idle / collection cozy fantasy (mobile + PC). Univers et progression à découvrir **en jeu** — ce README cou surtout l’outillage dev et le serveur.
 
-## Lancer le projet
+---
+
+## Développement (hot-reload)
 
 ```bash
 npm install
 npm run dev
 ```
 
-Build de production:
+| | |
+|---|---|
+| **URL locale** | http://localhost:5173/ |
+| **Réseau LAN** | `http://<IP-PC>:5173/` (même Wi‑Fi, pour test téléphone) |
+| **Version UI** | Affichée en haut à gauche — politique : [`docs/agent-guide/05-politique-versionnement.md`](docs/agent-guide/05-politique-versionnement.md) |
+
+Nouvelle session agent / gros chantier :
 
 ```bash
-npm run build
+npm run version:prompt    # incrément « prompt »
+npm run tnr:baseline      # build + validate corpus + manifest assets
 ```
 
-## Fonctionnalites deja incluses
+---
 
-- Interface responsive mobile/desktop.
-- Sauvegarde locale via `localStorage`.
-- Progression hors-ligne recoltee au lancement, plafonnee a 168 h.
-- Ressources nombreuses: pieces, bois, pierre, vivres, soie, mana, renom,
-  ingredients, cristaux, cadeaux, tickets, poussiere stellaire.
-- Accueil "Village" avec carte panoramique interactive en CSS.
-- Batiments originaux avec couts et productions progressives.
-- Mini-jeux fixes sans energie bloquante.
-- Evenement gacha sans microtransaction, avec tickets gagnes en jeu et pity
-  toutes les 10 invocations.
-- 15 compagnons originaux avec niveau, affinite et 5 paliers narratifs.
-- Onglet developpement pour afficher tous les emplacements de visuels, meme
-  sans deblocage en jeu.
+## Serveur stable & launcher (prod locale)
 
-## Ajouter des visuels externes
+Build **figé**, séparé du dev Vite — pour jouer comme en prod (HTTPS, auth, accès mobile / 4G).
 
-Portraits compagnons en **deux couches** (recommandé) :
+| | |
+|---|---|
+| **Lancement rapide** | Double-clic `Launch Stable Server.cmd` ou `npm run launcher:stable` |
+| **Tableau de bord** | http://127.0.0.1:8789/ (surveillance, dev + stable) |
+| **Jeu stable (défaut)** | https://127.0.0.1:8787/ (port `STABLE_PORT` dans `.env.stable.local`) |
+| **Build prod** | `npm run build:stable:prod` — **volontaire**, après validation |
+| **Doc complète** | [`deploy/stable/README.md`](deploy/stable/README.md) |
 
-```text
-public/assets/companions/<companion-id>/cutout-<level>.png      # personnage détouré
-public/assets/companions/<companion-id>/background-<level>.png  # décor seul
+Premier lancement : copie auto de `deploy/stable/env.example` → `.env.stable.local` — **changer `STABLE_AUTH_PASS`**.  
+Certificat TLS auto-signé : `npm run trust:stable` (PC) ; mobile → voir doc stable § certificat.
+
+Playbook release : [`staging/playbooks/07-release-prod-stable.md`](staging/playbooks/07-release-prod-stable.md).
+
+---
+
+## Build web classique
+
+```bash
+npm run build      # dist/ pour hébergement statique
+npm run preview    # preview du build
 ```
 
-Fonds partagés (mini-jeux, variantes) : `public/assets/companions/backgrounds/<scene-id>.png`
+---
 
-Legacy (portrait composé en un seul fichier, toujours supporté) :
+## Documentation projet
 
-```text
-public/assets/companions/<companion-id>/affinity-<level>.png
-```
+| Public | Lien |
+|--------|------|
+| **Agents (prioritaire)** | [`docs/agent-guide/README.md`](docs/agent-guide/README.md) |
+| **Traçabilité** (changelog, TNR, audits) | [`docs/traceability/README.md`](docs/traceability/README.md) · [`REFERENCES.md`](docs/traceability/REFERENCES.md) |
+| **Playbooks** (compagnon, gacha, Myrions, TNR…) | [`staging/playbooks/README.md`](staging/playbooks/README.md) |
+| **Règles agent** | [`AGENTS.md`](AGENTS.md) |
+| **État courant** | [`.ai/current-state.md`](.ai/current-state.md) |
+| **Serveur stable** | [`deploy/stable/README.md`](deploy/stable/README.md) |
+| **Design / TNR gameplay** | [`docs/`](docs/) (usage interne) |
 
-Briefs IA : `src/data/companionPortraitHints.ts` — doc détaillée : [`public/assets/companions/README.md`](public/assets/companions/README.md)
+Changelog micro-modifs (version UI) : [`docs/traceability/changelog/`](docs/traceability/changelog/).
 
-Export PNG plat optionnel : `node scripts/composite-companion-portrait.mjs lyra 3`
+---
 
-Mini-jeux Myrions (refuge, chasse) : voir [`assets/minigames/README.md`](assets/minigames/README.md).
+## Assets 2.0 — livraison main (2026-06-25)
 
-```text
-public/assets/minigames/dressage/...
-public/assets/minigames/capture/...
-```
+Baseline **Assets 2.0** : source-of-truth unique `assets/`, cold storage `old_assets/`, plus de miroirs PNG runtime sous `public/assets/`.
 
-Si un fichier n'existe pas encore, l'app affiche un placeholder colore avec le
-nom du compagnon et le niveau.
+### Architecture runtime (`assets/`)
 
-## Contenu relationnel et mature
+| Dossier | Rôle | ~Fichiers |
+|---------|------|----------:|
+| `Compagnons/{id}/` | affinite, cutouts, chibis, NSFW, guides | 280 |
+| `Background/{biomeId}/` | capture + dressage + event Disagrea | 54 |
+| `Myrions/{biomeId}/` | cutout / chibi / silhouette | 289 |
+| `gacha/` | icônes, cinéma, events (`/gacha/`) | 48 |
+| `Live2D/` | demo Cubism Haru + runtime JS (`/live2d/`) | 44 |
 
-Les paliers 1 a 3 sont decrits comme scenes romantiques/suggestives non
-explicites:
+Servi via `vite.repo-assets.ts` — URLs `/assets/…`, `/gacha/…`, `/live2d/…` inchangées.  
+Détail : [`assets/README.md`](assets/README.md)
 
-1. Premiere rencontre.
-2. Flirt leger / premier rendez-vous.
-3. Moment intime suggestif mais non explicite.
+### Cold storage (`old_assets/`)
 
-Les paliers 4 et 5 sont volontairement des placeholders "fade-to-black" dans
-ce prototype. Si tu ajoutes tes propres assets plus tard, garde au minimum ces
-contraintes:
+Non servi en jeu. Même taxonomie top-level (5 dossiers), profondeur cible ≤ 4 pour l’actif.
 
-- Tous les personnages concernes sont adultes.
-- Consentement clair dans la fiction.
-- Age gate avant affichage.
-- Assets originaux, commandes legalement, ou sous licence compatible.
-- Aucun asset copie depuis un jeu commercial ou un artiste sans autorisation.
+| Lot | Action |
+|-----|--------|
+| Cutouts émotion legacy | 152 PNG → `Compagnons/{id}/cutouts-legacy/` |
+| Snapshots event Disagrea | → `Compagnons/{id}/layered-legacy/` |
+| Dedup vs `assets/` | 0 doublon actif restant |
+| Dedup interne | 106 PNG chibi-sources archivés |
+| Coquilles `Autres/` | supprimées, 193 dossiers vides nettoyés |
 
-## Backlog et idees
+Détail : [`old_assets/README.md`](old_assets/README.md) · log : [`docs/traceability/assets/old-assets-cleanup-log.md`](docs/traceability/assets/old-assets-cleanup-log.md)
 
-Idees d'amelioration ou de nouveaux modes de jeu notes pour plus tard (sans
-priorite fixe) :
+### Pipeline & données (hors runtime PNG)
 
-- **[Backlog](docs/BACKLOG.md)** — idées mini-jeux (Top War, refuge + compagnons, etc.)
+| Ancien | Nouveau |
+|--------|---------|
+| `assets/Prompts/` | `scripts/references/` (texte/JSON) + PNG sources dans `old_assets/` |
+| `assets/event-disagrea/` | `Compagnons/…/disagrea-integrated/`, `Background/disagrea-event/` |
+| Miroirs `public/assets/`, `public/gacha/` | retirés — redirects README |
+| Orphelins `public/village/` | `old_assets/Background/village-mirror/` |
 
-Pour les taches deja priorisees cote projet, voir [`docs/TODO_PRIORITIZED.md`](docs/TODO_PRIORITIZED.md).
+Chemins scripts : `scripts/minigame-asset-paths.mjs` (`sourceMinigamePaths`, `pipelineReferencesRoot`).
 
-## Prochaines evolutions possibles
+### Code & traçabilité
 
-- Ajouter une vraie PWA installable (`manifest.webmanifest` + service worker).
-- Extraire les donnees de jeu dans des fichiers JSON/TS separes.
-- Ajouter de vrais mini-jeux interactifs.
-- Ajouter un systeme de quetes quotidiennes sans FOMO.
-- Ajouter des emplacements d'illustrations par compagnon et par palier.
+- `eventDisagreaPack.ts` : `identityRef` → prod `assets/Compagnons/{id}/affinite/affinity-1.png`
+- Manifest : `docs/traceability/assets/asset-manifest.json` (regénéré TNR)
+- Baseline disque repo (~10,7 Go) : [`docs/traceability/assets/repo-disk-baseline.md`](docs/traceability/assets/repo-disk-baseline.md)
+- Roadmap : [`docs/traceability/assets/PHASE0-assets-2.0.md`](docs/traceability/assets/PHASE0-assets-2.0.md)
+- TNR : `npm run tnr:baseline` (build + validate:link-corpus + manifest)
+
+### Scripts migration (réutilisables)
+
+`sort-old-assets-five-folders.mjs` · `flatten-old-assets-architecture.mjs` · `promote-cutouts-legacy-flat.mjs` · `finalize-old-assets.mjs` · `scan-old-assets-duplicates.mjs` · `migrate-public-to-old-assets.mjs`
+
+Playbooks : [`staging/playbooks/05-assets-2.0-migration.md`](staging/playbooks/05-assets-2.0-migration.md) · [`04-asset-promote-pipeline.md`](staging/playbooks/04-asset-promote-pipeline.md)
+
+---
+
+## Assets (contributeurs)
+
+Source-of-truth : `assets/` (Compagnons, Background, Myrions, Gacha, Live2D).  
+Runtime servi via `vite.repo-assets.ts` — ne pas réintroduire de doublons sous `public/assets/`.
+
+Promote / archive : [`staging/playbooks/04-asset-promote-pipeline.md`](staging/playbooks/04-asset-promote-pipeline.md), [`08-directory-cleanup.md`](staging/playbooks/08-directory-cleanup.md).
+
+---
+
+## Contenu original
+
+Pas de copie depuis un jeu commercial. Personnages, Myrions et univers sont originaux.  
+Contenu mature : paliers narratifs avec garde-fous (adultes, consentement, age gate) — détails en jeu.
+
+---
+
+## Stack
+
+React 19 · TypeScript · Vite · sauvegarde locale · assets PNG/WebP.

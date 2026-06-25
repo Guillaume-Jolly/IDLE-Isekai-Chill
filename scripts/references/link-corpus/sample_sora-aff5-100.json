@@ -1,0 +1,140 @@
+{
+  "id": "sora-aff5-100",
+  "companionId": "sora",
+  "companionName": "Sora",
+  "affinity": 5,
+  "tierName": "Lien maximum",
+  "maturity": "deep-bond",
+  "arc": "au-revoir",
+  "arcLabel": "Au revoir",
+  "topic": "future",
+  "topicLabel": "Projet commun",
+  "title": "Au revoir — Projet commun",
+  "setting": "la ferme lunaire",
+  "context": "Après un mini-jeu raté, tu retrouves Sora à la ferme lunaire. Elle baisse la voix pour ne pas réveiller les Myrions. Le sujet touche ce que votre lien pourrait changer dans le campement ; la pudeur n'empêche plus la franchise.",
+  "preferredTones": [
+    "sincere",
+    "playful"
+  ],
+  "primaryTone": "sincere",
+  "gameRefs": {
+    "resource": "cadeaux",
+    "favoriteGift": "Clochette rouge",
+    "biomes": [
+      "Prairie solaire",
+      "Forêt ancienne"
+    ],
+    "building": "le refuge des Myrions",
+    "minigame": "Soin des familiers",
+    "myrionPreference": "un Myrion doux de la Prairie solaire"
+  },
+  "rounds": [
+    {
+      "id": "sora-aff5-100-r1",
+      "beat": "ouverture",
+      "narrator": "Le premier mot compte plus que prévu, car ce que votre lien pourrait changer dans le campement touche à son quotidien.",
+      "companionLine": "Reste encore. Pas parce que je doute, mais parce que j'en ai envie. Sora remarque d'abord l'humeur des familiers, puis la tienne. Ce sujet ne passe pas inaperçu.",
+      "prompt": "Comment réponds-tu à Sora sur le projet commun ?",
+      "choices": [
+        {
+          "tone": "playful",
+          "text": "Je sens le piège subtil. Je m'y avance quand même, mais avec des bottes propres.",
+          "score": 1,
+          "reaction": "Ton humour ne fuit pas le moment ; il le rend respirable."
+        },
+        {
+          "tone": "direct",
+          "text": "Dis-moi la limite, et je la respecterai. Le reste peut attendre.",
+          "score": 0,
+          "reaction": "La phrase coupe un peu trop court ; Sora reprend de la distance."
+        },
+        {
+          "tone": "romantic",
+          "text": "Je connais assez ton silence pour savoir quand il me demande de rester.",
+          "score": 0,
+          "reaction": "La tendresse arrive trop tôt ; Sora recule d'un demi-pas."
+        },
+        {
+          "tone": "sincere",
+          "text": "Je préfère te répondre sans embellir. Le sujet compte, mais ta manière de le vivre compte davantage.",
+          "score": 1,
+          "reaction": "Tu sens que cette honnêteté ouvre un passage net."
+        }
+      ]
+    },
+    {
+      "id": "sora-aff5-100-r2",
+      "beat": "tension",
+      "narrator": "Tu sens qu'une mauvaise réponse refermerait la porte sans bruit.",
+      "companionLine": "Reste encore. Pas parce que je doute, mais parce que j'en ai envie. Ce que j'attends, c'est la douceur pratique, pas une réponse parfaite. Elle attend une réponse qui ne traite pas ce moment comme un simple détour.",
+      "prompt": "Quelle réponse respecte le mieux ce moment avec Sora ?",
+      "choices": [
+        {
+          "tone": "direct",
+          "text": "Je peux agir, écouter ou partir. Choisis ce qui t'aide le plus.",
+          "score": 0,
+          "reaction": "La phrase coupe un peu trop court ; Sora reprend de la distance."
+        },
+        {
+          "tone": "romantic",
+          "text": "Je veux continuer à choisir ce que nous sommes, même quand personne ne regarde. Je ne veux pas transformer ce sujet en prétexte vide.",
+          "score": 0,
+          "reaction": "La tendresse arrive trop tôt ; Sora recule d'un demi-pas."
+        },
+        {
+          "tone": "sincere",
+          "text": "Si ce sujet te touche, je peux l'entendre sans le transformer en promesse facile.",
+          "score": 1,
+          "reaction": "Tu sens que cette honnêteté ouvre un passage net."
+        },
+        {
+          "tone": "playful",
+          "text": "Je promets une chose : aucune grande tirade avant d'avoir compris ton regard.",
+          "score": 1,
+          "reaction": "Ton humour ne fuit pas le moment ; il le rend respirable."
+        }
+      ]
+    },
+    {
+      "id": "sora-aff5-100-r3",
+      "beat": "retombée",
+      "narrator": "La tension baisse, mais il reste quelque chose à formuler correctement.",
+      "companionLine": "Je n'ai plus envie de prétendre que tu es seulement de passage. Il y a là-dedans un collier de familier trop petit pour être encore porté. Ce sujet restera entre vous, au moins pour ce soir.",
+      "prompt": "Comment termines-tu l'échange sans forcer la suite ?",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je ne cherche plus la bonne distance ; avec toi, elle s'est construite toute seule. Je préfère finir proprement plutôt que forcer une dernière phrase.",
+          "score": 0,
+          "reaction": "La tendresse arrive trop tôt ; Sora recule d'un demi-pas."
+        },
+        {
+          "tone": "sincere",
+          "text": "Si ce sujet te touche, je peux l'entendre sans le transformer en promesse facile. Le village n'a pas besoin de savoir ce que ce silence signifie.",
+          "score": 1,
+          "reaction": "Sora se détend. La sincérité arrive au bon endroit."
+        },
+        {
+          "tone": "playful",
+          "text": "Je sens le piège subtil. Je m'y avance quand même, mais avec des bottes propres. Le village n'a pas besoin de savoir ce que ce silence signifie.",
+          "score": 1,
+          "reaction": "Sora laisse passer un sourire. La légèreté tombe juste."
+        },
+        {
+          "tone": "direct",
+          "text": "Si tu veux une réponse nette, la voilà : je reste, mais je ne force rien.",
+          "score": 0,
+          "reaction": "La phrase coupe un peu trop court ; Sora reprend de la distance."
+        }
+      ]
+    }
+  ],
+  "affinityUnlockText": "Sora ne traite plus ta présence comme une surprise, mais comme un choix.",
+  "maxAffinityText": "Le lien avec Sora est déjà au maximum ; il ne reste qu'à l'habiter correctement.",
+  "resultTexts": {
+    "perfect": "L'échange trouve son rythme exact ; Sora paraît plus légère en repartant.",
+    "good": "La conversation avance. Tout n'était pas parfait, mais rien n'a été abîmé.",
+    "poor": "L'échange se termine proprement, sans vraie ouverture supplémentaire.",
+    "neutral": "Rien ne se ferme, rien ne s'ouvre vraiment. Le lien attendra une meilleure occasion."
+  }
+}

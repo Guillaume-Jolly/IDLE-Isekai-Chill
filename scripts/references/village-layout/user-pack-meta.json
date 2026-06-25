@@ -1,0 +1,23 @@
+{
+  "sourcePano": {
+    "width": 1024,
+    "height": 341,
+    "path": "C:\\Users\\guill\\.cursor\\projects\\c-Dev-Project-IDLE-Isekai-Chill\\assets\\c__Users_guill_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_village_ui_lisible_12800px-b1443760-825d-4029-856e-5773f5f067ff.png"
+  },
+  "outputPano": {
+    "width": 12800,
+    "height": 4263,
+    "scale": 12.5
+  },
+  "spriteOrder": [
+    "inn",
+    "mist-garden",
+    "ribbon-workshop",
+    "clear-spring",
+    "moon-farm",
+    "arcane-library",
+    "traveler-theater",
+    "star-market"
+  ],
+  "panoOnly": true
+}

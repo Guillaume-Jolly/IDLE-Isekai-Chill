@@ -1,0 +1,34 @@
+Prompt pour Cursor — détourage propre de chibis sans les abîmer
+
+Objectif :
+Détourer chaque créature chibi une par une à partir d’une planche, sans dégrader les contours, sans rogner les oreilles / antennes / ailes / feuilles / pointes, et en exportant un PNG transparent propre.
+
+Consignes importantes :
+1. Ne pas faire un simple rectangle ou un crop brutal.
+2. Supprimer uniquement le fond uni / damier, pas les détails fins du personnage.
+3. Préserver tous les petits éléments : antennes, mèches, ailes, feuilles, pointes, queues, bijoux, halos proches du corps.
+4. Garder un léger liseré propre si nécessaire plutôt que d’abîmer le contour.
+5. Ne pas lisser excessivement.
+6. Exporter en PNG avec transparence.
+7. Ajouter 8 à 16 px de marge transparente autour du personnage.
+8. Nommer les fichiers dans l’ordre de lecture : de gauche à droite puis de haut en bas.
+
+Méthode recommandée :
+- Détecter la couleur de fond dominante de la case (cyan uni ou fond très clair damier).
+- Faire un masque de fond par chroma key / color range avec une tolérance modérée.
+- Inverser le masque pour garder le personnage.
+- Nettoyer légèrement le masque :
+  - fermer les petits trous,
+  - retirer les poussières isolées,
+  - conserver les détails fins.
+- Appliquer un feather très léger (0.5 à 1 px maximum) si besoin.
+- Recadrer au plus près du personnage avec petite marge.
+
+Contrôle qualité à faire pour chaque export :
+- aucun morceau du personnage coupé ;
+- pas de gros halo de fond ;
+- pas de fond résiduel entre les pattes / sous les ailes ;
+- silhouette lisible ;
+- fichier final en PNG transparent.
+
+Si plusieurs personnages sont sur une même planche, traiter chaque case séparément et exporter un PNG individuel par personnage.

@@ -31,6 +31,7 @@ export const myrionAssetPaths = {
 /** Source-of-truth companion portraits (Assets 2.0 lot Compagnons). */
 export const companionAssetRoot = join(root, 'assets/Compagnons')
 
+/** @deprecated Prefer affinite/nsfw paths — maps legacy integrated filenames to canonical assets. */
 export const companionAssetPaths = {
   root: companionAssetRoot,
   affinite: (companionId, level) =>
@@ -39,8 +40,17 @@ export const companionAssetPaths = {
     join(companionAssetRoot, companionId, 'cutouts', `emotion-${emotion}.png`),
   chibi: (companionId) => join(companionAssetRoot, companionId, 'chibis', 'chibi.png'),
   nsfw: (companionId) => join(companionAssetRoot, companionId, 'NSFW', 'affinity-4-nsfw.png'),
-  disagreaIntegrated: (companionId, filename) =>
-    join(companionAssetRoot, companionId, 'Autres', 'disagrea-integrated', filename),
+  /** @deprecated Legacy filename — resolves to affinite/ or NSFW/ canonical paths. */
+  disagreaIntegrated: (companionId, filename) => {
+    if (filename.includes('nsfw')) {
+      return join(companionAssetRoot, companionId, 'NSFW', 'affinity-4-nsfw.png')
+    }
+    const levelMatch = filename.match(/affinity-(\d{2})/)
+    if (levelMatch) {
+      return join(companionAssetRoot, companionId, 'affinite', `affinity-${parseInt(levelMatch[1], 10)}.png`)
+    }
+    return join(companionAssetRoot, companionId, 'Autres', 'disagrea-integrated', filename)
+  },
 }
 
 /** Source-of-truth guide cutouts (minigame overlay poses). */
@@ -66,16 +76,24 @@ export const publicMinigamePaths = {
   companions: companionAssetRoot,
 }
 
-export const sourceMinigamePaths = {
-  dressageChibi: join(root, 'assets/minigames/dressage/myrions/chibi/sources'),
-  captureTaliaCompanionPack: join(root, 'assets/minigames/capture/companions/talia/sources/companion-pack'),
-  captureTaliaChibis9: join(root, 'assets/minigames/capture/companions/talia/sources/chibis-9-pack'),
-  captureCutout: join(root, 'assets/minigames/capture/myrions/cutout/sources'),
-  myrionsImportDefault: join(root, 'assets/myrions-import/myrions_biomes_v2'),
-  taliaImportDefault: join(root, 'assets/talia-import'),
-}
+/** Pipeline reference data (text/JSON — not runtime). */
+export const pipelineReferencesRoot = join(root, 'scripts/references')
+
+/** @deprecated Use pipelineReferencesRoot */
+export const promptsAssetRoot = pipelineReferencesRoot
 
 export const oldAssetsRoot = join(root, 'old_assets')
+
+export const sourceMinigamePaths = {
+  dressageChibi: join(oldAssetsRoot, 'Background/prompts/minigames/chibi-sources'),
+  captureTaliaCompanionPack: join(oldAssetsRoot, 'Background/prompts/minigames/talia-sources/companion-pack'),
+  captureTaliaChibis9: join(oldAssetsRoot, 'Background/prompts/minigames/talia-sources/chibis-9-pack'),
+  captureCutout: join(oldAssetsRoot, 'Background/prompts/minigames/cutout-sources'),
+  myrionsImportDefault: join(oldAssetsRoot, 'Myrions/imports/myrions-import/myrions_biomes_v2'),
+  taliaImportDefault: join(oldAssetsRoot, 'Compagnons/imports/talia-import'),
+}
+
+export const disagreaPromptArchiveRoot = join(oldAssetsRoot, 'Compagnons/prompts/disagrea')
 
 export const oldAssetPaths = {
   biomesLegacy: join(oldAssetsRoot, 'biomes-legacy'),

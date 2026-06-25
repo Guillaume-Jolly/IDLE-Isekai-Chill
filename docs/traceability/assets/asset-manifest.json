@@ -1,0 +1,750 @@
+{
+  "generatedAt": "2026-06-25T15:13:56.907Z",
+  "repoRoot": "C:/Dev/Project/IDLE Isekai Chill",
+  "phase": 0,
+  "totals": {
+    "imageFiles": 1717,
+    "byExtension": {
+      ".png": 1690,
+      ".svg": 19,
+      ".webp": 8
+    },
+    "byClass": {
+      "input-chatgpt": 49,
+      "runtime:background": 52,
+      "runtime:companions": 280,
+      "other": 4,
+      "runtime:myrions": 289,
+      "runtime:gacha": 45,
+      "archive": 687,
+      "runtime:village": 3,
+      "staging": 308
+    },
+    "byTopBucket": {
+      "Input chatgpt/etna_gacha_8_images_pack": 9,
+      "Input chatgpt/pack_event_invocation": 40,
+      "assets/Background": 52,
+      "assets/Compagnons": 280,
+      "assets/Live2D": 2,
+      "assets/Myrions": 289,
+      "assets/gacha": 45,
+      "old_assets/Background": 137,
+      "old_assets/Compagnons": 382,
+      "old_assets/Gacha": 11,
+      "old_assets/Myrions": 157,
+      "public/favicon.svg": 1,
+      "public/icons.svg": 1,
+      "public/village": 3,
+      "staging/companion-visual-pack": 265,
+      "staging/skinline-premium": 43
+    },
+    "duplicateHashGroups": 80
+  },
+  "scanRoots": [
+    "assets",
+    "public",
+    "old_assets",
+    "staging",
+    "Input chatgpt",
+    "release"
+  ],
+  "duplicateSamples": [
+    {
+      "hash": "7c7f1272d202dc9b",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_01_03_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-3.png"
+      ]
+    },
+    {
+      "hash": "5cfdded5b8b424ac",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_01_03_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-1-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-2-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-3-wide.png"
+      ]
+    },
+    {
+      "hash": "2e115a15a5e87d3c",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_01_03_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-3.png"
+      ]
+    },
+    {
+      "hash": "652c4d98b5a3d164",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_01_03_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-1-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-2-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-3-wide.png"
+      ]
+    },
+    {
+      "hash": "44533d0957de9b7f",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_01_03_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-3.png"
+      ]
+    },
+    {
+      "hash": "233e38482752fdde",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_01_03_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-1-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-2-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-3-wide.png"
+      ]
+    },
+    {
+      "hash": "f4a434c90293b96a",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_01_03_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-3.png"
+      ]
+    },
+    {
+      "hash": "c64f925738070892",
+      "count": 4,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_01_03_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-1-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-2-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-3-wide.png"
+      ]
+    },
+    {
+      "hash": "64692a9515371ddc",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_04_05_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-5.png"
+      ]
+    },
+    {
+      "hash": "10e29dd5a5616d1e",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Etna/Etna_affinity_04_05_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-4-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/etna/background-5-wide.png"
+      ]
+    },
+    {
+      "hash": "971d35f4cae36c43",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_04_05_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-5.png"
+      ]
+    },
+    {
+      "hash": "be440572c6855e66",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Flonne/Flonne_affinity_04_05_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-4-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/flonne/background-5-wide.png"
+      ]
+    },
+    {
+      "hash": "e399b20405574ba5",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_04_05_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-5.png"
+      ]
+    },
+    {
+      "hash": "1fee746c4ff31cd9",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Laharl/Laharl_affinity_04_05_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-4-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/laharl/background-5-wide.png"
+      ]
+    },
+    {
+      "hash": "11e025fae7e0ab47",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_04_05_mobile.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-5.png"
+      ]
+    },
+    {
+      "hash": "b6a9daf4388d0881",
+      "count": 3,
+      "paths": [
+        "assets/Background/disagrea-event/affinity/Pleinair/Pleinair_affinity_04_05_pc.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-4-wide.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/event-disagrea/public-layered-legacy/pleinair/background-5-wide.png"
+      ]
+    },
+    {
+      "hash": "061d517c03bb8ab6",
+      "count": 3,
+      "paths": [
+        "assets/Compagnons/etna/NSFW/affinity-4-nsfw.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-04-nsfw-scene-v1.png",
+        "staging/companion-visual-pack/disagrea/etna/tests/companion-etna-affinity-05-lit-batch5-v5-v4-final-tweak.png"
+      ]
+    },
+    {
+      "hash": "73f12673a9e807ff",
+      "count": 3,
+      "paths": [
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-internal/etna/Autres/guide/point-disagrea-event.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-internal/event-disagrea/public-layered-legacy/etna/cutout-5.png",
+        "old_assets/Compagnons/etna/Autres/guide/point.png"
+      ]
+    },
+    {
+      "hash": "49da471a47b778ae",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v1.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v1.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v1.png"
+      ]
+    },
+    {
+      "hash": "724e0b9a05a33bf4",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v11.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v11.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v11.png"
+      ]
+    },
+    {
+      "hash": "3cc2f13bc94e16e2",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v12.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v12.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v12.png"
+      ]
+    },
+    {
+      "hash": "a2e075a5a388fbfc",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v2.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v2.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v2.png"
+      ]
+    },
+    {
+      "hash": "13c8fabe3d22ca8e",
+      "count": 3,
+      "paths": [
+        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v9.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v9.png",
+        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v9.png"
+      ]
+    },
+    {
+      "hash": "cfdd4c1dcfd36ce7",
+      "count": 3,
+      "paths": [
+        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4.png",
+        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4b.png",
+        "staging/skinline-premium/companions/etna/companion-etna-skinline-premium.png"
+      ]
+    },
+    {
+      "hash": "23bd26148c70df09",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/guillaume_01_myrion_normal.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/guillaume_01_myrion_normal.png"
+      ]
+    },
+    {
+      "hash": "a40d28d1252ce63a",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/guillaume_02_myrion_chibi.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/guillaume_02_myrion_chibi.png"
+      ]
+    },
+    {
+      "hash": "b4476b74fd1c24b0",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/kumiko_01_myrion_normal.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/kumiko_01_myrion_normal.png"
+      ]
+    },
+    {
+      "hash": "acead0c231dcdab4",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/kumiko_02_myrion_chibi.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/kumiko_02_myrion_chibi.png"
+      ]
+    },
+    {
+      "hash": "b93eafffc84f1b35",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/lea_01_myrion_normal.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/lea_01_myrion_normal.png"
+      ]
+    },
+    {
+      "hash": "2811465a98699c46",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/lea_02_myrion_chibi.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/lea_02_myrion_chibi.png"
+      ]
+    },
+    {
+      "hash": "9081b405bf8f850e",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/metashine_01_myrion_normal.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/metashine_01_myrion_normal.png"
+      ]
+    },
+    {
+      "hash": "5d2a3e333a2a540d",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/02_myrions/candidates/metashine_02_myrion_chibi.png",
+        "Input chatgpt/pack_event_invocation/02_myrions/metashine_02_myrion_chibi.png"
+      ]
+    },
+    {
+      "hash": "f8fd5e082b1f296b",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/pack_event_invocation/03_promo/candidates/event_choisis_ton_invocation_landscape-candidat-v4-fix-kumiko.png",
+        "Input chatgpt/pack_event_invocation/03_promo/event_choisis_ton_invocation_landscape.png"
+      ]
+    },
+    {
+      "hash": "98226ce8274115f6",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/capture-portrait.png",
+        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_hunt_mobile.png"
+      ]
+    },
+    {
+      "hash": "249430a362f6fb6d",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/capture-wide.png",
+        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_hunt_pc.png"
+      ]
+    },
+    {
+      "hash": "f0395e0d3c65289f",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/dressage-portrait.png",
+        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_training_enclosure_mobile.png"
+      ]
+    },
+    {
+      "hash": "2810883bfe9abb0c",
+      "count": 2,
+      "paths": [
+        "assets/Background/disagrea-event/dressage-wide.png",
+        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_training_enclosure_pc.png"
+      ]
+    },
+    {
+      "hash": "194b77cde9ac88f9",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/asha/chibis/chibi.png",
+        "staging/companion-visual-pack/village/asha/chibi/companion-asha-chibi-v2.png"
+      ]
+    },
+    {
+      "hash": "f04a5e48ed206ddb",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/affinite/affinity-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-01-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "485641babb885055",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/affinite/affinity-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-02-flirt-proche-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "38d45cfdc352da69",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/affinite/affinity-3.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "1c6fefbecad0e6a3",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/affinite/affinity-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-04-intime-soft-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "5da20836195f43e9",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/etna/affinite/affinity-5.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-05-peak-bond-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "08841756638859ec",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/NSFW/affinity-4-nsfw.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-04-nsfw-scene-v1.png"
+      ]
+    },
+    {
+      "hash": "e81df076b9c914ef",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/affinite/affinity-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-01-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "f88889a6c6ee93ef",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/affinite/affinity-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-02-flirt-proche-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "ffd340dc73bd549f",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/affinite/affinity-3.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "97f915c72ceeb99b",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/affinite/affinity-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-04-intime-soft-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "b1516301da89c7df",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/flonne/affinite/affinity-5.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-05-peak-bond-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "72b954bb4c1e8084",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/kael/chibis/chibi.png",
+        "staging/companion-visual-pack/village/kael/chibi/companion-kael-chibi-v2.png"
+      ]
+    },
+    {
+      "hash": "23552a0c0cfd0606",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/NSFW/affinity-4-nsfw.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-04-nsfw-scene-v1.png"
+      ]
+    },
+    {
+      "hash": "e32cbb42d4a0b1bc",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/affinite/affinity-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-01-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "d85e02747056d095",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/affinite/affinity-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-02-flirt-proche-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "f0bdc668aaac3b1d",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/affinite/affinity-3.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "52f51b9240a59b6a",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/affinite/affinity-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-04-intime-soft-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "3d0edc0be365bf94",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/laharl/affinite/affinity-5.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-05-peak-bond-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "5abe722da1ff3f25",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/maeve/chibis/chibi.png",
+        "staging/companion-visual-pack/village/maeve/chibi/companion-maeve-chibi-v2.png"
+      ]
+    },
+    {
+      "hash": "e2b094ed08775cd4",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/noa/chibis/chibi.png",
+        "staging/companion-visual-pack/village/noa/chibi/companion-noa-chibi-v2.png"
+      ]
+    },
+    {
+      "hash": "ed9401a42be2436f",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/pleinair/NSFW/affinity-4-nsfw.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-04-nsfw-scene-v1.png"
+      ]
+    },
+    {
+      "hash": "d8b67a1a2aa834a2",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/pleinair/affinite/affinity-1.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-01-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "3406f4372aa51a09",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/pleinair/affinite/affinity-2.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-02-flirt-proche-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "cb3b8abbde1fa7ff",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/pleinair/affinite/affinity-3.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "319ac31947c00be8",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/pleinair/affinite/affinity-4.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-04-intime-soft-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "e3a31141a113ecd4",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/pleinair/affinite/affinity-5.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-05-peak-bond-scene-originale-v1.png"
+      ]
+    },
+    {
+      "hash": "c4b53098ba316f76",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/solene/cutouts/emotion-annoyed.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-annoyed-v2-archived.png"
+      ]
+    },
+    {
+      "hash": "a060b908fcc6f442",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/solene/cutouts/emotion-happy.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-happy-v2-archived.png"
+      ]
+    },
+    {
+      "hash": "1d94927d21ff9dd8",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/solene/cutouts/emotion-neutral.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-neutral-v2-archived.png"
+      ]
+    },
+    {
+      "hash": "f4508f98dc5c47a3",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/solene/cutouts/emotion-romantic.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-romantic-v2-archived.png"
+      ]
+    },
+    {
+      "hash": "5691b72aec676250",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/solene/cutouts/emotion-sad.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-sad-v2-archived.png"
+      ]
+    },
+    {
+      "hash": "613bacd8a5df0b8f",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/solene/cutouts/emotion-shy.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-shy-v2-archived.png"
+      ]
+    },
+    {
+      "hash": "eb420e043e25da4d",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/solene/cutouts/emotion-surprised.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-surprised-v2-archived.png"
+      ]
+    },
+    {
+      "hash": "938d12aa7e42399c",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/sora/chibis/chibi.png",
+        "staging/companion-visual-pack/village/sora/chibi/companion-sora-chibi-v2.png"
+      ]
+    },
+    {
+      "hash": "da744edf15694a2a",
+      "count": 2,
+      "paths": [
+        "assets/Compagnons/talia/Autres/guide/point-prairie-solaire.png",
+        "assets/Compagnons/talia/Autres/guide/point.png"
+      ]
+    },
+    {
+      "hash": "03608cc55759f67a",
+      "count": 2,
+      "paths": [
+        "assets/gacha/cinema/disagrea/intermediate.png",
+        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/intermediate.png"
+      ]
+    },
+    {
+      "hash": "8795fa4708c36c48",
+      "count": 2,
+      "paths": [
+        "assets/gacha/cinema/disagrea/reveal-lr.png",
+        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-lr.png"
+      ]
+    },
+    {
+      "hash": "3ea7ea87efdc3f83",
+      "count": 2,
+      "paths": [
+        "assets/gacha/cinema/disagrea/reveal-multi.png",
+        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-multi.png"
+      ]
+    },
+    {
+      "hash": "aab7f37fd9f45604",
+      "count": 2,
+      "paths": [
+        "assets/gacha/cinema/disagrea/reveal-n.png",
+        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-n.png"
+      ]
+    },
+    {
+      "hash": "0acc74ea8f92de71",
+      "count": 2,
+      "paths": [
+        "assets/gacha/cinema/disagrea/reveal-sr.png",
+        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-sr.png"
+      ]
+    },
+    {
+      "hash": "028f032783ed9ef0",
+      "count": 2,
+      "paths": [
+        "assets/gacha/cinema/disagrea/reveal-ssr.png",
+        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-ssr.png"
+      ]
+    },
+    {
+      "hash": "f2f97b68bdc96baf",
+      "count": 2,
+      "paths": [
+        "assets/gacha/cinema/disagrea/reveal-ur.png",
+        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-ur.png"
+      ]
+    }
+  ],
+  "targetLayout": {
+    "assets": [
+      "Compagnons/{id}/affinite",
+      "Compagnons/{id}/cutouts",
+      "Compagnons/{id}/chibis",
+      "Compagnons/{id}/NSFW",
+      "Compagnons/{id}/Autres/{batch}",
+      "Background/{biomeId}",
+      "Myrions/{biomeId}",
+      "Gacha",
+      "UI",
+      "References",
+      "Prompts"
+    ],
+    "preserve": [
+      "staging",
+      "Input chatgpt",
+      "old_assets"
+    ]
+  },
+  "notes": [
+    "Read-only inventory — no files moved.",
+    "Hashes computed for files <= 8MB only.",
+    "Phase 1+ will map each class to target paths."
+  ]
+}

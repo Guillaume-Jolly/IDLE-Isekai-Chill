@@ -8,6 +8,43 @@ Pour le travail en cours et les tâches priorisées, voir aussi
 
 ---
 
+## Dev — cache / chargement assets (priorité tête de liste)
+
+**Statut :** idée → à traiter tôt pour les tests en dev  
+**Contexte :** en local, les gros PNG (~800 Mo sous `assets/`) sont re-téléchargés à chaque changement d’onglet / page ; l’onglet Liens paraît vide longtemps (gradients seuls).
+
+**Objectif :** fluidifier les tests dev sans attendre un rebuild prod.
+
+**Pistes (une ou l’autre, ou hybride) :**
+
+1. **Préchargement global** — au démarrage dev (ou au premier login), mettre en cache navigateur / mémoire les assets runtime critiques (companions, backgrounds mini-jeux, gacha, village).
+2. **Chargement à l’affichage** — ne charger que ce que la vue montre ; conserver en cache ce qui a déjà été fetch (pas de re-fetch au retour sur un onglet).
+3. **Optimisations associées** — remplacer les probes `new Image()` séquentiels (`useCompanionPortraitAssets`) par `HEAD` ou cache de résolution ; supprimer les fallbacks legacy qui 404 avant le bon chemin.
+
+**Questions ouvertes :**
+
+- Service worker / `CacheStorage` en dev only ?
+- Warm-up script Vite au `configureServer` ?
+- Limite mémoire acceptable sur machine dev ?
+
+---
+
+## old_assets — déplacement hors repo
+
+**Statut :** idée (premier tri **en fin de nettoyage repo**, puis archivage disque)
+
+**Chemin cible (Guillaume) :** `D:\Isekai-slow-life\Archiive\Old_assets`
+
+**Ordre :**
+
+1. Finir dedup / tri taxonomique **dans** `old_assets/` du repo.
+2. Copier ou déplacer le lot validé vers le chemin D: (jamais supprimer — move ou copy + log).
+3. Optionnel : laisser un README dans le repo pointant vers D: ; MAJ `oldAssetsRoot` dans les scripts seulement si les pipelines doivent encore lire depuis l'archive.
+
+**Ne pas faire sans go user :** `prompts-archive/` et imports Disagrea sont encore référencés par des scripts depuis `old_assets/` dans le repo.
+
+---
+
 ## Comment ajouter une entrée
 
 Copier le bloc modèle en bas de fichier, remplir, laisser le statut à `idée`.

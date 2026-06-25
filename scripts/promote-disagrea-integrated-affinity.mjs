@@ -2,8 +2,9 @@
 /**
  * Remplace les anciens cutout+background Disagrea par les portraits intégrés L1–L5.
  *
- * Source : assets/event-disagrea/integrated/companions/{id}/
- * Cible  : public/assets/companions/{id}/affinity-{1-5}.png
+ * Source : old_assets/Compagnons/{id}/Autres/disagrea-integrated/ (archivé)
+ *          ou affinite/ déjà en place
+ * Cible  : assets/Compagnons/{id}/affinite/affinity-{1-5}.png
  * Archive: old_assets/event-disagrea/public-layered-legacy/{id}/
  *
  * Usage: node scripts/promote-disagrea-integrated-affinity.mjs
@@ -45,9 +46,15 @@ const LEGACY_PATTERNS = [
   /^background-\d+-wide\.png$/,
 ]
 
-const archiveRoot = join(oldAssetsRoot, 'event-disagrea', 'public-layered-legacy')
-const integratedRoot = companionAssetPaths.root
+const archiveRoot = join(oldAssetsRoot, 'Compagnons', 'etna', 'layered-legacy')
+const integratedArchiveRoot = join(oldAssetsRoot, 'Compagnons')
 const publicRoot = companionAssetPaths.root
+
+function integratedSource(id, filename) {
+  const archived = join(integratedArchiveRoot, id, 'Autres', 'disagrea-integrated', filename)
+  if (existsSync(archived)) return archived
+  return companionAssetPaths.disagreaIntegrated(id, filename)
+}
 
 function archiveLegacyFiles(companionId) {
   const srcDir = join(publicRoot, companionId, 'Autres', 'layered-import')
@@ -72,7 +79,7 @@ for (const id of DISAGREA_IDS) {
   archived += archiveLegacyFiles(id)
 
   for (const { level, integratedFilename } of AFFINITY_LEVELS) {
-    const src = companionAssetPaths.disagreaIntegrated(id, integratedFilename(id))
+    const src = integratedSource(id, integratedFilename(id))
     const dest = companionAssetPaths.affinite(id, level)
     if (!existsSync(src)) {
       console.warn(`  missing ${src}`)
@@ -84,10 +91,7 @@ for (const id of DISAGREA_IDS) {
     promoted += 1
   }
 
-  const nsfwSrc = companionAssetPaths.disagreaIntegrated(
-    id,
-    `companion-${id}-affinity-04-nsfw-scene-v1.png`,
-  )
+  const nsfwSrc = integratedSource(id, `companion-${id}-affinity-04-nsfw-scene-v1.png`)
   const nsfwDest = companionAssetPaths.nsfw(id)
   if (existsSync(nsfwSrc)) {
     copyFileSync(nsfwSrc, nsfwDest)

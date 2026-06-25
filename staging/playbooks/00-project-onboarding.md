@@ -1,8 +1,8 @@
-# 00 — Onboarding projet
+﻿# 00 — Onboarding projet
 
 Updated: 2026-06-25
 
----
+**Agent arrivant :** lire d'abord [`../../docs/agent-guide/README.md`](../../docs/agent-guide/README.md) puis ce fichier.
 
 ## Produit
 
@@ -29,13 +29,11 @@ Stack : React 19, TypeScript, Vite, saves locales, PNG/SVG.
 ## Architecture assets (transition → 2.0)
 
 **Aujourd'hui :**
-- Runtime jouable : `public/assets/companions/`, `public/assets/minigames/`, `public/gacha/`, `public/village/`
-- Legacy rewrite : `public/companions/` → éviter d'ajouter ici
-- Sources : `assets/event-disagrea/`, `assets/minigames/`
+- Source-of-truth : `assets/` (Compagnons, Background, Myrions, Gacha)
+- Runtime URLs : `vite.repo-assets.ts` (legacy rewrites dans vite.config.ts)
 - WIP : `staging/companion-visual-pack/`, `staging/skinline-premium/`
-- Archive : `old_assets/`
-
-**Demain (single `assets/`) :** voir `05-assets-2.0-migration.md`.
+- Archive : `old_assets/` (miroir arborescence assets/)
+- Environnement : `Input chatgpt/` (gitignore)
 
 ---
 
@@ -85,7 +83,7 @@ Checklist détaillée : `06-tnr-checklist.md`.
 
 | Type | Emplacement |
 |------|-------------|
-| Plan / audit | `staging/planning/` ou `staging/reviews/` |
+| Plan / audit | `docs/traceability/` ([`REFERENCES.md`](../../docs/traceability/REFERENCES.md)) ou `staging/reviews/` |
 | Story seeds | `staging/story/` |
 | Playbooks | `staging/playbooks/` |
 | État agent | `.ai/current-state.md` |

@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2026-06-25",
+  "promptModule": "src/data/integratedPortraitPrompts.ts",
+  "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png",
+  "scope": {
+    "disagrea": {
+      "total": 20,
+      "status": "done except Etna L5 custom + Pleinair L2-5 backlog"
+    },
+    "village": {
+      "total": 75,
+      "status": "pending"
+    }
+  },
+  "count": 20,
+  "jobs": [
+    {
+      "pack": "disagrea",
+      "companionId": "etna",
+      "level": 1,
+      "slug": "rencontre",
+      "output": "assets/Compagnons/etna/affinite/affinity-1.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('etna', 1, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "etna",
+      "level": 2,
+      "slug": "flirt-proche",
+      "output": "assets/Compagnons/etna/affinite/affinity-2.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('etna', 2, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "etna",
+      "level": 3,
+      "slug": "vulnerable-complicite",
+      "output": "assets/Compagnons/etna/affinite/affinity-3.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('etna', 3, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "etna",
+      "level": 4,
+      "slug": "intime-soft",
+      "output": "assets/Compagnons/etna/affinite/affinity-4.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('etna', 4, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "etna",
+      "level": 5,
+      "slug": "peak-bond",
+      "output": "assets/Compagnons/etna/affinite/affinity-5.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('etna', 5, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "flonne",
+      "level": 1,
+      "slug": "rencontre",
+      "output": "assets/Compagnons/flonne/affinite/affinity-1.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('flonne', 1, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "flonne",
+      "level": 2,
+      "slug": "flirt-proche",
+      "output": "assets/Compagnons/flonne/affinite/affinity-2.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('flonne', 2, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "flonne",
+      "level": 3,
+      "slug": "vulnerable-complicite",
+      "output": "assets/Compagnons/flonne/affinite/affinity-3.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('flonne', 3, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "flonne",
+      "level": 4,
+      "slug": "intime-soft",
+      "output": "assets/Compagnons/flonne/affinite/affinity-4.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('flonne', 4, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "flonne",
+      "level": 5,
+      "slug": "peak-bond",
+      "output": "assets/Compagnons/flonne/affinite/affinity-5.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('flonne', 5, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "laharl",
+      "level": 1,
+      "slug": "rencontre",
+      "output": "assets/Compagnons/laharl/affinite/affinity-1.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('laharl', 1, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "laharl",
+      "level": 2,
+      "slug": "flirt-proche",
+      "output": "assets/Compagnons/laharl/affinite/affinity-2.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('laharl', 2, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "laharl",
+      "level": 3,
+      "slug": "vulnerable-complicite",
+      "output": "assets/Compagnons/laharl/affinite/affinity-3.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('laharl', 3, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "laharl",
+      "level": 4,
+      "slug": "intime-soft",
+      "output": "assets/Compagnons/laharl/affinite/affinity-4.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('laharl', 4, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "laharl",
+      "level": 5,
+      "slug": "peak-bond",
+      "output": "assets/Compagnons/laharl/affinite/affinity-5.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('laharl', 5, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "pleinair",
+      "level": 1,
+      "slug": "rencontre",
+      "output": "assets/Compagnons/pleinair/affinite/affinity-1.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('pleinair', 1, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "pleinair",
+      "level": 2,
+      "slug": "flirt-proche",
+      "output": "assets/Compagnons/pleinair/affinite/affinity-2.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('pleinair', 2, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png",
+      "notes": "BACKLOG: parental warmth only until redesign"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "pleinair",
+      "level": 3,
+      "slug": "vulnerable-complicite",
+      "output": "assets/Compagnons/pleinair/affinite/affinity-3.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('pleinair', 3, { soft: false })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png",
+      "notes": "BACKLOG: parental warmth only until redesign"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "pleinair",
+      "level": 4,
+      "slug": "intime-soft",
+      "output": "assets/Compagnons/pleinair/affinite/affinity-4.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('pleinair', 4, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png",
+      "notes": "BACKLOG: parental warmth only until redesign"
+    },
+    {
+      "pack": "disagrea",
+      "companionId": "pleinair",
+      "level": 5,
+      "slug": "peak-bond",
+      "output": "assets/Compagnons/pleinair/affinite/affinity-5.png",
+      "promptFn": "disagreaIntegratedPortraitPrompt('pleinair', 5, { soft: true })",
+      "styleAnchor": "assets/Compagnons/talia/affinite/affinity-1.png",
+      "notes": "BACKLOG: parental warmth only until redesign"
+    }
+  ]
+}

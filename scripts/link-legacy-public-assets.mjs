@@ -1,4 +1,5 @@
 /**
+ * @deprecated Assets 2.0 — public/assets mirrors archived; vite.repo-assets.ts serves assets/.
  * Crée des jonctions Windows (ou copies) pour que d’anciennes URLs publiques
  * continuent de servir les fichiers déplacés sous public/assets/.
  *

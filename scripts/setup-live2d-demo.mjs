@@ -6,8 +6,8 @@ const repoBase =
   'https://api.github.com/repos/Live2D/CubismWebSamples/contents/Samples/Resources/Haru'
 const rawBase =
   'https://raw.githubusercontent.com/Live2D/CubismWebSamples/develop/Samples/Resources/Haru'
-const outHaru = path.join(root, 'public', 'live2d', 'haru')
-const outCore = path.join(root, 'public', 'live2d')
+const outHaru = path.join(root, 'assets', 'Live2D', 'haru')
+const outCore = path.join(root, 'assets', 'Live2D')
 
 async function listGithubDir(apiPath) {
   const res = await fetch(`${repoBase}/${apiPath}?ref=develop`)
@@ -60,4 +60,4 @@ for (const file of await listGithubDir('expressions')) {
   await download(file)
 }
 
-console.log('Live2D Haru demo assets ready in public/live2d/')
+console.log('Live2D Haru demo assets ready in assets/Live2D/')

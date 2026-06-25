@@ -1,4 +1,5 @@
 /**
+ * @deprecated Superseded by cutout regen v3 pipeline + promote scripts. Kept for manual one-offs.
  * Retire un fond uni (chroma key) et produit cutout + silhouette.
  * Usage: node scripts/chroma-cutout.mjs <input.png> [output-cutout.png] [output-silhouette.png]
  */

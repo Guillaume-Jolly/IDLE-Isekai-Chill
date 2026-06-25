@@ -4,6 +4,8 @@ This backlog captures ideas that should not be coded automatically unless moved 
 
 ## Near-Term Priorities
 
+0. **Dev asset cache / lazy load** — for local testing: preload runtime assets into browser cache on startup, *or* fetch only when a view is shown and keep cached across tab changes (avoid re-downloading ~800 MB of PNG on every navigation). See `docs/BACKLOG.md` § Dev — cache / chargement assets.
+0b. **old_assets off-repo** — after in-repo sort: archive to `D:\Isekai-slow-life\Archiive\Old_assets` (never delete). See `docs/BACKLOG.md` § old_assets déplacement hors repo.
 1. Tutorial objectives 0.10.
 2. Natural progression TNR.
 3. Link Corpus V2 stabilization.

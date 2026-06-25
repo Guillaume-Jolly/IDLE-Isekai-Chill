@@ -1,0 +1,1218 @@
+[
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-annoyed.png",
+    "oldHash": "04d16a2c05922e55",
+    "assetsHash": "4ec5aead24ac3d8b",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-happy.png",
+    "oldHash": "1c290939c04300c1",
+    "assetsHash": "90f989b3ee617de3",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-neutral.png",
+    "oldHash": "c262b52113cdb0cc",
+    "assetsHash": "44626a411b47d755",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-playful.png",
+    "oldHash": "ba3f65318a46e5ff",
+    "assetsHash": "82e2130afb585d64",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-romantic.png",
+    "oldHash": "40de7b99057400ce",
+    "assetsHash": "a0119872785869b6",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-sad.png",
+    "oldHash": "12c5d358b2a7f34f",
+    "assetsHash": "64ead834cd423f3d",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-shy.png",
+    "oldHash": "5a6543accf061d26",
+    "assetsHash": "507f4bb668f1ae4d",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/asha/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/asha/cutouts/emotion-surprised.png",
+    "oldHash": "0bfeba97bf61af48",
+    "assetsHash": "031375a7efca281a",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-annoyed.png",
+    "oldHash": "9f2643341d97dd90",
+    "assetsHash": "abf3c03ec0abafe8",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-happy.png",
+    "oldHash": "a8cd65719ab3ccaa",
+    "assetsHash": "751827a83ac9a97b",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-neutral.png",
+    "oldHash": "af9e0638ebbf5647",
+    "assetsHash": "6e4f4dcbc7e7e48b",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-playful.png",
+    "oldHash": "64a58262007bcef2",
+    "assetsHash": "7aa946e8a25e4086",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-romantic.png",
+    "oldHash": "306be6186a9c349f",
+    "assetsHash": "82f07559455f68b2",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-sad.png",
+    "oldHash": "be380cc6f8b79b87",
+    "assetsHash": "aac6041f8b2eb942",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-shy.png",
+    "oldHash": "2adc9403ebab4259",
+    "assetsHash": "1a81dfe354cff0de",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/elwen/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/elwen/cutouts/emotion-surprised.png",
+    "oldHash": "445b84507214dab5",
+    "assetsHash": "e87db0132baf273f",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-annoyed.png",
+    "oldHash": "5a0e5777cbac848d",
+    "assetsHash": "d46d81091cfe48cf",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-happy.png",
+    "oldHash": "45b9c50900daf35a",
+    "assetsHash": "909e3f388b14cc47",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-neutral.png",
+    "oldHash": "6e30f3bc251c75f7",
+    "assetsHash": "91bed9a8faf9e62f",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-playful.png",
+    "oldHash": "354261edae787473",
+    "assetsHash": "ac8fc56de8c7d6c9",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-romantic.png",
+    "oldHash": "25fb7c946cdd57d6",
+    "assetsHash": "80ec312c6e099e09",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-sad.png",
+    "oldHash": "5a4cc627563595b0",
+    "assetsHash": "4c3b33092e6bc7f6",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-shy.png",
+    "oldHash": "f25738f920e6bc86",
+    "assetsHash": "ed6c55c2f781cae6",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/etna/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/etna/cutouts/emotion-surprised.png",
+    "oldHash": "5cc25cfbf1969dd3",
+    "assetsHash": "3637743a574d24e8",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-annoyed.png",
+    "oldHash": "42522c457b032a29",
+    "assetsHash": "02c28b691cc93e5d",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-happy.png",
+    "oldHash": "1e8df37f585823f5",
+    "assetsHash": "49e80d30816627d9",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-neutral.png",
+    "oldHash": "f81229d6e3805c04",
+    "assetsHash": "5451d75c915ed2be",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-playful.png",
+    "oldHash": "ed5b63bbf2f733c8",
+    "assetsHash": "90c057c2923954a7",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-romantic.png",
+    "oldHash": "ac4e0a0e0fc4e27c",
+    "assetsHash": "9b357059a990e48b",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-sad.png",
+    "oldHash": "3674cb187e53ae18",
+    "assetsHash": "9006fe65177eb0d6",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-shy.png",
+    "oldHash": "ada4cc6cdc651a72",
+    "assetsHash": "b47e697eee09accd",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/flonne/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/flonne/cutouts/emotion-surprised.png",
+    "oldHash": "a2d6cdd030aadc3b",
+    "assetsHash": "dfd21df328faad10",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-annoyed.png",
+    "oldHash": "000b0f2e8583240e",
+    "assetsHash": "889ce94c068c57ba",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-happy.png",
+    "oldHash": "36bcf99ed43fff0c",
+    "assetsHash": "b6a2c784ebbd6202",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-neutral.png",
+    "oldHash": "a2b09177eeeaf29a",
+    "assetsHash": "c4bab1a2533e1677",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-playful.png",
+    "oldHash": "de1b9d96dac152b5",
+    "assetsHash": "8e9f9f82e1510865",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-romantic.png",
+    "oldHash": "52f8fc8835a56b6e",
+    "assetsHash": "8cdc96c09b53dd20",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-sad.png",
+    "oldHash": "11cc59e119cca2b2",
+    "assetsHash": "9d974c4f53e12c76",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-shy.png",
+    "oldHash": "727aa875a66e6b59",
+    "assetsHash": "ca460686d930db38",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/iris/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/iris/cutouts/emotion-surprised.png",
+    "oldHash": "98c2b400abff2c94",
+    "assetsHash": "042e794b582c9862",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-annoyed.png",
+    "oldHash": "de2f0ecdad6ec84b",
+    "assetsHash": "7a4dbb69e784872b",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-happy.png",
+    "oldHash": "2ec67a38a1a1ddaf",
+    "assetsHash": "da06debd946a5eda",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-neutral.png",
+    "oldHash": "6c34ebe23285b2c2",
+    "assetsHash": "bdbbfd175e907477",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-playful.png",
+    "oldHash": "5da153d55c6124a8",
+    "assetsHash": "6aeb7785dcca743e",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-romantic.png",
+    "oldHash": "77b724e729df7ca6",
+    "assetsHash": "b87cc1c017ecc5b5",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-sad.png",
+    "oldHash": "1f724a59b4c3232e",
+    "assetsHash": "415ef4fd571c1b7c",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-shy.png",
+    "oldHash": "9b04919f380c9a65",
+    "assetsHash": "8c151290cf005670",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/kael/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/kael/cutouts/emotion-surprised.png",
+    "oldHash": "ecb5336b4b490d46",
+    "assetsHash": "55d143172741178c",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-annoyed.png",
+    "oldHash": "51d2726e7f5a3aad",
+    "assetsHash": "0489ba1fcb0331a8",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-happy.png",
+    "oldHash": "8ab5d56e4a00e4cf",
+    "assetsHash": "16317d436a0d2a10",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-neutral.png",
+    "oldHash": "4dd08e74439a75e3",
+    "assetsHash": "06247d2cbf90e411",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-playful.png",
+    "oldHash": "0d8fb94f715392c0",
+    "assetsHash": "d317c7cf128ce95c",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-romantic.png",
+    "oldHash": "99c00925e306d4cb",
+    "assetsHash": "887d8948b77cb489",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-sad.png",
+    "oldHash": "966ff41dec179943",
+    "assetsHash": "3a13c5d5f00dda36",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-shy.png",
+    "oldHash": "7557936c8962d408",
+    "assetsHash": "12f769a3eae5a637",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/laharl/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/laharl/cutouts/emotion-surprised.png",
+    "oldHash": "35060f8f02b394ba",
+    "assetsHash": "a3104aaf7118d0e4",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-annoyed.png",
+    "oldHash": "cdfdd9c8b41ad924",
+    "assetsHash": "206838a0435958bf",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-happy.png",
+    "oldHash": "eb825bea5dc94078",
+    "assetsHash": "82ffbdf0f4595155",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-neutral.png",
+    "oldHash": "c1bc4d54fcc49017",
+    "assetsHash": "73f04f0ddef755cf",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-playful.png",
+    "oldHash": "cae284d539735515",
+    "assetsHash": "ebab2ac0aea90906",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-romantic.png",
+    "oldHash": "dd66b7e73a8fe9b9",
+    "assetsHash": "81228d164c1d9cc2",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-sad.png",
+    "oldHash": "d49958a75fb3d003",
+    "assetsHash": "4da6a9e019c5a4f8",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-shy.png",
+    "oldHash": "df0962065c9d101c",
+    "assetsHash": "9c78ba459734b84a",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/lyra/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/lyra/cutouts/emotion-surprised.png",
+    "oldHash": "20357aa939e8d6f1",
+    "assetsHash": "3b7d594541f64f48",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-annoyed.png",
+    "oldHash": "26591fa4e4c4e224",
+    "assetsHash": "4eb95c7d1b879f87",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-happy.png",
+    "oldHash": "383002e7935acb80",
+    "assetsHash": "6fa0fb50347fa64f",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-neutral.png",
+    "oldHash": "7974378ee0fe77cd",
+    "assetsHash": "b50fee648edb0ea0",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-playful.png",
+    "oldHash": "e41e1760b3399f99",
+    "assetsHash": "95e356fdf7de7b93",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-romantic.png",
+    "oldHash": "c90e5834415817eb",
+    "assetsHash": "9e742302bdb54135",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-sad.png",
+    "oldHash": "ec31b1d731b75c6b",
+    "assetsHash": "5b7f43f49b088e3f",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-shy.png",
+    "oldHash": "f0846b7e62c1b53c",
+    "assetsHash": "1a8c53424b12a2ac",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/maeve/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/maeve/cutouts/emotion-surprised.png",
+    "oldHash": "6779a5a9d6a9f7d7",
+    "assetsHash": "871953489bafa578",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-annoyed.png",
+    "oldHash": "ed26c02abdc8eb40",
+    "assetsHash": "2f384d12bcce82e1",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-happy.png",
+    "oldHash": "f81fde8640ba73e8",
+    "assetsHash": "3d8215afc7cfb833",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-neutral.png",
+    "oldHash": "5a4e2c353f0c172f",
+    "assetsHash": "185b59261abae407",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-playful.png",
+    "oldHash": "e3cef54bc58150e2",
+    "assetsHash": "4658b24888f59755",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-romantic.png",
+    "oldHash": "691f2e5c87df19e7",
+    "assetsHash": "a3659e1778a5f578",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-sad.png",
+    "oldHash": "ea248d1547f0781a",
+    "assetsHash": "15740687b2f2bf9f",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-shy.png",
+    "oldHash": "4518b1ca83a0172d",
+    "assetsHash": "6c0cec26b50497a8",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/mira/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/mira/cutouts/emotion-surprised.png",
+    "oldHash": "abd944737bbe38a2",
+    "assetsHash": "02cba13b445d69a9",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-annoyed.png",
+    "oldHash": "16fde4deec4b9ba8",
+    "assetsHash": "b4b79b15ede01060",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-happy.png",
+    "oldHash": "5c35406f3444686d",
+    "assetsHash": "c3da3e313b29b489",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-neutral.png",
+    "oldHash": "ff67af1c521f7fe4",
+    "assetsHash": "cb04bf1bdd7b1c26",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-playful.png",
+    "oldHash": "36f972fe68b5afd8",
+    "assetsHash": "b2e7c09071ec7d70",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-romantic.png",
+    "oldHash": "c97037a9b3d06d12",
+    "assetsHash": "c702d3b60c177a4e",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-sad.png",
+    "oldHash": "fb57367a2798b658",
+    "assetsHash": "e3f36fd8b6ff5cc2",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-shy.png",
+    "oldHash": "14ab0de3451c5635",
+    "assetsHash": "4bc09596e8aa0308",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/nami/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/nami/cutouts/emotion-surprised.png",
+    "oldHash": "4c2e25f3e424ca8e",
+    "assetsHash": "d28baead8e5f76df",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-annoyed.png",
+    "oldHash": "4ec4979b1cfa9a46",
+    "assetsHash": "8b5a71487cc6f0bb",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-happy.png",
+    "oldHash": "056b948fc830bbbc",
+    "assetsHash": "dbad48911be5646b",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-neutral.png",
+    "oldHash": "2587bfc8ebb8a80f",
+    "assetsHash": "f6fd4ac0fdd82ab9",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-playful.png",
+    "oldHash": "08267e0b2355ab98",
+    "assetsHash": "33f3d1ee1f4363cc",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-romantic.png",
+    "oldHash": "cb50d75a6b309a89",
+    "assetsHash": "14f953149777a62f",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-sad.png",
+    "oldHash": "5c533375eb11ef69",
+    "assetsHash": "22962f39ebd25d46",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-shy.png",
+    "oldHash": "7c157b48a08ee848",
+    "assetsHash": "091762cb21915c00",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/noa/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/noa/cutouts/emotion-surprised.png",
+    "oldHash": "518a9af631aebc78",
+    "assetsHash": "c2281aba49120c25",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-annoyed.png",
+    "oldHash": "5e560d78dde08384",
+    "assetsHash": "5403fd2f8490c2c9",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-happy.png",
+    "oldHash": "fa48d61b71d187bc",
+    "assetsHash": "ac3cc5ce3cfdf656",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-neutral.png",
+    "oldHash": "de5ae1fb67ef22cf",
+    "assetsHash": "e79df0ae6c1d61ab",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-playful.png",
+    "oldHash": "e3945816a0d2e5d3",
+    "assetsHash": "955a1e228ca5a047",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-romantic.png",
+    "oldHash": "d71fe456f497cb8b",
+    "assetsHash": "da95b3eb40090e69",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-sad.png",
+    "oldHash": "cbdd1544cda47d65",
+    "assetsHash": "479ecf1c8dd1bec0",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-shy.png",
+    "oldHash": "747724b34bbda01b",
+    "assetsHash": "5f89b0da05e7f845",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/pleinair/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/pleinair/cutouts/emotion-surprised.png",
+    "oldHash": "92be9b75a51044ca",
+    "assetsHash": "b759cd3cd2fa1a38",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-annoyed.png",
+    "oldHash": "ff8dcd8fd760a965",
+    "assetsHash": "b8b39fb73bcdbcfc",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-happy.png",
+    "oldHash": "cadef38a7df9bd96",
+    "assetsHash": "848087ef7d00b8ac",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-neutral.png",
+    "oldHash": "93e71d607fb9951b",
+    "assetsHash": "ca2b1c739a9aa1c1",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-playful.png",
+    "oldHash": "67cae52ac2df3531",
+    "assetsHash": "0b2bfe9db0bfe655",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-romantic.png",
+    "oldHash": "37f90e62c88644e6",
+    "assetsHash": "f9ba582204e6464f",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-sad.png",
+    "oldHash": "5f9b742e3d7444a1",
+    "assetsHash": "b6234eb0b9041b7d",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-shy.png",
+    "oldHash": "3d4b448eb12abc50",
+    "assetsHash": "430eece472407bc7",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/runa/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/runa/cutouts/emotion-surprised.png",
+    "oldHash": "299c3d3c7e8429f9",
+    "assetsHash": "4973abbf0f30c3ef",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-annoyed.png",
+    "oldHash": "8bb07d7a45004b6b",
+    "assetsHash": "3636266bffe026e6",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-happy.png",
+    "oldHash": "b69356e76ebea7c3",
+    "assetsHash": "6f9ea80dc25d4c01",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-neutral.png",
+    "oldHash": "40102f2935caf70c",
+    "assetsHash": "99e6c5fc6268dc1f",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-playful.png",
+    "oldHash": "711eb4a7b12140cf",
+    "assetsHash": "9d6d1d5ebf6f4bb9",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-romantic.png",
+    "oldHash": "68ba48b068e7d0ca",
+    "assetsHash": "b7c451cb176a611e",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-sad.png",
+    "oldHash": "6c6c3ad1d8e56841",
+    "assetsHash": "57c9fc81b5d8fa49",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-shy.png",
+    "oldHash": "2e47c9af5d0d3ea6",
+    "assetsHash": "72ba997674499e86",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/seren/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/seren/cutouts/emotion-surprised.png",
+    "oldHash": "bcd243d490e1228d",
+    "assetsHash": "0349db394db0235b",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-annoyed.png",
+    "oldHash": "ee50d68c512c9f0d",
+    "assetsHash": "c4b53098ba316f76",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-happy.png",
+    "oldHash": "d448e4ecc3fb787b",
+    "assetsHash": "a060b908fcc6f442",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-neutral.png",
+    "oldHash": "ac38ae697135f347",
+    "assetsHash": "1d94927d21ff9dd8",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-playful.png",
+    "oldHash": "49c1f331b79acee4",
+    "assetsHash": "866c7a4b49565ce6",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-romantic.png",
+    "oldHash": "6de7aa70aaf36725",
+    "assetsHash": "f4508f98dc5c47a3",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-sad.png",
+    "oldHash": "55910aff416fbc46",
+    "assetsHash": "5691b72aec676250",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-shy.png",
+    "oldHash": "22aabf37e868ce96",
+    "assetsHash": "613bacd8a5df0b8f",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/solene/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/solene/cutouts/emotion-surprised.png",
+    "oldHash": "5ee85f4f15892ef2",
+    "assetsHash": "eb420e043e25da4d",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-annoyed.png",
+    "oldHash": "07be3c7e00d1bd8c",
+    "assetsHash": "ba3f00dc7b408a1e",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-happy.png",
+    "oldHash": "b021695187c05255",
+    "assetsHash": "c4d018b54ff74d1a",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-neutral.png",
+    "oldHash": "4e44292bed21eb05",
+    "assetsHash": "791a4e1aa7946e05",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-playful.png",
+    "oldHash": "6d23dc8a7a2af5c8",
+    "assetsHash": "a72109b3c9fd59ed",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-romantic.png",
+    "oldHash": "63d2516ec46d1cfb",
+    "assetsHash": "467066b3ebf2543e",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-sad.png",
+    "oldHash": "2dd428c54d350d3b",
+    "assetsHash": "9d8f386eba1b4af8",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-shy.png",
+    "oldHash": "ffc48d4fe4493a21",
+    "assetsHash": "8d8ea3561a19cc27",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/sora/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/sora/cutouts/emotion-surprised.png",
+    "oldHash": "c4cfc0177231e586",
+    "assetsHash": "3ad316835c35ac3d",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-annoyed.png",
+    "oldHash": "d37caa4f15922699",
+    "assetsHash": "27107cb39fba6a2c",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-happy.png",
+    "oldHash": "e99326e78c561f0a",
+    "assetsHash": "2b306430afb798dc",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-neutral.png",
+    "oldHash": "e21d7871eb068956",
+    "assetsHash": "9709847a2057955f",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-playful.png",
+    "oldHash": "311cfebf75d05e80",
+    "assetsHash": "4e599213f72f774f",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-romantic.png",
+    "oldHash": "ab28153b1d585396",
+    "assetsHash": "cde3981f43be35b8",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-sad.png",
+    "oldHash": "8ee8ed8b2e5aca9c",
+    "assetsHash": "9dbd85a7c64f4f18",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-shy.png",
+    "oldHash": "0c8a116b8711feaf",
+    "assetsHash": "caaebbc2bee281e5",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/talia/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/talia/cutouts/emotion-surprised.png",
+    "oldHash": "bbe7f70a09205a79",
+    "assetsHash": "922e6a820819c9b6",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-annoyed.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-annoyed.png",
+    "oldHash": "a0b563f2b3db7e37",
+    "assetsHash": "bdbe8d22773e39f2",
+    "basename": "emotion-annoyed.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-happy.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-happy.png",
+    "oldHash": "52514d579c8a65e7",
+    "assetsHash": "c436f8d22d2ea2dc",
+    "basename": "emotion-happy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-neutral.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-neutral.png",
+    "oldHash": "903d5b837aa2659a",
+    "assetsHash": "e98f9d7ddbb861b7",
+    "basename": "emotion-neutral.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-playful.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-playful.png",
+    "oldHash": "cfe4403f9fd5d648",
+    "assetsHash": "3029f79546a1091f",
+    "basename": "emotion-playful.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-romantic.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-romantic.png",
+    "oldHash": "0947b4a0a3239df4",
+    "assetsHash": "107b46a8c894b5d7",
+    "basename": "emotion-romantic.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-sad.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-sad.png",
+    "oldHash": "641f0a211d047149",
+    "assetsHash": "951abaf03cc0d6bc",
+    "basename": "emotion-sad.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-shy.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-shy.png",
+    "oldHash": "4989eacde1720705",
+    "assetsHash": "33ab02ea2af3b2fd",
+    "basename": "emotion-shy.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  },
+  {
+    "oldAssets": "old_assets/Compagnons/zelie/cutouts/emotion-surprised.png",
+    "assets": "assets/Compagnons/zelie/cutouts/emotion-surprised.png",
+    "oldHash": "0499eef358eba526",
+    "assetsHash": "1c16431571661f60",
+    "basename": "emotion-surprised.png",
+    "note": "path mirror, different bytes — expected cold storage; review only"
+  }
+]

@@ -6,6 +6,13 @@ export function publicCompanionRepoPath(companionId: string, filename: string): 
 }
 
 export function integratedDisagreaRepoPath(companionId: string, filename: string): DevVisualRepoPath {
+  if (filename.includes('nsfw')) {
+    return `assets/Compagnons/${companionId}/NSFW/affinity-4-nsfw.png`
+  }
+  const levelMatch = filename.match(/affinity-(\d{2})/)
+  if (levelMatch) {
+    return `assets/Compagnons/${companionId}/affinite/affinity-${parseInt(levelMatch[1], 10)}.png`
+  }
   return `assets/Compagnons/${companionId}/Autres/disagrea-integrated/${filename}`
 }
 
@@ -32,7 +39,12 @@ export function repoPathFromDevSrc(src: string): DevVisualRepoPath | undefined {
     return `public/${path}`
   }
   if (path.startsWith('dev-assets/event-disagrea/')) {
-    return path.replace('dev-assets/event-disagrea/', 'assets/event-disagrea/')
+    const match = path.match(
+      /dev-assets\/event-disagrea\/integrated\/companions\/([^/]+)\/(.+\.png)$/,
+    )
+    if (match) {
+      return integratedDisagreaRepoPath(match[1], match[2])
+    }
   }
   if (path.startsWith('dev-assets/staging-companion-visual-pack/')) {
     return path.replace(

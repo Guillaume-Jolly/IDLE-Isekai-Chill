@@ -8,9 +8,12 @@ Exécuter **entre chaque étape principale** (promote, migration lot, refactor c
 
 ```bash
 npm run build          # exit 0
-npm run lint           # 0 errors
+npm run lint           # 0 errors (8 pré-existantes connues)
 npm run validate:link-corpus   # si src/data/linkCorpusV2* touché
+npm run tnr:baseline   # build + validate + manifest — raccourci
 ```
+
+Liste checks visuels normalisés : [`10-visual-qa-tnr.md`](./10-visual-qa-tnr.md).
 
 Noter version : `build-revision.json` / console build.
 
@@ -81,7 +84,7 @@ rg "404" src/components --glob "*.tsx" -i
 
 ## Rapport TNR
 
-Copier ce template dans `staging/planning/tnr-YYYY-MM-DD.md` :
+Copier ce template dans `docs/traceability/tnr/tnr-YYYY-MM-DD.md` :
 
 ```markdown
 # TNR — {date} — {phase/lot}

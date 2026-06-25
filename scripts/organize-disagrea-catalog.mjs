@@ -1,4 +1,5 @@
 /**
+ * @deprecated One-shot Disagrea catalog tri (2026-03). Event integrated; kept for audit only.
  * Regroupe inputs + outputs + brouillons Event Disagrea dans catalog/
  * pour tri manuel. N'exécute pas de détourage ni ne modifie generated/.
  *

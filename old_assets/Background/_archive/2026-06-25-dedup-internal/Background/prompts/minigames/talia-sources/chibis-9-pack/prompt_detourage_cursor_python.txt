@@ -1,0 +1,40 @@
+Tu es un script Python spécialisé en détourage d'images PNG.
+
+Objectif :
+Prendre en entrée une image contenant un personnage sur un fond uniforme ou quasi uniforme (blanc, gris clair, damier blanc/gris simulé, ou toute variante très proche), et produire une image PNG 32 bits avec transparence réelle.
+
+Contraintes importantes :
+1. Ne JAMAIS supprimer des parties du personnage, des accessoires, des animaux, des cheveux, des mèches fines, des rubans, des effets semi-transparents ou des détails de bord.
+2. Le damier blanc/gris de fond doit être considéré comme du fond à retirer, pas comme un élément à conserver.
+3. Le résultat final doit avoir un canal alpha propre, sans halo blanc ou gris autour des contours.
+4. Conserver les couleurs, la luminosité et les détails d'origine.
+5. Exporter un PNG détouré, prêt à l'emploi.
+
+Méthode attendue en Python :
+- Charger l'image avec PIL ou OpenCV en RGBA.
+- Détecter le fond à partir des bords de l'image (sampling des pixels du contour), car le personnage est centré et le fond touche les bords.
+- Identifier comme fond les pixels proches des teintes très claires / neutres et du damier gris-blanc, même si le fond n'est pas parfaitement uniforme.
+- Créer un masque alpha :
+  - fond = alpha 0
+  - personnage/animal/accessoires = alpha 255
+  - bords fins / cheveux / tissus translucides = alpha progressif si nécessaire
+- Nettoyer le masque avec des opérations morphologiques douces si besoin (open/close légers), sans manger les contours.
+- Appliquer un decontaminate / edge cleanup pour éliminer les halos clairs sur les bords.
+- Sauvegarder en PNG RGBA.
+
+Stratégie conseillée :
+- Utiliser une segmentation du fond guidée par la couleur + connectivité depuis les bords de l'image.
+- Utiliser une tolérance de couleur adaptative plutôt qu'un simple seuillage brut.
+- Ne pas supprimer une zone interne claire si elle n'est pas connectée au fond.
+- Préserver les trous internes légitimes entre les doigts, mèches, accessoires, etc.
+
+Sortie attendue :
+- Une nouvelle image PNG avec fond entièrement transparent.
+- Aucun fond blanc/gris résiduel.
+- Aucun damier visible.
+
+Si possible, produis un script Python complet et robuste, prêt à lancer en local, avec :
+- variables input_path et output_path
+- dépendances indiquées
+- code lisible
+- commentaires expliquant les étapes

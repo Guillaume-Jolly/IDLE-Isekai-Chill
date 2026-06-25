@@ -8,10 +8,8 @@
  *   node scripts/export-integrated-portrait-prompts.mjs disagrea
  */
 import { writeFileSync, mkdirSync } from 'node:fs'
-import { join, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
+import { join } from 'node:path'
+import { pipelineReferencesRoot, repoRoot } from './minigame-asset-paths.mjs'
 
 const VILLAGE_IDS = [
   'lyra', 'maeve', 'seren', 'nami', 'iris', 'kael', 'runa', 'solene', 'talia',
@@ -33,8 +31,8 @@ function job(pack, id, level) {
   const slug = LEVEL_SLUG[level]
   const output =
     pack === 'disagrea'
-      ? `assets/event-disagrea/integrated/companions/${id}/companion-${id}-affinity-${lv}-${slug}-scene-originale-v1.png`
-      : `assets/integrated-portraits/village/${id}/companion-${id}-affinity-${lv}-${slug}-scene-originale-v1.png`
+      ? `assets/Compagnons/${id}/affinite/affinity-${level}.png`
+      : `staging/companion-visual-pack/village/${id}/companion-${id}-affinity-${lv}-${slug}-scene-originale-v1.png`
 
   return {
     pack,
@@ -46,7 +44,7 @@ function job(pack, id, level) {
       pack === 'disagrea'
         ? `disagreaIntegratedPortraitPrompt('${id}', ${level}, { soft: ${level >= 4} })`
         : `villageIntegratedPortraitPrompt('${id}', ${level}, { soft: ${level >= 4} })`,
-    styleAnchor: 'public/assets/companions/talia/affinity-1.png',
+    styleAnchor: 'assets/Compagnons/talia/affinite/affinity-1.png',
     notes:
       id === 'pleinair' && pack === 'disagrea' && level >= 2
         ? 'BACKLOG: parental warmth only until redesign'
@@ -68,13 +66,13 @@ if (!filter || filter === 'disagrea') {
   }
 }
 
-const outDir = join(repoRoot, 'assets', 'integrated-portraits')
+const outDir = join(pipelineReferencesRoot, 'integrated-portraits')
 mkdirSync(outDir, { recursive: true })
 
 const payload = {
   generatedAt: new Date().toISOString().slice(0, 10),
   promptModule: 'src/data/integratedPortraitPrompts.ts',
-  styleAnchor: 'public/assets/companions/talia/affinity-1.png',
+  styleAnchor: 'assets/Compagnons/talia/affinite/affinity-1.png',
   scope: {
     disagrea: { total: 20, status: 'done except Etna L5 custom + Pleinair L2-5 backlog' },
     village: { total: 75, status: 'pending' },
@@ -84,4 +82,4 @@ const payload = {
 }
 
 writeFileSync(join(outDir, 'GENERATION_JOBS.json'), JSON.stringify(payload, null, 2) + '\n', 'utf8')
-console.log(`Exported ${jobs.length} jobs → assets/integrated-portraits/GENERATION_JOBS.json`)
+console.log(`Exported ${jobs.length} jobs → scripts/references/integrated-portraits/GENERATION_JOBS.json`)

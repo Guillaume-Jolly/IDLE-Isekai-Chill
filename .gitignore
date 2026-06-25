@@ -25,7 +25,9 @@ dist-ssr
 *.sw?
 
 # Local import / generation temp (not shipped)
+Input chatgpt/
 .tmp/
+Input chatgpt/
 assets/*-import/
 !assets/link-corpus-import/
 assets/link-corpus-import/*

@@ -10,9 +10,10 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { pipelineReferencesRoot } from './minigame-asset-paths.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const assetsDir =
+const villageLayoutDir = join(pipelineReferencesRoot, 'village-layout')
   'C:/Users/guill/.cursor/projects/c-Dev-Project-IDLE-Isekai-Chill/assets'
 const defaultPano = join(
   assetsDir,
@@ -85,7 +86,7 @@ const BUILDING_MAP_HINTS = {
 const outPano = join(root, 'public', 'village', 'panorama-base.webp')
 const outDir = join(root, 'public', 'village', 'buildings-map')
 mkdirSync(outDir, { recursive: true })
-mkdirSync(join(root, 'assets', 'village-layout'), { recursive: true })
+mkdirSync(villageLayoutDir, { recursive: true })
 
 const panoMeta = await sharp(panoInput).metadata()
 const panoW = panoMeta.width
@@ -240,7 +241,7 @@ export const MAP_LABEL_SPOTS = BUILDING_SLOTS.map((slot) => ({
 writeFileSync(join(root, 'src', 'data', 'villageMap.ts'), villageMapTs)
 
 writeFileSync(
-  join(root, 'assets', 'village-layout', 'user-pack-meta.json'),
+  join(villageLayoutDir, 'user-pack-meta.json'),
   JSON.stringify(
     {
       sourcePano: { width: panoW, height: panoH, path: panoInput },

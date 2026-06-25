@@ -71,15 +71,27 @@ function resolveEventDisagreaDevAsset(relative: string, baseDir: string, compani
   if (integratedMatch) {
     const companionId = integratedMatch[1]
     const fileName = integratedMatch[2]
-    const integratedPath = normalize(
+    const candidates = [
       join(companionsDir, companionId, 'Autres', 'disagrea-integrated', fileName),
-    )
-    if (
-      integratedPath.startsWith(companionsDir) &&
-      existsSync(integratedPath) &&
-      statSync(integratedPath).isFile()
-    ) {
-      return integratedPath
+    ]
+    if (fileName.includes('nsfw')) {
+      candidates.unshift(join(companionsDir, companionId, 'NSFW', 'affinity-4-nsfw.png'))
+    } else {
+      const levelMatch = fileName.match(/affinity-(\d{2})/)
+      if (levelMatch) {
+        candidates.unshift(
+          join(companionsDir, companionId, 'affinite', `affinity-${parseInt(levelMatch[1], 10)}.png`),
+        )
+      }
+    }
+    for (const integratedPath of candidates.map((p) => normalize(p))) {
+      if (
+        integratedPath.startsWith(companionsDir) &&
+        existsSync(integratedPath) &&
+        statSync(integratedPath).isFile()
+      ) {
+        return integratedPath
+      }
     }
   }
 
@@ -229,6 +241,8 @@ export default defineConfig({
         '**/assets/**',
         '**/old_assets/**',
         '**/staging/**',
+        '**/Input chatgpt/**',
+        '**/To check manually/**',
         '**/scripts/vendor/**',
         '**/AGENTS.md',
       ],

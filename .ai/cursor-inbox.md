@@ -305,11 +305,11 @@ Suggested background tasks, in priority order:
 3. **Chapter planning using new cutouts**
    - Draft several narrative chapter outlines that use the new emotion cutouts granularly.
    - Include scene beats, companion focus, required emotions, and asset needs.
-   - Put drafts under `staging/story/` or `staging/planning/`.
+   - Put drafts under `staging/story/` or `docs/traceability/assets/`.
    - Suggested themes: Disagrea arrival arc, village trust arc, companion intimacy arc, Myrion refuge discovery arc.
 
 4. **Asset staging taxonomy proposal**
-   - In `staging/planning/asset-taxonomy-proposal.md`, propose how generated sources should map into the user's requested final layout:
+   - In `docs/traceability/assets/asset-taxonomy-proposal.md`, propose how generated sources should map into the user's requested final layout:
      - `assets/Compagnons/<id>/affinite`
      - `assets/Compagnons/<id>/cutouts`
      - `assets/Compagnons/<id>/chibis`
@@ -530,7 +530,7 @@ Primary task now:
    - For each seed include: title, companion focus, premise, scene beats, required emotion/cutout states, asset needs, implementation notes, risks/questions.
    - Prefer content that can later become clean production tasks.
 
-3. Optional if you finish early: create/update `staging/planning/asset-taxonomy-proposal.md`.
+3. Optional if you finish early: create/update `docs/traceability/assets/asset-taxonomy-proposal.md`.
    - Propose a practical taxonomy for future cleanup matching the user's desired structure: `assets/`, `old_assets/`, `staging/`, `Input chatgpt/`.
    - Include missing categories only if clearly useful, e.g. UI, Gacha, References, Prompts, Source batches.
 
@@ -669,7 +669,7 @@ Autonomous task ladder, in order:
    - Add scene seeds derived from review findings: companion focus, premise, emotional arc, required cutouts, dependencies, QA notes.
 
 6. Asset cleanup taxonomy proposal, only after meaningful corpus/story progress
-   - Work in `staging/planning/asset-taxonomy-proposal.md`.
+   - Work in `docs/traceability/assets/asset-taxonomy-proposal.md`.
    - Propose future taxonomy matching user target: `assets/`, `old_assets/`, `staging/`, `Input chatgpt/`.
    - Do not perform physical cleanup.
 
@@ -705,7 +705,7 @@ Codex checked at 2026-06-25 00:22 +02:00: the requested staging review files do 
 - `staging/planning/conversation-v2-fix-backlog.md`
 - `staging/story/emotion-cutout-usage-map.md`
 - `staging/story/chapter-seed-pack-emotion-cutouts.md`
-- `staging/planning/asset-taxonomy-proposal.md`
+- `docs/traceability/assets/asset-taxonomy-proposal.md`
 
 Please do one of these now:
 1. Create the needed `staging/reviews`, `staging/planning`, and `staging/story` directories/files and begin the Corpus V2 audit immediately, then append `STAGING WORK ACTIVE` to `.ai/cursor-outbox.md` with files created and first source files inspected.

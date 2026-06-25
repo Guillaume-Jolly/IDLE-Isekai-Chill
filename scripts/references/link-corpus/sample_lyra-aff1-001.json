@@ -1,0 +1,139 @@
+{
+  "id": "lyra-aff1-001",
+  "companionId": "lyra",
+  "companionName": "Lyra",
+  "affinity": 1,
+  "tierName": "Première rencontre",
+  "maturity": "cozy-public",
+  "arc": "visite-imprevue",
+  "arcLabel": "Visite imprévue",
+  "topic": "resource",
+  "topicLabel": "Ressource rare",
+  "title": "Visite imprévue — Ressource rare",
+  "setting": "la bibliothèque",
+  "context": "Devant les lanternes du marché, tu retrouves Lyra à la bibliothèque. Elle ajuste une page couverte de runes. Le sujet touche la gestion de mana au village ; l'échange reste prudent.",
+  "preferredTones": [
+    "sincere"
+  ],
+  "primaryTone": "sincere",
+  "gameRefs": {
+    "resource": "mana",
+    "favoriteGift": "Thé étoile",
+    "biomes": [
+      "Forêt ancienne",
+      "Ruines astrales"
+    ],
+    "building": "la bibliothèque arcanique",
+    "minigame": "Pages partagées",
+    "myrionPreference": "un Myrion curieux de la Forêt ancienne"
+  },
+  "rounds": [
+    {
+      "id": "lyra-aff1-001-r1",
+      "beat": "ouverture",
+      "narrator": "La conversation s'ouvre autour de la gestion de mana au village, avec cette prudence propre aux liens récents.",
+      "companionLine": "Tu as choisi un moment étrange pour venir me parler. Lyra garde les doigts près de son carnet. Ce sujet ne passe pas inaperçu.",
+      "prompt": "Comment réponds-tu à Lyra sur la ressource rare ?",
+      "choices": [
+        {
+          "tone": "direct",
+          "text": "Dis-moi la limite, et je la respecterai. Le reste peut attendre.",
+          "score": 0,
+          "reaction": "La netteté devient raideur, et le moment perd de sa souplesse."
+        },
+        {
+          "tone": "romantic",
+          "text": "Je ne vais pas prétendre que ta présence me laisse indifférent, mais je peux rester discret. Je préfère commencer simplement.",
+          "score": 0,
+          "reaction": "Le moment devient plus chargé que nécessaire."
+        },
+        {
+          "tone": "sincere",
+          "text": "Je respecterai ton rythme, même si le silence dure plus longtemps que prévu.",
+          "score": 1,
+          "reaction": "La réponse trouve une place juste ; Lyra ne détourne pas le regard."
+        },
+        {
+          "tone": "playful",
+          "text": "On dirait une petite quête secondaire. Sauf que la récompense, c'est de ne pas être idiot.",
+          "score": 0,
+          "reaction": "Lyra sourit par politesse, mais la porte reste entrouverte seulement."
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-001-r2",
+      "beat": "tension",
+      "narrator": "Un silence s'installe, assez long pour demander une réponse précise.",
+      "companionLine": "Tu as choisi un moment étrange pour venir me parler. Ce que j'attends, c'est la patience, pas une réponse parfaite. Elle attend une réponse qui ne traite pas ce moment comme un simple détour.",
+      "prompt": "Quelle réponse respecte le mieux ce moment avec Lyra ?",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je sens que ce moment est fragile. Je ne veux pas l'alourdir. Même un Myrion curieux de la Forêt ancienne comprendrait qu'il faut y aller doucement.",
+          "score": 0,
+          "reaction": "Lyra ne rejette pas la phrase, mais elle n'y entre pas encore."
+        },
+        {
+          "tone": "sincere",
+          "text": "Je préfère une vérité imparfaite à une jolie phrase qui ne te rejoint pas. Thé étoile n'aurait aucune valeur si je l'offrais sans attention.",
+          "score": 1,
+          "reaction": "Lyra se détend. La sincérité arrive au bon endroit."
+        },
+        {
+          "tone": "playful",
+          "text": "Je note qu'on appelle ça une conversation, alors que ça ressemble beaucoup à une épreuve de précision. Même un Myrion curieux de la Forêt ancienne comprendrait qu'il faut y aller doucement.",
+          "score": 0,
+          "reaction": "La légèreté sonne comme une échappatoire."
+        },
+        {
+          "tone": "direct",
+          "text": "Je préfère être clair : je peux t'aider sur la gestion de mana au village, mais je ne déciderai pas pour toi.",
+          "score": 0,
+          "reaction": "Lyra se ferme légèrement devant cette réponse trop sèche."
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-001-r3",
+      "beat": "retombée",
+      "narrator": "Un Myrion passe au loin, et le calme revient assez pour choisir tes mots.",
+      "companionLine": "Je peux t'écouter quelques instants. Il y a là-dedans l'envie de comprendre le monde sans devoir s'endurcir. Ce sujet restera entre vous, au moins pour ce soir.",
+      "prompt": "Comment termines-tu l'échange sans forcer la suite ?",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Si ce sujet te touche, je peux l'entendre sans le transformer en promesse facile. Je veux que tu gardes de ce moment quelque chose de net.",
+          "score": 1,
+          "reaction": "Tu sens que cette honnêteté ouvre un passage net."
+        },
+        {
+          "tone": "playful",
+          "text": "Je note qu'on appelle ça une conversation, alors que ça ressemble beaucoup à une épreuve de précision. Le village n'a pas besoin de savoir ce que ce silence signifie.",
+          "score": 0,
+          "reaction": "Lyra sourit par politesse, mais la porte reste entrouverte seulement."
+        },
+        {
+          "tone": "direct",
+          "text": "Dis-moi la limite, et je la respecterai. Le reste peut attendre. Je ne prendrai pas plus que ce que tu me donnes.",
+          "score": 0,
+          "reaction": "La netteté devient raideur, et le moment perd de sa souplesse."
+        },
+        {
+          "tone": "romantic",
+          "text": "Je sens que ce moment est fragile. Je ne veux pas l'alourdir. Après ça, je te laisserai reprendre la bibliothèque sans bruit.",
+          "score": 0,
+          "reaction": "Le moment devient plus chargé que nécessaire."
+        }
+      ]
+    }
+  ],
+  "affinityUnlockText": "Lyra te laisse approcher sans refermer immédiatement la distance.",
+  "maxAffinityText": "Lyra n'a plus besoin d'un nouveau palier pour comprendre que tu restes.",
+  "resultTexts": {
+    "perfect": "Tu as respecté son ton, ses limites et le moment. Lyra s'en souviendra.",
+    "good": "Lyra reconnaît l'effort et laisse le lien respirer.",
+    "poor": "Tu n'as pas blessé le lien, mais tu n'as pas trouvé sa bonne tonalité.",
+    "neutral": "Lyra repart sans reproche, mais sans élan particulier."
+  }
+}

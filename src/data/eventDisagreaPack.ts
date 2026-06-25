@@ -74,12 +74,17 @@ export const APP_RENDER_STYLE = [
 const FULL_BODY =
   'FULL BODY head to toe, both feet visible, centered vertical composition, single character only'
 
+/** Portrait prod L1 — identité résolue (source-of-truth `assets/`). */
+function companionIdentityRef(id: DisagreaCompanionId) {
+  return `assets/Compagnons/${id}/affinite/affinity-1.png`
+}
+
 /** ADN identitaire — motifs à conserver, pas le dessin source. */
 export const DISAGREA_COMPANIONS: Record<
   DisagreaCompanionId,
   {
     displayName: string
-    /** Ref Disgaea — identité uniquement, ne pas imiter le trait. */
+    /** Portrait prod affinity-1 — identité en jeu (servi via `assets/`). */
     identityRef: string
     dna: string
     palette: string
@@ -89,7 +94,7 @@ export const DISAGREA_COMPANIONS: Record<
 > = {
   etna: {
     displayName: 'Etna',
-    identityRef: 'old_assets/event-disagrea/sources/references/Etna/D1_Etna.webp',
+    identityRef: companionIdentityRef('etna'),
     dna: 'demon vassal girl archetype, magenta twin ponytails, red eyes, tiny bat wings, heart-tip tail, mischievous energy',
     palette: 'magenta hair, black and plum outfit accents, gold buckles, soft purple wing membranes',
     levels: {
@@ -103,7 +108,7 @@ export const DISAGREA_COMPANIONS: Record<
   },
   flonne: {
     displayName: 'Flonne',
-    identityRef: 'old_assets/event-disagrea/sources/references/Flonne/D1_Flonne.webp',
+    identityRef: companionIdentityRef('flonne'),
     dna: 'angelic healer archetype, long blonde hair with pink highlights, blue eyes, ribbon bows, pure cheerful aura',
     palette: 'white, sky blue, soft pink, gold cross motif',
     levels: {
@@ -117,7 +122,7 @@ export const DISAGREA_COMPANIONS: Record<
   },
   laharl: {
     displayName: 'Laharl',
-    identityRef: 'old_assets/event-disagrea/sources/references/Laharl/DRPG_Laharl_Artwork_1.webp',
+    identityRef: companionIdentityRef('laharl'),
     dna: 'YOUNG MALE demon overlord boy, bright BLUE spiky hair with two long antenna ahoge strands, red eyes, pointed ears, arrogant charisma — NOT female',
     palette: 'blue hair, crimson red scarf, red pants, black belt gold buckle, dark purple boots',
     levels: {
@@ -132,7 +137,7 @@ export const DISAGREA_COMPANIONS: Record<
   pleinair: {
     displayName: 'Pleinair',
     /** Backlog : docs/BACKLOG.md — Event Disagrea / Pleinair (L2–5 proximité enfant, pas intimité adulte). */
-    identityRef: 'old_assets/event-disagrea/sources/references/Pleinair/PleinairMW.webp',
+    identityRef: companionIdentityRef('pleinair'),
     dna: 'quiet kuudere demon girl archetype, short light blue hair, red eyes, oversized red bow, bunny motif',
     palette: 'ice blue hair, white dress, red bow and trim, pastel bunny plush',
     levels: {

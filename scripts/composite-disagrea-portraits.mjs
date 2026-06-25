@@ -1,4 +1,5 @@
 /**
+ * @deprecated One-shot Disagrea composite portraits (2026-03). Outputs in assets/Compagnons/*/Autres/.
  * Détoure cutouts Disagrea (#CFCFCF) + superpose sur backgrounds affinité → PNG composé.
  *
  * Usage:

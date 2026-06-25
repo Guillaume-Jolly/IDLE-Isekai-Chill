@@ -9,11 +9,13 @@ Keep the project stable, reviewable, and save-compatible. Do not perform broad r
 ## Before Editing
 
 1. Read this file.
-2. Read `.ai/project-context.md`.
-3. Read `.ai/current-state.md` if present.
-4. Read `.ai/next-task.md` and execute only that task.
-5. Check `git status --short`.
-6. Inspect existing code before changing APIs or data shapes.
+2. Read `docs/agent-guide/README.md` (onboarding + versionnement).
+3. Read `.ai/project-context.md`.
+4. Read `.ai/current-state.md` if present.
+5. Read `.ai/next-task.md` and execute only that task.
+6. Check `git status --short`.
+7. Inspect existing code before changing APIs or data shapes.
+8. New user prompt session → `npm run version:prompt`; log micro-changes in `docs/traceability/changelog/`.
 
 ## Hard Rules
 

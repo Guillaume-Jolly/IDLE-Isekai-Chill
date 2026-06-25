@@ -1,7 +1,7 @@
 {
   "name": "idle-isekai-chill-game",
   "private": true,
-  "version": "1.0.1",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -18,11 +18,13 @@
     "vectorize:chibi": "node scripts/vectorize-chibi.mjs --demo",
     "vectorize:one": "node scripts/vectorize-chibi.mjs",
     "generate:dialogues": "node scripts/generate-companion-scenarios.mjs",
-    "import:myrions": "node scripts/import-myrions-assets.mjs assets/myrions-import/myrions_biomes_v2",
+    "import:myrions": "node scripts/import-myrions-assets.mjs old_assets/prompts-archive/imports/myrions-import/myrions_biomes_v2",
     "validate:link-corpus": "node scripts/validate-link-corpus.mjs",
+    "tnr:baseline": "node scripts/tnr-baseline.mjs",
     "import:link-corpus-v2": "node scripts/import-link-corpus-v2.mjs",
     "import:talia": "node scripts/import-talia-companion-pack.mjs",
     "import:disagrea": "node scripts/import-disagrea-assets.mjs",
+    "migrate:public-to-old-assets": "node scripts/migrate-public-to-old-assets.mjs",
     "promote:companion-visual-pack": "node scripts/promote-companion-visual-pack.mjs",
     "regenerate:village-chibis": "node scripts/regenerate-village-chibis.mjs",
     "promote:disagrea-integrated-affinity": "node scripts/promote-disagrea-integrated-affinity.mjs",

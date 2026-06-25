@@ -156,7 +156,7 @@ export const companionEmotionCutoutPathCandidates = (
 
 /** Scène intégrée NSFW (ex-L6 peak-plus) — palier logique 4, affichée si option NSFW. */
 export const companionIntegratedNsfwRelative = (companionId: string) =>
-  `assets/Compagnons/${companionId}/Autres/disagrea-integrated/companion-${companionId}-affinity-04-nsfw-scene-v1.png`
+  `assets/Compagnons/${companionId}/NSFW/affinity-4-nsfw.png`
 
 /** Compagnons avec chibi.png (tous les villageois + Disagrea). */
 export const COMPANIONS_WITH_CHIBI = new Set([

@@ -1,4 +1,5 @@
 /**
+ * @deprecated One-shot Disagrea import (2026-03). Guides promoted to assets/Compagnons/etna/Autres/guide/.
  * Copy Etna cutout-5 into hunt guide companion paths for Disagrea event biome.
  */
 import { copyFileSync, mkdirSync } from 'node:fs'

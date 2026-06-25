@@ -1,4 +1,4 @@
-# 05 — Migration Assets 2.0
+﻿# 05 — Migration Assets 2.0
 
 Plan d'exécution phases 2–3 (après playbooks phase 1).
 
@@ -18,7 +18,7 @@ Un seul arbre **`assets/`** source-of-truth ; `public/` minimal ; `old_assets/` 
 | **2b** | Moves `assets/` sources → nouvelle arborescence `assets/Compagnons/` etc. | build |
 | **2c** | Moves `public/assets/` → `assets/` + symlinks ou vite alias temporaire | smoke full |
 | **2d** | Consolidate `public/companions/` legacy → archive ou merge | grep 404 |
-| **2e** | Docs `.md` orphelins → `staging/planning/` ou `docs/` | — |
+| **2e** | Docs `.md` orphelins → `docs/traceability/assets/` ou `docs/` | — |
 | **3** | Refactor `vite.config.ts`, `publicAssetUrl`, `companionAssets.ts`, `minigameAssets.ts` | build + smoke |
 | **4** | WebP gros fonds opaques (optionnel) | visuel |
 | **5** | Commit prep `main` 2.0 | CI + user sign-off |
@@ -39,7 +39,7 @@ Un seul arbre **`assets/`** source-of-truth ; `public/` minimal ; `old_assets/` 
 | `public/gacha/` | `assets/Gacha/` |
 | `assets/event-disagrea/` | split Compagnons + Background |
 
-Détail complet : `staging/planning/asset-taxonomy-proposal.md`
+Détail complet : `docs/traceability/assets/asset-taxonomy-proposal.md`
 
 ---
 
@@ -104,4 +104,4 @@ Priorité : Disagrea gacha triplet, legacy `public/companions/` mirror.
 - [x] Phase 2 moves (all lots)
 - [x] Phase 3 vite single-root refactor
 
-Demander **« go phase 2 »** à user pour commencer les moves.
+Nettoyage miroirs : [`08-directory-cleanup.md`](./08-directory-cleanup.md).

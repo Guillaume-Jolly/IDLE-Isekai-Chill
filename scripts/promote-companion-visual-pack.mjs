@@ -108,10 +108,7 @@ function nsfwStagingSource(id) {
 function promoteNsfwIntegrated() {
   for (const id of DISAGREA_IDS) {
     const src = nsfwStagingSource(id)
-    const dest = companionAssetPaths.disagreaIntegrated(
-      id,
-      `companion-${id}-affinity-04-nsfw-scene-v1.png`,
-    )
+    const dest = companionAssetPaths.nsfw(id)
     if (!existsSync(src)) {
       noteLeftover(src, 'Scène L6 / peak-plus manquante en staging')
       continue
@@ -157,18 +154,17 @@ function syncDisagreaBackgrounds() {
   }
 
   const minigameStaging = join(STAGING, 'disagrea/_shared/minigame')
-  const minigameAssets = join(ASSETS_BG, 'minigame')
-  mkdirSync(minigameAssets, { recursive: true })
-  for (const file of [
-    'myrion_hunt_mobile.png',
-    'myrion_hunt_pc.png',
-    'myrion_training_enclosure_mobile.png',
-    'myrion_training_enclosure_pc.png',
-  ]) {
+  const minigameCanonical = [
+    ['myrion_hunt_mobile.png', join(ASSETS_BG, 'capture-portrait.png')],
+    ['myrion_hunt_pc.png', join(ASSETS_BG, 'capture-wide.png')],
+    ['myrion_training_enclosure_mobile.png', join(ASSETS_BG, 'dressage-portrait.png')],
+    ['myrion_training_enclosure_pc.png', join(ASSETS_BG, 'dressage-wide.png')],
+  ]
+  for (const [file, dest] of minigameCanonical) {
     const src = join(minigameStaging, file)
-    const dest = join(minigameAssets, file)
     if (!existsSync(src)) continue
     if (!existsSync(dest)) {
+      mkdirSync(dirname(dest), { recursive: true })
       copyFileSync(src, dest)
       stats.backgroundsSynced += 1
       promoted.push(rel(dest))
@@ -198,10 +194,11 @@ function readdirSafe(dir) {
 }
 
 function updateValidatedManifest() {
-  const manifestPath = join(ROOT, 'assets/event-disagrea/integrated/VALIDATED_MANIFEST.json')
+  const manifestPath = join(ROOT, 'docs/traceability/assets/disagrea-integrated/VALIDATED_MANIFEST.json')
+  if (!existsSync(manifestPath)) return
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
   for (const id of DISAGREA_IDS) {
-    const entry = `Compagnons/${id}/Autres/disagrea-integrated/companion-${id}-affinity-04-nsfw-scene-v1.png`
+    const entry = `Compagnons/${id}/NSFW/affinity-4-nsfw.png`
     if (!manifest.files.includes(entry)) manifest.files.push(entry)
   }
   manifest.count = manifest.files.length
