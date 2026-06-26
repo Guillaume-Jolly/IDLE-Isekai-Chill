@@ -65,6 +65,10 @@ import {
   worksitePetIsBusy,
 } from '../../data/myrionWorksitePrestige'
 import {
+  loadWorksiteMonitoringMode,
+  saveWorksiteMonitoringMode,
+} from '../../data/myrionWorksiteUi'
+import {
   buildWorksiteBiomeLifePlan,
   decorativeStateLabel,
   getLifeTimeBucket,
@@ -170,6 +174,7 @@ export function MyrionWorksiteGame({
     mergeMyrionWorksite(minigameSave?.myrionWorksite),
   )
   const [openDrawer, setOpenDrawer] = useState<string | null>(null)
+  const [monitoringMode, setMonitoringMode] = useState(() => loadWorksiteMonitoringMode())
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [sessionClicks, setSessionClicks] = useState(0)
   const [unlockNotices, setUnlockNotices] = useState<Array<{ id: string; label: string }>>([])
@@ -298,9 +303,23 @@ export function MyrionWorksiteGame({
   const progressTotals = worksiteResourceTotals(worksite)
 
   useEffect(() => {
-    startWorksiteBiomeAmbience(activeBiomeId)
+    startWorksiteBiomeAmbience(activeBiomeId, { discrete: monitoringMode })
     return () => stopWorksiteBiomeAmbience()
-  }, [activeBiomeId])
+  }, [activeBiomeId, monitoringMode])
+
+  useEffect(() => {
+    if (monitoringMode) {
+      setOpenDrawer(null)
+    }
+  }, [monitoringMode])
+
+  const setMonitoringModeEnabled = useCallback((enabled: boolean) => {
+    setMonitoringMode(enabled)
+    saveWorksiteMonitoringMode(enabled)
+    if (enabled) {
+      setOpenDrawer(null)
+    }
+  }, [])
 
   useEffect(() => {
     setAssignPage(0)
@@ -687,6 +706,26 @@ export function MyrionWorksiteGame({
       }, 0),
     [activeSpots, worksite, activeBiomeId, pets],
   )
+
+  const chantierMonitorStats = useMemo(() => {
+    let globalAuto = 0
+    const assignedIds = new Set<string>()
+    for (const { biomeId, spotId, spot } of iterUnlockedWorksiteSpots(worksite)) {
+      const assigned = worksiteAssignedPets(worksite, biomeId, spotId, pets)
+      const mult = biomeId === activeBiomeId ? WORKSITE_SUPERVISION_MULT : 1
+      globalAuto += computeWorksiteAutoPerSecond(spot, assigned, mult)
+      for (const pet of assigned) assignedIds.add(pet.id)
+    }
+    if (worksite.prestigeAssignedMyrionId) {
+      assignedIds.add(worksite.prestigeAssignedMyrionId)
+    }
+    globalAuto += prestigePerSec
+    return {
+      globalAuto,
+      assignedCount: assignedIds.size,
+      biomeAssignedCount: biomeAssigned.length,
+    }
+  }, [worksite, pets, activeBiomeId, prestigePerSec, biomeAssigned.length])
 
   const spotWearLevel = (spotId: WorksiteSpotId) => Math.min(5, (spotWear[spotId] ?? 0) % 6)
   const biomeSpeciesCount = assignedSpeciesGroups.length
@@ -1229,13 +1268,13 @@ export function MyrionWorksiteGame({
     },
   ]
 
-  const drawerOpen = openDrawer !== null
+  const drawerOpen = openDrawer !== null && !monitoringMode
 
   return (
     <MinigameFrame
       activity={activity}
       buildingName={buildingName}
-      companionInScene
+      companionInScene={!monitoringMode}
       companionMood="Supervise doucement le chantier."
       companionName={companionName}
       endless
@@ -1248,17 +1287,90 @@ export function MyrionWorksiteGame({
       scoreLabel="Production chantier"
       status="playing"
     >
-      <div className="mg-worksite mg-worksite-immersive">
+      <div className={`mg-worksite mg-worksite-immersive${monitoringMode ? ' mg-worksite--monitoring' : ''}`}>
         <div className="mg-worksite-layout">
-          <HuntSideRail
-            drawers={drawers}
-            fabAriaLabel="Menu Chantier Myrion"
-            menuAriaLabel="Gestion du chantier"
-            menuTitle="Chantier"
-            openId={openDrawer}
-            onCloseMinigame={onClose}
-            onOpenChange={handleDrawerOpenChange}
-          />
+          {monitoringMode ? (
+            <header className="mg-worksite-monitor-bar" aria-label="Surveillance passive">
+              <div className="mg-worksite-monitor-bar-top">
+                <span className="mg-worksite-monitor-title">Surveillance</span>
+                <button
+                  className="mg-worksite-monitor-btn"
+                  type="button"
+                  onClick={() => setMonitoringModeEnabled(false)}
+                >
+                  Vue normale
+                </button>
+                <button className="mg-worksite-monitor-btn subtle" type="button" onClick={onClose}>
+                  Fermer
+                </button>
+              </div>
+              <div className="mg-worksite-monitor-biomes" role="group" aria-label="Biome affiché">
+                {WORKSITE_BIOME_IDS.map((biomeId) => {
+                  const biome = WORKSITE_BIOMES[biomeId]
+                  const unlocked = isWorksiteBiomeUnlocked(worksite, biomeId)
+                  return (
+                    <button
+                      className={`mg-worksite-monitor-biome-btn${activeBiomeId === biomeId ? ' active' : ''}`}
+                      disabled={!unlocked}
+                      key={biomeId}
+                      type="button"
+                      onClick={() => selectBiome(biomeId)}
+                    >
+                      {biome.emoji}
+                    </button>
+                  )
+                })}
+              </div>
+              <dl className="mg-worksite-monitor-stats">
+                <div>
+                  <dt>Biome</dt>
+                  <dd>
+                    {activeBiome.emoji} {biomeResourceLabel}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Auto biome</dt>
+                  <dd>{formatYield(biomeAutoPerSec)}/s</dd>
+                </div>
+                <div>
+                  <dt>Auto chantier</dt>
+                  <dd>{formatYield(chantierMonitorStats.globalAuto)}/s</dd>
+                </div>
+                <div>
+                  <dt>Myrions</dt>
+                  <dd>{chantierMonitorStats.assignedCount}</dd>
+                </div>
+                <div>
+                  <dt>Vivres</dt>
+                  <dd>{formatYield(totalProduced.food)}</dd>
+                </div>
+                <div>
+                  <dt>Bois</dt>
+                  <dd>{formatYield(totalProduced.wood)}</dd>
+                </div>
+                <div>
+                  <dt>Pierre</dt>
+                  <dd>{formatYield(totalProduced.stone)}</dd>
+                </div>
+                {prestigeSceneVisible ? (
+                  <div>
+                    <dt>{WORKSITE_PRESTIGE_CONFIG.resourceLabel}</dt>
+                    <dd>{formatPrestigeAmount(totalAstralShards)}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            </header>
+          ) : (
+            <HuntSideRail
+              drawers={drawers}
+              fabAriaLabel="Menu Chantier Myrion"
+              menuAriaLabel="Gestion du chantier"
+              menuTitle="Chantier"
+              openId={openDrawer}
+              onCloseMinigame={onClose}
+              onOpenChange={handleDrawerOpenChange}
+            />
+          )}
           <div
             className={`mg-worksite-scene-wrap${drawerOpen ? '' : ' mg-worksite-scene-wrap--fullscreen'}`}
           >
@@ -1291,7 +1403,7 @@ export function MyrionWorksiteGame({
             <div className="mg-worksite-scene-stage" ref={sceneStageRef}>
               <div
                 aria-label={activeBiome.label}
-                className={worksiteSceneClassNames(activeBiomeId, true, activeBiome.panoramaClass)}
+                className={`${worksiteSceneClassNames(activeBiomeId, true, activeBiome.panoramaClass)}${monitoringMode ? ' mg-worksite-scene--monitoring' : ''}`}
                 ref={sceneRef}
                 role="img"
               >
@@ -1302,6 +1414,7 @@ export function MyrionWorksiteGame({
                 />
                 <div className="mg-worksite-sky" />
                 <div className="mg-worksite-hills" />
+                {!monitoringMode ? (
                 <div
                   className={`mg-worksite-biome-resource-chip mg-worksite-biome-resource-chip--${biomeReferenceSpot.resourceId}`}
                   title={`Ressource du biome : ${biomeResourceLabel}`}
@@ -1314,6 +1427,11 @@ export function MyrionWorksiteGame({
                   />
                   <span>{biomeResourceLabel}</span>
                 </div>
+                ) : (
+                  <span className="mg-worksite-monitor-scene-chip">
+                    {activeBiome.emoji} {biomeResourceLabel} · {formatYield(biomeAutoPerSec)}/s
+                  </span>
+                )}
                 <div className="mg-worksite-spot-markers">
                   {activeSpots.map((spot) => {
                     const spotVisual = getWorksiteSpotVisual(spot.id)
@@ -1403,6 +1521,16 @@ export function MyrionWorksiteGame({
                   worksite={worksite}
                 />
                 <WorksiteMineBursts bursts={mineBursts} />
+                {!monitoringMode ? (
+                  <button
+                    aria-pressed={false}
+                    className="mg-worksite-monitor-toggle"
+                    type="button"
+                    onClick={() => setMonitoringModeEnabled(true)}
+                  >
+                    Mode surveillance
+                  </button>
+                ) : null}
               </div>
               {!drawerOpen && unlockNotices.length > 0 ? (
                 <div className="mg-worksite-unlock-banner mg-worksite-unlock-banner--overlay" role="status">

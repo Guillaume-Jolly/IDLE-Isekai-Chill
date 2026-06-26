@@ -187,7 +187,10 @@ function createNoiseBuffer(ctx: AudioContext, brown = true): AudioBuffer {
   return buffer
 }
 
-export function startWorksiteBiomeAmbience(biomeId: WorksiteBiomeId): void {
+export function startWorksiteBiomeAmbience(
+  biomeId: WorksiteBiomeId,
+  options?: { discrete?: boolean },
+): void {
   stopWorksiteBiomeAmbience()
 
   const ctx = getSharedAudioContext()
@@ -196,7 +199,7 @@ export function startWorksiteBiomeAmbience(biomeId: WorksiteBiomeId): void {
 
   const profile = biomeAmbienceProfile(biomeId)
   const master = ctx.createGain()
-  master.gain.value = 0.014
+  master.gain.value = options?.discrete ? 0.009 : 0.014
   master.connect(bus)
 
   const noise = ctx.createBufferSource()

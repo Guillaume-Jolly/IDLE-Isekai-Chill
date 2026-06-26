@@ -1667,3 +1667,154 @@
   flex-direction: column;
   gap: 0.35rem;
 }
+
+/* MVP 7 — mode surveillance compact intégré */
+.mg-worksite--monitoring .mg-worksite-layout {
+  flex-direction: column;
+}
+
+.mg-worksite-monitor-bar {
+  flex-shrink: 0;
+  padding: 0.5rem 0.65rem 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 12, 20, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.mg-worksite-monitor-bar-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.mg-worksite-monitor-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-right: auto;
+}
+
+.mg-worksite-monitor-btn {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  border-radius: 0.45rem;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.mg-worksite-monitor-btn.subtle {
+  opacity: 0.85;
+}
+
+.mg-worksite-monitor-biomes {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.mg-worksite-monitor-biome-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.mg-worksite-monitor-biome-btn.active {
+  border-color: rgba(135, 197, 106, 0.65);
+  box-shadow: 0 0 0 2px rgba(135, 197, 106, 0.25);
+}
+
+.mg-worksite-monitor-biome-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.mg-worksite-monitor-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  gap: 0.35rem 0.5rem;
+  margin: 0;
+}
+
+.mg-worksite-monitor-stats div {
+  min-width: 0;
+}
+
+.mg-worksite-monitor-stats dt {
+  margin: 0;
+  font-size: 0.62rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.mg-worksite-monitor-stats dd {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.mg-worksite--monitoring .mg-worksite-scene-wrap {
+  padding: 0;
+  min-height: 0;
+}
+
+.mg-worksite--monitoring .mg-worksite-scene-stage {
+  min-height: 10rem;
+}
+
+.mg-worksite-scene--monitoring .mg-worksite-hills,
+.mg-worksite-scene--monitoring .mg-worksite-sky {
+  opacity: 0.55;
+}
+
+.mg-worksite-scene--monitoring .mg-worksite-life-layer {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.mg-worksite-monitor-scene-chip {
+  position: absolute;
+  top: 0.45rem;
+  left: 0.5rem;
+  z-index: 6;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mg-worksite-monitor-toggle {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.5rem;
+  z-index: 8;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.42);
+  color: inherit;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.72rem;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.mg-worksite--monitoring .mg-worksite-marker {
+  width: 2.85rem;
+  height: 2.85rem;
+  font-size: 1.25rem;
+}
+
+.mg-worksite--monitoring .mg-worksite-prestige-anchor {
+  top: 12%;
+  right: 8%;
+  transform: scale(0.92);
+}
