@@ -14,6 +14,7 @@ import { TimingBarGame } from './TimingBarGame'
 import { TowerDefenseGame } from './TowerDefenseGame'
 import { ConversationGame } from './ConversationGame'
 import { DressageGame } from './DressageGame'
+import { MyrionWorksiteGame } from './MyrionWorksiteGame'
 import type { MinigameCompleteHandler } from './MinigameFrame'
 import type { MinigameSave } from '../../data/minigameSave'
 
@@ -46,6 +47,7 @@ const GAME_BY_TYPE: Record<MinigameType, ComponentType<MinigamePlayerProps>> = {
   'familiar-capture': FamiliarCaptureGame,
   dressage: DressageGame,
   conversation: ConversationGame,
+  'myrion-worksite': MyrionWorksiteGame,
 }
 
 export function MinigamePlayer(props: MinigamePlayerProps) {
