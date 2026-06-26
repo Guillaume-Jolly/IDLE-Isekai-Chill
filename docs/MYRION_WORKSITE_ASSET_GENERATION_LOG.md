@@ -1,8 +1,65 @@
-# Chantier Myrion — Journal génération assets IA (lot 4B)
+# Chantier Myrion — Journal génération assets IA (lot 4B + revue MVP 5)
 
-> **Date :** 2026-06-26  
+> **Date :** 2026-06-26 (revue MVP 5)  
 > **Branche :** `feature/myrion-worksite-mvp2`  
 > **Outil :** génération IA Cursor + détourage fond blanc (`scripts/worksite-remove-white-bg.py`)
+
+## Revue MVP 5 — classification assets
+
+Légende : **OK** · **provisoire** · **à refaire** · **désactivé**
+
+### Backgrounds
+
+| Fichier | Biome | Taille | Classe MVP 5 |
+|---------|-------|--------|--------------|
+| `prairie.png` | Prairie | 1536×1024 | **provisoire** — wide prompts prêts |
+| `forest.png` | Forêt | 1536×1024 | **provisoire** |
+| `mine.png` | Mine | 1536×1024 | **provisoire** |
+| `swamp.png` | Marais (futur) | 1536×1024 | **désactivé** |
+| `crystal.png` | Cristal (futur) | 1536×1024 | **désactivé** |
+| `astral.png` | Astral (futur) | 1536×1024 | **désactivé** |
+
+### Spots gameplay (9)
+
+| Fichier | Spot | Classe MVP 5 |
+|---------|------|--------------|
+| `bosquet.png` | Verger | **OK** |
+| `pierrier.png` | Potager | **OK** (chemin corrigé MVP 5) |
+| `champs.png` | Champs | **OK** |
+| `sous-bois.png` | Sous-bois | **OK** |
+| `clairiere-herbes.png` | Clairière | **OK** |
+| `source-claire.png` | Souches | **OK** |
+| `pierrier-profond.png` | Pierrier | **OK** |
+| `veine-brute.png` | Veine de fer | **provisoire** (halo léger possible) |
+| `charbonniere.png` | Fil charbon | **provisoire** |
+
+### Icônes
+
+| Fichier | Classe MVP 5 |
+|---------|--------------|
+| `wood.png`, `stone.png`, `food.png` | **OK** |
+| `herbs.png`, `water.png`, `ore.png`, `coal.png` | **provisoire** (visuel seul) |
+| `crystal.png` | **à refaire** — 15 % opaque, `available: false` |
+| `spores.png` | **désactivé** |
+
+### Décorations
+
+| Fichier | Classe MVP 5 |
+|---------|--------------|
+| `rest-zone.png`, `food-zone.png` | **OK** (opacité UI réduite MVP 5) |
+| `small-tent.png` | **désactivé** |
+
+### UI overlays
+
+| Fichier | Classe MVP 5 |
+|---------|--------------|
+| `spot-active/locked/supervised.png`, `biome-locked.png` | **désactivé** en `<img>` — CSS prioritaire |
+
+### Spots futurs (fichiers présents, non jouables)
+
+`cristalliere`, `marais-fertile`, `champignonniere`, `ruines-anciennes`, `faille-astrale` → **désactivé**
+
+---
 
 ## Direction visuelle retenue
 
@@ -26,7 +83,7 @@
 | Fichier | Spot | Statut |
 |---------|------|--------|
 | `spots/bosquet.png` | Bosquet | Intégré |
-| `spots/pierrier.png` | Pierrier | Intégré |
+| `spots/pierrier.png` | Pierrier (prairie Potager) | Intégré MVP 5 — chemin corrigé |
 | `spots/champs.png` | Champs | Intégré |
 | `spots/sous-bois.png` | Sous-bois | Intégré |
 | `spots/clairiere-herbes.png` | Clairière aux herbes | Intégré |
@@ -102,7 +159,7 @@ Les overlays UI restent sur classes CSS (`worksiteSpotMarkerClassNames`). Fichie
 | Problème | Détail | Action |
 |----------|--------|--------|
 | Transparence | Fond blanc retiré par script (seuil 245) — halos possibles | Regénérer ou détourage manuel si halo visible |
-| Résolution | Panoramas ~1024×1024 générés, pas 1920×720 natif | Upscale ou regénération wide si besoin |
+| Résolution | Panoramas 1536×1024, pas 2560×960 natif | Prompts wide dans `MYRION_WORKSITE_MVP5_ASSET_PROMPTS.md` |
 | Style | Cohérent soft anime mais pas encore calé sur compagnons finaux | Comparer en jeu, garder 1 variante par biome |
 | UI overlays | PNG présents mais rendu CSS prioritaire | Intégration visuelle phase polish |
 | `icons/crystal.png` | 85 % pixels transparents après détourage | Valider visuellement avant `available: true` |
@@ -123,9 +180,10 @@ Appliqué sur `spots/`, `icons/`, `ui/`, `decorations/` (pas les backgrounds).
 
 ## Tests
 
-- [x] `npm run build` OK
-- [ ] Smoke visuel manuel : Prairie / Forêt / Mine + spots + zones vie + icônes drawer
-- [ ] Mobile : lisibilité spots et fonds
+- [x] `npm run build` OK (MVP 5)
+- [x] Smoke visuel MVP 5 : fonds + filons + sons procéduraux
+- [ ] Regénération wide backgrounds (prompts prêts)
+- [ ] Mobile exhaustif multi-tailles
 
 ## Recommandations sélection finale
 
