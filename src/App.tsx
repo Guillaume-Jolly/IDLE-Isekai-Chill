@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CompanionVisualDevGallery } from './components/CompanionVisualDevGallery'
 import { GachaOpening, type GachaOpeningVariant } from './components/GachaOpening'
 import { SettingsPanel } from './components/SettingsPanel'
@@ -18,6 +18,8 @@ import { CompanionGameplaySupport } from './components/CompanionGameplaySupport'
 import { CompanionMiniature } from './components/CompanionMiniature'
 import { CompanionPortrait } from './components/CompanionPortrait'
 import { InventoryPanel } from './components/InventoryPanel'
+import { NextStepGuidance } from './components/NextStepGuidance'
+import { SystemContextHint } from './components/SystemContextHint'
 import { PopulationPanel } from './components/PopulationPanel'
 import { VillagePanorama } from './components/VillagePanorama'
 import { type MapLabelSpot } from './components/VillageMapLabels'
@@ -43,6 +45,7 @@ import {
   type TutorialObjectiveSave,
 } from './data/tutorialObjectives'
 import { createStarterMinigameSave, mergeMinigameSave, type MinigameSave } from './data/minigameSave'
+import { computeNextStep, type NextStepTarget } from './data/nextStepGuidance'
 import {
   createStableDemoSeed,
   isStablePresetBuild,
@@ -97,6 +100,7 @@ import {
   type VillagePopulationState,
 } from './data/population'
 import './App.css'
+import './components/onboardingHints.css'
 
 const Live2DDemo = lazy(() =>
   import('./components/Live2DDemo').then((module) => ({ default: module.Live2DDemo })),
@@ -1264,6 +1268,39 @@ function App() {
     setActiveMinigameActivityId(activityId)
   }
 
+  const nextStepContext = useMemo(
+    () => ({
+      minigameSave: game.minigameSave,
+      tickets: game.resources.tickets ?? 0,
+      resources: game.resources,
+      companionFragments: game.companionFragments,
+      statTokens: game.statTokens,
+      buildings: game.buildings,
+      eventPulls: game.eventPulls,
+      questsClaimed: game.quests.totalClaimed,
+      companions: Object.fromEntries(
+        COMPANIONS.map((companion) => [
+          companion.id,
+          { unspentStatPoints: game.companions[companion.id]?.unspentStatPoints ?? 0 },
+        ]),
+      ),
+    }),
+    [game],
+  )
+
+  const nextStepSuggestion = useMemo(() => computeNextStep(nextStepContext), [nextStepContext])
+
+  const handleNextStepNavigate = (target: NextStepTarget) => {
+    if (target.kind === 'view') {
+      handleSelectView(target.view)
+      return
+    }
+    if (target.kind === 'activity') {
+      setActiveView('miniGames')
+      tryLaunchMinigame(target.activityId)
+    }
+  }
+
   const claimQuest = (questId: string, reward: Cost) => {
     pushRewardPayloads(payloadsFromCost(reward))
     setGame((current) => ({
@@ -1490,9 +1527,11 @@ function App() {
       buildings={game.buildings}
       companions={COMPANIONS.map((companion) => ({ id: companion.id, name: companion.name }))}
       focusBuildingId={focusMinigameBuildingId}
+      nextStepContext={nextStepContext}
       resourceLabels={RESOURCE_LABELS}
       unlockAtByBuilding={BUILDING_UNLOCK_STAGE}
       villageStage={game.village.stage}
+      onNavigateNextStep={handleNextStepNavigate}
       onPlay={(activityId) => tryLaunchMinigame(activityId)}
     />
   )
@@ -1509,6 +1548,8 @@ function App() {
           ciblés. Tous les 10 fragments d&apos;un compagnon = +1 stat sur lui (onglet Liens).
         </p>
       </section>
+
+      <SystemContextHint systemId="gacha" variant="inline" />
 
       <DisagreaEventBanner
         pulls={game.disagreaEventPulls}
@@ -1767,6 +1808,8 @@ function App() {
 
   const renderVillageMap = () => (
     <section className="village-map-panel">
+      <NextStepGuidance suggestion={nextStepSuggestion} onNavigate={handleNextStepNavigate} />
+      <SystemContextHint systemId="village" variant="inline" />
       <div className="panorama-wrap panorama-wrap--fullscreen">
         <div className="panorama-map" aria-label="Carte interactive du village">
           <div className="map-overlay-badge">

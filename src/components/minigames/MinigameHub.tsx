@@ -3,9 +3,13 @@ import type { CSSProperties } from 'react'
 import { BUILDING_ACTIVITIES, FEATURED_MINIGAME_IDS, sortActivitiesByUnlock } from '../../data/buildingActivities'
 import { listCompanionNamesForSystem } from '../../data/companionSupport'
 import { DEV_UNLOCK_ALL_MINIGAMES } from '../../data/gacha'
+import { computeNextStep, type NextStepContext, type NextStepTarget } from '../../data/nextStepGuidance'
 import { BUILDING_UNLOCK_ORDER, getCurrentStage } from '../../data/population'
+import { supportSystemForActivity } from '../../data/systemHints'
+import { NextStepGuidance } from '../NextStepGuidance'
 import { ConversationPicker } from './ConversationPicker'
 import './Minigames.css'
+import '../onboardingHints.css'
 
 type CompanionInfo = { id: string; name: string }
 
@@ -16,7 +20,9 @@ type MinigameHubProps = {
   companions: CompanionInfo[]
   unlockAtByBuilding: Record<string, number>
   focusBuildingId?: string | null
+  nextStepContext: NextStepContext
   onPlay: (activityId: string) => void
+  onNavigateNextStep?: (target: NextStepTarget) => void
 }
 
 type MetaChipProps = {
@@ -62,7 +68,9 @@ export function MinigameHub({
   companions,
   unlockAtByBuilding,
   focusBuildingId,
+  nextStepContext,
   onPlay,
+  onNavigateNextStep,
 }: MinigameHubProps) {
   const [conversationPickerOpen, setConversationPickerOpen] = useState(false)
   const companionById = Object.fromEntries(companions.map((companion) => [companion.id, companion]))
@@ -103,6 +111,9 @@ export function MinigameHub({
     [conversationActivities, unlockAtByBuilding, villageStage],
   )
 
+  const nextStep = useMemo(() => computeNextStep(nextStepContext), [nextStepContext])
+  const recommendedActivityId = nextStep.recommendedActivityId
+
   const pickConversation = (activityId: string) => {
     setConversationPickerOpen(false)
     onPlay(activityId)
@@ -117,31 +128,44 @@ export function MinigameHub({
     const resourceLabel = resourceLabels[activity.focusResource] ?? activity.focusResource
     const focused = focusBuildingId === activity.buildingId
     const unlockLabel = getCurrentStage(requiredStage).name
+    const supportSystem = supportSystemForActivity(activity)
+    const linkedCompanions = supportSystem ? listCompanionNamesForSystem(supportSystem) : []
+    const recommended = !locked && recommendedActivityId === activity.id
     const detailsTooltip = [
       activity.description,
       `Inspire de: ${activity.inspiration}`,
       `Deblocage: ${unlockLabel}`,
       activity.persistent ? 'Progression sauvegardee entre les sessions.' : null,
-      activity.minigameType === 'myrion-worksite'
-        ? `Compagnons lies : ${listCompanionNamesForSystem('moon-farm').join(', ')}`
-        : null,
+      linkedCompanions.length > 0 ? `Compagnons lies : ${linkedCompanions.join(', ')}` : null,
     ]
       .filter(Boolean)
       .join(' · ')
 
     return (
       <article
-        className={`panel minigame-card ${locked ? 'locked' : ''} ${focused ? 'focused' : ''}`}
+        className={`panel minigame-card ${locked ? 'locked' : ''} ${focused ? 'focused' : ''} ${recommended ? 'minigame-card--recommended' : ''}`}
         key={activity.id}
         style={{ '--mg-accent': activity.accent } as CSSProperties}
       >
         <div className="minigame-card-top">
           <span className="minigame-card-icon">{activity.icon}</span>
           <div className="minigame-card-head">
-            <h3>{activity.name}</h3>
+            <h3>
+              {activity.name}
+              {recommended ? (
+                <span className="minigame-card-recommended-chip"> Recommandé</span>
+              ) : null}
+            </h3>
             <small>{activity.tagline}</small>
           </div>
         </div>
+
+        <p className="minigame-card-support-line">{activity.description}</p>
+        {linkedCompanions.length > 0 ? (
+          <p className="minigame-card-linked-companions">
+            Compagnons liés : {linkedCompanions.slice(0, 3).join(', ')}
+          </p>
+        ) : null}
 
         <div className="minigame-card-meta">
           <MetaChip
@@ -187,6 +211,8 @@ export function MinigameHub({
           <h2>Mini-jeux des batiments</h2>
         </div>
       </section>
+
+      <NextStepGuidance suggestion={nextStep} onNavigate={onNavigateNextStep} />
 
       <section className="grid mini-grid">
         {featuredActivities.map((activity) => renderActivityCard(activity))}
