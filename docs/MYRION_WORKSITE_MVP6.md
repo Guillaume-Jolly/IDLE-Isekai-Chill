@@ -62,3 +62,5 @@ Première couche **endgame / prestige LR-only** pour la Ferme lunaire, sans bloq
 ## Test assignation LR
 
 Si la save de test ne contient aucun Myrion LR : valider uniquement l’état verrouillé et documenter le test assignation comme **non fait**.
+
+**Statut session MVP 6** : test LR assignation/reload **non fait faute de LR** en save de test.
