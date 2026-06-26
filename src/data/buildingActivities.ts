@@ -29,6 +29,7 @@ export type MinigameType =
   | 'familiar-capture'
   | 'dressage'
   | 'conversation'
+  | 'myrion-worksite'
 
 /** Mini-jeux peaufinés — affichés en tête du hub (avant le tri stade/bâtiment). */
 export const FEATURED_MINIGAME_IDS: readonly string[] = [
@@ -406,6 +407,22 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     baseReward: { wood: 55, gifts: 30, stardust: 8 },
     accent: '#5ecf8a',
     icon: '🎯',
+    persistent: true,
+  },
+  {
+    id: 'farm-worksite',
+    buildingId: 'moon-farm',
+    companionId: 'sora',
+    focusResource: 'wood',
+    minigameType: 'myrion-worksite',
+    name: 'Chantier Myrion',
+    tagline: 'Prairie du chantier',
+    inspiration: 'Idle supervision / tap léger',
+    description:
+      'Assigne tes Myrions au bosquet, au pierrier et aux champs. Tap pour aider un peu — production très faible et contemplative.',
+    baseReward: { wood: 1, stone: 1, food: 1 },
+    accent: '#87c56a',
+    icon: '🏗️',
     persistent: true,
   },
   {

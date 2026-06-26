@@ -246,7 +246,7 @@ export type MinigameCompleteHandler = (
 
   reward: Cost,
 
-  options?: { keepOpen?: boolean },
+  options?: { keepOpen?: boolean; silent?: boolean },
 
 ) => void
 

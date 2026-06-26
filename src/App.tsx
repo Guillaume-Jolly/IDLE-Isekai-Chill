@@ -1201,7 +1201,7 @@ function App() {
     activityName: string,
     miniScore: number,
     maxScore: number,
-    options?: { keepOpen?: boolean },
+    options?: { keepOpen?: boolean; silent?: boolean },
   ) => {
     const activity = getActivityById(activityId)
     const companionState = activity ? game.companions[activity.companionId] : undefined
@@ -1231,7 +1231,9 @@ function App() {
       setActiveMinigameActivityId(null)
     }
     pushRewardPayloads(payloadsFromCost(scaledReward))
-    setMessage(`${activityName} — ${costText(scaledReward)} gagnes (${miniScore}/${maxScore}).`)
+    if (!options?.silent) {
+      setMessage(`${activityName} — ${costText(scaledReward)} gagnes (${miniScore}/${maxScore}).`)
+    }
   }
 
   const tryLaunchMinigame = (activityId: string) => {
