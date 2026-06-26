@@ -2,6 +2,11 @@ import type { RefugeBiomeId } from './myrionRefuge'
 import { BIOME_RESOURCES, normalizeRefugeBiomeId } from './myrionRefuge'
 import { MYRION_SPECIES_IDS } from './minigameAssets'
 import type { PalmonRarity } from './wildFamiliars'
+import {
+  createStarterMyrionWorksite,
+  mergeMyrionWorksite,
+  type MyrionWorksiteSave,
+} from './myrionWorksite'
 
 
 
@@ -142,6 +147,8 @@ export type MinigameSave = {
     caughtByRarity?: Partial<Record<PalmonRarity, number>>
   }
 
+  /** Chantier Myrion — MVP 1 spots / assignations. */
+  myrionWorksite?: MyrionWorksiteSave
 }
 
 
@@ -273,8 +280,9 @@ export function createStarterMinigameSave(): MinigameSave {
 
     captureStats: { totalCaught: 0, bestRarity: null },
 
-  }
+    myrionWorksite: createStarterMyrionWorksite(now),
 
+  }
 }
 
 
@@ -322,6 +330,8 @@ export function mergeMinigameSave(partial?: Partial<MinigameSave>): MinigameSave
     saveVersion: MINIGAME_SAVE_VERSION,
 
     captureStats: partial?.captureStats ?? starter.captureStats,
+
+    myrionWorksite: mergeMyrionWorksite(partial?.myrionWorksite),
 
   }
 
