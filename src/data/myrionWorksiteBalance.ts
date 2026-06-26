@@ -42,7 +42,7 @@ export const WORKSITE_RARITY_MULT: Record<PalmonRarity, number> = {
 }
 
 /** Tick auto — seuil minimum d'attribution et rattrapage max (secondes). */
-export const WORKSITE_AUTO_MIN_GRANT = 0.05
+export const WORKSITE_AUTO_MIN_GRANT = 0.01
 export const WORKSITE_AUTO_MAX_CATCHUP_SEC = 5
 
 /**
