@@ -1,8 +1,20 @@
-# Chantier Myrion — Journal génération assets IA (lot 4B + revue MVP 5)
+# Chantier Myrion — Journal génération assets IA (lot 4B + revue MVP 5 + MVP 9)
 
-> **Date :** 2026-06-26 (revue MVP 5)  
+> **Date :** 2026-06-26 (MVP 9 wide backgrounds + faille astrale)  
 > **Branche :** `feature/myrion-worksite-mvp2`  
-> **Outil :** génération IA Cursor + détourage fond blanc (`scripts/worksite-remove-white-bg.py`)
+> **Outil :** génération IA Cursor + `scripts/mvp9-install-worksite-assets.py` + détourage legacy `worksite-remove-white-bg.py`
+
+## MVP 9 — lot wide backgrounds + prestige
+
+| Fichier | Taille | Classe MVP 9 |
+|---------|--------|--------------|
+| `backgrounds/prairie.png` | 2560×960 | **OK** — remplace 1536×1024 (`variants/prairie-old.png`) |
+| `backgrounds/forest.png` | 2560×960 | **OK** |
+| `backgrounds/mine.png` | 2560×960 | **OK** |
+| `spots/faille-astrale.png` | 1024×1024 RGBA | **OK** — `available: true` prestige |
+| `icons/crystal.png` | 512×512 RGBA | **provisoire** — remplacé, `available: false` |
+
+Détail complet : `docs/MYRION_WORKSITE_MVP9.md`
 
 ## Revue MVP 5 — classification assets
 
@@ -12,9 +24,9 @@ Légende : **OK** · **provisoire** · **à refaire** · **désactivé**
 
 | Fichier | Biome | Taille | Classe MVP 5 |
 |---------|-------|--------|--------------|
-| `prairie.png` | Prairie | 1536×1024 | **provisoire** — wide prompts prêts |
-| `forest.png` | Forêt | 1536×1024 | **provisoire** |
-| `mine.png` | Mine | 1536×1024 | **provisoire** |
+| `prairie.png` | Prairie | 2560×960 (MVP 9) | **OK** |
+| `forest.png` | Forêt | 2560×960 (MVP 9) | **OK** |
+| `mine.png` | Mine | 2560×960 (MVP 9) | **OK** |
 | `swamp.png` | Marais (futur) | 1536×1024 | **désactivé** |
 | `crystal.png` | Cristal (futur) | 1536×1024 | **désactivé** |
 | `astral.png` | Astral (futur) | 1536×1024 | **désactivé** |
@@ -39,7 +51,7 @@ Légende : **OK** · **provisoire** · **à refaire** · **désactivé**
 |---------|--------------|
 | `wood.png`, `stone.png`, `food.png` | **OK** |
 | `herbs.png`, `water.png`, `ore.png`, `coal.png` | **provisoire** (visuel seul) |
-| `crystal.png` | **à refaire** — 15 % opaque, `available: false` |
+| `crystal.png` | **provisoire** — remplacé MVP 9, `available: false` |
 | `spores.png` | **désactivé** |
 
 ### Décorations
@@ -57,7 +69,8 @@ Légende : **OK** · **provisoire** · **à refaire** · **désactivé**
 
 ### Spots futurs (fichiers présents, non jouables)
 
-`cristalliere`, `marais-fertile`, `champignonniere`, `ruines-anciennes`, `faille-astrale` → **désactivé**
+`cristalliere`, `marais-fertile`, `champignonniere`, `ruines-anciennes` → **désactivé**  
+`faille-astrale` → **OK** prestige MVP 9 (`available: true`)
 
 ---
 
@@ -159,18 +172,17 @@ Les overlays UI restent sur classes CSS (`worksiteSpotMarkerClassNames`). Fichie
 | Problème | Détail | Action |
 |----------|--------|--------|
 | Transparence | Fond blanc retiré par script (seuil 245) — halos possibles | Regénérer ou détourage manuel si halo visible |
-| Résolution | Panoramas 1536×1024, pas 2560×960 natif | Prompts wide dans `MYRION_WORKSITE_MVP5_ASSET_PROMPTS.md` |
-| Style | Cohérent soft anime mais pas encore calé sur compagnons finaux | Comparer en jeu, garder 1 variante par biome |
-| UI overlays | PNG présents mais rendu CSS prioritaire | Intégration visuelle phase polish |
-| `icons/crystal.png` | 85 % pixels transparents après détourage | Valider visuellement avant `available: true` |
+| Résolution | Panoramas 2560×960 (crop depuis IA 1536×1024) | Regénérer natif 2560×960 si possible |
+| `icons/crystal.png` | Fichier remplacé, non activé en UI | Activer quand ressource exposée |
 
 ## Post-traitement
 
 ```bash
+python scripts/mvp9-install-worksite-assets.py
 python scripts/worksite-remove-white-bg.py
 ```
 
-Appliqué sur `spots/`, `icons/`, `ui/`, `decorations/` (pas les backgrounds).
+MVP 9 : wide backgrounds + faille/crystal via script dédié. Legacy : spots/icons/ui/decorations.
 
 ## Fichiers code modifiés (intégration)
 
@@ -182,7 +194,7 @@ Appliqué sur `spots/`, `icons/`, `ui/`, `decorations/` (pas les backgrounds).
 
 - [x] `npm run build` OK (MVP 5)
 - [x] Smoke visuel MVP 5 : fonds + filons + sons procéduraux
-- [ ] Regénération wide backgrounds (prompts prêts)
+- [x] Regénération wide backgrounds (MVP 9)
 - [ ] Mobile exhaustif multi-tailles
 
 ## Recommandations sélection finale
