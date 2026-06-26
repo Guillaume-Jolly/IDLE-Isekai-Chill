@@ -24,6 +24,7 @@ import './Worksite.css'
 
 const CLICK_COOLDOWN_MS = 180
 const AUTO_TICK_MS = 1000
+const AUTO_SAVE_MS = 5000
 
 const RESOURCE_LABELS: Partial<Record<ResourceKey, string>> = {
   wood: 'Bois',
@@ -69,6 +70,7 @@ export function MyrionWorksiteGame({
   const worksiteRef = useRef(worksite)
   const petsRef = useRef(pets)
   const lastClickRef = useRef(0)
+  const lastAutoSaveAtRef = useRef(0)
   const onCompleteRef = useRef(onComplete)
   const onSaveMinigameRef = useRef(onSaveMinigame)
   const minigameSaveRef = useRef(minigameSave)
@@ -90,11 +92,28 @@ export function MyrionWorksiteGame({
   const persist = useCallback(
     (next: MyrionWorksiteSave) => {
       setWorksite(next)
+      worksiteRef.current = next
+      lastAutoSaveAtRef.current = Date.now()
       if (minigameSave && onSaveMinigame) {
         onSaveMinigame({ ...minigameSave, myrionWorksite: next })
       }
     },
     [minigameSave, onSaveMinigame],
+  )
+
+  const flushWorksiteSave = useCallback(
+    (next: MyrionWorksiteSave, force = false) => {
+      worksiteRef.current = next
+      const now = Date.now()
+      if (!force && now - lastAutoSaveAtRef.current < AUTO_SAVE_MS) return
+      setWorksite(next)
+      lastAutoSaveAtRef.current = now
+      const save = minigameSaveRef.current
+      if (save && onSaveMinigameRef.current) {
+        onSaveMinigameRef.current({ ...save, myrionWorksite: next })
+      }
+    },
+    [],
   )
 
   const selectedSpotId = worksite.selectedSpotId
@@ -152,21 +171,21 @@ export function MyrionWorksiteGame({
         totalProducedBySpot: produced,
       }
 
-      if (next.lastAutoTickAt !== current.lastAutoTickAt || granted) {
-        setWorksite(next)
-        const save = minigameSaveRef.current
-        if (save && onSaveMinigameRef.current) {
-          onSaveMinigameRef.current({ ...save, myrionWorksite: next })
-        }
-      }
+      worksiteRef.current = next
 
       if (granted) {
+        setWorksite(next)
         onCompleteRef.current(0, 1, combined, { keepOpen: true, silent: true })
       }
+
+      flushWorksiteSave(next, granted)
     }, AUTO_TICK_MS)
 
-    return () => window.clearInterval(timer)
-  }, [])
+    return () => {
+      window.clearInterval(timer)
+      flushWorksiteSave(worksiteRef.current, true)
+    }
+  }, [flushWorksiteSave])
 
   const assignPet = (petId: string) => {
     persist(assignMyrionToSpot(worksite, selectedSpotId, petId))
