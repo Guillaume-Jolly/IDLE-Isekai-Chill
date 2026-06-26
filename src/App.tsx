@@ -15,6 +15,7 @@ import { QuestBoard } from './components/QuestBoard'
 import { TutorialObjectivesPanel } from './components/TutorialObjectivesPanel'
 import { CompanionStatsPanel } from './components/CompanionStatsPanel'
 import { CompanionGameplaySupport } from './components/CompanionGameplaySupport'
+import { CompanionBondPanel } from './components/CompanionBondPanel'
 import { CompanionMiniature } from './components/CompanionMiniature'
 import { CompanionPortrait } from './components/CompanionPortrait'
 import { InventoryPanel } from './components/InventoryPanel'
@@ -1681,6 +1682,11 @@ function App() {
                 </div>
                 <h3>{companion.name}</h3>
                 <CompanionGameplaySupport companionId={companion.id} />
+                <CompanionBondPanel
+                  companionId={companion.id}
+                  companionName={companion.name}
+                  currentAffinity={current.affinity}
+                />
                 <CompanionStatsPanel
                   fragmentCount={game.companionFragments[companion.id] ?? 0}
                   statTokens={game.statTokens}
