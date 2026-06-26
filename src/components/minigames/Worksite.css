@@ -117,6 +117,10 @@
   font-size: 1.5rem;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .mg-worksite-marker.active {
@@ -236,7 +240,8 @@
   background: rgba(135, 197, 106, 0.18);
 }
 
-.mg-worksite-biome-btn.locked {
+.mg-worksite-biome-btn.locked,
+.mg-worksite-biome-btn.mg-worksite-biome--locked {
   opacity: 0.45;
   cursor: not-allowed;
 }
@@ -375,6 +380,179 @@
   margin: 0;
   font-size: 0.85rem;
   opacity: 0.8;
+}
+
+/* ——— Pipeline visuel MVP 3 (placeholders + fallbacks) ——— */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.mg-worksite-biome-bg {
+  /* Couche de fond — gradient legacy + asset optionnel */
+}
+
+.mg-worksite-biome-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--mg-worksite-bg-image, none);
+  background-size: cover;
+  background-position: center;
+}
+
+.mg-worksite-biome-background-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mg-worksite-bg--prairie {
+  background: linear-gradient(180deg, #a8d8a0 0%, #8bc88a 50%, #6fb068 100%);
+}
+
+.mg-worksite-bg--foret {
+  background: linear-gradient(180deg, #4a7a58 0%, #2f5a3e 55%, #1e3d28 100%);
+}
+
+.mg-worksite-bg--mine {
+  background: linear-gradient(180deg, #5a6578 0%, #3a4556 50%, #252d3a 100%);
+}
+
+.mg-worksite-bg--marais {
+  background: linear-gradient(180deg, #6a7a52 0%, #4a5a3a 50%, #3a4530 100%);
+}
+
+.mg-worksite-bg--cristal {
+  background: linear-gradient(180deg, #8a9ad8 0%, #6a7ab8 45%, #5a6aa8 100%);
+}
+
+.mg-worksite-bg--astral {
+  background: linear-gradient(180deg, #3a2a58 0%, #2a1a48 50%, #1a1038 100%);
+}
+
+.mg-worksite-biome--supervised {
+  box-shadow: inset 0 0 0 2px rgba(135, 197, 106, 0.35);
+}
+
+.mg-worksite-spot-card {
+  /* Carte spot sur la scène — hérite du marker */
+}
+
+.mg-worksite-spot-object {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.mg-worksite-spot-object-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.mg-worksite-spot-object-emoji {
+  position: relative;
+  z-index: 1;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.mg-worksite-marker.mg-worksite-spot--active,
+.mg-worksite-marker.active {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 3px var(--mg-accent, #87c56a);
+}
+
+.mg-worksite-marker.mg-worksite-spot--locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.mg-worksite-marker.mg-worksite-spot--supervised {
+  box-shadow: 0 0 0 2px rgba(135, 197, 106, 0.4);
+}
+
+.mg-worksite-resource-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: middle;
+  position: relative;
+  border-radius: 0.25rem;
+}
+
+.mg-worksite-resource-icon-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mg-worksite-resource-icon-emoji {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.mg-worksite-resource-icon--wood {
+  background: rgba(139, 90, 43, 0.25);
+}
+
+.mg-worksite-resource-icon--stone {
+  background: rgba(120, 120, 130, 0.25);
+}
+
+.mg-worksite-resource-icon--food {
+  background: rgba(180, 160, 60, 0.25);
+}
+
+.mg-worksite-resource-icon--herbs {
+  background: rgba(80, 140, 80, 0.25);
+}
+
+.mg-worksite-resource-icon--water {
+  background: rgba(70, 130, 200, 0.25);
+}
+
+.mg-worksite-resource-icon--ore,
+.mg-worksite-resource-icon--coal {
+  background: rgba(90, 90, 100, 0.3);
+}
+
+.mg-worksite-resource-icon--crystal {
+  background: rgba(130, 100, 200, 0.25);
+}
+
+.mg-worksite-resource-icon--ancient-fragment {
+  background: rgba(160, 140, 100, 0.25);
+}
+
+.mg-worksite-resource-icon--astral-ore {
+  background: rgba(100, 80, 160, 0.3);
+}
+
+.mg-worksite-assignment-slot {
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 0.35rem;
+  min-height: 2rem;
 }
 
 @media (max-width: 767px) {

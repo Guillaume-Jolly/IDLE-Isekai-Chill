@@ -23,8 +23,22 @@ import {
   type WorksiteSpotId,
 } from '../../data/myrionWorksite'
 import { RARITY_COLORS } from '../../data/wildFamiliars'
+import {
+  getWorksiteBiomeVisual,
+  getWorksiteResourceIconVisual,
+  getWorksiteSpotVisual,
+  worksiteSceneClassNames,
+  worksiteSpotMarkerClassNames,
+  worksiteSpotObjectClassNames,
+  WORKSITE_UI_VISUALS,
+} from '../../data/myrionWorksiteVisuals'
 import { HuntSideRail } from './HuntSideRail'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
+import {
+  WorksiteBiomeBackground,
+  WorksiteResourceIcon,
+  WorksiteSpotObject,
+} from './WorksiteVisuals'
 import './Worksite.css'
 
 const CLICK_COOLDOWN_MS = 180
@@ -317,7 +331,7 @@ export function MyrionWorksiteGame({
               return (
                 <li key={biomeId}>
                   <button
-                    className={`mg-worksite-biome-btn ${activeBiomeId === biomeId ? 'active' : ''} ${unlocked ? '' : 'locked'}`}
+                    className={`mg-worksite-biome-btn ${activeBiomeId === biomeId ? 'active' : ''} ${unlocked ? '' : WORKSITE_UI_VISUALS['biome-locked'].asset.placeholderClass}`}
                     disabled={!unlocked}
                     type="button"
                     onClick={() => selectBiome(biomeId)}
@@ -386,9 +400,25 @@ export function MyrionWorksiteGame({
         <div className="mg-worksite-drawer-section">
           <p className="mg-worksite-drawer-lead">Total produit au chantier (session cumulée)</p>
           <ul className="mg-worksite-resource-list">
-            <li>🪵 Bois — {formatYield(totalProduced.wood)}</li>
-            <li>🪨 Pierre — {formatYield(totalProduced.stone)}</li>
-            <li>🌾 Vivres — {formatYield(totalProduced.food)}</li>
+            {(
+              [
+                ['wood', totalProduced.wood, 'Bois'],
+                ['stone', totalProduced.stone, 'Pierre'],
+                ['food', totalProduced.food, 'Vivres'],
+              ] as const
+            ).map(([resourceId, amount, label]) => {
+              const icon = getWorksiteResourceIconVisual(resourceId)
+              return (
+                <li key={resourceId}>
+                  <WorksiteResourceIcon
+                    asset={icon.asset}
+                    emoji={icon.fallbackEmoji}
+                    label={label}
+                  />{' '}
+                  {label} — {formatYield(amount)}
+                </li>
+              )
+            })}
           </ul>
           <p className="mg-worksite-note">Gains additifs très faibles — équilibrage provisoire.</p>
         </div>
@@ -566,23 +596,37 @@ export function MyrionWorksiteGame({
 
             <div
               aria-label={activeBiome.label}
-              className={`mg-worksite-scene ${activeBiome.panoramaClass}`}
+              className={worksiteSceneClassNames(activeBiomeId, true, activeBiome.panoramaClass)}
               role="img"
             >
+              <WorksiteBiomeBackground
+                asset={getWorksiteBiomeVisual(activeBiomeId).background}
+                label={activeBiome.label}
+              />
               <div className="mg-worksite-sky" />
               <div className="mg-worksite-hills" />
               <div className="mg-worksite-spot-markers">
-                {activeSpots.map((spot) => (
-                  <button
-                    aria-label={`Spot ${spot.name}`}
-                    className={`mg-worksite-marker ${selectedSpotId === spot.id ? 'active' : ''}`}
-                    key={spot.id}
-                    type="button"
-                    onClick={() => selectSpot(spot.id)}
-                  >
-                    {spot.emoji}
-                  </button>
-                ))}
+                {activeSpots.map((spot) => {
+                  const spotVisual = getWorksiteSpotVisual(spot.id)
+                  const selected = selectedSpotId === spot.id
+                  const locked = !spot.unlocked
+                  return (
+                    <button
+                      aria-label={`Spot ${spot.name}`}
+                      className={worksiteSpotMarkerClassNames(spot.id, selected, locked)}
+                      key={spot.id}
+                      type="button"
+                      onClick={() => selectSpot(spot.id)}
+                    >
+                      <WorksiteSpotObject
+                        asset={spotVisual.asset}
+                        className={worksiteSpotObjectClassNames(spot.id)}
+                        emoji={spot.emoji}
+                        name={spot.name}
+                      />
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
@@ -591,7 +635,14 @@ export function MyrionWorksiteGame({
               type="button"
               onClick={handleTap}
             >
-              <span className="mg-worksite-tap-label">Collecter — {RESOURCE_LABELS[selectedSpot.resourceId]}</span>
+              <span className="mg-worksite-tap-label">
+                <WorksiteResourceIcon
+                  asset={getWorksiteResourceIconVisual(selectedSpot.resourceId).asset}
+                  emoji={getWorksiteResourceIconVisual(selectedSpot.resourceId).fallbackEmoji}
+                  label={RESOURCE_LABELS[selectedSpot.resourceId] ?? selectedSpot.resourceId}
+                />{' '}
+                Collecter — {RESOURCE_LABELS[selectedSpot.resourceId]}
+              </span>
               <span className="mg-worksite-tap-yield">+{formatYield(clickYield)} / tap</span>
             </button>
 
