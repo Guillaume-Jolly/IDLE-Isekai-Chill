@@ -90,13 +90,9 @@ Coordonnées % par défaut + variantes mobile optionnelles — **à valider MVP 
 | 6 composants vs 3 spots UI | Drawer spots paginé ou scroll — design MVP 14 |
 | Nouvelles ressources inventaire | Étendre `ResourceKey` ou ressources chantier internes |
 
-## Migration MVP 14 (aperçu)
+## Migration MVP 14 — **implémentée**
 
-1. Étendre `WORKSITE_BIOME_IDS` depuis le catalogue (biome par biome).
-2. Mapper composants catalogue → spots gameplay (`legacyGameplaySpotId` → nouveaux IDs).
-3. Activer `available: true` au fur et à mesure des assets.
-4. Brancher déblocages tier sur `WORKSITE_UNLOCK_THRESHOLDS` étendu.
-5. Harmoniser `myrionWorksiteVisuals.ts` avec `backgroundAssetKey` catalogue.
+Voir `docs/MYRION_WORKSITE_MVP14.md` et `src/data/myrionWorksiteBiomeRuntime.ts`.
 
 ## Checklist
 

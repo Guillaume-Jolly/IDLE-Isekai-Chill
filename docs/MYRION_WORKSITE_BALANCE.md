@@ -104,3 +104,13 @@ myrionWorksite.ts (merge + formules, importe prestige pour save)
 ```
 
 `myrionWorksitePrestige` **n'importe pas** `myrionWorksite.ts` — cycle MVP 8 évité.
+
+## MVP 14 — extension 15 biomes
+
+Seuils biomes 4–15 dans `WORKSITE_UNLOCK_THRESHOLDS` (provisoire).
+
+- Biomes 1–3 : seuils MVP 10 inchangés.
+- Biomes 4+ : `totalChantier` + ressource d’un biome antérieur (anti-blocage).
+- Totaux : `food`, `wood`, `stone`, `ingredients`, `totalChantier`.
+
+Détail : `docs/MYRION_WORKSITE_MVP14.md`.
