@@ -21,9 +21,34 @@
   gap: 0.75rem;
 }
 
+.mg-worksite-scene-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
 .mg-worksite-scene-head h2 {
   margin: 0;
   font-size: 1.1rem;
+}
+
+.mg-worksite-supervision-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(135, 197, 106, 0.25);
+  border: 1px solid rgba(135, 197, 106, 0.45);
+  color: inherit;
+}
+
+.mg-worksite-supervision-inline {
+  font-size: 0.8em;
+  opacity: 0.85;
+  font-weight: normal;
 }
 
 .mg-worksite-scene-head p {
@@ -40,6 +65,27 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: linear-gradient(180deg, #87c8f0 0%, #b8e6a0 55%, #7cb356 100%);
+}
+
+.mg-worksite-scene--prairie {
+  background: linear-gradient(180deg, #87c8f0 0%, #b8e6a0 55%, #7cb356 100%);
+}
+
+.mg-worksite-scene--foret {
+  background: linear-gradient(180deg, #5a8a6a 0%, #3d6b4f 45%, #2a4a35 100%);
+}
+
+.mg-worksite-scene--foret .mg-worksite-hills {
+  background: radial-gradient(ellipse 100% 50% at 30% 100%, rgba(20, 60, 30, 0.5), transparent 70%),
+    radial-gradient(ellipse 80% 40% at 70% 95%, rgba(40, 90, 50, 0.35), transparent 65%);
+}
+
+.mg-worksite-scene--mine {
+  background: linear-gradient(180deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+}
+
+.mg-worksite-scene--mine .mg-worksite-hills {
+  background: radial-gradient(ellipse 90% 35% at 50% 100%, rgba(80, 70, 60, 0.4), transparent 70%);
 }
 
 .mg-worksite-sky,
@@ -162,6 +208,59 @@
   opacity: 0.9;
 }
 
+.mg-worksite-biome-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.mg-worksite-biome-btn {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.2);
+  color: inherit;
+  cursor: pointer;
+}
+
+.mg-worksite-biome-btn.active {
+  border-color: var(--mg-accent, #87c56a);
+  background: rgba(135, 197, 106, 0.18);
+}
+
+.mg-worksite-biome-btn.locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.mg-worksite-biome-meta {
+  font-size: 0.78rem;
+  opacity: 0.85;
+}
+
+.mg-worksite-other-biomes {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.85rem;
+}
+
+.mg-worksite-details-biome {
+  margin-bottom: 0.75rem;
+}
+
+.mg-worksite-details-biome h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.9rem;
+}
+
 .mg-worksite-spot-list {
   list-style: none;
   margin: 0;
@@ -276,6 +375,16 @@
   margin: 0;
   font-size: 0.85rem;
   opacity: 0.8;
+}
+
+@media (max-width: 767px) {
+  .mg-worksite-scene-wrap {
+    overflow-x: auto;
+  }
+
+  .mg-worksite-scene {
+    min-width: 100%;
+  }
 }
 
 @media (min-width: 768px) {
