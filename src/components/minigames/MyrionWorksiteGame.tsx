@@ -32,6 +32,11 @@ import {
   worksiteResourceTotals,
   WORKSITE_UNLOCK_THRESHOLDS,
 } from '../../data/myrionWorksiteProgression'
+import {
+  buildWorksiteLifeView,
+  decorativeStateLabel,
+  getLifeTimeBucket,
+} from '../../data/myrionWorksiteLife'
 import { RARITY_COLORS } from '../../data/wildFamiliars'
 import {
   getWorksiteBiomeVisual,
@@ -44,6 +49,7 @@ import {
 } from '../../data/myrionWorksiteVisuals'
 import { HuntSideRail } from './HuntSideRail'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
+import { WorksiteMyrionLifeLayer } from './WorksiteMyrionLifeLayer'
 import {
   WorksiteBiomeBackground,
   WorksiteResourceIcon,
@@ -136,9 +142,14 @@ export function MyrionWorksiteGame({
   }, [worksite, pets, onComplete, onSaveMinigame, minigameSave])
 
   useEffect(() => {
-    if (minigameSave?.myrionWorksite) {
-      setWorksite(mergeMyrionWorksite(minigameSave.myrionWorksite))
-    }
+    const incoming = minigameSave?.myrionWorksite
+    if (!incoming) return
+    const merged = mergeMyrionWorksite(incoming)
+    const mergedKey = JSON.stringify(merged)
+    const currentKey = JSON.stringify(worksiteRef.current)
+    if (mergedKey === currentKey) return
+    setWorksite(merged)
+    worksiteRef.current = merged
   }, [minigameSave?.myrionWorksite])
 
   useEffect(() => {
@@ -345,6 +356,13 @@ export function MyrionWorksiteGame({
       </div>
     )
   }
+
+  const assignedCompact = selectedAssigned.map((pet) => pet.emoji).join(' ') || '—'
+  const supervisionPct = Math.round((WORKSITE_SUPERVISION_MULT - 1) * 100)
+  const lifeView = useMemo(
+    () => buildWorksiteLifeView(worksite, activeBiomeId, pets, getLifeTimeBucket()),
+    [worksite, activeBiomeId, pets],
+  )
 
   const drawers = [
     {
@@ -606,6 +624,46 @@ export function MyrionWorksiteGame({
       ),
     },
     {
+      id: 'life',
+      label: 'Vie',
+      icon: '🌿',
+      content: (
+        <div className="mg-worksite-drawer-section">
+          <p className="mg-worksite-drawer-lead">Vie de la ferme</p>
+          <p className="mg-worksite-note">
+            Les Myrions ont de petites routines décoratives. Repos, repas et sommeil n&apos;affectent pas
+            la production dans ce MVP.
+          </p>
+          <dl className="mg-worksite-stats">
+            <div>
+              <dt>Myrions visibles (biome affiché)</dt>
+              <dd>{lifeView.totalAssigned}</dd>
+            </div>
+            {lifeView.dominantState ? (
+              <div>
+                <dt>État dominant</dt>
+                <dd>{decorativeStateLabel(lifeView.dominantState)}</dd>
+              </div>
+            ) : null}
+          </dl>
+          {lifeView.visible.length > 0 ? (
+            <ul className="mg-worksite-life-drawer-list">
+              {lifeView.visible.map((entry) => (
+                <li key={entry.pet.id}>
+                  {entry.pet.emoji} {entry.pet.name} — {decorativeStateLabel(entry.state)}
+                </li>
+              ))}
+              {lifeView.overflow > 0 ? (
+                <li className="mg-worksite-myrion-overflow-inline">+{lifeView.overflow} autres</li>
+              ) : null}
+            </ul>
+          ) : (
+            <p className="mg-worksite-empty">Aucun Myrion assigné dans ce biome.</p>
+          )}
+        </div>
+      ),
+    },
+    {
       id: 'help',
       label: 'Aide',
       icon: '💡',
@@ -624,9 +682,6 @@ export function MyrionWorksiteGame({
       ),
     },
   ]
-
-  const assignedCompact = selectedAssigned.map((pet) => pet.emoji).join(' ') || '—'
-  const supervisionPct = Math.round((WORKSITE_SUPERVISION_MULT - 1) * 100)
 
   return (
     <MinigameFrame
@@ -716,6 +771,11 @@ export function MyrionWorksiteGame({
                   )
                 })}
               </div>
+              <WorksiteMyrionLifeLayer
+                activeBiomeId={activeBiomeId}
+                pets={pets}
+                worksite={worksite}
+              />
             </div>
 
             <button
