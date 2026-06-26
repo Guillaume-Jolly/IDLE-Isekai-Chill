@@ -99,6 +99,7 @@ import { HuntScene } from './HuntScene'
 
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
 import { MinigameSwitchPanel } from './MinigameSwitchPanel'
+import { SystemContextHint } from '../SystemContextHint'
 import './CaptureMobile.css'
 import { useIsMobileCapture } from '../../hooks/useMediaQuery'
 import { MYRION_REFUGE_DEBUG } from '../../data/myrionDebug'
@@ -1624,6 +1625,11 @@ export function FamiliarCaptureGame({
       >
 
         <div className="mg-capture-toolbar">
+          <SystemContextHint
+            preferCompanionId={activity.companionId}
+            systemId="hunt"
+            variant="inline"
+          />
           {flash ? <p className="mg-capture-flash mg-capture-flash--toast">{flash}</p> : null}
 
           <div className="mg-capture-hud">

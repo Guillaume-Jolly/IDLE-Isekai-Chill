@@ -10,7 +10,9 @@ import type { InventoryItem, InventorySection } from '../data/inventoryView'
 import type { MinigameSave } from '../data/minigameSave'
 import { RESOURCE_ICONS, type ResourceKey } from '../data/resources'
 import type { StatKey } from '../data/companionStats'
+import { SystemContextHint } from './SystemContextHint'
 import './InventoryPanel.css'
+import './onboardingHints.css'
 
 type InventoryPanelProps = {
   resources: Record<ResourceKey, number>
@@ -53,6 +55,7 @@ export function InventoryPanel(props: InventoryPanelProps) {
 
   return (
     <div className="inventory-panel">
+      <SystemContextHint systemId="inventory" variant="inline" />
       <section className="inventory-summary inventory-summary-compact">
         <article className="inventory-summary-chip">
           <span>📦</span>

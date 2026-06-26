@@ -5,6 +5,7 @@ import { RARITY_COLORS } from '../../data/wildFamiliars'
 import { useWanderingSprites } from '../../hooks/useWanderingSprites'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
 import { PalmonSprite } from './PalmonSprite'
+import { SystemContextHint } from '../SystemContextHint'
 
 export function PetSanctuaryGame({
   activity,
@@ -90,6 +91,7 @@ export function PetSanctuaryGame({
       status={status}
     >
       <div className="mg-pets">
+        <SystemContextHint preferCompanionId={activity.companionId} systemId="refuge" variant="inline" />
         <p className="mg-flash">
           Humeur moyenne {avgMood}/100 — soins {carePoints} — jamais de punition, promis.
         </p>

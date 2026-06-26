@@ -54,6 +54,7 @@ import { RefugeCarePanel, type BulkCareScope } from './RefugeCarePanel'
 import { RefugeCarePopover } from './RefugeCarePopover'
 import { RefugeCraftPanel } from './RefugeCraftPanel'
 import { RefugeSummaryPanel } from './RefugeSummaryPanel'
+import { SystemContextHint } from '../SystemContextHint'
 
 import './RefugeMobile.css'
 
@@ -817,6 +818,11 @@ export function DressageGame({
       <div className="mg-refuge mg-refuge-immersive mg-refuge-immersive--mobile">
         <div className="mg-refuge-layout">
           <div className="mg-refuge-body">
+            <SystemContextHint
+              preferCompanionId={activity.companionId}
+              systemId="refuge"
+              variant="inline"
+            />
             <HuntSideRail
               drawers={refugeDrawers}
               fabAriaLabel="Menu refuge"
