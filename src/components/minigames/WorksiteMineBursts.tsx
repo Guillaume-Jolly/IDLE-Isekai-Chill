@@ -2,7 +2,8 @@ import { type CSSProperties } from 'react'
 import { WorksiteOptionalImage } from './WorksiteVisuals'
 import type { WorksiteVisualAsset } from '../../data/myrionWorksiteVisuals'
 
-export const WORKSITE_MINE_BURST_MS = 2500
+export const WORKSITE_MINE_BURST_MS = 2200
+export const WORKSITE_MAX_MINE_BURSTS = 12
 
 export type WorksiteMineBurstRay = {
   id: string
@@ -17,6 +18,7 @@ export type WorksiteMineBurst = {
   top: string
   resourceEmoji: string
   resourceAsset: WorksiteVisualAsset
+  yieldLabel: string
   rays: WorksiteMineBurstRay[]
 }
 
@@ -42,16 +44,19 @@ export function WorksiteMineBursts({ bursts }: WorksiteMineBurstsProps) {
           }
         >
           <span className="mg-worksite-mine-burst-anchor">
-            <span className="mg-worksite-mine-burst-core">
-              <WorksiteOptionalImage
-                alt=""
-                aria-hidden
-                asset={burst.resourceAsset}
-                className="mg-worksite-mine-burst-img"
-              />
-              <span className="mg-worksite-mine-burst-emoji" aria-hidden>
-                {burst.resourceEmoji}
+            <span className="mg-worksite-mine-burst-stack">
+              <span className="mg-worksite-mine-burst-core">
+                <WorksiteOptionalImage
+                  alt=""
+                  aria-hidden
+                  asset={burst.resourceAsset}
+                  className="mg-worksite-mine-burst-img"
+                />
+                <span className="mg-worksite-mine-burst-emoji" aria-hidden>
+                  {burst.resourceEmoji}
+                </span>
               </span>
+              <span className="mg-worksite-mine-burst-yield">{burst.yieldLabel}</span>
             </span>
           </span>
           {burst.rays.map((ray) => (
@@ -104,7 +109,22 @@ export function markerBurstOrigin(
   return { left: `${leftPct}%`, top: `${topPct}%` }
 }
 
-const MINE_BURST_TRAVEL_PX = 32
+const MINE_BURST_TRAVEL_PX = 28
+
+function parsePercent(value: string): number {
+  return Number.parseFloat(value) || 50
+}
+
+/** Direction préférée vers le haut quand le filon est bas dans la scène. */
+function pickBurstAngleDeg(topPct: number): number {
+  if (topPct >= 72) {
+    return -150 + Math.random() * 120
+  }
+  if (topPct >= 58) {
+    return -170 + Math.random() * 200
+  }
+  return Math.random() * 360
+}
 
 /** Une animation par clic — un éclat part du filon dans une direction aléatoire. */
 export function createMineBurstRing(
@@ -112,16 +132,18 @@ export function createMineBurstRing(
   origin: MineBurstOrigin,
   resourceEmoji: string,
   resourceAsset: WorksiteVisualAsset,
+  yieldLabel: string,
 ): WorksiteMineBurst {
-  const angleDeg = Math.random() * 360
+  const topPct = parsePercent(origin.top)
+  const angleDeg = pickBurstAngleDeg(topPct)
   const angleRad = (angleDeg * Math.PI) / 180
-  const distance = MINE_BURST_TRAVEL_PX + Math.random() * 10
+  const distance = MINE_BURST_TRAVEL_PX + Math.random() * 8
   const rays: WorksiteMineBurstRay[] = [
     {
       id: 'ray-0',
       driftX: Math.cos(angleRad) * distance,
       driftY: Math.sin(angleRad) * distance,
-      rotate: angleDeg * 0.4,
+      rotate: angleDeg * 0.35,
     },
   ]
 
@@ -131,6 +153,7 @@ export function createMineBurstRing(
     top: origin.top,
     resourceEmoji,
     resourceAsset,
+    yieldLabel,
     rays,
   }
 }

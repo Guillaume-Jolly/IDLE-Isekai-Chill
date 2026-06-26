@@ -19,7 +19,7 @@ export const WORKSITE_LIFE_BUCKET_SEC = 60
 export const WORKSITE_LIFE_MAX_SPECIES = 15
 
 /** Taille chibi sur le panorama — visible sans masquer le décor. */
-export const WORKSITE_LIFE_CHIBI_BASE_REM = 2.55
+export const WORKSITE_LIFE_CHIBI_BASE_REM = 2.4
 
 export const WORKSITE_LIFE_CHIBI_RARITY_SCALE: Record<PalmonRarity, number> = {
   N: 0.86,
@@ -32,10 +32,10 @@ export const WORKSITE_LIFE_CHIBI_RARITY_SCALE: Record<PalmonRarity, number> = {
 
 /** Zone de balade principale (tout le biome, au-dessus des filons). */
 export const WORKSITE_FIELD_BOUNDS: EnclosureBounds = {
-  minX: 8,
-  maxX: 92,
-  minY: 22,
-  maxY: 68,
+  minX: 10,
+  maxX: 90,
+  minY: 24,
+  maxY: 62,
 }
 
 /** @deprecated Coins repos — décor uniquement */
@@ -60,7 +60,7 @@ export function worksiteSpotObstacles(spotCount: number): EnclosureObstacle[] {
   return Array.from({ length: spotCount }, (_, index) => {
     const t = spotCount <= 1 ? 0.5 : index / (spotCount - 1)
     const x = 12 + t * 76
-    return { x, y: 79, radius: 11 }
+    return { x, y: 81, radius: 12 }
   })
 }
 

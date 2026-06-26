@@ -66,7 +66,7 @@ import {
 } from '../../data/myrionWorksiteVisuals'
 import { HuntSideRail } from './HuntSideRail'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
-import { WorksiteMineBursts, WORKSITE_MINE_BURST_MS, createMineBurstRing, markerBurstOrigin, type WorksiteMineBurst } from './WorksiteMineBursts'
+import { WorksiteMineBursts, WORKSITE_MINE_BURST_MS, WORKSITE_MAX_MINE_BURSTS, createMineBurstRing, markerBurstOrigin, type WorksiteMineBurst } from './WorksiteMineBursts'
 import { WorksiteMyrionLifeLayer } from './WorksiteMyrionLifeLayer'
 import { PalmonSprite } from './PalmonSprite'
 import {
@@ -90,6 +90,17 @@ function formatYield(value: number) {
   if (value >= 10) return value.toFixed(1)
   if (value >= 1) return value.toFixed(2)
   return value.toFixed(3)
+}
+
+function formatMineYieldLabel(resourceId: ResourceKey, amount: number) {
+  const label = RESOURCE_LABELS[resourceId] ?? resourceId
+  const qty =
+    amount >= 1
+      ? Number.isInteger(amount)
+        ? String(amount)
+        : amount.toFixed(1)
+      : amount.toFixed(2)
+  return `+${qty} ${label}`
 }
 
 function mergeCosts(target: Cost, delta: Cost): Cost {
@@ -148,8 +159,10 @@ export function MyrionWorksiteGame({
   const [availableSectionOpen, setAvailableSectionOpen] = useState(true)
   const [mineBursts, setMineBursts] = useState<WorksiteMineBurst[]>([])
   const [spotWear, setSpotWear] = useState<Partial<Record<WorksiteSpotId, number>>>({})
+  const [recentMinedSpotId, setRecentMinedSpotId] = useState<WorksiteSpotId | null>(null)
   const mineBurstSeqRef = useRef(0)
   const mineBurstTimersRef = useRef<number[]>([])
+  const recentMineTimerRef = useRef<number | null>(null)
   const sceneStageRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<HTMLDivElement>(null)
   const markerRefs = useRef<Partial<Record<WorksiteSpotId, HTMLButtonElement>>>({})
@@ -252,6 +265,7 @@ export function MyrionWorksiteGame({
       spotId: WorksiteSpotId,
       resourceEmoji: string,
       resourceAsset: ReturnType<typeof getWorksiteResourceIconVisual>['asset'],
+      yieldLabel: string,
     ) => {
       const marker = markerRefs.current[spotId]
       const scene = sceneRef.current
@@ -259,8 +273,12 @@ export function MyrionWorksiteGame({
 
       const baseId = ++mineBurstSeqRef.current
       const origin = markerBurstOrigin(marker, scene)
-      const burst = createMineBurstRing(baseId, origin, resourceEmoji, resourceAsset)
-      setMineBursts((current) => [...current, burst])
+      const burst = createMineBurstRing(baseId, origin, resourceEmoji, resourceAsset, yieldLabel)
+      setMineBursts((current) => {
+        const next = [...current, burst]
+        if (next.length <= WORKSITE_MAX_MINE_BURSTS) return next
+        return next.slice(next.length - WORKSITE_MAX_MINE_BURSTS)
+      })
       const timer = window.setTimeout(() => {
         setMineBursts((current) => current.filter((entry) => entry.id !== burst.id))
         mineBurstTimersRef.current = mineBurstTimersRef.current.filter((id) => id !== timer)
@@ -272,12 +290,16 @@ export function MyrionWorksiteGame({
 
   useEffect(() => {
     setSpotWear({})
+    setRecentMinedSpotId(null)
   }, [activeBiomeId])
 
   useEffect(() => {
     return () => {
       for (const timer of mineBurstTimersRef.current) {
         window.clearTimeout(timer)
+      }
+      if (recentMineTimerRef.current != null) {
+        window.clearTimeout(recentMineTimerRef.current)
       }
     }
   }, [])
@@ -302,10 +324,23 @@ export function MyrionWorksiteGame({
           [spotKey]: (current.totalProducedBySpot[spotKey] ?? 0) + yieldAmount,
         },
       })
-      onComplete(1, 1, { [spot.resourceId]: yieldAmount }, { keepOpen: true, silent: false })
+      onComplete(1, 1, { [spot.resourceId]: yieldAmount }, { keepOpen: true, silent: true })
       setSessionClicks((value) => value + 1)
       setSpotWear((wear) => ({ ...wear, [spotId]: (wear[spotId] ?? 0) + 1 }))
-      spawnMineBursts(spotId, burstEmoji, resourceVisual.asset)
+      setRecentMinedSpotId(spotId)
+      if (recentMineTimerRef.current != null) {
+        window.clearTimeout(recentMineTimerRef.current)
+      }
+      recentMineTimerRef.current = window.setTimeout(() => {
+        setRecentMinedSpotId((current) => (current === spotId ? null : current))
+        recentMineTimerRef.current = null
+      }, 1600)
+      spawnMineBursts(
+        spotId,
+        burstEmoji,
+        resourceVisual.asset,
+        formatMineYieldLabel(spot.resourceId, yieldAmount),
+      )
     },
     [activeBiomeId, onComplete, persist, spawnMineBursts],
   )
@@ -567,6 +602,7 @@ export function MyrionWorksiteGame({
   const spotWearLevel = (spotId: WorksiteSpotId) => Math.min(5, (spotWear[spotId] ?? 0) % 6)
   const biomeSpeciesCount = assignedSpeciesGroups.length
   const biomeSpeciesSlotsLeft = Math.max(0, WORKSITE_LIFE_MAX_SPECIES - biomeSpeciesCount)
+  const biomeResourceVisual = getWorksiteResourceIconVisual(biomeReferenceSpot.resourceId)
   const biomeResourceLabel = RESOURCE_LABELS[biomeReferenceSpot.resourceId] ?? biomeReferenceSpot.resourceId
   const supervisionPct = Math.round((WORKSITE_SUPERVISION_MULT - 1) * 100)
   const lifePlan = useMemo(
@@ -1093,15 +1129,29 @@ export function MyrionWorksiteGame({
                 />
                 <div className="mg-worksite-sky" />
                 <div className="mg-worksite-hills" />
+                <div
+                  className={`mg-worksite-biome-resource-chip mg-worksite-biome-resource-chip--${biomeReferenceSpot.resourceId}`}
+                  title={`Ressource du biome : ${biomeResourceLabel}`}
+                >
+                  <WorksiteResourceIcon
+                    asset={biomeResourceVisual.asset}
+                    className="mg-worksite-biome-resource-chip-icon"
+                    emoji={biomeResourceVisual.fallbackEmoji}
+                    label={biomeResourceLabel}
+                  />
+                  <span>{biomeResourceLabel}</span>
+                </div>
                 <div className="mg-worksite-spot-markers">
                   {activeSpots.map((spot) => {
                     const spotVisual = getWorksiteSpotVisual(spot.id)
                     const locked = !isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id)
                     const wear = spotWearLevel(spot.id)
+                    const recent = recentMinedSpotId === spot.id
+                    const spotResourceVisual = getWorksiteResourceIconVisual(spot.resourceId)
                     return (
                       <button
                         aria-label={`Miner ${spot.name}`}
-                        className={`${worksiteSpotMarkerClassNames(spot.id, false, locked)} mg-worksite-marker--wear-${wear}`}
+                        className={`${worksiteSpotMarkerClassNames(spot.id, recent, locked)} mg-worksite-marker--wear-${wear}${recent ? ' mg-worksite-marker--recent' : ''}${locked ? ' mg-worksite-marker--locked' : ''}`}
                         disabled={locked}
                         key={spot.id}
                         ref={(node) => {
@@ -1117,6 +1167,19 @@ export function MyrionWorksiteGame({
                           emoji={spot.emoji}
                           name={spot.name}
                         />
+                        <span className="mg-worksite-marker-resource" aria-hidden>
+                          <WorksiteResourceIcon
+                            asset={spotResourceVisual.asset}
+                            className="mg-worksite-marker-resource-icon"
+                            emoji={spotResourceVisual.fallbackEmoji}
+                            label={RESOURCE_LABELS[spot.resourceId] ?? spot.resourceId}
+                          />
+                        </span>
+                        {locked ? (
+                          <span aria-hidden className="mg-worksite-marker-lock">
+                            🔒
+                          </span>
+                        ) : null}
                       </button>
                     )
                   })}
