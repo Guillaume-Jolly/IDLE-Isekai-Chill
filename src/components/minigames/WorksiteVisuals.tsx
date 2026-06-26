@@ -37,17 +37,24 @@ export function WorksiteOptionalImage({
 type WorksiteBiomeBackgroundProps = {
   asset: WorksiteVisualAsset
   label: string
+  biomeId?: string
   className?: string
 }
 
-export function WorksiteBiomeBackground({ asset, label, className }: WorksiteBiomeBackgroundProps) {
+export function WorksiteBiomeBackground({ asset, label, biomeId, className }: WorksiteBiomeBackgroundProps) {
   const style: CSSProperties | undefined =
     asset.available && asset.path
       ? ({ ['--mg-worksite-bg-image' as string]: `url(${asset.path})` } as CSSProperties)
       : undefined
 
+  const biomeClass = biomeId ? `mg-worksite-biome-background--${biomeId}` : ''
+
   return (
-    <div aria-hidden className={`mg-worksite-biome-background ${className ?? ''}`.trim()} style={style}>
+    <div
+      aria-hidden
+      className={`mg-worksite-biome-background ${biomeClass} ${className ?? ''}`.trim()}
+      style={style}
+    >
       <WorksiteOptionalImage
         asset={asset}
         alt=""

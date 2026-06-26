@@ -153,8 +153,8 @@
 
 .mg-worksite-marker {
   position: relative;
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 3.35rem;
+  height: 3.35rem;
   border-radius: 999px;
   border: 2px solid rgba(255, 255, 255, 0.5);
   background: rgba(0, 0, 0, 0.25);
@@ -988,14 +988,36 @@
   pointer-events: none;
   background-image: var(--mg-worksite-bg-image, none);
   background-size: cover;
-  background-position: center;
+  background-position: center 72%;
+  overflow: hidden;
 }
 
 .mg-worksite-biome-background-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 72%;
   display: block;
+  transform: scale(1.04);
+  transform-origin: center 82%;
+}
+
+.mg-worksite-biome-background--prairie-chantier,
+.mg-worksite-biome-background--prairie-chantier .mg-worksite-biome-background-img {
+  object-position: center 74%;
+  background-position: center 74%;
+}
+
+.mg-worksite-biome-background--foret-douce,
+.mg-worksite-biome-background--foret-douce .mg-worksite-biome-background-img {
+  object-position: center 68%;
+  background-position: center 68%;
+}
+
+.mg-worksite-biome-background--mine-tranquille,
+.mg-worksite-biome-background--mine-tranquille .mg-worksite-biome-background-img {
+  object-position: center 64%;
+  background-position: center 64%;
 }
 
 .mg-worksite-bg--prairie {
@@ -1045,7 +1067,9 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: center bottom;
   pointer-events: none;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.38));
 }
 
 .mg-worksite-spot-object-emoji {
@@ -1364,10 +1388,10 @@
   left: 50%;
   top: 0.35rem;
   transform: translateX(-50%);
-  width: 2rem;
-  height: 2rem;
+  width: 1.85rem;
+  height: 1.85rem;
   object-fit: contain;
-  opacity: 0.62;
+  opacity: 0.52;
 }
 
 .mg-worksite-myrion-worker {

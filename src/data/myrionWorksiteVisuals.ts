@@ -187,7 +187,7 @@ export const WORKSITE_SPOT_VISUALS: Record<WorksiteSpotVisualId, WorksiteSpotVis
   },
   pierrier: {
     id: 'pierrier',
-    asset: asset('spots', 'potager.png', 'mg-worksite-spot-object--pierrier', false),
+    asset: asset('spots', 'pierrier.png', 'mg-worksite-spot-object--pierrier', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--pierrier',
   },
