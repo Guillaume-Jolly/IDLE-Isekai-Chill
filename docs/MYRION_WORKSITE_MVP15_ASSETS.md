@@ -90,9 +90,9 @@ Contrôles automatiques :
 | `spots/montagne-courants-captifs.png` | Silhouette légère — OK mobile |
 | Anciens `swamp/crystal/astral` 1536×1024 | Remplacés par wide 2560×960 |
 
-## Risques MVP 16
+## Dettes MVP 16+
 
-- Placement visuel des 3 filons par biome (slots catalogue) pas encore appliqué en CSS absolu
+- Placement visuel des 3 filons par biome (slots catalogue) — **fait MVP 16** → `docs/MYRION_WORKSITE_MVP16_PLACEMENT.md`
 - 45 composants catalog-only restent sans asset dédié
 - `astral.png` partagé sanctuaire + alias visuel faille — divergence possible MVP 16
 
@@ -100,7 +100,8 @@ Contrôles automatiques :
 
 - [x] `npm run build`
 - [x] Registry 61 assets
-- [ ] Smoke navigateur 15 biomes (fonds + filons)
+- [x] HTTP 200 sur échantillon assets (swamp, rivage, ile, marais spot, prairie)
+- [ ] Smoke navigateur interactif 15 biomes (automatisé bloqué — test manuel conseillé)
 - [ ] Mobile 390 px rapide
 
 ## Commits locaux (sans push)

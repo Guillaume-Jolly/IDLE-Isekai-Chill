@@ -210,6 +210,13 @@ MVP 9 : wide backgrounds + faille/crystal via script dédié. Legacy : spots/ico
 Script : `python scripts/mvp15-install-worksite-assets.py`  
 Détail : `docs/MYRION_WORKSITE_MVP15_ASSETS.md`
 
+## MVP 16 — placement visuel (2026-06-26)
+
+- Placement absolu 45 filons via `myrionWorksitePlacement.ts`
+- Dev unlock : `?worksiteDevUnlock=1` (DEV only)
+- Overlay : `?worksitePlacementDebug=1`
+- Détail : `docs/MYRION_WORKSITE_MVP16_PLACEMENT.md`
+
 ## Recommandations sélection finale
 
 1. Comparer les 3 fonds en jeu — choisir si gradient legacy reste visible en bordure
