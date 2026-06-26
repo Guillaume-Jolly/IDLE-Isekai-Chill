@@ -197,6 +197,19 @@ MVP 9 : wide backgrounds + faille/crystal via script dédié. Legacy : spots/ico
 - [x] Regénération wide backgrounds (MVP 9)
 - [ ] Mobile exhaustif multi-tailles
 
+## MVP 15 — extension 15 biomes (2026-06-26)
+
+| Lot | Quantité | Statut |
+|-----|----------|--------|
+| Backgrounds régénérés / nouveaux | 12 | **OK** — 2560×960 |
+| Backgrounds legacy conservés | 3 | **OK** — prairie/forest/mine |
+| Filons actifs extension | 36 | **OK** — 1024×1024 RGBA |
+| Filons legacy biomes 1–3 | 9 | **OK** — inchangés |
+| Registry `myrionWorksiteAssetRegistry.ts` | 61 activés | **OK** |
+
+Script : `python scripts/mvp15-install-worksite-assets.py`  
+Détail : `docs/MYRION_WORKSITE_MVP15_ASSETS.md`
+
 ## Recommandations sélection finale
 
 1. Comparer les 3 fonds en jeu — choisir si gradient legacy reste visible en bordure
