@@ -60,3 +60,73 @@ npm run dev -- --host 0.0.0.0
 - Un seul biome : Prairie du chantier.
 - Pas de production offline longue.
 - Pas d’actions manger / dormir / repos.
+
+---
+
+## Validation pré-push (2026-06-26)
+
+### Git / isolation
+
+| Vérification | Résultat |
+|--------------|----------|
+| Branche | `feature/myrion-worksite-mvp1` |
+| Commits vs `main` | **5 commits**, **10 fichiers** — périmètre Worksite uniquement |
+| `buildingActivities.ts` | ✅ Type `myrion-worksite` + entrée `farm-worksite` seulement |
+| Working tree local | ⚠️ Nombreux changements **non commités** (story, assets, toasts…) — **hors push** |
+
+### Build / lint
+
+| Commande | Résultat |
+|----------|----------|
+| `npm run build` | ✅ OK |
+| ESLint ciblé (fichiers Worksite) | ✅ OK |
+| `npm run lint` global | ❌ Erreurs préexistantes hors périmètre |
+
+### Runtime (agent)
+
+| Test | Résultat |
+|------|----------|
+| Dev server | ✅ `http://localhost:5173/` · réseau `http://192.168.1.18:5173/` |
+| Jeu charge (village) | ✅ |
+| Hub mini-jeux + titre « Chantier Myrion » | ✅ (session précédente) |
+| Parcours complet in-game (clic, assign, reload) | ☐ Non terminé par l’agent — **à valider manuellement** |
+| Mobile réel | ☐ Non testé par l’agent |
+
+### Correctif post-audit
+
+- **Save auto batchée** : production calculée chaque seconde, persistance max toutes les 5 s (+ flush au unmount et actions utilisateur immédiates). Commit : `fix(minigames): stabilize myrion worksite mvp1`.
+
+### Tests faits (automatisés)
+
+1. Diff `main...HEAD` — 10 fichiers Worksite seulement  
+2. Audit `buildingActivities.ts` — pas de compagnons/story  
+3. Build production  
+4. Lint ciblé Worksite  
+5. Dev server accessible (local + réseau)
+
+### Tests non faits (utilisateur)
+
+1. Clic/tap sur les 3 spots avec vérif ressources village  
+2. Assignation / retrait Myrion + production auto observée  
+3. Reload F5 (assignations + totaux)  
+4. Mobile ≤767px  
+5. Régression chasse / refuge / inventaire  
+6. Console sans erreur / sans « Maximum update depth exceeded »  
+7. `npm run validate:link-corpus`
+
+### Problèmes restants
+
+- Gains fractionnels peu visibles dans la barre ressources.  
+- Toasts récompense en mode `silent` pendant l’auto (volontaire MVP 1).  
+- Working tree sale localement — ne pas confondre avec le contenu de la branche pushée.
+
+### Décision push
+
+**Recommandé** pour les commits Worksite (après ton smoke test manuel rapide).  
+Commande proposée (non exécutée) :
+
+```bash
+git push -u origin feature/myrion-worksite-mvp1
+```
+
+**Ne pas push** les modifications locales non commitées (toasts, story, assets, etc.) — elles restent sur ta machine uniquement tant qu’elles ne sont pas commitées.
