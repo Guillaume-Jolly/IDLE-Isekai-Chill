@@ -64,6 +64,13 @@ import {
   worksiteSpotObjectClassNames,
   WORKSITE_UI_VISUALS,
 } from '../../data/myrionWorksiteVisuals'
+import {
+  playWorksiteDrawerOpen,
+  playWorksiteMine,
+  playWorksiteUnlock,
+  startWorksiteBiomeAmbience,
+  stopWorksiteBiomeAmbience,
+} from '../../audio/worksiteAudio'
 import { HuntSideRail } from './HuntSideRail'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
 import { WorksiteMineBursts, WORKSITE_MINE_BURST_MS, WORKSITE_MAX_MINE_BURSTS, createMineBurstRing, markerBurstOrigin, type WorksiteMineBurst } from './WorksiteMineBursts'
@@ -199,11 +206,19 @@ export function MyrionWorksiteGame({
     }
   }, [isMobile])
 
+  const handleDrawerOpenChange = useCallback((next: string | null) => {
+    if (next && next !== openDrawer) {
+      playWorksiteDrawerOpen()
+    }
+    setOpenDrawer(next)
+  }, [openDrawer])
+
   const applyProgression = useCallback((base: MyrionWorksiteSave): MyrionWorksiteSave => {
     const { worksite: evaluated, events } = evaluateWorksiteUnlocks(base)
     const fresh = events.filter((event) => !evaluated.seenUnlockNotificationIds.includes(event.id))
     if (fresh.length > 0) {
       setUnlockNotices(fresh.map((event) => ({ id: event.id, label: event.label })))
+      playWorksiteUnlock()
       window.setTimeout(() => setUnlockNotices([]), 4500)
       return markUnlockNotificationsSeen(
         evaluated,
@@ -250,6 +265,11 @@ export function MyrionWorksiteGame({
   )
   const activeSpots = getSpotsForBiome(activeBiomeId)
   const progressTotals = worksiteResourceTotals(worksite)
+
+  useEffect(() => {
+    startWorksiteBiomeAmbience(activeBiomeId)
+    return () => stopWorksiteBiomeAmbience()
+  }, [activeBiomeId])
 
   useEffect(() => {
     setAssignPage(0)
@@ -341,6 +361,7 @@ export function MyrionWorksiteGame({
         resourceVisual.asset,
         formatMineYieldLabel(spot.resourceId, yieldAmount),
       )
+      playWorksiteMine(spot.resourceId)
     },
     [activeBiomeId, onComplete, persist, spawnMineBursts],
   )
@@ -1085,7 +1106,7 @@ export function MyrionWorksiteGame({
             menuTitle="Chantier"
             openId={openDrawer}
             onCloseMinigame={onClose}
-            onOpenChange={setOpenDrawer}
+            onOpenChange={handleDrawerOpenChange}
           />
           <div
             className={`mg-worksite-scene-wrap${drawerOpen ? '' : ' mg-worksite-scene-wrap--fullscreen'}`}
@@ -1125,6 +1146,7 @@ export function MyrionWorksiteGame({
               >
                 <WorksiteBiomeBackground
                   asset={getWorksiteBiomeVisual(activeBiomeId).background}
+                  biomeId={activeBiomeId}
                   label={activeBiome.label}
                 />
                 <div className="mg-worksite-sky" />
