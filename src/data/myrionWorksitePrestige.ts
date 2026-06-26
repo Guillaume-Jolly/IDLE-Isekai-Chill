@@ -44,7 +44,7 @@ export const WORKSITE_PRESTIGE_CONFIG = {
 
 export const WORKSITE_PRESTIGE_SPOT_VISUAL = {
   path: `${MYRION_WORKSITE_ASSET_ROOT}/spots/faille-astrale.png`,
-  available: false,
+  available: true,
   placeholderClass: 'mg-worksite-spot-object--faille-astrale',
 } satisfies WorksiteVisualAsset
 

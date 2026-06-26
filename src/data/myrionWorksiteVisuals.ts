@@ -247,7 +247,7 @@ export const WORKSITE_SPOT_VISUALS: Record<WorksiteSpotVisualId, WorksiteSpotVis
   },
   'faille-astrale': {
     id: 'faille-astrale',
-    asset: asset('spots', 'faille-astrale.png', 'mg-worksite-spot-object--faille-astrale'),
+    asset: asset('spots', 'faille-astrale.png', 'mg-worksite-spot-object--faille-astrale', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--faille-astrale',
   },
