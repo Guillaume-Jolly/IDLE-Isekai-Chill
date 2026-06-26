@@ -420,6 +420,74 @@ animé), génèrent des bonus et ne « s'ennuient » plus si occupés.
 
 ---
 
+### Tiles Survive!-like — expansion par tuiles / refuge-survie
+
+**Statut :** idée — inspiration à garder pour plus tard  
+**Inspiration :** *Tiles Survive!* (FunPlus, mobile Android/iOS), survival-builder
+sur grille de tuiles.
+
+**Infos publiques trouvées en ligne (à revalider par playtest avant design final) :**
+
+- Jeu mobile strategy / survival publié par FunPlus International AG, disponible
+  Android et iOS.
+- Boucle centrale : explorer / débloquer des **tuiles**, récupérer ressources,
+  construire et améliorer un abri, connecter l'électricité pour accélérer la production.
+- Gestion des survivants : assigner des rôles (chasseur, cuisinier, bûcheron...),
+  surveiller santé / moral, optimiser les workflows.
+- Progression multi-cartes : biomes variés, collectibles / souvenirs, loot à ramener
+  pour décorer ou améliorer le camp.
+- Couche héros / social : recruter des héros avec compétences, alliances entre joueurs,
+  menaces communes (zombies, météo, créatures sauvages selon les sources).
+- Signal **IA non officiel** : plusieurs avis utilisateurs / agrégateurs mentionnent
+  voix, personnages, animations ou dialogues perçus comme générés par IA, ainsi que des
+  pubs jugées éloignées du gameplay réel. À traiter comme retour marché à confirmer,
+  pas comme fait officiel FunPlus.
+
+**Pitch Wonderland :** mode refuge / exploration où le joueur révèle progressivement
+des tuiles autour du Havre : chaque tuile découvre un mini-biome, une ressource, une
+menace douce ou un emplacement de bâtiment. Les Myrions et compagnons ne sont pas des
+survivants post-apo, mais des habitants du refuge qui assainissent / aménagent le
+territoire.
+
+**Pistes de design :**
+
+- Carte en grille claire, mobile-friendly, avec brouillard ou brume à lever tuile par
+  tuile.
+- Coût d'exploration : énergie, outils, faveur biome ou équipe Myrions assignée.
+- Chaque tuile peut contenir : ressource, décor, mini-événement, Myrion sauvage,
+  bâtiment refuge, obstacle à nettoyer, bonus de production.
+- **Énergie / réseau cozy** : remplacer la centrale électrique post-apo par une source
+  magique du Havre (cristal, moulin, source chaude, arbre-monde) qui alimente les zones
+  de production.
+- Assignation : compagnons donnent des bonus de rôle, Myrions exploitent les tuiles
+  selon biome / rareté / trait.
+- Boucle idle : explorer → assigner → produire / nettoyer → améliorer → débloquer une
+  nouvelle bordure de tuiles.
+- Collectibles décoratifs : souvenirs de biome à placer dans le refuge / village,
+  avec petits bonus de joie, affinité ou production.
+- Garder le ton cozy : pas de zombies, pas de punition dure ; les "menaces" deviennent
+  brouillard, ronces, esprits farceurs, météo, nuisibles mignons ou mini-boss de biome.
+
+**Questions ouvertes :**
+
+- Mode lié au refuge Myrions, au village global, ou à un nouvel onglet "Exploration" ?
+- Carte permanente à long terme ou saisons / maps temporaires ?
+- Progression par compagnon guide (Talia explore, Runa construit, Sora soigne) ?
+- Jusqu'où pousser l'automatisation sans créer un deuxième jeu de gestion trop lourd ?
+- Faut-il éviter explicitement les éléments IA low-cost perçus négativement par les
+  joueurs de Tiles Survive! (voix TTS, art incohérent, pubs qui ne correspondent pas) ?
+
+**Sources publiques consultées :**
+
+- FunPlus — page jeu : `https://funplus.com/games/tiles-survive/`
+- FunPlus — annonce lancement : `https://funplus.com/tiles-survive-new-mobile-strategy-game/`
+- Google Play — fiche `com.funplus.ts.global`
+- App Store — fiche `Tiles Survive!`
+- Articles / guides secondaires consultés : Pocket Gamer, GamingOnPhone, BlueStacks,
+  GameBrain / avis utilisateurs (pour le signal IA uniquement).
+
+---
+
 ## Event Disagrea — compagnons invités
 
 ### Pleinair — paliers affinité 2–5 (proximité enfant)

@@ -14,6 +14,7 @@ This backlog captures ideas that should not be coded automatically unless moved 
 6. Racing prototype.
 7. Combat prototype.
 8. Dungeon / advanced exploration.
+9. **Tiles Survive!-like tile expansion** — later design inspiration for cozy refuge / territory expansion: uncover tiles, assign companions + Myrions, produce resources, power zones through a Havre magic source, and avoid low-quality AI/ads mismatch pitfalls noted in public user feedback. See `docs/BACKLOG.md` § Tiles Survive!-like — expansion par tuiles / refuge-survie.
 
 ## Passive Production
 
