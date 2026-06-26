@@ -209,20 +209,20 @@ export function MyrionWorksiteGame({
       let granted = false
       const produced = { ...current.totalProducedBySpot }
       const sharedLastTick = current.lastAutoTickAt
-      const biomeId = current.activeBiomeId
 
-      for (const spot of getSpotsForBiome(biomeId)) {
-        const assigned = worksiteAssignedPets(current, biomeId, spot.id, currentPets)
+      for (const { biomeId, spotId, spot } of iterUnlockedWorksiteSpots(current)) {
+        const assigned = worksiteAssignedPets(current, biomeId, spotId, currentPets)
+        const supervised = biomeId === current.activeBiomeId ? WORKSITE_SUPERVISION_MULT : 1
         const grant = computeWorksiteAutoGrant(
           spot,
           assigned,
           sharedLastTick,
           now,
-          WORKSITE_SUPERVISION_MULT,
+          supervised,
         )
         if (grant.amount > 0) {
           combined = mergeCosts(combined, grant.reward)
-          const key = worksiteSpotKey(biomeId, spot.id)
+          const key = worksiteSpotKey(biomeId, spotId)
           produced[key] = (produced[key] ?? 0) + grant.amount
           granted = true
         }
