@@ -1,4 +1,5 @@
 /** Biomes, spots et save — partagés sans dépendance circulaire (progression ↔ worksite). */
+/** Catalogue étendu 15 biomes : voir myrionWorksiteBiomeCatalog.ts (MVP 13). */
 
 export const WORKSITE_BIOME_IDS = [
   'prairie-chantier',
@@ -29,21 +30,21 @@ export type WorksiteBiomeDef = {
 export const WORKSITE_BIOMES: Record<WorksiteBiomeId, WorksiteBiomeDef> = {
   'prairie-chantier': {
     id: 'prairie-chantier',
-    label: 'Prairie du chantier',
+    label: 'Prairie lunaire',
     emoji: '🌾',
     panoramaClass: 'mg-worksite-scene--prairie',
     spotIds: ['bosquet', 'pierrier', 'champs'],
   },
   'foret-douce': {
     id: 'foret-douce',
-    label: 'Forêt douce',
+    label: 'Forêt mousseuse',
     emoji: '🌲',
     panoramaClass: 'mg-worksite-scene--foret',
     spotIds: ['sous-bois', 'clairiere-herbes', 'source-claire'],
   },
   'mine-tranquille': {
     id: 'mine-tranquille',
-    label: 'Mine tranquille',
+    label: 'Mine douce',
     emoji: '⛏️',
     panoramaClass: 'mg-worksite-scene--mine',
     spotIds: ['pierrier-profond', 'veine-brute', 'charbonniere'],
