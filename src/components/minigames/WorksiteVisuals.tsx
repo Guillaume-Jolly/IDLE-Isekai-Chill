@@ -39,13 +39,28 @@ type WorksiteBiomeBackgroundProps = {
   label: string
   biomeId?: string
   className?: string
+  /** MVP 16 — cadrage fond (ex. center 68%). */
+  objectPosition?: string
 }
 
-export function WorksiteBiomeBackground({ asset, label, biomeId, className }: WorksiteBiomeBackgroundProps) {
+export function WorksiteBiomeBackground({
+  asset,
+  label,
+  biomeId,
+  className,
+  objectPosition,
+}: WorksiteBiomeBackgroundProps) {
   const style: CSSProperties | undefined =
     asset.available && asset.path
-      ? ({ ['--mg-worksite-bg-image' as string]: `url(${asset.path})` } as CSSProperties)
-      : undefined
+      ? ({
+          ['--mg-worksite-bg-image' as string]: `url(${asset.path})`,
+          ...(objectPosition
+            ? { backgroundPosition: objectPosition, ['--mg-worksite-bg-position' as string]: objectPosition }
+            : {}),
+        } as CSSProperties)
+      : objectPosition
+        ? ({ backgroundPosition: objectPosition } as CSSProperties)
+        : undefined
 
   const biomeClass = biomeId ? `mg-worksite-biome-background--${biomeId}` : ''
 
@@ -60,6 +75,7 @@ export function WorksiteBiomeBackground({ asset, label, biomeId, className }: Wo
         alt=""
         aria-hidden
         className="mg-worksite-biome-background-img"
+        style={objectPosition ? { objectPosition } : undefined}
       />
       <span className="visually-hidden">{label}</span>
     </div>

@@ -68,6 +68,18 @@ import {
   worksitePetIsBusy,
 } from '../../data/myrionWorksitePrestige'
 import {
+  readWorksiteDevUnlockAll,
+  readWorksitePlacementDebug,
+  setWorksiteDevUnlockAll,
+  setWorksitePlacementDebug,
+  isWorksiteDevEnvironment,
+} from '../../data/myrionWorksiteDev'
+import {
+  getWorksiteBiomeBackgroundFrame,
+  resolveWorksiteSpotPlacement,
+  worksiteSpotPlacementStyle,
+} from '../../data/myrionWorksitePlacement'
+import {
   loadWorksiteMonitoringMode,
   saveWorksiteMonitoringMode,
 } from '../../data/myrionWorksiteUi'
@@ -107,6 +119,7 @@ import {
   WorksiteResourceIcon,
   WorksiteSpotObject,
 } from './WorksiteVisuals'
+import { WorksitePlacementDebug } from './WorksitePlacementDebug'
 import './Worksite.css'
 
 const AUTO_TICK_MS = 1000
@@ -162,6 +175,31 @@ function useMobileDrawerDefault() {
   return isMobile
 }
 
+function useWorksiteDevFlags() {
+  const [devUnlockAll, setDevUnlockAll] = useState(readWorksiteDevUnlockAll)
+  const [placementDebug, setPlacementDebug] = useState(readWorksitePlacementDebug)
+
+  const toggleDevUnlock = useCallback(() => {
+    const next = !readWorksiteDevUnlockAll()
+    setWorksiteDevUnlockAll(next)
+    setDevUnlockAll(next)
+  }, [])
+
+  const togglePlacementDebug = useCallback(() => {
+    const next = !readWorksitePlacementDebug()
+    setWorksitePlacementDebug(next)
+    setPlacementDebug(next)
+  }, [])
+
+  return {
+    devUnlockAll,
+    placementDebug,
+    toggleDevUnlock,
+    togglePlacementDebug,
+    devEnabled: isWorksiteDevEnvironment(),
+  }
+}
+
 export function MyrionWorksiteGame({
   activity,
   companionName,
@@ -174,6 +212,8 @@ export function MyrionWorksiteGame({
   onClose,
 }: MinigameProps) {
   const isMobile = useMobileDrawerDefault()
+  const { devUnlockAll, placementDebug, toggleDevUnlock, togglePlacementDebug, devEnabled } =
+    useWorksiteDevFlags()
   const pets = useMemo(() => minigameSave?.pets ?? [], [minigameSave?.pets])
   const [worksite, setWorksite] = useState<MyrionWorksiteSave>(() =>
     mergeMyrionWorksite(minigameSave?.myrionWorksite),
@@ -331,9 +371,20 @@ export function MyrionWorksiteGame({
   }, [activeBiomeId])
 
   const selectBiome = (biomeId: WorksiteBiomeId) => {
-    if (!worksite.unlockedBiomeIds.includes(biomeId)) return
+    if (!devUnlockAll && !worksite.unlockedBiomeIds.includes(biomeId)) return
     persist({ ...worksite, activeBiomeId: biomeId })
   }
+
+  const biomeUnlockedForUi = useCallback(
+    (biomeId: WorksiteBiomeId) => devUnlockAll || isWorksiteBiomeUnlocked(worksite, biomeId),
+    [devUnlockAll, worksite],
+  )
+
+  const spotUnlockedForUi = useCallback(
+    (biomeId: WorksiteBiomeId, spotId: WorksiteSpotId) =>
+      devUnlockAll || isWorksiteSpotUnlocked(worksite, biomeId, spotId),
+    [devUnlockAll, worksite],
+  )
 
   const spawnMineBursts = useCallback(
     (
@@ -382,7 +433,7 @@ export function MyrionWorksiteGame({
   const handleSpotMine = useCallback(
     (spotId: WorksiteSpotId) => {
       const current = worksiteRef.current
-      if (!isWorksiteSpotUnlocked(current, activeBiomeId, spotId)) return
+      if (!spotUnlockedForUi(activeBiomeId, spotId)) return
 
       const spot = getWorksiteSpot(activeBiomeId, spotId)
       const assigned = worksiteAssignedPets(current, activeBiomeId, spotId, petsRef.current)
@@ -418,7 +469,7 @@ export function MyrionWorksiteGame({
       )
       playWorksiteMine(spot.resourceId)
     },
-    [activeBiomeId, onComplete, persist, spawnMineBursts],
+    [activeBiomeId, onComplete, persist, spawnMineBursts, spotUnlockedForUi],
   )
 
   const handleSpotPointerDown = useCallback(
@@ -751,10 +802,28 @@ export function MyrionWorksiteGame({
       content: (
         <div className="mg-worksite-drawer-section">
           <p className="mg-worksite-drawer-lead">Choisir le biome affiché — {WORKSITE_BIOME_IDS.length} biomes</p>
+          {devEnabled ? (
+            <div className="mg-worksite-dev-tools" role="group" aria-label="Outils dev Ferme lunaire">
+              <button
+                className={`mg-worksite-dev-btn${devUnlockAll ? ' active' : ''}`}
+                type="button"
+                onClick={toggleDevUnlock}
+              >
+                {devUnlockAll ? 'Dev unlock ON' : 'Dev unlock OFF'}
+              </button>
+              <button
+                className={`mg-worksite-dev-btn${placementDebug ? ' active' : ''}`}
+                type="button"
+                onClick={togglePlacementDebug}
+              >
+                Placement debug
+              </button>
+            </div>
+          ) : null}
           <ul className="mg-worksite-biome-list">
             {WORKSITE_BIOME_IDS.map((biomeId) => {
               const biome = WORKSITE_BIOMES[biomeId]
-              const unlocked = isWorksiteBiomeUnlocked(worksite, biomeId)
+              const unlocked = biomeUnlockedForUi(biomeId)
               const hint = getBiomeUnlockHint(biomeId)
               return (
                 <li key={biomeId}>
@@ -1312,7 +1381,7 @@ export function MyrionWorksiteGame({
               <div className="mg-worksite-monitor-biomes" role="group" aria-label="Biome affiché">
                 {WORKSITE_BIOME_IDS.map((biomeId) => {
                   const biome = WORKSITE_BIOMES[biomeId]
-                  const unlocked = isWorksiteBiomeUnlocked(worksite, biomeId)
+                  const unlocked = biomeUnlockedForUi(biomeId)
                   return (
                     <button
                       className={`mg-worksite-monitor-biome-btn${activeBiomeId === biomeId ? ' active' : ''}`}
@@ -1416,6 +1485,7 @@ export function MyrionWorksiteGame({
                   asset={getWorksiteBiomeVisual(activeBiomeId).background}
                   biomeId={activeBiomeId}
                   label={activeBiome.label}
+                  objectPosition={getWorksiteBiomeBackgroundFrame(activeBiomeId).objectPosition}
                 />
                 <div className="mg-worksite-sky" />
                 <div className="mg-worksite-hills" />
@@ -1446,20 +1516,23 @@ export function MyrionWorksiteGame({
                 <div className="mg-worksite-spot-markers">
                   {activeSpots.map((spot) => {
                     const spotVisual = getWorksiteSpotVisual(spot.id)
-                    const locked = !isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id)
+                    const locked = !spotUnlockedForUi(activeBiomeId, spot.id)
+                    const placement = resolveWorksiteSpotPlacement(activeBiomeId, spot.id, isMobile)
+                    const placementStyle = placement ? worksiteSpotPlacementStyle(placement) : undefined
                     const wear = spotWearLevel(spot.id)
                     const recent = recentMinedSpotId === spot.id
                     const spotResourceVisual = getWorksiteResourceIconVisual(spot.resourceId)
                     return (
                       <button
                         aria-label={`Miner ${spot.name}`}
-                        className={`${worksiteSpotMarkerClassNames(spot.id, recent, locked)} mg-worksite-marker--wear-${wear}${recent ? ' mg-worksite-marker--recent' : ''}${locked ? ' mg-worksite-marker--locked' : ''}`}
+                        className={`${worksiteSpotMarkerClassNames(spot.id, recent, locked)} mg-worksite-marker--placed mg-worksite-marker--wear-${wear}${recent ? ' mg-worksite-marker--recent' : ''}${locked ? ' mg-worksite-marker--locked' : ''}`}
                         disabled={locked}
                         key={spot.id}
                         ref={(node) => {
                           if (node) markerRefs.current[spot.id] = node
                           else delete markerRefs.current[spot.id]
                         }}
+                        style={placementStyle}
                         type="button"
                         onPointerDown={(event) => handleSpotPointerDown(event, spot.id)}
                       >
@@ -1486,6 +1559,13 @@ export function MyrionWorksiteGame({
                     )
                   })}
                 </div>
+                {placementDebug ? (
+                  <WorksitePlacementDebug
+                    biomeId={activeBiomeId}
+                    mobile={isMobile}
+                    spotIds={activeSpots.map((spot) => spot.id)}
+                  />
+                ) : null}
                 {activeBiomeId === WORKSITE_PRESTIGE_SCENE_BIOME_ID && prestigeSceneVisible ? (
                   <div
                     className={`mg-worksite-prestige-anchor${prestigeLrAvailable ? '' : ' mg-worksite-prestige-anchor--locked'}`}

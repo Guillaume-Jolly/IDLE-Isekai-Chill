@@ -144,15 +144,12 @@
 .mg-worksite-spot-markers {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  padding: 1rem 1.5rem 2rem;
   z-index: 5;
+  pointer-events: none;
 }
 
 .mg-worksite-marker {
-  position: relative;
+  position: absolute;
   width: 3.35rem;
   height: 3.35rem;
   border-radius: 999px;
@@ -168,16 +165,18 @@
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
+  pointer-events: auto;
+  transform-origin: center center;
 }
 
-.mg-worksite-marker:active {
-  transform: scale(0.92);
+.mg-worksite-marker--placed:active {
+  transform: translate(-50%, -50%) scale(0.92);
   box-shadow: 0 0 0 4px rgba(135, 197, 106, 0.55);
 }
 
-.mg-worksite-marker.active,
-.mg-worksite-marker.mg-worksite-marker--recent {
-  transform: scale(1.1);
+.mg-worksite-marker--placed.active,
+.mg-worksite-marker--placed.mg-worksite-marker--recent {
+  transform: translate(-50%, -50%) scale(1.1);
   box-shadow:
     0 0 0 3px var(--mg-accent, #87c56a),
     0 0 14px rgba(135, 197, 106, 0.45);
@@ -1084,6 +1083,135 @@
   background-position: center 62%;
 }
 
+.mg-worksite-biome-background--marais-lucioles,
+.mg-worksite-biome-background--marais-lucioles .mg-worksite-biome-background-img {
+  object-position: center 68%;
+  background-position: center 68%;
+}
+
+.mg-worksite-biome-background--rivage-brumeux,
+.mg-worksite-biome-background--rivage-brumeux .mg-worksite-biome-background-img {
+  object-position: center 74%;
+  background-position: center 74%;
+}
+
+.mg-worksite-biome-background--vergers-suspendus,
+.mg-worksite-biome-background--vergers-suspendus .mg-worksite-biome-background-img {
+  object-position: center 64%;
+  background-position: center 64%;
+}
+
+.mg-worksite-biome-background--ruines-florales,
+.mg-worksite-biome-background--ruines-florales .mg-worksite-biome-background-img {
+  object-position: center 68%;
+  background-position: center 68%;
+}
+
+.mg-worksite-biome-background--grotte-cristalline,
+.mg-worksite-biome-background--grotte-cristalline .mg-worksite-biome-background-img {
+  object-position: center 58%;
+  background-position: center 58%;
+}
+
+.mg-worksite-biome-background--desert-cendres-roses,
+.mg-worksite-biome-background--desert-cendres-roses .mg-worksite-biome-background-img {
+  object-position: center 72%;
+  background-position: center 72%;
+}
+
+.mg-worksite-biome-background--montagne-vents,
+.mg-worksite-biome-background--montagne-vents .mg-worksite-biome-background-img {
+  object-position: center 56%;
+  background-position: center 56%;
+}
+
+.mg-worksite-biome-background--lac-etoile,
+.mg-worksite-biome-background--lac-etoile .mg-worksite-biome-background-img {
+  object-position: center 70%;
+  background-position: center 70%;
+}
+
+.mg-worksite-biome-background--bois-automne-eternel,
+.mg-worksite-biome-background--bois-automne-eternel .mg-worksite-biome-background-img {
+  object-position: center 66%;
+  background-position: center 66%;
+}
+
+.mg-worksite-biome-background--jardin-fongique,
+.mg-worksite-biome-background--jardin-fongique .mg-worksite-biome-background-img {
+  object-position: center 62%;
+  background-position: center 62%;
+}
+
+.mg-worksite-biome-background--sanctuaire-astral,
+.mg-worksite-biome-background--sanctuaire-astral .mg-worksite-biome-background-img {
+  object-position: center 60%;
+  background-position: center 60%;
+}
+
+.mg-worksite-biome-background--ile-celeste,
+.mg-worksite-biome-background--ile-celeste .mg-worksite-biome-background-img {
+  object-position: center 55%;
+  background-position: center 55%;
+}
+
+.mg-worksite-placement-debug {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.mg-worksite-placement-debug-slot,
+.mg-worksite-placement-debug-spot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 0.55rem;
+  line-height: 1.1;
+  padding: 0.1rem 0.25rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.mg-worksite-placement-debug-slot {
+  color: #9fd4ff;
+  background: rgba(0, 40, 80, 0.55);
+  border: 1px dashed rgba(159, 212, 255, 0.65);
+}
+
+.mg-worksite-placement-debug-spot {
+  color: #ffe9a8;
+  background: rgba(60, 40, 0, 0.65);
+  border: 1px solid rgba(255, 220, 120, 0.75);
+}
+
+.mg-worksite-placement-debug-spot small {
+  display: block;
+  opacity: 0.85;
+}
+
+.mg-worksite-dev-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.mg-worksite-dev-btn {
+  font-size: 0.68rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+}
+
+.mg-worksite-dev-btn.active {
+  border-color: rgba(135, 197, 106, 0.75);
+  background: rgba(40, 80, 30, 0.55);
+}
+
 .mg-worksite-bg--prairie {
   background: linear-gradient(180deg, #a8d8a0 0%, #8bc88a 50%, #6fb068 100%);
 }
@@ -1653,13 +1781,14 @@
   }
 
   .mg-worksite-marker {
-    width: 3.5rem;
-    height: 3.5rem;
-    font-size: 1.65rem;
+    width: 3.15rem;
+    height: 3.15rem;
+    font-size: 1.55rem;
   }
 
-  .mg-worksite-spot-markers {
-    padding: 0.75rem 0.85rem 1.65rem;
+  .mg-worksite-marker--placed.active,
+  .mg-worksite-marker--placed.mg-worksite-marker--recent {
+    transform: translate(-50%, -50%) scale(1.08);
   }
 
   .mg-worksite-biome-resource-chip {
