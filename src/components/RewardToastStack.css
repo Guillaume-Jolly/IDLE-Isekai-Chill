@@ -105,6 +105,46 @@
   text-transform: uppercase;
 }
 
+.reward-toast--grouped {
+  flex-direction: column;
+  align-items: stretch;
+  min-width: min(92vw, 320px);
+}
+
+.reward-toast-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.reward-toast-line {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.reward-toast-icon-wrap--line {
+  height: 40px;
+  width: 40px;
+}
+
+.reward-toast-copy--line {
+  flex: 1;
+}
+
+.reward-toast-bump {
+  color: #7dffb0;
+  font-size: 0.85em;
+  font-weight: 800;
+  margin-left: 0.35rem;
+  -webkit-text-fill-color: #7dffb0;
+}
+
 @keyframes reward-toast-enter {
   from {
     opacity: 0;

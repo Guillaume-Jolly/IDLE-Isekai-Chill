@@ -10,21 +10,38 @@ export type RewardToastPayload = {
   id: string
   label: string
   amount: string
+  /** Valeur numérique brute — fusion des toasts groupés. */
+  value: number
   icon: 'resource' | 'emoji' | 'image'
   iconValue: ResourceKey | string
 }
 
-const formatAmount = (amount: number) =>
-  `+${Math.floor(amount).toLocaleString('fr-FR')}`
+export function formatRewardToastAmount(amount: number): string {
+  const rounded =
+    amount >= 10
+      ? Math.round(amount * 10) / 10
+      : amount >= 1
+        ? Math.round(amount * 100) / 100
+        : Math.round(amount * 100) / 100
+  const display =
+    rounded >= 10
+      ? rounded.toLocaleString('fr-FR', { maximumFractionDigits: 1 })
+      : rounded.toLocaleString('fr-FR', { minimumFractionDigits: rounded < 1 ? 2 : 0, maximumFractionDigits: 2 })
+  return `+${display}`
+}
 
 export function payloadsFromCost(cost: Cost): RewardToastPayload[] {
-  return RESOURCE_KEYS.filter((key) => (cost[key] ?? 0) > 0).map((key) => ({
-    id: `resource-${key}`,
-    label: RESOURCE_LABELS[key],
-    amount: formatAmount(cost[key] ?? 0),
-    icon: 'resource',
-    iconValue: key,
-  }))
+  return RESOURCE_KEYS.filter((key) => (cost[key] ?? 0) > 0).map((key) => {
+    const value = cost[key] ?? 0
+    return {
+      id: `resource-${key}`,
+      label: RESOURCE_LABELS[key],
+      amount: formatRewardToastAmount(value),
+      value,
+      icon: 'resource',
+      iconValue: key,
+    }
+  })
 }
 
 export function payloadsFromFragments(fragments: Record<string, number>): RewardToastPayload[] {
@@ -33,7 +50,8 @@ export function payloadsFromFragments(fragments: Record<string, number>): Reward
     .map(([companionId, count]) => ({
       id: `frag-${companionId}`,
       label: `Fragment · ${COMPANION_FRAGMENT_NAMES[companionId as keyof typeof COMPANION_FRAGMENT_NAMES] ?? companionId}`,
-      amount: formatAmount(count),
+      amount: formatRewardToastAmount(count),
+      value: count,
       icon: 'image',
       iconValue: '/gacha/icons/kimono.svg',
     }))
@@ -44,13 +62,17 @@ export function payloadsFromStatTokens(
 ): RewardToastPayload[] {
   return (Object.keys(statTokens) as StatKey[])
     .filter((key) => statTokens[key] > 0)
-    .map((key) => ({
-      id: `stat-${key}`,
-      label: STAT_TOKEN_META[key]?.name ?? STAT_LABELS[key],
-      amount: formatAmount(statTokens[key]),
-      icon: 'image',
-      iconValue: STAT_TOKEN_META[key]?.icon ?? '✨',
-    }))
+    .map((key) => {
+      const value = statTokens[key]
+      return {
+        id: `stat-${key}`,
+        label: STAT_TOKEN_META[key]?.name ?? STAT_LABELS[key],
+        amount: formatRewardToastAmount(value),
+        value,
+        icon: 'image',
+        iconValue: STAT_TOKEN_META[key]?.icon ?? '✨',
+      }
+    })
 }
 
 export function payloadsFromGachaResult(result: {

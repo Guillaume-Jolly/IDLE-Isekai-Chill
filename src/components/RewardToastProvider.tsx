@@ -1,30 +1,35 @@
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
 import { ResourceIcon } from './ResourceIcon'
 import type { ResourceKey } from '../data/resources'
-import type { RewardToastPayload } from '../data/rewardToastEntries'
+import {
+  formatRewardToastAmount,
+  type RewardToastPayload,
+} from '../data/rewardToastEntries'
+import { RewardToastContext } from '../contexts/rewardToastContext'
 import { playUiReward } from '../audio/uiSounds'
 import './RewardToastStack.css'
 
 const DISPLAY_MS = 4000
 const ANIM_MS = 420
+const BUMP_MS = 700
 
-type ToastRecord = RewardToastPayload & {
-  toastId: string
+type GroupedLine = RewardToastPayload & {
+  bumpValue?: number
+  showBump: boolean
 }
 
-type RewardToastContextValue = {
-  pushRewardPayloads: (payloads: RewardToastPayload[]) => void
+type GroupedToast = {
+  sessionId: number
+  refreshKey: number
+  lines: GroupedLine[]
 }
-
-const RewardToastContext = createContext<RewardToastContextValue | null>(null)
 
 function ToastIcon({ payload }: { payload: RewardToastPayload }) {
   if (payload.icon === 'resource') {
@@ -38,60 +43,117 @@ function ToastIcon({ payload }: { payload: RewardToastPayload }) {
   return <span className="reward-toast-icon-emoji">{payload.iconValue}</span>
 }
 
-function RewardToastItem({
+function GroupedLineRow({ line }: { line: GroupedLine }) {
+  const [bumpVisible, setBumpVisible] = useState(line.showBump)
+
+  useEffect(() => {
+    if (!line.showBump || line.bumpValue === undefined) {
+      setBumpVisible(false)
+      return
+    }
+    setBumpVisible(true)
+    const timer = window.setTimeout(() => setBumpVisible(false), BUMP_MS)
+    return () => window.clearTimeout(timer)
+  }, [line.showBump, line.bumpValue, line.amount])
+
+  return (
+    <li className="reward-toast-line">
+      <div className="reward-toast-icon-wrap reward-toast-icon-wrap--line">
+        <ToastIcon payload={line} />
+      </div>
+      <div className="reward-toast-copy reward-toast-copy--line">
+        <p className="reward-toast-amount">
+          {line.amount}
+          {bumpVisible && line.bumpValue !== undefined ? (
+            <span className="reward-toast-bump">{formatRewardToastAmount(line.bumpValue)}</span>
+          ) : null}
+        </p>
+        <p className="reward-toast-label">{line.label}</p>
+      </div>
+    </li>
+  )
+}
+
+function GroupedRewardToast({
   toast,
-  onRemove,
+  onDismiss,
 }: {
-  toast: ToastRecord
-  onRemove: (id: string) => void
+  toast: GroupedToast
+  onDismiss: () => void
 }) {
   const [exiting, setExiting] = useState(false)
 
   useEffect(() => {
+    setExiting(false)
     const exitTimer = window.setTimeout(() => setExiting(true), DISPLAY_MS)
-    const removeTimer = window.setTimeout(() => onRemove(toast.toastId), DISPLAY_MS + ANIM_MS)
+    const removeTimer = window.setTimeout(() => onDismiss(), DISPLAY_MS + ANIM_MS)
     return () => {
       window.clearTimeout(exitTimer)
       window.clearTimeout(removeTimer)
     }
-  }, [onRemove, toast.toastId])
+  }, [onDismiss, toast.sessionId, toast.refreshKey])
 
   return (
     <div
       aria-live="polite"
-      className={`reward-toast${exiting ? ' reward-toast--exit' : ''}`}
+      className={`reward-toast reward-toast--grouped${exiting ? ' reward-toast--exit' : ''}`}
       role="status"
     >
       <div className="reward-toast-glow" aria-hidden />
-      <div className="reward-toast-icon-wrap">
-        <ToastIcon payload={toast} />
-      </div>
-      <div className="reward-toast-copy">
-        <p className="reward-toast-amount">{toast.amount}</p>
-        <p className="reward-toast-label">{toast.label}</p>
-      </div>
+      <ul className="reward-toast-lines">
+        {toast.lines.map((line) => (
+          <GroupedLineRow key={line.id} line={line} />
+        ))}
+      </ul>
     </div>
   )
 }
 
-export function RewardToastProvider({ children }: { children: ReactNode }) {
-  const [toasts, setToasts] = useState<ToastRecord[]>([])
+function mergeGroupedLines(current: GroupedLine[], payloads: RewardToastPayload[]): GroupedLine[] {
+  const next: GroupedLine[] = current.map(({ bumpValue: _bump, ...line }) => ({
+    ...line,
+    showBump: false,
+  }))
+  for (const payload of payloads) {
+    const index = next.findIndex((line) => line.id === payload.id)
+    if (index >= 0) {
+      const existing = next[index]
+      const total = Math.round((existing.value + payload.value) * 1000) / 1000
+      next[index] = {
+        ...existing,
+        value: total,
+        amount: formatRewardToastAmount(total),
+        bumpValue: payload.value,
+        showBump: true,
+      }
+    } else {
+      next.push({ ...payload, showBump: false })
+    }
+  }
+  return next
+}
 
-  const removeToast = useCallback((toastId: string) => {
-    setToasts((current) => current.filter((toast) => toast.toastId !== toastId))
+export function RewardToastProvider({ children }: { children: ReactNode }) {
+  const [groupedToast, setGroupedToast] = useState<GroupedToast | null>(null)
+  const sessionRef = useRef(0)
+
+  const dismissToast = useCallback(() => {
+    setGroupedToast(null)
   }, [])
 
   const pushRewardPayloads = useCallback((payloads: RewardToastPayload[]) => {
     if (payloads.length === 0) return
     playUiReward()
-    const stamped = Date.now()
-    setToasts((current) => [
-      ...current,
-      ...payloads.map((payload, index) => ({
-        ...payload,
-        toastId: `${payload.id}-${stamped}-${index}`,
-      })),
-    ])
+
+    setGroupedToast((current) => {
+      const sessionId = current ? current.sessionId : ++sessionRef.current
+      const lines = mergeGroupedLines(current?.lines ?? [], payloads)
+      return {
+        sessionId,
+        refreshKey: (current?.refreshKey ?? 0) + 1,
+        lines,
+      }
+    })
   }, [])
 
   const value = useMemo(() => ({ pushRewardPayloads }), [pushRewardPayloads])
@@ -100,18 +162,10 @@ export function RewardToastProvider({ children }: { children: ReactNode }) {
     <RewardToastContext.Provider value={value}>
       {children}
       <div aria-label="Récompenses obtenues" className="reward-toast-stack">
-        {toasts.map((toast) => (
-          <RewardToastItem key={toast.toastId} toast={toast} onRemove={removeToast} />
-        ))}
+        {groupedToast ? (
+          <GroupedRewardToast toast={groupedToast} onDismiss={dismissToast} />
+        ) : null}
       </div>
     </RewardToastContext.Provider>
   )
-}
-
-export function useRewardToasts() {
-  const context = useContext(RewardToastContext)
-  if (!context) {
-    throw new Error('useRewardToasts must be used within RewardToastProvider')
-  }
-  return context
 }

@@ -5,7 +5,7 @@ import { SettingsPanel } from './components/SettingsPanel'
 import { DisagreaEventBanner } from './components/DisagreaEventBanner'
 import { DisagreaStoryPanel } from './components/DisagreaStoryPanel'
 import { FestivalEventBanner } from './components/FestivalEventBanner'
-import { useRewardToasts } from './components/RewardToastProvider'
+import { useRewardToasts } from './hooks/useRewardToasts'
 import { AppNav, type ViewKey } from './components/AppNav'
 import { ResourceStrip } from './components/ResourceStrip'
 import { ImageLightbox, type LightboxImage } from './components/ImageLightbox'
@@ -1230,8 +1230,8 @@ function App() {
     if (!options?.keepOpen) {
       setActiveMinigameActivityId(null)
     }
-    pushRewardPayloads(payloadsFromCost(scaledReward))
     if (!options?.silent) {
+      pushRewardPayloads(payloadsFromCost(scaledReward))
       setMessage(`${activityName} — ${costText(scaledReward)} gagnes (${miniScore}/${maxScore}).`)
     }
   }
