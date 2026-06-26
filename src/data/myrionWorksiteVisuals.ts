@@ -68,29 +68,97 @@ export type WorksiteUiVisual = {
   asset: WorksiteVisualAsset
 }
 
-function asset(subdir: string, filename: string, placeholderClass: string): WorksiteVisualAsset {
+function asset(
+  subdir: string,
+  filename: string,
+  placeholderClass: string,
+  available = false,
+): WorksiteVisualAsset {
   return {
     path: `${MYRION_WORKSITE_ASSET_ROOT}/${subdir}/${filename}`,
-    available: false,
+    available,
     placeholderClass,
   }
+}
+
+export type WorksiteDecorationId =
+  | 'rest-zone'
+  | 'food-zone'
+  | 'small-tent'
+  | 'soft-campfire'
+  | 'food-basket'
+  | 'rest-cushion'
+  | 'work-crate'
+  | 'soft-lantern'
+
+export type WorksiteDecorationVisual = {
+  id: WorksiteDecorationId
+  asset: WorksiteVisualAsset
+  fallbackEmoji: string
+}
+
+export const WORKSITE_DECORATION_VISUALS: Record<WorksiteDecorationId, WorksiteDecorationVisual> = {
+  'rest-zone': {
+    id: 'rest-zone',
+    asset: asset('decorations', 'rest-zone.png', 'mg-worksite-life-zone--rest', true),
+    fallbackEmoji: '🛏️',
+  },
+  'food-zone': {
+    id: 'food-zone',
+    asset: asset('decorations', 'food-zone.png', 'mg-worksite-life-zone--food', true),
+    fallbackEmoji: '🍞',
+  },
+  'small-tent': {
+    id: 'small-tent',
+    asset: asset('decorations', 'small-tent.png', 'mg-worksite-life-zone--tent'),
+    fallbackEmoji: '⛺',
+  },
+  'soft-campfire': {
+    id: 'soft-campfire',
+    asset: asset('decorations', 'soft-campfire.png', 'mg-worksite-life-zone--fire'),
+    fallbackEmoji: '🔥',
+  },
+  'food-basket': {
+    id: 'food-basket',
+    asset: asset('decorations', 'food-basket.png', 'mg-worksite-life-zone--basket'),
+    fallbackEmoji: '🧺',
+  },
+  'rest-cushion': {
+    id: 'rest-cushion',
+    asset: asset('decorations', 'rest-cushion.png', 'mg-worksite-life-zone--cushion'),
+    fallbackEmoji: '🛋️',
+  },
+  'work-crate': {
+    id: 'work-crate',
+    asset: asset('decorations', 'work-crate.png', 'mg-worksite-life-zone--crate'),
+    fallbackEmoji: '📦',
+  },
+  'soft-lantern': {
+    id: 'soft-lantern',
+    asset: asset('decorations', 'soft-lantern.png', 'mg-worksite-life-zone--lantern'),
+    fallbackEmoji: '🏮',
+  },
+}
+
+export function getWorksiteDecorationVisual(id: WorksiteDecorationId): WorksiteDecorationVisual {
+  return WORKSITE_DECORATION_VISUALS[id]
 }
 
 /** Fonds de biome — placeholders CSS tant que les PNG ne sont pas validés. */
 export const WORKSITE_BIOME_VISUALS: Record<WorksiteBiomeVisualId, WorksiteBiomeVisual> = {
   'prairie-chantier': {
     id: 'prairie-chantier',
-    background: asset('backgrounds', 'prairie.png', 'mg-worksite-bg--prairie'),
+    background: asset('backgrounds', 'prairie.png', 'mg-worksite-bg--prairie', true),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
   'foret-douce': {
     id: 'foret-douce',
-    background: asset('backgrounds', 'forest.png', 'mg-worksite-bg--foret'),
+    background: asset('backgrounds', 'forest.png', 'mg-worksite-bg--foret', true),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
   'mine-tranquille': {
     id: 'mine-tranquille',
-    background: asset('backgrounds', 'mine.png', 'mg-worksite-bg--mine'),
+    background: asset('backgrounds', 'mine.png', 'mg-worksite-bg--mine', true),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
   'marais-doux': {
@@ -113,55 +181,55 @@ export const WORKSITE_BIOME_VISUALS: Record<WorksiteBiomeVisualId, WorksiteBiome
 export const WORKSITE_SPOT_VISUALS: Record<WorksiteSpotVisualId, WorksiteSpotVisual> = {
   bosquet: {
     id: 'bosquet',
-    asset: asset('spots', 'bosquet.png', 'mg-worksite-spot-object--bosquet'),
+    asset: asset('spots', 'bosquet.png', 'mg-worksite-spot-object--bosquet', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--bosquet',
   },
   pierrier: {
     id: 'pierrier',
-    asset: asset('spots', 'pierrier.png', 'mg-worksite-spot-object--pierrier'),
+    asset: asset('spots', 'pierrier.png', 'mg-worksite-spot-object--pierrier', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--pierrier',
   },
   champs: {
     id: 'champs',
-    asset: asset('spots', 'champs.png', 'mg-worksite-spot-object--champs'),
+    asset: asset('spots', 'champs.png', 'mg-worksite-spot-object--champs', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--champs',
   },
   'sous-bois': {
     id: 'sous-bois',
-    asset: asset('spots', 'sous-bois.png', 'mg-worksite-spot-object--sous-bois'),
+    asset: asset('spots', 'sous-bois.png', 'mg-worksite-spot-object--sous-bois', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--sous-bois',
   },
   'clairiere-herbes': {
     id: 'clairiere-herbes',
-    asset: asset('spots', 'clairiere-herbes.png', 'mg-worksite-spot-object--clairiere-herbes'),
+    asset: asset('spots', 'clairiere-herbes.png', 'mg-worksite-spot-object--clairiere-herbes', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--clairiere-herbes',
   },
   'source-claire': {
     id: 'source-claire',
-    asset: asset('spots', 'source-claire.png', 'mg-worksite-spot-object--source-claire'),
+    asset: asset('spots', 'source-claire.png', 'mg-worksite-spot-object--source-claire', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--source-claire',
   },
   'pierrier-profond': {
     id: 'pierrier-profond',
-    asset: asset('spots', 'pierrier.png', 'mg-worksite-spot-object--pierrier-profond'),
+    asset: asset('spots', 'pierrier-profond.png', 'mg-worksite-spot-object--pierrier-profond', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--pierrier-profond',
   },
   'veine-brute': {
     id: 'veine-brute',
-    asset: asset('spots', 'veine-brute.png', 'mg-worksite-spot-object--veine-brute'),
+    asset: asset('spots', 'veine-brute.png', 'mg-worksite-spot-object--veine-brute', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--veine-brute',
   },
   charbonniere: {
     id: 'charbonniere',
-    asset: asset('spots', 'charbonniere.png', 'mg-worksite-spot-object--charbonniere'),
+    asset: asset('spots', 'charbonniere.png', 'mg-worksite-spot-object--charbonniere', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--charbonniere',
   },
@@ -188,37 +256,37 @@ export const WORKSITE_SPOT_VISUALS: Record<WorksiteSpotVisualId, WorksiteSpotVis
 export const WORKSITE_RESOURCE_ICON_VISUALS: Record<WorksiteResourceIconId, WorksiteResourceIconVisual> = {
   wood: {
     id: 'wood',
-    asset: asset('icons', 'wood.png', 'mg-worksite-resource-icon--wood'),
+    asset: asset('icons', 'wood.png', 'mg-worksite-resource-icon--wood', true),
     fallbackEmoji: '🪵',
   },
   stone: {
     id: 'stone',
-    asset: asset('icons', 'stone.png', 'mg-worksite-resource-icon--stone'),
+    asset: asset('icons', 'stone.png', 'mg-worksite-resource-icon--stone', true),
     fallbackEmoji: '🪨',
   },
   food: {
     id: 'food',
-    asset: asset('icons', 'food.png', 'mg-worksite-resource-icon--food'),
+    asset: asset('icons', 'food.png', 'mg-worksite-resource-icon--food', true),
     fallbackEmoji: '🌾',
   },
   herbs: {
     id: 'herbs',
-    asset: asset('icons', 'herbs.png', 'mg-worksite-resource-icon--herbs'),
+    asset: asset('icons', 'herbs.png', 'mg-worksite-resource-icon--herbs', true),
     fallbackEmoji: '🌿',
   },
   water: {
     id: 'water',
-    asset: asset('icons', 'water.png', 'mg-worksite-resource-icon--water'),
+    asset: asset('icons', 'water.png', 'mg-worksite-resource-icon--water', true),
     fallbackEmoji: '💧',
   },
   ore: {
     id: 'ore',
-    asset: asset('icons', 'ore.png', 'mg-worksite-resource-icon--ore'),
+    asset: asset('icons', 'ore.png', 'mg-worksite-resource-icon--ore', true),
     fallbackEmoji: '⛏️',
   },
   coal: {
     id: 'coal',
-    asset: asset('icons', 'coal.png', 'mg-worksite-resource-icon--coal'),
+    asset: asset('icons', 'coal.png', 'mg-worksite-resource-icon--coal', true),
     fallbackEmoji: '🪨',
   },
   crystal: {

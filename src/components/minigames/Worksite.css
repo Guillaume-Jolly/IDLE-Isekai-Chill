@@ -473,6 +473,31 @@
   line-height: 1;
 }
 
+.mg-worksite-spot-object:has(.mg-worksite-spot-object-img) .mg-worksite-spot-object-emoji {
+  display: none;
+}
+
+.mg-worksite-resource-icon:has(.mg-worksite-resource-icon-img) .mg-worksite-resource-icon-emoji {
+  display: none;
+}
+
+.mg-worksite-life-zone-img {
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+  display: block;
+}
+
+.mg-worksite-life-zone:has(.mg-worksite-life-zone-img) .mg-worksite-life-zone-emoji {
+  display: none;
+}
+
+.mg-worksite-life-zone:has(.mg-worksite-life-zone-img) {
+  background: transparent;
+  border-color: transparent;
+  padding: 0;
+}
+
 .mg-worksite-marker.mg-worksite-spot--active,
 .mg-worksite-marker.active {
   transform: scale(1.12);

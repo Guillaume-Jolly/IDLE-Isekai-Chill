@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { PetState } from '../../data/minigameSave'
 import type { MyrionWorksiteSave, WorksiteBiomeId } from '../../data/myrionWorksite'
 import { getSpotsForBiome } from '../../data/myrionWorksite'
+import { getWorksiteDecorationVisual } from '../../data/myrionWorksiteVisuals'
 import {
   WORKSITE_LIFE_BUCKET_SEC,
   buildWorksiteLifeView,
@@ -9,6 +10,7 @@ import {
   lifeEntryAnchor,
   shortMyrionName,
 } from '../../data/myrionWorksiteLife'
+import { WorksiteOptionalImage } from './WorksiteVisuals'
 
 type WorksiteMyrionLifeLayerProps = {
   worksite: MyrionWorksiteSave
@@ -37,17 +39,32 @@ export function WorksiteMyrionLifeLayer({
 
   if (lifeView.totalAssigned === 0) return null
 
+  const restVisual = getWorksiteDecorationVisual('rest-zone')
+  const foodVisual = getWorksiteDecorationVisual('food-zone')
+
   return (
     <div aria-hidden className="mg-worksite-life-layer">
       <div className="mg-worksite-life-zone mg-worksite-rest-zone" title="Coin repos">
+        <WorksiteOptionalImage
+          alt=""
+          aria-hidden
+          asset={restVisual.asset}
+          className="mg-worksite-life-zone-img"
+        />
         <span className="mg-worksite-life-zone-emoji" aria-hidden>
-          🛏️
+          {restVisual.fallbackEmoji}
         </span>
         <span className="mg-worksite-life-zone-label">Repos</span>
       </div>
       <div className="mg-worksite-life-zone mg-worksite-food-zone" title="Coin nourriture">
+        <WorksiteOptionalImage
+          alt=""
+          aria-hidden
+          asset={foodVisual.asset}
+          className="mg-worksite-life-zone-img"
+        />
         <span className="mg-worksite-life-zone-emoji" aria-hidden>
-          🍞
+          {foodVisual.fallbackEmoji}
         </span>
         <span className="mg-worksite-life-zone-label">Repas</span>
       </div>
