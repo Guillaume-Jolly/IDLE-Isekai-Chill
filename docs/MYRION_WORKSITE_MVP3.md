@@ -14,8 +14,8 @@ Ajouter une **progression claire** au Chantier Myrion : déblocage progressif de
 | Biome | État initial | Condition (provisoire) |
 |-------|--------------|------------------------|
 | Prairie du chantier | Débloquée | — |
-| Forêt douce | Verrouillée | 10 production totale chantier |
-| Mine tranquille | Verrouillée | 25 total **et** 10 pierre |
+| Forêt douce | Verrouillée | 15 production totale chantier |
+| Mine tranquille | Verrouillée | 30 total **et** 12 pierre |
 
 Config : `WORKSITE_UNLOCK_THRESHOLDS` dans `src/data/myrionWorksiteProgression.ts`.
 
@@ -25,11 +25,11 @@ Config : `WORKSITE_UNLOCK_THRESHOLDS` dans `src/data/myrionWorksiteProgression.t
 |-------|------|--------------|-----------|
 | Prairie | Bosquet, Pierrier, Champs | Débloqués | — |
 | Forêt | Sous-bois | À l'ouverture Forêt | — |
-| Forêt | Clairière aux herbes | Verrouillé | 15 bois |
-| Forêt | Source claire | Verrouillé | 25 vivres |
+| Forêt | Clairière aux herbes | Verrouillé | 18 bois |
+| Forêt | Source claire | Verrouillé | 30 vivres |
 | Mine | Pierrier profond | À l'ouverture Mine | — |
-| Mine | Veine brute | Verrouillé | 20 pierre |
-| Mine | Charbonnière | Verrouillé | 40 pierre |
+| Mine | Veine brute | Verrouillé | 24 pierre |
+| Mine | Charbonnière | Verrouillé | 45 pierre |
 
 ### Ressources spécialisées
 
@@ -80,16 +80,42 @@ Fichiers : `RewardToastProvider.tsx`, `rewardToastEntries.ts`, `useRewardToasts.
 
 ## Checklist test
 
-- [ ] Nouvelle partie : Prairie seule, Forêt/Mine verrouillées
-- [ ] Drawer Progression : seuils visibles
-- [ ] Clic spot actif → toast groupé (pas auto)
-- [ ] Fusion même ressource → bump vert
-- [ ] Auto passive → pas de toast
-- [ ] Atteindre 10 total → Forêt débloquée + bannière locale
-- [ ] Spots Forêt/Mine secondaires verrouillés puis débloqués aux seuils
-- [ ] Reload : biomes/spots/assignations conservés
-- [ ] Save MVP 2 migrée sans crash
-- [ ] Build OK
+- [x] Nouvelle partie : Prairie seule, Forêt/Mine verrouillées
+- [x] Drawer Progression : seuils visibles (onglet Progression)
+- [x] Clic spot actif → toast groupé (pas auto)
+- [x] Fusion même ressource → une fenêtre Bois (bump non re-testé visuellement en détail)
+- [x] Auto passive → pas de toast (Myrion assigné, +0.19 total sans toast)
+- [x] Atteindre seuil Forêt → Forêt débloquée (seuil initial 10, trop rapide ~6 s spam)
+- [x] Spots Forêt secondaires : Sous-bois OK, Clairière OK si bois ≥ seuil, Source verrouillée
+- [x] Reload : biomes/spots/assignations/totaux conservés
+- [ ] Mine débloquée en session (non poussé jusqu'au seuil — rythme ajusté)
+- [x] Build OK
+- [x] Dev server OK après fix import circulaire
+
+## Smoke test — 26/06/2026
+
+**Environnement :** `feature/myrion-worksite-mvp2` @ `cb3ffd0` + correctifs locaux  
+**URLs :** http://localhost:5173/ · http://192.168.1.18:5173/
+
+### Bug bloquant corrigé
+
+Import circulaire `myrionWorksite.ts` ↔ `myrionWorksiteProgression.ts` → écran blanc en `npm run dev` (`Cannot access 'WORKSITE_BIOME_IDS' before initialization`). Extraction vers `myrionWorksiteDefs.ts`.
+
+### Seuils testés et ajustés
+
+| Seuil | Avant | Après | Ressenti |
+|-------|-------|-------|----------|
+| Forêt (total) | 10 | **15** | Trop rapide en spam clic (~6 s) |
+| Mine (total + pierre) | 25 + 10 | **30 + 12** | Légèrement plus tardif |
+| Clairière herbes | 15 bois | **18** | OK |
+| Source claire | 25 vivres | **30** | OK |
+| Veine brute | 20 pierre | **24** | OK |
+| Charbonnière | 40 pierre | **45** | OK |
+
+### Bugs restants
+
+- Ressources spécialisées toujours en fallback `food`/`stone` (connu MVP 3)
+- Mine non validée end-to-end en une session (seuils relevés, logique identique Forêt)
 
 ## Pipeline visuel
 

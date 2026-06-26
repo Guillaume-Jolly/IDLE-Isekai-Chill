@@ -2,68 +2,34 @@ import type { Cost, ResourceKey } from './buildingActivities'
 import type { PetState } from './minigameSave'
 import type { PalmonRarity } from './wildFamiliars'
 import {
+  WORKSITE_BIOME_IDS,
+  WORKSITE_BIOMES,
+  worksiteSpotKey,
+  type MyrionWorksiteSave,
+  type WorksiteBiomeId,
+  type WorksiteSpotId,
+} from './myrionWorksiteDefs'
+import {
   defaultUnlockedSpotKeys,
   evaluateWorksiteUnlocks,
   migrateWorksiteUnlockState,
 } from './myrionWorksiteProgression'
 
-/** Biomes du chantier Myrion — MVP 2. */
-export const WORKSITE_BIOME_IDS = [
-  'prairie-chantier',
-  'foret-douce',
-  'mine-tranquille',
-] as const
-export type WorksiteBiomeId = (typeof WORKSITE_BIOME_IDS)[number]
+export {
+  WORKSITE_BIOME_IDS,
+  WORKSITE_BIOMES,
+  worksiteSpotKey,
+  type MyrionWorksiteSave,
+  type WorksiteBiomeDef,
+  type WorksiteBiomeId,
+  type WorksiteSpotId,
+} from './myrionWorksiteDefs'
 
 /** @deprecated MVP 1 alias — préférer activeBiomeId */
 export const WORKSITE_BIOME_ID = 'prairie-chantier' as const satisfies WorksiteBiomeId
 
-export type WorksiteBiomeDef = {
-  id: WorksiteBiomeId
-  label: string
-  emoji: string
-  /** Classe CSS panorama — ex. mg-worksite-scene--prairie */
-  panoramaClass: string
-  spotIds: readonly WorksiteSpotId[]
-}
-
-export const WORKSITE_BIOMES: Record<WorksiteBiomeId, WorksiteBiomeDef> = {
-  'prairie-chantier': {
-    id: 'prairie-chantier',
-    label: 'Prairie du chantier',
-    emoji: '🌾',
-    panoramaClass: 'mg-worksite-scene--prairie',
-    spotIds: ['bosquet', 'pierrier', 'champs'],
-  },
-  'foret-douce': {
-    id: 'foret-douce',
-    label: 'Forêt douce',
-    emoji: '🌲',
-    panoramaClass: 'mg-worksite-scene--foret',
-    spotIds: ['sous-bois', 'clairiere-herbes', 'source-claire'],
-  },
-  'mine-tranquille': {
-    id: 'mine-tranquille',
-    label: 'Mine tranquille',
-    emoji: '⛏️',
-    panoramaClass: 'mg-worksite-scene--mine',
-    spotIds: ['pierrier-profond', 'veine-brute', 'charbonniere'],
-  },
-}
-
 /** @deprecated MVP 1 alias */
 export const WORKSITE_BIOME_LABEL = WORKSITE_BIOMES['prairie-chantier'].label
-
-export type WorksiteSpotId =
-  | 'bosquet'
-  | 'pierrier'
-  | 'champs'
-  | 'sous-bois'
-  | 'clairiere-herbes'
-  | 'source-claire'
-  | 'pierrier-profond'
-  | 'veine-brute'
-  | 'charbonniere'
 
 /** @deprecated MVP 1 alias — spots prairie uniquement */
 export const WORKSITE_SPOT_IDS = WORKSITE_BIOMES['prairie-chantier'].spotIds
@@ -78,11 +44,6 @@ export type WorksiteSpotDef = {
   baseAutoYieldPerMyrion: number
   unlocked: boolean
   hint: string
-}
-
-/** Clé composite biome:spot pour assignations et totaux. */
-export function worksiteSpotKey(biomeId: WorksiteBiomeId, spotId: WorksiteSpotId): string {
-  return `${biomeId}:${spotId}`
 }
 
 function spotDef(
@@ -169,20 +130,6 @@ export const WORKSITE_RARITY_MULT: Record<PalmonRarity, number> = {
   SSR: 2,
   UR: 2.5,
   LR: 3,
-}
-
-export type MyrionWorksiteSave = {
-  activeBiomeId: WorksiteBiomeId
-  unlockedBiomeIds: WorksiteBiomeId[]
-  /** Clés composite biome:spot débloqués pour production et interaction. */
-  unlockedSpotKeys: string[]
-  selectedSpotByBiome: Record<WorksiteBiomeId, WorksiteSpotId>
-  /** Clés composite biome:spot */
-  assignedMyrionIdsBySpot: Record<string, string[]>
-  totalProducedBySpot: Partial<Record<string, number>>
-  /** IDs biome:* / spot:* déjà notifiés localement. */
-  seenUnlockNotificationIds: string[]
-  lastAutoTickAt: number
 }
 
 /** Champs MVP 1 conservés pour migration mergeMyrionWorksite. */

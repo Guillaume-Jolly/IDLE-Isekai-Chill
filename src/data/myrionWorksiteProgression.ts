@@ -5,7 +5,7 @@ import {
   type MyrionWorksiteSave,
   type WorksiteBiomeId,
   type WorksiteSpotId,
-} from './myrionWorksite'
+} from './myrionWorksiteDefs'
 
 const BIOME_IDS = WORKSITE_BIOME_IDS
 const BIOMES = WORKSITE_BIOMES
@@ -14,14 +14,14 @@ const spotKey = worksiteSpotKey
 /** Seuils provisoires MVP 3 — faciles à ajuster. */
 export const WORKSITE_UNLOCK_THRESHOLDS = {
   biomes: {
-    'foret-douce': { totalChantier: 10 },
-    'mine-tranquille': { totalChantier: 25, stone: 10 },
+    'foret-douce': { totalChantier: 15 },
+    'mine-tranquille': { totalChantier: 30, stone: 12 },
   },
   spots: {
-    'foret-douce:clairiere-herbes': { wood: 15 },
-    'foret-douce:source-claire': { food: 25 },
-    'mine-tranquille:veine-brute': { stone: 20 },
-    'mine-tranquille:charbonniere': { stone: 40 },
+    'foret-douce:clairiere-herbes': { wood: 18 },
+    'foret-douce:source-claire': { food: 30 },
+    'mine-tranquille:veine-brute': { stone: 24 },
+    'mine-tranquille:charbonniere': { stone: 45 },
   },
 } as const
 
