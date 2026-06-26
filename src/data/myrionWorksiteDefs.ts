@@ -63,6 +63,12 @@ export type MyrionWorksiteSave = {
   totalProducedBySpot: Partial<Record<string, number>>
   seenUnlockNotificationIds: string[]
   lastAutoTickAt: number
+  /** MVP 6 — éclats astraux (interne chantier, hors inventaire global). */
+  totalAstralShards?: number
+  /** MVP 6 — un seul LR sur la Faille astrale. */
+  prestigeAssignedMyrionId?: string | null
+  /** MVP 6 — joueur a ouvert / vu la section prestige. */
+  prestigeSeen?: boolean
   /** Migrations one-shot (ex. reset assignations MVP 4.1). */
   saveMigrationVersion?: number
 }

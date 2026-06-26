@@ -14,6 +14,7 @@ import {
   evaluateWorksiteUnlocks,
   migrateWorksiteUnlockState,
 } from './myrionWorksiteProgression'
+import { mergePrestigeSaveFields } from './myrionWorksitePrestige'
 
 export {
   WORKSITE_BIOME_IDS,
@@ -169,6 +170,9 @@ export function createStarterMyrionWorksite(now = Date.now()): MyrionWorksiteSav
     totalProducedBySpot: {},
     seenUnlockNotificationIds: [],
     lastAutoTickAt: now,
+    totalAstralShards: 0,
+    prestigeAssignedMyrionId: null,
+    prestigeSeen: false,
     saveMigrationVersion: WORKSITE_SAVE_MIGRATION_VERSION,
   }
 }
@@ -265,6 +269,7 @@ export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionW
       typeof partial.lastAutoTickAt === 'number' && Number.isFinite(partial.lastAutoTickAt)
         ? partial.lastAutoTickAt
         : starter.lastAutoTickAt,
+    ...mergePrestigeSaveFields(partial, starter),
     saveMigrationVersion: Math.max(migrationVersion, WORKSITE_SAVE_MIGRATION_VERSION),
   }
 
@@ -292,6 +297,9 @@ export function worksiteMyrionAssignedElsewhere(
   exceptBiomeId?: WorksiteBiomeId,
   exceptSpotId?: WorksiteSpotId,
 ): { biomeId: WorksiteBiomeId; spotId: WorksiteSpotId } | null {
+  if (worksite.prestigeAssignedMyrionId === petId) {
+    return { biomeId: 'mine-tranquille', spotId: 'pierrier-profond' }
+  }
   for (const biomeId of WORKSITE_BIOME_IDS) {
     for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
       if (exceptBiomeId === biomeId && exceptSpotId === spotId) continue
@@ -360,7 +368,12 @@ export function assignMyrionToSpot(
   }
   const key = worksiteSpotKey(biomeId, spotId)
   nextAssigned[key] = [...(nextAssigned[key] ?? []), petId]
-  return { ...worksite, assignedMyrionIdsBySpot: nextAssigned }
+  return {
+    ...worksite,
+    assignedMyrionIdsBySpot: nextAssigned,
+    prestigeAssignedMyrionId:
+      worksite.prestigeAssignedMyrionId === petId ? null : worksite.prestigeAssignedMyrionId,
+  }
 }
 
 export function worksiteAssignedPetsInBiome(

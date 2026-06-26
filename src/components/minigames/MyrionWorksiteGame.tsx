@@ -16,7 +16,6 @@ import {
   removeMyrionFromBiome,
   worksiteAssignedPets,
   worksiteAssignedPetsInBiome,
-  worksiteMyrionAssignedElsewhere,
   worksiteRarityMultiplier,
   worksiteSpotKey,
   type MyrionWorksiteSave,
@@ -35,6 +34,7 @@ import {
 import {
   assignedSpeciesSummary,
   assignMyrionsToBiome,
+  availableLrPetsForPrestige,
   availablePetsForBiome,
   groupPetsBySpecies,
   paginateList,
@@ -48,6 +48,22 @@ import {
   type WorksiteBatchCriteria,
   type WorksiteSpeciesGroup,
 } from '../../data/myrionWorksiteAssignment'
+import {
+  WORKSITE_PRESTIGE_CONFIG,
+  WORKSITE_PRESTIGE_SCENE_BIOME_ID,
+  WORKSITE_PRESTIGE_SPOT_VISUAL,
+  assignLrToPrestige,
+  canAssignPetToPrestige,
+  clearPrestigeAssignment,
+  computePrestigePerSecond,
+  computePrestigeGrant,
+  formatPrestigeAmount,
+  getPrestigeAssignedPet,
+  hasAnyLrPet,
+  isPrestigeSceneVisible,
+  markPrestigeSeen,
+  worksitePetIsBusy,
+} from '../../data/myrionWorksitePrestige'
 import {
   buildWorksiteBiomeLifePlan,
   decorativeStateLabel,
@@ -67,6 +83,8 @@ import {
 import {
   playWorksiteDrawerOpen,
   playWorksiteMine,
+  playWorksitePrestigeAssign,
+  playWorksitePrestigeSeen,
   playWorksiteUnlock,
   startWorksiteBiomeAmbience,
   stopWorksiteBiomeAmbience,
@@ -209,6 +227,19 @@ export function MyrionWorksiteGame({
   const handleDrawerOpenChange = useCallback((next: string | null) => {
     if (next && next !== openDrawer) {
       playWorksiteDrawerOpen()
+      if (next === 'prestige') {
+        const current = worksiteRef.current
+        if (!current.prestigeSeen) {
+          const marked = markPrestigeSeen(current)
+          setWorksite(marked)
+          worksiteRef.current = marked
+          playWorksitePrestigeSeen()
+          const save = minigameSaveRef.current
+          if (save && onSaveMinigameRef.current) {
+            onSaveMinigameRef.current({ ...save, myrionWorksite: marked })
+          }
+        }
+      }
     }
     setOpenDrawer(next)
   }, [openDrawer])
@@ -409,10 +440,17 @@ export function MyrionWorksiteGame({
         }
       }
 
+      const prestigeGrant = computePrestigeGrant(current, currentPets, sharedLastTick, now)
+      const prestigeTotal = prestigeGrant.amount
+
       const next: MyrionWorksiteSave = {
         ...current,
         lastAutoTickAt: now,
         totalProducedBySpot: produced,
+        totalAstralShards:
+          prestigeTotal > 0
+            ? prestigeGrant.nextTotal
+            : (current.totalAstralShards ?? 0),
       }
 
       worksiteRef.current = next
@@ -420,9 +458,11 @@ export function MyrionWorksiteGame({
       if (granted) {
         setWorksite(next)
         onCompleteRef.current(0, 1, combined, { keepOpen: true, silent: true })
+      } else if (prestigeTotal > 0) {
+        setWorksite(next)
       }
 
-      flushWorksiteSave(next, granted)
+      flushWorksiteSave(next, granted || prestigeTotal > 0)
     }, AUTO_TICK_MS)
 
     return () => {
@@ -438,6 +478,34 @@ export function MyrionWorksiteGame({
 
   const assignPet = (petId: string) => {
     persist(assignMyrionsToBiome(worksite, activeBiomeId, [petId]))
+  }
+
+  const prestigeAssigned = useMemo(
+    () => getPrestigeAssignedPet(worksite, pets),
+    [worksite, pets],
+  )
+  const prestigePerSec = useMemo(
+    () => computePrestigePerSecond(worksite, pets),
+    [worksite, pets],
+  )
+  const prestigeLrAvailable = useMemo(() => hasAnyLrPet(pets), [pets])
+  const prestigeAssignableLr = useMemo(
+    () => availableLrPetsForPrestige(worksite, pets),
+    [worksite, pets],
+  )
+  const prestigeSceneVisible = isPrestigeSceneVisible(worksite)
+  const totalAstralShards = worksite.totalAstralShards ?? 0
+
+  const assignPrestigePet = (petId: string) => {
+    const pet = pets.find((entry) => entry.id === petId)
+    if (!pet || !canAssignPetToPrestige(worksite, pet)) return
+    playWorksitePrestigeAssign()
+    persist(assignLrToPrestige(worksite, petId))
+  }
+
+  const clearPrestigePet = () => {
+    if (!worksite.prestigeAssignedMyrionId) return
+    persist(clearPrestigeAssignment(worksite))
   }
 
   const totalProduced = (() => {
@@ -463,7 +531,7 @@ export function MyrionWorksiteGame({
     const target = sorted.find(
       (pet) =>
         !biomeAssigned.some((entry) => entry.id === pet.id) &&
-        worksiteMyrionAssignedElsewhere(worksite, pet.id) === null,
+        !worksitePetIsBusy(worksite, pet.id),
     )
     if (target) assignPet(target.id)
   }
@@ -474,7 +542,7 @@ export function MyrionWorksiteGame({
         (pet) =>
           group.petIds.includes(pet.id) &&
           !biomeAssigned.some((entry) => entry.id === pet.id) &&
-          worksiteMyrionAssignedElsewhere(worksite, pet.id) === null,
+          !worksitePetIsBusy(worksite, pet.id),
       ),
       biomeReferenceSpot,
       'efficiency-desc',
@@ -554,7 +622,7 @@ export function MyrionWorksiteGame({
     const efficiency = worksitePetEfficiency(pet, biomeReferenceSpot)
     const blocked =
       !assignedHere &&
-      group.petIds.every((id) => worksiteMyrionAssignedElsewhere(worksite, id) !== null)
+      group.petIds.every((id) => worksitePetIsBusy(worksite, id))
   return (
       <div className="mg-worksite-pet-row mg-worksite-pet-row--species" key={group.speciesId}>
         <span className="mg-worksite-pet-chibi">
@@ -674,6 +742,86 @@ export function MyrionWorksiteGame({
       ),
     },
     {
+      id: 'prestige',
+      label: 'Prestige',
+      icon: '✨',
+      badge: prestigeAssigned ? 1 : undefined,
+      content: (
+        <div className="mg-worksite-drawer-section mg-worksite-prestige-panel">
+          <p className="mg-worksite-drawer-lead">{WORKSITE_PRESTIGE_CONFIG.name}</p>
+          <p className="mg-worksite-prestige-help">{WORKSITE_PRESTIGE_CONFIG.helpText}</p>
+          {!prestigeSceneVisible ? (
+            <p className="mg-worksite-empty">
+              Débloque la Mine tranquille pour voir la Faille astrale.
+            </p>
+          ) : (
+            <>
+              <ul className="mg-worksite-prestige-stats">
+                <li>
+                  État :{' '}
+                  {prestigeLrAvailable
+                    ? prestigeAssigned
+                      ? 'LR assigné'
+                      : 'Disponible'
+                    : 'Verrouillé'}
+                </li>
+                <li>
+                  Production : {formatPrestigeAmount(prestigePerSec)} {WORKSITE_PRESTIGE_CONFIG.resourceLabel}/s
+                </li>
+                <li>
+                  Total : {formatPrestigeAmount(totalAstralShards)}{' '}
+                  {WORKSITE_PRESTIGE_CONFIG.resourceLabel}
+                </li>
+              </ul>
+              {!prestigeLrAvailable ? (
+                <p className="mg-worksite-prestige-locked">
+                  {WORKSITE_PRESTIGE_CONFIG.lrRequirementLabel}
+                </p>
+              ) : null}
+              {prestigeAssigned ? (
+                <div className="mg-worksite-prestige-assigned">
+                  <span className="mg-worksite-pet-chibi">
+                    <PalmonSprite
+                      emoji={prestigeAssigned.emoji}
+                      name={prestigeAssigned.name}
+                      speciesId={prestigeAssigned.speciesId}
+                    />
+                  </span>
+                  <span>
+                    {prestigeAssigned.name}{' '}
+                    <span
+                      className="mg-worksite-pet-rarity"
+                      style={{ color: RARITY_COLORS[prestigeAssigned.rarity] }}
+                    >
+                      {prestigeAssigned.rarity}
+                    </span>
+                  </span>
+                  <button className="mg-worksite-pet-btn secondary" type="button" onClick={clearPrestigePet}>
+                    Retirer
+                  </button>
+                </div>
+              ) : prestigeLrAvailable ? (
+                <ul className="mg-worksite-prestige-lr-list">
+                  {prestigeAssignableLr.map((pet) => (
+                    <li key={pet.id}>
+                      <button
+                        className="mg-worksite-pet-btn"
+                        type="button"
+                        onClick={() => assignPrestigePet(pet.id)}
+                      >
+                        Assigner {pet.name} ({pet.rarity})
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <p className="mg-worksite-note">{WORKSITE_PRESTIGE_CONFIG.drawerLead}</p>
+            </>
+          )}
+        </div>
+      ),
+    },
+    {
       id: 'progress',
       label: 'Progression',
       icon: '📈',
@@ -685,6 +833,9 @@ export function MyrionWorksiteGame({
             <li>Bois : {formatYield(progressTotals.wood)}</li>
             <li>Pierre : {formatYield(progressTotals.stone)}</li>
             <li>Vivres : {formatYield(progressTotals.food)}</li>
+            <li>
+              {WORKSITE_PRESTIGE_CONFIG.resourceLabel} : {formatPrestigeAmount(totalAstralShards)}
+            </li>
           </ul>
           <p className="mg-worksite-drawer-lead">Prochains déblocages</p>
           <ul className="mg-worksite-progress-next">
@@ -1206,6 +1357,46 @@ export function MyrionWorksiteGame({
                     )
                   })}
                 </div>
+                {activeBiomeId === WORKSITE_PRESTIGE_SCENE_BIOME_ID && prestigeSceneVisible ? (
+                  <div
+                    className={`mg-worksite-prestige-anchor${prestigeLrAvailable ? '' : ' mg-worksite-prestige-anchor--locked'}`}
+                    title={WORKSITE_PRESTIGE_CONFIG.name}
+                  >
+                    <div
+                      aria-label={WORKSITE_PRESTIGE_CONFIG.name}
+                      className="mg-worksite-prestige-marker"
+                      role="img"
+                    >
+                      <WorksiteSpotObject
+                        asset={WORKSITE_PRESTIGE_SPOT_VISUAL}
+                        className={`mg-worksite-spot-object mg-worksite-prestige-object ${WORKSITE_PRESTIGE_SPOT_VISUAL.placeholderClass}`}
+                        emoji={WORKSITE_PRESTIGE_CONFIG.emoji}
+                        name={WORKSITE_PRESTIGE_CONFIG.name}
+                      />
+                      {!prestigeLrAvailable ? (
+                        <span aria-hidden className="mg-worksite-prestige-lock">
+                          🔒
+                        </span>
+                      ) : null}
+                      {prestigeAssigned ? (
+                        <span className="mg-worksite-prestige-chibi" aria-hidden>
+                          <PalmonSprite
+                            emoji={prestigeAssigned.emoji}
+                            name={prestigeAssigned.name}
+                            speciesId={prestigeAssigned.speciesId}
+                          />
+                        </span>
+                      ) : null}
+                    </div>
+                    <span className="mg-worksite-prestige-caption">
+                      {!prestigeLrAvailable
+                        ? WORKSITE_PRESTIGE_CONFIG.lrRequirementLabel
+                        : prestigeAssigned
+                          ? `${formatPrestigeAmount(prestigePerSec)}/s`
+                          : 'Assigner un LR'}
+                    </span>
+                  </div>
+                ) : null}
                 <WorksiteMyrionLifeLayer
                   activeBiomeId={activeBiomeId}
                   pets={pets}

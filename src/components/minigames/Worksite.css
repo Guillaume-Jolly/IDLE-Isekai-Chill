@@ -1562,3 +1562,108 @@
     min-height: 16rem;
   }
 }
+
+/* MVP 6 — Faille astrale (prestige LR-only) */
+.mg-worksite-prestige-anchor {
+  position: absolute;
+  top: 14%;
+  right: 10%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  max-width: 5.5rem;
+  pointer-events: none;
+}
+
+.mg-worksite-prestige-anchor--locked {
+  opacity: 0.72;
+}
+
+.mg-worksite-prestige-marker {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 2px solid rgba(186, 148, 255, 0.55);
+  background: radial-gradient(circle at 40% 35%, rgba(120, 80, 200, 0.45), rgba(20, 10, 40, 0.65));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(160, 120, 255, 0.35);
+}
+
+.mg-worksite-prestige-object {
+  font-size: 1.35rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.mg-worksite-spot-object--faille-astrale {
+  background: radial-gradient(circle at 50% 45%, rgba(200, 160, 255, 0.5), rgba(60, 30, 100, 0.2));
+}
+
+.mg-worksite-prestige-lock {
+  position: absolute;
+  bottom: -0.15rem;
+  right: -0.15rem;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.mg-worksite-prestige-chibi {
+  position: absolute;
+  bottom: -0.35rem;
+  left: -0.35rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.mg-worksite-prestige-caption {
+  font-size: 0.62rem;
+  line-height: 1.2;
+  text-align: center;
+  opacity: 0.88;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.mg-worksite-prestige-panel .mg-worksite-prestige-stats {
+  margin: 0.5rem 0;
+  padding-left: 1.1rem;
+}
+
+.mg-worksite-prestige-help {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 0.88rem;
+  opacity: 0.9;
+}
+
+.mg-worksite-prestige-locked {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  font-size: 0.88rem;
+}
+
+.mg-worksite-prestige-assigned {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.mg-worksite-prestige-lr-list {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}

@@ -9,10 +9,12 @@ import { getMusicOutput, getSharedAudioContext, getSfxOutput, resumeAudio } from
 const MINE_COOLDOWN_MS = 72
 const UNLOCK_COOLDOWN_MS = 420
 const DRAWER_COOLDOWN_MS = 160
+const PRESTIGE_COOLDOWN_MS = 280
 
 let lastMineAt = 0
 let lastUnlockAt = 0
 let lastDrawerAt = 0
+let lastPrestigeAt = 0
 
 type AmbienceNodes = {
   stop: () => void
@@ -128,6 +130,29 @@ export function playWorksiteDrawerOpen(): void {
   lastDrawerAt = performance.now()
   void resumeWorksiteAudio()
   playTones([{ frequency: 420, start: 0, duration: 0.06, peak: 0.65, type: 'triangle' }], 0.028)
+}
+
+export function playWorksitePrestigeAssign(): void {
+  if (!canPlay(lastPrestigeAt, PRESTIGE_COOLDOWN_MS)) return
+  lastPrestigeAt = performance.now()
+  void resumeWorksiteAudio()
+  playTones(
+    [
+      { frequency: 880, start: 0, duration: 0.14, peak: 0.55, type: 'sine' },
+      { frequency: 1174, start: 0.08, duration: 0.2, peak: 0.35, type: 'triangle' },
+    ],
+    0.03,
+  )
+}
+
+export function playWorksitePrestigeSeen(): void {
+  if (!canPlay(lastPrestigeAt, PRESTIGE_COOLDOWN_MS)) return
+  lastPrestigeAt = performance.now()
+  void resumeWorksiteAudio()
+  playTones(
+    [{ frequency: 660, start: 0, duration: 0.18, peak: 0.4, type: 'sine' }],
+    0.022,
+  )
 }
 
 function biomeAmbienceProfile(biomeId: WorksiteBiomeId): {

@@ -4,7 +4,6 @@ import {
   getSpotsForBiome,
   getWorksiteSpot,
   worksiteAssignedPetsInBiome,
-  worksiteMyrionAssignedElsewhere,
   worksiteRarityMultiplier,
   worksiteSpotKey,
   WORKSITE_BIOMES,
@@ -14,6 +13,7 @@ import {
   type WorksiteSpotId,
 } from './myrionWorksite'
 import { isWorksiteSpotUnlocked } from './myrionWorksiteProgression'
+import { worksitePetIsBusy } from './myrionWorksitePrestige'
 import type { PalmonRarity } from './wildFamiliars'
 import { PALMON_RARITIES } from './wildFamiliars'
 
@@ -209,7 +209,7 @@ export function availablePetsForBiome(
   const assignedIds = new Set(assignedInBiome.map((pet) => pet.id))
   return pets.filter(
     (pet) =>
-      !assignedIds.has(pet.id) && worksiteMyrionAssignedElsewhere(worksite, pet.id) === null,
+      !assignedIds.has(pet.id) && !worksitePetIsBusy(worksite, pet.id),
   )
 }
 
@@ -233,7 +233,19 @@ export function isPetAssignableToSpot(
   assignedHere: boolean,
 ): boolean {
   if (assignedHere) return true
-  return worksiteMyrionAssignedElsewhere(worksite, petId, biomeId, spotId) === null
+  return !worksitePetIsBusy(worksite, petId, { biomeId, spotId })
+}
+
+export function availableLrPetsForPrestige(
+  worksite: MyrionWorksiteSave,
+  pets: PetState[],
+): PetState[] {
+  const assigned = worksite.prestigeAssignedMyrionId
+  return pets.filter(
+    (pet) =>
+      pet.rarity === 'LR' &&
+      (assigned === pet.id || !worksitePetIsBusy(worksite, pet.id, { prestige: true })),
+  )
 }
 
 export function availablePetsForSpot(
