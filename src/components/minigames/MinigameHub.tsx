@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { BUILDING_ACTIVITIES, FEATURED_MINIGAME_IDS, sortActivitiesByUnlock } from '../../data/buildingActivities'
+import { listCompanionNamesForSystem } from '../../data/companionSupport'
 import { DEV_UNLOCK_ALL_MINIGAMES } from '../../data/gacha'
 import { BUILDING_UNLOCK_ORDER, getCurrentStage } from '../../data/population'
 import { ConversationPicker } from './ConversationPicker'
@@ -121,6 +122,9 @@ export function MinigameHub({
       `Inspire de: ${activity.inspiration}`,
       `Deblocage: ${unlockLabel}`,
       activity.persistent ? 'Progression sauvegardee entre les sessions.' : null,
+      activity.minigameType === 'myrion-worksite'
+        ? `Compagnons lies : ${listCompanionNamesForSystem('moon-farm').join(', ')}`
+        : null,
     ]
       .filter(Boolean)
       .join(' · ')

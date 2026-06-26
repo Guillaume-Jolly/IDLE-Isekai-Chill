@@ -99,6 +99,7 @@ import {
 import { HuntSideRail } from './HuntSideRail'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
 import { WorksiteMineBursts, WORKSITE_MINE_BURST_MS, WORKSITE_MAX_MINE_BURSTS, createMineBurstRing, markerBurstOrigin, type WorksiteMineBurst } from './WorksiteMineBursts'
+import { WorksiteCompanionSupport } from './WorksiteCompanionSupport'
 import { WorksiteMyrionLifeLayer } from './WorksiteMyrionLifeLayer'
 import { PalmonSprite } from './PalmonSprite'
 import {
@@ -164,6 +165,7 @@ function useMobileDrawerDefault() {
 export function MyrionWorksiteGame({
   activity,
   companionName,
+  companionAffinity,
   buildingName,
   resourceLabel,
   minigameSave,
@@ -1435,6 +1437,12 @@ export function MyrionWorksiteGame({
                     {activeBiome.emoji} {biomeResourceLabel} · {formatYield(biomeAutoPerSec)}/s
                   </span>
                 )}
+                {!monitoringMode ? (
+                  <WorksiteCompanionSupport
+                    activity={activity}
+                    companionAffinity={companionAffinity}
+                  />
+                ) : null}
                 <div className="mg-worksite-spot-markers">
                   {activeSpots.map((spot) => {
                     const spotVisual = getWorksiteSpotVisual(spot.id)

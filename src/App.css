@@ -1719,6 +1719,17 @@ button.danger {
   min-width: 0;
 }
 
+.companion-gameplay-support {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: rgba(232, 240, 255, 0.82);
+}
+
+.companion-gameplay-support-label {
+  opacity: 0.75;
+}
+
 .companion-portrait-wrap {
   align-self: start;
   position: relative;

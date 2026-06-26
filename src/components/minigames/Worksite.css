@@ -781,6 +781,66 @@
   font-style: italic;
 }
 
+.mg-worksite-companion-support {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  z-index: 4;
+  max-width: min(14rem, 42vw);
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.65rem;
+  background: rgba(12, 20, 14, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.mg-worksite-companion-support-kicker {
+  margin: 0 0 0.2rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.mg-worksite-companion-support-badge {
+  display: inline-block;
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(135, 197, 106, 0.2);
+  color: #d8f5c8;
+}
+
+.mg-worksite-companion-support-name {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.mg-worksite-companion-support-line {
+  margin: 0.2rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  opacity: 0.92;
+}
+
+.mg-worksite-companion-support-role {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  opacity: 0.75;
+  font-style: italic;
+}
+
+@media (max-width: 767px) {
+  .mg-worksite-companion-support {
+    top: auto;
+    bottom: 4.5rem;
+    right: 0.45rem;
+    max-width: min(12.5rem, 58vw);
+    font-size: 0.92em;
+  }
+}
+
 .mg-worksite-pet-group h4 {
   margin: 0 0 0.35rem;
   font-size: 0.85rem;
