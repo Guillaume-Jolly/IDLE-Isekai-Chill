@@ -1,6 +1,11 @@
 import type { Cost, ResourceKey } from './buildingActivities'
 import type { PetState } from './minigameSave'
 import type { PalmonRarity } from './wildFamiliars'
+import {
+  defaultUnlockedSpotKeys,
+  evaluateWorksiteUnlocks,
+  migrateWorksiteUnlockState,
+} from './myrionWorksiteProgression'
 
 /** Biomes du chantier Myrion — MVP 2. */
 export const WORKSITE_BIOME_IDS = [
@@ -110,15 +115,15 @@ const SPOT_CATALOG: WorksiteSpotDef[] = [
     baseAutoYieldPerMyrion: 0.014,
   }),
   spotDef('foret-douce', 'sous-bois', 'Sous-bois', '🍃', 'wood', 'Bois de sous-bois.'),
-  // Provisoire food — herbs n'existe pas encore dans ResourceKey.
-  spotDef('foret-douce', 'clairiere-herbes', 'Clairière aux herbes', '🌿', 'food', 'Herbes — provisoire vivres.'),
-  // Provisoire food — water n'existe pas encore dans ResourceKey.
-  spotDef('foret-douce', 'source-claire', 'Source claire', '💧', 'food', 'Eau — provisoire vivres.'),
+  // Ressource spécialisée future (herbs) — provisoire food.
+  spotDef('foret-douce', 'clairiere-herbes', 'Clairière aux herbes', '🌿', 'food', 'Herbes — ressource spécialisée future.'),
+  // Ressource spécialisée future (water) — provisoire food.
+  spotDef('foret-douce', 'source-claire', 'Source claire', '💧', 'food', 'Eau — ressource spécialisée future.'),
   spotDef('mine-tranquille', 'pierrier-profond', 'Pierrier profond', '🪨', 'stone', 'Pierre en profondeur.'),
-  // Provisoire stone — ore n'existe pas encore dans ResourceKey.
-  spotDef('mine-tranquille', 'veine-brute', 'Veine brute', '⛏️', 'stone', 'Minerai — provisoire pierre.'),
-  // Provisoire stone — coal n'existe pas encore dans ResourceKey.
-  spotDef('mine-tranquille', 'charbonniere', 'Charbonnière', '🪵', 'stone', 'Charbon — provisoire pierre.'),
+  // Ressource spécialisée future (ore) — provisoire stone.
+  spotDef('mine-tranquille', 'veine-brute', 'Veine brute', '⛏️', 'stone', 'Minerai — ressource spécialisée future.'),
+  // Ressource spécialisée future (coal) — provisoire stone.
+  spotDef('mine-tranquille', 'charbonniere', 'Charbonnière', '🪵', 'stone', 'Charbon — ressource spécialisée future.'),
 ]
 
 export const WORKSITE_SPOT_DEFS: Record<string, WorksiteSpotDef> = Object.fromEntries(
@@ -169,10 +174,14 @@ export const WORKSITE_RARITY_MULT: Record<PalmonRarity, number> = {
 export type MyrionWorksiteSave = {
   activeBiomeId: WorksiteBiomeId
   unlockedBiomeIds: WorksiteBiomeId[]
+  /** Clés composite biome:spot débloqués pour production et interaction. */
+  unlockedSpotKeys: string[]
   selectedSpotByBiome: Record<WorksiteBiomeId, WorksiteSpotId>
   /** Clés composite biome:spot */
   assignedMyrionIdsBySpot: Record<string, string[]>
   totalProducedBySpot: Partial<Record<string, number>>
+  /** IDs biome:* / spot:* déjà notifiés localement. */
+  seenUnlockNotificationIds: string[]
   lastAutoTickAt: number
 }
 
@@ -207,10 +216,12 @@ function emptyAssignments(): Record<string, string[]> {
 export function createStarterMyrionWorksite(now = Date.now()): MyrionWorksiteSave {
   return {
     activeBiomeId: 'prairie-chantier',
-    unlockedBiomeIds: [...WORKSITE_BIOME_IDS],
+    unlockedBiomeIds: ['prairie-chantier'],
+    unlockedSpotKeys: defaultUnlockedSpotKeys(),
     selectedSpotByBiome: defaultSelectedSpotByBiome(),
     assignedMyrionIdsBySpot: emptyAssignments(),
     totalProducedBySpot: {},
+    seenUnlockNotificationIds: [],
     lastAutoTickAt: now,
   }
 }
@@ -284,20 +295,27 @@ export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionW
         : starter.activeBiomeId
 
   const unlocked = partial.unlockedBiomeIds?.filter((id) => WORKSITE_BIOME_IDS.includes(id))
-  const unlockedBiomeIds =
-    unlocked && unlocked.length > 0 ? ([...new Set(unlocked)] as WorksiteBiomeId[]) : starter.unlockedBiomeIds
+  const unlockMigration = migrateWorksiteUnlockState({
+    ...partial,
+    unlockedBiomeIds:
+      unlocked && unlocked.length > 0 ? ([...new Set(unlocked)] as WorksiteBiomeId[]) : undefined,
+  })
 
-  return {
+  const merged: MyrionWorksiteSave = {
     activeBiomeId,
-    unlockedBiomeIds,
+    unlockedBiomeIds: unlockMigration.unlockedBiomeIds,
+    unlockedSpotKeys: unlockMigration.unlockedSpotKeys,
     selectedSpotByBiome,
     assignedMyrionIdsBySpot: assigned,
     totalProducedBySpot: migrateLegacyTotals(partial, { ...partial.totalProducedBySpot }),
+    seenUnlockNotificationIds: unlockMigration.seenUnlockNotificationIds,
     lastAutoTickAt:
       typeof partial.lastAutoTickAt === 'number' && Number.isFinite(partial.lastAutoTickAt)
         ? partial.lastAutoTickAt
         : starter.lastAutoTickAt,
   }
+
+  return evaluateWorksiteUnlocks(merged).worksite
 }
 
 export function worksiteRarityMultiplier(rarity: PalmonRarity): number {
@@ -408,7 +426,7 @@ export function removeMyrionFromSpot(
   }
 }
 
-/** Itère tous les spots assignés dans les biomes débloqués. */
+/** Itère les spots débloqués dans les biomes débloqués (production passive). */
 export function iterUnlockedWorksiteSpots(
   worksite: MyrionWorksiteSave,
 ): Array<{ biomeId: WorksiteBiomeId; spotId: WorksiteSpotId; spot: WorksiteSpotDef }> {
@@ -417,8 +435,12 @@ export function iterUnlockedWorksiteSpots(
   for (const biomeId of worksite.unlockedBiomeIds) {
     if (!WORKSITE_BIOME_IDS.includes(biomeId)) continue
     for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+      const key = worksiteSpotKey(biomeId, spotId)
+      if (!worksite.unlockedSpotKeys.includes(key)) continue
       rows.push({ biomeId, spotId, spot: getWorksiteSpot(biomeId, spotId) })
     }
   }
   return rows
 }
+
+export { evaluateWorksiteUnlocks } from './myrionWorksiteProgression'
