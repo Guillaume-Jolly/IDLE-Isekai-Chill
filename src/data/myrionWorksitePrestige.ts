@@ -1,3 +1,7 @@
+import {
+  WORKSITE_PRESTIGE_BALANCE,
+  WORKSITE_SUPERVISION_MULT,
+} from './myrionWorksiteBalance'
 import type { PetState } from './minigameSave'
 import {
   WORKSITE_BIOME_IDS,
@@ -10,9 +14,6 @@ import {
 import { isWorksiteBiomeUnlocked } from './myrionWorksiteProgression'
 import type { WorksiteVisualAsset } from './myrionWorksiteVisuals'
 import { MYRION_WORKSITE_ASSET_ROOT } from './myrionWorksiteVisuals'
-
-/** Aligné sur WORKSITE_SUPERVISION_MULT — valeur locale pour éviter import circulaire. */
-const PRESTIGE_SUPERVISION_MULT = 1.15
 
 /** Spot prestige MVP 6 — pas un filon gameplay classique. */
 export const WORKSITE_PRESTIGE_SPOT_ID = 'faille-astrale' as const
@@ -33,13 +34,13 @@ export const WORKSITE_PRESTIGE_CONFIG = {
   resourceLabel: 'Éclats astraux',
   resourceLabelSingular: 'Éclat astral',
   /** Production passive par LR assigné (hors multi rareté — LR-only). */
-  baseYieldPerLrPerSecond: 0.002,
-  supervisionMultiplier: PRESTIGE_SUPERVISION_MULT,
+  baseYieldPerLrPerSecond: WORKSITE_PRESTIGE_BALANCE.baseYieldPerLrPerSecond,
+  supervisionMultiplier: WORKSITE_SUPERVISION_MULT,
   lrRequirementLabel: 'Nécessite un Myrion LR',
   helpText: 'Objectif de prestige. Ne bloque pas la progression normale.',
   drawerLead: 'Production lente réservée aux Myrions LR.',
-  minGrantThreshold: 0.0001,
-  maxCatchUpSeconds: 5,
+  minGrantThreshold: WORKSITE_PRESTIGE_BALANCE.minGrantThreshold,
+  maxCatchUpSeconds: WORKSITE_PRESTIGE_BALANCE.maxCatchUpSeconds,
 } as const
 
 export const WORKSITE_PRESTIGE_SPOT_VISUAL = {

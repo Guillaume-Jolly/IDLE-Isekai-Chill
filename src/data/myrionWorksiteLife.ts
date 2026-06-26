@@ -1,3 +1,4 @@
+import { WORKSITE_VISUAL_LIMITS } from './myrionWorksiteBalance'
 import type { PetState } from './minigameSave'
 import type { EnclosureBounds } from './myrionRefuge'
 import type { EnclosureObstacle } from './myrionRefuge'
@@ -11,24 +12,16 @@ import {
   type WorksiteSpotId,
 } from './myrionWorksite'
 import { isWorksiteSpotUnlocked } from './myrionWorksiteProgression'
-import type { PalmonRarity } from './wildFamiliars'
 
 export type DecorativeMyrionState = 'working' | 'resting' | 'eating' | 'sleeping'
 
-export const WORKSITE_LIFE_BUCKET_SEC = 60
-export const WORKSITE_LIFE_MAX_SPECIES = 15
+export const WORKSITE_LIFE_BUCKET_SEC = WORKSITE_VISUAL_LIMITS.lifeBucketSec
+export const WORKSITE_LIFE_MAX_SPECIES = WORKSITE_VISUAL_LIMITS.lifeMaxSpecies
 
 /** Taille chibi sur le panorama — visible sans masquer le décor. */
-export const WORKSITE_LIFE_CHIBI_BASE_REM = 2.4
+export const WORKSITE_LIFE_CHIBI_BASE_REM = WORKSITE_VISUAL_LIMITS.chibiBaseRem
 
-export const WORKSITE_LIFE_CHIBI_RARITY_SCALE: Record<PalmonRarity, number> = {
-  N: 0.86,
-  R: 0.94,
-  SR: 1.02,
-  SSR: 1.1,
-  UR: 1.18,
-  LR: 1.28,
-}
+export { WORKSITE_LIFE_CHIBI_RARITY_SCALE } from './myrionWorksiteBalance'
 
 /** Zone de balade principale (tout le biome, au-dessus des filons). */
 export const WORKSITE_FIELD_BOUNDS: EnclosureBounds = {

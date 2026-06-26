@@ -1,4 +1,8 @@
 import {
+  WORKSITE_MINE_BIOME_UNLOCK,
+  WORKSITE_UNLOCK_THRESHOLDS,
+} from './myrionWorksiteBalance'
+import {
   WORKSITE_BIOME_IDS,
   WORKSITE_BIOMES,
   worksiteSpotKey,
@@ -11,19 +15,10 @@ const BIOME_IDS = WORKSITE_BIOME_IDS
 const BIOMES = WORKSITE_BIOMES
 const spotKey = worksiteSpotKey
 
-/** Seuils provisoires MVP 3 — faciles à ajuster. */
-export const WORKSITE_UNLOCK_THRESHOLDS = {
-  biomes: {
-    'foret-douce': { totalChantier: 15 },
-    'mine-tranquille': { totalChantier: 30, stone: 12 },
-  },
-  spots: {
-    'foret-douce:clairiere-herbes': { wood: 18 },
-    'foret-douce:source-claire': { wood: 30 },
-    'mine-tranquille:veine-brute': { stone: 24 },
-    'mine-tranquille:charbonniere': { stone: 45 },
-  },
-} as const
+export {
+  WORKSITE_MINE_BIOME_UNLOCK,
+  WORKSITE_UNLOCK_THRESHOLDS,
+} from './myrionWorksiteBalance'
 
 export const WORKSITE_BIOME_ENTRY_SPOTS: Record<WorksiteBiomeId, WorksiteSpotId> = {
   'prairie-chantier': 'bosquet',
@@ -81,11 +76,17 @@ export function isWorksiteSpotUnlocked(
 
 export function getBiomeUnlockHint(biomeId: WorksiteBiomeId): string | null {
   if (biomeId === 'prairie-chantier') return null
+  if (biomeId === 'mine-tranquille') {
+    const parts: string[] = [
+      `${WORKSITE_MINE_BIOME_UNLOCK.totalChantier} production totale chantier`,
+      `${WORKSITE_MINE_BIOME_UNLOCK.wood} bois produits`,
+    ]
+    return parts.join(' · ')
+  }
   const rule = WORKSITE_UNLOCK_THRESHOLDS.biomes[biomeId as keyof typeof WORKSITE_UNLOCK_THRESHOLDS.biomes]
   if (!rule) return null
   const parts: string[] = []
   if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale chantier`)
-  if ('stone' in rule && rule.stone) parts.push(`${rule.stone} pierre produite`)
   return parts.join(' · ')
 }
 
@@ -102,10 +103,14 @@ export function getSpotUnlockHint(biomeId: WorksiteBiomeId, spotId: WorksiteSpot
 function biomeUnlockMet(worksite: MyrionWorksiteSave, biomeId: WorksiteBiomeId): boolean {
   if (biomeId === 'prairie-chantier') return true
   const totals = worksiteResourceTotals(worksite)
+  if (biomeId === 'mine-tranquille') {
+    if (totals.totalChantier < WORKSITE_MINE_BIOME_UNLOCK.totalChantier) return false
+    if (totals.wood < WORKSITE_MINE_BIOME_UNLOCK.wood) return false
+    return true
+  }
   const rule = WORKSITE_UNLOCK_THRESHOLDS.biomes[biomeId as keyof typeof WORKSITE_UNLOCK_THRESHOLDS.biomes]
   if (!rule) return false
   if (rule.totalChantier && totals.totalChantier < rule.totalChantier) return false
-  if ('stone' in rule && rule.stone && totals.stone < rule.stone) return false
   return true
 }
 

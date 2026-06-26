@@ -1,4 +1,5 @@
 import type { PetState } from './minigameSave'
+import { WORKSITE_VISUAL_LIMITS } from './myrionWorksiteBalance'
 import {
   assignMyrionToSpot,
   getSpotsForBiome,
@@ -17,7 +18,7 @@ import { worksitePetIsBusy } from './myrionWorksitePrestige'
 import type { PalmonRarity } from './wildFamiliars'
 import { PALMON_RARITIES } from './wildFamiliars'
 
-export const WORKSITE_ASSIGN_PAGE_SIZE = 30
+export const WORKSITE_ASSIGN_PAGE_SIZE = WORKSITE_VISUAL_LIMITS.assignPageSize
 
 export type WorksiteAssignSort = 'efficiency-desc' | 'efficiency-asc' | 'name-asc' | 'rarity-desc'
 

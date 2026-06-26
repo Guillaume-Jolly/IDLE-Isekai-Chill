@@ -1,9 +1,10 @@
 import { type CSSProperties } from 'react'
+import { WORKSITE_VISUAL_LIMITS } from '../../data/myrionWorksiteBalance'
 import { WorksiteOptionalImage } from './WorksiteVisuals'
 import type { WorksiteVisualAsset } from '../../data/myrionWorksiteVisuals'
 
-export const WORKSITE_MINE_BURST_MS = 2200
-export const WORKSITE_MAX_MINE_BURSTS = 12
+export const WORKSITE_MINE_BURST_MS = WORKSITE_VISUAL_LIMITS.mineBurstMs
+export const WORKSITE_MAX_MINE_BURSTS = WORKSITE_VISUAL_LIMITS.maxMineBursts
 
 export type WorksiteMineBurstRay = {
   id: string

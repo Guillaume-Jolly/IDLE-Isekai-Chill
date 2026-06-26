@@ -2,6 +2,14 @@ import type { Cost, ResourceKey } from './buildingActivities'
 import type { PetState } from './minigameSave'
 import type { PalmonRarity } from './wildFamiliars'
 import {
+  WORKSITE_AUTO_MAX_CATCHUP_SEC,
+  WORKSITE_AUTO_MIN_GRANT,
+  WORKSITE_CLICK_ASSIGNED_BONUS_FACTOR,
+  WORKSITE_CLICK_MIN_YIELD,
+  worksiteBalanceRarityMultiplier,
+  worksiteSpotYieldDefaults,
+} from './myrionWorksiteBalance'
+import {
   WORKSITE_BIOME_IDS,
   WORKSITE_BIOMES,
   worksiteSpotKey,
@@ -54,16 +62,16 @@ function spotDef(
   emoji: string,
   resourceId: ResourceKey,
   hint: string,
-  overrides?: Partial<Pick<WorksiteSpotDef, 'baseClickYield' | 'baseAutoYieldPerMyrion'>>,
 ): WorksiteSpotDef {
+  const yields = worksiteSpotYieldDefaults(worksiteSpotKey(biomeId, id))
   return {
     id,
     biomeId,
     name,
     emoji,
     resourceId,
-    baseClickYield: overrides?.baseClickYield ?? 0.35,
-    baseAutoYieldPerMyrion: overrides?.baseAutoYieldPerMyrion ?? 0.012,
+    baseClickYield: yields.baseClickYield,
+    baseAutoYieldPerMyrion: yields.baseAutoYieldPerMyrion,
     unlocked: true,
     hint,
   }
@@ -72,10 +80,7 @@ function spotDef(
 const SPOT_CATALOG: WorksiteSpotDef[] = [
   spotDef('prairie-chantier', 'bosquet', 'Verger', '🍎', 'food', 'Fruits — calmement.'),
   spotDef('prairie-chantier', 'pierrier', 'Potager', '🥕', 'food', 'Légumes — sans pression.'),
-  spotDef('prairie-chantier', 'champs', 'Champs', '🌾', 'food', 'Céréales — petites récoltes.', {
-    baseClickYield: 0.4,
-    baseAutoYieldPerMyrion: 0.014,
-  }),
+  spotDef('prairie-chantier', 'champs', 'Champs', '🌾', 'food', 'Céréales — petites récoltes.'),
   spotDef('foret-douce', 'sous-bois', 'Sous-bois', '🍃', 'wood', 'Bois feuillu.'),
   spotDef('foret-douce', 'clairiere-herbes', 'Clairière', '🪵', 'wood', 'Bois clair — futur type spécialisé.'),
   spotDef('foret-douce', 'source-claire', 'Souches', '🌲', 'wood', 'Bois résineux — futur type spécialisé.'),
@@ -116,18 +121,11 @@ export function isWorksiteSpotIdForBiome(
   return (WORKSITE_BIOMES[biomeId].spotIds as readonly string[]).includes(spotId)
 }
 
-/** Bonus supervision — appliqué aux spots du biome actif uniquement. */
-export const WORKSITE_SUPERVISION_MULT = 1.15
+/** Bonus supervision — réexport depuis balance. */
+export { WORKSITE_SUPERVISION_MULT } from './myrionWorksiteBalance'
 
-/** Coefficients provisoires MVP. */
-export const WORKSITE_RARITY_MULT: Record<PalmonRarity, number> = {
-  N: 1,
-  R: 1.25,
-  SR: 1.5,
-  SSR: 2,
-  UR: 2.5,
-  LR: 3,
-}
+/** Coefficients rareté — réexport depuis balance. */
+export { WORKSITE_RARITY_MULT } from './myrionWorksiteBalance'
 
 /** Champs MVP 1 conservés pour migration mergeMyrionWorksite. */
 type LegacyMyrionWorksiteSave = Partial<
@@ -277,7 +275,7 @@ export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionW
 }
 
 export function worksiteRarityMultiplier(rarity: PalmonRarity): number {
-  return WORKSITE_RARITY_MULT[rarity] ?? 1
+  return worksiteBalanceRarityMultiplier(rarity)
 }
 
 export function worksiteAssignedPets(
@@ -317,10 +315,13 @@ export function computeWorksiteClickYield(
   assignedPets: PetState[],
 ): number {
   const bonus = assignedPets.reduce(
-    (sum, pet) => sum + 0.05 * worksiteRarityMultiplier(pet.rarity),
+    (sum, pet) => sum + WORKSITE_CLICK_ASSIGNED_BONUS_FACTOR * worksiteRarityMultiplier(pet.rarity),
     0,
   )
-  return Math.max(0.1, Math.round((spot.baseClickYield + bonus) * 100) / 100)
+  return Math.max(
+    WORKSITE_CLICK_MIN_YIELD,
+    Math.round((spot.baseClickYield + bonus) * 100) / 100,
+  )
 }
 
 export function computeWorksiteAutoPerSecond(
@@ -345,10 +346,13 @@ export function computeWorksiteAutoGrant(
   now = Date.now(),
   supervisionMultiplier = 1,
 ): { reward: Cost; nextTickAt: number; amount: number } {
-  const deltaSec = Math.min(5, Math.max(0, (now - lastTickAt) / 1000))
+  const deltaSec = Math.min(
+    WORKSITE_AUTO_MAX_CATCHUP_SEC,
+    Math.max(0, (now - lastTickAt) / 1000),
+  )
   const perSec = computeWorksiteAutoPerSecond(spot, assignedPets, supervisionMultiplier)
   const raw = perSec * deltaSec
-  const amount = raw >= 0.05 ? Math.floor(raw * 100) / 100 : 0
+  const amount = raw >= WORKSITE_AUTO_MIN_GRANT ? Math.floor(raw * 100) / 100 : 0
   return {
     amount,
     reward: amount > 0 ? { [spot.resourceId]: amount } : {},

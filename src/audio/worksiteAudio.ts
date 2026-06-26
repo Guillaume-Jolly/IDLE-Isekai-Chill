@@ -3,13 +3,14 @@
  * Pas de fichiers audio : volume bas, cooldown anti-spam, bus SFX / musique existants.
  */
 import type { ResourceKey } from '../data/buildingActivities'
-import type { WorksiteBiomeId } from '../data/myrionWorksite'
+import type { WorksiteBiomeId } from '../data/myrionWorksiteDefs'
+import { WORKSITE_AUDIO_COOLDOWNS_MS } from '../data/myrionWorksiteBalance'
 import { getMusicOutput, getSharedAudioContext, getSfxOutput, resumeAudio } from './audioEngine'
 
-const MINE_COOLDOWN_MS = 72
-const UNLOCK_COOLDOWN_MS = 420
-const DRAWER_COOLDOWN_MS = 160
-const PRESTIGE_COOLDOWN_MS = 280
+const MINE_COOLDOWN_MS = WORKSITE_AUDIO_COOLDOWNS_MS.mine
+const UNLOCK_COOLDOWN_MS = WORKSITE_AUDIO_COOLDOWNS_MS.unlock
+const DRAWER_COOLDOWN_MS = WORKSITE_AUDIO_COOLDOWNS_MS.drawer
+const PRESTIGE_COOLDOWN_MS = WORKSITE_AUDIO_COOLDOWNS_MS.prestige
 
 let lastMineAt = 0
 let lastUnlockAt = 0

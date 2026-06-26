@@ -23,13 +23,16 @@ import {
   type WorksiteSpotId,
 } from '../../data/myrionWorksite'
 import {
+  WORKSITE_MINE_BIOME_UNLOCK,
+  WORKSITE_UNLOCK_THRESHOLDS,
+} from '../../data/myrionWorksiteBalance'
+import {
   getBiomeUnlockHint,
   getSpotUnlockHint,
   isWorksiteBiomeUnlocked,
   isWorksiteSpotUnlocked,
   markUnlockNotificationsSeen,
   worksiteResourceTotals,
-  WORKSITE_UNLOCK_THRESHOLDS,
 } from '../../data/myrionWorksiteProgression'
 import {
   assignedSpeciesSummary,
@@ -894,8 +897,8 @@ export function MyrionWorksiteGame({
             )}
           </ul>
           <p className="mg-worksite-note">
-            Seuils provisoires — voir WORKSITE_UNLOCK_THRESHOLDS ({WORKSITE_UNLOCK_THRESHOLDS.biomes['foret-douce'].totalChantier} /{' '}
-            {WORKSITE_UNLOCK_THRESHOLDS.biomes['mine-tranquille'].totalChantier} total).
+            Seuils provisoires — Forêt {WORKSITE_UNLOCK_THRESHOLDS.biomes['foret-douce'].totalChantier} total · Mine{' '}
+            {WORKSITE_MINE_BIOME_UNLOCK.totalChantier} total + {WORKSITE_MINE_BIOME_UNLOCK.wood} bois.
           </p>
         </div>
       ),
