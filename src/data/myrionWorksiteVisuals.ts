@@ -1,6 +1,7 @@
 import type { ResourceKey } from './buildingActivities'
 import type { WorksiteBiomeId, WorksiteSpotId } from './myrionWorksiteDefs'
 import { WORKSITE_RUNTIME_BIOMES, WORKSITE_RUNTIME_SPOT_BY_KEY } from './myrionWorksiteBiomeRuntime'
+import { isWorksiteAssetAvailable } from './myrionWorksiteAssetRegistry'
 
 /** Racine servie par Vite — voir docs/MYRION_WORKSITE_ASSET_PIPELINE.md */
 export const MYRION_WORKSITE_ASSET_ROOT = '/assets/minigames/myrion-worksite'
@@ -64,11 +65,13 @@ function asset(
   subdir: string,
   filename: string,
   placeholderClass: string,
-  available = false,
+  available?: boolean,
 ): WorksiteVisualAsset {
+  const relPath = `${subdir}/${filename}`
+  const resolvedAvailable = available ?? isWorksiteAssetAvailable(relPath)
   return {
     path: `${MYRION_WORKSITE_ASSET_ROOT}/${subdir}/${filename}`,
-    available,
+    available: resolvedAvailable,
     placeholderClass,
   }
 }
@@ -136,21 +139,21 @@ export function getWorksiteDecorationVisual(id: WorksiteDecorationId): WorksiteD
   return WORKSITE_DECORATION_VISUALS[id]
 }
 
-/** Fonds de biome — 3 actifs + fallbacks MVP 14. */
+/** Fonds de biome — 3 legacy + 12 extension MVP 15 via registry. */
 const CORE_BIOME_VISUALS: Record<string, WorksiteBiomeVisual> = {
   'prairie-chantier': {
     id: 'prairie-chantier',
-    background: asset('backgrounds', 'prairie.png', 'mg-worksite-bg--prairie', true),
+    background: asset('backgrounds', 'prairie.png', 'mg-worksite-bg--prairie'),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
   'foret-douce': {
     id: 'foret-douce',
-    background: asset('backgrounds', 'forest.png', 'mg-worksite-bg--foret', true),
+    background: asset('backgrounds', 'forest.png', 'mg-worksite-bg--foret'),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
   'mine-tranquille': {
     id: 'mine-tranquille',
-    background: asset('backgrounds', 'mine.png', 'mg-worksite-bg--mine', true),
+    background: asset('backgrounds', 'mine.png', 'mg-worksite-bg--mine'),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
   'faille-astrale': {
@@ -165,26 +168,11 @@ const EXTENDED_BIOME_VISUALS: Partial<Record<WorksiteBiomeId, WorksiteBiomeVisua
     .filter(([id]) => !(id in CORE_BIOME_VISUALS))
     .map(([id, meta]) => {
       const filename = meta.backgroundAssetKey.split('/').pop() ?? 'extended.png'
-      const useSwampPlaceholder = id === 'marais-lucioles'
-      const useCrystalPlaceholder = id === 'grotte-cristalline'
-      const useAstralPlaceholder = id === 'sanctuaire-astral'
-      const bgFile = useSwampPlaceholder
-        ? 'swamp.png'
-        : useCrystalPlaceholder
-          ? 'crystal.png'
-          : useAstralPlaceholder
-            ? 'astral.png'
-            : filename
       return [
         id,
         {
           id: id as WorksiteBiomeId,
-          background: asset(
-            'backgrounds',
-            bgFile,
-            meta.backgroundPlaceholderClass,
-            id === 'marais-lucioles' ? false : false,
-          ),
+          background: asset('backgrounds', filename, meta.backgroundPlaceholderClass),
           supervisedSceneClass: 'mg-worksite-biome--supervised',
         } satisfies WorksiteBiomeVisual,
       ]
@@ -199,65 +187,82 @@ export const WORKSITE_BIOME_VISUALS = {
 export const WORKSITE_SPOT_VISUALS: Record<WorksiteSpotVisualId, WorksiteSpotVisual> = {
   bosquet: {
     id: 'bosquet',
-    asset: asset('spots', 'bosquet.png', 'mg-worksite-spot-object--bosquet', true),
+    asset: asset('spots', 'bosquet.png', 'mg-worksite-spot-object--bosquet'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--bosquet',
   },
   pierrier: {
     id: 'pierrier',
-    asset: asset('spots', 'pierrier.png', 'mg-worksite-spot-object--pierrier', true),
+    asset: asset('spots', 'pierrier.png', 'mg-worksite-spot-object--pierrier'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--pierrier',
   },
   champs: {
     id: 'champs',
-    asset: asset('spots', 'champs.png', 'mg-worksite-spot-object--champs', true),
+    asset: asset('spots', 'champs.png', 'mg-worksite-spot-object--champs'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--champs',
   },
   'sous-bois': {
     id: 'sous-bois',
-    asset: asset('spots', 'sous-bois.png', 'mg-worksite-spot-object--sous-bois', true),
+    asset: asset('spots', 'sous-bois.png', 'mg-worksite-spot-object--sous-bois'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--sous-bois',
   },
   'clairiere-herbes': {
     id: 'clairiere-herbes',
-    asset: asset('spots', 'clairiere-herbes.png', 'mg-worksite-spot-object--clairiere-herbes', true),
+    asset: asset('spots', 'clairiere-herbes.png', 'mg-worksite-spot-object--clairiere-herbes'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--clairiere-herbes',
   },
   'source-claire': {
     id: 'source-claire',
-    asset: asset('spots', 'source-claire.png', 'mg-worksite-spot-object--source-claire', true),
+    asset: asset('spots', 'source-claire.png', 'mg-worksite-spot-object--source-claire'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--source-claire',
   },
   'pierrier-profond': {
     id: 'pierrier-profond',
-    asset: asset('spots', 'pierrier-profond.png', 'mg-worksite-spot-object--pierrier-profond', true),
+    asset: asset('spots', 'pierrier-profond.png', 'mg-worksite-spot-object--pierrier-profond'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--pierrier-profond',
   },
   'veine-brute': {
     id: 'veine-brute',
-    asset: asset('spots', 'veine-brute.png', 'mg-worksite-spot-object--veine-brute', true),
+    asset: asset('spots', 'veine-brute.png', 'mg-worksite-spot-object--veine-brute'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--veine-brute',
   },
   charbonniere: {
     id: 'charbonniere',
-    asset: asset('spots', 'charbonniere.png', 'mg-worksite-spot-object--charbonniere', true),
+    asset: asset('spots', 'charbonniere.png', 'mg-worksite-spot-object--charbonniere'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--charbonniere',
   },
   'faille-astrale': {
     id: 'faille-astrale',
-    asset: asset('spots', 'faille-astrale.png', 'mg-worksite-spot-object--faille-astrale', true),
+    asset: asset('spots', 'faille-astrale.png', 'mg-worksite-spot-object--faille-astrale'),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--faille-astrale',
   },
 }
+
+/** Spots extension MVP 14 — chemins catalogue + disponibilité registry MVP 15. */
+const RUNTIME_SPOT_VISUALS: Record<string, WorksiteSpotVisual> = Object.fromEntries(
+  Object.values(WORKSITE_RUNTIME_SPOT_BY_KEY).map((meta) => {
+    const filename = meta.assetKey.split('/').pop() ?? 'generic.png'
+    const placeholder = meta.placeholderClass
+    return [
+      meta.spotId,
+      {
+        id: meta.spotId as WorksiteSpotVisualId,
+        asset: asset('spots', filename, placeholder),
+        cardClass: 'mg-worksite-spot-card',
+        objectClass: `mg-worksite-spot-object ${placeholder}`,
+      } satisfies WorksiteSpotVisual,
+    ]
+  }),
+)
 
 export const WORKSITE_RESOURCE_ICON_VISUALS: Record<WorksiteResourceIconId, WorksiteResourceIconVisual> = {
   wood: {
@@ -370,6 +375,8 @@ function fallbackSpotVisual(spotId: WorksiteSpotId): WorksiteSpotVisual {
 export function getWorksiteSpotVisual(spotId: WorksiteSpotId): WorksiteSpotVisual {
   const known = WORKSITE_SPOT_VISUALS[spotId as WorksiteSpotVisualId]
   if (known) return known
+  const runtime = RUNTIME_SPOT_VISUALS[spotId]
+  if (runtime) return runtime
   return fallbackSpotVisual(spotId)
 }
 
