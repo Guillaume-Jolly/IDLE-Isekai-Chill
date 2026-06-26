@@ -555,6 +555,57 @@
   min-height: 2rem;
 }
 
+.mg-worksite-spot-btn--locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mg-worksite-unlock-banner {
+  background: rgba(135, 197, 106, 0.15);
+  border: 1px solid rgba(135, 197, 106, 0.35);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.mg-worksite-unlock-banner p {
+  margin: 0.15rem 0;
+}
+
+.mg-worksite-badge-new {
+  display: inline-block;
+  background: rgba(135, 197, 106, 0.35);
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  margin-right: 0.35rem;
+  text-transform: uppercase;
+}
+
+.mg-worksite-progress-totals,
+.mg-worksite-progress-next {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.85rem;
+}
+
+.mg-worksite-progress-next {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mg-worksite-marker:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.mg-worksite-tap:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 @media (max-width: 767px) {
   .mg-worksite-scene-wrap {
     overflow-x: auto;

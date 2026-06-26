@@ -12,6 +12,7 @@ import {
   getSpotsForBiome,
   getWorksiteSpot,
   iterUnlockedWorksiteSpots,
+  evaluateWorksiteUnlocks,
   mergeMyrionWorksite,
   removeMyrionFromSpot,
   worksiteAssignedPets,
@@ -22,6 +23,15 @@ import {
   type WorksiteBiomeId,
   type WorksiteSpotId,
 } from '../../data/myrionWorksite'
+import {
+  getBiomeUnlockHint,
+  getSpotUnlockHint,
+  isWorksiteBiomeUnlocked,
+  isWorksiteSpotUnlocked,
+  markUnlockNotificationsSeen,
+  worksiteResourceTotals,
+  WORKSITE_UNLOCK_THRESHOLDS,
+} from '../../data/myrionWorksiteProgression'
 import { RARITY_COLORS } from '../../data/wildFamiliars'
 import {
   getWorksiteBiomeVisual,
@@ -107,6 +117,7 @@ export function MyrionWorksiteGame({
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [clickFlash, setClickFlash] = useState(false)
   const [sessionClicks, setSessionClicks] = useState(0)
+  const [unlockNotices, setUnlockNotices] = useState<Array<{ id: string; label: string }>>([])
 
   const worksiteRef = useRef(worksite)
   const petsRef = useRef(pets)
@@ -139,31 +150,47 @@ export function MyrionWorksiteGame({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- sync drawer when breakpoint changes
   }, [isMobile])
 
+  const applyProgression = useCallback((base: MyrionWorksiteSave): MyrionWorksiteSave => {
+    const { worksite: evaluated, events } = evaluateWorksiteUnlocks(base)
+    const fresh = events.filter((event) => !evaluated.seenUnlockNotificationIds.includes(event.id))
+    if (fresh.length > 0) {
+      setUnlockNotices(fresh.map((event) => ({ id: event.id, label: event.label })))
+      window.setTimeout(() => setUnlockNotices([]), 4500)
+      return markUnlockNotificationsSeen(
+        evaluated,
+        fresh.map((event) => event.id),
+      )
+    }
+    return evaluated
+  }, [])
+
   const persist = useCallback(
     (next: MyrionWorksiteSave) => {
-      setWorksite(next)
-      worksiteRef.current = next
+      const progressed = applyProgression(next)
+      setWorksite(progressed)
+      worksiteRef.current = progressed
       lastAutoSaveAtRef.current = Date.now()
       if (minigameSave && onSaveMinigame) {
-        onSaveMinigame({ ...minigameSave, myrionWorksite: next })
+        onSaveMinigame({ ...minigameSave, myrionWorksite: progressed })
       }
     },
-    [minigameSave, onSaveMinigame],
+    [applyProgression, minigameSave, onSaveMinigame],
   )
 
   const flushWorksiteSave = useCallback(
     (next: MyrionWorksiteSave, force = false) => {
-      worksiteRef.current = next
+      const progressed = applyProgression(next)
+      worksiteRef.current = progressed
       const now = Date.now()
       if (!force && now - lastAutoSaveAtRef.current < AUTO_SAVE_MS) return
-      setWorksite(next)
+      setWorksite(progressed)
       lastAutoSaveAtRef.current = now
       const save = minigameSaveRef.current
       if (save && onSaveMinigameRef.current) {
-        onSaveMinigameRef.current({ ...save, myrionWorksite: next })
+        onSaveMinigameRef.current({ ...save, myrionWorksite: progressed })
       }
     },
-    [],
+    [applyProgression],
   )
 
   const activeBiomeId = worksite.activeBiomeId
@@ -178,6 +205,7 @@ export function MyrionWorksiteGame({
     WORKSITE_SUPERVISION_MULT,
   )
   const activeSpots = getSpotsForBiome(activeBiomeId)
+  const progressTotals = worksiteResourceTotals(worksite)
 
   const selectBiome = (biomeId: WorksiteBiomeId) => {
     if (!worksite.unlockedBiomeIds.includes(biomeId)) return
@@ -185,6 +213,7 @@ export function MyrionWorksiteGame({
   }
 
   const selectSpot = (spotId: WorksiteSpotId) => {
+    if (!isWorksiteSpotUnlocked(worksite, activeBiomeId, spotId)) return
     persist({
       ...worksite,
       selectedSpotByBiome: {
@@ -195,6 +224,7 @@ export function MyrionWorksiteGame({
   }
 
   const handleTap = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!isWorksiteSpotUnlocked(worksite, activeBiomeId, selectedSpotId)) return
     if (event.timeStamp - lastClickRef.current < CLICK_COOLDOWN_MS) return
     lastClickRef.current = event.timeStamp
 
@@ -208,7 +238,7 @@ export function MyrionWorksiteGame({
         [spotKey]: produced,
       },
     })
-    onComplete(1, 1, reward, { keepOpen: true, silent: true })
+    onComplete(1, 1, reward, { keepOpen: true, silent: false })
     setSessionClicks((value) => value + 1)
     setClickFlash(true)
     window.setTimeout(() => setClickFlash(false), 160)
@@ -327,7 +357,8 @@ export function MyrionWorksiteGame({
           <ul className="mg-worksite-biome-list">
             {WORKSITE_BIOME_IDS.map((biomeId) => {
               const biome = WORKSITE_BIOMES[biomeId]
-              const unlocked = worksite.unlockedBiomeIds.includes(biomeId)
+              const unlocked = isWorksiteBiomeUnlocked(worksite, biomeId)
+              const hint = getBiomeUnlockHint(biomeId)
               return (
                 <li key={biomeId}>
                   <button
@@ -338,13 +369,16 @@ export function MyrionWorksiteGame({
                   >
                     <span>
                       {biome.emoji} {biome.label}
+                      {!unlocked ? ' 🔒' : null}
                     </span>
                     {activeBiomeId === biomeId ? (
                       <span className="mg-worksite-biome-meta">Affiché · supervision</span>
                     ) : unlocked ? (
                       <span className="mg-worksite-biome-meta">Production passive</span>
                     ) : (
-                      <span className="mg-worksite-biome-meta">Verrouillé</span>
+                      <span className="mg-worksite-biome-meta">
+                        {hint ? `Débloquer : ${hint}` : 'Verrouillé'}
+                      </span>
                     )}
                   </button>
                 </li>
@@ -366,29 +400,72 @@ export function MyrionWorksiteGame({
           <ul className="mg-worksite-spot-list">
             {activeSpots.map((spot) => {
               const assigned = worksiteAssignedPets(worksite, activeBiomeId, spot.id, pets)
-              const auto = computeWorksiteAutoPerSecond(
-                spot,
-                assigned,
-                WORKSITE_SUPERVISION_MULT,
-              )
+              const unlocked = isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id)
+              const auto = unlocked
+                ? computeWorksiteAutoPerSecond(spot, assigned, WORKSITE_SUPERVISION_MULT)
+                : 0
+              const spotHint = getSpotUnlockHint(activeBiomeId, spot.id)
               return (
                 <li key={spot.id}>
                   <button
-                    className={`mg-worksite-spot-btn ${selectedSpotId === spot.id ? 'active' : ''}`}
+                    className={`mg-worksite-spot-btn ${selectedSpotId === spot.id ? 'active' : ''} ${unlocked ? '' : 'mg-worksite-spot-btn--locked'}`}
+                    disabled={!unlocked}
                     type="button"
                     onClick={() => selectSpot(spot.id)}
                   >
                     <span>
                       {spot.emoji} {spot.name}
+                      {!unlocked ? ' 🔒' : null}
                     </span>
                     <span className="mg-worksite-spot-meta">
-                      {RESOURCE_LABELS[spot.resourceId]} · {assigned.length} Myrion(s) · {formatYield(auto)}/s
+                      {unlocked
+                        ? `${RESOURCE_LABELS[spot.resourceId]} · ${assigned.length} Myrion(s) · ${formatYield(auto)}/s`
+                        : spotHint
+                          ? `Débloquer : ${spotHint}`
+                          : 'Verrouillé'}
                     </span>
                   </button>
                 </li>
               )
             })}
           </ul>
+        </div>
+      ),
+    },
+    {
+      id: 'progress',
+      label: 'Progression',
+      icon: '📈',
+      content: (
+        <div className="mg-worksite-drawer-section">
+          <p className="mg-worksite-drawer-lead">Production cumulée chantier</p>
+          <ul className="mg-worksite-progress-totals">
+            <li>Total : {formatYield(progressTotals.totalChantier)}</li>
+            <li>Bois : {formatYield(progressTotals.wood)}</li>
+            <li>Pierre : {formatYield(progressTotals.stone)}</li>
+            <li>Vivres : {formatYield(progressTotals.food)}</li>
+          </ul>
+          <p className="mg-worksite-drawer-lead">Prochains déblocages</p>
+          <ul className="mg-worksite-progress-next">
+            {WORKSITE_BIOME_IDS.filter((id) => !isWorksiteBiomeUnlocked(worksite, id)).map((biomeId) => (
+              <li key={biomeId}>
+                {WORKSITE_BIOMES[biomeId].emoji} {WORKSITE_BIOMES[biomeId].label} — {getBiomeUnlockHint(biomeId)}
+              </li>
+            ))}
+            {WORKSITE_BIOME_IDS.flatMap((biomeId) =>
+              WORKSITE_BIOMES[biomeId].spotIds
+                .filter((spotId) => !isWorksiteSpotUnlocked(worksite, biomeId, spotId))
+                .map((spotId) => (
+                  <li key={worksiteSpotKey(biomeId, spotId)}>
+                    {WORKSITE_BIOMES[biomeId].emoji} {spotId} — {getSpotUnlockHint(biomeId, spotId) ?? 'Biome requis'}
+                  </li>
+                )),
+            )}
+          </ul>
+          <p className="mg-worksite-note">
+            Seuils provisoires — voir WORKSITE_UNLOCK_THRESHOLDS ({WORKSITE_UNLOCK_THRESHOLDS.biomes['foret-douce'].totalChantier} /{' '}
+            {WORKSITE_UNLOCK_THRESHOLDS.biomes['mine-tranquille'].totalChantier} total).
+          </p>
         </div>
       ),
     },
@@ -594,6 +671,16 @@ export function MyrionWorksiteGame({
               </p>
             </header>
 
+            {unlockNotices.length > 0 ? (
+              <div className="mg-worksite-unlock-banner" role="status">
+                {unlockNotices.map((notice) => (
+                  <p key={notice.id}>
+                    <span className="mg-worksite-badge-new">Débloqué</span> {notice.label}
+                  </p>
+                ))}
+              </div>
+            ) : null}
+
             <div
               aria-label={activeBiome.label}
               className={worksiteSceneClassNames(activeBiomeId, true, activeBiome.panoramaClass)}
@@ -609,11 +696,12 @@ export function MyrionWorksiteGame({
                 {activeSpots.map((spot) => {
                   const spotVisual = getWorksiteSpotVisual(spot.id)
                   const selected = selectedSpotId === spot.id
-                  const locked = !spot.unlocked
+                  const locked = !isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id)
                   return (
                     <button
                       aria-label={`Spot ${spot.name}`}
                       className={worksiteSpotMarkerClassNames(spot.id, selected, locked)}
+                      disabled={locked}
                       key={spot.id}
                       type="button"
                       onClick={() => selectSpot(spot.id)}
@@ -632,6 +720,7 @@ export function MyrionWorksiteGame({
 
             <button
               className={`mg-worksite-tap ${clickFlash ? 'flash' : ''}`}
+              disabled={!isWorksiteSpotUnlocked(worksite, activeBiomeId, selectedSpotId)}
               type="button"
               onClick={handleTap}
             >
