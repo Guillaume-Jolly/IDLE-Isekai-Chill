@@ -1,13 +1,18 @@
 import type { PetState } from './minigameSave'
 import {
-  WORKSITE_SUPERVISION_MULT,
-  worksiteMyrionAssignedElsewhere,
+  WORKSITE_BIOME_IDS,
+  WORKSITE_BIOMES,
+  worksiteSpotKey,
   type MyrionWorksiteSave,
   type WorksiteBiomeId,
-} from './myrionWorksite'
+  type WorksiteSpotId,
+} from './myrionWorksiteDefs'
 import { isWorksiteBiomeUnlocked } from './myrionWorksiteProgression'
 import type { WorksiteVisualAsset } from './myrionWorksiteVisuals'
 import { MYRION_WORKSITE_ASSET_ROOT } from './myrionWorksiteVisuals'
+
+/** Aligné sur WORKSITE_SUPERVISION_MULT — valeur locale pour éviter import circulaire. */
+const PRESTIGE_SUPERVISION_MULT = 1.15
 
 /** Spot prestige MVP 6 — pas un filon gameplay classique. */
 export const WORKSITE_PRESTIGE_SPOT_ID = 'faille-astrale' as const
@@ -29,7 +34,7 @@ export const WORKSITE_PRESTIGE_CONFIG = {
   resourceLabelSingular: 'Éclat astral',
   /** Production passive par LR assigné (hors multi rareté — LR-only). */
   baseYieldPerLrPerSecond: 0.002,
-  supervisionMultiplier: WORKSITE_SUPERVISION_MULT,
+  supervisionMultiplier: PRESTIGE_SUPERVISION_MULT,
   lrRequirementLabel: 'Nécessite un Myrion LR',
   helpText: 'Objectif de prestige. Ne bloque pas la progression normale.',
   drawerLead: 'Production lente réservée aux Myrions LR.',
@@ -80,10 +85,17 @@ export function canAssignPetToPrestige(
 export function worksitePetIsBusy(
   worksite: MyrionWorksiteSave,
   petId: string,
-  except?: { prestige?: boolean; biomeId?: WorksiteBiomeId; spotId?: import('./myrionWorksiteDefs').WorksiteSpotId },
+  except?: { prestige?: boolean; biomeId?: WorksiteBiomeId; spotId?: WorksiteSpotId },
 ): boolean {
   if (!except?.prestige && worksite.prestigeAssignedMyrionId === petId) return true
-  return worksiteMyrionAssignedElsewhere(worksite, petId, except?.biomeId, except?.spotId) !== null
+  for (const biomeId of WORKSITE_BIOME_IDS) {
+    for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+      if (except?.biomeId === biomeId && except?.spotId === spotId) continue
+      const key = worksiteSpotKey(biomeId, spotId)
+      if (worksite.assignedMyrionIdsBySpot[key]?.includes(petId)) return true
+    }
+  }
+  return false
 }
 
 export function assignLrToPrestige(
