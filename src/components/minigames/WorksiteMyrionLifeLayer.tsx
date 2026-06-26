@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { PetState } from '../../data/minigameSave'
-import type { MyrionWorksiteSave, WorksiteBiomeId } from '../../data/myrionWorksite'
-import { getSpotsForBiome } from '../../data/myrionWorksite'
+import { getSpotsForBiome, type MyrionWorksiteSave, type WorksiteBiomeId } from '../../data/myrionWorksite'
+import { isWorksiteSpotUnlocked } from '../../data/myrionWorksiteProgression'
 import { getWorksiteDecorationVisual } from '../../data/myrionWorksiteVisuals'
 import {
+  WORKSITE_FIELD_BOUNDS,
   WORKSITE_LIFE_BUCKET_SEC,
-  buildWorksiteLifeView,
+  buildWorksiteBiomeLifePlan,
   getLifeTimeBucket,
-  lifeEntryAnchor,
-  shortMyrionName,
+  worksiteSpotObstacles,
+  type WorksiteSpeciesLifeRep,
 } from '../../data/myrionWorksiteLife'
+import { useEnclosureWanderers } from '../../hooks/useEnclosureWanderers'
+import { WorksiteLifeChibi } from './WorksiteLifeChibi'
 import { WorksiteOptionalImage } from './WorksiteVisuals'
 
 type WorksiteMyrionLifeLayerProps = {
@@ -18,13 +21,22 @@ type WorksiteMyrionLifeLayerProps = {
   pets: PetState[]
 }
 
+function toWanderInput(rep: WorksiteSpeciesLifeRep) {
+  const pet = rep.representative
+  return {
+    id: pet.speciesId,
+    speciesId: pet.speciesId,
+    name: pet.name,
+    emoji: pet.emoji,
+  }
+}
+
 export function WorksiteMyrionLifeLayer({
   worksite,
   activeBiomeId,
   pets,
 }: WorksiteMyrionLifeLayerProps) {
   const [lifeBucket, setLifeBucket] = useState(() => getLifeTimeBucket())
-  const spotCount = getSpotsForBiome(activeBiomeId).length
 
   useEffect(() => {
     const syncBucket = () => setLifeBucket(getLifeTimeBucket())
@@ -32,19 +44,39 @@ export function WorksiteMyrionLifeLayer({
     return () => window.clearInterval(timer)
   }, [])
 
-  const lifeView = useMemo(
-    () => buildWorksiteLifeView(worksite, activeBiomeId, pets, lifeBucket),
+  const lifePlan = useMemo(
+    () => buildWorksiteBiomeLifePlan(worksite, activeBiomeId, pets, lifeBucket),
     [worksite, activeBiomeId, pets, lifeBucket],
   )
 
-  if (lifeView.totalAssigned === 0) return null
+  const unlockedSpotCount = useMemo(
+    () =>
+      getSpotsForBiome(activeBiomeId).filter((spot) =>
+        isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id),
+      ).length,
+    [worksite, activeBiomeId],
+  )
+
+  const spotObstacles = useMemo(
+    () => worksiteSpotObstacles(unlockedSpotCount),
+    [unlockedSpotCount],
+  )
+
+  const wanderInputs = useMemo(
+    () => lifePlan.representatives.map(toWanderInput),
+    [lifePlan.representatives],
+  )
+
+  const { wanderers } = useEnclosureWanderers(wanderInputs, WORKSITE_FIELD_BOUNDS, spotObstacles)
+
+  if (lifePlan.totalAssigned === 0) return null
 
   const restVisual = getWorksiteDecorationVisual('rest-zone')
   const foodVisual = getWorksiteDecorationVisual('food-zone')
 
   return (
     <div aria-hidden className="mg-worksite-life-layer">
-      <div className="mg-worksite-life-zone mg-worksite-rest-zone" title="Coin repos">
+      <div aria-hidden className="mg-worksite-life-zone mg-worksite-rest-zone mg-worksite-life-zone--decor">
         <WorksiteOptionalImage
           alt=""
           aria-hidden
@@ -56,7 +88,7 @@ export function WorksiteMyrionLifeLayer({
         </span>
         <span className="mg-worksite-life-zone-label">Repos</span>
       </div>
-      <div className="mg-worksite-life-zone mg-worksite-food-zone" title="Coin nourriture">
+      <div aria-hidden className="mg-worksite-life-zone mg-worksite-food-zone mg-worksite-life-zone--decor">
         <WorksiteOptionalImage
           alt=""
           aria-hidden
@@ -68,34 +100,22 @@ export function WorksiteMyrionLifeLayer({
         </span>
         <span className="mg-worksite-life-zone-label">Repas</span>
       </div>
-
-      {lifeView.visible.map((entry) => {
-        const anchor = lifeEntryAnchor(entry, spotCount)
-        return (
-          <div
-            className={`mg-worksite-myrion-worker mg-worksite-myrion-state mg-worksite-myrion-${entry.state}`}
-            key={entry.pet.id}
-            style={{ left: anchor.left, bottom: anchor.bottom }}
-            title={`${entry.pet.name} — ${entry.state}`}
-          >
-            <span className="mg-worksite-myrion-avatar">{entry.pet.emoji}</span>
-            <span className="mg-worksite-myrion-shortname">{shortMyrionName(entry.pet.name)}</span>
-            {entry.state === 'sleeping' ? (
-              <span className="mg-worksite-myrion-zzz" aria-hidden>
-                Zzz
-              </span>
-            ) : null}
-            {entry.state === 'eating' ? (
-              <span className="mg-worksite-myrion-snack" aria-hidden>
-                🥣
-              </span>
-            ) : null}
-          </div>
-        )
-      })}
-
-      {lifeView.overflow > 0 ? (
-        <span className="mg-worksite-myrion-overflow">+{lifeView.overflow}</span>
+      <div className="mg-worksite-life-playfield mg-worksite-field-playfield">
+        {wanderers.map((sprite) => {
+          const rep = lifePlan.representatives.find((entry) => entry.speciesId === sprite.speciesId)
+          if (!rep) return null
+          return (
+            <WorksiteLifeChibi
+              key={sprite.id}
+              rarity={rep.representative.rarity}
+              sprite={sprite}
+              state={rep.state}
+            />
+          )
+        })}
+      </div>
+      {lifePlan.hiddenAssigned > 0 ? (
+        <span className="mg-worksite-myrion-overflow">+{lifePlan.hiddenAssigned}</span>
       ) : null}
     </div>
   )

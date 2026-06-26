@@ -19,6 +19,27 @@
   flex-direction: column;
   padding: 0.75rem 1rem 1rem;
   gap: 0.75rem;
+  overflow: visible;
+}
+
+.mg-worksite-scene-wrap--fullscreen {
+  padding: 0;
+  gap: 0;
+  min-height: 0;
+}
+
+.mg-worksite-scene-wrap--fullscreen .mg-worksite-scene-stage {
+  flex: 1;
+  min-height: 0;
+}
+
+.mg-worksite-scene-wrap--fullscreen .mg-worksite-scene {
+  min-height: 0;
+  height: 100%;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
 }
 
 .mg-worksite-scene-head-row {
@@ -55,6 +76,26 @@
   margin: 0.25rem 0 0;
   opacity: 0.85;
   font-size: 0.9rem;
+}
+
+.mg-worksite-scene-head-tagline {
+  margin: 0.25rem 0 0;
+  opacity: 0.85;
+  font-size: 0.9rem;
+  min-height: 2.6em;
+  line-height: 1.3;
+}
+
+.mg-worksite-scene-stage {
+  position: relative;
+  flex: 1;
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.mg-worksite-scene-stage .mg-worksite-scene {
+  flex: 1;
 }
 
 .mg-worksite-scene {
@@ -116,16 +157,75 @@
   background: rgba(0, 0, 0, 0.25);
   font-size: 1.5rem;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mg-worksite-marker:active {
+  transform: scale(0.92);
+  box-shadow: 0 0 0 4px rgba(135, 197, 106, 0.55);
 }
 
 .mg-worksite-marker.active {
   transform: scale(1.12);
   box-shadow: 0 0 0 3px var(--mg-accent, #87c56a);
+}
+
+.mg-worksite-marker--wear-1 .mg-worksite-spot-object {
+  transform: scale(0.98);
+  filter: brightness(0.97);
+}
+
+.mg-worksite-marker--wear-2 .mg-worksite-spot-object {
+  transform: scale(0.94) rotate(-2deg);
+  filter: brightness(0.92) saturate(0.95);
+}
+
+.mg-worksite-marker--wear-3 .mg-worksite-spot-object {
+  transform: scale(0.88) rotate(2deg);
+  filter: brightness(0.86) saturate(0.9);
+}
+
+.mg-worksite-marker--wear-4 .mg-worksite-spot-object {
+  transform: scale(0.82) rotate(-3deg);
+  filter: brightness(0.78) saturate(0.85);
+}
+
+.mg-worksite-marker--wear-5 .mg-worksite-spot-object {
+  transform: scale(0.76) rotate(4deg);
+  filter: brightness(0.7) saturate(0.8);
+}
+
+.mg-worksite-marker[class*='mg-worksite-marker--wear-'] {
+  position: relative;
+}
+
+.mg-worksite-marker[class*='mg-worksite-marker--wear-']::after {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    -35deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.35) 3px,
+    rgba(0, 0, 0, 0.35) 4px
+  );
+}
+
+.mg-worksite-marker--wear-3::after,
+.mg-worksite-marker--wear-4::after,
+.mg-worksite-marker--wear-5::after {
+  opacity: 0.55;
 }
 
 .mg-worksite-tap {
@@ -158,12 +258,217 @@
   opacity: 0.85;
 }
 
+.mg-worksite-mine-hint {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.75rem;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 0.88rem;
+  text-align: center;
+  opacity: 0.92;
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mg-worksite-mine-bursts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  overflow: visible;
+}
+
+.mg-worksite-mine-burst-group {
+  position: absolute;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.mg-worksite-mine-burst-anchor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: mg-worksite-mine-burst-anchor var(--burst-duration, 2.5s) ease-out forwards;
+}
+
+.mg-worksite-mine-burst-ray {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: mg-worksite-mine-burst-ray var(--burst-duration, 2.5s) cubic-bezier(0.2, 0.75, 0.28, 1)
+    forwards;
+  will-change: transform, opacity;
+}
+
+.mg-worksite-mine-burst-core {
+  position: relative;
+  width: 1.35rem;
+  height: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.mg-worksite-mine-burst-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mg-worksite-mine-burst-emoji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.mg-worksite-mine-burst-core:has(.mg-worksite-mine-burst-img) .mg-worksite-mine-burst-emoji {
+  opacity: 0;
+}
+
+@keyframes mg-worksite-mine-burst-anchor {
+  0% {
+    transform: translate(-50%, -50%) scale(0.55);
+    opacity: 0.85;
+  }
+  12% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  72% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes mg-worksite-mine-burst-ray {
+  0% {
+    transform: translate(-50%, -50%) scale(0.35) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  70% {
+    transform: translate(
+        calc(-50% + var(--burst-dx) * 0.92),
+        calc(-50% + var(--burst-dy) * 0.92)
+      )
+      scale(0.8) rotate(calc(var(--burst-rotate) * 0.5));
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--burst-dx)), calc(-50% + var(--burst-dy))) scale(0.55)
+      rotate(var(--burst-rotate));
+    opacity: 0;
+  }
+}
+
 .mg-worksite-compact {
   display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  opacity: 0.95;
+}
+
+.mg-worksite-compact-stats {
+  display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
-  font-size: 0.85rem;
-  opacity: 0.9;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.mg-worksite-compact-species {
+  font-weight: 600;
+}
+
+.mg-worksite-compact-empty {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.mg-worksite-compact-species-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem 0.35rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+  gap: 0.12rem 0.3rem;
+  max-height: 3.6rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mg-worksite-compact-species-item {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+  line-height: 1.1;
+  overflow: hidden;
+}
+
+.mg-worksite-compact-chibi {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mg-worksite-compact-chibi .mg-palmon-img,
+.mg-worksite-compact-chibi .mg-palmon-img.chibi,
+.mg-worksite-compact-chibi .mg-palmon-img.chibi.chibi {
+  width: 1.125rem;
+  height: 1.125rem;
+  min-width: 0;
+  min-height: 0;
+  animation: none;
+  filter: none;
+}
+
+.mg-worksite-compact-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.62rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mg-worksite-compact-count {
+  flex-shrink: 0;
+  font-size: 0.58rem;
+  font-weight: 700;
+  opacity: 0.85;
 }
 
 .mg-worksite-details-toggle {
@@ -210,6 +515,42 @@
   margin: 0;
   font-size: 0.9rem;
   opacity: 0.9;
+}
+
+.mg-worksite-species-quota {
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgba(135, 197, 106, 0.12);
+  border: 1px solid rgba(135, 197, 106, 0.28);
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.mg-worksite-species-quota-ok {
+  opacity: 0.9;
+}
+
+.mg-worksite-species-quota-full {
+  color: #ffb080;
+}
+
+.mg-worksite-species-quota-spot {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.mg-hunt-rail-panel-body .mg-worksite-assign-list {
+  padding-inline: 0.15rem 0.05rem;
+}
+
+.mg-worksite-assign-list .mg-worksite-pet-row {
+  padding-inline: 0.2rem 0.1rem;
+}
+
+.mg-worksite-assign-list .mg-worksite-pet-chibi {
+  margin-inline-start: 0.15rem;
 }
 
 .mg-worksite-biome-list {
@@ -316,6 +657,26 @@
   font-size: 0.85rem;
 }
 
+.mg-worksite-pet-group-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  margin-bottom: 0.35rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mg-worksite-pet-group-toggle h4 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
 .mg-worksite-pet-row {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
@@ -324,6 +685,98 @@
   padding: 0.35rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.85rem;
+}
+
+.mg-worksite-pet-row--species {
+  grid-template-columns: 2.5rem 1fr auto auto;
+}
+
+.mg-worksite-pet-chibi {
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mg-worksite-pet-chibi .mg-palmon-img {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+}
+
+.mg-worksite-pet-chibi:has(.mg-palmon-img) .mg-worksite-pet-emoji-fallback {
+  display: none;
+}
+
+.mg-worksite-pet-emoji-fallback {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.mg-worksite-pet-dup {
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.mg-worksite-pet-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  font-size: 0.72rem;
+}
+
+.mg-worksite-pet-eff {
+  opacity: 0.75;
+}
+
+.mg-worksite-pet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  justify-content: flex-end;
+}
+
+.mg-worksite-assign-toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  margin-bottom: 0.65rem;
+}
+
+.mg-worksite-assign-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.72rem;
+}
+
+.mg-worksite-assign-field select {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.2);
+  color: inherit;
+}
+
+.mg-worksite-assign-pagination {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.mg-worksite-rarity-summary {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+}
+
+.mg-worksite-pet-btn.subtle {
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.68rem;
+  padding: 0.2rem 0.35rem;
 }
 
 .mg-worksite-pet-btn {
@@ -597,6 +1050,15 @@
   margin: 0.15rem 0;
 }
 
+.mg-worksite-unlock-banner--overlay {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  right: 0.5rem;
+  z-index: 12;
+  pointer-events: none;
+}
+
 .mg-worksite-badge-new {
   display: inline-block;
   background: rgba(135, 197, 106, 0.35);
@@ -640,27 +1102,105 @@
 
 .mg-worksite-life-zone {
   position: absolute;
+  pointer-events: none;
+}
+
+.mg-worksite-field-playfield {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.mg-worksite-life-zone--decor {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mg-worksite-life-zone--decor .mg-worksite-life-playfield {
+  display: none;
+}
+
+.mg-worksite-life-playfield {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.mg-worksite-life-zone-chibis {
+  position: absolute;
+  left: 50%;
+  bottom: 0.2rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.1rem;
+  max-width: 96%;
+  pointer-events: none;
+}
+
+.mg-worksite-life-zone-chibi {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mg-worksite-life-zone-chibi .mg-palmon-img {
+  width: 1rem;
+  height: 1rem;
+  object-fit: contain;
+}
+
+.mg-worksite-life-zone-chibi-dup {
+  position: absolute;
+  right: -0.2rem;
+  bottom: -0.05rem;
+  font-size: 0.5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+.mg-worksite-work-playfield {
+  inset: 0;
+}
+
+.mg-worksite-life-chibi {
+  position: absolute;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
-  padding: 0.25rem 0.45rem;
-  border-radius: 0.55rem;
-  background: rgba(0, 0, 0, 0.22);
-  border: 1px dashed rgba(255, 255, 255, 0.28);
-  font-size: 0.65rem;
-  opacity: 0.85;
-  transform: translate(-50%, 0);
+  pointer-events: none;
+}
+
+.mg-worksite-life-chibi .mg-chibi-body .mg-palmon-img {
+  width: calc(var(--mg-chibi-base, 1.72rem) * var(--mg-chibi-scale, 1));
+  height: calc(var(--mg-chibi-base, 1.72rem) * var(--mg-chibi-scale, 1));
+  object-fit: contain;
+}
+
+.mg-worksite-life-chibi .mg-chibi-shadow {
+  width: calc(1.15rem * var(--mg-chibi-scale, 1));
+  height: calc(0.3rem * var(--mg-chibi-scale, 1));
 }
 
 .mg-worksite-rest-zone {
-  left: 14%;
-  bottom: 68%;
+  left: 0;
+  bottom: 0;
+  width: 24%;
+  height: 32%;
 }
 
 .mg-worksite-food-zone {
-  left: 86%;
-  bottom: 68%;
+  right: 0;
+  bottom: 0;
+  width: 24%;
+  height: 32%;
 }
 
 .mg-worksite-life-zone-emoji {
@@ -669,9 +1209,28 @@
 }
 
 .mg-worksite-life-zone-label {
+  position: absolute;
+  top: 0.15rem;
+  left: 50%;
+  transform: translateX(-50%);
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  font-size: 0.6rem;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.mg-worksite-rest-zone .mg-worksite-life-zone-img,
+.mg-worksite-food-zone .mg-worksite-life-zone-img {
+  position: absolute;
+  left: 50%;
+  top: 0.35rem;
+  transform: translateX(-50%);
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+  opacity: 0.85;
 }
 
 .mg-worksite-myrion-worker {
@@ -746,14 +1305,19 @@
   font-weight: 700;
 }
 
-.mg-worksite-life-drawer-list {
-  margin: 0.5rem 0 0;
-  padding-left: 1.1rem;
-  font-size: 0.85rem;
+.mg-worksite-compact-species-list.mg-worksite-life-drawer-list {
+  margin-top: 0.5rem;
+  max-height: none;
+  overflow: visible;
+  grid-template-columns: 1fr;
+  gap: 0.18rem;
 }
 
-.mg-worksite-life-drawer-list li {
-  margin-bottom: 0.25rem;
+@media (max-width: 767px) {
+  .mg-worksite-compact-species-list.mg-worksite-life-drawer-list {
+    max-height: min(42vh, 16rem);
+    overflow-y: auto;
+  }
 }
 
 .mg-worksite-myrion-overflow-inline {
@@ -782,6 +1346,14 @@
 }
 
 @media (max-width: 767px) {
+  .mg-hunt-rail-panel-body .mg-worksite-assign-list {
+    padding-inline: 0.35rem 0.15rem;
+  }
+
+  .mg-hunt-rail-panel-body .mg-worksite-pet-chibi {
+    margin-inline-start: 0.25rem;
+  }
+
   .mg-worksite-scene-wrap {
     overflow-x: auto;
   }

@@ -19,7 +19,7 @@ export const WORKSITE_UNLOCK_THRESHOLDS = {
   },
   spots: {
     'foret-douce:clairiere-herbes': { wood: 18 },
-    'foret-douce:source-claire': { food: 30 },
+    'foret-douce:source-claire': { wood: 30 },
     'mine-tranquille:veine-brute': { stone: 24 },
     'mine-tranquille:charbonniere': { stone: 45 },
   },
@@ -58,15 +58,9 @@ export function worksiteResourceTotals(worksite: MyrionWorksiteSave): WorksiteRe
     for (const spotId of BIOMES[biomeId].spotIds) {
       const key = spotKey(biomeId, spotId)
       const amount = worksite.totalProducedBySpot[key] ?? 0
-      if (spotId === 'bosquet' || spotId === 'sous-bois') wood += amount
-      else if (
-        spotId === 'pierrier' ||
-        spotId === 'pierrier-profond' ||
-        spotId === 'veine-brute' ||
-        spotId === 'charbonniere'
-      )
-        stone += amount
-      else food += amount
+      if (biomeId === 'prairie-chantier') food += amount
+      else if (biomeId === 'foret-douce') wood += amount
+      else if (biomeId === 'mine-tranquille') stone += amount
     }
   }
   return { wood, stone, food, totalChantier: wood + stone + food }
@@ -128,9 +122,10 @@ function spotUnlockMet(
   const rule = WORKSITE_UNLOCK_THRESHOLDS.spots[key as keyof typeof WORKSITE_UNLOCK_THRESHOLDS.spots]
   if (!rule) return isWorksiteBiomeUnlocked(worksite, biomeId)
   const totals = worksiteResourceTotals(worksite)
-  if ('wood' in rule && totals.wood < rule.wood) return false
-  if ('food' in rule && totals.food < rule.food) return false
-  if ('stone' in rule && totals.stone < rule.stone) return false
+  const spotRule = rule as { wood?: number; food?: number; stone?: number }
+  if (spotRule.wood !== undefined && totals.wood < spotRule.wood) return false
+  if (spotRule.food !== undefined && totals.food < spotRule.food) return false
+  if (spotRule.stone !== undefined && totals.stone < spotRule.stone) return false
   return true
 }
 

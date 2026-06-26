@@ -23,6 +23,38 @@ export type EnclosureBounds = {
   maxY: number
 }
 
+/** Zone circulaire à éviter (coords % du playfield). */
+export type EnclosureObstacle = {
+  x: number
+  y: number
+  radius: number
+}
+
+export function resolveEnclosureObstacles(
+  x: number,
+  y: number,
+  vx: number,
+  vy: number,
+  obstacles: EnclosureObstacle[],
+): { x: number; y: number; vx: number; vy: number } {
+  let nextX = x
+  let nextY = y
+  let nextVx = vx
+  let nextVy = vy
+  for (const obstacle of obstacles) {
+    const dx = nextX - obstacle.x
+    const dy = nextY - obstacle.y
+    const dist = Math.hypot(dx, dy)
+    if (dist >= obstacle.radius || dist < 0.001) continue
+    const push = (obstacle.radius - dist) / dist
+    nextX += dx * push
+    nextY += dy * push
+    nextVx += dx * push * 0.35
+    nextVy += dy * push * 0.35
+  }
+  return { x: nextX, y: nextY, vx: nextVx, vy: nextVy }
+}
+
 export type BiomeResourceDef = {
   id: RefugeBiomeId
   resourceName: string

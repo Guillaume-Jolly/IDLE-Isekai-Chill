@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent } from 'react'
 import type { Cost, ResourceKey } from '../../data/buildingActivities'
-import type { PetState } from '../../data/minigameSave'
 import {
   WORKSITE_BIOME_IDS,
   WORKSITE_BIOMES,
   WORKSITE_SUPERVISION_MULT,
-  assignMyrionToSpot,
+  clearBiomeAssignments,
   computeWorksiteAutoGrant,
   computeWorksiteAutoPerSecond,
   computeWorksiteClickYield,
@@ -14,8 +13,9 @@ import {
   iterUnlockedWorksiteSpots,
   evaluateWorksiteUnlocks,
   mergeMyrionWorksite,
-  removeMyrionFromSpot,
+  removeMyrionFromBiome,
   worksiteAssignedPets,
+  worksiteAssignedPetsInBiome,
   worksiteMyrionAssignedElsewhere,
   worksiteRarityMultiplier,
   worksiteSpotKey,
@@ -33,9 +33,26 @@ import {
   WORKSITE_UNLOCK_THRESHOLDS,
 } from '../../data/myrionWorksiteProgression'
 import {
-  buildWorksiteLifeView,
+  assignedSpeciesSummary,
+  assignMyrionsToBiome,
+  availablePetsForBiome,
+  groupPetsBySpecies,
+  paginateList,
+  pickPetsForBatchAssign,
+  sortPetsForWorksiteAssign,
+  WORKSITE_ASSIGN_PAGE_SIZE,
+  worksiteBiomeReferenceSpot,
+  worksitePetEfficiency,
+  type WorksiteAssignSort,
+  type WorksiteBatchCount,
+  type WorksiteBatchCriteria,
+  type WorksiteSpeciesGroup,
+} from '../../data/myrionWorksiteAssignment'
+import {
+  buildWorksiteBiomeLifePlan,
   decorativeStateLabel,
   getLifeTimeBucket,
+  WORKSITE_LIFE_MAX_SPECIES,
 } from '../../data/myrionWorksiteLife'
 import { RARITY_COLORS } from '../../data/wildFamiliars'
 import {
@@ -49,7 +66,9 @@ import {
 } from '../../data/myrionWorksiteVisuals'
 import { HuntSideRail } from './HuntSideRail'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
+import { WorksiteMineBursts, WORKSITE_MINE_BURST_MS, createMineBurstRing, markerBurstOrigin, type WorksiteMineBurst } from './WorksiteMineBursts'
 import { WorksiteMyrionLifeLayer } from './WorksiteMyrionLifeLayer'
+import { PalmonSprite } from './PalmonSprite'
 import {
   WorksiteBiomeBackground,
   WorksiteResourceIcon,
@@ -57,7 +76,6 @@ import {
 } from './WorksiteVisuals'
 import './Worksite.css'
 
-const CLICK_COOLDOWN_MS = 180
 const AUTO_TICK_MS = 1000
 const AUTO_SAVE_MS = 5000
 const MOBILE_DRAWER_BREAKPOINT = '(max-width: 767px)'
@@ -115,19 +133,29 @@ export function MyrionWorksiteGame({
   const [worksite, setWorksite] = useState<MyrionWorksiteSave>(() =>
     mergeMyrionWorksite(minigameSave?.myrionWorksite),
   )
-  const [openDrawer, setOpenDrawer] = useState<string | null>(() =>
-    typeof window !== 'undefined' && window.matchMedia(MOBILE_DRAWER_BREAKPOINT).matches
-      ? null
-      : 'biomes',
-  )
+  const [openDrawer, setOpenDrawer] = useState<string | null>(null)
   const [detailsOpen, setDetailsOpen] = useState(false)
-  const [clickFlash, setClickFlash] = useState(false)
   const [sessionClicks, setSessionClicks] = useState(0)
   const [unlockNotices, setUnlockNotices] = useState<Array<{ id: string; label: string }>>([])
+  const [assignSort, setAssignSort] = useState<WorksiteAssignSort>('efficiency-desc')
+  const [appliedAssignSort, setAppliedAssignSort] = useState<WorksiteAssignSort>('efficiency-desc')
+  const [assignPage, setAssignPage] = useState(0)
+  const [batchCount, setBatchCount] = useState<WorksiteBatchCount>(10)
+  const [appliedBatchCount, setAppliedBatchCount] = useState<WorksiteBatchCount>(10)
+  const [batchCriteria, setBatchCriteria] = useState<WorksiteBatchCriteria>('sorted-list')
+  const [appliedBatchCriteria, setAppliedBatchCriteria] = useState<WorksiteBatchCriteria>('sorted-list')
+  const [assignedSectionOpen, setAssignedSectionOpen] = useState(true)
+  const [availableSectionOpen, setAvailableSectionOpen] = useState(true)
+  const [mineBursts, setMineBursts] = useState<WorksiteMineBurst[]>([])
+  const [spotWear, setSpotWear] = useState<Partial<Record<WorksiteSpotId, number>>>({})
+  const mineBurstSeqRef = useRef(0)
+  const mineBurstTimersRef = useRef<number[]>([])
+  const sceneStageRef = useRef<HTMLDivElement>(null)
+  const sceneRef = useRef<HTMLDivElement>(null)
+  const markerRefs = useRef<Partial<Record<WorksiteSpotId, HTMLButtonElement>>>({})
 
   const worksiteRef = useRef(worksite)
   const petsRef = useRef(pets)
-  const lastClickRef = useRef(0)
   const lastAutoSaveAtRef = useRef(0)
   const onCompleteRef = useRef(onComplete)
   const onSaveMinigameRef = useRef(onSaveMinigame)
@@ -155,10 +183,7 @@ export function MyrionWorksiteGame({
   useEffect(() => {
     if (isMobile) {
       setOpenDrawer(null)
-    } else if (openDrawer === null) {
-      setOpenDrawer('biomes')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- sync drawer when breakpoint changes
   }, [isMobile])
 
   const applyProgression = useCallback((base: MyrionWorksiteSave): MyrionWorksiteSave => {
@@ -206,53 +231,98 @@ export function MyrionWorksiteGame({
 
   const activeBiomeId = worksite.activeBiomeId
   const activeBiome = WORKSITE_BIOMES[activeBiomeId]
-  const selectedSpotId = worksite.selectedSpotByBiome[activeBiomeId]
-  const selectedSpot = getWorksiteSpot(activeBiomeId, selectedSpotId)
-  const selectedAssigned = worksiteAssignedPets(worksite, activeBiomeId, selectedSpotId, pets)
-  const clickYield = computeWorksiteClickYield(selectedSpot, selectedAssigned)
-  const autoPerSec = computeWorksiteAutoPerSecond(
-    selectedSpot,
-    selectedAssigned,
-    WORKSITE_SUPERVISION_MULT,
+  const biomeReferenceSpot = useMemo(
+    () => worksiteBiomeReferenceSpot(worksite, activeBiomeId),
+    [worksite, activeBiomeId],
   )
   const activeSpots = getSpotsForBiome(activeBiomeId)
   const progressTotals = worksiteResourceTotals(worksite)
+
+  useEffect(() => {
+    setAssignPage(0)
+  }, [activeBiomeId])
 
   const selectBiome = (biomeId: WorksiteBiomeId) => {
     if (!worksite.unlockedBiomeIds.includes(biomeId)) return
     persist({ ...worksite, activeBiomeId: biomeId })
   }
 
-  const selectSpot = (spotId: WorksiteSpotId) => {
-    if (!isWorksiteSpotUnlocked(worksite, activeBiomeId, spotId)) return
-    persist({
-      ...worksite,
-      selectedSpotByBiome: {
-        ...worksite.selectedSpotByBiome,
-        [activeBiomeId]: spotId,
-      },
-    })
-  }
+  const spawnMineBursts = useCallback(
+    (
+      spotId: WorksiteSpotId,
+      resourceEmoji: string,
+      resourceAsset: ReturnType<typeof getWorksiteResourceIconVisual>['asset'],
+    ) => {
+      const marker = markerRefs.current[spotId]
+      const scene = sceneRef.current
+      if (!marker || !scene) return
 
-  const handleTap = (event: MouseEvent<HTMLButtonElement>) => {
-    if (!isWorksiteSpotUnlocked(worksite, activeBiomeId, selectedSpotId)) return
-    if (event.timeStamp - lastClickRef.current < CLICK_COOLDOWN_MS) return
-    lastClickRef.current = event.timeStamp
+      const baseId = ++mineBurstSeqRef.current
+      const origin = markerBurstOrigin(marker, scene)
+      const burst = createMineBurstRing(baseId, origin, resourceEmoji, resourceAsset)
+      setMineBursts((current) => [...current, burst])
+      const timer = window.setTimeout(() => {
+        setMineBursts((current) => current.filter((entry) => entry.id !== burst.id))
+        mineBurstTimersRef.current = mineBurstTimersRef.current.filter((id) => id !== timer)
+      }, WORKSITE_MINE_BURST_MS + 80)
+      mineBurstTimersRef.current.push(timer)
+    },
+    [],
+  )
 
-    const spotKey = worksiteSpotKey(activeBiomeId, selectedSpotId)
-    const reward: Cost = { [selectedSpot.resourceId]: clickYield }
-    const produced = (worksite.totalProducedBySpot[spotKey] ?? 0) + clickYield
-    persist({
-      ...worksite,
-      totalProducedBySpot: {
-        ...worksite.totalProducedBySpot,
-        [spotKey]: produced,
-      },
-    })
-    onComplete(1, 1, reward, { keepOpen: true, silent: false })
-    setSessionClicks((value) => value + 1)
-    setClickFlash(true)
-    window.setTimeout(() => setClickFlash(false), 160)
+  useEffect(() => {
+    setSpotWear({})
+  }, [activeBiomeId])
+
+  useEffect(() => {
+    return () => {
+      for (const timer of mineBurstTimersRef.current) {
+        window.clearTimeout(timer)
+      }
+    }
+  }, [])
+
+  const handleSpotMine = useCallback(
+    (spotId: WorksiteSpotId) => {
+      const current = worksiteRef.current
+      if (!isWorksiteSpotUnlocked(current, activeBiomeId, spotId)) return
+
+      const spot = getWorksiteSpot(activeBiomeId, spotId)
+      const assigned = worksiteAssignedPets(current, activeBiomeId, spotId, petsRef.current)
+      const yieldAmount = computeWorksiteClickYield(spot, assigned)
+      const spotKey = worksiteSpotKey(activeBiomeId, spotId)
+      const resourceVisual = getWorksiteResourceIconVisual(spot.resourceId)
+      const burstEmoji =
+        spot.resourceId === 'food' ? spot.emoji : resourceVisual.fallbackEmoji
+
+      persist({
+        ...current,
+        totalProducedBySpot: {
+          ...current.totalProducedBySpot,
+          [spotKey]: (current.totalProducedBySpot[spotKey] ?? 0) + yieldAmount,
+        },
+      })
+      onComplete(1, 1, { [spot.resourceId]: yieldAmount }, { keepOpen: true, silent: false })
+      setSessionClicks((value) => value + 1)
+      setSpotWear((wear) => ({ ...wear, [spotId]: (wear[spotId] ?? 0) + 1 }))
+      spawnMineBursts(spotId, burstEmoji, resourceVisual.asset)
+    },
+    [activeBiomeId, onComplete, persist, spawnMineBursts],
+  )
+
+  const handleSpotPointerDown = useCallback(
+    (event: PointerEvent<HTMLButtonElement>, spotId: WorksiteSpotId) => {
+      event.preventDefault()
+      handleSpotMine(spotId)
+    },
+    [handleSpotMine],
+  )
+
+  const applyAssignFilters = () => {
+    setAppliedAssignSort(assignSort)
+    setAppliedBatchCount(batchCount)
+    setAppliedBatchCriteria(batchCriteria)
+    setAssignPage(0)
   }
 
   useEffect(() => {
@@ -305,12 +375,13 @@ export function MyrionWorksiteGame({
     }
   }, [flushWorksiteSave])
 
-  const assignPet = (petId: string) => {
-    persist(assignMyrionToSpot(worksite, activeBiomeId, selectedSpotId, petId))
-  }
+  const biomeAssigned = useMemo(
+    () => worksiteAssignedPetsInBiome(worksite, activeBiomeId, pets),
+    [worksite, activeBiomeId, pets],
+  )
 
-  const removePet = (petId: string) => {
-    persist(removeMyrionFromSpot(worksite, activeBiomeId, selectedSpotId, petId))
+  const assignPet = (petId: string) => {
+    persist(assignMyrionsToBiome(worksite, activeBiomeId, [petId]))
   }
 
   const totalProduced = (() => {
@@ -327,40 +398,179 @@ export function MyrionWorksiteGame({
     return { wood, stone, food }
   })()
 
-  const renderPetRow = (pet: PetState, assignedHere: boolean) => {
-    const elsewhere = worksiteMyrionAssignedElsewhere(
-      worksite,
-      pet.id,
-      assignedHere ? activeBiomeId : undefined,
-      assignedHere ? selectedSpotId : undefined,
+  const assignSpeciesGroup = (group: WorksiteSpeciesGroup) => {
+    const sorted = sortPetsForWorksiteAssign(
+      pets.filter((pet) => group.petIds.includes(pet.id)),
+      biomeReferenceSpot,
+      'efficiency-desc',
     )
-    const blocked = elsewhere !== null && !assignedHere
-    return (
-      <div className="mg-worksite-pet-row" key={pet.id}>
-        <span className="mg-worksite-pet-emoji">{pet.emoji}</span>
-        <span className="mg-worksite-pet-name">{pet.name}</span>
-        <span className="mg-worksite-pet-rarity" style={{ color: RARITY_COLORS[pet.rarity] }}>
-          {pet.rarity}
+    const target = sorted.find(
+      (pet) =>
+        !biomeAssigned.some((entry) => entry.id === pet.id) &&
+        worksiteMyrionAssignedElsewhere(worksite, pet.id) === null,
+    )
+    if (target) assignPet(target.id)
+  }
+
+  const assignSpeciesGroupAll = (group: WorksiteSpeciesGroup) => {
+    const ids = sortPetsForWorksiteAssign(
+      pets.filter(
+        (pet) =>
+          group.petIds.includes(pet.id) &&
+          !biomeAssigned.some((entry) => entry.id === pet.id) &&
+          worksiteMyrionAssignedElsewhere(worksite, pet.id) === null,
+      ),
+      biomeReferenceSpot,
+      'efficiency-desc',
+    ).map((pet) => pet.id)
+    if (ids.length > 0) persist(assignMyrionsToBiome(worksite, activeBiomeId, ids))
+  }
+
+  const removeSpeciesGroup = (group: WorksiteSpeciesGroup) => {
+    const ids = biomeAssigned
+      .filter((pet) => group.petIds.includes(pet.id))
+      .map((pet) => pet.id)
+    let next = worksite
+    for (const id of ids) {
+      next = removeMyrionFromBiome(next, activeBiomeId, id)
+    }
+    persist(next)
+  }
+
+  const runBatchAssign = () => {
+    const available = availablePetsForBiome(worksite, pets, activeBiomeId)
+    const picked = pickPetsForBatchAssign(
+      available,
+      biomeReferenceSpot,
+      appliedAssignSort,
+      appliedBatchCriteria,
+      appliedBatchCount,
+      assignPage,
+      WORKSITE_ASSIGN_PAGE_SIZE,
+    )
+    if (picked.length === 0) return
+    persist(assignMyrionsToBiome(worksite, activeBiomeId, picked.map((pet) => pet.id)))
+  }
+
+  const unassignAllFromBiome = () => {
+    if (biomeAssigned.length === 0) return
+    persist(clearBiomeAssignments(worksite, activeBiomeId))
+    setAssignPage(0)
+  }
+
+  const availablePets = useMemo(
+    () => availablePetsForBiome(worksite, pets, activeBiomeId),
+    [worksite, pets, activeBiomeId],
+  )
+
+  const sortedAvailable = useMemo(
+    () => sortPetsForWorksiteAssign(availablePets, biomeReferenceSpot, appliedAssignSort),
+    [availablePets, biomeReferenceSpot, appliedAssignSort],
+  )
+
+  const pagedAvailable = useMemo(
+    () => paginateList(sortedAvailable, assignPage, WORKSITE_ASSIGN_PAGE_SIZE),
+    [sortedAvailable, assignPage],
+  )
+
+  const availableSpeciesGroups = useMemo(
+    () => groupPetsBySpecies(pagedAvailable),
+    [pagedAvailable],
+  )
+
+  const assignedSpeciesGroups = useMemo(
+    () => assignedSpeciesSummary(biomeAssigned).speciesGroups,
+    [biomeAssigned],
+  )
+
+  const assignedRarityGroups = useMemo(
+    () => assignedSpeciesSummary(biomeAssigned).rarityGroups,
+    [biomeAssigned],
+  )
+
+  const availablePageCount = Math.max(
+    1,
+    Math.ceil(sortedAvailable.length / WORKSITE_ASSIGN_PAGE_SIZE),
+  )
+
+  const renderSpeciesGroupRow = (group: WorksiteSpeciesGroup, assignedHere: boolean) => {
+    const pet = group.representative
+    const efficiency = worksitePetEfficiency(pet, biomeReferenceSpot)
+    const blocked =
+      !assignedHere &&
+      group.petIds.every((id) => worksiteMyrionAssignedElsewhere(worksite, id) !== null)
+  return (
+      <div className="mg-worksite-pet-row mg-worksite-pet-row--species" key={group.speciesId}>
+        <span className="mg-worksite-pet-chibi">
+          <PalmonSprite
+            emoji={pet.emoji}
+            name={pet.name}
+            size="chibi"
+            speciesId={pet.speciesId}
+            variant="chibi"
+          />
+          <span className="mg-worksite-pet-emoji-fallback" aria-hidden>
+            {pet.emoji}
+          </span>
+        </span>
+        <span className="mg-worksite-pet-name">
+          {pet.name}
+          {group.count > 1 ? <span className="mg-worksite-pet-dup"> ×{group.count}</span> : null}
+        </span>
+        <span className="mg-worksite-pet-meta">
+          <span className="mg-worksite-pet-rarity" style={{ color: RARITY_COLORS[pet.rarity] }}>
+            {pet.rarity}
+          </span>
+          <span className="mg-worksite-pet-eff">{formatYield(efficiency)}/s</span>
         </span>
         {assignedHere ? (
-          <button className="mg-worksite-pet-btn secondary" type="button" onClick={() => removePet(pet.id)}>
-            Retirer
-          </button>
+          <div className="mg-worksite-pet-actions">
+            <button
+              className="mg-worksite-pet-btn secondary"
+              type="button"
+              onClick={() => removeSpeciesGroup(group)}
+            >
+              Retirer{group.count > 1 ? ` ×${group.count}` : ''}
+            </button>
+          </div>
         ) : blocked ? (
           <span className="mg-worksite-pet-busy">Ailleurs</span>
         ) : (
-          <button className="mg-worksite-pet-btn" type="button" onClick={() => assignPet(pet.id)}>
-            Assigner
-          </button>
+          <div className="mg-worksite-pet-actions">
+            <button className="mg-worksite-pet-btn" type="button" onClick={() => assignSpeciesGroup(group)}>
+              Assigner
+            </button>
+            {group.count > 1 ? (
+              <button
+                className="mg-worksite-pet-btn subtle"
+                type="button"
+                onClick={() => assignSpeciesGroupAll(group)}
+              >
+                Tout ×{group.count}
+              </button>
+            ) : null}
+          </div>
         )}
       </div>
     )
   }
 
-  const assignedCompact = selectedAssigned.map((pet) => pet.emoji).join(' ') || '—'
+  const biomeAutoPerSec = useMemo(
+    () =>
+      activeSpots.reduce((sum, spot) => {
+        const assigned = worksiteAssignedPets(worksite, activeBiomeId, spot.id, pets)
+        return sum + computeWorksiteAutoPerSecond(spot, assigned, WORKSITE_SUPERVISION_MULT)
+      }, 0),
+    [activeSpots, worksite, activeBiomeId, pets],
+  )
+
+  const spotWearLevel = (spotId: WorksiteSpotId) => Math.min(5, (spotWear[spotId] ?? 0) % 6)
+  const biomeSpeciesCount = assignedSpeciesGroups.length
+  const biomeSpeciesSlotsLeft = Math.max(0, WORKSITE_LIFE_MAX_SPECIES - biomeSpeciesCount)
+  const biomeResourceLabel = RESOURCE_LABELS[biomeReferenceSpot.resourceId] ?? biomeReferenceSpot.resourceId
   const supervisionPct = Math.round((WORKSITE_SUPERVISION_MULT - 1) * 100)
-  const lifeView = useMemo(
-    () => buildWorksiteLifeView(worksite, activeBiomeId, pets, getLifeTimeBucket()),
+  const lifePlan = useMemo(
+    () => buildWorksiteBiomeLifePlan(worksite, activeBiomeId, pets, getLifeTimeBucket()),
     [worksite, activeBiomeId, pets],
   )
 
@@ -398,50 +608,6 @@ export function MyrionWorksiteGame({
                         {hint ? `Débloquer : ${hint}` : 'Verrouillé'}
                       </span>
                     )}
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      ),
-    },
-    {
-      id: 'spots',
-      label: 'Spots',
-      icon: '📍',
-      content: (
-        <div className="mg-worksite-drawer-section">
-          <p className="mg-worksite-drawer-lead">
-            {activeBiome.emoji} {activeBiome.label}
-          </p>
-          <ul className="mg-worksite-spot-list">
-            {activeSpots.map((spot) => {
-              const assigned = worksiteAssignedPets(worksite, activeBiomeId, spot.id, pets)
-              const unlocked = isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id)
-              const auto = unlocked
-                ? computeWorksiteAutoPerSecond(spot, assigned, WORKSITE_SUPERVISION_MULT)
-                : 0
-              const spotHint = getSpotUnlockHint(activeBiomeId, spot.id)
-              return (
-                <li key={spot.id}>
-                  <button
-                    className={`mg-worksite-spot-btn ${selectedSpotId === spot.id ? 'active' : ''} ${unlocked ? '' : 'mg-worksite-spot-btn--locked'}`}
-                    disabled={!unlocked}
-                    type="button"
-                    onClick={() => selectSpot(spot.id)}
-                  >
-                    <span>
-                      {spot.emoji} {spot.name}
-                      {!unlocked ? ' 🔒' : null}
-                    </span>
-                    <span className="mg-worksite-spot-meta">
-                      {unlocked
-                        ? `${RESOURCE_LABELS[spot.resourceId]} · ${assigned.length} Myrion(s) · ${formatYield(auto)}/s`
-                        : spotHint
-                          ? `Débloquer : ${spotHint}`
-                          : 'Verrouillé'}
-                    </span>
                   </button>
                 </li>
               )
@@ -523,29 +689,173 @@ export function MyrionWorksiteGame({
       id: 'assign',
       label: 'Myrions',
       icon: '🐾',
-      badge: selectedAssigned.length || undefined,
+      badge: biomeAssigned.length || undefined,
       content: (
         <div className="mg-worksite-drawer-section">
           <p className="mg-worksite-drawer-lead">
-            {selectedSpot.emoji} {selectedSpot.name} — assignation
+            {activeBiome.emoji} {activeBiome.label} — assignation
+          </p>
+          <p className="mg-worksite-species-quota">
+            Espèces différentes (biome) :{' '}
+            <strong>
+              {biomeSpeciesCount} / {WORKSITE_LIFE_MAX_SPECIES}
+            </strong>
+            {biomeSpeciesSlotsLeft > 0 ? (
+              <span className="mg-worksite-species-quota-ok">
+                {' '}
+                — encore {biomeSpeciesSlotsLeft} place{biomeSpeciesSlotsLeft > 1 ? 's' : ''} pour une
+                nouvelle espèce
+              </span>
+            ) : (
+              <span className="mg-worksite-species-quota-full">
+                {' '}
+                — limite atteinte (tu peux encore ajouter des doublons)
+              </span>
+            )}
+          </p>
+          <p className="mg-worksite-species-quota-spot">
+            Sur ce biome : {biomeAssigned.length} Myrion{biomeAssigned.length > 1 ? 's' : ''} ·{' '}
+            {biomeSpeciesCount} espèce{biomeSpeciesCount > 1 ? 's' : ''}
           </p>
           {pets.length === 0 ? (
             <p className="mg-worksite-empty">Aucun Myrion capturé. Va chasser pour en obtenir.</p>
           ) : (
             <>
-              <div className="mg-worksite-pet-group">
-                <h4>Sur ce spot</h4>
-                {selectedAssigned.length === 0 ? (
-                  <p className="mg-worksite-empty">Aucun Myrion assigné.</p>
-                ) : (
-                  selectedAssigned.map((pet) => renderPetRow(pet, true))
-                )}
+              <div className="mg-worksite-assign-list">
+              <div className="mg-worksite-assign-toolbar">
+                <label className="mg-worksite-assign-field">
+                  Tri
+                  <select
+                    value={assignSort}
+                    onChange={(event) => setAssignSort(event.target.value as WorksiteAssignSort)}
+                  >
+                    <option value="efficiency-desc">Efficacité ↓</option>
+                    <option value="efficiency-asc">Efficacité ↑</option>
+                    <option value="rarity-desc">Rareté ↓</option>
+                    <option value="name-asc">Nom A→Z</option>
+                  </select>
+                </label>
+                <label className="mg-worksite-assign-field">
+                  Lot
+                  <select
+                    value={String(batchCount)}
+                    onChange={(event) => {
+                      const raw = event.target.value
+                      setBatchCount(
+                        raw === 'page' || raw === 'all' ? raw : (Number(raw) as WorksiteBatchCount),
+                      )
+                    }}
+                  >
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="page">Page ({WORKSITE_ASSIGN_PAGE_SIZE})</option>
+                    <option value="all">Tous dispo</option>
+                  </select>
+                </label>
+                <label className="mg-worksite-assign-field">
+                  Critère
+                  <select
+                    value={batchCriteria}
+                    onChange={(event) =>
+                      setBatchCriteria(event.target.value as WorksiteBatchCriteria)
+                    }
+                  >
+                    <option value="sorted-list">Liste triée</option>
+                    <option value="top-efficiency">Top efficacité</option>
+                  </select>
+                </label>
+                <button className="mg-worksite-pet-btn secondary" type="button" onClick={applyAssignFilters}>
+                  Appliquer les filtres
+                </button>
+                <button className="mg-worksite-pet-btn" type="button" onClick={runBatchAssign}>
+                  Assigner le lot
+                </button>
+                <button
+                  className="mg-worksite-pet-btn secondary"
+                  disabled={biomeAssigned.length === 0}
+                  title="Retirer tous les Myrions de ce biome"
+                  type="button"
+                  onClick={unassignAllFromBiome}
+                >
+                  Désassigner tout
+                </button>
               </div>
               <div className="mg-worksite-pet-group">
-                <h4>Disponibles</h4>
-                {pets
-                  .filter((pet) => !selectedAssigned.some((entry) => entry.id === pet.id))
-                  .map((pet) => renderPetRow(pet, false))}
+                <button
+                  aria-expanded={assignedSectionOpen}
+                  className="mg-worksite-pet-group-toggle"
+                  type="button"
+                  onClick={() => setAssignedSectionOpen((open) => !open)}
+                >
+                  <h4>Sur ce biome ({biomeAssigned.length})</h4>
+                  <span aria-hidden>{assignedSectionOpen ? '▼' : '▶'}</span>
+                </button>
+                {assignedSectionOpen ? (
+                  <>
+                {assignedRarityGroups.length > 0 ? (
+                  <p className="mg-worksite-rarity-summary">
+                    {assignedRarityGroups.map((group) => (
+                      <span key={group.rarity} style={{ color: RARITY_COLORS[group.rarity] }}>
+                        {group.rarity} ×{group.count}{' '}
+                      </span>
+                    ))}
+                  </p>
+                ) : null}
+                {assignedSpeciesGroups.length === 0 ? (
+                  <p className="mg-worksite-empty">Aucun Myrion assigné.</p>
+                ) : (
+                  assignedSpeciesGroups.map((group) => renderSpeciesGroupRow(group, true))
+                )}
+                  </>
+                ) : null}
+              </div>
+              <div className="mg-worksite-pet-group">
+                <button
+                  aria-expanded={availableSectionOpen}
+                  className="mg-worksite-pet-group-toggle"
+                  type="button"
+                  onClick={() => setAvailableSectionOpen((open) => !open)}
+                >
+                  <h4>
+                    Disponibles ({sortedAvailable.length}) — page {assignPage + 1}/{availablePageCount}
+                  </h4>
+                  <span aria-hidden>{availableSectionOpen ? '▼' : '▶'}</span>
+                </button>
+                {availableSectionOpen ? (
+                  <>
+                {availableSpeciesGroups.length === 0 ? (
+                  <p className="mg-worksite-empty">Aucun Myrion disponible pour ce biome.</p>
+                ) : (
+                  availableSpeciesGroups.map((group) => renderSpeciesGroupRow(group, false))
+                )}
+                {availablePageCount > 1 ? (
+                  <div className="mg-worksite-assign-pagination">
+                    <button
+                      className="mg-worksite-pet-btn secondary"
+                      disabled={assignPage <= 0}
+                      type="button"
+                      onClick={() => setAssignPage((page) => Math.max(0, page - 1))}
+                    >
+                      Précédent
+                    </button>
+                    <button
+                      className="mg-worksite-pet-btn secondary"
+                      disabled={assignPage >= availablePageCount - 1}
+                      type="button"
+                      onClick={() =>
+                        setAssignPage((page) => Math.min(availablePageCount - 1, page + 1))
+                      }
+                    >
+                      Suivant
+                    </button>
+                  </div>
+                ) : null}
+                  </>
+                ) : null}
+              </div>
               </div>
             </>
           )}
@@ -558,26 +868,26 @@ export function MyrionWorksiteGame({
       icon: '⚙️',
       content: (
         <div className="mg-worksite-drawer-section">
-          <p className="mg-worksite-drawer-lead">
-            Détail — {activeBiome.label} · {selectedSpot.name}
-          </p>
+          <p className="mg-worksite-drawer-lead">Détail — {activeBiome.label}</p>
           <dl className="mg-worksite-stats">
             <div>
               <dt>Ressource</dt>
-              <dd>{RESOURCE_LABELS[selectedSpot.resourceId]}</dd>
+              <dd>
+                {biomeResourceLabel} · {activeSpots.length} filon{activeSpots.length > 1 ? 's' : ''}
+              </dd>
             </div>
             <div>
               <dt>Myrions assignés</dt>
-              <dd>{selectedAssigned.length}</dd>
+              <dd>{biomeAssigned.length}</dd>
             </div>
             <div>
               <dt>Gain par clic</dt>
-              <dd>{formatYield(clickYield)}</dd>
+              <dd>Selon le filon miné</dd>
             </div>
             <div>
               <dt>Auto / seconde</dt>
               <dd>
-                {formatYield(autoPerSec)}
+                {formatYield(biomeAutoPerSec)}
                 <span className="mg-worksite-supervision-inline">
                   {' '}
                   (+{Math.round((WORKSITE_SUPERVISION_MULT - 1) * 100)}% supervision)
@@ -587,11 +897,17 @@ export function MyrionWorksiteGame({
             <div>
               <dt>Bonus rareté</dt>
               <dd>
-                {selectedAssigned.length === 0
-                  ? '—'
-                  : selectedAssigned
-                      .map((pet) => `${pet.rarity} ×${worksiteRarityMultiplier(pet.rarity)}`)
-                      .join(', ')}
+                {assignedRarityGroups.length === 0 ? (
+                  '—'
+                ) : (
+                  <span className="mg-worksite-rarity-summary">
+                    {assignedRarityGroups.map((group) => (
+                      <span key={group.rarity} style={{ color: RARITY_COLORS[group.rarity] }}>
+                        {group.rarity} ×{group.count} (×{worksiteRarityMultiplier(group.rarity)}){' '}
+                      </span>
+                    ))}
+                  </span>
+                )}
               </dd>
             </div>
           </dl>
@@ -636,25 +952,47 @@ export function MyrionWorksiteGame({
           </p>
           <dl className="mg-worksite-stats">
             <div>
-              <dt>Myrions visibles (biome affiché)</dt>
-              <dd>{lifeView.totalAssigned}</dd>
+              <dt>Myrions assignés (biome)</dt>
+              <dd>{lifePlan.totalAssigned}</dd>
             </div>
-            {lifeView.dominantState ? (
+            <div>
+              <dt>Espèces visibles</dt>
+              <dd>
+                {lifePlan.representatives.length}
+                {lifePlan.speciesOverflow > 0 ? ` (+${lifePlan.speciesOverflow} esp.)` : ''}
+              </dd>
+            </div>
+            {lifePlan.dominantState ? (
               <div>
                 <dt>État dominant</dt>
-                <dd>{decorativeStateLabel(lifeView.dominantState)}</dd>
+                <dd>{decorativeStateLabel(lifePlan.dominantState)}</dd>
               </div>
             ) : null}
           </dl>
-          {lifeView.visible.length > 0 ? (
-            <ul className="mg-worksite-life-drawer-list">
-              {lifeView.visible.map((entry) => (
-                <li key={entry.pet.id}>
-                  {entry.pet.emoji} {entry.pet.name} — {decorativeStateLabel(entry.state)}
+          {lifePlan.representatives.length > 0 ? (
+            <ul className="mg-worksite-compact-species-list mg-worksite-life-drawer-list">
+              {lifePlan.representatives.map((entry) => (
+                <li className="mg-worksite-compact-species-item" key={entry.speciesId}>
+                  <span className="mg-worksite-compact-chibi">
+                    <PalmonSprite
+                      emoji={entry.representative.emoji}
+                      name={entry.representative.name}
+                      size="chibi"
+                      speciesId={entry.speciesId}
+                      variant="chibi"
+                    />
+                  </span>
+                  <span className="mg-worksite-compact-name">
+                    {entry.representative.name}
+                    {entry.duplicateCount > 1 ? ` ×${entry.duplicateCount}` : ''} —{' '}
+                    {decorativeStateLabel(entry.state)}
+                  </span>
                 </li>
               ))}
-              {lifeView.overflow > 0 ? (
-                <li className="mg-worksite-myrion-overflow-inline">+{lifeView.overflow} autres</li>
+              {lifePlan.hiddenAssigned > 0 ? (
+                <li className="mg-worksite-myrion-overflow-inline">
+                  +{lifePlan.hiddenAssigned} autres (hors scène)
+                </li>
               ) : null}
             </ul>
           ) : (
@@ -672,7 +1010,7 @@ export function MyrionWorksiteGame({
           <ul>
             <li>Tous les biomes assignés produisent passivement.</li>
             <li>Seul le biome affiché reçoit la supervision.</li>
-            <li>Le clic accélère légèrement le spot actif.</li>
+            <li>Le clic mine le filon touché.</li>
             <li>Les gains restent volontairement faibles.</li>
           </ul>
           <p className="mg-worksite-note">
@@ -682,6 +1020,8 @@ export function MyrionWorksiteGame({
       ),
     },
   ]
+
+  const drawerOpen = openDrawer !== null
 
   return (
     <MinigameFrame
@@ -711,22 +1051,26 @@ export function MyrionWorksiteGame({
             onCloseMinigame={onClose}
             onOpenChange={setOpenDrawer}
           />
-          <div className="mg-worksite-scene-wrap">
-            <header className="mg-worksite-scene-head">
-              <div className="mg-worksite-scene-head-row">
-                <h2>
-                  {activeBiome.emoji} {activeBiome.label}
-                </h2>
-                <span className="mg-worksite-supervision-badge" title="Bonus auto sur ce biome">
-                  Supervision +{supervisionPct}%
-                </span>
-              </div>
-              <p>
-                {selectedSpot.emoji} {selectedSpot.name} · {selectedSpot.hint}
-              </p>
-            </header>
+          <div
+            className={`mg-worksite-scene-wrap${drawerOpen ? '' : ' mg-worksite-scene-wrap--fullscreen'}`}
+          >
+            {drawerOpen ? (
+              <header className="mg-worksite-scene-head">
+                <div className="mg-worksite-scene-head-row">
+                  <h2>
+                    {activeBiome.emoji} {activeBiome.label}
+                  </h2>
+                  <span className="mg-worksite-supervision-badge" title="Bonus auto sur ce biome">
+                    Supervision +{supervisionPct}%
+                  </span>
+                </div>
+                <p className="mg-worksite-scene-head-tagline">
+                  Trois filons sur le même écran — prairie : vivres · forêt : bois · mine : minerais.
+                </p>
+              </header>
+            ) : null}
 
-            {unlockNotices.length > 0 ? (
+            {drawerOpen && unlockNotices.length > 0 ? (
               <div className="mg-worksite-unlock-banner" role="status">
                 {unlockNotices.map((notice) => (
                   <p key={notice.id}>
@@ -736,71 +1080,107 @@ export function MyrionWorksiteGame({
               </div>
             ) : null}
 
-            <div
-              aria-label={activeBiome.label}
-              className={worksiteSceneClassNames(activeBiomeId, true, activeBiome.panoramaClass)}
-              role="img"
-            >
-              <WorksiteBiomeBackground
-                asset={getWorksiteBiomeVisual(activeBiomeId).background}
-                label={activeBiome.label}
-              />
-              <div className="mg-worksite-sky" />
-              <div className="mg-worksite-hills" />
-              <div className="mg-worksite-spot-markers">
-                {activeSpots.map((spot) => {
-                  const spotVisual = getWorksiteSpotVisual(spot.id)
-                  const selected = selectedSpotId === spot.id
-                  const locked = !isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id)
-                  return (
-                    <button
-                      aria-label={`Spot ${spot.name}`}
-                      className={worksiteSpotMarkerClassNames(spot.id, selected, locked)}
-                      disabled={locked}
-                      key={spot.id}
-                      type="button"
-                      onClick={() => selectSpot(spot.id)}
-                    >
-                      <WorksiteSpotObject
-                        asset={spotVisual.asset}
-                        className={worksiteSpotObjectClassNames(spot.id)}
-                        emoji={spot.emoji}
-                        name={spot.name}
-                      />
-                    </button>
-                  )
-                })}
+            <div className="mg-worksite-scene-stage" ref={sceneStageRef}>
+              <div
+                aria-label={activeBiome.label}
+                className={worksiteSceneClassNames(activeBiomeId, true, activeBiome.panoramaClass)}
+                ref={sceneRef}
+                role="img"
+              >
+                <WorksiteBiomeBackground
+                  asset={getWorksiteBiomeVisual(activeBiomeId).background}
+                  label={activeBiome.label}
+                />
+                <div className="mg-worksite-sky" />
+                <div className="mg-worksite-hills" />
+                <div className="mg-worksite-spot-markers">
+                  {activeSpots.map((spot) => {
+                    const spotVisual = getWorksiteSpotVisual(spot.id)
+                    const locked = !isWorksiteSpotUnlocked(worksite, activeBiomeId, spot.id)
+                    const wear = spotWearLevel(spot.id)
+                    return (
+                      <button
+                        aria-label={`Miner ${spot.name}`}
+                        className={`${worksiteSpotMarkerClassNames(spot.id, false, locked)} mg-worksite-marker--wear-${wear}`}
+                        disabled={locked}
+                        key={spot.id}
+                        ref={(node) => {
+                          if (node) markerRefs.current[spot.id] = node
+                          else delete markerRefs.current[spot.id]
+                        }}
+                        type="button"
+                        onPointerDown={(event) => handleSpotPointerDown(event, spot.id)}
+                      >
+                        <WorksiteSpotObject
+                          asset={spotVisual.asset}
+                          className={worksiteSpotObjectClassNames(spot.id)}
+                          emoji={spot.emoji}
+                          name={spot.name}
+                        />
+                      </button>
+                    )
+                  })}
+                </div>
+                <WorksiteMyrionLifeLayer
+                  activeBiomeId={activeBiomeId}
+                  pets={pets}
+                  worksite={worksite}
+                />
+                <WorksiteMineBursts bursts={mineBursts} />
               </div>
-              <WorksiteMyrionLifeLayer
-                activeBiomeId={activeBiomeId}
-                pets={pets}
-                worksite={worksite}
-              />
+              {!drawerOpen && unlockNotices.length > 0 ? (
+                <div className="mg-worksite-unlock-banner mg-worksite-unlock-banner--overlay" role="status">
+                  {unlockNotices.map((notice) => (
+                    <p key={notice.id}>
+                      <span className="mg-worksite-badge-new">Débloqué</span> {notice.label}
+                    </p>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
-            <button
-              className={`mg-worksite-tap ${clickFlash ? 'flash' : ''}`}
-              disabled={!isWorksiteSpotUnlocked(worksite, activeBiomeId, selectedSpotId)}
-              type="button"
-              onClick={handleTap}
-            >
-              <span className="mg-worksite-tap-label">
-                <WorksiteResourceIcon
-                  asset={getWorksiteResourceIconVisual(selectedSpot.resourceId).asset}
-                  emoji={getWorksiteResourceIconVisual(selectedSpot.resourceId).fallbackEmoji}
-                  label={RESOURCE_LABELS[selectedSpot.resourceId] ?? selectedSpot.resourceId}
-                />{' '}
-                Collecter — {RESOURCE_LABELS[selectedSpot.resourceId]}
-              </span>
-              <span className="mg-worksite-tap-yield">+{formatYield(clickYield)} / tap</span>
-            </button>
+            {drawerOpen ? (
+              <p className="mg-worksite-mine-hint">
+                Clique sur un filon pour miner — spam autorisé
+              </p>
+            ) : null}
 
+            {drawerOpen ? (
             <div className="mg-worksite-compact">
-              <span>Auto {formatYield(autoPerSec)}/s</span>
-              <span>Myrions {assignedCompact}</span>
-              <span>Taps {sessionClicks}</span>
+              <div className="mg-worksite-compact-stats">
+                <span>Auto {formatYield(biomeAutoPerSec)}/s</span>
+                <span className="mg-worksite-compact-species">
+                  Espèces {biomeSpeciesCount}/{WORKSITE_LIFE_MAX_SPECIES}
+                </span>
+                <span>Taps {sessionClicks}</span>
+              </div>
+              {assignedSpeciesGroups.length > 0 ? (
+                <ul className="mg-worksite-compact-species-list" aria-label="Myrions sur le biome">
+                  {assignedSpeciesGroups.slice(0, WORKSITE_LIFE_MAX_SPECIES).map((group) => (
+                    <li className="mg-worksite-compact-species-item" key={group.speciesId}>
+                      <span className="mg-worksite-compact-chibi">
+                        <PalmonSprite
+                          emoji={group.representative.emoji}
+                          name={group.representative.name}
+                          size="chibi"
+                          speciesId={group.speciesId}
+                          variant="chibi"
+                        />
+                      </span>
+                      <span className="mg-worksite-compact-name">{group.representative.name}</span>
+                      {group.count > 1 ? (
+                        <span className="mg-worksite-compact-count">×{group.count}</span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mg-worksite-compact-empty">Aucun Myrion assigné sur ce biome.</p>
+              )}
             </div>
+            ) : null}
 
+            {drawerOpen ? (
             <div className="mg-worksite-details">
               <button
                 aria-expanded={detailsOpen}
@@ -850,6 +1230,7 @@ export function MyrionWorksiteGame({
                 </div>
               ) : null}
             </div>
+            ) : null}
           </div>
         </div>
       </div>

@@ -63,4 +63,6 @@ export type MyrionWorksiteSave = {
   totalProducedBySpot: Partial<Record<string, number>>
   seenUnlockNotificationIds: string[]
   lastAutoTickAt: number
+  /** Migrations one-shot (ex. reset assignations MVP 4.1). */
+  saveMigrationVersion?: number
 }

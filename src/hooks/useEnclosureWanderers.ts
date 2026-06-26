@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { clampToEnclosureBounds, type EnclosureBounds } from '../data/myrionRefuge'
+import { clampToEnclosureBounds, resolveEnclosureObstacles, type EnclosureBounds, type EnclosureObstacle } from '../data/myrionRefuge'
 
 
 
@@ -82,7 +82,7 @@ type ReactionPreset = {
 
 
 
-const MIN_SEPARATION = 13
+const MIN_SEPARATION = 14
 
 const SEPARATION_PASSES = 2
 
@@ -146,82 +146,66 @@ function pickReaction(action: CareReaction): ReactionPreset {
 
 
 
-function spawnWanderer(item: WandererInput, index: number, bounds: EnclosureBounds): EnclosureWanderer {
-
-  const vx = (index % 2 === 0 ? 1 : -1) * rand(0.12, 0.28)
-
-  const spawn = clampToEnclosureBounds(
-
-    rand(bounds.minX, bounds.maxX),
-
-    rand(bounds.minY, bounds.maxY),
-
-    bounds,
-
-  )
-
-  return {
-
-    ...item,
-
-    ...spawn,
-
-    vx,
-
-    vy: (index % 3 === 0 ? 1 : -1) * rand(0.08, 0.22),
-
-    facingLeft: vx < 0,
-
-    mode: 'walk',
-
-    bubble: 'none',
-
-  }
-
+function applyObstacles(sprite: EnclosureWanderer, obstacles: EnclosureObstacle[]): EnclosureWanderer {
+  if (obstacles.length === 0) return sprite
+  const resolved = resolveEnclosureObstacles(sprite.x, sprite.y, sprite.vx, sprite.vy, obstacles)
+  return { ...sprite, ...resolved }
 }
 
+function spawnWanderer(
+  item: WandererInput,
+  index: number,
+  total: number,
+  bounds: EnclosureBounds,
+  obstacles: EnclosureObstacle[] = [],
+): EnclosureWanderer {
+  const vx = (index % 2 === 0 ? 1 : -1) * rand(0.12, 0.28)
+  const cols = Math.max(1, Math.ceil(Math.sqrt(total)))
+  const rows = Math.max(1, Math.ceil(total / cols))
+  const col = index % cols
+  const row = Math.floor(index / cols)
+  const cellX = bounds.minX + ((col + 0.5) / cols) * (bounds.maxX - bounds.minX)
+  const cellY = bounds.minY + ((row + 0.5) / rows) * (bounds.maxY - bounds.minY)
+  const spawn = clampToEnclosureBounds(cellX + rand(-5, 5), cellY + rand(-5, 5), bounds)
+  const resolved = resolveEnclosureObstacles(spawn.x, spawn.y, vx, 0, obstacles)
 
+  return {
+    ...item,
+    x: resolved.x,
+    y: resolved.y,
+    vx: resolved.vx,
+    vy: (index % 3 === 0 ? 1 : -1) * rand(0.08, 0.22) + resolved.vy,
+    facingLeft: vx < 0,
+    mode: 'walk',
+    bubble: 'none',
+  }
+}
 
 function syncWanderers(
-
   current: EnclosureWanderer[],
-
   items: WandererInput[],
-
   bounds: EnclosureBounds,
-
+  obstacles: EnclosureObstacle[] = [],
 ): EnclosureWanderer[] {
-
   const byId = new Map(current.map((sprite) => [sprite.id, sprite]))
-
   return items.map((item, index) => {
-
     const existing = byId.get(item.id)
-
     if (existing) {
-
       const clamped = clampToEnclosureBounds(existing.x, existing.y, bounds)
-
-      return {
-
-        ...existing,
-
-        ...clamped,
-
-        speciesId: item.speciesId,
-
-        name: item.name,
-
-        emoji: item.emoji,
-
-      }
-
+      return applyObstacles(
+        {
+          ...existing,
+          ...clamped,
+          speciesId: item.speciesId,
+          name: item.name,
+          emoji: item.emoji,
+        },
+        obstacles,
+      )
     }
 
-    return spawnWanderer(item, index, bounds)
-
+    return spawnWanderer(item, index, items.length, bounds, obstacles)
   })
-
 }
 
 
@@ -278,7 +262,11 @@ function applyRepulsion(sprite: EnclosureWanderer, others: EnclosureWanderer[]) 
 
 
 
-function separateWanderers(sprites: EnclosureWanderer[], bounds: EnclosureBounds): EnclosureWanderer[] {
+function separateWanderers(
+  sprites: EnclosureWanderer[],
+  bounds: EnclosureBounds,
+  obstacles: EnclosureObstacle[] = [],
+): EnclosureWanderer[] {
 
   let next = sprites.map((sprite) => ({ ...sprite }))
 
@@ -336,13 +324,15 @@ function separateWanderers(sprites: EnclosureWanderer[], bounds: EnclosureBounds
 
 
 
-    next = next.map((sprite) => ({
-
-      ...sprite,
-
-      ...clampToEnclosureBounds(sprite.x, sprite.y, bounds),
-
-    }))
+    next = next.map((sprite) =>
+      applyObstacles(
+        {
+          ...sprite,
+          ...clampToEnclosureBounds(sprite.x, sprite.y, bounds),
+        },
+        obstacles,
+      ),
+    )
 
   }
 
@@ -402,29 +392,23 @@ function clearExpiredReaction(sprite: EnclosureWanderer, now: number): Enclosure
 
 
 
-export function useEnclosureWanderers(items: WandererInput[], bounds: EnclosureBounds) {
-
+export function useEnclosureWanderers(
+  items: WandererInput[],
+  bounds: EnclosureBounds,
+  obstacles: EnclosureObstacle[] = [],
+) {
   const itemKey = items.map((item) => item.id).join(',')
-
   const boundsKey = `${bounds.minX}-${bounds.maxX}-${bounds.minY}-${bounds.maxY}`
-
+  const obstaclesKey = obstacles.map((o) => `${o.x}-${o.y}-${o.radius}`).join('|')
   const bubbleTimers = useRef<Map<string, number>>(new Map())
 
-
-
   const [wanderers, setWanderers] = useState<EnclosureWanderer[]>(() =>
-
-    items.map((item, index) => spawnWanderer(item, index, bounds)),
-
+    items.map((item, index) => spawnWanderer(item, index, items.length, bounds, obstacles)),
   )
 
-
-
   useEffect(() => {
-
-    setWanderers((current) => syncWanderers(current, items, bounds))
-
-  }, [boundsKey, itemKey])
+    setWanderers((current) => syncWanderers(current, items, bounds, obstacles))
+  }, [boundsKey, itemKey, obstaclesKey])
 
 
 
@@ -509,7 +493,7 @@ export function useEnclosureWanderers(items: WandererInput[], bounds: EnclosureB
 
             }
 
-            return applyRepulsion(updated, current)
+            return applyRepulsion(applyObstacles(updated, obstacles), current)
 
           }
 
@@ -639,13 +623,13 @@ export function useEnclosureWanderers(items: WandererInput[], bounds: EnclosureB
 
           }
 
-          return applyRepulsion(updated, current)
+          return applyRepulsion(applyObstacles(updated, obstacles), current)
 
         })
 
 
 
-        return separateWanderers(moved, bounds)
+        return separateWanderers(moved, bounds, obstacles)
 
       })
 
@@ -655,7 +639,7 @@ export function useEnclosureWanderers(items: WandererInput[], bounds: EnclosureB
 
     return () => window.clearInterval(timer)
 
-  }, [bounds.maxX, bounds.maxY, bounds.minX, bounds.minY, boundsKey, itemKey])
+  }, [bounds.maxX, bounds.maxY, bounds.minX, bounds.minY, boundsKey, itemKey, obstaclesKey])
 
 
 

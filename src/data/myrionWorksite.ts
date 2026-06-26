@@ -69,22 +69,18 @@ function spotDef(
 }
 
 const SPOT_CATALOG: WorksiteSpotDef[] = [
-  spotDef('prairie-chantier', 'bosquet', 'Bosquet', '🌳', 'wood', 'Bois — calmement.'),
-  spotDef('prairie-chantier', 'pierrier', 'Pierrier', '🪨', 'stone', 'Pierre — sans pression.'),
-  spotDef('prairie-chantier', 'champs', 'Champs', '🌾', 'food', 'Vivres — petites récoltes.', {
+  spotDef('prairie-chantier', 'bosquet', 'Verger', '🍎', 'food', 'Fruits — calmement.'),
+  spotDef('prairie-chantier', 'pierrier', 'Potager', '🥕', 'food', 'Légumes — sans pression.'),
+  spotDef('prairie-chantier', 'champs', 'Champs', '🌾', 'food', 'Céréales — petites récoltes.', {
     baseClickYield: 0.4,
     baseAutoYieldPerMyrion: 0.014,
   }),
-  spotDef('foret-douce', 'sous-bois', 'Sous-bois', '🍃', 'wood', 'Bois de sous-bois.'),
-  // Ressource spécialisée future (herbs) — provisoire food.
-  spotDef('foret-douce', 'clairiere-herbes', 'Clairière aux herbes', '🌿', 'food', 'Herbes — ressource spécialisée future.'),
-  // Ressource spécialisée future (water) — provisoire food.
-  spotDef('foret-douce', 'source-claire', 'Source claire', '💧', 'food', 'Eau — ressource spécialisée future.'),
-  spotDef('mine-tranquille', 'pierrier-profond', 'Pierrier profond', '🪨', 'stone', 'Pierre en profondeur.'),
-  // Ressource spécialisée future (ore) — provisoire stone.
-  spotDef('mine-tranquille', 'veine-brute', 'Veine brute', '⛏️', 'stone', 'Minerai — ressource spécialisée future.'),
-  // Ressource spécialisée future (coal) — provisoire stone.
-  spotDef('mine-tranquille', 'charbonniere', 'Charbonnière', '🪵', 'stone', 'Charbon — ressource spécialisée future.'),
+  spotDef('foret-douce', 'sous-bois', 'Sous-bois', '🍃', 'wood', 'Bois feuillu.'),
+  spotDef('foret-douce', 'clairiere-herbes', 'Clairière', '🪵', 'wood', 'Bois clair — futur type spécialisé.'),
+  spotDef('foret-douce', 'source-claire', 'Souches', '🌲', 'wood', 'Bois résineux — futur type spécialisé.'),
+  spotDef('mine-tranquille', 'pierrier-profond', 'Pierrier', '🪨', 'stone', 'Pierre brute.'),
+  spotDef('mine-tranquille', 'veine-brute', 'Veine de fer', '⛏️', 'stone', 'Fer — futur minerai spécialisé.'),
+  spotDef('mine-tranquille', 'charbonniere', 'Fil charbon', '🪨', 'stone', 'Charbon — futur minerai spécialisé.'),
 ]
 
 export const WORKSITE_SPOT_DEFS: Record<string, WorksiteSpotDef> = Object.fromEntries(
@@ -144,7 +140,7 @@ type LegacyMyrionWorksiteSave = Partial<
 
 function defaultSelectedSpotByBiome(): Record<WorksiteBiomeId, WorksiteSpotId> {
   return {
-    'prairie-chantier': 'bosquet',
+    'prairie-chantier': 'champs',
     'foret-douce': 'sous-bois',
     'mine-tranquille': 'pierrier-profond',
   }
@@ -160,6 +156,9 @@ function emptyAssignments(): Record<string, string[]> {
   return out
 }
 
+/** Reset unique des assignations (MVP 4.1 — limite 15 espèces visibles). */
+export const WORKSITE_SAVE_MIGRATION_VERSION = 1
+
 export function createStarterMyrionWorksite(now = Date.now()): MyrionWorksiteSave {
   return {
     activeBiomeId: 'prairie-chantier',
@@ -170,6 +169,7 @@ export function createStarterMyrionWorksite(now = Date.now()): MyrionWorksiteSav
     totalProducedBySpot: {},
     seenUnlockNotificationIds: [],
     lastAutoTickAt: now,
+    saveMigrationVersion: WORKSITE_SAVE_MIGRATION_VERSION,
   }
 }
 
@@ -214,10 +214,15 @@ export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionW
   if (!partial) return starter
 
   const assigned = emptyAssignments()
-  migrateLegacyAssignments(partial, assigned)
-  if (partial.activeBiomeId) {
-    for (const [key, list] of Object.entries(partial.assignedMyrionIdsBySpot ?? {})) {
-      if (key.includes(':') && Array.isArray(list)) assigned[key] = [...list]
+  const migrationVersion = partial.saveMigrationVersion ?? 0
+  if (migrationVersion < WORKSITE_SAVE_MIGRATION_VERSION) {
+    // One-shot : vider toutes les assignations pour repartir sous la limite d'espèces visibles.
+  } else {
+    migrateLegacyAssignments(partial, assigned)
+    if (partial.activeBiomeId) {
+      for (const [key, list] of Object.entries(partial.assignedMyrionIdsBySpot ?? {})) {
+        if (key.includes(':') && Array.isArray(list)) assigned[key] = [...list]
+      }
     }
   }
 
@@ -260,6 +265,7 @@ export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionW
       typeof partial.lastAutoTickAt === 'number' && Number.isFinite(partial.lastAutoTickAt)
         ? partial.lastAutoTickAt
         : starter.lastAutoTickAt,
+    saveMigrationVersion: Math.max(migrationVersion, WORKSITE_SAVE_MIGRATION_VERSION),
   }
 
   return evaluateWorksiteUnlocks(merged).worksite
@@ -357,6 +363,21 @@ export function assignMyrionToSpot(
   return { ...worksite, assignedMyrionIdsBySpot: nextAssigned }
 }
 
+export function worksiteAssignedPetsInBiome(
+  worksite: MyrionWorksiteSave,
+  biomeId: WorksiteBiomeId,
+  pets: PetState[],
+): PetState[] {
+  const ids = new Set<string>()
+  for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+    const key = worksiteSpotKey(biomeId, spotId)
+    for (const petId of worksite.assignedMyrionIdsBySpot[key] ?? []) {
+      ids.add(petId)
+    }
+  }
+  return pets.filter((pet) => ids.has(pet.id))
+}
+
 export function removeMyrionFromSpot(
   worksite: MyrionWorksiteSave,
   biomeId: WorksiteBiomeId,
@@ -371,6 +392,50 @@ export function removeMyrionFromSpot(
       [key]: (worksite.assignedMyrionIdsBySpot[key] ?? []).filter((entry) => entry !== petId),
     },
   }
+}
+
+export function clearAllWorksiteAssignments(worksite: MyrionWorksiteSave): MyrionWorksiteSave {
+  return { ...worksite, assignedMyrionIdsBySpot: emptyAssignments() }
+}
+
+export function clearWorksiteSpotAssignments(
+  worksite: MyrionWorksiteSave,
+  biomeId: WorksiteBiomeId,
+  spotId: WorksiteSpotId,
+): MyrionWorksiteSave {
+  const key = worksiteSpotKey(biomeId, spotId)
+  return {
+    ...worksite,
+    assignedMyrionIdsBySpot: {
+      ...worksite.assignedMyrionIdsBySpot,
+      [key]: [],
+    },
+  }
+}
+
+export function clearBiomeAssignments(
+  worksite: MyrionWorksiteSave,
+  biomeId: WorksiteBiomeId,
+): MyrionWorksiteSave {
+  let next = worksite
+  for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+    next = clearWorksiteSpotAssignments(next, biomeId, spotId)
+  }
+  return next
+}
+
+export function removeMyrionFromBiome(
+  worksite: MyrionWorksiteSave,
+  biomeId: WorksiteBiomeId,
+  petId: string,
+): MyrionWorksiteSave {
+  for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+    const key = worksiteSpotKey(biomeId, spotId)
+    if ((worksite.assignedMyrionIdsBySpot[key] ?? []).includes(petId)) {
+      return removeMyrionFromSpot(worksite, biomeId, spotId, petId)
+    }
+  }
+  return worksite
 }
 
 /** Itère les spots débloqués dans les biomes débloqués (production passive). */
