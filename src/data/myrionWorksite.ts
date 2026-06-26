@@ -2,14 +2,70 @@ import type { Cost, ResourceKey } from './buildingActivities'
 import type { PetState } from './minigameSave'
 import type { PalmonRarity } from './wildFamiliars'
 
-export const WORKSITE_BIOME_ID = 'prairie-chantier' as const
-export const WORKSITE_BIOME_LABEL = 'Prairie du chantier'
+/** Biomes du chantier Myrion — MVP 2. */
+export const WORKSITE_BIOME_IDS = [
+  'prairie-chantier',
+  'foret-douce',
+  'mine-tranquille',
+] as const
+export type WorksiteBiomeId = (typeof WORKSITE_BIOME_IDS)[number]
 
-export const WORKSITE_SPOT_IDS = ['bosquet', 'pierrier', 'champs'] as const
-export type WorksiteSpotId = (typeof WORKSITE_SPOT_IDS)[number]
+/** @deprecated MVP 1 alias — préférer activeBiomeId */
+export const WORKSITE_BIOME_ID = 'prairie-chantier' as const satisfies WorksiteBiomeId
+
+export type WorksiteBiomeDef = {
+  id: WorksiteBiomeId
+  label: string
+  emoji: string
+  /** Classe CSS panorama — ex. mg-worksite-scene--prairie */
+  panoramaClass: string
+  spotIds: readonly WorksiteSpotId[]
+}
+
+export const WORKSITE_BIOMES: Record<WorksiteBiomeId, WorksiteBiomeDef> = {
+  'prairie-chantier': {
+    id: 'prairie-chantier',
+    label: 'Prairie du chantier',
+    emoji: '🌾',
+    panoramaClass: 'mg-worksite-scene--prairie',
+    spotIds: ['bosquet', 'pierrier', 'champs'],
+  },
+  'foret-douce': {
+    id: 'foret-douce',
+    label: 'Forêt douce',
+    emoji: '🌲',
+    panoramaClass: 'mg-worksite-scene--foret',
+    spotIds: ['sous-bois', 'clairiere-herbes', 'source-claire'],
+  },
+  'mine-tranquille': {
+    id: 'mine-tranquille',
+    label: 'Mine tranquille',
+    emoji: '⛏️',
+    panoramaClass: 'mg-worksite-scene--mine',
+    spotIds: ['pierrier-profond', 'veine-brute', 'charbonniere'],
+  },
+}
+
+/** @deprecated MVP 1 alias */
+export const WORKSITE_BIOME_LABEL = WORKSITE_BIOMES['prairie-chantier'].label
+
+export type WorksiteSpotId =
+  | 'bosquet'
+  | 'pierrier'
+  | 'champs'
+  | 'sous-bois'
+  | 'clairiere-herbes'
+  | 'source-claire'
+  | 'pierrier-profond'
+  | 'veine-brute'
+  | 'charbonniere'
+
+/** @deprecated MVP 1 alias — spots prairie uniquement */
+export const WORKSITE_SPOT_IDS = WORKSITE_BIOMES['prairie-chantier'].spotIds
 
 export type WorksiteSpotDef = {
   id: WorksiteSpotId
+  biomeId: WorksiteBiomeId
   name: string
   emoji: string
   resourceId: ResourceKey
@@ -19,40 +75,88 @@ export type WorksiteSpotDef = {
   hint: string
 }
 
-export const WORKSITE_SPOTS: Record<WorksiteSpotId, WorksiteSpotDef> = {
-  bosquet: {
-    id: 'bosquet',
-    name: 'Bosquet',
-    emoji: '🌳',
-    resourceId: 'wood',
-    baseClickYield: 0.35,
-    baseAutoYieldPerMyrion: 0.012,
-    unlocked: true,
-    hint: 'Bois — calmement.',
-  },
-  pierrier: {
-    id: 'pierrier',
-    name: 'Pierrier',
-    emoji: '🪨',
-    resourceId: 'stone',
-    baseClickYield: 0.35,
-    baseAutoYieldPerMyrion: 0.012,
-    unlocked: true,
-    hint: 'Pierre — sans pression.',
-  },
-  champs: {
-    id: 'champs',
-    name: 'Champs',
-    emoji: '🌾',
-    resourceId: 'food',
-    baseClickYield: 0.4,
-    baseAutoYieldPerMyrion: 0.014,
-    unlocked: true,
-    hint: 'Vivres — petites récoltes.',
-  },
+/** Clé composite biome:spot pour assignations et totaux. */
+export function worksiteSpotKey(biomeId: WorksiteBiomeId, spotId: WorksiteSpotId): string {
+  return `${biomeId}:${spotId}`
 }
 
-/** Coefficients provisoires MVP 1. */
+function spotDef(
+  biomeId: WorksiteBiomeId,
+  id: WorksiteSpotId,
+  name: string,
+  emoji: string,
+  resourceId: ResourceKey,
+  hint: string,
+  overrides?: Partial<Pick<WorksiteSpotDef, 'baseClickYield' | 'baseAutoYieldPerMyrion'>>,
+): WorksiteSpotDef {
+  return {
+    id,
+    biomeId,
+    name,
+    emoji,
+    resourceId,
+    baseClickYield: overrides?.baseClickYield ?? 0.35,
+    baseAutoYieldPerMyrion: overrides?.baseAutoYieldPerMyrion ?? 0.012,
+    unlocked: true,
+    hint,
+  }
+}
+
+const SPOT_CATALOG: WorksiteSpotDef[] = [
+  spotDef('prairie-chantier', 'bosquet', 'Bosquet', '🌳', 'wood', 'Bois — calmement.'),
+  spotDef('prairie-chantier', 'pierrier', 'Pierrier', '🪨', 'stone', 'Pierre — sans pression.'),
+  spotDef('prairie-chantier', 'champs', 'Champs', '🌾', 'food', 'Vivres — petites récoltes.', {
+    baseClickYield: 0.4,
+    baseAutoYieldPerMyrion: 0.014,
+  }),
+  spotDef('foret-douce', 'sous-bois', 'Sous-bois', '🍃', 'wood', 'Bois de sous-bois.'),
+  // Provisoire food — herbs n'existe pas encore dans ResourceKey.
+  spotDef('foret-douce', 'clairiere-herbes', 'Clairière aux herbes', '🌿', 'food', 'Herbes — provisoire vivres.'),
+  // Provisoire food — water n'existe pas encore dans ResourceKey.
+  spotDef('foret-douce', 'source-claire', 'Source claire', '💧', 'food', 'Eau — provisoire vivres.'),
+  spotDef('mine-tranquille', 'pierrier-profond', 'Pierrier profond', '🪨', 'stone', 'Pierre en profondeur.'),
+  // Provisoire stone — ore n'existe pas encore dans ResourceKey.
+  spotDef('mine-tranquille', 'veine-brute', 'Veine brute', '⛏️', 'stone', 'Minerai — provisoire pierre.'),
+  // Provisoire stone — coal n'existe pas encore dans ResourceKey.
+  spotDef('mine-tranquille', 'charbonniere', 'Charbonnière', '🪵', 'stone', 'Charbon — provisoire pierre.'),
+]
+
+export const WORKSITE_SPOT_DEFS: Record<string, WorksiteSpotDef> = Object.fromEntries(
+  SPOT_CATALOG.map((spot) => [worksiteSpotKey(spot.biomeId, spot.id), spot]),
+)
+
+/** @deprecated MVP 1 alias — spots prairie par id seul */
+export const WORKSITE_SPOTS: Record<
+  (typeof WORKSITE_SPOT_IDS)[number],
+  WorksiteSpotDef
+> = Object.fromEntries(
+  WORKSITE_BIOMES['prairie-chantier'].spotIds.map((id) => [
+    id,
+    getWorksiteSpot('prairie-chantier', id),
+  ]),
+) as Record<(typeof WORKSITE_SPOT_IDS)[number], WorksiteSpotDef>
+
+export function getWorksiteSpot(biomeId: WorksiteBiomeId, spotId: WorksiteSpotId): WorksiteSpotDef {
+  const spot = WORKSITE_SPOT_DEFS[worksiteSpotKey(biomeId, spotId)]
+  if (!spot) throw new Error(`Unknown worksite spot: ${biomeId}:${spotId}`)
+  return spot
+}
+
+export function getSpotsForBiome(biomeId: WorksiteBiomeId): WorksiteSpotDef[] {
+  return WORKSITE_BIOMES[biomeId].spotIds.map((spotId) => getWorksiteSpot(biomeId, spotId))
+}
+
+export function isWorksiteSpotIdForBiome(
+  biomeId: WorksiteBiomeId,
+  spotId: string,
+): spotId is WorksiteSpotId {
+  return (WORKSITE_BIOMES[biomeId].spotIds as readonly string[]).includes(spotId)
+}
+
+/** Bonus supervision — appliqué aux spots du biome actif uniquement. */
+export const WORKSITE_SUPERVISION_MULT = 1.15
+
+/** Coefficients provisoires MVP. */
 export const WORKSITE_RARITY_MULT: Record<PalmonRarity, number> = {
   N: 1,
   R: 1.25,
@@ -63,47 +167,132 @@ export const WORKSITE_RARITY_MULT: Record<PalmonRarity, number> = {
 }
 
 export type MyrionWorksiteSave = {
-  biomeId: typeof WORKSITE_BIOME_ID
-  selectedSpotId: WorksiteSpotId
-  assignedMyrionIdsBySpot: Record<WorksiteSpotId, string[]>
-  totalProducedBySpot: Partial<Record<WorksiteSpotId, number>>
+  activeBiomeId: WorksiteBiomeId
+  unlockedBiomeIds: WorksiteBiomeId[]
+  selectedSpotByBiome: Record<WorksiteBiomeId, WorksiteSpotId>
+  /** Clés composite biome:spot */
+  assignedMyrionIdsBySpot: Record<string, string[]>
+  totalProducedBySpot: Partial<Record<string, number>>
   lastAutoTickAt: number
+}
+
+/** Champs MVP 1 conservés pour migration mergeMyrionWorksite. */
+type LegacyMyrionWorksiteSave = Partial<
+  MyrionWorksiteSave & {
+    biomeId?: WorksiteBiomeId
+    selectedSpotId?: WorksiteSpotId
+    assignedMyrionIdsBySpot?: Partial<Record<WorksiteSpotId, string[]>>
+    totalProducedBySpot?: Partial<Record<WorksiteSpotId, number>>
+  }
+>
+
+function defaultSelectedSpotByBiome(): Record<WorksiteBiomeId, WorksiteSpotId> {
+  return {
+    'prairie-chantier': 'bosquet',
+    'foret-douce': 'sous-bois',
+    'mine-tranquille': 'pierrier-profond',
+  }
+}
+
+function emptyAssignments(): Record<string, string[]> {
+  const out: Record<string, string[]> = {}
+  for (const biomeId of WORKSITE_BIOME_IDS) {
+    for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+      out[worksiteSpotKey(biomeId, spotId)] = []
+    }
+  }
+  return out
 }
 
 export function createStarterMyrionWorksite(now = Date.now()): MyrionWorksiteSave {
   return {
-    biomeId: WORKSITE_BIOME_ID,
-    selectedSpotId: 'bosquet',
-    assignedMyrionIdsBySpot: {
-      bosquet: [],
-      pierrier: [],
-      champs: [],
-    },
+    activeBiomeId: 'prairie-chantier',
+    unlockedBiomeIds: [...WORKSITE_BIOME_IDS],
+    selectedSpotByBiome: defaultSelectedSpotByBiome(),
+    assignedMyrionIdsBySpot: emptyAssignments(),
     totalProducedBySpot: {},
     lastAutoTickAt: now,
   }
 }
 
-export function mergeMyrionWorksite(partial?: Partial<MyrionWorksiteSave>): MyrionWorksiteSave {
+function migrateLegacyAssignments(
+  partial: LegacyMyrionWorksiteSave,
+  assigned: Record<string, string[]>,
+): void {
+  const legacy = partial.assignedMyrionIdsBySpot
+  if (!legacy) return
+
+  for (const [key, list] of Object.entries(legacy)) {
+    if (!Array.isArray(list)) continue
+    if (key.includes(':')) {
+      if (assigned[key] !== undefined) assigned[key] = [...list]
+      continue
+    }
+    const prairieKey = worksiteSpotKey('prairie-chantier', key as WorksiteSpotId)
+    if (assigned[prairieKey] !== undefined) assigned[prairieKey] = [...list]
+  }
+}
+
+function migrateLegacyTotals(
+  partial: LegacyMyrionWorksiteSave,
+  totals: Partial<Record<string, number>>,
+): Partial<Record<string, number>> {
+  const legacy = partial.totalProducedBySpot
+  if (!legacy) return totals
+  const next = { ...totals }
+  for (const [key, value] of Object.entries(legacy)) {
+    if (typeof value !== 'number' || !Number.isFinite(value)) continue
+    if (key.includes(':')) {
+      next[key] = value
+      continue
+    }
+    next[worksiteSpotKey('prairie-chantier', key as WorksiteSpotId)] = value
+  }
+  return next
+}
+
+export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionWorksiteSave {
   const starter = createStarterMyrionWorksite()
   if (!partial) return starter
 
-  const assigned = { ...starter.assignedMyrionIdsBySpot }
-  for (const spotId of WORKSITE_SPOT_IDS) {
-    const list = partial.assignedMyrionIdsBySpot?.[spotId]
-    assigned[spotId] = Array.isArray(list) ? [...list] : []
+  const assigned = emptyAssignments()
+  migrateLegacyAssignments(partial, assigned)
+  if (partial.activeBiomeId) {
+    for (const [key, list] of Object.entries(partial.assignedMyrionIdsBySpot ?? {})) {
+      if (key.includes(':') && Array.isArray(list)) assigned[key] = [...list]
+    }
   }
 
-  const selected =
-    partial.selectedSpotId && WORKSITE_SPOT_IDS.includes(partial.selectedSpotId)
-      ? partial.selectedSpotId
-      : starter.selectedSpotId
+  const selectedSpotByBiome = { ...starter.selectedSpotByBiome }
+  if (partial.selectedSpotByBiome) {
+    for (const biomeId of WORKSITE_BIOME_IDS) {
+      const spotId = partial.selectedSpotByBiome[biomeId]
+      if (spotId && isWorksiteSpotIdForBiome(biomeId, spotId)) {
+        selectedSpotByBiome[biomeId] = spotId
+      }
+    }
+  }
+  if (partial.selectedSpotId && isWorksiteSpotIdForBiome('prairie-chantier', partial.selectedSpotId)) {
+    selectedSpotByBiome['prairie-chantier'] = partial.selectedSpotId
+  }
+
+  const activeBiomeId =
+    partial.activeBiomeId && WORKSITE_BIOME_IDS.includes(partial.activeBiomeId)
+      ? partial.activeBiomeId
+      : partial.biomeId && WORKSITE_BIOME_IDS.includes(partial.biomeId)
+        ? partial.biomeId
+        : starter.activeBiomeId
+
+  const unlocked = partial.unlockedBiomeIds?.filter((id) => WORKSITE_BIOME_IDS.includes(id))
+  const unlockedBiomeIds =
+    unlocked && unlocked.length > 0 ? ([...new Set(unlocked)] as WorksiteBiomeId[]) : starter.unlockedBiomeIds
 
   return {
-    biomeId: WORKSITE_BIOME_ID,
-    selectedSpotId: selected,
+    activeBiomeId,
+    unlockedBiomeIds,
+    selectedSpotByBiome,
     assignedMyrionIdsBySpot: assigned,
-    totalProducedBySpot: { ...partial.totalProducedBySpot },
+    totalProducedBySpot: migrateLegacyTotals(partial, { ...partial.totalProducedBySpot }),
     lastAutoTickAt:
       typeof partial.lastAutoTickAt === 'number' && Number.isFinite(partial.lastAutoTickAt)
         ? partial.lastAutoTickAt
@@ -117,21 +306,29 @@ export function worksiteRarityMultiplier(rarity: PalmonRarity): number {
 
 export function worksiteAssignedPets(
   worksite: MyrionWorksiteSave,
+  biomeId: WorksiteBiomeId,
   spotId: WorksiteSpotId,
   pets: PetState[],
 ): PetState[] {
-  const ids = new Set(worksite.assignedMyrionIdsBySpot[spotId] ?? [])
+  const key = worksiteSpotKey(biomeId, spotId)
+  const ids = new Set(worksite.assignedMyrionIdsBySpot[key] ?? [])
   return pets.filter((pet) => ids.has(pet.id))
 }
 
 export function worksiteMyrionAssignedElsewhere(
   worksite: MyrionWorksiteSave,
   petId: string,
-  exceptSpot?: WorksiteSpotId,
-): WorksiteSpotId | null {
-  for (const spotId of WORKSITE_SPOT_IDS) {
-    if (exceptSpot && spotId === exceptSpot) continue
-    if (worksite.assignedMyrionIdsBySpot[spotId]?.includes(petId)) return spotId
+  exceptBiomeId?: WorksiteBiomeId,
+  exceptSpotId?: WorksiteSpotId,
+): { biomeId: WorksiteBiomeId; spotId: WorksiteSpotId } | null {
+  for (const biomeId of WORKSITE_BIOME_IDS) {
+    for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+      if (exceptBiomeId === biomeId && exceptSpotId === spotId) continue
+      const key = worksiteSpotKey(biomeId, spotId)
+      if (worksite.assignedMyrionIdsBySpot[key]?.includes(petId)) {
+        return { biomeId, spotId }
+      }
+    }
   }
   return null
 }
@@ -150,6 +347,7 @@ export function computeWorksiteClickYield(
 export function computeWorksiteAutoPerSecond(
   spot: WorksiteSpotDef,
   assignedPets: PetState[],
+  supervisionMultiplier = 1,
 ): number {
   if (assignedPets.length === 0) return 0
   const rate = assignedPets.reduce(
@@ -157,7 +355,7 @@ export function computeWorksiteAutoPerSecond(
       sum + spot.baseAutoYieldPerMyrion * worksiteRarityMultiplier(pet.rarity),
     0,
   )
-  return Math.round(rate * 1000) / 1000
+  return Math.round(rate * supervisionMultiplier * 1000) / 1000
 }
 
 /** Auto tick — max 5 s de rattrapage pour éviter les spikes au retour focus. */
@@ -166,9 +364,10 @@ export function computeWorksiteAutoGrant(
   assignedPets: PetState[],
   lastTickAt: number,
   now = Date.now(),
+  supervisionMultiplier = 1,
 ): { reward: Cost; nextTickAt: number; amount: number } {
   const deltaSec = Math.min(5, Math.max(0, (now - lastTickAt) / 1000))
-  const perSec = computeWorksiteAutoPerSecond(spot, assignedPets)
+  const perSec = computeWorksiteAutoPerSecond(spot, assignedPets, supervisionMultiplier)
   const raw = perSec * deltaSec
   const amount = raw >= 0.05 ? Math.floor(raw * 100) / 100 : 0
   return {
@@ -180,29 +379,46 @@ export function computeWorksiteAutoGrant(
 
 export function assignMyrionToSpot(
   worksite: MyrionWorksiteSave,
+  biomeId: WorksiteBiomeId,
   spotId: WorksiteSpotId,
   petId: string,
 ): MyrionWorksiteSave {
   const nextAssigned = { ...worksite.assignedMyrionIdsBySpot }
-  for (const id of WORKSITE_SPOT_IDS) {
-    nextAssigned[id] = (nextAssigned[id] ?? []).filter((entry) => entry !== petId)
+  for (const key of Object.keys(nextAssigned)) {
+    nextAssigned[key] = (nextAssigned[key] ?? []).filter((entry) => entry !== petId)
   }
-  nextAssigned[spotId] = [...(nextAssigned[spotId] ?? []), petId]
+  const key = worksiteSpotKey(biomeId, spotId)
+  nextAssigned[key] = [...(nextAssigned[key] ?? []), petId]
   return { ...worksite, assignedMyrionIdsBySpot: nextAssigned }
 }
 
 export function removeMyrionFromSpot(
   worksite: MyrionWorksiteSave,
+  biomeId: WorksiteBiomeId,
   spotId: WorksiteSpotId,
   petId: string,
 ): MyrionWorksiteSave {
+  const key = worksiteSpotKey(biomeId, spotId)
   return {
     ...worksite,
     assignedMyrionIdsBySpot: {
       ...worksite.assignedMyrionIdsBySpot,
-      [spotId]: (worksite.assignedMyrionIdsBySpot[spotId] ?? []).filter(
-        (entry) => entry !== petId,
-      ),
+      [key]: (worksite.assignedMyrionIdsBySpot[key] ?? []).filter((entry) => entry !== petId),
     },
   }
+}
+
+/** Itère tous les spots assignés dans les biomes débloqués. */
+export function iterUnlockedWorksiteSpots(
+  worksite: MyrionWorksiteSave,
+): Array<{ biomeId: WorksiteBiomeId; spotId: WorksiteSpotId; spot: WorksiteSpotDef }> {
+  const rows: Array<{ biomeId: WorksiteBiomeId; spotId: WorksiteSpotId; spot: WorksiteSpotDef }> =
+    []
+  for (const biomeId of worksite.unlockedBiomeIds) {
+    if (!WORKSITE_BIOME_IDS.includes(biomeId)) continue
+    for (const spotId of WORKSITE_BIOMES[biomeId].spotIds) {
+      rows.push({ biomeId, spotId, spot: getWorksiteSpot(biomeId, spotId) })
+    }
+  }
+  return rows
 }
