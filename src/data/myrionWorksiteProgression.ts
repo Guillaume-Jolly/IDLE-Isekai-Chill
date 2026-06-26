@@ -1,6 +1,8 @@
 import {
   WORKSITE_MINE_BIOME_UNLOCK,
   WORKSITE_UNLOCK_THRESHOLDS,
+  type WorksiteBiomeUnlockRule,
+  type WorksiteSpotUnlockRule,
 } from './myrionWorksiteBalance'
 import {
   WORKSITE_BIOME_IDS,
@@ -10,6 +12,11 @@ import {
   type WorksiteBiomeId,
   type WorksiteSpotId,
 } from './myrionWorksiteDefs'
+import {
+  buildRuntimeBiomeEntrySpots,
+  getRuntimeSpotMeta,
+  mapProducedAmountToResourceTrack,
+} from './myrionWorksiteBiomeRuntime'
 
 const BIOME_IDS = WORKSITE_BIOME_IDS
 const BIOMES = WORKSITE_BIOMES
@@ -20,11 +27,10 @@ export {
   WORKSITE_UNLOCK_THRESHOLDS,
 } from './myrionWorksiteBalance'
 
-export const WORKSITE_BIOME_ENTRY_SPOTS: Record<WorksiteBiomeId, WorksiteSpotId> = {
-  'prairie-chantier': 'bosquet',
-  'foret-douce': 'sous-bois',
-  'mine-tranquille': 'pierrier-profond',
-}
+export const WORKSITE_BIOME_ENTRY_SPOTS = buildRuntimeBiomeEntrySpots() as Record<
+  WorksiteBiomeId,
+  WorksiteSpotId
+>
 
 export const WORKSITE_STARTER_SPOT_KEYS = [
   spotKey('prairie-chantier', 'bosquet'),
@@ -36,6 +42,7 @@ export type WorksiteResourceTotals = {
   wood: number
   stone: number
   food: number
+  ingredients: number
   totalChantier: number
 }
 
@@ -45,20 +52,69 @@ export type WorksiteUnlockEvent = {
   kind: 'biome' | 'spot'
 }
 
+function formatUnlockParts(parts: string[]): string {
+  return parts.join(' · ')
+}
+
+function biomeRuleMet(totals: WorksiteResourceTotals, rule: WorksiteBiomeUnlockRule): boolean {
+  if (rule.totalChantier !== undefined && totals.totalChantier < rule.totalChantier) return false
+  if (rule.wood !== undefined && totals.wood < rule.wood) return false
+  if (rule.stone !== undefined && totals.stone < rule.stone) return false
+  if (rule.food !== undefined && totals.food < rule.food) return false
+  if (rule.ingredients !== undefined && totals.ingredients < rule.ingredients) return false
+  return true
+}
+
+function spotRuleMet(totals: WorksiteResourceTotals, rule: WorksiteSpotUnlockRule): boolean {
+  if (rule.totalChantier !== undefined && totals.totalChantier < rule.totalChantier) return false
+  if (rule.wood !== undefined && totals.wood < rule.wood) return false
+  if (rule.stone !== undefined && totals.stone < rule.stone) return false
+  if (rule.food !== undefined && totals.food < rule.food) return false
+  if (rule.ingredients !== undefined && totals.ingredients < rule.ingredients) return false
+  return true
+}
+
+function formatBiomeUnlockRule(rule: WorksiteBiomeUnlockRule): string {
+  const parts: string[] = []
+  if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale chantier`)
+  if (rule.wood) parts.push(`${rule.wood} bois produits`)
+  if (rule.stone) parts.push(`${rule.stone} pierre produite`)
+  if (rule.food) parts.push(`${rule.food} vivres produites`)
+  if (rule.ingredients) parts.push(`${rule.ingredients} ingrédients produits`)
+  return formatUnlockParts(parts)
+}
+
+function formatSpotUnlockRule(rule: WorksiteSpotUnlockRule): string {
+  const parts: string[] = []
+  if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale chantier`)
+  if (rule.wood) parts.push(`${rule.wood} bois produits`)
+  if (rule.stone) parts.push(`${rule.stone} pierre produite`)
+  if (rule.food) parts.push(`${rule.food} vivres produites`)
+  if (rule.ingredients) parts.push(`${rule.ingredients} ingrédients produits`)
+  return formatUnlockParts(parts)
+}
+
 export function worksiteResourceTotals(worksite: MyrionWorksiteSave): WorksiteResourceTotals {
-  let wood = 0
-  let stone = 0
-  let food = 0
+  const totals: WorksiteResourceTotals = {
+    wood: 0,
+    stone: 0,
+    food: 0,
+    ingredients: 0,
+    totalChantier: 0,
+  }
   for (const biomeId of BIOME_IDS) {
     for (const spotId of BIOMES[biomeId].spotIds) {
       const key = spotKey(biomeId, spotId)
       const amount = worksite.totalProducedBySpot[key] ?? 0
-      if (biomeId === 'prairie-chantier') food += amount
-      else if (biomeId === 'foret-douce') wood += amount
-      else if (biomeId === 'mine-tranquille') stone += amount
+      if (amount <= 0) continue
+      totals.totalChantier += amount
+      const meta = getRuntimeSpotMeta(biomeId, spotId)
+      if (meta) {
+        mapProducedAmountToResourceTrack(meta.resourceId, amount, totals)
+      }
     }
   }
-  return { wood, stone, food, totalChantier: wood + stone + food }
+  return totals
 }
 
 export function isWorksiteBiomeUnlocked(worksite: MyrionWorksiteSave, biomeId: WorksiteBiomeId): boolean {
@@ -77,27 +133,21 @@ export function isWorksiteSpotUnlocked(
 export function getBiomeUnlockHint(biomeId: WorksiteBiomeId): string | null {
   if (biomeId === 'prairie-chantier') return null
   if (biomeId === 'mine-tranquille') {
-    const parts: string[] = [
+    return formatUnlockParts([
       `${WORKSITE_MINE_BIOME_UNLOCK.totalChantier} production totale chantier`,
       `${WORKSITE_MINE_BIOME_UNLOCK.wood} bois produits`,
-    ]
-    return parts.join(' · ')
+    ])
   }
   const rule = WORKSITE_UNLOCK_THRESHOLDS.biomes[biomeId as keyof typeof WORKSITE_UNLOCK_THRESHOLDS.biomes]
   if (!rule) return null
-  const parts: string[] = []
-  if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale chantier`)
-  return parts.join(' · ')
+  return formatBiomeUnlockRule(rule)
 }
 
 export function getSpotUnlockHint(biomeId: WorksiteBiomeId, spotId: WorksiteSpotId): string | null {
   const key = spotKey(biomeId, spotId)
   const rule = WORKSITE_UNLOCK_THRESHOLDS.spots[key as keyof typeof WORKSITE_UNLOCK_THRESHOLDS.spots]
   if (!rule) return null
-  if ('wood' in rule) return `${rule.wood} bois produits`
-  if ('food' in rule) return `${rule.food} vivres produites`
-  if ('stone' in rule) return `${rule.stone} pierre produite`
-  return null
+  return formatSpotUnlockRule(rule)
 }
 
 function biomeUnlockMet(worksite: MyrionWorksiteSave, biomeId: WorksiteBiomeId): boolean {
@@ -110,8 +160,7 @@ function biomeUnlockMet(worksite: MyrionWorksiteSave, biomeId: WorksiteBiomeId):
   }
   const rule = WORKSITE_UNLOCK_THRESHOLDS.biomes[biomeId as keyof typeof WORKSITE_UNLOCK_THRESHOLDS.biomes]
   if (!rule) return false
-  if (rule.totalChantier && totals.totalChantier < rule.totalChantier) return false
-  return true
+  return biomeRuleMet(totals, rule)
 }
 
 function spotUnlockMet(
@@ -126,12 +175,7 @@ function spotUnlockMet(
   }
   const rule = WORKSITE_UNLOCK_THRESHOLDS.spots[key as keyof typeof WORKSITE_UNLOCK_THRESHOLDS.spots]
   if (!rule) return isWorksiteBiomeUnlocked(worksite, biomeId)
-  const totals = worksiteResourceTotals(worksite)
-  const spotRule = rule as { wood?: number; food?: number; stone?: number }
-  if (spotRule.wood !== undefined && totals.wood < spotRule.wood) return false
-  if (spotRule.food !== undefined && totals.food < spotRule.food) return false
-  if (spotRule.stone !== undefined && totals.stone < spotRule.stone) return false
-  return true
+  return spotRuleMet(worksiteResourceTotals(worksite), rule)
 }
 
 export function evaluateWorksiteUnlocks(worksite: MyrionWorksiteSave): {
@@ -165,7 +209,12 @@ export function evaluateWorksiteUnlocks(worksite: MyrionWorksiteSave): {
         unlockedSpotKeys.push(key)
         const eventId = `spot:${key}`
         if (!seen.has(eventId)) {
-          events.push({ id: eventId, kind: 'spot', label: `Spot débloqué — ${BIOMES[biomeId].emoji} ${spotId}` })
+          const meta = getRuntimeSpotMeta(biomeId, spotId)
+          events.push({
+            id: eventId,
+            kind: 'spot',
+            label: `Spot débloqué — ${BIOMES[biomeId].emoji} ${meta?.displayName ?? spotId}`,
+          })
         }
       }
     }
@@ -205,9 +254,11 @@ export function migrateWorksiteUnlockState(partial: Partial<MyrionWorksiteSave>)
     ? [...partial.seenUnlockNotificationIds]
     : []
 
+  const validBiomeFilter = (ids: WorksiteBiomeId[] | undefined) =>
+    ids?.filter((id) => BIOME_IDS.includes(id)) ?? starterBiomes
+
   if (Array.isArray(partial.unlockedSpotKeys) && partial.unlockedSpotKeys.length > 0) {
-    const unlockedBiomeIds =
-      partial.unlockedBiomeIds?.filter((id) => BIOME_IDS.includes(id)) ?? starterBiomes
+    const unlockedBiomeIds = validBiomeFilter(partial.unlockedBiomeIds)
     return {
       unlockedBiomeIds: unlockedBiomeIds.length > 0 ? unlockedBiomeIds : starterBiomes,
       unlockedSpotKeys: [...partial.unlockedSpotKeys],
@@ -217,12 +268,8 @@ export function migrateWorksiteUnlockState(partial: Partial<MyrionWorksiteSave>)
 
   const merged: MyrionWorksiteSave = {
     activeBiomeId: partial.activeBiomeId ?? 'prairie-chantier',
-    unlockedBiomeIds: partial.unlockedBiomeIds ?? starterBiomes,
-    selectedSpotByBiome: partial.selectedSpotByBiome ?? {
-      'prairie-chantier': 'bosquet',
-      'foret-douce': 'sous-bois',
-      'mine-tranquille': 'pierrier-profond',
-    },
+    unlockedBiomeIds: validBiomeFilter(partial.unlockedBiomeIds),
+    selectedSpotByBiome: partial.selectedSpotByBiome ?? ({} as Record<WorksiteBiomeId, WorksiteSpotId>),
     assignedMyrionIdsBySpot: partial.assignedMyrionIdsBySpot ?? {},
     totalProducedBySpot: partial.totalProducedBySpot ?? {},
     unlockedSpotKeys: defaultUnlockedSpotKeys(),

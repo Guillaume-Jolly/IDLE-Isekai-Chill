@@ -689,6 +689,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
+  max-height: min(52vh, 24rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.15rem;
 }
 
 .mg-worksite-biome-btn {
@@ -1102,6 +1106,71 @@
 
 .mg-worksite-bg--astral {
   background: linear-gradient(180deg, #3a2a58 0%, #2a1a48 50%, #1a1038 100%);
+}
+
+.mg-worksite-bg--rivage {
+  background: linear-gradient(180deg, #7ab0c8 0%, #5a90a8 45%, #3a7088 100%);
+}
+
+.mg-worksite-bg--vergers {
+  background: linear-gradient(180deg, #b8d8a0 0%, #98c880 50%, #78a860 100%);
+}
+
+.mg-worksite-bg--ruines {
+  background: linear-gradient(180deg, #9a8a78 0%, #7a6a58 50%, #5a4a38 100%);
+}
+
+.mg-worksite-bg--desert {
+  background: linear-gradient(180deg, #e8b8a8 0%, #d89888 50%, #c87868 100%);
+}
+
+.mg-worksite-bg--montagne {
+  background: linear-gradient(180deg, #98a8b8 0%, #788898 50%, #586878 100%);
+}
+
+.mg-worksite-bg--lac {
+  background: linear-gradient(180deg, #6a88c8 0%, #4a68a8 50%, #2a4888 100%);
+}
+
+.mg-worksite-bg--automne {
+  background: linear-gradient(180deg, #d8a868 0%, #b88848 50%, #986828 100%);
+}
+
+.mg-worksite-bg--fongique {
+  background: linear-gradient(180deg, #9a78b8 0%, #7a5898 50%, #5a3878 100%);
+}
+
+.mg-worksite-bg--sanctuaire {
+  background: linear-gradient(180deg, #5a48a8 0%, #3a2878 50%, #2a1858 100%);
+}
+
+.mg-worksite-bg--ile {
+  background: linear-gradient(180deg, #a8c8e8 0%, #88a8d8 45%, #6888c8 100%);
+}
+
+.mg-worksite-scene--rivage,
+.mg-worksite-scene--vergers,
+.mg-worksite-scene--ruines,
+.mg-worksite-scene--desert,
+.mg-worksite-scene--montagne,
+.mg-worksite-scene--lac,
+.mg-worksite-scene--automne,
+.mg-worksite-scene--fongique,
+.mg-worksite-scene--sanctuaire,
+.mg-worksite-scene--ile,
+.mg-worksite-scene--marais,
+.mg-worksite-scene--cristal {
+  color: #f4f7ff;
+}
+
+.mg-worksite-spot-object--generic,
+.mg-worksite-spot-object--resource-ingredients,
+.mg-worksite-spot-object--resource-crystals,
+.mg-worksite-spot-object--resource-mana,
+.mg-worksite-spot-object--resource-renown,
+.mg-worksite-spot-object--resource-stardust {
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.22);
 }
 
 .mg-worksite-biome--supervised {
@@ -1772,18 +1841,22 @@
 
 .mg-worksite-monitor-biomes {
   display: flex;
-  gap: 0.35rem;
+  flex-wrap: wrap;
+  gap: 0.3rem;
   margin-bottom: 0.45rem;
+  max-height: 4.5rem;
+  overflow-y: auto;
 }
 
 .mg-worksite-monitor-biome-btn {
-  width: 2rem;
-  height: 2rem;
+  width: 1.85rem;
+  height: 1.85rem;
   border-radius: 0.45rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.25);
-  font-size: 1rem;
+  font-size: 0.92rem;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .mg-worksite-monitor-biome-btn.active {

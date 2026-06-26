@@ -18,6 +18,10 @@ import {
   type WorksiteSpotId,
 } from './myrionWorksiteDefs'
 import {
+  WORKSITE_RUNTIME_SPOT_BY_KEY,
+  buildDefaultSelectedSpotByBiome,
+} from './myrionWorksiteBiomeRuntime'
+import {
   defaultUnlockedSpotKeys,
   evaluateWorksiteUnlocks,
   migrateWorksiteUnlockState,
@@ -55,39 +59,22 @@ export type WorksiteSpotDef = {
   hint: string
 }
 
-function spotDef(
-  biomeId: WorksiteBiomeId,
-  id: WorksiteSpotId,
-  name: string,
-  emoji: string,
-  resourceId: ResourceKey,
-  hint: string,
-): WorksiteSpotDef {
-  const yields = worksiteSpotYieldDefaults(worksiteSpotKey(biomeId, id))
+function spotDefFromRuntime(meta: (typeof WORKSITE_RUNTIME_SPOT_BY_KEY)[string]): WorksiteSpotDef {
+  const yields = worksiteSpotYieldDefaults(worksiteSpotKey(meta.biomeId, meta.spotId))
   return {
-    id,
-    biomeId,
-    name,
-    emoji,
-    resourceId,
+    id: meta.spotId as WorksiteSpotId,
+    biomeId: meta.biomeId,
+    name: meta.displayName,
+    emoji: meta.emoji,
+    resourceId: meta.resourceId,
     baseClickYield: yields.baseClickYield,
     baseAutoYieldPerMyrion: yields.baseAutoYieldPerMyrion,
     unlocked: true,
-    hint,
+    hint: meta.hint,
   }
 }
 
-const SPOT_CATALOG: WorksiteSpotDef[] = [
-  spotDef('prairie-chantier', 'bosquet', 'Verger', '🍎', 'food', 'Fruits — calmement.'),
-  spotDef('prairie-chantier', 'pierrier', 'Potager', '🥕', 'food', 'Légumes — sans pression.'),
-  spotDef('prairie-chantier', 'champs', 'Champs', '🌾', 'food', 'Céréales — petites récoltes.'),
-  spotDef('foret-douce', 'sous-bois', 'Sous-bois', '🍃', 'wood', 'Bois feuillu.'),
-  spotDef('foret-douce', 'clairiere-herbes', 'Clairière', '🪵', 'wood', 'Bois clair — futur type spécialisé.'),
-  spotDef('foret-douce', 'source-claire', 'Souches', '🌲', 'wood', 'Bois résineux — futur type spécialisé.'),
-  spotDef('mine-tranquille', 'pierrier-profond', 'Pierrier', '🪨', 'stone', 'Pierre brute.'),
-  spotDef('mine-tranquille', 'veine-brute', 'Veine de fer', '⛏️', 'stone', 'Fer — futur minerai spécialisé.'),
-  spotDef('mine-tranquille', 'charbonniere', 'Fil charbon', '🪨', 'stone', 'Charbon — futur minerai spécialisé.'),
-]
+const SPOT_CATALOG: WorksiteSpotDef[] = Object.values(WORKSITE_RUNTIME_SPOT_BY_KEY).map(spotDefFromRuntime)
 
 export const WORKSITE_SPOT_DEFS: Record<string, WorksiteSpotDef> = Object.fromEntries(
   SPOT_CATALOG.map((spot) => [worksiteSpotKey(spot.biomeId, spot.id), spot]),
@@ -138,11 +125,7 @@ type LegacyMyrionWorksiteSave = Partial<
 >
 
 function defaultSelectedSpotByBiome(): Record<WorksiteBiomeId, WorksiteSpotId> {
-  return {
-    'prairie-chantier': 'champs',
-    'foret-douce': 'sous-bois',
-    'mine-tranquille': 'pierrier-profond',
-  }
+  return buildDefaultSelectedSpotByBiome() as Record<WorksiteBiomeId, WorksiteSpotId>
 }
 
 function emptyAssignments(): Record<string, string[]> {
@@ -155,8 +138,8 @@ function emptyAssignments(): Record<string, string[]> {
   return out
 }
 
-/** Reset unique des assignations (MVP 4.1 — limite 15 espèces visibles). */
-export const WORKSITE_SAVE_MIGRATION_VERSION = 1
+/** Reset unique des assignations (MVP 4.1). Extension 15 biomes (MVP 14) sans reset. */
+export const WORKSITE_SAVE_MIGRATION_VERSION = 2
 
 export function createStarterMyrionWorksite(now = Date.now()): MyrionWorksiteSave {
   return {
@@ -217,8 +200,8 @@ export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionW
 
   const assigned = emptyAssignments()
   const migrationVersion = partial.saveMigrationVersion ?? 0
-  if (migrationVersion < WORKSITE_SAVE_MIGRATION_VERSION) {
-    // One-shot : vider toutes les assignations pour repartir sous la limite d'espèces visibles.
+  if (migrationVersion < 1) {
+    // One-shot MVP 4.1 : vider toutes les assignations pour repartir sous la limite d'espèces visibles.
   } else {
     migrateLegacyAssignments(partial, assigned)
     if (partial.activeBiomeId) {
@@ -228,7 +211,7 @@ export function mergeMyrionWorksite(partial?: LegacyMyrionWorksiteSave): MyrionW
     }
   }
 
-  const selectedSpotByBiome = { ...starter.selectedSpotByBiome }
+  const selectedSpotByBiome = { ...defaultSelectedSpotByBiome() }
   if (partial.selectedSpotByBiome) {
     for (const biomeId of WORKSITE_BIOME_IDS) {
       const spotId = partial.selectedSpotByBiome[biomeId]

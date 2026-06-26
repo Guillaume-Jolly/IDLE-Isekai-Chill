@@ -750,7 +750,7 @@ export function MyrionWorksiteGame({
       icon: '🗺️',
       content: (
         <div className="mg-worksite-drawer-section">
-          <p className="mg-worksite-drawer-lead">Choisir le biome affiché</p>
+          <p className="mg-worksite-drawer-lead">Choisir le biome affiché — {WORKSITE_BIOME_IDS.length} biomes</p>
           <ul className="mg-worksite-biome-list">
             {WORKSITE_BIOME_IDS.map((biomeId) => {
               const biome = WORKSITE_BIOMES[biomeId]
@@ -796,7 +796,7 @@ export function MyrionWorksiteGame({
           <p className="mg-worksite-prestige-help">{WORKSITE_PRESTIGE_CONFIG.helpText}</p>
           {!prestigeSceneVisible ? (
             <p className="mg-worksite-empty">
-              Débloque la Mine tranquille pour voir la Faille astrale.
+              Débloque la Mine douce pour voir la Faille astrale.
             </p>
           ) : (
             <>

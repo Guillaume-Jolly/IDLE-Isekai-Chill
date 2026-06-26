@@ -1,5 +1,6 @@
 import type { ResourceKey } from './buildingActivities'
-import type { WorksiteBiomeId, WorksiteSpotId } from './myrionWorksite'
+import type { WorksiteBiomeId, WorksiteSpotId } from './myrionWorksiteDefs'
+import { WORKSITE_RUNTIME_BIOMES, WORKSITE_RUNTIME_SPOT_BY_KEY } from './myrionWorksiteBiomeRuntime'
 
 /** Racine servie par Vite — voir docs/MYRION_WORKSITE_ASSET_PIPELINE.md */
 export const MYRION_WORKSITE_ASSET_ROOT = '/assets/minigames/myrion-worksite'
@@ -16,12 +17,7 @@ export type WorksiteVisualAsset = {
   placeholderClass: string
 }
 
-export type WorksiteBiomeVisualId =
-  | WorksiteBiomeId
-  /** MVP 3 — documentés, pas encore en gameplay. */
-  | 'marais-doux'
-  | 'cristal-lumineux'
-  | 'faille-astrale'
+export type WorksiteBiomeVisualId = WorksiteBiomeId | 'faille-astrale'
 
 export type WorksiteBiomeVisual = {
   id: WorksiteBiomeVisualId
@@ -30,12 +26,8 @@ export type WorksiteBiomeVisual = {
   supervisedSceneClass: string
 }
 
-/** Spots gameplay MVP 2 + futurs MVP 3 (visuels préparés). */
-export type WorksiteSpotVisualId =
-  | WorksiteSpotId
-  | 'cristalliere'
-  | 'ruines-anciennes'
-  | 'faille-astrale'
+/** Spots gameplay — legacy + extension MVP 14 (fallback dynamique). */
+export type WorksiteSpotVisualId = WorksiteSpotId | 'faille-astrale'
 
 export type WorksiteSpotVisual = {
   id: WorksiteSpotVisualId
@@ -144,8 +136,8 @@ export function getWorksiteDecorationVisual(id: WorksiteDecorationId): WorksiteD
   return WORKSITE_DECORATION_VISUALS[id]
 }
 
-/** Fonds de biome — placeholders CSS tant que les PNG ne sont pas validés. */
-export const WORKSITE_BIOME_VISUALS: Record<WorksiteBiomeVisualId, WorksiteBiomeVisual> = {
+/** Fonds de biome — 3 actifs + fallbacks MVP 14. */
+const CORE_BIOME_VISUALS: Record<string, WorksiteBiomeVisual> = {
   'prairie-chantier': {
     id: 'prairie-chantier',
     background: asset('backgrounds', 'prairie.png', 'mg-worksite-bg--prairie', true),
@@ -161,22 +153,48 @@ export const WORKSITE_BIOME_VISUALS: Record<WorksiteBiomeVisualId, WorksiteBiome
     background: asset('backgrounds', 'mine.png', 'mg-worksite-bg--mine', true),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
-  'marais-doux': {
-    id: 'marais-doux',
-    background: asset('backgrounds', 'swamp.png', 'mg-worksite-bg--marais'),
-    supervisedSceneClass: 'mg-worksite-biome--supervised',
-  },
-  'cristal-lumineux': {
-    id: 'cristal-lumineux',
-    background: asset('backgrounds', 'crystal.png', 'mg-worksite-bg--cristal'),
-    supervisedSceneClass: 'mg-worksite-biome--supervised',
-  },
   'faille-astrale': {
     id: 'faille-astrale',
     background: asset('backgrounds', 'astral.png', 'mg-worksite-bg--astral'),
     supervisedSceneClass: 'mg-worksite-biome--supervised',
   },
 }
+
+const EXTENDED_BIOME_VISUALS: Partial<Record<WorksiteBiomeId, WorksiteBiomeVisual>> = Object.fromEntries(
+  Object.entries(WORKSITE_RUNTIME_BIOMES)
+    .filter(([id]) => !(id in CORE_BIOME_VISUALS))
+    .map(([id, meta]) => {
+      const filename = meta.backgroundAssetKey.split('/').pop() ?? 'extended.png'
+      const useSwampPlaceholder = id === 'marais-lucioles'
+      const useCrystalPlaceholder = id === 'grotte-cristalline'
+      const useAstralPlaceholder = id === 'sanctuaire-astral'
+      const bgFile = useSwampPlaceholder
+        ? 'swamp.png'
+        : useCrystalPlaceholder
+          ? 'crystal.png'
+          : useAstralPlaceholder
+            ? 'astral.png'
+            : filename
+      return [
+        id,
+        {
+          id: id as WorksiteBiomeId,
+          background: asset(
+            'backgrounds',
+            bgFile,
+            meta.backgroundPlaceholderClass,
+            id === 'marais-lucioles' ? false : false,
+          ),
+          supervisedSceneClass: 'mg-worksite-biome--supervised',
+        } satisfies WorksiteBiomeVisual,
+      ]
+    }),
+)
+
+export const WORKSITE_BIOME_VISUALS = {
+  ...CORE_BIOME_VISUALS,
+  ...EXTENDED_BIOME_VISUALS,
+} as Record<WorksiteBiomeVisualId, WorksiteBiomeVisual>
 
 export const WORKSITE_SPOT_VISUALS: Record<WorksiteSpotVisualId, WorksiteSpotVisual> = {
   bosquet: {
@@ -232,18 +250,6 @@ export const WORKSITE_SPOT_VISUALS: Record<WorksiteSpotVisualId, WorksiteSpotVis
     asset: asset('spots', 'charbonniere.png', 'mg-worksite-spot-object--charbonniere', true),
     cardClass: 'mg-worksite-spot-card',
     objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--charbonniere',
-  },
-  cristalliere: {
-    id: 'cristalliere',
-    asset: asset('spots', 'cristalliere.png', 'mg-worksite-spot-object--cristalliere'),
-    cardClass: 'mg-worksite-spot-card',
-    objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--cristalliere',
-  },
-  'ruines-anciennes': {
-    id: 'ruines-anciennes',
-    asset: asset('spots', 'ruines-anciennes.png', 'mg-worksite-spot-object--ruines-anciennes'),
-    cardClass: 'mg-worksite-spot-card',
-    objectClass: 'mg-worksite-spot-object mg-worksite-spot-object--ruines-anciennes',
   },
   'faille-astrale': {
     id: 'faille-astrale',
@@ -339,11 +345,32 @@ export const WORKSITE_UI_VISUALS: Record<WorksiteUiState, WorksiteUiVisual> = {
 }
 
 export function getWorksiteBiomeVisual(biomeId: WorksiteBiomeId): WorksiteBiomeVisual {
-  return WORKSITE_BIOME_VISUALS[biomeId]
+  const visual = WORKSITE_BIOME_VISUALS[biomeId as WorksiteBiomeVisualId]
+  if (visual) return visual
+  const meta = WORKSITE_RUNTIME_BIOMES[biomeId]
+  return {
+    id: biomeId,
+    background: asset('backgrounds', 'extended.png', meta.backgroundPlaceholderClass),
+    supervisedSceneClass: 'mg-worksite-biome--supervised',
+  }
+}
+
+function fallbackSpotVisual(spotId: WorksiteSpotId): WorksiteSpotVisual {
+  const meta = Object.values(WORKSITE_RUNTIME_SPOT_BY_KEY).find((entry) => entry.spotId === spotId)
+  const placeholder = meta?.placeholderClass ?? 'mg-worksite-spot-object--generic'
+  const filename = meta?.assetKey.split('/').pop() ?? 'generic.png'
+  return {
+    id: spotId,
+    asset: asset('spots', filename, placeholder, false),
+    cardClass: 'mg-worksite-spot-card',
+    objectClass: `mg-worksite-spot-object ${placeholder}`,
+  }
 }
 
 export function getWorksiteSpotVisual(spotId: WorksiteSpotId): WorksiteSpotVisual {
-  return WORKSITE_SPOT_VISUALS[spotId]
+  const known = WORKSITE_SPOT_VISUALS[spotId as WorksiteSpotVisualId]
+  if (known) return known
+  return fallbackSpotVisual(spotId)
 }
 
 export function getWorksiteResourceIconVisual(
