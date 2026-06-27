@@ -53,6 +53,27 @@ Copier le bloc modèle en bas de fichier, remplir, laisser le statut à `idée`.
 
 ## Idées mini-jeux / modes de jeu
 
+### Socle 4 mini-jeux connectés — Auberge / Bibliothèque / Alchimie / Runes
+
+**Statut :** idée structurante — à découper en MVPs séparés plus tard  
+**Synthèse détaillée :** [`CONNECTED_MINIGAMES_BACKLOG.md`](./CONNECTED_MINIGAMES_BACKLOG.md)
+
+**Pitch :** quatre mini-jeux qui se répondent sans devenir obligatoires entre eux :
+
+- **Nami — Auberge des Brumes** : draft / placement de pièces, façon Blue Prince
+  simplifié, avec chaînes visibles et secrets de connexion.
+- **Bibliothèque — Chroniques Vivantes** : reconstitution d'histoires jouables,
+  aventure narrative courte, fragments et fins parfaites.
+- **Noa — Atelier Distordu** : alchimie inspirée Potion Craft, carte de formules,
+  potions secrètes / interdites.
+- **Sora — Plateau des Éléments** : recherche runique, gravure, fusions garanties
+  et runes utiles aux autres mini-jeux.
+
+**Règle de design :** gameplay généreux et non frustrant : chaque run et chaque
+fusion doit donner quelque chose ; les secrets sont des bonus, jamais des verrous.
+
+---
+
 ### Top War–like — plateformes aléatoires
 
 **Statut :** idée  

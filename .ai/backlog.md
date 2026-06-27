@@ -6,6 +6,7 @@ This backlog captures ideas that should not be coded automatically unless moved 
 
 0. **Dev asset cache / lazy load** — for local testing: preload runtime assets into browser cache on startup, *or* fetch only when a view is shown and keep cached across tab changes (avoid re-downloading ~800 MB of PNG on every navigation). See `docs/BACKLOG.md` § Dev — cache / chargement assets.
 0b. **old_assets off-repo** — after in-repo sort: archive to `D:\Isekai-slow-life\Archiive\Old_assets` (never delete). See `docs/BACKLOG.md` § old_assets déplacement hors repo.
+0c. **Connected minigames design** — four later systems that exchange resources/secrets: Nami Auberge des Brumes, Bibliothèque Chroniques Vivantes, Noa Atelier Distordu, Sora Plateau des Éléments / runic research. See `docs/CONNECTED_MINIGAMES_BACKLOG.md`.
 1. Tutorial objectives 0.10.
 2. Natural progression TNR.
 3. Link Corpus V2 stabilization.
