@@ -19,7 +19,7 @@ Staging / sources → runtime jouable, avec archive.
 | Type | Script npm / node |
 |------|-------------------|
 | Cutouts émotion v3 | `node scripts/regenerate-emotion-cutouts.mjs promote {id}` |
-| Pack visuel complet | `npm run promote:companion-visual-pack` |
+| Pack visuel complet | `old_v2.1/scripts_legacy/promote-companion-visual-pack.mjs` (archivé) |
 | Disagrea affinity intégrée | `npm run promote:disagrea-integrated-affinity` |
 | Myrions import | `npm run import:myrions` |
 | Chibis Myrions | `npm run import:chibis` |

@@ -14,15 +14,15 @@ Dernière sync : 2026-06-30 (release 2.1.0.0, index agent)
 |--------|---------|
 | `staging/changelog-detailed/` | `docs/traceability/changelog/` |
 | `staging/agent-guide/` | `docs/agent-guide/` |
-| `staging/planning/global-2.0-readiness-audit.md` | `docs/traceability/audits/global-2.0-readiness-audit.md` |
-| `staging/planning/orphan-dead-files-audit.md` | `docs/traceability/audits/orphan-dead-files-audit.md` |
+| `staging/planning/global-2.0-readiness-audit.md` | `old_v2.1/traceability_archive/audits/global-2.0-readiness-audit.md` |
+| `staging/planning/orphan-dead-files-audit.md` | `old_v2.1/traceability_archive/audits/orphan-dead-files-audit.md` |
 | `staging/planning/backlog-systematic-pipelines.md` | `docs/traceability/audits/backlog-systematic-pipelines.md` |
-| `staging/planning/phase4-webp-assessment.md` | `docs/traceability/audits/phase4-webp-assessment.md` |
-| `staging/planning/tnr-*.md` | `docs/traceability/tnr/tnr-*.md` |
-| `staging/planning/PHASE0-assets-2.0.md` | `docs/traceability/assets/PHASE0-assets-2.0.md` |
+| `staging/planning/phase4-webp-assessment.md` | `old_v2.1/traceability_archive/audits/phase4-webp-assessment.md` |
+| `staging/planning/tnr-*.md` | `old_v2.1/traceability_archive/tnr/tnr-*.md` |
+| `staging/planning/PHASE0-assets-2.0.md` | `old_v2.1/traceability_archive/assets/PHASE0-assets-2.0.md` |
 | `staging/planning/asset-manifest.json` | `docs/traceability/assets/asset-manifest.json` |
-| `staging/planning/asset-move-mapping.json` | `docs/traceability/assets/asset-move-mapping.json` |
-| `staging/planning/asset-taxonomy-proposal.md` | `docs/traceability/assets/asset-taxonomy-proposal.md` |
+| `staging/planning/asset-move-mapping.json` | `old_v2.1/traceability_archive/assets/asset-move-mapping.json` |
+| `staging/planning/asset-taxonomy-proposal.md` | `old_v2.1/traceability_archive/assets/asset-taxonomy-proposal.md` |
 | `assets/link-corpus-import/` | `scripts/references/link-corpus/` |
 | `assets/myrions-import/` | `old_assets/prompts-archive/imports/myrions-import/` |
 | `assets/talia-import/` | `old_assets/prompts-archive/imports/talia-import/` |
@@ -42,7 +42,10 @@ Dernière sync : 2026-06-30 (release 2.1.0.0, index agent)
 | `public/gacha/**` | `assets/Gacha/` (runtime) ; archives → `old_assets/Gacha/` |
 | `public/village/` (orphelins) | `old_assets/public-mirror/village/` |
 | `public/references/` | `old_assets/public-references/` |
-| `staging/planning/_phase4-size-scan.mjs` | `scripts/phase4-size-scan.mjs` |
+| `staging/planning/_phase4-size-scan.mjs` | `old_v2.1/scripts_legacy/phase4-size-scan.mjs` |
+| `scripts/migrate-public-to-old-assets.mjs` | `old_v2.1/scripts_legacy/migrate-public-to-old-assets.mjs` |
+| `staging/skinline-premium/` | `old_v2.1/staging_wip/skinline-premium/` |
+| `staging/companion-visual-pack/` | `old_v2.1/staging_wip/companion-visual-pack/` |
 
 Stubs redirect (archivés MVP 22.1) : voir `old_v2.1/staging_residual/` — sources actives : `docs/agent-guide/`, `docs/traceability/changelog/`.
 

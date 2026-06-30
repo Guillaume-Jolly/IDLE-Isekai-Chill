@@ -64,7 +64,7 @@ Pattern runtime actuel :
 - `affinity-4-nsfw.png` + `affinity-4.png` (SFW)
 - Disagrea integrated : `assets/event-disagrea/integrated/companions/{id}/`
 
-Promote NSFW : `npm run promote:companion-visual-pack` ou `promote-disagrea-integrated-affinity.mjs`
+Promote NSFW : script archivé `old_v2.1/scripts_legacy/promote-companion-visual-pack.mjs` ou `promote-disagrea-integrated-affinity.mjs`
 
 **Staging batch naming :**
 ```

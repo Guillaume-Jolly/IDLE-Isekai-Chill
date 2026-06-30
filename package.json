@@ -27,8 +27,6 @@
     "import:link-corpus-v2": "node scripts/import-link-corpus-v2.mjs",
     "import:talia": "node scripts/import-talia-companion-pack.mjs",
     "import:disagrea": "node scripts/import-disagrea-assets.mjs",
-    "migrate:public-to-old-assets": "node scripts/migrate-public-to-old-assets.mjs",
-    "promote:companion-visual-pack": "node scripts/promote-companion-visual-pack.mjs",
     "regenerate:village-chibis": "node scripts/regenerate-village-chibis.mjs",
     "promote:disagrea-integrated-affinity": "node scripts/promote-disagrea-integrated-affinity.mjs",
     "build:disagrea-gacha-video": "node scripts/build-disagrea-gacha-video.mjs",

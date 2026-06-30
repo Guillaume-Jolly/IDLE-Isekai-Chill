@@ -36,11 +36,12 @@ src/              Application React
 assets/           Source-of-truth visuels (Assets 2.0)
 public/           Shell statique minimal
 old_assets/       Archive cold storage
-old_v2.1/         Quarantaine post-release 2.1 (ne pas supprimer)
+old_v2.1/         Archive locale post-2.1 (gitignorée — hors Git public)
 docs/agent-guide/ Onboarding agents
-docs/traceability/ Changelog, TNR, audits
-.ai/              État agent (stub)
+docs/traceability/ Changelog, project-state, audits actifs
+staging/playbooks/  Procédures opérationnelles (seul staging actif)
 scripts/          Import, validate, bump version
+.ai/              État agent (stub)
 ```
 
 ## Pipeline validation (release / CI)
@@ -79,9 +80,8 @@ Format : `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`docs/agent-guide/05-p
 
 | Sujet | Fichier |
 |-------|---------|
-| Release 2.1 | `docs/CHANGELOG_2_1.md`, `docs/RELEASE_NOTES_2_1.md` |
-| TNR 2.1 | `docs/TNR_RELEASE_2_1_MVP20.md` |
-| Cleanup 2.1 | `docs/CLEANUP_2_1_MOVE_MANIFEST.md` |
+| Release 2.1 (archive) | `old_v2.1/docs_release_2.1/` |
+| Cleanup résidus | `docs/CLEANUP_2_2_RESIDUAL_MANIFEST.md` |
 | Brief agent 2.2 | `docs/HANDOFF_2_2_AGENT_BRIEF.md` |
 | Agent rules | `AGENTS.md` |
 | Playbooks | `staging/playbooks/` |

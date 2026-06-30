@@ -1,6 +1,6 @@
 # Index documentation — guide agent
 
-**Updated:** 2026-06-30 (post-archivage résidus 2.2)  
+**Updated:** 2026-06-30 (passe 2 archivage résidus)  
 **But :** éviter qu’un agent suive une doc obsolète. Lire cet index **avant** d’explorer `docs/` au hasard.
 
 ---
@@ -22,43 +22,47 @@
 
 ---
 
-## `docs/` actif (racine — 15 fichiers)
+## `docs/` actif (racine — 8 fichiers)
 
 | Fichier | Rôle |
 |---------|------|
 | [`DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md) | Ce fichier |
 | [`HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Brief agent 2.2 |
-| [`CHANGELOG_2_1.md`](./CHANGELOG_2_1.md) | Contenu release 2.1 |
-| [`RELEASE_NOTES_2_1.md`](./RELEASE_NOTES_2_1.md) | Notes produit |
-| [`RELEASE_2_1_DELIVERY_REPORT.md`](./RELEASE_2_1_DELIVERY_REPORT.md) | Rapport livraison |
-| [`TNR_RELEASE_2_1_MVP20.md`](./TNR_RELEASE_2_1_MVP20.md) | TNR release |
 | [`CLEANUP_2_1_MOVE_MANIFEST.md`](./CLEANUP_2_1_MOVE_MANIFEST.md) | Archive MVP 21.1 |
-| [`CLEANUP_2_2_RESIDUAL_MANIFEST.md`](./CLEANUP_2_2_RESIDUAL_MANIFEST.md) | Archive résidus 2.2 |
+| [`CLEANUP_2_2_RESIDUAL_MANIFEST.md`](./CLEANUP_2_2_RESIDUAL_MANIFEST.md) | Archive résidus 2.2 (passes 1–2) |
 | [`BACKLOG.md`](./BACKLOG.md) | Backlog produit |
 | [`GAME_DESIGN_CURRENT.md`](./GAME_DESIGN_CURRENT.md) | Design courant |
-| [`MYRION_WORKSITE_BALANCE.md`](./MYRION_WORKSITE_BALANCE.md) | Équilibrage Ferme lunaire |
-| [`MYRION_WORKSITE_ASSET_PIPELINE.md`](./MYRION_WORKSITE_ASSET_PIPELINE.md) | Pipeline assets worksite |
-| [`MYRION_WORKSITE_BIOME_CATALOG_MVP13.md`](./MYRION_WORKSITE_BIOME_CATALOG_MVP13.md) | Catalogue biomes |
 | [`DUNGEON_EXPLORATION_BACKLOG.md`](./DUNGEON_EXPLORATION_BACKLOG.md) | Backlog futur |
 | [`EXPLOITATION_PASSIVE_BACKLOG.md`](./EXPLOITATION_PASSIVE_BACKLOG.md) | Backlog futur |
 
-Sous-dossiers actifs : [`agent-guide/`](./agent-guide/), [`traceability/`](./traceability/).
+Sous-dossiers actifs : [`agent-guide/`](./agent-guide/), [`traceability/`](./traceability/) (changelog, project-state, audits actifs).
+
+**Release 2.1 / worksite / TNR historiques :** `old_v2.1/docs_release_2.1/`, `old_v2.1/docs_wip/docs-refs-worksite/`, `old_v2.1/traceability_archive/`.
 
 ---
 
-## Archive `old_v2.1/` — ne pas traiter comme source active
+**Archive locale `old_v2.1/`** — gitignorée, **hors dépôt public** (PC hôte). Ne pas pousser sur `origin`.
 
 | Dossier | Contenu |
 |---------|---------|
-| `docs_wip/docs-finished-2.1/` | **32 docs MVP/TNR obsolètes** (ex-`docs/`) |
-| `docs_wip/docs/` | Docs MVP pré-merge 21.1 |
-| `staging_residual/` | Stubs staging + reviews/story terminés |
-| `scripts_legacy/` | Scripts `@deprecated` one-shot |
+| `docs_wip/docs-finished-2.1/` | 32 docs MVP/TNR obsolètes (passe 1) |
+| `docs_release_2.1/` | Changelog, release notes, delivery report, TNR release |
+| `docs_wip/docs-refs-worksite/` | Balance, pipeline, catalogue biomes worksite |
+| `traceability_archive/` | TNR phase2/3, audits 2.0, logs assets |
+| `staging_wip/` | skinline-premium, companion-visual-pack, myrion-worksite-mvp15 |
+| `staging_residual/` | Stubs staging + reviews/story + playbook 05 |
+| `scripts_legacy/` | Scripts one-shot + vendor webview2 + staging-scripts |
 | `triage/to-check-manually/` | Manifestes dedup manuels |
 | `legacy/` | `REPO_SEPARATION.md`, ancien pack `release/` |
 | `ai_work/`, `assets_wip/`, `story_wip/` | Quarantaine 21.1 |
 
 **Règle :** ne pas suivre les « prochaines étapes » dans ces fichiers — vérifier `project-state.md`.
+
+---
+
+## `staging/` actif
+
+Uniquement **`staging/playbooks/`** (procédures opérationnelles 01–04, 06, 08–11).
 
 ---
 
@@ -73,4 +77,4 @@ npm run tnr:baseline
 npm run build
 ```
 
-Voir [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) et [`06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md).
+Voir [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) et [`agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md).
