@@ -1,9 +1,9 @@
 ---
-description: Core project rules for Wonderland / IDLE-Isekai-Chill
+description: Core project rules for IDLE Isekai Chill (Havre des Brumes)
 alwaysApply: true
 ---
 
-# Wonderland Core Rules
+# IDLE Isekai Chill — Core Rules
 
 Read `AGENTS.md`, `.ai/project-context.md`, `.ai/current-state.md`, and `.ai/next-task.md` before agentic changes.
 

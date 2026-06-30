@@ -1,41 +1,44 @@
 {
-  "generatedAt": "2026-06-25T15:13:56.907Z",
+  "generatedAt": "2026-06-30T07:28:59.409Z",
   "repoRoot": "C:/Dev/Project/IDLE Isekai Chill",
   "phase": 0,
   "totals": {
-    "imageFiles": 1717,
+    "imageFiles": 2165,
     "byExtension": {
-      ".png": 1690,
+      ".png": 2138,
       ".svg": 19,
       ".webp": 8
     },
     "byClass": {
       "input-chatgpt": 49,
-      "runtime:background": 52,
-      "runtime:companions": 280,
+      "runtime:background": 56,
+      "runtime:companions": 350,
       "other": 4,
       "runtime:myrions": 289,
       "runtime:gacha": 45,
-      "archive": 687,
+      "archive": 926,
+      "runtime:minigames": 84,
       "runtime:village": 3,
-      "staging": 308
+      "staging": 359
     },
     "byTopBucket": {
       "Input chatgpt/etna_gacha_8_images_pack": 9,
       "Input chatgpt/pack_event_invocation": 40,
-      "assets/Background": 52,
-      "assets/Compagnons": 280,
+      "assets/Background": 56,
+      "assets/Compagnons": 350,
       "assets/Live2D": 2,
       "assets/Myrions": 289,
       "assets/gacha": 45,
-      "old_assets/Background": 137,
-      "old_assets/Compagnons": 382,
+      "old_assets/Background": 160,
+      "old_assets/Compagnons": 497,
       "old_assets/Gacha": 11,
-      "old_assets/Myrions": 157,
+      "old_assets/Myrions": 258,
+      "public/assets": 84,
       "public/favicon.svg": 1,
       "public/icons.svg": 1,
       "public/village": 3,
       "staging/companion-visual-pack": 265,
+      "staging/myrion-worksite-mvp15": 51,
       "staging/skinline-premium": 43
     },
     "duplicateHashGroups": 80
@@ -49,6 +52,106 @@
     "release"
   ],
   "duplicateSamples": [
+    {
+      "hash": "f57a10b25c6788d8",
+      "count": 14,
+      "paths": [
+        "assets/Compagnons/brann/affinite/affinity-1.png",
+        "assets/Compagnons/brann/affinite/affinity-2.png",
+        "assets/Compagnons/brann/affinite/affinity-3.png",
+        "assets/Compagnons/brann/affinite/affinity-4.png",
+        "assets/Compagnons/brann/affinite/affinity-5.png",
+        "assets/Compagnons/brann/chibis/chibi.png",
+        "assets/Compagnons/brann/cutouts/emotion-annoyed.png",
+        "assets/Compagnons/brann/cutouts/emotion-happy.png",
+        "assets/Compagnons/brann/cutouts/emotion-neutral.png",
+        "assets/Compagnons/brann/cutouts/emotion-playful.png",
+        "assets/Compagnons/brann/cutouts/emotion-romantic.png",
+        "assets/Compagnons/brann/cutouts/emotion-sad.png",
+        "assets/Compagnons/brann/cutouts/emotion-shy.png",
+        "assets/Compagnons/brann/cutouts/emotion-surprised.png"
+      ]
+    },
+    {
+      "hash": "1ef4f030a7bc87c0",
+      "count": 14,
+      "paths": [
+        "assets/Compagnons/korren/affinite/affinity-1.png",
+        "assets/Compagnons/korren/affinite/affinity-2.png",
+        "assets/Compagnons/korren/affinite/affinity-3.png",
+        "assets/Compagnons/korren/affinite/affinity-4.png",
+        "assets/Compagnons/korren/affinite/affinity-5.png",
+        "assets/Compagnons/korren/chibis/chibi.png",
+        "assets/Compagnons/korren/cutouts/emotion-annoyed.png",
+        "assets/Compagnons/korren/cutouts/emotion-happy.png",
+        "assets/Compagnons/korren/cutouts/emotion-neutral.png",
+        "assets/Compagnons/korren/cutouts/emotion-playful.png",
+        "assets/Compagnons/korren/cutouts/emotion-romantic.png",
+        "assets/Compagnons/korren/cutouts/emotion-sad.png",
+        "assets/Compagnons/korren/cutouts/emotion-shy.png",
+        "assets/Compagnons/korren/cutouts/emotion-surprised.png"
+      ]
+    },
+    {
+      "hash": "3a4d4b87c10e6cba",
+      "count": 14,
+      "paths": [
+        "assets/Compagnons/marin/affinite/affinity-1.png",
+        "assets/Compagnons/marin/affinite/affinity-2.png",
+        "assets/Compagnons/marin/affinite/affinity-3.png",
+        "assets/Compagnons/marin/affinite/affinity-4.png",
+        "assets/Compagnons/marin/affinite/affinity-5.png",
+        "assets/Compagnons/marin/chibis/chibi.png",
+        "assets/Compagnons/marin/cutouts/emotion-annoyed.png",
+        "assets/Compagnons/marin/cutouts/emotion-happy.png",
+        "assets/Compagnons/marin/cutouts/emotion-neutral.png",
+        "assets/Compagnons/marin/cutouts/emotion-playful.png",
+        "assets/Compagnons/marin/cutouts/emotion-romantic.png",
+        "assets/Compagnons/marin/cutouts/emotion-sad.png",
+        "assets/Compagnons/marin/cutouts/emotion-shy.png",
+        "assets/Compagnons/marin/cutouts/emotion-surprised.png"
+      ]
+    },
+    {
+      "hash": "75d3056284b92580",
+      "count": 14,
+      "paths": [
+        "assets/Compagnons/nyx/affinite/affinity-1.png",
+        "assets/Compagnons/nyx/affinite/affinity-2.png",
+        "assets/Compagnons/nyx/affinite/affinity-3.png",
+        "assets/Compagnons/nyx/affinite/affinity-4.png",
+        "assets/Compagnons/nyx/affinite/affinity-5.png",
+        "assets/Compagnons/nyx/chibis/chibi.png",
+        "assets/Compagnons/nyx/cutouts/emotion-annoyed.png",
+        "assets/Compagnons/nyx/cutouts/emotion-happy.png",
+        "assets/Compagnons/nyx/cutouts/emotion-neutral.png",
+        "assets/Compagnons/nyx/cutouts/emotion-playful.png",
+        "assets/Compagnons/nyx/cutouts/emotion-romantic.png",
+        "assets/Compagnons/nyx/cutouts/emotion-sad.png",
+        "assets/Compagnons/nyx/cutouts/emotion-shy.png",
+        "assets/Compagnons/nyx/cutouts/emotion-surprised.png"
+      ]
+    },
+    {
+      "hash": "5e19cc6869d59176",
+      "count": 14,
+      "paths": [
+        "assets/Compagnons/thorne/affinite/affinity-1.png",
+        "assets/Compagnons/thorne/affinite/affinity-2.png",
+        "assets/Compagnons/thorne/affinite/affinity-3.png",
+        "assets/Compagnons/thorne/affinite/affinity-4.png",
+        "assets/Compagnons/thorne/affinite/affinity-5.png",
+        "assets/Compagnons/thorne/chibis/chibi.png",
+        "assets/Compagnons/thorne/cutouts/emotion-annoyed.png",
+        "assets/Compagnons/thorne/cutouts/emotion-happy.png",
+        "assets/Compagnons/thorne/cutouts/emotion-neutral.png",
+        "assets/Compagnons/thorne/cutouts/emotion-playful.png",
+        "assets/Compagnons/thorne/cutouts/emotion-romantic.png",
+        "assets/Compagnons/thorne/cutouts/emotion-sad.png",
+        "assets/Compagnons/thorne/cutouts/emotion-shy.png",
+        "assets/Compagnons/thorne/cutouts/emotion-surprised.png"
+      ]
+    },
     {
       "hash": "7c7f1272d202dc9b",
       "count": 4,
@@ -211,514 +314,525 @@
       ]
     },
     {
-      "hash": "73f12673a9e807ff",
+      "hash": "b0c2e48f605efe9f",
       "count": 3,
       "paths": [
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-internal/etna/Autres/guide/point-disagrea-event.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-internal/event-disagrea/public-layered-legacy/etna/cutout-5.png",
-        "old_assets/Compagnons/etna/Autres/guide/point.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/01_Moussprout.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/01_Moussprout.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/01_Moussprout.png"
       ]
     },
     {
-      "hash": "49da471a47b778ae",
+      "hash": "02e39b4ebe98bf18",
       "count": 3,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v1.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v1.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/02_Pepitouffe.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/02_Pepitouffe.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/02_Pepitouffe.png"
       ]
     },
     {
-      "hash": "724e0b9a05a33bf4",
+      "hash": "0f9d6e5c9137597a",
       "count": 3,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v11.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v11.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v11.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/03_Florelievre.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/03_Florelievre.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/03_Florelievre.png"
       ]
     },
     {
-      "hash": "3cc2f13bc94e16e2",
+      "hash": "6007808e4a2bc1f4",
       "count": 3,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v12.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v12.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v12.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/04_Bourdilune.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/04_Bourdilune.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/04_Bourdilune.png"
       ]
     },
     {
-      "hash": "a2e075a5a388fbfc",
+      "hash": "6e43c52e1ea794ca",
       "count": 3,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v2.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v2.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v2.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/05_Grainocorne.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/05_Grainocorne.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/05_Grainocorne.png"
       ]
     },
     {
-      "hash": "13c8fabe3d22ca8e",
+      "hash": "cde7d461fa04d9c5",
       "count": 3,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v9.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v9.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v9.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/06_Solhermine.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/06_Solhermine.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/06_Solhermine.png"
       ]
     },
     {
-      "hash": "cfdd4c1dcfd36ce7",
+      "hash": "0c7175b05ac94f49",
       "count": 3,
       "paths": [
-        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4.png",
-        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4b.png",
-        "staging/skinline-premium/companions/etna/companion-etna-skinline-premium.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/07_Mielpique.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/07_Mielpique.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/07_Mielpique.png"
       ]
     },
     {
-      "hash": "23bd26148c70df09",
-      "count": 2,
+      "hash": "6d938b8cb4a0ecb9",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/guillaume_01_myrion_normal.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/guillaume_01_myrion_normal.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/08_Treflaon.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/08_Treflaon.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/08_Treflaon.png"
       ]
     },
     {
-      "hash": "a40d28d1252ce63a",
-      "count": 2,
+      "hash": "8fd3f618b719cc9b",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/guillaume_02_myrion_chibi.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/guillaume_02_myrion_chibi.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/09_Floracroc.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/09_Floracroc.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/09_Floracroc.png"
       ]
     },
     {
-      "hash": "b4476b74fd1c24b0",
-      "count": 2,
+      "hash": "331609b61f0acd22",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/kumiko_01_myrion_normal.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/kumiko_01_myrion_normal.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/10_Rosalynx.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/10_Rosalynx.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/10_Rosalynx.png"
       ]
     },
     {
-      "hash": "acead0c231dcdab4",
-      "count": 2,
+      "hash": "4c496bc667189303",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/kumiko_02_myrion_chibi.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/kumiko_02_myrion_chibi.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/11_Aubepineon.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/11_Aubepineon.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/11_Aubepineon.png"
       ]
     },
     {
-      "hash": "b93eafffc84f1b35",
-      "count": 2,
+      "hash": "81174de9787e6df0",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/lea_01_myrion_normal.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/lea_01_myrion_normal.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/12_Cerfaurore.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/12_Cerfaurore.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/12_Cerfaurore.png"
       ]
     },
     {
-      "hash": "2811465a98699c46",
-      "count": 2,
+      "hash": "58ed3bf5c69901d2",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/lea_02_myrion_chibi.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/lea_02_myrion_chibi.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/13_Solarcheval.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/13_Solarcheval.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/13_Solarcheval.png"
       ]
     },
     {
-      "hash": "9081b405bf8f850e",
-      "count": 2,
+      "hash": "6bfd5e5f8061b5b5",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/metashine_01_myrion_normal.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/metashine_01_myrion_normal.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/14_Paladigrain.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/14_Paladigrain.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/14_Paladigrain.png"
       ]
     },
     {
-      "hash": "5d2a3e333a2a540d",
-      "count": 2,
+      "hash": "f4312780f3b112ca",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/02_myrions/candidates/metashine_02_myrion_chibi.png",
-        "Input chatgpt/pack_event_invocation/02_myrions/metashine_02_myrion_chibi.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/01_Prairie_Solaire/15_Equilux_Gardien_de_l_Aube.png",
+        "old_assets/Compagnons/imports/chibis-individuels/01_Prairie_Solaire/15_Equilux_Gardien_de_l_Aube.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/01_Prairie_Solaire/15_Equilux_Gardien_de_l_Aube.png"
       ]
     },
     {
-      "hash": "f8fd5e082b1f296b",
-      "count": 2,
+      "hash": "db09b31d19bf6599",
+      "count": 3,
       "paths": [
-        "Input chatgpt/pack_event_invocation/03_promo/candidates/event_choisis_ton_invocation_landscape-candidat-v4-fix-kumiko.png",
-        "Input chatgpt/pack_event_invocation/03_promo/event_choisis_ton_invocation_landscape.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/01_Mouscarotte.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/01_Mouscarotte.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/01_Mouscarotte.png"
       ]
     },
     {
-      "hash": "98226ce8274115f6",
-      "count": 2,
+      "hash": "7ede043b275ef966",
+      "count": 3,
       "paths": [
-        "assets/Background/disagrea-event/capture-portrait.png",
-        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_hunt_mobile.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/02_Noisecureuil.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/02_Noisecureuil.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/02_Noisecureuil.png"
       ]
     },
     {
-      "hash": "249430a362f6fb6d",
-      "count": 2,
+      "hash": "2161ed6c67ac52ca",
+      "count": 3,
       "paths": [
-        "assets/Background/disagrea-event/capture-wide.png",
-        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_hunt_pc.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/03_Champi_Chaton.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/03_Champi_Chaton.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/03_Champi_Chaton.png"
       ]
     },
     {
-      "hash": "f0395e0d3c65289f",
-      "count": 2,
+      "hash": "04ad05e5924bad0e",
+      "count": 3,
       "paths": [
-        "assets/Background/disagrea-event/dressage-portrait.png",
-        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_training_enclosure_mobile.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/04_Brindhibou.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/04_Brindhibou.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/04_Brindhibou.png"
       ]
     },
     {
-      "hash": "2810883bfe9abb0c",
-      "count": 2,
+      "hash": "f54a53b11e857b87",
+      "count": 3,
       "paths": [
-        "assets/Background/disagrea-event/dressage-wide.png",
-        "old_assets/Background/_archive/2026-06-25-dedup-vs-assets/disagrea-event/minigame/myrion_training_enclosure_pc.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/05_Limafleur.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/05_Limafleur.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/05_Limafleur.png"
       ]
     },
     {
-      "hash": "194b77cde9ac88f9",
-      "count": 2,
+      "hash": "1e2f98ef6a853c05",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/asha/chibis/chibi.png",
-        "staging/companion-visual-pack/village/asha/chibi/companion-asha-chibi-v2.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/06_Sylvarat.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/06_Sylvarat.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/06_Sylvarat.png"
       ]
     },
     {
-      "hash": "f04a5e48ed206ddb",
-      "count": 2,
+      "hash": "f76449d41f397bc9",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/etna/affinite/affinity-1.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-01-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/07_Fongours.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/07_Fongours.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/07_Fongours.png"
       ]
     },
     {
-      "hash": "485641babb885055",
-      "count": 2,
+      "hash": "82fd9378e13f71a0",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/etna/affinite/affinity-2.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-02-flirt-proche-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/08_Luciferne.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/08_Luciferne.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/08_Luciferne.png"
       ]
     },
     {
-      "hash": "38d45cfdc352da69",
-      "count": 2,
+      "hash": "7b38665a97206d8d",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/etna/affinite/affinity-3.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/09_Lianaconda.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/09_Lianaconda.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/09_Lianaconda.png"
       ]
     },
     {
-      "hash": "1c6fefbecad0e6a3",
-      "count": 2,
+      "hash": "73568ebf8be8a66f",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/etna/affinite/affinity-4.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-04-intime-soft-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/02_Foret_Ancienne/10_Orvalis_Coeur_de_la_Foret.png",
+        "old_assets/Compagnons/imports/chibis-individuels/02_Foret_Ancienne/10_Orvalis_Coeur_de_la_Foret.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/02_Foret_Ancienne/10_Orvalis_Coeur_de_la_Foret.png"
       ]
     },
     {
-      "hash": "5da20836195f43e9",
-      "count": 2,
+      "hash": "93c5b570d567c2eb",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/etna/affinite/affinity-5.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-05-peak-bond-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/01_Glucrapaud.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/01_Glucrapaud.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/01_Glucrapaud.png"
       ]
     },
     {
-      "hash": "08841756638859ec",
-      "count": 2,
+      "hash": "31664c85aa7de74d",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/flonne/NSFW/affinity-4-nsfw.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-04-nsfw-scene-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/02_Nenuphant.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/02_Nenuphant.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/02_Nenuphant.png"
       ]
     },
     {
-      "hash": "e81df076b9c914ef",
-      "count": 2,
+      "hash": "eece8ceadcc10f72",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/flonne/affinite/affinity-1.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-01-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/03_Bourbecaille.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/03_Bourbecaille.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/03_Bourbecaille.png"
       ]
     },
     {
-      "hash": "f88889a6c6ee93ef",
-      "count": 2,
+      "hash": "b47d6bb109b6988c",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/flonne/affinite/affinity-2.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-02-flirt-proche-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/04_Moustikroa.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/04_Moustikroa.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/04_Moustikroa.png"
       ]
     },
     {
-      "hash": "ffd340dc73bd549f",
-      "count": 2,
+      "hash": "2e4cb8eadd0b9243",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/flonne/affinite/affinity-3.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/05_Vasardille.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/05_Vasardille.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/05_Vasardille.png"
       ]
     },
     {
-      "hash": "97f915c72ceeb99b",
-      "count": 2,
+      "hash": "04636841b220207a",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/flonne/affinite/affinity-4.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-04-intime-soft-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/06_Croacendre.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/06_Croacendre.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/06_Croacendre.png"
       ]
     },
     {
-      "hash": "b1516301da89c7df",
-      "count": 2,
+      "hash": "e456659d2c850d43",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/flonne/affinite/affinity-5.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/flonne/Autres/disagrea-integrated/companion-flonne-affinity-05-peak-bond-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/07_Vipervase.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/07_Vipervase.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/07_Vipervase.png"
       ]
     },
     {
-      "hash": "72b954bb4c1e8084",
-      "count": 2,
+      "hash": "5fa81ef3f6377bc8",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/kael/chibis/chibi.png",
-        "staging/companion-visual-pack/village/kael/chibi/companion-kael-chibi-v2.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/08_Nebularve.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/08_Nebularve.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/08_Nebularve.png"
       ]
     },
     {
-      "hash": "23552a0c0cfd0606",
-      "count": 2,
+      "hash": "6ca2992c73cf0c84",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/laharl/NSFW/affinity-4-nsfw.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-04-nsfw-scene-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/09_Tourbapince.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/09_Tourbapince.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/09_Tourbapince.png"
       ]
     },
     {
-      "hash": "e32cbb42d4a0b1bc",
-      "count": 2,
+      "hash": "f87f3e3b0927aca2",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/laharl/affinite/affinity-1.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-01-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/03_Marais_Brumeux/10_Mirelith_Roi_du_Marais_Sans_Fond.png",
+        "old_assets/Compagnons/imports/chibis-individuels/03_Marais_Brumeux/10_Mirelith_Roi_du_Marais_Sans_Fond.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/03_Marais_Brumeux/10_Mirelith_Roi_du_Marais_Sans_Fond.png"
       ]
     },
     {
-      "hash": "d85e02747056d095",
-      "count": 2,
+      "hash": "82ced2a9fe87f190",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/laharl/affinite/affinity-2.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-02-flirt-proche-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/01_Cailloubic.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/01_Cailloubic.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/01_Cailloubic.png"
       ]
     },
     {
-      "hash": "f0bdc668aaac3b1d",
-      "count": 2,
+      "hash": "c6af2202e619ed7e",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/laharl/affinite/affinity-3.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/02_Givrimoineau.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/02_Givrimoineau.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/02_Givrimoineau.png"
       ]
     },
     {
-      "hash": "52f51b9240a59b6a",
-      "count": 2,
+      "hash": "bc1dbd3a416f9077",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/laharl/affinite/affinity-4.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-04-intime-soft-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/03_Cristaloupin.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/03_Cristaloupin.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/03_Cristaloupin.png"
       ]
     },
     {
-      "hash": "3d0edc0be365bf94",
-      "count": 2,
+      "hash": "6ef031c039b0fd74",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/laharl/affinite/affinity-5.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-05-peak-bond-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/04_Pikroc.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/04_Pikroc.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/04_Pikroc.png"
       ]
     },
     {
-      "hash": "5abe722da1ff3f25",
-      "count": 2,
+      "hash": "7e941035f43a25a7",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/maeve/chibis/chibi.png",
-        "staging/companion-visual-pack/village/maeve/chibi/companion-maeve-chibi-v2.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/05_Gemlimace.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/05_Gemlimace.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/05_Gemlimace.png"
       ]
     },
     {
-      "hash": "e2b094ed08775cd4",
-      "count": 2,
+      "hash": "a28e7d715429f0ff",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/noa/chibis/chibi.png",
-        "staging/companion-visual-pack/village/noa/chibi/companion-noa-chibi-v2.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/06_Avalanchevre.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/06_Avalanchevre.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/06_Avalanchevre.png"
       ]
     },
     {
-      "hash": "ed9401a42be2436f",
-      "count": 2,
+      "hash": "ed04c590b3b8dcaa",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/pleinair/NSFW/affinity-4-nsfw.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-04-nsfw-scene-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/07_Glacimarmotte.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/07_Glacimarmotte.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/07_Glacimarmotte.png"
       ]
     },
     {
-      "hash": "d8b67a1a2aa834a2",
-      "count": 2,
+      "hash": "cd48d8ef0f7fd73b",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/pleinair/affinite/affinity-1.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-01-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/08_Quartzard.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/08_Quartzard.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/08_Quartzard.png"
       ]
     },
     {
-      "hash": "3406f4372aa51a09",
-      "count": 2,
+      "hash": "60f315eca51272ea",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/pleinair/affinite/affinity-2.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-02-flirt-proche-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/09_Rocorbeau.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/09_Rocorbeau.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/09_Rocorbeau.png"
       ]
     },
     {
-      "hash": "cb3b8abbde1fa7ff",
-      "count": 2,
+      "hash": "59117aa07da6756f",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/pleinair/affinite/affinity-3.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-03-vulnerable-complicite-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/04_Montagnes_Cristallines/10_Krysalor_Dragon_des_Cimes.png",
+        "old_assets/Compagnons/imports/chibis-individuels/04_Montagnes_Cristallines/10_Krysalor_Dragon_des_Cimes.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/04_Montagnes_Cristallines/10_Krysalor_Dragon_des_Cimes.png"
       ]
     },
     {
-      "hash": "319ac31947c00be8",
-      "count": 2,
+      "hash": "6b457edfc5dbd630",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/pleinair/affinite/affinity-4.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-04-intime-soft-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/01_Sablitou.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/01_Sablitou.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/01_Sablitou.png"
       ]
     },
     {
-      "hash": "e3a31141a113ecd4",
-      "count": 2,
+      "hash": "26fcf802c4de1127",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/pleinair/affinite/affinity-5.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/pleinair/Autres/disagrea-integrated/companion-pleinair-affinity-05-peak-bond-scene-originale-v1.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/02_Cactouris.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/02_Cactouris.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/02_Cactouris.png"
       ]
     },
     {
-      "hash": "c4b53098ba316f76",
-      "count": 2,
+      "hash": "f8bd3e3e33046b19",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-annoyed.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-annoyed-v2-archived.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/03_Scorpiquet.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/03_Scorpiquet.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/03_Scorpiquet.png"
       ]
     },
     {
-      "hash": "a060b908fcc6f442",
-      "count": 2,
+      "hash": "4f2bd76dc011ea59",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-happy.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-happy-v2-archived.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/04_Mirajackal.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/04_Mirajackal.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/04_Mirajackal.png"
       ]
     },
     {
-      "hash": "1d94927d21ff9dd8",
-      "count": 2,
+      "hash": "2dcbf669efd9fdee",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-neutral.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-neutral-v2-archived.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/05_Dunecaille.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/05_Dunecaille.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/05_Dunecaille.png"
       ]
     },
     {
-      "hash": "f4508f98dc5c47a3",
-      "count": 2,
+      "hash": "329e11630c92aecc",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-romantic.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-romantic-v2-archived.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/06_Dromaglyphe.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/06_Dromaglyphe.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/06_Dromaglyphe.png"
       ]
     },
     {
-      "hash": "5691b72aec676250",
-      "count": 2,
+      "hash": "12860845164e7c03",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-sad.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-sad-v2-archived.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/07_Vautourune.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/07_Vautourune.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/07_Vautourune.png"
       ]
     },
     {
-      "hash": "613bacd8a5df0b8f",
-      "count": 2,
+      "hash": "02067980d7ca1e38",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-shy.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-shy-v2-archived.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/08_Cobrambre.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/08_Cobrambre.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/08_Cobrambre.png"
       ]
     },
     {
-      "hash": "eb420e043e25da4d",
-      "count": 2,
+      "hash": "70a3d0e481dcd61a",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-surprised.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-surprised-v2-archived.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/09_Fenneflamme.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/09_Fenneflamme.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/09_Fenneflamme.png"
       ]
     },
     {
-      "hash": "938d12aa7e42399c",
-      "count": 2,
+      "hash": "3bf57df9d8ed425a",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/sora/chibis/chibi.png",
-        "staging/companion-visual-pack/village/sora/chibi/companion-sora-chibi-v2.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/05_Desert_Rouge/10_Amonraxis_Mirage_Royal.png",
+        "old_assets/Compagnons/imports/chibis-individuels/05_Desert_Rouge/10_Amonraxis_Mirage_Royal.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/05_Desert_Rouge/10_Amonraxis_Mirage_Royal.png"
       ]
     },
     {
-      "hash": "da744edf15694a2a",
-      "count": 2,
+      "hash": "fafe1ea280ca761c",
+      "count": 3,
       "paths": [
-        "assets/Compagnons/talia/Autres/guide/point-prairie-solaire.png",
-        "assets/Compagnons/talia/Autres/guide/point.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/06_Rivage_Corallien/01_Coquichat.png",
+        "old_assets/Compagnons/imports/chibis-individuels/06_Rivage_Corallien/01_Coquichat.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/06_Rivage_Corallien/01_Coquichat.png"
       ]
     },
     {
-      "hash": "03608cc55759f67a",
-      "count": 2,
+      "hash": "a92ce232d13d63df",
+      "count": 3,
       "paths": [
-        "assets/gacha/cinema/disagrea/intermediate.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/intermediate.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/06_Rivage_Corallien/02_Pincelot.png",
+        "old_assets/Compagnons/imports/chibis-individuels/06_Rivage_Corallien/02_Pincelot.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/06_Rivage_Corallien/02_Pincelot.png"
       ]
     },
     {
-      "hash": "8795fa4708c36c48",
-      "count": 2,
+      "hash": "11c721b94223ce25",
+      "count": 3,
       "paths": [
-        "assets/gacha/cinema/disagrea/reveal-lr.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-lr.png"
-      ]
-    },
-    {
-      "hash": "3ea7ea87efdc3f83",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-multi.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-multi.png"
-      ]
-    },
-    {
-      "hash": "aab7f37fd9f45604",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-n.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-n.png"
-      ]
-    },
-    {
-      "hash": "0acc74ea8f92de71",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-sr.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-sr.png"
-      ]
-    },
-    {
-      "hash": "028f032783ed9ef0",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-ssr.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-ssr.png"
-      ]
-    },
-    {
-      "hash": "f2f97b68bdc96baf",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-ur.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-ur.png"
+        "old_assets/Background/_archive/2026-06-25-dedup-internal/Background/prompts/minigames/chibi-sources/06_Rivage_Corallien/03_Bullorbe.png",
+        "old_assets/Compagnons/imports/chibis-individuels/06_Rivage_Corallien/03_Bullorbe.png",
+        "old_assets/Compagnons/imports/talia-import/myrions_chibis_individuels/06_Rivage_Corallien/03_Bullorbe.png"
       ]
     }
   ],

@@ -4,6 +4,7 @@ Résumé **haut niveau** par version ou fin de session. Détail micro → `entri
 
 | Version UI | Date | Intérêt (résumé) | Détail |
 |------------|------|------------------|--------|
+| v2.1.0.* | 2026-06-30 | **Release 2.1** — Ferme lunaire 15 biomes, liens compagnons, TNR | [`CHANGELOG_2_1.md`](../../CHANGELOG_2_1.md) |
 | v2.0.0.46.* | 2026-06-26 | **Chantier MVP 4.1** — clôture test : polish UX, mode immersif, minage, chibis | [`entries/2026-06-26.md`](./entries/2026-06-26.md) § 45.81 + 46.0 |
 | v2.0.0.45.* | 2026-06-26 | **Chantier MVP 3** — déblocages + toast groupé récompenses | [`entries/2026-06-26.md`](./entries/2026-06-26.md) |
 | v2.0.0.44.* | 2026-06-26 | **Chantier Myrion MVP 2** — 3 biomes, production passive, supervision ; pipeline visuel MVP 3 | [`entries/2026-06-26.md`](./entries/2026-06-26.md) |
@@ -17,6 +18,7 @@ Résumé **haut niveau** par version ou fin de session. Détail micro → `entri
 
 | Semver | Date | Intérêt |
 |--------|------|---------|
+| **2.1.0** | 2026-06-30 | **Release Ferme lunaire étendue** — 15 biomes, 45 filons, conversations de lien, guidance 2.1 |
 | **2.0.0** | 2026-06-25 | **Assets 2.0** — architecture single-root, cold storage, TNR baseline |
 | 1.0.1 | baseline | Produit jouable pre-V2 main |
 

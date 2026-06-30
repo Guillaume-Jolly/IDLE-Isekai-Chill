@@ -1,4 +1,4 @@
-﻿# Wonderland / IDLE-Isekai-Chill Agent Rules
+# IDLE Isekai Chill — Agent Rules (Havre des Brumes)
 
 This repository is a playable idle / incremental / collection game centered on companions, Myrions, biomes, link conversations, training minigames, passive production, and local progression.
 
