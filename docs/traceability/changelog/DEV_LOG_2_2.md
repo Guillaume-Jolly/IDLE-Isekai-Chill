@@ -41,7 +41,7 @@ Journal **haut niveau** : une section par prompt (**X**), une ligne par tâche d
 |---|--------|--------|----------|
 | 1 | Warmup cache compagnons + probes parallèles | *(non commité)* | `v2.2.0.03.7` |
 | 2 | `GameSessionGate`, login, carousel, 5 PNG IA `public/splash/` | *(non commité)* | `v2.2.0.03.8` |
-| 54 | Lot session : warmup, logout, refuge, Chantier du havre, kickoff docs | *(ce commit)* | `v2.2.0.03.54` |
+| 54 | Lot session : warmup, logout, refuge, Chantier du havre, kickoff docs | `7d30383` | `v2.2.0.03.54` |
 
 **Validations :** `npm run build` OK  
 **Risques :** auth locale démo uniquement ; PNG IA à valider visuellement
