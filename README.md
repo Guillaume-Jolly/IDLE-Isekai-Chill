@@ -23,8 +23,9 @@ npm run dev
 Nouvelle session agent / gros chantier :
 
 ```bash
-npm run version:prompt    # incrément « prompt »
-npm run tnr:baseline      # build + validate corpus + manifest assets
+npm run version:prompt    # incrément X (nouveau prompt)
+npm run version:task      # incrément Y (tâche distincte)
+npm run tnr:baseline      # bonds + corpus + build + manifest assets
 ```
 
 ---
@@ -62,10 +63,12 @@ npm run preview    # preview du build
 | Public | Lien |
 |--------|------|
 | **Agents (prioritaire)** | [`docs/agent-guide/README.md`](docs/agent-guide/README.md) |
+| **Index docs (éviter obsolète)** | [`docs/DOC_AGENT_INDEX.md`](docs/DOC_AGENT_INDEX.md) |
 | **Traçabilité** (changelog, TNR, audits) | [`docs/traceability/README.md`](docs/traceability/README.md) · [`REFERENCES.md`](docs/traceability/REFERENCES.md) |
 | **Playbooks** (compagnon, gacha, Myrions, TNR…) | [`staging/playbooks/README.md`](staging/playbooks/README.md) |
 | **Règles agent** | [`AGENTS.md`](AGENTS.md) |
-| **État courant** | [`.ai/current-state.md`](.ai/current-state.md) |
+| **État courant** | [`.ai/current-state.md`](.ai/current-state.md) · [`docs/traceability/project-state.md`](docs/traceability/project-state.md) |
+| **Phase 2.2** | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](docs/HANDOFF_2_2_AGENT_BRIEF.md) |
 | **Serveur stable** | [`deploy/stable/README.md`](deploy/stable/README.md) |
 | **Design / TNR gameplay** | [`docs/`](docs/) (usage interne) |
 
@@ -137,6 +140,22 @@ Source-of-truth : `assets/` (Compagnons, Background, Myrions, Gacha, Live2D).
 Runtime servi via `vite.repo-assets.ts` — ne pas réintroduire de doublons sous `public/assets/`.
 
 Promote / archive : [`staging/playbooks/04-asset-promote-pipeline.md`](staging/playbooks/04-asset-promote-pipeline.md), [`08-directory-cleanup.md`](staging/playbooks/08-directory-cleanup.md).
+
+---
+
+## Release 2.1 — Havre des Brumes (2026-06-30)
+
+| Élément | Valeur |
+|---------|--------|
+| Semver | `2.1.0` |
+| Tag Git | `v2.1.0.0` @ `8e50e13` |
+| Branche | `main` |
+| Label UI (fin dev 2.1) | `v2.1.0.128` — harmonisation prévue en 2.2 |
+
+- Changelog : [`docs/CHANGELOG_2_1.md`](docs/CHANGELOG_2_1.md)
+- Notes : [`docs/RELEASE_NOTES_2_1.md`](docs/RELEASE_NOTES_2_1.md)
+- Quarantaine : `old_v2.1/` (archive non destructive)
+- Prochaine phase : **2.2** — [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](docs/HANDOFF_2_2_AGENT_BRIEF.md)
 
 ---
 

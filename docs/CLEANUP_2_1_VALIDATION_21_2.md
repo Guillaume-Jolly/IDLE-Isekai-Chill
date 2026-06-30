@@ -1,5 +1,8 @@
 # Cleanup 2.1 — Validation MVP 21.2
 
+> ⚠️ **Document historique** — push / merge **terminés** (2026-06-30). Ne pas suivre « commits non poussés ».  
+> **Voir :** [`DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md).
+
 **Date :** 2026-06-30  
 **Objectif :** Valider le dépôt après quarantaine `old_v2.1/`, corriger références agent cassées, stabiliser bruit CRLF.
 

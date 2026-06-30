@@ -1,7 +1,7 @@
 # Chantier Myrion — MVP 15 assets visuels (15 biomes)
 
 > **Date :** 2026-06-26  
-> **Branche :** `feature/myrion-worksite-mvp2`  
+> **Branche (historique, mergée) :** `feature/myrion-worksite-mvp2` → `main` @ `v2.1.0.0`  
 > **Prérequis :** MVP 14 (runtime 45 filons actifs)
 
 ## Objectif

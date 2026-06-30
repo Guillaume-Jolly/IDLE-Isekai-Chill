@@ -1,6 +1,6 @@
 # 02 — Guide agent général
 
-Updated: 2026-06-25
+Updated: 2026-06-30
 
 ---
 
@@ -10,7 +10,8 @@ Updated: 2026-06-25
 2. Lire [`.ai/current-state.md`](../../.ai/current-state.md) et [`.ai/next-task.md`](../../.ai/next-task.md)
 3. `git status --short` — comprendre l'état du working tree
 4. Identifier si une **recette playbook** existe (`staging/playbooks/`)
-5. **Nouveau prompt user** → `npm run version:prompt` (incrémente segment « prompt »)
+5. **Nouveau prompt user** → `npm run version:prompt` (incrémente **X**)
+6. **Tâche distincte** dans le même prompt → `npm run version:task` (incrémente **Y**) — log dans `DEV_LOG_2_2.md`
 
 ---
 
@@ -31,8 +32,10 @@ Updated: 2026-06-25
 
 ```bash
 npm run build
-npm run lint                    # 8 erreurs pré-existantes connues — ne pas introduire de nouvelles
-npm run validate:link-corpus    # si corpus / conversations touchés
+npm run validate:companion-bonds   # si compagnons / bonds touchés
+npm run validate:link-corpus       # si corpus / conversations touchés
+npm run tnr:baseline               # release gate : bonds + corpus + build + manifest
+npm run lint                       # ~33 erreurs préexistantes — ne pas introduire de nouvelles
 ```
 
 Smoke visuel si assets ou minigames : voir `staging/playbooks/06-tnr-checklist.md`.

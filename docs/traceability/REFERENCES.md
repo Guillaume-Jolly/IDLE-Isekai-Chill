@@ -2,7 +2,9 @@
 
 **À mettre à jour quand un chemin change** : modifier ce fichier + grep le repo pour l’ancien path.
 
-Dernière sync : 2026-06-25 (public→old_assets migration)
+Dernière sync : 2026-06-30 (release 2.1.0.0, index agent)
+
+**Index anti-obsolète :** [`../../docs/DOC_AGENT_INDEX.md`](../../docs/DOC_AGENT_INDEX.md)
 
 ---
 

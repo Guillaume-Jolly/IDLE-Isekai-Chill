@@ -1,5 +1,8 @@
 # Erreurs build TypeScript — diagnostic
 
+> ⚠️ **Document historique** — build **OK** depuis release 2.1. Lint global ~**33** issues (non bloquant).  
+> **Voir :** [`docs/traceability/project-state.md`](./traceability/project-state.md)
+
 > Phase 1.5 — diagnostic · **Phase build fix — corrigé le 2026-06-22**  
 > Commit : `fix: resolve TypeScript build errors`
 
@@ -9,7 +12,7 @@
 |---------|--------|
 | `tsc -b` | ✅ Passé |
 | `vite build` | ✅ Passé (après correction CSS orpheline — voir ci-dessous) |
-| `npm run lint` | ❌ Échoue (28 erreurs préexistantes, hors scope build fix) |
+| `npm run lint` | ❌ Échoue (~33 erreurs préexistantes documentées fin 2.1, hors scope build) |
 | Tests automatisés | ❌ Aucun framework (vitest/jest/playwright absent) |
 
 ---

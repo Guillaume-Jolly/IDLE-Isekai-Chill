@@ -1,5 +1,8 @@
 # État technique — IDLE Isekai Chill
 
+> ⚠️ **Document historique** (2026-06-22). **Ne pas** utiliser pour l’état build/validation actuel.  
+> **Voir :** [`docs/traceability/project-state.md`](./traceability/project-state.md) · [`docs/agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md)
+
 > Dernière mise à jour : 2026-06-22
 
 ## Environnement
@@ -142,7 +145,7 @@ src/data/myrionMvp3.ts(380,58): TS6133 'parentB' unused
 ### Tests automatisés
 
 - **Aucun** (pas de vitest/jest/playwright)
-- Validation dialogues : `node scripts/validate-conversations.mjs`
+- Validation dialogues : `npm run validate:link-corpus` (legacy : `scripts/validate-conversations.mjs`)
 
 ## Dette technique
 

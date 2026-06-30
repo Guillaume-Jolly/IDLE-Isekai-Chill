@@ -1,7 +1,7 @@
 # Chantier Myrion — Équilibrage (MVP 10)
 
 > **Date :** 2026-06-26  
-> **Branche :** `feature/myrion-worksite-mvp2`  
+> **Branche (historique, mergée) :** `feature/myrion-worksite-mvp2` → `main` @ `v2.1.0.0`  
 > **Source unique :** `src/data/myrionWorksiteBalance.ts`
 
 ## Objectifs d'équilibrage

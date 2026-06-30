@@ -1,0 +1,30 @@
+name: Validate
+
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Companion bonds
+        run: npm run validate:companion-bonds
+
+      - name: Link corpus
+        run: npm run validate:link-corpus
+
+      - name: Build
+        run: npm run build

@@ -7,7 +7,7 @@
 
 ## 1. Branche
 
-`feature/myrion-worksite-mvp2`
+`feature/myrion-worksite-mvp2` — **mergée** dans `main`, tag `v2.1.0.0` @ `8e50e13` (voir §14).
 
 ---
 
@@ -147,4 +147,19 @@ Identiques à [`CHANGELOG_2_1.md`](./CHANGELOG_2_1.md) §7 et [`TNR_RELEASE_2_1_
 
 ## Verdict final release 2.1
 
-**Livré** — build et validations OK, documentation release complète, push branche feature autorisé. Merge prod sous validation Guillaume.
+**Livré** — build et validations OK, documentation release complète.
+
+---
+
+## 14. Statut final Git (2026-06-30 — post-merge)
+
+| Élément | État |
+|---------|------|
+| PR | [#3](https://github.com/Guillaume-Jolly/IDLE-Isekai-Chill/pull/3) — **mergée** |
+| Branche prod | `main` @ `8e50e13` |
+| Tag | `v2.1.0.0` poussé sur `origin` |
+| HEAD release | `8e50e13` — docs: add final post-2.1 cleanup report |
+
+Les sections §10–13 ci-dessus décrivent l’état **avant** merge final — conservées pour historique uniquement.
+
+**Phase suivante :** 2.2 — [`HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) · [`DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md).

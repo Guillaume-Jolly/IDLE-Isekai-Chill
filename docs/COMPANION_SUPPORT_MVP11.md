@@ -1,7 +1,7 @@
 # Compagnons — Soutien systèmes MVP 11
 
 > **Date :** 2026-06-26  
-> **Branche :** `feature/myrion-worksite-mvp2`
+> **Branche (historique, mergée) :** `feature/myrion-worksite-mvp2` → `main` @ `v2.1.0.0`
 
 ## Objectif
 

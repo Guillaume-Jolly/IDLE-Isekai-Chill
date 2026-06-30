@@ -1,6 +1,6 @@
 # Backlog — pipelines systématiques
 
-Updated: 2026-06-25
+Updated: 2026-06-30
 
 ---
 
@@ -19,6 +19,14 @@ Updated: 2026-06-25
 | Biome visuel only | 09 + formulaire intake |
 | QA visuelle normalisée | 10 |
 | Biome Myrion + catalogue regen | 11 |
+
+## CI / validation release (✅ depuis 2.1)
+
+| Pipeline | Fichier |
+|----------|---------|
+| Validate bonds + corpus + build | `.github/workflows/validate.yml` |
+| TNR baseline local | `npm run tnr:baseline` — voir `docs/agent-guide/06-pipeline-validation.md` |
+| Version X/Y | `npm run version:prompt` / `npm run version:task` |
 
 ---
 

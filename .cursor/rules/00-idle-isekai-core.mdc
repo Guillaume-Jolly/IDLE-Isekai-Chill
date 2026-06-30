@@ -23,5 +23,6 @@ Hard constraints:
 Current package scripts to consider:
 
 - `npm run build`
-- `npm run lint`
+- `npm run validate:companion-bonds`
 - `npm run validate:link-corpus`
+- `npm run tnr:baseline`

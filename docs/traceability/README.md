@@ -3,7 +3,8 @@
 Logs, audits, TNR et inventaires assets — **à committer** (historique utile).
 
 Playbooks opérationnels : [`../../staging/playbooks/`](../../staging/playbooks/)  
-Guide agents : [`../../docs/agent-guide/README.md`](../../docs/agent-guide/README.md)
+Guide agents : [`../../docs/agent-guide/README.md`](../../docs/agent-guide/README.md)  
+**Index docs (éviter obsolète) :** [`../../docs/DOC_AGENT_INDEX.md`](../../docs/DOC_AGENT_INDEX.md)
 
 ---
 
@@ -23,4 +24,6 @@ Guide agents : [`../../docs/agent-guide/README.md`](../../docs/agent-guide/READM
 
 Chaque micro-modif significative → [`changelog/entries/`](./changelog/entries/) avec version UI + **intérêt**.
 
-Politique version : [`../../docs/agent-guide/05-politique-versionnement.md`](../../docs/agent-guide/05-politique-versionnement.md)
+Politique version : [`../../docs/agent-guide/05-politique-versionnement.md`](../../docs/agent-guide/05-politique-versionnement.md)  
+Pipeline validation : [`../../docs/agent-guide/06-pipeline-validation.md`](../../docs/agent-guide/06-pipeline-validation.md)  
+État projet : [`./project-state.md`](./project-state.md)

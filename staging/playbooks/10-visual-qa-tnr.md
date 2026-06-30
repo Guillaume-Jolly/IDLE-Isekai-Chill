@@ -8,8 +8,11 @@ Automatique : [`06-tnr-checklist.md`](./06-tnr-checklist.md) + `npm run tnr:base
 ## Commande baseline
 
 ```bash
-npm run tnr:baseline    # build + validate:link-corpus + manifest
-npm run lint            # optionnel — 8 erreurs pré-existantes connues
+npm run validate:companion-bonds
+npm run validate:link-corpus
+npm run tnr:baseline    # bonds + corpus + build + manifest
+npm run build
+npm run lint            # optionnel — ~33 erreurs préexistantes connues
 ```
 
 ---

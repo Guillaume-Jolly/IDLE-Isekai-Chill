@@ -1,7 +1,11 @@
 # État du projet — IDLE Isekai Chill
 
-> Dernière mise à jour : 2026-06-22  
-> Phase : audit pré-développement (documentation uniquement)
+> ⚠️ **Document historique** — audit 2026-06-22, **partiellement obsolète**.  
+> **Ne pas utiliser** les tableaux « Risques » / « Fonctionnalités partielles » ci-dessous pour décider si le build passe.  
+> **Source de vérité courante :** [`docs/traceability/project-state.md`](./traceability/project-state.md) · [`docs/DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md) · release **2.1.0.0** livrée sur `main`.
+
+> Dernière mise à jour originale : 2026-06-22  
+> Phase originale : audit pré-développement (documentation uniquement)
 
 ## Résumé exécutif
 

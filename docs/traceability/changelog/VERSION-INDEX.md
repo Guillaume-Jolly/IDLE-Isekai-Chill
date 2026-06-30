@@ -4,6 +4,7 @@ Résumé **haut niveau** par version ou fin de session. Détail micro → `entri
 
 | Version UI | Date | Intérêt (résumé) | Détail |
 |------------|------|------------------|--------|
+| **v2.1.0.0** (tag) | 2026-06-30 | **Release Git** — merge PR #3, tag `v2.1.0.0` @ `8e50e13` | [`HANDOFF_2_2_AGENT_BRIEF.md`](../../HANDOFF_2_2_AGENT_BRIEF.md) |
 | v2.1.0.* | 2026-06-30 | **Release 2.1** — Ferme lunaire 15 biomes, liens compagnons, TNR | [`CHANGELOG_2_1.md`](../../CHANGELOG_2_1.md) |
 | v2.0.0.46.* | 2026-06-26 | **Chantier MVP 4.1** — clôture test : polish UX, mode immersif, minage, chibis | [`entries/2026-06-26.md`](./entries/2026-06-26.md) § 45.81 + 46.0 |
 | v2.0.0.45.* | 2026-06-26 | **Chantier MVP 3** — déblocages + toast groupé récompenses | [`entries/2026-06-26.md`](./entries/2026-06-26.md) |
@@ -18,8 +19,8 @@ Résumé **haut niveau** par version ou fin de session. Détail micro → `entri
 
 | Semver | Date | Intérêt |
 |--------|------|---------|
-| **2.1.0** | 2026-06-30 | **Release Ferme lunaire étendue** — 15 biomes, 45 filons, conversations de lien, guidance 2.1 |
+| **2.1.0** | 2026-06-30 | **Release Ferme lunaire étendue** — tag git `v2.1.0.0` |
 | **2.0.0** | 2026-06-25 | **Assets 2.0** — architecture single-root, cold storage, TNR baseline |
 | 1.0.1 | baseline | Produit jouable pre-V2 main |
 
-*Prochain MINOR suggéré : premier push main + prod stable (`build:stable:prod`).*
+*Prochain MINOR : **2.2.0** — branche `feature/2.2`, retouches libres (voir `HANDOFF_2_2_AGENT_BRIEF.md`).*

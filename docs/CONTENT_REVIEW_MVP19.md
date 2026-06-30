@@ -1,7 +1,7 @@
 # Relecture contenu joueur — MVP 19
 
 > **Date :** 2026-06-30  
-> **Branche :** `feature/myrion-worksite-mvp2`  
+> **Branche (historique, mergée) :** `feature/myrion-worksite-mvp2` → `main` @ `v2.1.0.0`  
 > **Nature :** harmonisation textes visibles — pas de nouvelle feature
 
 ## 1. Objectif

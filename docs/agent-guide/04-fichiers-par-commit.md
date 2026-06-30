@@ -1,6 +1,6 @@
 # 04 — Fichiers à tenir à jour (par commit / session)
 
-Updated: 2026-06-25
+Updated: 2026-06-30
 
 Chaque **commit** ou **fin de session significative** doit laisser le repo lisible pour le prochain agent.
 
@@ -14,7 +14,8 @@ Chaque **commit** ou **fin de session significative** doit laisser le repo lisib
 |---------|-------------------|----------|
 | **Message commit** | 1–2 phrases : **intérêt** de la modif, pas liste de fichiers | Historique git exploitable |
 | [`docs/traceability/changelog/`](../traceability/changelog/) | Entrée ou lignes pour **chaque micro-modif** significative | Traçabilité version UI |
-| [`build-revision.json`](../../build-revision.json) | Auto via Vite HMR / `version:prompt` | Numéro haut-gauche |
+| [`build-revision.json`](../../build-revision.json) | `version:prompt` (X) / `version:task` (Y) / HMR | Numéro haut-gauche |
+| [`docs/traceability/changelog/DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md) | Section par prompt X, lignes Y | Résumé phase 2.2 |
 
 ---
 

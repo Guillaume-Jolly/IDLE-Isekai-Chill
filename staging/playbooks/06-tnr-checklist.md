@@ -7,10 +7,11 @@ Exécuter **entre chaque étape principale** (promote, migration lot, refactor c
 ## Automatique (obligatoire)
 
 ```bash
-npm run build          # exit 0
-npm run lint           # 0 errors (8 pré-existantes connues)
-npm run validate:link-corpus   # si src/data/linkCorpusV2* touché
-npm run tnr:baseline   # build + validate + manifest — raccourci
+npm run validate:companion-bonds
+npm run validate:link-corpus
+npm run tnr:baseline   # bonds + corpus + build + manifest
+npm run build
+npm run lint           # optionnel — ~33 erreurs préexistantes connues
 ```
 
 Liste checks visuels normalisés : [`10-visual-qa-tnr.md`](./10-visual-qa-tnr.md).

@@ -1,26 +1,33 @@
 # 05 — Politique de versionnement
 
-Updated: 2026-06-25
+Updated: 2026-06-30 (post-release 2.1.0.0)
 
 Numéro affiché **en haut à gauche** dans l'UI : `UI_VERSION` depuis `build-revision.json` + `package.json`.
 
 ---
 
-## Format affiché
+## Format affiché (depuis release 2.1)
 
 ```
-v{MAJOR}.{MINOR}.{PATCH}.{PROMPT}.{MICRO}
+v{SEMVER}.{X}
+v{SEMVER}.{X}.{Y}    (si Y > 0)
 ```
 
-**Exemple live :** `v1.0.1.43.543`
+**Exemples live :**
+
+| Contexte | Label |
+|----------|-------|
+| Fin release 2.1 | `v2.1.0.128` |
+| Même prompt, 3e tâche | `v2.1.0.128.3` |
+| Début 2.2 après reset | `v2.2.0.01` puis `v2.2.0.02.1` |
 
 | Segment | Nom | Signification | Qui incrémente |
 |---------|-----|---------------|----------------|
-| **MAJOR** | `1` | Rupture majeure : format save incompatible, pivot produit | Manuel `package.json` — rare |
-| **MINOR** | `0` | **Push `main` + déploiement prod stable** (`build:stable:prod`) | Manuel avant release prod |
-| **PATCH** | `1` | **Baseline / jalon** sur branche (ex. Assets 2.0 lot, feature merge) | Manuel `package.json` |
-| **PROMPT** | `43` | **Chaque nouveau prompt user** (session agent) | `npm run version:prompt` |
-| **MICRO** | `543` | **Chaque micro-modification** distincte dans le prompt | Auto Vite HMR (`bumpSubRevisionIfChanged`) |
+| **SEMVER** | `2.1.0` | Jalon produit (`MAJOR.MINOR.PATCH` dans `package.json`) | Manuel — release / baseline |
+| **X** | `128` | **Chaque nouveau prompt user** (session agent) | `npm run version:prompt` |
+| **Y** | `3` | **Chaque tâche distincte** dans le même prompt | `npm run version:task` ou HMR auto (`bumpSubRevisionIfChanged`) |
+
+> **Note historique :** avant 2.1 le format documenté était `v1.0.1.43.543` (5 segments découpés). Depuis 2.1 le semver complet (`2.1.0`) précède X et Y.
 
 ---
 
@@ -28,70 +35,98 @@ v{MAJOR}.{MINOR}.{PATCH}.{PROMPT}.{MICRO}
 
 | Fichier | Rôle |
 |---------|------|
-| [`package.json`](../../package.json) `version` | `MAJOR.MINOR.PATCH` (semver) |
-| [`build-revision.json`](../../build-revision.json) | `revision` (= PROMPT), `subRevision` (= MICRO), `fingerprint` worktree |
-| [`vite.git-build-info.ts`](../../vite.git-build-info.ts) | Format label + auto-bump MICRO |
-| [`scripts/bump-prompt.mjs`](../../scripts/bump-prompt.mjs) | Bump PROMPT, reset MICRO à 0 |
+| [`package.json`](../../package.json) `version` | `MAJOR.MINOR.PATCH` (semver npm) |
+| [`build-revision.json`](../../build-revision.json) | `revision` (= X), `subRevision` (= Y), `fingerprint` worktree |
+| [`vite.git-build-info.ts`](../../vite.git-build-info.ts) | Format label + auto-bump Y en dev HMR |
+| [`scripts/bump-prompt.mjs`](../../scripts/bump-prompt.mjs) | Bump X, reset Y à 0 |
+| [`scripts/bump-task.mjs`](../../scripts/bump-task.mjs) | Bump Y (+1), garde X |
 | [`src/uiVersion.ts`](../../src/uiVersion.ts) | Constante injectée Vite |
 
 ---
 
 ## Règles d'incrément
 
-### MICRO (+1) — automatique
+### Y (+1) — tâche distincte dans un prompt
 
-- Sauvegarde fichier → HMR dev → fingerprint worktree change
-- **Agent :** documenter chaque modif significative dans `docs/traceability/changelog/` avec le numéro affiché après save
+**Préféré (agent 2.2+) :**
 
-### PROMPT (+1, MICRO → 0) — manuel début session
+```bash
+npm run version:task
+```
+
+- Après chaque **lot cohérent** terminé dans le même prompt (fix isolé, doc, refactor ciblé)
+- Documenter dans [`docs/traceability/changelog/DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md)
+
+**Automatique (dev HMR) :**
+
+- Sauvegarde fichier → fingerprint worktree change → Y +1
+- Utile en session interactive ; moins fiable pour traçabilité agent → préférer `version:task`
+
+### X (+1, Y → 0) — nouveau prompt
 
 ```bash
 npm run version:prompt
 ```
 
-- **Quand :** début d'un **nouveau message user** qui lance du travail (convention projet)
-- Remet MICRO à 0
+- **Quand :** début d'un **nouveau message user** qui lance du travail
+- Remet Y à 0
+- **Commit git recommandé** en fin de prompt : 1 commit par X, message = but du prompt
 
-### PATCH (+1 MINOR reset) — jalon manuel
+### PATCH / MINOR / MAJOR — jalon semver
 
-- **Quand :** lot cohérent terminé (ex. Phase 2 assets complete, corpus import validé)
-- Éditer `package.json` : `"version": "1.0.2"` → prochain affichage `v1.0.2.{prompt}.{micro}`
+| Bump | Quand | Exemple |
+|------|-------|---------|
+| **PATCH** | Lot cohérent sur branche (feature merge interne) | `2.1.0` → `2.1.1` |
+| **MINOR** | Release produit majeure | `2.1.0` → `2.2.0` (kickoff phase 2.2) |
+| **MAJOR** | Rupture save / pivot incompatible | Rare — coordination user |
 
-### MINOR (+1 PATCH reset) — release prod
-
-- **Quand :** push `main` **et** build prod stable déployé
-- Ex. `1.0.1` → `1.1.0` si première prod post-baseline V2
-- Documenter dans `docs/traceability/changelog/VERSION-INDEX.md`
-
-### MAJOR — exceptionnel
-
-- Migration save breaking, refonte incompatible
-- Coordination user obligatoire
+Documenter dans [`docs/traceability/changelog/VERSION-INDEX.md`](../traceability/changelog/VERSION-INDEX.md).
 
 ---
 
-## Exemple timeline
+## Harmonisation UI ↔ Git (passage 2.2)
 
-| Événement | Version affichée |
-|-----------|------------------|
-| Début prompt user | `npm run version:prompt` → `v1.0.1.44.0` |
-| Fix CSS chasse | HMR → `v1.0.1.44.1` |
-| Fix path Myrion | HMR → `v1.0.1.44.2` |
-| Fin phase assets → bump PATCH | `1.0.2` dans package.json → `v1.0.2.44.2` (prompt/micro inchangés jusqu'au prochain prompt) |
-| Push main + prod | bump MINOR → `1.1.0` → `v1.1.0.44.2` |
+**Problème connu fin 2.1 :** `revision` (= X) a dérivé (ex. 128) vs historique git / nombre de commits.
 
-*Note : après bump package.json, le label recombine semver + revision/subRevision existants.*
+**Au kickoff 2.2 :**
+
+1. Bump `package.json` → `2.2.0`
+2. Reset `build-revision.json` : `{ "revision": 1, "subRevision": 0 }`
+3. Premier prompt → `npm run version:prompt` → X=2 si convention « prompt 1 = setup branche »
+4. Tag release future : `v2.2.0.0` (convention tag ≠ label UI)
+
+---
+
+## Log dev 2.2 (obligatoire phase 2.2)
+
+Fichier central : [`docs/traceability/changelog/DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md)
+
+- Une section par **X** (prompt)
+- Tableau des **Y** (tâches) avec résumé + hash commit
+- Complète le changelog micro (`entries/`) — ne pas dupliquer le détail fichier par fichier
+
+---
+
+## Exemple timeline 2.2
+
+| Événement | Version affichée | Git |
+|-----------|------------------|-----|
+| Reset branche 2.2 | `v2.2.0.01` | commit setup |
+| `version:prompt` nouveau prompt | `v2.2.0.02.0` | — |
+| Fix wording quête | `version:task` → `v2.2.0.02.1` | commit fix |
+| Fix lint fichier touché | `version:task` → `v2.2.0.02.2` | commit fix |
+| Fin prompt → commit récap X | — | `chore(2.2): …` |
 
 ---
 
 ## Lien avec changelog détaillé
 
-Chaque entrée **doit** citer la version exacte :
+Chaque entrée significative **doit** citer la version exacte :
 
 ```markdown
-## v1.0.1.44.3 — 2026-06-25T10:15
-**Intérêt :** Corriger 404 cutout Lyra en chasse.
-**Fichiers :** vite.repo-assets.ts (mapping cutouts)
+## v2.2.0.02.1 — 2026-07-01T10:15
+**Intérêt :** Harmoniser libellé quête onboarding.
+**Fichiers :** infiniteQuests.ts
 ```
 
 Index global : [`docs/traceability/changelog/VERSION-INDEX.md`](../traceability/changelog/VERSION-INDEX.md)
@@ -102,7 +137,8 @@ Index global : [`docs/traceability/changelog/VERSION-INDEX.md`](../traceability/
 
 | ❌ | ✅ |
 |----|-----|
-| Bump manuel MICRO sans modif | Laisser HMR gérer |
+| Bump manuel Y sans log | `version:task` + ligne DEV_LOG |
 | Oublier `version:prompt` sur grosse session | Bump en début de prompt |
-| Même version pour 10 changements sans entrées changelog | 1 entrée / micro-modif significative |
-| Confondre semver npm et PROMPT | PROMPT = sessions ; semver = jalons prod |
+| Confondre tag Git `v2.1.0.0` et label UI `v2.1.0.128` | Tag = jalon release ; UI = X/Y session |
+| Committer `build-revision.json` à chaque save HMR | Committer en fin de tâche Y ou fin prompt X |
+| Changer semver en `2.1.0.0` | Semver npm reste `2.1.0` ; tag git `v2.1.0.0` |

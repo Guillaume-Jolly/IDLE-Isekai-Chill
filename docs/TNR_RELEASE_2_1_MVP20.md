@@ -2,7 +2,7 @@
 
 **Date :** 2026-06-30  
 **Produit :** Havre des Brumes  
-**Branche :** `feature/myrion-worksite-mvp2`  
+**Branche (historique TNR) :** `feature/myrion-worksite-mvp2` — mergée dans `main`, tag `v2.1.0.0`  
 **HEAD de référence (pré-corrections) :** `0722c37` — docs: document content review mvp19  
 **Version build testée :** v2.0.0.127.52 (preview `npm run build` + `vite preview` sur port 4175)
 
@@ -191,4 +191,5 @@ Build repassé **OK** après corrections.
 
 ## Prochaine étape
 
-**MVP 21 — Release 2.1 :** bump version, changelog final, commit release, push/PR, smoke test post-build.
+~~**MVP 21 — Release 2.1**~~ — **Terminé** (2026-06-30) : merge PR #3, tag `v2.1.0.0`, `main` @ `8e50e13`.  
+Phase suivante : **2.2** — voir [`HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md).

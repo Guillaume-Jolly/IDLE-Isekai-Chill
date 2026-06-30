@@ -10,12 +10,13 @@ Keep the project stable, reviewable, and save-compatible. Do not perform broad r
 
 1. Read this file.
 2. Read `docs/agent-guide/README.md` (onboarding + versionnement).
-3. Read `.ai/project-context.md` (stub actif ; archive complète : `old_v2.1/ai_work/.ai/`).
-4. Read `.ai/current-state.md` if present.
-5. Read `.ai/next-task.md` and execute only that task.
-6. Check `git status --short`.
-7. Inspect existing code before changing APIs or data shapes.
-8. New user prompt session → `npm run version:prompt`; log micro-changes in `docs/traceability/changelog/`.
+3. Read `docs/DOC_AGENT_INDEX.md` (éviter docs obsolètes).
+4. Read `.ai/project-context.md` (stub actif ; archive complète : `old_v2.1/ai_work/.ai/`).
+5. Read `.ai/current-state.md` if present.
+6. Read `.ai/next-task.md` and execute only that task.
+7. Check `git status --short`.
+8. Inspect existing code before changing APIs or data shapes.
+9. New user prompt session → `npm run version:prompt`; each distinct task → `npm run version:task`; log X/Y in `docs/traceability/changelog/DEV_LOG_2_2.md` (phase 2.2+) and micro-changes in `docs/traceability/changelog/`.
 
 ## Hard Rules
 
@@ -36,6 +37,7 @@ Check `package.json` before running commands. Current known scripts include:
 ```bash
 npm run build
 npm run lint
+npm run validate:companion-bonds
 npm run validate:link-corpus
 ```
 

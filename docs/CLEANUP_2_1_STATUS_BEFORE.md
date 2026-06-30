@@ -1,5 +1,7 @@
 # Cleanup 2.1 — État avant MVP 21.1
 
+> ⚠️ **Snapshot historique** — état **avant** quarantaine 21.1. Archive `old_v2.1/` déjà en place.
+
 **Date :** 2026-06-30  
 **MVP :** 21.1 — Inventaire et quarantaine non destructive
 

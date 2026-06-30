@@ -2,7 +2,9 @@
 
 Trace **ultra-détaillée** : une entrée par micro-modification significative, liée au numéro UI exact.
 
-**Format version :** `v{MAJOR}.{MINOR}.{PATCH}.{PROMPT}.{MICRO}` — voir [`../../docs/agent-guide/05-politique-versionnement.md`](../../docs/agent-guide/05-politique-versionnement.md)
+**Format version :** `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`../../docs/agent-guide/05-politique-versionnement.md`](../../docs/agent-guide/05-politique-versionnement.md)
+
+**Log phase 2.2 :** [`DEV_LOG_2_2.md`](./DEV_LOG_2_2.md) — résumé par prompt (X) et tâche (Y).
 
 ---
 

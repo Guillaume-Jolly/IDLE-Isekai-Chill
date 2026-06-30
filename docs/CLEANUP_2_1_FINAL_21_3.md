@@ -1,5 +1,8 @@
 # Cleanup 2.1 — Rapport final MVP 21.3
 
+> ⚠️ **Document historique** — décrit l’état **avant** merge final. Push / PR / merge : **terminés** (PR #3, tag `v2.1.0.0`).  
+> **Voir :** [`DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md) · [`RELEASE_2_1_DELIVERY_REPORT.md`](./RELEASE_2_1_DELIVERY_REPORT.md) §14.
+
 **Date :** 2026-06-30  
 **Objectif :** Figer l’état post-cleanup, valider, pousser la branche release 2.1, préparer la PR — sans merge.
 

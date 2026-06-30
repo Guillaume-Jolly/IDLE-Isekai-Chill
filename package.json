@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "version:prompt": "node scripts/bump-prompt.mjs",
+    "version:task": "node scripts/bump-task.mjs",
     "generate:assets": "node scripts/generate-assets.mjs",
     "restore:companions": "node scripts/restore-companion-ai-art.mjs",
     "import:village": "node scripts/import-village-user-pack.mjs",

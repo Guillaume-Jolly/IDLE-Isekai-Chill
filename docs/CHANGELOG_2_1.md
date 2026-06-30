@@ -2,7 +2,7 @@
 
 **Produit :** Havre des Brumes (IDLE Isekai Chill)  
 **Semver :** 2.1.0  
-**Branche :** `feature/myrion-worksite-mvp2`  
+**Branche (historique, mergée dans `main` v2.1.0.0) :** `feature/myrion-worksite-mvp2`  
 **Date :** 2026-06-30
 
 ---

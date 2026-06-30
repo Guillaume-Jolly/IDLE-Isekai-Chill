@@ -1,5 +1,8 @@
 # Working Tree Triage — Phase 1.8
 
+> ⚠️ **Document historique** (2026-06-22). État git / stash / fichiers **périmés**.  
+> **Voir :** [`docs/DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md) · [`docs/traceability/project-state.md`](./traceability/project-state.md)
+
 > **Date :** 2026-06-22 (mis à jour Phase 2)  
 > **HEAD :** `60fbc11` — working tree propre  
 > **Stash :** `stash@{0}` — `rewrite-git-temp-stash` (conservé, redondant avec HEAD — ne pas drop sans revue)

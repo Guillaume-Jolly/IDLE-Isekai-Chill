@@ -1,6 +1,6 @@
 # 01 — Hiérarchie projet
 
-Updated: 2026-06-25
+Updated: 2026-06-30
 
 ---
 
@@ -12,6 +12,7 @@ IDLE Isekai Chill/
 ├── assets/                 # Source-of-truth visuels (Assets 2.0)
 ├── public/                 # Shell statique + redirects (minimal)
 ├── old_assets/             # Archive — JAMAIS supprimer, tri miroir assets/
+├── old_v2.1/               # Quarantaine post-release 2.1 — JAMAIS supprimer
 ├── staging/                # WIP playbooks + reviews
 ├── docs/agent-guide/       # Onboarding agents (commit)
 ├── docs/traceability/      # Changelog, TNR, audits, manifests (commit)

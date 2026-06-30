@@ -9,7 +9,7 @@
 
 | ID | Tâche | Zone | Notes |
 |----|-------|------|-------|
-| P0-01 | Corriger 8 erreurs TypeScript build | `DressageGame`, `FamiliarCaptureGame`, `myrionMvp2/3` | `npm run build` doit passer |
+| ~~P0-01~~ | ~~Corriger erreurs TypeScript build~~ | — | **Résolu** release 2.1 — `npm run build` OK |
 | P0-02 | Valider save/load après corrections | `App.tsx`, `minigameSave.ts` | Ne pas casser saves existantes |
 | P0-03 | Exécuter TNR zones touchées | voir `TNR.md` (Phase 3) | Manuel minimum |
 
@@ -55,7 +55,7 @@
 | P3-03 | Paliers affinité 4–5 assets finaux | `public/companions/` | ChatGPT + validation contenu |
 | P3-04 | Bâtiments futurs (caserne, etc.) | `cityArchetypes.ts` | Population security |
 | P3-05 | Unifier layout village (single source) | `villageMap.ts` ↔ layout script | Éviter drift |
-| P3-06 | CI GitHub Actions (build + lint + validate-conversations) | `.github/` | Après P0-01 |
+| P3-06 | CI GitHub Actions (bonds + corpus + build) | `.github/workflows/validate.yml` | **Fait** release 2.1 — lint hors scope |
 | P3-07 | Inventaire assets unused (sans suppression auto) | `docs/ASSETS_PIPELINE.md` | Phase 5 |
 
 ---

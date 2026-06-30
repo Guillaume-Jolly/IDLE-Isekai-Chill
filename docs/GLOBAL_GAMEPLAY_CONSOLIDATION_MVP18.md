@@ -1,7 +1,7 @@
 # Consolidation gameplay global — MVP 18
 
 > **Date :** 2026-06-30  
-> **Branche :** `feature/myrion-worksite-mvp2`  
+> **Branche (historique, mergée) :** `feature/myrion-worksite-mvp2` → `main` @ `v2.1.0.0`  
 > **Prérequis :** MVP 17 (conversations de lien) terminé
 
 ## 1. Objectif
@@ -83,7 +83,7 @@ Affichée sur **carte village** et **hub mini-jeux** (`NextStepGuidance` + bouto
 - Pas de persistance « conversation de lien lue » en save.
 - Pas de lien direct depuis guidance vers une conversation bond précise (vue Liens seulement).
 - 5 compagnons non-humains (brann, thorne, …) hors `COMPANIONS` — pas dans guidance Liens.
-- `npm run build` via npm peut échouer (config env locale) — `tsc -b` + `vite build` OK.
+- `npm run build` — **OK** en release 2.1 (voir `docs/traceability/project-state.md`).
 - Story chapters : pas de repasse contenu MVP 18.
 
 ## 7. Reporté MVP 19–21
