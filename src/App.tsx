@@ -1580,8 +1580,8 @@ function App() {
         </div>
         <p>
           Ressources du Havre, fragments, jetons gacha, outils débloqués par les bâtiments,
-          Myrions et cultures en cours. Les éclats astraux du prestige restent sur le chantier
-          (Ferme lunaire), pas ici.
+          Myrions et cultures en cours. Les éclats astraux du prestige restent sur la Ferme
+          lunaire, pas dans l'inventaire global.
         </p>
       </section>
       <InventoryPanel

@@ -383,8 +383,8 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     companionId: 'sora',
     focusResource: 'gifts',
     minigameType: 'pet-sanctuary',
-    name: 'Refuge des Familiers',
-    tagline: 'Animalerie — Sora',
+    name: 'Promenade Myrions',
+    tagline: 'Enclos doux — Sora',
     inspiration: 'Tamagotchi chill / Neko Atsume',
     description:
       'Sora veille sur un petit enclos où des Myrions se promènent. Clique sur l’un d’eux pour le soigner — jamais de punition.',
