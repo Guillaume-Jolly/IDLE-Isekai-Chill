@@ -335,10 +335,10 @@ export const COMPANION_BOND_SEEDS = {
           intimacyLevel: 3,
         },
         {
-          prompt: 'On devrait organiser un repas pour les Myrions du chantier ?',
+          prompt: 'On devrait organiser un repas pour les Myrions de la Ferme lunaire ?',
           reply: 'Bonne idée. Des portions légères, des noms gentils sur les bols, et zéro course.',
           tone: 'playful',
-          tags: ['myrions', 'chantier', 'repas'],
+          tags: ['myrions', 'ferme-lunaire', 'repas'],
           intimacyLevel: 3,
         },
       ],
@@ -422,10 +422,10 @@ export const COMPANION_BOND_SEEDS = {
           intimacyLevel: 3,
         },
         {
-          prompt: 'On pourrait planter quelque chose ensemble au chantier ?',
+          prompt: 'On pourrait planter quelque chose ensemble à la Ferme lunaire ?',
           reply: 'Un carré discret, loin des pas pressés. Les Myrions aiment les feuilles qui bougent doucement.',
           tone: 'playful',
-          tags: ['plantation', 'chantier', 'myrions'],
+          tags: ['plantation', 'ferme-lunaire', 'myrions'],
           intimacyLevel: 3,
         },
       ],
@@ -564,10 +564,10 @@ export const COMPANION_BOND_SEEDS = {
           intimacyLevel: 1,
         },
         {
-          prompt: 'Tu conseilles quoi pour les outils du chantier lunaire ?',
+          prompt: 'Tu conseilles quoi pour les outils de la Ferme lunaire ?',
           reply: 'Du bon acier, bien affûté, et des pauses. Même la ferme lunaire fatigue les lames.',
           tone: 'sincere',
-          tags: ['outils', 'chantier', 'ferme lunaire'],
+          tags: ['outils', 'ferme-lunaire', 'ferme lunaire'],
           intimacyLevel: 1,
         },
       ],
@@ -597,7 +597,7 @@ export const COMPANION_BOND_SEEDS = {
         },
         {
           prompt: 'On devrait forger une cloche pour le village ?',
-          reply: 'Une cloche douce, pas un coup de tonnerre. Les Myrions du chantier dormiraient mieux.',
+          reply: 'Une cloche douce, pas un coup de tonnerre. Les Myrions de la Ferme lunaire dormiraient mieux.',
           tone: 'playful',
           tags: ['cloche', 'village', 'myrions'],
           intimacyLevel: 3,
@@ -683,7 +683,7 @@ export const COMPANION_BOND_SEEDS = {
           intimacyLevel: 3,
         },
         {
-          prompt: 'On devrait bénir les nouvelles graines du chantier ?',
+          prompt: 'On devrait bénir les nouvelles graines de la Ferme lunaire ?',
           reply: 'Une prière brève, deux gouttes d\'eau, zéro discours. Les Myrions n\'aiment pas les longs sermons.',
           tone: 'playful',
           tags: ['bénédiction', 'graines', 'myrions'],
@@ -747,10 +747,10 @@ export const COMPANION_BOND_SEEDS = {
       ],
       2: [
         {
-          prompt: 'Tu m\'emmènerais voir un coin secret du chantier ?',
+          prompt: 'Tu m\'emmènerais voir un coin secret de la Ferme lunaire ?',
           reply: 'Si tu promets de ne pas tout extraire d\'un coup. L\'exploration, c\'est aussi respecter.',
           tone: 'direct',
-          tags: ['secret', 'chantier', 'respect'],
+          tags: ['secret', 'ferme-lunaire', 'respect'],
           intimacyLevel: 2,
         },
         {
@@ -819,7 +819,7 @@ export const COMPANION_BOND_SEEDS = {
       1: [
         {
           prompt: 'Mira, tu tisses pour le refuge ou pour toi ?',
-          reply: 'Pour ceux qui reviennent fatigués du chantier. Un bon tissu console avant les mots.',
+          reply: 'Pour ceux qui reviennent fatigués de la Ferme lunaire. Un bon tissu console avant les mots.',
           tone: 'sincere',
           tags: ['tissu', 'refuge', 'confort'],
           intimacyLevel: 1,
@@ -1167,14 +1167,14 @@ export const COMPANION_BOND_SEEDS = {
       1: [
         {
           prompt: 'Sora, la ferme lunaire, c\'est chez toi ?',
-          reply: 'Oui. Je lie les Myrions au chantier et je veille à ce qu\'ils se sentent accueillis.',
+          reply: 'Oui. Je lie les Myrions à la Ferme lunaire et je veille à ce qu\'ils se sentent accueillis.',
           tone: 'sincere',
           tags: ['ferme lunaire', 'myrions', 'accueil'],
           intimacyLevel: 1,
         },
         {
           prompt: 'Comment tu rends le refuge plus chaleureux ?',
-          reply: 'Des noms doux, des pauses régulières, et des couvertures quand la nuit tombe sur le chantier.',
+          reply: 'Des noms doux, des pauses régulières, et des couvertures quand la nuit tombe sur la ferme.',
           tone: 'sincere',
           tags: ['refuge', 'pauses', 'nuit'],
           intimacyLevel: 1,
@@ -1192,7 +1192,7 @@ export const COMPANION_BOND_SEEDS = {
           prompt: 'Pourquoi tu assignes un Myrion par activité ?',
           reply: 'Un poste clair, un rythme serein. La ferme lunaire avance mieux sans confusion.',
           tone: 'direct',
-          tags: ['assignation', 'rythme', 'chantier'],
+          tags: ['assignation', 'rythme', 'ferme-lunaire'],
           intimacyLevel: 2,
         },
       ],
