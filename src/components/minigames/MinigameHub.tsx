@@ -225,8 +225,8 @@ export function MinigameHub({
             <div className="minigame-card-top">
               <span className="minigame-card-icon">💞</span>
               <div className="minigame-card-head">
-                <h3>Conversations & liens</h3>
-                <small>Tous les compagnons du village</small>
+                <h3>Mini-jeu Parler</h3>
+                <small>Activité relationnelle à choix — 15 compagnons village</small>
               </div>
             </div>
 
@@ -252,7 +252,7 @@ export function MinigameHub({
                 compact
                 icon="ℹ️"
                 label="Details"
-                tooltip="Visual novel chill : trois echanges, ton adapte au compagnon. Cout: mana + poussiere stellaire. Recompenses variables selon tes reponses."
+                tooltip="Mini-jeu Parler : trois échanges à choix, récompenses variables. Distinct des conversations de lien gratuites (onglet Liens)."
               />
             </div>
 

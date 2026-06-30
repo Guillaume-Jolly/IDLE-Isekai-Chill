@@ -30,13 +30,17 @@ export function CompanionBondPanel({
   const activeConversation = conversations.find((entry) => entry.conversationId === activeId)
 
   return (
-    <section className="companion-bond-panel" aria-label={`Conversations lien — ${companionName}`}>
+    <section className="companion-bond-panel" aria-label={`Conversations de lien — ${companionName}`}>
       <header className="companion-bond-panel-head">
-        <strong>Conversations lien</strong>
+        <strong>Conversations de lien</strong>
         <span className="companion-bond-panel-meta">
           Affinité {currentAffinity}/5
         </span>
       </header>
+      <p className="companion-bond-panel-intro">
+        Dialogues narratifs débloqués par palier — lecture gratuite. Pour une activité avec choix
+        et récompenses, utilise le bouton <strong>Parler</strong> sur la carte.
+      </p>
 
       <div className="companion-bond-tiers">
         {TIERS.map((tier) => {

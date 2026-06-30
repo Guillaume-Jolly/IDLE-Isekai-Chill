@@ -1752,6 +1752,21 @@ button.danger {
   font-size: 0.72rem;
 }
 
+.companion-bond-panel-intro {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  opacity: 0.82;
+}
+
+.section-heading-note {
+  margin: 0.35rem 0 0;
+  max-width: 42rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.88;
+}
+
 .companion-bond-tiers {
   display: grid;
   gap: 0.4rem;

@@ -80,7 +80,7 @@ export function ConversationPicker({
       >
         <header className="mg-conversation-picker-head">
           <div>
-            <p className="eyebrow">Liens</p>
+            <p className="eyebrow">Mini-jeu Parler</p>
             <h3 id="mg-conversation-picker-title">Avec qui veux-tu parler ?</h3>
           </div>
           <button className="secondary mg-conversation-picker-close" type="button" onClick={onClose}>
@@ -89,8 +89,9 @@ export function ConversationPicker({
         </header>
 
         <p className="mg-conversation-picker-copy">
-          Choisis un compagnon ou laisse le hasard decider. Chaque conversation coute du mana et de
-          la poussiere stellaire.
+          Session courte à choix (3 échanges) avec récompenses — coût en mana et poussière
+          stellaire. Les <strong>conversations de lien</strong> gratuites sont sur l&apos;onglet
+          Liens, débloquées par affinité.
         </p>
 
         <button

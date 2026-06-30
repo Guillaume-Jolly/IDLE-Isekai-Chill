@@ -1282,7 +1282,10 @@ function App() {
       companions: Object.fromEntries(
         COMPANIONS.map((companion) => [
           companion.id,
-          { unspentStatPoints: game.companions[companion.id]?.unspentStatPoints ?? 0 },
+          {
+            unspentStatPoints: game.companions[companion.id]?.unspentStatPoints ?? 0,
+            affinity: game.companions[companion.id]?.affinity ?? 1,
+          },
         ]),
       ),
     }),
@@ -1576,8 +1579,9 @@ function App() {
           <h2>Tout ce que tu possèdes</h2>
         </div>
         <p>
-          Ressources, fragments, jetons gacha, outils débloqués par les bâtiments,
-          familiers et cultures en cours.
+          Ressources du Havre, fragments, jetons gacha, outils débloqués par les bâtiments,
+          Myrions et cultures en cours. Les éclats astraux du prestige restent sur le chantier
+          (Ferme lunaire), pas ici.
         </p>
       </section>
       <InventoryPanel
@@ -1602,9 +1606,14 @@ function App() {
     <>
       <section className="section-heading">
         <div>
-          <p className="eyebrow">Compagnons</p>
+          <p className="eyebrow">Liens</p>
           <h2>Relations et illustrations</h2>
         </div>
+        <p className="section-heading-note">
+          <strong>Conversations de lien</strong> (ci-dessous) : dialogues par palier d&apos;affinité,
+          sans coût. <strong>Mini-jeu Parler</strong> (bouton) : session courte à choix avec
+          récompenses.
+        </p>
         <label className="toggle">
           <input
             type="checkbox"
@@ -1733,6 +1742,7 @@ function App() {
                         Parler
                       </button>
                       <div className="companion-action-tooltip" role="tooltip">
+                        Mini-jeu Parler — 3 échanges à choix, récompenses en ressources.{' '}
                         {costText(CONVERSATION_LAUNCH_COST)}
                       </div>
                     </div>
