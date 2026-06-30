@@ -1,6 +1,6 @@
 # Index documentation — guide agent
 
-**Updated:** 2026-06-30  
+**Updated:** 2026-06-30 (post-archivage résidus 2.2)  
 **But :** éviter qu’un agent suive une doc obsolète. Lire cet index **avant** d’explorer `docs/` au hasard.
 
 ---
@@ -17,73 +17,60 @@
 | 6 | [`docs/agent-guide/`](./agent-guide/) | Onboarding, versionnement, validation |
 | 7 | [`.ai/next-task.md`](../.ai/next-task.md) | Prochaine tâche concrète |
 
-**Branche prod actuelle :** `main` · tag **`v2.1.0.0`** @ `8e50e13`  
-**Stack PROD locale :** `deploy/`, lanceurs, scripts `*stable*` — **hors Git public** (PC hôte uniquement).
+**Branche prod :** `main` · tag **`v2.1.0.0`** @ `8e50e13`  
+**Stack PROD locale :** `deploy/` — **hors Git public** (PC hôte uniquement).
 
 ---
 
-## Release 2.1 — docs de référence (contenu valide, contexte figé)
+## `docs/` actif (racine — 15 fichiers)
 
-| Fichier | Usage | Attention |
-|---------|-------|-----------|
-| [`CHANGELOG_2_1.md`](./CHANGELOG_2_1.md) | Contenu livré 2.1 | En-tête branche = historique |
-| [`RELEASE_NOTES_2_1.md`](./RELEASE_NOTES_2_1.md) | Notes joueur / produit | OK |
-| [`TNR_RELEASE_2_1_MVP20.md`](./TNR_RELEASE_2_1_MVP20.md) | Rapport TNR pré-release | § « prochaine étape » obsolète |
-| [`CLEANUP_2_1_MOVE_MANIFEST.md`](./CLEANUP_2_1_MOVE_MANIFEST.md) | Archive `old_v2.1/` | OK — ne pas re-archiver |
-| [`RELEASE_2_1_DELIVERY_REPORT.md`](./RELEASE_2_1_DELIVERY_REPORT.md) | Rapport livraison | §10–13 remplacés par §14 final |
+| Fichier | Rôle |
+|---------|------|
+| [`DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md) | Ce fichier |
+| [`HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Brief agent 2.2 |
+| [`CHANGELOG_2_1.md`](./CHANGELOG_2_1.md) | Contenu release 2.1 |
+| [`RELEASE_NOTES_2_1.md`](./RELEASE_NOTES_2_1.md) | Notes produit |
+| [`RELEASE_2_1_DELIVERY_REPORT.md`](./RELEASE_2_1_DELIVERY_REPORT.md) | Rapport livraison |
+| [`TNR_RELEASE_2_1_MVP20.md`](./TNR_RELEASE_2_1_MVP20.md) | TNR release |
+| [`CLEANUP_2_1_MOVE_MANIFEST.md`](./CLEANUP_2_1_MOVE_MANIFEST.md) | Archive MVP 21.1 |
+| [`CLEANUP_2_2_RESIDUAL_MANIFEST.md`](./CLEANUP_2_2_RESIDUAL_MANIFEST.md) | Archive résidus 2.2 |
+| [`BACKLOG.md`](./BACKLOG.md) | Backlog produit |
+| [`GAME_DESIGN_CURRENT.md`](./GAME_DESIGN_CURRENT.md) | Design courant |
+| [`MYRION_WORKSITE_BALANCE.md`](./MYRION_WORKSITE_BALANCE.md) | Équilibrage Ferme lunaire |
+| [`MYRION_WORKSITE_ASSET_PIPELINE.md`](./MYRION_WORKSITE_ASSET_PIPELINE.md) | Pipeline assets worksite |
+| [`MYRION_WORKSITE_BIOME_CATALOG_MVP13.md`](./MYRION_WORKSITE_BIOME_CATALOG_MVP13.md) | Catalogue biomes |
+| [`DUNGEON_EXPLORATION_BACKLOG.md`](./DUNGEON_EXPLORATION_BACKLOG.md) | Backlog futur |
+| [`EXPLOITATION_PASSIVE_BACKLOG.md`](./EXPLOITATION_PASSIVE_BACKLOG.md) | Backlog futur |
 
----
-
-## Documents historiques — ne pas suivre les « prochaines étapes »
-
-Ces fichiers restent utiles pour **contexte** mais contiennent des instructions, métriques ou branches **périmées** :
-
-| Fichier | Risque principal |
-|---------|------------------|
-| [`PROJECT_STATE.md`](./PROJECT_STATE.md) | Build « échoue », 8 erreurs TS |
-| [`TECHNICAL_STATE.md`](./TECHNICAL_STATE.md) | `validate-conversations`, état juin 2026 |
-| [`BUILD_ERRORS.md`](./BUILD_ERRORS.md) | Lint « 28 erreurs » (≈33 aujourd’hui) |
-| [`WORKTREE_TRIAGE.md`](./WORKTREE_TRIAGE.md) | État worktree juin 2026 |
-| [`TODO_PRIORITIZED.md`](./TODO_PRIORITIZED.md) | P0 build — **résolu** |
-| `docs/CLEANUP_2_1_*.md` | Push / PR / commits non poussés — **fait** |
-| `docs/MYRION_WORKSITE_MVP*.md` | Branche feature, versions 2.0.0.x |
-| `docs/*_MVP*.md` (11–19) | Idem — chantier pré-merge |
-| [`traceability/audits/global-2.0-readiness-audit.md`](./traceability/audits/global-2.0-readiness-audit.md) | Lint 8 erreurs, pré-2.1 |
-
-**Règle :** si un doc cite `feature/myrion-worksite-mvp2`, « PR à créer », « commits non poussés » ou « build échoue » → **ignorer l’instruction**, vérifier `project-state.md`.
+Sous-dossiers actifs : [`agent-guide/`](./agent-guide/), [`traceability/`](./traceability/).
 
 ---
 
-## Archive quarantaine
+## Archive `old_v2.1/` — ne pas traiter comme source active
 
-| Chemin | Contenu |
-|--------|---------|
-| `old_v2.1/` | WIP docs + `.ai` complet pré-2.1 — **lecture seule** sauf demande |
-| `old_v2.1/docs_wip/` | Doublons docs MVP — **ne pas** traiter comme source active |
-| `old_assets/` | Cold storage assets |
+| Dossier | Contenu |
+|---------|---------|
+| `docs_wip/docs-finished-2.1/` | **32 docs MVP/TNR obsolètes** (ex-`docs/`) |
+| `docs_wip/docs/` | Docs MVP pré-merge 21.1 |
+| `staging_residual/` | Stubs staging + reviews/story terminés |
+| `scripts_legacy/` | Scripts `@deprecated` one-shot |
+| `triage/to-check-manually/` | Manifestes dedup manuels |
+| `legacy/` | `REPO_SEPARATION.md`, ancien pack `release/` |
+| `ai_work/`, `assets_wip/`, `story_wip/` | Quarantaine 21.1 |
+
+**Règle :** ne pas suivre les « prochaines étapes » dans ces fichiers — vérifier `project-state.md`.
 
 ---
 
-## Validation & versionnement (canonique)
+## Validation & versionnement
 
 ```bash
-npm run version:prompt      # X +1 (nouveau prompt)
-npm run version:task          # Y +1 (tâche distincte)
+npm run version:prompt
+npm run version:task
 npm run validate:companion-bonds
 npm run validate:link-corpus
 npm run tnr:baseline
 npm run build
 ```
 
-- Politique : [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md)
-- Pipeline : [`agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md)
-- Log 2.2 : [`traceability/changelog/DEV_LOG_2_2.md`](./traceability/changelog/DEV_LOG_2_2.md)
-
-**Lint :** ~33 issues préexistantes — non bloquant. **Ne pas** utiliser `validate-conversations.mjs` (legacy → `validate:link-corpus`).
-
----
-
-## Nom produit
-
-Utiliser **Havre des Brumes** / **IDLE Isekai Chill**.  
-**Ne pas** utiliser « Wonderland » (nom obsolète). Les zip corpus `wonderland_*` sont des noms de fichiers historiques uniquement.
+Voir [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) et [`06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md).

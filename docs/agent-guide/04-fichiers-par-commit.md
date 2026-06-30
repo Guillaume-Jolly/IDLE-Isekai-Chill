@@ -62,7 +62,7 @@ Chaque **commit** ou **fin de session significative** doit laisser le repo lisib
 | `staging/playbooks/05-assets-2.0-migration.md` | Phases 2–3 done |
 | `docs/traceability/assets/PHASE0-assets-2.0.md` | Idem |
 | `staging/companion-visual-pack/CUTOUT_STYLE.md` | Encore ancre Etna v2 — conflit v3 |
-| `docs/PROJECT_STATE.md`, `BUILD_ERRORS.md` | Stale — archiver plutôt que maintenir |
+| `docs/PROJECT_STATE.md` (archivé → `old_v2.1/docs_wip/docs-finished-2.1/`) | Stale — ne pas maintenir |
 
 ---
 

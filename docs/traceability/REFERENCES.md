@@ -44,7 +44,7 @@ Dernière sync : 2026-06-30 (release 2.1.0.0, index agent)
 | `public/references/` | `old_assets/public-references/` |
 | `staging/planning/_phase4-size-scan.mjs` | `scripts/phase4-size-scan.mjs` |
 
-Stubs redirect : `staging/changelog-detailed/README.md`, `staging/agent-guide/README.md`, `staging/planning/README.md`.
+Stubs redirect (archivés MVP 22.1) : voir `old_v2.1/staging_residual/` — sources actives : `docs/agent-guide/`, `docs/traceability/changelog/`.
 
 ---
 

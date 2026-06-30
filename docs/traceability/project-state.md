@@ -1,7 +1,7 @@
 # État du projet — IDLE Isekai Chill (Havre des Brumes)
 
 > **Source de vérité courante** — mise à jour : 2026-06-30  
-> Documents historiques pré-2.1 : [`docs/PROJECT_STATE.md`](../PROJECT_STATE.md) (audit 2026-06-22, partiellement obsolète)
+> Documents historiques archivés : [`old_v2.1/docs_wip/docs-finished-2.1/`](../old_v2.1/docs_wip/docs-finished-2.1/PROJECT_STATE.md) (audit 2026-06-22).
 
 ## Résumé
 
