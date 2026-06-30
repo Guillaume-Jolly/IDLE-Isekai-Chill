@@ -19,12 +19,7 @@
 
 ## 3. HEAD final
 
-À compléter après commit : voir `git log -1 --oneline`.
-
-Commits release précédents sur la branche :
-- `ca5ad07` — docs: add release 2.1 tnr report
-- `34d1589` — fix(release): resolve blocking tnr issues
-- (MVP 1–19 : voir `git log --oneline -n 30`)
+`bf2df63` — `chore(release): prepare havre des brumes 2.1`
 
 ---
 
@@ -32,15 +27,9 @@ Commits release précédents sur la branche :
 
 | Commit | Message |
 |--------|---------|
-| *(ce livrable)* | `chore(release): prepare havre des brumes 2.1` |
-
-Contenu prévu :
-- `package.json` → 2.1.0
-- `build-revision.json` → revision 128
-- `docs/CHANGELOG_2_1.md`, `docs/RELEASE_NOTES_2_1.md`
-- `docs/traceability/changelog/VERSION-INDEX.md`
-- `docs/traceability/assets/asset-manifest.json` (regénéré tnr)
-- `.cursor/rules/00-idle-isekai-core.mdc` (remplace Wonderland)
+| `bf2df63` | `chore(release): prepare havre des brumes 2.1` |
+| `ca5ad07` | `docs: add release 2.1 tnr report` |
+| `34d1589` | `fix(release): resolve blocking tnr issues` |
 
 ---
 
@@ -122,7 +111,9 @@ Voir tableau Groupe B ci-dessus. Le working tree reste **dirty** avec WIP intent
 
 ## 10. Push status
 
-À mettre à jour après `git push origin feature/myrion-worksite-mvp2`.
+**Effectué** — `git push -u origin feature/myrion-worksite-mvp2` (2026-06-30).
+
+Branche distante créée / mise à jour. HEAD poussé : `bf2df63`.
 
 ---
 
@@ -130,11 +121,11 @@ Voir tableau Groupe B ci-dessus. Le working tree reste **dirty** avec WIP intent
 
 `gh` CLI non disponible sur l’environnement d’exécution.
 
-**Action recommandée pour Guillaume :**
-1. Ouvrir PR `feature/myrion-worksite-mvp2` → `main` (ou branche cible du dépôt)
-2. Titre : **Release 2.1 — Ferme lunaire étendue, biomes et liens compagnons**
-3. Corps : résumé 2.1, validations, réserves, liens changelog + TNR
-4. **Ne pas merger** sans revue explicite
+**Action pour Guillaume :**
+
+Créer la PR via : https://github.com/Guillaume-Jolly/IDLE-Isekai-Chill/pull/new/feature/myrion-worksite-mvp2
+
+(`gh` CLI non disponible sur l’environnement d’exécution — aucune PR auto-créée.)
 
 ---
 
