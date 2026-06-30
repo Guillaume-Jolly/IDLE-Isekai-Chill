@@ -13,11 +13,11 @@ export const SYSTEM_CONTEXT_HINTS: Record<
   },
   refuge: {
     shortLabel: 'Refuge',
-    phrase: 'Les Myrions récupérés ici forment le cœur de tes activités.',
+    phrase: 'Les Myrions capturés y reposent — ils alimentent le chantier et la chasse.',
   },
   hunt: {
     shortLabel: 'Chasse',
-    phrase: 'Explore les biomes pour rencontrer de nouvelles espèces.',
+    phrase: 'Capture de nouveaux Myrions pour le Refuge et la Ferme lunaire.',
   },
   village: {
     shortLabel: 'Village',

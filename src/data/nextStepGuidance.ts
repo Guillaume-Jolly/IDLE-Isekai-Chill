@@ -1,7 +1,7 @@
 import type { ViewKey } from '../components/AppNav'
+import { totalStatTokens } from './companionStats'
 import { mergeMyrionWorksite } from './myrionWorksite'
 import type { MinigameSave } from './minigameSave'
-import { buildInventorySnapshot } from './inventoryView'
 import type { StatKey } from './companionStats'
 import type { ResourceKey } from './resources'
 
@@ -28,10 +28,11 @@ export type NextStepContext = {
   buildings: Record<string, number>
   eventPulls: number
   questsClaimed: number
-  companions: Record<string, { unspentStatPoints: number }>
+  companions: Record<string, { unspentStatPoints: number; affinity: number }>
 }
 
 const MOON_FARM_ACTIVITY_ID = 'farm-worksite'
+const HUNT_ACTIVITY_ID = 'farm-capture'
 const REFUGE_ACTIVITY_ID = 'farm-dressage'
 
 function hasWorksiteEngagement(minigameSave: MinigameSave): boolean {
@@ -55,21 +56,30 @@ function hasWorksiteAssignment(minigameSave: MinigameSave): boolean {
   return false
 }
 
-function countNonZeroMainResources(ctx: NextStepContext): number {
-  const snapshot = buildInventorySnapshot({
-    resources: ctx.resources,
-    companionFragments: ctx.companionFragments,
-    statTokens: ctx.statTokens,
-    buildings: ctx.buildings,
-    minigameSave: ctx.minigameSave,
-    companions: ctx.companions,
-    eventPulls: ctx.eventPulls,
-    questsClaimed: ctx.questsClaimed,
-  })
-  return snapshot.sections
-    .slice(0, 4)
-    .flatMap((section) => section.items)
-    .filter((item) => item.amount > 0).length
+function totalChantierProduction(minigameSave: MinigameSave): number {
+  const worksite = mergeMyrionWorksite(minigameSave.myrionWorksite)
+  return Object.values(worksite.totalProducedBySpot ?? {}).reduce<number>(
+    (sum, value) => sum + (value ?? 0),
+    0,
+  )
+}
+
+function unlockedWorksiteBiomeCount(minigameSave: MinigameSave): number {
+  return mergeMyrionWorksite(minigameSave.myrionWorksite).unlockedBiomeIds.length
+}
+
+function hasStatAssignmentPending(ctx: NextStepContext): boolean {
+  if (totalStatTokens(ctx.statTokens) > 0) return true
+  return Object.values(ctx.companions).some((companion) => companion.unspentStatPoints > 0)
+}
+
+function hasAffinityHeadroom(ctx: NextStepContext): boolean {
+  return Object.values(ctx.companions).some((companion) => companion.affinity < 5)
+}
+
+function hasWorksiteBasics(ctx: NextStepContext): boolean {
+  const pets = ctx.minigameSave.pets ?? []
+  return pets.length > 0 && hasWorksiteAssignment(ctx.minigameSave) && hasWorksiteEngagement(ctx.minigameSave)
 }
 
 export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
@@ -87,46 +97,81 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
     }
   }
 
-  if (pets.length > 0 && !hasWorksiteAssignment(ctx.minigameSave)) {
+  if (pets.length === 0) {
+    return {
+      id: 'hunt-first-myrion',
+      kicker: 'À faire maintenant',
+      label: 'Capturer un premier Myrion',
+      detail: 'La chasse aux familiers alimente le Refuge et le chantier de la Ferme lunaire.',
+      target: { kind: 'activity', activityId: HUNT_ACTIVITY_ID },
+      recommendedActivityId: HUNT_ACTIVITY_ID,
+    }
+  }
+
+  if (!hasWorksiteAssignment(ctx.minigameSave)) {
     return {
       id: 'assign-myrion',
       kicker: 'À faire maintenant',
-      label: 'Assigner un Myrion à une activité',
-      detail: 'Envoie un Myrion sur un biome du chantier pour lancer la production.',
+      label: 'Assigner un Myrion au chantier',
+      detail: 'Envoie un Myrion sur un filon de la Ferme lunaire pour lancer la production.',
       target: { kind: 'activity', activityId: MOON_FARM_ACTIVITY_ID },
       recommendedActivityId: MOON_FARM_ACTIVITY_ID,
     }
   }
 
-  if (pets.length === 0) {
+  if (hasStatAssignmentPending(ctx)) {
+    return {
+      id: 'assign-companion-stats',
+      kicker: 'Objectif conseillé',
+      label: 'Assigner des stats compagnons',
+      detail: 'Onglet Liens : place tes points de niveau ou jetons gacha sur une stat.',
+      target: { kind: 'view', view: 'companions' },
+    }
+  }
+
+  if (tickets > 0 && hasWorksiteBasics(ctx)) {
+    return {
+      id: 'try-gacha',
+      kicker: 'Prochaine piste',
+      label: 'Tenter une invocation',
+      detail: 'Tu as des tickets — une invocation peut élargir ton équipe ou tes fragments.',
+      target: { kind: 'view', view: 'event' },
+    }
+  }
+
+  if (
+    unlockedWorksiteBiomeCount(ctx.minigameSave) <= 1 &&
+    totalChantierProduction(ctx.minigameSave) >= 18
+  ) {
+    return {
+      id: 'expand-chantier-biomes',
+      kicker: 'Objectif conseillé',
+      label: 'Étendre le chantier',
+      detail: 'Produis encore un peu sur la prairie pour débloquer un nouveau biome.',
+      target: { kind: 'activity', activityId: MOON_FARM_ACTIVITY_ID },
+      recommendedActivityId: MOON_FARM_ACTIVITY_ID,
+    }
+  }
+
+  if (hasAffinityHeadroom(ctx) && hasWorksiteBasics(ctx)) {
+    return {
+      id: 'strengthen-bonds',
+      kicker: 'Prochaine piste',
+      label: 'Approfondir un lien compagnon',
+      detail:
+        'Onglet Liens : conversations de lien (gratuites) ou mini-jeu Parler (activité à choix).',
+      target: { kind: 'view', view: 'companions' },
+    }
+  }
+
+  if (pets.length > 0 && totalChantierProduction(ctx.minigameSave) < 3) {
     return {
       id: 'visit-refuge',
       kicker: 'Prochaine piste',
-      label: 'Voir les Myrions au Refuge',
-      detail: 'Récupère ou soigne des Myrions — ils alimentent le reste du Havre.',
+      label: 'Visiter le Refuge',
+      detail: 'Soigne ou observe tes Myrions entre deux sessions au chantier.',
       target: { kind: 'activity', activityId: REFUGE_ACTIVITY_ID },
       recommendedActivityId: REFUGE_ACTIVITY_ID,
-    }
-  }
-
-  const resourceKinds = countNonZeroMainResources(ctx)
-  if (resourceKinds < 4) {
-    return {
-      id: 'check-inventory',
-      kicker: 'Objectif conseillé',
-      label: 'Consulter les ressources',
-      detail: 'Repère ce que tu as déjà et où les dépenser dans le village.',
-      target: { kind: 'view', view: 'inventory' },
-    }
-  }
-
-  if (tickets > 0) {
-    return {
-      id: 'try-gacha',
-      kicker: 'À faire maintenant',
-      label: 'Tenter une invocation',
-      detail: 'Tu as des tickets — une invocation peut élargir ton équipe.',
-      target: { kind: 'view', view: 'event' },
     }
   }
 
@@ -134,7 +179,7 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
     id: 'keep-improving',
     kicker: 'Objectif conseillé',
     label: 'Continuer à améliorer le Havre',
-    detail: 'Explore les mini-jeux, fais monter les bâtiments et reviens souvent.',
+    detail: 'Hub mini-jeux, bâtiments du village et progression du chantier — à ton rythme.',
     target: { kind: 'none' },
   }
 }
