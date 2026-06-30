@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "runa-story-premiere-lame",
+  "kind": "story",
+  "title": "La première lame offerte",
+  "subtitle": "Runa — atelier, affinité 3+",
+  "companionId": "runa",
+  "minAffinity": 3,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "ribbon-workshop" },
+  "tags": ["story", "runa", "forge", "lore-batiments"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-setup",
+      "beats": [
+        {
+          "id": "n-1",
+          "speaker": "narrator",
+          "text": "Runa polit une lame courte — pas pour combattre, pour marquer les poteaux du nouveau chemin vers la ferme."
+        },
+        {
+          "id": "c-1",
+          "speaker": "companion",
+          "characterId": "runa",
+          "mood": "neutral",
+          "text": "Brann m'aide sur l'acier. Moi, je signe les rubans. Chaque bâtiment du havre a une signature.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "direct",
+      "context": [
+        {
+          "id": "n-2",
+          "speaker": "narrator",
+          "text": "Elle tend une lame neuve — légère, gravée d'un glyphe de « retour »."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "runa",
+        "mood": "shy",
+        "text": "C'est pour toi. Pas pour te défendre… pour te rappeler que le havre te laisse toujours un chemin."
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Je la garderai comme une promesse, pas comme une arme.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "runa",
+            "mood": "happy",
+            "text": "C'est exactement pour ça que je l'ai faite.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Super. Je terrasse les légumes avec.",
+          "tone": "playful",
+          "score": 0,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "runa",
+            "mood": "annoyed",
+            "text": "Pas sur mes lames. Utilise une cuillère, comme Nami.",
+            "fx": "fail"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Elle tient bien ? Je veux une lame fiable.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "runa",
+            "mood": "neutral",
+            "text": "Testée trois fois. Fiable comme mon marteau.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Un chemin gravé pour moi… c'est plus qu'un cadeau.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "runa",
+            "mood": "romantic",
+            "text": "…Alors je graverai d'autres glyphes. Quand tu seras prêt.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "runa",
+          "mood": "happy",
+          "text": "L'atelier ferme tard. Si tu passes, je chaufferai le métal — et peut-être le thé.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

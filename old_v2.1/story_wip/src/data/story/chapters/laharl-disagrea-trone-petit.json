@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "id": "laharl-disagrea-trone-petit",
+  "kind": "disagrea",
+  "title": "Laharl — Le petit trône",
+  "subtitle": "Event Disagrea — overlord domestique",
+  "companionId": "laharl",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": {
+    "kind": "asset",
+    "path": "assets/companions/laharl/background-1.png"
+  },
+  "tags": ["disagrea", "laharl", "event"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-1",
+          "speaker": "narrator",
+          "text": "Laharl a installé un trône miniature sur la colline — pas pour dominer, pour avoir une vue sur un village qui ne crie jamais « overlord »."
+        },
+        {
+          "id": "c-1",
+          "speaker": "companion",
+          "characterId": "laharl",
+          "mood": "playful",
+          "text": "Ne le dis pas à Etna : ce havre est… acceptable. Même sans boss final.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "playful",
+      "context": [
+        {
+          "id": "n-2",
+          "speaker": "narrator",
+          "text": "Il croise les bras — pose classique — mais le trône est trop petit pour être intimidant."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "laharl",
+        "mood": "neutral",
+        "text": "Alors ? Un overlord peut-il se reposer… ou tu vas me challenger pour un territoire de dix mètres carrés ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Repose-toi. Tu as gagné le droit de ne plus tout conquérir.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "laharl",
+            "mood": "shy",
+            "text": "…Hmph. Personne d'autre ose me dire ça. Merci.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Je challenge : meilleure vue depuis le toit de Nami.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "laharl",
+            "mood": "playful",
+            "text": "Audacieux ! J'accepte la rivalité… amicale.",
+            "fx": "emphasis"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Ton territoire est le havre entier. Assume.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "laharl",
+            "mood": "neutral",
+            "text": "Assume… oui. Overlord du repos, peut-être.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je préfère ton trône miniature à tout château.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "laharl",
+            "mood": "romantic",
+            "text": "…Impudence parfaite. Garde cette phrase pour la victoire.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "laharl",
+          "mood": "happy",
+          "text": "Pas mal pour un monde sans fin de niveau. On verra si tu tiens la saison — overlord.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

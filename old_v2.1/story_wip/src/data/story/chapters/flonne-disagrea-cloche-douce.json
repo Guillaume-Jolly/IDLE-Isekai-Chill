@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "id": "flonne-disagrea-cloche-douce",
+  "kind": "disagrea",
+  "title": "Flonne — Cloche douce",
+  "subtitle": "Event Disagrea — confiance pastel",
+  "companionId": "flonne",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": {
+    "kind": "asset",
+    "path": "assets/companions/flonne/background-1.png"
+  },
+  "tags": ["disagrea", "flonne", "event"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-1",
+          "speaker": "narrator",
+          "text": "Flonne essuie une cloche miniature — pas pour sonner la guerre, pour tester si le havre accepte les anges bruyants."
+        },
+        {
+          "id": "c-1",
+          "speaker": "companion",
+          "characterId": "flonne",
+          "mood": "happy",
+          "text": "Bonjour ! Je suis Flonne ! Je viens aider, pas juger votre niveau de cozy !",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "sincere",
+      "context": [
+        {
+          "id": "n-2",
+          "speaker": "narrator",
+          "text": "Sa cloche tinte une fois — douce, comme un rappel à respirer."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "flonne",
+        "mood": "neutral",
+        "text": "Dans mon monde, on soigne avec des quêtes infinies. Ici… on soigne avec du thé. Tu préfères quoi ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Le thé. Les quêtes infinies, j'en ai assez vu.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "happy",
+            "text": "Oui ! Le havre est une guérison. Je veux apprendre.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Les deux : thé + quête « trouver le meilleur biscuit ».",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "playful",
+            "text": "Quête acceptée ! Nami va adorer !",
+            "fx": "emphasis"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Montre comment tu aides sans casser le calme.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "neutral",
+            "text": "Je sonne doucement. Et je demande avant d'entrer.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Avec toi, même une cloche semble romantique.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "shy",
+            "text": "…Je rougis ! C'est… très angélique, cette phrase.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "flonne",
+          "mood": "happy",
+          "text": "Je reste pour la saison ! Prévenez-moi si le havre a besoin d'une cloche… ou d'un ami.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

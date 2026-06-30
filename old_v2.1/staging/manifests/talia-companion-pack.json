@@ -1,0 +1,19 @@
+{
+  "manifestId": "talia-companion-pack",
+  "updatedAt": "2026-06-25",
+  "status": "prod-imported",
+  "runtime": {
+    "guideCutouts": "assets/Compagnons/talia/Autres/guide/point-{biomeId}.png",
+    "chibi": "assets/Compagnons/talia/chibis/chibi.png"
+  },
+  "pipelineSources": {
+    "companionPack": "old_assets/Compagnons/imports/talia-import/myrion_companion_pack/",
+    "chibis9": "old_assets/Compagnons/imports/talia-import/chibis_9_pack_cutout/",
+    "minigamePrompts": "old_assets/Background/prompts/minigames/talia-sources/"
+  },
+  "scripts": {
+    "importPack": "scripts/import-talia-companion-pack.mjs",
+    "importChibis9": "scripts/import-chibis-9-pack.mjs",
+    "paths": "scripts/minigame-asset-paths.mjs → sourceMinigamePaths.captureTalia*"
+  }
+}

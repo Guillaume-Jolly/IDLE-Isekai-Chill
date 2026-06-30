@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "elwen-story-sceau-archive",
+  "kind": "story",
+  "title": "Sceau sans secret",
+  "subtitle": "Elwen — archives, affinité 2+",
+  "companionId": "elwen",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "arcane-library" },
+  "tags": ["story", "elwen", "archives"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "Elwen trace un sceau fae sur une page — pas pour fermer, pour ouvrir lentement."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "elwen",
+          "mood": "neutral",
+          "text": "Les archives du havre disent : « On est revenus parce que la guerre ne tenait plus dans nos poches. »",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "sincere",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Thorne lève les yeux d'un autre rayon — approbation silencieuse entre érudits."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "elwen",
+        "mood": "shy",
+        "text": "Tu veux lire l'histoire du village… ou écrire la tienne ici ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Les deux. Commencer par écouter.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "elwen",
+            "mood": "happy",
+            "text": "Sagesse rare. Je te prête la marge la plus douce — celle où ton nom pourra apparaître.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Écrire « je me suis reposé » en gros sur la page.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "elwen",
+            "mood": "playful",
+            "text": "Entry valide ! Les archives admettent le chill comme genre littéraire.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Où sont les secrets sur les failles Disagrea ?",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "elwen",
+            "mood": "neutral",
+            "text": "Tiroir pourpre, clé en ruban. Spoiler : ce sont des invités curieux, pas des envahisseurs.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "J'aimerais que tu lises avec moi, pas seule.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "elwen",
+            "mood": "romantic",
+            "text": "…Alors approche. Les mots sonnent mieux à deux voix basses.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "elwen",
+          "mood": "happy",
+          "text": "Reviens quand tu auras une page à ajouter. Le havre grandit avec tes choix — pas avec ton stress.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "flonne-disagrea-plume-blanche",
+  "kind": "disagrea",
+  "title": "Flonne — Plume blanche",
+  "subtitle": "Guérison sans sermon (event Disagrea)",
+  "companionId": "flonne",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "asset", "path": "assets/companions/flonne/background-1.png" },
+  "tags": ["disagrea", "flonne", "event"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "La faille Disagrea pulse en pastel. Flonne essuie une éraflure invisible sur ton bras — geste absurdement sérieux."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "flonne",
+          "mood": "happy",
+          "text": "Bienvenue dans le havre ! Ici on guérit avec des soupes et des câlins, pas avec des quêtes infinies.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "sincere",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Etna râle au loin. Flonne lui lance un oreiller — diplomatie angélique."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "flonne",
+        "mood": "neutral",
+        "text": "Tu es fatigué de combattre ailleurs… ou tu cherches juste un endroit mignon ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Fatigué. Ce village me semble… safe.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "happy",
+            "text": "Alors repose-toi ! Même les overlords finissent par faire une sieste ici.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Je cherche surtout des lapins géants comme Pleinair.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "playful",
+            "text": "Priorités saines ! Pleinair est dans l'atelier — silencieux mais câlin.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Dis-moi ce que Disagrea veut de ce havre.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "neutral",
+            "text": "Observer, pas conquérir. Etna dirait « stratégie » — moi je dis « curiosité ».",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je cherchais surtout quelqu'un qui sourit comme toi.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "flonne",
+            "mood": "romantic",
+            "text": "…Oh ! Alors je garderai une plume blanche pour ton prochain retour.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "flonne",
+          "mood": "happy",
+          "text": "La faille se calme. Tu peux rester — sans timer, sans punition. Juste le village.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

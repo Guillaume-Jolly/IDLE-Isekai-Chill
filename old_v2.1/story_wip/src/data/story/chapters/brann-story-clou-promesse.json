@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "brann-story-clou-promesse",
+  "kind": "story",
+  "title": "Le clou qui tient",
+  "subtitle": "Brann — atelier, affinité 2+",
+  "companionId": "brann",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "ribbon-workshop" },
+  "tags": ["story", "brann", "atelier"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "Brann serre un clou de météorite entre deux doigts de pierre. L'étincelle sent le café brûlé et la promesse."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "brann",
+          "mood": "neutral",
+          "text": "Runa m'a demandé de tenir l'atelier ce soir. Les golems ne fatiguent pas… mais ils s'inquiètent, parfois.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "direct",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Il pose le clou sur la table — pas pour te tester, pour te confier quelque chose de solide."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "brann",
+        "mood": "neutral",
+        "text": "Tu construis aussi, ici. Tu veux que je renforce ton village… ou seulement tes murs ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Les liens d'abord. Les murs suivront.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "brann",
+            "mood": "happy",
+            "text": "…Bien répondu. Je garde ce clou pour le bâtiment où tu reviens souvent.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Renforce surtout la cuisine. Nami menace de casser des assiettes.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "brann",
+            "mood": "playful",
+            "text": "Un mur anti-éclats. Note prise — avec un sourire de pierre.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Les deux. Montre-moi comment tu travailles.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "brann",
+            "mood": "neutral",
+            "text": "Alors tiens le marteau. Je corrigerai ta posture — sans rire, promis.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je voudrais un ancrage qui ne bouge pas quand je reviens te voir.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "brann",
+            "mood": "shy",
+            "text": "…Mon cœur de pierre bat plus fort. Ce clou portera ton prénom, discret.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "brann",
+          "mood": "happy",
+          "text": "Demain, l'atelier sentira encore la forge. Et moi, je serai là — fiable comme un bon rivet.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

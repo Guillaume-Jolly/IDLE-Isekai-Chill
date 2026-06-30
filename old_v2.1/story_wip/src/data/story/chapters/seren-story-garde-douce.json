@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "seren-story-garde-douce",
+  "kind": "story",
+  "title": "Garde douce",
+  "subtitle": "Seren — auberge, affinité 3+",
+  "companionId": "seren",
+  "minAffinity": 3,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "inn" },
+  "tags": ["story", "seren", "auberge", "lore-village"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-setup",
+      "beats": [
+        {
+          "id": "n-1",
+          "speaker": "narrator",
+          "text": "Seren vérifie les lanternes de l'auberge. Ici, « garde » ne veut pas « guerre » — ça veut « personne ne dort dans le froid »."
+        },
+        {
+          "id": "c-1",
+          "speaker": "companion",
+          "characterId": "seren",
+          "mood": "neutral",
+          "text": "Le havre n'a pas de murailles hautes. Seulement des gens qui veillent.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "direct",
+      "context": [
+        {
+          "id": "n-2",
+          "speaker": "narrator",
+          "text": "Un voyageur ronfle déjà — preuve que la mission est accomplie."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "seren",
+        "mood": "neutral",
+        "text": "Tu veilles aussi, non ? Dis-moi ce que tu protèges quand personne regarde."
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Les liens. Les gens qui ont fui des mondes trop bruyants.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "seren",
+            "mood": "happy",
+            "text": "Alors nous sommes de la même garde. Honneur partagé.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Je protège le stock de biscuits de Nami.",
+          "tone": "playful",
+          "score": 0,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "seren",
+            "mood": "annoyed",
+            "text": "Les biscuits ne tiennent pas une forteresse. Réponds sérieusement.",
+            "fx": "fail"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Ce village. Point final.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "seren",
+            "mood": "neutral",
+            "text": "Bien. Je te crois. Et je te couvre quand tu fatigues.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je protège ceux qui me font baisser la garde.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "seren",
+            "mood": "shy",
+            "text": "…Phrase dangereuse. Garde-la pour ceux qui la méritent.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "seren",
+          "mood": "happy",
+          "text": "Va dormir. Je veille. C'est plus doux que tu ne l'imagines.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

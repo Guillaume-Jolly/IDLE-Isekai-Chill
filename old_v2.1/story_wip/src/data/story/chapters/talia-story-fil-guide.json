@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "talia-story-fil-guide",
+  "kind": "story",
+  "title": "Le fil qui guide",
+  "subtitle": "Talia — lisière, affinité 2+",
+  "companionId": "talia",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "biome", "biomeId": "foret-ancienne", "variant": "capture-portrait" },
+  "tags": ["story", "talia", "foret", "lore-chasse"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "Talia noue un fil rouge entre deux arbres — balise joyeuse, pas un piège."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "talia",
+          "mood": "playful",
+          "text": "La chasse ici, c'est du papouillage avec les Myrions. Pas de capture forcée — juste des jeux.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "playful",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Un petit Myrion curieux picore le fil — il ne s'enfuit pas."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "talia",
+        "mood": "happy",
+        "text": "Tu veux apprendre la chasse chill… ou tu préfères que je te perde gentiment ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Apprends-moi. Je veux comprendre ce monde.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "talia",
+            "mood": "happy",
+            "text": "Règle numéro un : si le Myrion baille, tu attends. Même les légendaires ont droit à la sieste.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Perds-moi — mais laisse des indices comestibles.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "talia",
+            "mood": "playful",
+            "text": "Deal ! Croûtons de Nami tous les cent mètres. Meilleur GPS du monde.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Montre-moi un biome sans stress.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "talia",
+            "mood": "neutral",
+            "text": "Prairie solaire, midi. Les Myrions y font la sieste en public. Zéro combat.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je te suivrais même sans fil.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "talia",
+            "mood": "romantic",
+            "text": "…Alors je garde le fil quand même. Parce que revenir ensemble, c'est mignon.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "talia",
+          "mood": "happy",
+          "text": "Demain, on essaie la capture douce. Spoiler : tu vas adorer, pas stresser.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

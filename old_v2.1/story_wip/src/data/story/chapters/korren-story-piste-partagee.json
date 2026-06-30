@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "korren-story-piste-partagee",
+  "kind": "story",
+  "title": "Piste partagée",
+  "subtitle": "Korren — lisière, affinité 2+",
+  "companionId": "korren",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "biome", "biomeId": "foret-ancienne", "variant": "capture-wide" },
+  "tags": ["story", "korren", "foret"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "Korren efface à moitié ses traces — pas par méfiance, pour laisser la forêt respirer."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "korren",
+          "mood": "playful",
+          "text": "Talia m'a dit que tu reviens sans te presser. Bon signe — les sentiers ici n'aiment pas la course.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "playful",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Il pointe deux chemins — l'un vers le village, l'autre vers un Myrion qui fait la sieste."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "korren",
+        "mood": "happy",
+        "text": "Tu suis la piste facile… ou celle qui te fait découvrir quelque chose de mignon ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "La piste qui me laisse respirer.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "korren",
+            "mood": "happy",
+            "text": "Sage. Le havre est fait pour ça — pas pour optimiser jusqu'à l'épuisement.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Celle avec le Myrion qui ronfle, évidemment.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "korren",
+            "mood": "playful",
+            "text": "Excellent goût. On le laisse dormir — et on gagne quand même un souvenir.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Montre-moi où mène l'histoire du village.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "korren",
+            "mood": "neutral",
+            "text": "Par ici. Vieux panneau : « On est revenus construire, pas conquérir. »",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Celle où tu marches à côté de moi.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "korren",
+            "mood": "shy",
+            "text": "…D'accord. Mais je ralentis — les bons moments ne se speedrun pas.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "korren",
+          "mood": "happy",
+          "text": "Reviens au crépuscule. Les sentiels sont plus honnêtes quand le village ralentit.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

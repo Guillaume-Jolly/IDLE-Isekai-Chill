@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "mira-story-ruban-test",
+  "kind": "story",
+  "title": "Ruban d'essai",
+  "subtitle": "Mira — atelier, affinité 2+",
+  "companionId": "mira",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "ribbon-workshop" },
+  "tags": ["story", "mira", "atelier"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "Mira tient un ruban couleur aube — pas fini, déjà beau. Brann observe depuis la forge, silencieux."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "mira",
+          "mood": "happy",
+          "text": "Ici on coud des liens visibles. Pas des chaînes — des rubans qu'on peut défaire en souriant.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "romantic",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Elle mesure ton poignet — geste professionnel, regard curieux."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "mira",
+        "mood": "shy",
+        "text": "Tu veux un ruban pour te souvenir du village… ou pour te souvenir de quelqu'un ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Pour me souvenir que j'ai choisi de rester ici.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "mira",
+            "mood": "happy",
+            "text": "Couleur aube, alors. Elle ne fanera pas — comme une bonne promesse.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Pour me souvenir de ne pas acheter dix rubans d'un coup.",
+          "tone": "playful",
+          "score": 0,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "mira",
+            "mood": "annoyed",
+            "text": "…Un seul suffit. Même Maeve négocie avec plus de grâce.",
+            "fx": "fail"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Montre-moi comment tu travailles — sans précipitation.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "mira",
+            "mood": "neutral",
+            "text": "Tiens l'épingles. Ici, la lenteur est une compétence — pas une punition.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Pour me souvenir de toi, si tu acceptes.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "mira",
+            "mood": "romantic",
+            "text": "…Alors je broderai ton prénom côté doux. Personne ne le verra — sauf toi.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "mira",
+          "mood": "happy",
+          "text": "Reviens quand le ruban aura pris sa forme. Les belles choses ne se pressent pas.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

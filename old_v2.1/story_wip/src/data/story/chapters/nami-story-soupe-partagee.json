@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "nami-story-soupe-partagee",
+  "kind": "story",
+  "title": "Soupe partagée, bruit joyeux",
+  "subtitle": "Nami — auberge, affinité 2+",
+  "companionId": "nami",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "inn" },
+  "tags": ["story", "nami", "auberge", "lore-village"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "La marmite chuchote. Nami goûte, fronce le nez, rit — le village sent le cumin et la paix."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "nami",
+          "mood": "happy",
+          "text": "Ici, personne ne gagne en affamant les autres. Même les quêtes finissent par une assiette chaude.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "playful",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Elle te tend une cuillère — test, pas jugement."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "nami",
+        "mood": "playful",
+        "text": "Tu reviens parce que tu as faim… ou parce que ce havre te manquait ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Ce havre me manquait. La soupe aussi, un peu.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "happy",
+            "text": "Alors tu es des nôtres. Les revenants mangent en premier — règle non écrite.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Faim de soupe ET de potins sur les Myrions.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "playful",
+            "text": "Menu du jour : bouillon + rumeur qu'ils adorent les clochettes. Deux services !",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Dis-moi pourquoi ce village est si calme.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "neutral",
+            "text": "Parce qu'on a choisi le confort sur la course. Même les failles Disagrea finissent par souper.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je reviens pour ta voix dans la cuisine.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "romantic",
+            "text": "…Alors je chanteierai plus bas, juste pour toi. Et je garderai une place au chaud.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "nami",
+          "mood": "happy",
+          "text": "Reviens demain. Le village grandit lentement — comme une bonne sauce.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

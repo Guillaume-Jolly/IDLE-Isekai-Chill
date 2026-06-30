@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "lyra-story-deuxieme-marge",
+  "kind": "story",
+  "title": "La deuxième marge",
+  "subtitle": "Lyra — suite arc bibliothèque, affinité 4+",
+  "companionId": "lyra",
+  "minAffinity": 4,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "arcane-library" },
+  "tags": ["story", "lyra", "bibliotheque", "arc-suite"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-setup",
+      "beats": [
+        {
+          "id": "n-1",
+          "speaker": "narrator",
+          "text": "La page partagée a laissé une trace : Lyra t'attend près du rayonnage des contes interdits — qui, ici, sont juste des contes très privés."
+        },
+        {
+          "id": "c-1",
+          "speaker": "companion",
+          "characterId": "lyra",
+          "mood": "shy",
+          "text": "J'ai écrit une deuxième marge. Pour quelqu'un qui revient sans bruit.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "romantic",
+      "context": [
+        {
+          "id": "n-2",
+          "speaker": "narrator",
+          "text": "Elle ouvre le carnet — pas sur une formule magique, sur une liste de petits moments du village."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "lyra",
+        "mood": "romantic",
+        "text": "Tu veux figurer dans cette liste… ou tu préfères rester une note en bas de page ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Dans la liste. Pas en note de bas de page.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "lyra",
+            "mood": "happy",
+            "text": "Alors je t'écris entre « soupe de Nami » et « brume d'Iris ». C'est un bon quartier.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Note de bas de page : « trop cool pour le titre ».",
+          "tone": "playful",
+          "score": 0,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "lyra",
+            "mood": "annoyed",
+            "text": "Les marges sont sacrées. Pas de graffiti sur mon cœur.",
+            "fx": "fail"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Lis la ligne que tu as préparée pour moi.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "lyra",
+            "mood": "shy",
+            "text": "« Celui qui revient. » …Le reste, je le lirai quand tu seras prêt à l'entendre.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je veux être le chapitre, pas la marge.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "lyra",
+            "mood": "romantic",
+            "text": "…Chapitre. Un seul mot, et ma voix tremble déjà.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "lyra",
+          "mood": "happy",
+          "text": "La bibliothèque ferme. Mais entre nous, elle n'a jamais vraiment fermé.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

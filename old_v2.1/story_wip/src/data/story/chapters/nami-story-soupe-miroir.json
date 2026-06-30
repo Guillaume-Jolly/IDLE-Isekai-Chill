@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "nami-story-soupe-miroir",
+  "kind": "story",
+  "title": "Soupe et miroir de vapeur",
+  "subtitle": "Nami — cuisine, affinité 2+",
+  "companionId": "nami",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "place", "place": "la cuisine commune" },
+  "tags": ["story", "nami", "cuisine", "lore-village"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-setup",
+      "beats": [
+        {
+          "id": "n-1",
+          "speaker": "narrator",
+          "text": "La cuisine sent le gingembre et la pluie séchée. Nami agite une louche comme une baguette magique."
+        },
+        {
+          "id": "c-1",
+          "speaker": "companion",
+          "characterId": "nami",
+          "mood": "happy",
+          "text": "Tu sais pourquoi le havre est cozy ? Parce que personne mange seul quand la soupe est prête.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "playful",
+      "context": [
+        {
+          "id": "n-2",
+          "speaker": "narrator",
+          "text": "La vapeur dessine des formes sur le miroir de cuisine — Myrions curieux, peut-être."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "nami",
+        "mood": "playful",
+        "text": "Devine : soupe du courage, soupe du lien, ou soupe « tu rates et on rit quand même » ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Soupe du lien. C'est ce qui tient le village.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "happy",
+            "text": "Exact. Et tu as gagné un bol sans limite de retour.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "La troisième. Je rate souvent, je suis talentueux.",
+          "tone": "playful",
+          "score": 1,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "playful",
+            "text": "Parfait ! Les meilleurs liens commencent dans la soupe ratée.",
+            "fx": "emphasis"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Donne-moi celle qui nourrit le plus vite.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "neutral",
+            "text": "Courage, alors. Mais je mets du miel pour adoucir.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "La soupe qu'on partage après minuit, seuls.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "nami",
+            "mood": "romantic",
+            "text": "…J'en ai une spéciale. Réserve-la pour quand tu seras sûr.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "nami",
+          "mood": "happy",
+          "text": "Reviens quand ton estomac ou ton cœur crie famine. La cuisine ne ferme jamais vraiment.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

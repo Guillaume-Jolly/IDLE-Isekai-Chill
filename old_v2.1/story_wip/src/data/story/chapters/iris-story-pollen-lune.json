@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "iris-story-pollen-lune",
+  "kind": "story",
+  "title": "Pollen de lune",
+  "subtitle": "Iris — jardin, affinité 2+",
+  "companionId": "iris",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "mist-garden" },
+  "tags": ["story", "iris", "jardin", "lore-myrions"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-setup",
+      "beats": [
+        {
+          "id": "n-1",
+          "speaker": "narrator",
+          "text": "Iris récolte un pollen pâle qui ne pique pas — seulement les Myrions nocturnes le suivent sans peur."
+        },
+        {
+          "id": "c-1",
+          "speaker": "companion",
+          "characterId": "iris",
+          "mood": "shy",
+          "text": "Ce pollen garde la brume douce. Sans lui, le jardin deviendrait… bruyant.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "sincere",
+      "context": [
+        {
+          "id": "n-2",
+          "speaker": "narrator",
+          "text": "Un Myrion feuille s'assoit sur ton épaule — timide, mais pas effrayé."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "iris",
+        "mood": "neutral",
+        "text": "Tu crois que les créatures calmes choisissent les gens calmes… ou qu'elles nous rendent calmes ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Les deux. Le havre prouve que ça peut aller ensemble.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "iris",
+            "mood": "happy",
+            "text": "Oui… comme une fleur et sa brume. Merci pour cette image.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Elles choisissent ceux qui ont des snacks.",
+          "tone": "playful",
+          "score": 0,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "iris",
+            "mood": "annoyed",
+            "text": "Même les Myrions ont une dignité… presque.",
+            "fx": "fail"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Montre-moi comment tu récoltes sans les effrayer.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "iris",
+            "mood": "neutral",
+            "text": "Lentement. Comme tu approches les gens, je suppose.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Avec toi, même la brume semble un cocon.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "iris",
+            "mood": "romantic",
+            "text": "…Un cocon doux. Je n'avais jamais osé le dire.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "iris",
+          "mood": "happy",
+          "text": "Prends ce sachet de pollen. Pas pour combattre — pour rappeler que la nuit peut être paisible.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "id": "thorne-story-echelle-savoir",
+  "kind": "story",
+  "title": "L'échelle qui ne grince pas",
+  "subtitle": "Thorne — bibliothèque, affinité 2+",
+  "companionId": "thorne",
+  "minAffinity": 2,
+  "maxAffinity": 5,
+  "background": { "kind": "building", "buildingId": "arcane-library" },
+  "tags": ["story", "thorne", "bibliotheque", "lore-myrions"],
+  "locale": "fr",
+  "exchanges": [
+    {
+      "kind": "sequence",
+      "id": "ex-intro",
+      "beats": [
+        {
+          "id": "n-intro",
+          "speaker": "narrator",
+          "text": "Thorne règle une échelle de bibliothèque avec ses griffes — geste précis, presque tendre pour un dragonkin."
+        },
+        {
+          "id": "c-intro",
+          "speaker": "companion",
+          "characterId": "thorne",
+          "mood": "neutral",
+          "text": "Ce havre n'a pas de boss de fin. Curieux… et rassurant. Les Myrions ici ne fuient pas — ils choisissent de rester.",
+          "fx": "soft-enter"
+        }
+      ]
+    },
+    {
+      "kind": "dialogue",
+      "id": "ex-choix",
+      "toneHint": "sincere",
+      "context": [
+        {
+          "id": "n-context",
+          "speaker": "narrator",
+          "text": "Il te tend un index usé — celui des « mondes sans fin de niveau »."
+        }
+      ],
+      "prompt": {
+        "id": "c-prompt",
+        "speaker": "companion",
+        "characterId": "thorne",
+        "mood": "playful",
+        "text": "Tu lis pour t'échapper… ou pour comprendre pourquoi on est revenus ici ?"
+      },
+      "choices": [
+        {
+          "id": "ch-sincere",
+          "text": "Pour comprendre. Ce village me semble avoir une histoire.",
+          "tone": "sincere",
+          "score": 1,
+          "reaction": {
+            "id": "r-sincere",
+            "speaker": "companion",
+            "characterId": "thorne",
+            "mood": "happy",
+            "text": "Alors tu es mon lecteur idéal. La prochaine page parle des failles qui se referment en souriant.",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-playful",
+          "text": "Je lis surtout les recettes. Les dragons cuisinent ?",
+          "tone": "playful",
+          "score": 0,
+          "reaction": {
+            "id": "r-playful",
+            "speaker": "companion",
+            "characterId": "thorne",
+            "mood": "annoyed",
+            "text": "…Nami est à deux rayons. Reviens quand tu auras faim de savoir.",
+            "fx": "fail"
+          }
+        },
+        {
+          "id": "ch-direct",
+          "text": "Montre-moi la page sur les Myrions.",
+          "tone": "direct",
+          "score": 1,
+          "reaction": {
+            "id": "r-direct",
+            "speaker": "companion",
+            "characterId": "thorne",
+            "mood": "neutral",
+            "text": "Direct. J'aime. « Ils ne sont pas des esclaves — ce sont des voisins timides. »",
+            "fx": "soft-enter"
+          }
+        },
+        {
+          "id": "ch-romantic",
+          "text": "Je préfère ta voix aux parchemins.",
+          "tone": "romantic",
+          "score": 1,
+          "reaction": {
+            "id": "r-romantic",
+            "speaker": "companion",
+            "characterId": "thorne",
+            "mood": "shy",
+            "text": "…Impudence scolaire. Mais je ne fermerai pas le livre tout de suite.",
+            "fx": "emphasis"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "sequence",
+      "id": "ex-close",
+      "beats": [
+        {
+          "id": "n-close",
+          "speaker": "narrator",
+          "text": "L'échelle ne grince plus. Dehors, un Myrion passe — il ne fuit pas."
+        },
+        {
+          "id": "c-close",
+          "speaker": "companion",
+          "characterId": "thorne",
+          "mood": "happy",
+          "text": "Voilà la leçon du soir : ici, on construit. Pas besoin de fin de niveau pour être heureux.",
+          "fx": "success"
+        }
+      ]
+    }
+  ]
+}
