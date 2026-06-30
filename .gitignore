@@ -49,16 +49,27 @@ staging/companion-visual-pack/**/*.png
 staging/companion-visual-pack/data/GENERATION_QUEUE.json
 
 # Build stable isolée (dist + secrets locaux — archives conservées)
-deploy/stable/dist/
-deploy/stable/archive/
-deploy/stable/.env.stable.local
-deploy/stable/BUILD_INFO.json
-deploy/stable/certs/*.pem
-deploy/stable/certs/*.pfx
-deploy/stable/certs/*.cer
-deploy/stable/data/**
-!deploy/stable/data/.gitkeep
-deploy/stable/launcher-ui/*.png
-deploy/stable/launcher-ui/app.ico
-deploy/stable/launcher-ui/icon-source.png
+# → tout deploy/ est hors dépôt public (PROD locale PC hôte)
+/deploy/
+Launch IDLE Isekai Chill.cmd
+Launch Stable Server.cmd
 Launch IDLE Isekai Chill.lnk
+/scripts/build-stable-release.mjs
+/scripts/stable-prod-guard.mjs
+/scripts/serve-stable.mjs
+/scripts/serve-stable.ps1
+/scripts/stable-launcher.mjs
+/scripts/stable-launcher-gui.mjs
+/scripts/stable-server-endpoints.mjs
+/scripts/stable-resource-governor.mjs
+/scripts/generate-stable-tls.mjs
+/scripts/generate-stable-tls.ps1
+/scripts/trust-stable-tls.ps1
+/scripts/build-launcher-gui-host.mjs
+/scripts/LauncherGuiHost.cs
+/scripts/prepare-launcher-ui-assets.mjs
+/scripts/generate-launcher-icon.ps1
+/scripts/create-launcher-shortcut.ps1
+/scripts/open-launcher-gui.ps1
+/scripts/dev-server-manager.mjs
+/staging/playbooks/07-release-prod-stable.md

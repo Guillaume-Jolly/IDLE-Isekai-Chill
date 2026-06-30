@@ -19,9 +19,10 @@ IDLE Isekai Chill/
 ├── Input chatgpt/          # Drops user — gitignore
 ├── scripts/                # Import, promote, validate
 ├── .ai/                    # État agent (current-state, next-task)
-├── deploy/stable/          # Build prod locale + launcher
 └── vite.repo-assets.ts     # Pont assets/ → URLs runtime
 ```
+
+**Hors dépôt public :** stack PROD locale (`deploy/`, lanceurs `.cmd`, scripts `*stable*` / `*launcher*`) — PC hôte Guillaume uniquement.
 
 ---
 
@@ -80,7 +81,7 @@ assets/
 | `staging/` | WIP — ajouter OK, ne pas vider |
 | `Input chatgpt/` | Drops user — gitignore, ne pas toucher |
 | `old_assets/` | Archive — move-in only |
-| `deploy/stable/secrets` | Local prod — jamais commit |
+| `deploy/` | PROD locale — gitignore, hors repo public |
 
 ---
 

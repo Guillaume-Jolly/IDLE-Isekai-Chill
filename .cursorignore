@@ -1,0 +1,36 @@
+﻿# Cursor index exclusions — heavy archives & generated (read on demand via path)
+# Does not affect git; complements .gitignore for agent context.
+
+# Dependencies & build output
+node_modules/
+dist/
+dist-ssr/
+.tools/
+
+# Local temp / drops
+.tmp/
+Input chatgpt/
+build-output.txt
+
+# Large archives (preserve on disk — agents use docs/DOC_AGENT_INDEX.md)
+old_v2.1/
+old_assets/
+
+# Stable deploy artifacts
+deploy/stable/dist/
+deploy/stable/archive/
+deploy/stable/data/
+
+# Staging WIP bulk
+staging/companion-visual-pack/
+staging/**/GENERATION_QUEUE.json
+
+# Huge data blobs — use validate scripts, not full file reads
+src/data/linkCorpusV2.json
+src/data/linkCorpusV2.backup.json
+docs/traceability/assets/asset-manifest.json
+docs/traceability/assets/phase4-size-scan*.json
+docs/traceability/assets/old-assets-reports/
+
+# Manual triage leftovers
+To check manually/

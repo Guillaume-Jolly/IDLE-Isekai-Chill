@@ -69,7 +69,7 @@ Chaque **commit** ou **fin de session significative** doit laisser le repo lisib
 ## Ne pas committer
 
 - `public/build-info.json` (gitignore — généré)
-- Secrets `deploy/stable/.env*`, certs
+- Secrets et stack PROD : `deploy/` (gitignore — local PC hôte)
 - `Input chatgpt/` (gitignore)
 - PNG staging non validés (`staging/companion-visual-pack/**/*.png`)
 

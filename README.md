@@ -30,26 +30,7 @@ npm run tnr:baseline      # bonds + corpus + build + manifest assets
 
 ---
 
-## Serveur stable & launcher (prod locale)
-
-Build **figé**, séparé du dev Vite — pour jouer comme en prod (HTTPS, auth, accès mobile / 4G).
-
-| | |
-|---|---|
-| **Lancement rapide** | Double-clic `Launch Stable Server.cmd` ou `npm run launcher:stable` |
-| **Tableau de bord** | http://127.0.0.1:8789/ (surveillance, dev + stable) |
-| **Jeu stable (défaut)** | https://127.0.0.1:8787/ (port `STABLE_PORT` dans `.env.stable.local`) |
-| **Build prod** | `npm run build:stable:prod` — **volontaire**, après validation |
-| **Doc complète** | [`deploy/stable/README.md`](deploy/stable/README.md) |
-
-Premier lancement : copie auto de `deploy/stable/env.example` → `.env.stable.local` — **changer `STABLE_AUTH_PASS`**.  
-Certificat TLS auto-signé : `npm run trust:stable` (PC) ; mobile → voir doc stable § certificat.
-
-Playbook release : [`staging/playbooks/07-release-prod-stable.md`](staging/playbooks/07-release-prod-stable.md).
-
----
-
-## Build web classique
+## Build web
 
 ```bash
 npm run build      # dist/ pour hébergement statique
@@ -69,7 +50,7 @@ npm run preview    # preview du build
 | **Règles agent** | [`AGENTS.md`](AGENTS.md) |
 | **État courant** | [`.ai/current-state.md`](.ai/current-state.md) · [`docs/traceability/project-state.md`](docs/traceability/project-state.md) |
 | **Phase 2.2** | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](docs/HANDOFF_2_2_AGENT_BRIEF.md) |
-| **Serveur stable** | [`deploy/stable/README.md`](deploy/stable/README.md) |
+| **Serveur stable (prod locale)** | Hors dépôt public — dossier `deploy/` sur le PC hôte uniquement |
 | **Design / TNR gameplay** | [`docs/`](docs/) (usage interne) |
 
 Changelog micro-modifs (version UI) : [`docs/traceability/changelog/`](docs/traceability/changelog/).

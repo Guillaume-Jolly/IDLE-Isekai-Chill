@@ -36,13 +36,7 @@
     "import:chibis-9": "node scripts/import-chibis-9-pack.mjs",
     "setup:live2d": "node scripts/setup-live2d-demo.mjs",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "build:stable": "node scripts/build-stable-release.mjs",
-    "build:stable:prod": "node scripts/build-stable-release.mjs --confirm-prod",
-    "tls:stable": "node scripts/generate-stable-tls.mjs",
-    "trust:stable": "powershell -ExecutionPolicy Bypass -File scripts/trust-stable-tls.ps1",
-    "serve:stable": "node scripts/serve-stable.mjs",
-    "launcher:stable": "node scripts/stable-launcher.mjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "pixi-live2d-display": "0.4.0",

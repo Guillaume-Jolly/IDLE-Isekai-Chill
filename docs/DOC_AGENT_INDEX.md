@@ -18,7 +18,7 @@
 | 7 | [`.ai/next-task.md`](../.ai/next-task.md) | Prochaine tâche concrète |
 
 **Branche prod actuelle :** `main` · tag **`v2.1.0.0`** @ `8e50e13`  
-**Ne plus utiliser** `feature/myrion-worksite-mvp2` comme branche de travail (mergée).
+**Stack PROD locale :** `deploy/`, lanceurs, scripts `*stable*` — **hors Git public** (PC hôte uniquement).
 
 ---
 

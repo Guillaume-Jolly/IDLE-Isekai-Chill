@@ -63,12 +63,9 @@ Doc détaillée : `docs/TNR_EVENT_DISAGREA.md`
 
 ## Smoke stable launcher (si deploy/ touché)
 
-```bash
-npm run build:stable:prod   # si demandé
-npm run launcher:stable     # profil surveillance
-```
+## Smoke stable (prod locale — hors repo public)
 
-Dashboard `8789` — pas de crash node.
+Stack `deploy/` sur PC hôte uniquement — pas de checklist versionnée dans ce dépôt.
 
 ---
 
