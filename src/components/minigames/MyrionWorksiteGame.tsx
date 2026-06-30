@@ -23,10 +23,6 @@ import {
   type WorksiteSpotId,
 } from '../../data/myrionWorksite'
 import {
-  WORKSITE_MINE_BIOME_UNLOCK,
-  WORKSITE_UNLOCK_THRESHOLDS,
-} from '../../data/myrionWorksiteBalance'
-import {
   getBiomeUnlockHint,
   getSpotUnlockHint,
   isWorksiteBiomeUnlocked,
@@ -34,6 +30,7 @@ import {
   markUnlockNotificationsSeen,
   worksiteResourceTotals,
 } from '../../data/myrionWorksiteProgression'
+import { getRuntimeSpotMeta } from '../../data/myrionWorksiteBiomeRuntime'
 import {
   assignedSpeciesSummary,
   assignMyrionsToBiome,
@@ -940,7 +937,7 @@ export function MyrionWorksiteGame({
       icon: '📈',
       content: (
         <div className="mg-worksite-drawer-section">
-          <p className="mg-worksite-drawer-lead">Production cumulée chantier</p>
+          <p className="mg-worksite-drawer-lead">Production cumulée (Ferme lunaire)</p>
           <ul className="mg-worksite-progress-totals">
             <li>Total : {formatYield(progressTotals.totalChantier)}</li>
             <li>Bois : {formatYield(progressTotals.wood)}</li>
@@ -960,16 +957,19 @@ export function MyrionWorksiteGame({
             {WORKSITE_BIOME_IDS.flatMap((biomeId) =>
               WORKSITE_BIOMES[biomeId].spotIds
                 .filter((spotId) => !isWorksiteSpotUnlocked(worksite, biomeId, spotId))
-                .map((spotId) => (
+                .map((spotId) => {
+                  const spotLabel =
+                    getRuntimeSpotMeta(biomeId, spotId)?.displayName ?? WORKSITE_BIOMES[biomeId].label
+                  return (
                   <li key={worksiteSpotKey(biomeId, spotId)}>
-                    {WORKSITE_BIOMES[biomeId].emoji} {spotId} — {getSpotUnlockHint(biomeId, spotId) ?? 'Biome requis'}
+                    {WORKSITE_BIOMES[biomeId].emoji} {spotLabel} — {getSpotUnlockHint(biomeId, spotId) ?? 'Biome requis'}
                   </li>
-                )),
+                  )
+                }),
             )}
           </ul>
           <p className="mg-worksite-note">
-            Seuils provisoires — Forêt {WORKSITE_UNLOCK_THRESHOLDS.biomes['foret-douce'].totalChantier} total · Mine{' '}
-            {WORKSITE_MINE_BIOME_UNLOCK.totalChantier} total + {WORKSITE_MINE_BIOME_UNLOCK.wood} bois.
+            Les biomes et filons se débloquent en produisant sur la Ferme lunaire.
           </p>
         </div>
       ),
@@ -980,7 +980,7 @@ export function MyrionWorksiteGame({
       icon: '📦',
       content: (
         <div className="mg-worksite-drawer-section">
-          <p className="mg-worksite-drawer-lead">Total produit au chantier (session cumulée)</p>
+          <p className="mg-worksite-drawer-lead">Total produit à la Ferme lunaire (session)</p>
           <ul className="mg-worksite-resource-list">
             {(
               [
@@ -1349,7 +1349,7 @@ export function MyrionWorksiteGame({
       activity={activity}
       buildingName={buildingName}
       companionInScene={!monitoringMode}
-      companionMood="Supervise doucement le chantier."
+      companionMood="Supervise doucement la Ferme lunaire."
       companionName={companionName}
       endless
       hideGlobalChrome
@@ -1358,7 +1358,7 @@ export function MyrionWorksiteGame({
       onRestart={() => {}}
       resourceLabel={resourceLabel}
       score={Math.round(totalProduced.wood + totalProduced.stone + totalProduced.food)}
-      scoreLabel="Production chantier"
+      scoreLabel="Production ferme"
       status="playing"
     >
       <div className={`mg-worksite mg-worksite-immersive${monitoringMode ? ' mg-worksite--monitoring' : ''}`}>
@@ -1407,7 +1407,7 @@ export function MyrionWorksiteGame({
                   <dd>{formatYield(biomeAutoPerSec)}/s</dd>
                 </div>
                 <div>
-                  <dt>Auto chantier</dt>
+                  <dt>Production auto</dt>
                   <dd>{formatYield(chantierMonitorStats.globalAuto)}/s</dd>
                 </div>
                 <div>
@@ -1437,9 +1437,9 @@ export function MyrionWorksiteGame({
           ) : (
             <HuntSideRail
               drawers={drawers}
-              fabAriaLabel="Menu Chantier Myrion"
-              menuAriaLabel="Gestion du chantier"
-              menuTitle="Chantier"
+              fabAriaLabel="Menu Ferme lunaire"
+              menuAriaLabel="Gestion de la ferme"
+              menuTitle="Ferme"
               openId={openDrawer}
               onCloseMinigame={onClose}
               onOpenChange={handleDrawerOpenChange}
@@ -1619,7 +1619,7 @@ export function MyrionWorksiteGame({
                     type="button"
                     onClick={() => setMonitoringModeEnabled(true)}
                   >
-                    Mode surveillance
+                    Mode surveillance passive
                   </button>
                 ) : null}
               </div>

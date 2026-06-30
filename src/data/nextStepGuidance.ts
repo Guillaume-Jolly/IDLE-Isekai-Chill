@@ -91,7 +91,7 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
       id: 'discover-moon-farm',
       kicker: 'Prochaine piste',
       label: 'Découvrir la Ferme lunaire',
-      detail: 'Ouvre le chantier, assigne un Myrion et laisse la production avancer.',
+      detail: 'Ouvre la ferme, assigne un Myrion et laisse la production avancer.',
       target: { kind: 'activity', activityId: MOON_FARM_ACTIVITY_ID },
       recommendedActivityId: MOON_FARM_ACTIVITY_ID,
     }
@@ -102,7 +102,7 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
       id: 'hunt-first-myrion',
       kicker: 'À faire maintenant',
       label: 'Capturer un premier Myrion',
-      detail: 'La chasse aux familiers alimente le Refuge et le chantier de la Ferme lunaire.',
+      detail: 'La chasse alimente le Refuge et la Ferme lunaire.',
       target: { kind: 'activity', activityId: HUNT_ACTIVITY_ID },
       recommendedActivityId: HUNT_ACTIVITY_ID,
     }
@@ -112,7 +112,7 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
     return {
       id: 'assign-myrion',
       kicker: 'À faire maintenant',
-      label: 'Assigner un Myrion au chantier',
+      label: 'Assigner un Myrion à la ferme',
       detail: 'Envoie un Myrion sur un filon de la Ferme lunaire pour lancer la production.',
       target: { kind: 'activity', activityId: MOON_FARM_ACTIVITY_ID },
       recommendedActivityId: MOON_FARM_ACTIVITY_ID,
@@ -146,7 +146,7 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
     return {
       id: 'expand-chantier-biomes',
       kicker: 'Objectif conseillé',
-      label: 'Étendre le chantier',
+      label: 'Étendre la Ferme lunaire',
       detail: 'Produis encore un peu sur la prairie pour débloquer un nouveau biome.',
       target: { kind: 'activity', activityId: MOON_FARM_ACTIVITY_ID },
       recommendedActivityId: MOON_FARM_ACTIVITY_ID,
@@ -169,7 +169,7 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
       id: 'visit-refuge',
       kicker: 'Prochaine piste',
       label: 'Visiter le Refuge',
-      detail: 'Soigne ou observe tes Myrions entre deux sessions au chantier.',
+      detail: 'Soigne ou observe tes Myrions entre deux sessions à la ferme.',
       target: { kind: 'activity', activityId: REFUGE_ACTIVITY_ID },
       recommendedActivityId: REFUGE_ACTIVITY_ID,
     }
@@ -179,7 +179,7 @@ export function computeNextStep(ctx: NextStepContext): NextStepSuggestion {
     id: 'keep-improving',
     kicker: 'Objectif conseillé',
     label: 'Continuer à améliorer le Havre',
-    detail: 'Hub mini-jeux, bâtiments du village et progression du chantier — à ton rythme.',
+    detail: 'Hub mini-jeux, bâtiments du village et Ferme lunaire — à ton rythme.',
     target: { kind: 'none' },
   }
 }

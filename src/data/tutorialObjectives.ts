@@ -96,8 +96,8 @@ export const TUTORIAL_OBJECTIVES: TutorialObjectiveDef[] = [
   {
     id: 'open-inventory-familiers',
     order: 9,
-    title: 'Inventaire familiers',
-    description: 'Consulte l’inventaire (familiers et ressources).',
+    title: 'Inventaire Myrions',
+    description: 'Consulte l’inventaire (Myrions et ressources).',
     reward: { crystals: 8, coins: 35 },
   },
   {

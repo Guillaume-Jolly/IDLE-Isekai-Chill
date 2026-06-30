@@ -75,7 +75,7 @@ export function InventoryPanel(props: InventoryPanelProps) {
         <article className="inventory-summary-chip">
           <span>🐾</span>
           <strong>{snapshot.petCount}</strong>
-          <small>familiers</small>
+          <small>Myrions</small>
         </article>
       </section>
 

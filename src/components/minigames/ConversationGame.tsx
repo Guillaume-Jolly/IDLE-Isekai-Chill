@@ -298,9 +298,9 @@ export function ConversationGame({
           {phase === 'intro' && (
             <div className="mg-conversation-panel">
               <p>
-                Une scène en <strong>trois échanges</strong>. Lis le contexte, réponds avec l'une
-                des quatre réponses — chacune réagit vraiment à ce qu'a dit {companionName}. Adapte
-                ton ton à sa personnalité : 3 bonnes réponses = max.
+                <strong>Mini-jeu Parler</strong> — distinct des conversations de lien gratuites
+                (onglet Liens). Trois échanges à choix : adapte ton ton à {companionName} ; 3 bonnes
+                réponses = maximum.
               </p>
               <button className="primary mg-big-btn" type="button" onClick={() => setPhase('round')}>
                 Commencer la conversation

@@ -37,7 +37,7 @@ export const WORKSITE_PRESTIGE_CONFIG = {
   baseYieldPerLrPerSecond: WORKSITE_PRESTIGE_BALANCE.baseYieldPerLrPerSecond,
   supervisionMultiplier: WORKSITE_SUPERVISION_MULT,
   lrRequirementLabel: 'Nécessite un Myrion LR',
-  helpText: 'Objectif de prestige. Ne bloque pas la progression normale.',
+  helpText: 'Éclats astraux : prestige lent sur la Ferme lunaire. N’affecte pas la progression normale.',
   drawerLead: 'Production lente réservée aux Myrions LR.',
   minGrantThreshold: WORKSITE_PRESTIGE_BALANCE.minGrantThreshold,
   maxCatchUpSeconds: WORKSITE_PRESTIGE_BALANCE.maxCatchUpSeconds,

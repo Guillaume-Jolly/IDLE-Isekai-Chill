@@ -66,7 +66,7 @@ export const COMPANION_SUPPORT_PROFILES: Record<string, CompanionSupportProfile>
     displayName: 'Iris',
     systems: ['moon-farm', 'inventory'],
     supportLine: 'Sent les herbes et les coins calmes.',
-    roleLine: 'Repère les zones fertiles du chantier.',
+    roleLine: 'Repère les zones fertiles de la Ferme lunaire.',
   },
   kael: {
     companionId: 'kael',
@@ -94,7 +94,7 @@ export const COMPANION_SUPPORT_PROFILES: Record<string, CompanionSupportProfile>
     displayName: 'Talia',
     systems: ['moon-farm', 'hunt'],
     supportLine: 'Lit les pistes aux lisières.',
-    roleLine: 'Suggère les filons voisins à explorer.',
+    roleLine: 'Repère les filons voisins sur la Ferme lunaire.',
   },
   mira: {
     companionId: 'mira',
@@ -128,8 +128,8 @@ export const COMPANION_SUPPORT_PROFILES: Record<string, CompanionSupportProfile>
     companionId: 'sora',
     displayName: 'Sora',
     systems: ['moon-farm', 'refuge'],
-    supportLine: 'Lie Myrions et chantier.',
-    roleLine: 'Rend la ferme lunaire plus accueillante.',
+    supportLine: 'Lie Myrions et Ferme lunaire.',
+    roleLine: 'Rend la Ferme lunaire plus accueillante.',
   },
   zelie: {
     companionId: 'zelie',

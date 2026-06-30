@@ -351,7 +351,7 @@ const buildPetSection = (pets: PetState[]): InventorySection => {
       return {
         id: `pets-${biome.id}`,
         title: `${biome.emoji} ${biome.name}`,
-        description: `${biomePets.length} familier${biomePets.length > 1 ? 's' : ''} · ${speciesCount} espèce${speciesCount > 1 ? 's' : ''}`,
+        description: `${biomePets.length} Myrion${biomePets.length > 1 ? 's' : ''} · ${speciesCount} espèce${speciesCount > 1 ? 's' : ''}`,
         items: buildSpeciesStackItems(biomePets),
       }
     },
@@ -366,18 +366,18 @@ const buildPetSection = (pets: PetState[]): InventorySection => {
     groups.push({
       id: 'pets-other',
       title: '📦 Autres biomes',
-      description: `${orphanPets.length} familier${orphanPets.length > 1 ? 's' : ''} · ${speciesCount} espèce${speciesCount > 1 ? 's' : ''}`,
+      description: `${orphanPets.length} Myrion${orphanPets.length > 1 ? 's' : ''} · ${speciesCount} espèce${speciesCount > 1 ? 's' : ''}`,
       items: buildSpeciesStackItems(orphanPets),
     })
   }
 
   return {
     id: 'pets',
-    title: 'Familiers',
-    description: pets.length > 0 ? `${pets.length} au total, regroupés par biome` : undefined,
+    title: 'Myrions',
+    description: pets.length > 0 ? `${pets.length} au total, regroupés par biome du Refuge` : undefined,
     groups,
     items: [],
-    emptyLabel: 'Aucun familier — capture-les au sanctuaire.',
+    emptyLabel: 'Aucun Myrion — lance la chasse aux Myrions.',
   }
 }
 
@@ -385,14 +385,14 @@ const buildCaptureSection = (captureStats: MinigameSave['captureStats']): Invent
   if (!captureStats || captureStats.totalCaught <= 0) return null
   return {
     id: 'capture',
-    title: 'Chasse aux familiers',
+    title: 'Chasse aux Myrions',
     items: [
       {
         id: 'capture-total',
         label: 'Captures totales',
         amount: captureStats.totalCaught,
         icon: '🎯',
-        hint: 'Familiers attrapés en exploration',
+        hint: 'Myrions capturés à la chasse',
       },
       ...(captureStats.bestRarity
         ? [

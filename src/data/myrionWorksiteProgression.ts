@@ -76,7 +76,7 @@ function spotRuleMet(totals: WorksiteResourceTotals, rule: WorksiteSpotUnlockRul
 
 function formatBiomeUnlockRule(rule: WorksiteBiomeUnlockRule): string {
   const parts: string[] = []
-  if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale chantier`)
+  if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale (ferme)`)
   if (rule.wood) parts.push(`${rule.wood} bois produits`)
   if (rule.stone) parts.push(`${rule.stone} pierre produite`)
   if (rule.food) parts.push(`${rule.food} vivres produites`)
@@ -86,7 +86,7 @@ function formatBiomeUnlockRule(rule: WorksiteBiomeUnlockRule): string {
 
 function formatSpotUnlockRule(rule: WorksiteSpotUnlockRule): string {
   const parts: string[] = []
-  if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale chantier`)
+  if (rule.totalChantier) parts.push(`${rule.totalChantier} production totale (ferme)`)
   if (rule.wood) parts.push(`${rule.wood} bois produits`)
   if (rule.stone) parts.push(`${rule.stone} pierre produite`)
   if (rule.food) parts.push(`${rule.food} vivres produites`)
@@ -134,7 +134,7 @@ export function getBiomeUnlockHint(biomeId: WorksiteBiomeId): string | null {
   if (biomeId === 'prairie-chantier') return null
   if (biomeId === 'mine-tranquille') {
     return formatUnlockParts([
-      `${WORKSITE_MINE_BIOME_UNLOCK.totalChantier} production totale chantier`,
+      `${WORKSITE_MINE_BIOME_UNLOCK.totalChantier} production totale (ferme)`,
       `${WORKSITE_MINE_BIOME_UNLOCK.wood} bois produits`,
     ])
   }

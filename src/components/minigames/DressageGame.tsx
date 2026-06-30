@@ -769,7 +769,7 @@ export function DressageGame({
             description="Explore les biomes, croise des Myrions sauvages et tente ta capture au bon moment."
             icon="🎯"
             launchLabel="Ouvrir la chasse"
-            title="Chasse aux Familiers"
+            title="Chasse aux Myrions"
             onLaunch={() => onLaunchMinigame('farm-capture')}
           />
         ),

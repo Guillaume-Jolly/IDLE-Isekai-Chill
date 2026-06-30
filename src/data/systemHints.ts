@@ -13,7 +13,7 @@ export const SYSTEM_CONTEXT_HINTS: Record<
   },
   refuge: {
     shortLabel: 'Refuge',
-    phrase: 'Les Myrions capturés y reposent — ils alimentent le chantier et la chasse.',
+    phrase: 'Les Myrions capturés y reposent — ils alimentent la Ferme lunaire et la chasse.',
   },
   hunt: {
     shortLabel: 'Chasse',
@@ -33,7 +33,7 @@ export const SYSTEM_CONTEXT_HINTS: Record<
   },
   prestige: {
     shortLabel: 'Prestige astral',
-    phrase: 'Le prestige astral relance le chantier sans perdre tes liens.',
+    phrase: 'Le prestige astral relance la Ferme lunaire sans perdre tes liens.',
   },
 }
 

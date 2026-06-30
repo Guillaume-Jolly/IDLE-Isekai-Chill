@@ -96,7 +96,7 @@ export function PetSanctuaryGame({
           Humeur moyenne {avgMood}/100 — soins {carePoints} — jamais de punition, promis.
         </p>
 
-        <div aria-label="Ferme des familiers" className="mg-pet-meadow" role="img">
+        <div aria-label="Enclos des Myrions" className="mg-pet-meadow" role="img">
           <div className="mg-meadow-sky" />
           <div className="mg-meadow-hills" />
           <div className="mg-meadow-fence" />
@@ -161,7 +161,7 @@ export function PetSanctuaryGame({
           </button>
         )}
         <p className="mg-td-hint">
-          Les familiers chibi se baladent librement. S ils ont faim, tu gagnes juste un peu moins — jamais de game over.
+          Les Myrions chibi se baladent librement. S ils ont faim, tu gagnes juste un peu moins — jamais de game over.
         </p>
       </div>
     </MinigameFrame>
