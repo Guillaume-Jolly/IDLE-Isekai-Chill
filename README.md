@@ -48,7 +48,7 @@ npm run preview    # preview du build
 | **Traçabilité** (changelog, TNR, audits) | [`docs/traceability/README.md`](docs/traceability/README.md) · [`REFERENCES.md`](docs/traceability/REFERENCES.md) |
 | **Playbooks** (compagnon, gacha, Myrions, TNR…) | [`staging/playbooks/README.md`](staging/playbooks/README.md) |
 | **Règles agent** | [`AGENTS.md`](AGENTS.md) |
-| **État courant** | [`.ai/current-state.md`](.ai/current-state.md) · [`docs/traceability/project-state.md`](docs/traceability/project-state.md) |
+| **État courant** | [`docs/traceability/project-state.md`](docs/traceability/project-state.md) · `.ai/` (local, gitignoré) |
 | **Phase 2.2** | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](docs/HANDOFF_2_2_AGENT_BRIEF.md) |
 | **Serveur stable (prod locale)** | Hors dépôt public — dossier `deploy/` sur le PC hôte uniquement |
 | **Design / TNR gameplay** | [`docs/`](docs/) (usage interne) |
@@ -124,19 +124,25 @@ Promote / archive : [`staging/playbooks/04-asset-promote-pipeline.md`](staging/p
 
 ---
 
-## Release 2.1 — Havre des Brumes (2026-06-30)
+## Phase 2.2 — en cours (2026-06-30)
+
+| Élément | Valeur |
+|---------|--------|
+| Branche dev | `feature/2.2` |
+| Semver | `2.2.0` |
+| Label UI | `v2.2.0.02` (post-kickoff) |
+| Brief | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](docs/HANDOFF_2_2_AGENT_BRIEF.md) |
+
+## Release 2.1 — Havre des Brumes (livrée)
 
 | Élément | Valeur |
 |---------|--------|
 | Semver | `2.1.0` |
 | Tag Git | `v2.1.0.0` @ `8e50e13` |
-| Branche | `main` |
-| Label UI (fin dev 2.1) | `v2.1.0.128` — harmonisation prévue en 2.2 |
+| Branche prod | `main` @ `b91b6fb` |
+| Label UI (fin dev 2.1) | `v2.1.0.128` — reset au kickoff 2.2 |
 
-- Changelog : [`docs/CHANGELOG_2_1.md`](docs/CHANGELOG_2_1.md)
-- Notes : [`docs/RELEASE_NOTES_2_1.md`](docs/RELEASE_NOTES_2_1.md)
 - Quarantaine : `old_v2.1/` (archive non destructive)
-- Prochaine phase : **2.2** — [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](docs/HANDOFF_2_2_AGENT_BRIEF.md)
 
 ---
 

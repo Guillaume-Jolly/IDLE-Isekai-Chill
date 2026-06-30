@@ -5,12 +5,14 @@
 
 ## Résumé
 
-Jeu idle / collection cozy fantasy, jouable navigateur. **Release 2.1.0.0 livrée** sur `main` (tag `v2.1.0.0`). Phase suivante : **2.2** — retouches libres, nettoyage non destructif.
+Jeu idle / collection cozy fantasy, jouable navigateur. **Release 2.1.0.0 livrée** sur `main` (tag `v2.1.0.0`). **Phase 2.2 active** sur `feature/2.2` — retouches libres, nettoyage non destructif.
 
 | Élément | État |
 |---------|------|
-| Branche prod | `main` @ `8e50e13` |
-| Semver npm | `2.1.0` |
+| Branche prod | `main` @ `b91b6fb` |
+| Branche dev | `feature/2.2` — kickoff fait 2026-06-30 |
+| Semver npm | `2.2.0` (branche feature) |
+| Label UI | `v2.2.0.02` |
 | Build | **OK** (`npm run build`) |
 | Lint global | **KO** (~33 préexistants, non bloquant) |
 | Tests auto | Aucun framework ; `tnr:baseline` + smoke manuel |
@@ -41,7 +43,7 @@ docs/agent-guide/ Onboarding agents
 docs/traceability/ Changelog, project-state, audits actifs
 staging/playbooks/  Procédures opérationnelles (seul staging actif)
 scripts/          Import, validate, bump version
-.ai/              État agent (stub)
+.ai/              Stub agent local (gitignoré — optionnel)
 ```
 
 ## Pipeline validation (release / CI)
@@ -66,8 +68,9 @@ Format : `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`docs/agent-guide/05-p
 - **X** : `npm run version:prompt` (nouveau prompt)
 - **Y** : `npm run version:task` (tâche distincte)
 - Log phase 2.2 : [`docs/traceability/changelog/DEV_LOG_2_2.md`](./changelog/DEV_LOG_2_2.md)
+- Kickoff nouvelle phase : [`docs/agent-guide/07-kickoff-nouvelle-version.md`](../agent-guide/07-kickoff-nouvelle-version.md)
 
-**Dérive connue fin 2.1 :** label `v2.1.0.128` ≠ compteur commits git → reset au kickoff 2.2.
+**Kickoff 2.2 :** fait 2026-06-30 — reset UI depuis `v2.1.0.128`.
 
 ## Archives & règles dures
 
@@ -76,7 +79,20 @@ Format : `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`docs/agent-guide/05-p
 - Pas de push `main` / merge sans go explicite
 - Décideur : **Guillaume**
 
-## Docs clés
+## Wording onboarding — « Chantier du havre » (non fait)
+
+**Pourquoi c'est encore listé :** la release 2.1 a harmonisé le hub (Promenade Myrions, Ferme lunaire, etc.), mais **pas** le panneau objectifs tutorial (`src/data/tutorialObjectives.ts`).
+
+| Zone | Libellé actuel | Fichier |
+|------|----------------|---------|
+| Objectif onboarding étape 2 | « Chantier du havre » | `tutorialObjectives.ts` |
+| Quête infinie (upgrade bâtiment) | « Chantier du village » | `infiniteQuests.ts` |
+| Objectif onboarding étape 5 | « Refuge des brumes » | `tutorialObjectives.ts` |
+| Hub mini-jeux | « Promenade Myrions » | `buildingActivities.ts` |
+
+Ce n'est **pas** le mini-jeu Chantier Myrion (`myrionWorksite*`) — autre système.
+
+**Statut :** réserve reportée en 2.2, jamais implémentée. À trancher (havre vs village vs harmoniser avec Promenade) sur demande Guillaume.
 
 | Sujet | Fichier |
 |-------|---------|
@@ -92,5 +108,5 @@ Format : `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`docs/agent-guide/05-p
 - `worksiteDevUnlock` (`import.meta.env.DEV`)
 - Asset `ruines-lierre-ancien.png` — silhouette faible
 - Chunk JS > 500 kB (warning Vite)
-- Wording quête « Chantier du havre » (onboarding)
 - Flags dev gacha (`DEV_*`) — à traiter avant prod stable
+- **Wording onboarding tutorial** — voir ci-dessous

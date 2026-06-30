@@ -1349,7 +1349,7 @@ export function MyrionWorksiteGame({
       activity={activity}
       buildingName={buildingName}
       companionInScene={!monitoringMode}
-      companionMood="Supervise doucement la Ferme lunaire."
+      companionMood="Supervise doucement le Chantier du havre."
       companionName={companionName}
       endless
       hideGlobalChrome
@@ -1437,9 +1437,9 @@ export function MyrionWorksiteGame({
           ) : (
             <HuntSideRail
               drawers={drawers}
-              fabAriaLabel="Menu Ferme lunaire"
-              menuAriaLabel="Gestion de la ferme"
-              menuTitle="Ferme"
+              fabAriaLabel="Menu Chantier du havre"
+              menuAriaLabel="Gestion du chantier"
+              menuTitle="Chantier"
               openId={openDrawer}
               onCloseMinigame={onClose}
               onOpenChange={handleDrawerOpenChange}

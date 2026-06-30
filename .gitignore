@@ -76,3 +76,6 @@ Launch IDLE Isekai Chill.lnk
 
 # Post-2.1 local quarantine — hors dépôt public (archive PC hôte uniquement)
 old_v2.1/
+
+# Agent scratch local — non versionné (lire si présent ; vérité versionnée : docs/traceability/project-state.md)
+.ai/

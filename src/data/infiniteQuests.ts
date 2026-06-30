@@ -46,7 +46,7 @@ type QuestContext = {
 const QUEST_TEMPLATES: Array<(ctx: QuestContext) => InfiniteQuest> = [
   (ctx) => ({
     id: uid(),
-    title: 'Chantier du village',
+    title: 'Chantier du havre',
     description: `Ameliore ${BUILDING_SHORT[ctx.buildingIds[0]] ?? 'un batiment'} une fois.`,
     kind: 'upgrade-building',
     goal: 1,

@@ -4,6 +4,7 @@ import { playCaptureFailure, playCaptureSuccess } from '../audio/huntAudio'
 import { playUiTab } from '../audio/uiSounds'
 import { LANGUAGE_OPTIONS } from '../data/gameSettings'
 import { useGameSettings } from '../hooks/useGameSettings'
+import { useSessionGate } from '../hooks/useSessionGate'
 
 function volumeLabel(value: number): string {
   return `${Math.round(value * 100)} %`
@@ -11,6 +12,7 @@ function volumeLabel(value: number): string {
 
 export function SettingsPanel({ embedded = false }: { embedded?: boolean }) {
   const { settings, updateSettings, resetSettings } = useGameSettings()
+  const { logout, logoutAndResetLoading } = useSessionGate()
 
   const previewInterface = useCallback(() => {
     void resumeAudio().then(() => {
@@ -137,6 +139,18 @@ export function SettingsPanel({ embedded = false }: { embedded?: boolean }) {
             </select>
             <small>Tout le contenu est en français pour l&apos;instant.</small>
           </label>
+        </article>
+        <article className="settings-card">
+          <h3>Session</h3>
+          <small>Quitte la session locale et revient à l&apos;écran de connexion.</small>
+          <div className="settings-actions">
+            <button className="secondary" type="button" onClick={logout}>
+              Se déconnecter
+            </button>
+            <button className="secondary" type="button" onClick={logoutAndResetLoading}>
+              Se déconnecter et revoir le chargement
+            </button>
+          </div>
         </article>
       </div>
 

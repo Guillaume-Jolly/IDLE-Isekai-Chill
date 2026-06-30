@@ -35,28 +35,43 @@ export function EnclosureBackground({
     [biomeId],
   )
   const landscapeCandidates = useMemo(() => enclosureAssetPathCandidates(biomeId), [biomeId])
+  const portraitFallbackCandidates = useMemo(
+    () => portraitCandidates.slice(1),
+    [portraitCandidates],
+  )
+  const landscapeFallbackCandidates = useMemo(
+    () => landscapeCandidates.slice(1),
+    [landscapeCandidates],
+  )
 
   const [portraitSrc, onPortraitError, portraitExhausted] = usePublicAssetSrc(
     portraitCandidates[0],
-    portraitCandidates.slice(1),
+    portraitFallbackCandidates,
   )
-  const [landscapeSrc] = usePublicAssetSrc(
+  const [landscapeSrc, onLandscapeError] = usePublicAssetSrc(
     landscapeCandidates[0],
-    landscapeCandidates.slice(1),
+    landscapeFallbackCandidates,
   )
 
   useEffect(() => {
     setTier(initialTier(layout, isMobile))
   }, [biomeId, isMobile, layout])
 
+  useEffect(() => {
+    if (tier !== 'portrait-png' || !portraitExhausted) return
+    setTier('png')
+  }, [portraitExhausted, tier])
+
   const src = tier === 'portrait-png' ? portraitSrc : landscapeSrc
+  const isPortraitBg = usePortrait && tier === 'portrait-png'
 
   const handleError = () => {
     if (tier === 'portrait-png') {
       onPortraitError({} as React.SyntheticEvent<HTMLImageElement>)
-      if (portraitExhausted) {
-        setTier('png')
-      }
+      return
+    }
+    if (tier === 'png') {
+      onLandscapeError({} as React.SyntheticEvent<HTMLImageElement>)
     }
   }
 
@@ -65,10 +80,18 @@ export function EnclosureBackground({
       <img
         alt=""
         className={className}
-        data-bg-orientation={usePortrait && tier === 'portrait-png' ? 'portrait' : 'landscape'}
+        data-bg-orientation={isPortraitBg ? 'portrait' : 'landscape'}
         draggable={false}
         onError={handleError}
         src={src}
+        style={{
+          height: '100%',
+          minHeight: '100%',
+          minWidth: '100%',
+          objectFit: 'cover',
+          objectPosition: isPortraitBg ? 'center bottom' : 'center center',
+          width: '100%',
+        }}
       />
     </div>
   )

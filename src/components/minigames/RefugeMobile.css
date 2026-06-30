@@ -107,58 +107,34 @@
 }
 
 .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg-wrap {
+  --mg-bg-overscan: 1.06;
+  inset: calc((1 - var(--mg-bg-overscan, 1.06)) * 50%);
+  overflow: hidden;
+  position: absolute;
+}
+
+.mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg {
+  block-size: 100%;
+  display: block;
+  height: 100%;
   inset: 0;
+  margin: 0;
+  max-block-size: none;
+  max-height: none;
+  max-inline-size: none;
+  max-width: none;
+  min-block-size: 100%;
+  min-height: 100%;
+  min-inline-size: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  width: 100%;
 }
 
-/* Téléphone — portrait étiré pour remplir l'écran sans bandes noires */
-@media (max-width: 899px) {
-  .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg-wrap {
-    align-items: stretch;
-    display: block;
-  }
-
-  .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg {
-    block-size: 100%;
-    display: block;
-    height: 100%;
-    inset: 0;
-    margin: 0;
-    max-block-size: none;
-    max-height: none;
-    max-inline-size: none;
-    max-width: none;
-    min-block-size: 100%;
-    min-height: 100%;
-    min-inline-size: 100%;
-    min-width: 100%;
-    object-fit: fill;
-    object-position: center center;
-    position: absolute;
-    width: 100%;
-  }
-}
-
-/* PC — paysage, image entière légèrement écrasée pour remplir l'enclos */
-@media (min-width: 900px) {
-  .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg[data-bg-orientation='landscape'] {
-    block-size: 100%;
-    display: block;
-    height: 100%;
-    inset: 0;
-    margin: 0;
-    max-block-size: none;
-    max-height: none;
-    max-inline-size: none;
-    max-width: none;
-    min-block-size: 100%;
-    min-height: 100%;
-    min-inline-size: 100%;
-    min-width: 100%;
-    object-fit: fill;
-    object-position: center center;
-    position: absolute;
-    width: 100%;
-  }
+.mg-refuge-immersive--mobile .mg-refuge-enclosure-slot .mg-enclosure-bg[data-bg-orientation='portrait'] {
+  object-position: center bottom;
 }
 
 .mg-refuge-immersive--mobile .mg-enclosure-playfield {
@@ -240,14 +216,20 @@
     flex-shrink: 0;
     height: 100%;
     min-height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 
-  .mg-refuge-immersive--mobile .mg-refuge-enclosure-wrap {
-    flex: 1 1 0;
+  .mg-refuge-immersive--mobile .mg-refuge-enclosure-wrap,
+  .mg-refuge-immersive--mobile .mg-hunt-main.mg-refuge-enclosure-wrap {
+    flex: 1 1 100%;
     height: 100%;
     inset: auto;
     min-height: 0;
+    min-width: 100%;
     position: relative;
+    width: 100%;
   }
 
   .mg-refuge-immersive--mobile .mg-refuge-enclosure-slot {

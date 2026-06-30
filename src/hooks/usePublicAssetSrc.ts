@@ -1,37 +1,41 @@
 import { useCallback, useEffect, useMemo, useState, type ReactEventHandler } from 'react'
-import { publicAssetCandidates, publicAssetUrl } from '../data/publicAssetUrl'
+import { publicAssetUrl } from '../data/publicAssetUrl'
+import { resolveFirstAvailableRelative } from '../lib/assetProbeCache'
 
 /**
  * Charge un PNG/SVG public avec repli sur d’anciens chemins si le canonique est absent.
- * Retourne [src, onError, exhausted] — exhausted=true quand tous les candidats ont échoué.
+ * Résolution proactive via cache (évite la cascade 404 → legacy en dev).
  */
 export function usePublicAssetSrc(
   canonicalRelative: string,
   legacyRelatives: string[] = [],
 ): [string, ReactEventHandler<HTMLImageElement>, boolean] {
-  const candidates = useMemo(
-    () => publicAssetCandidates(canonicalRelative, ...legacyRelatives),
-    [canonicalRelative, legacyRelatives],
+  const legacyKey = legacyRelatives.join('\0')
+  const relativeCandidates = useMemo(
+    () => [canonicalRelative, ...legacyRelatives],
+    [canonicalRelative, legacyKey, legacyRelatives],
   )
-  const [index, setIndex] = useState(0)
+
+  const [src, setSrc] = useState(() => publicAssetUrl(canonicalRelative))
   const [exhausted, setExhausted] = useState(false)
 
   useEffect(() => {
-    setIndex(0)
+    let cancelled = false
     setExhausted(false)
-  }, [candidates])
+    setSrc(publicAssetUrl(canonicalRelative))
 
-  const src = candidates[index] ?? publicAssetUrl(canonicalRelative)
+    resolveFirstAvailableRelative(relativeCandidates).then((resolved) => {
+      if (!cancelled && resolved) setSrc(resolved)
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [canonicalRelative, relativeCandidates])
 
   const onError = useCallback(() => {
-    setIndex((current) => {
-      if (current + 1 < candidates.length) {
-        return current + 1
-      }
-      setExhausted(true)
-      return current
-    })
-  }, [candidates.length])
+    setExhausted(true)
+  }, [])
 
   return [src, onError, exhausted]
 }

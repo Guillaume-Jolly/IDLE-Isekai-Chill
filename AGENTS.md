@@ -11,12 +11,13 @@ Keep the project stable, reviewable, and save-compatible. Do not perform broad r
 1. Read this file.
 2. Read `docs/agent-guide/README.md` (onboarding + versionnement).
 3. Read `docs/DOC_AGENT_INDEX.md` (éviter docs obsolètes).
-4. Read `.ai/project-context.md` (stub actif ; archive complète : `old_v2.1/ai_work/.ai/`).
-5. Read `.ai/current-state.md` if present.
-6. Read `.ai/next-task.md` and execute only that task.
+4. Read `.ai/project-context.md` if present locally (dossier **gitignoré** ; archive : `old_v2.1/ai_work/.ai/`).
+5. Read `.ai/current-state.md` if present locally.
+6. Read `.ai/next-task.md` if present locally — sinon `docs/traceability/project-state.md` et `docs/HANDOFF_2_2_AGENT_BRIEF.md`.
 7. Check `git status --short`.
 8. Inspect existing code before changing APIs or data shapes.
 9. New user prompt session → `npm run version:prompt`; each distinct task → `npm run version:task`; log X/Y in `docs/traceability/changelog/DEV_LOG_2_2.md` (phase 2.2+) and micro-changes in `docs/traceability/changelog/`.
+10. **Nouvelle phase produit** (ex. 2.2, 2.3) : lire [`docs/agent-guide/07-kickoff-nouvelle-version.md`](docs/agent-guide/07-kickoff-nouvelle-version.md) et **proposer le kickoff dès le premier message** si les signaux indiquent qu'il n'est pas fait.
 
 ## Hard Rules
 

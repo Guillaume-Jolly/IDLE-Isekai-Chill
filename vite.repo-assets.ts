@@ -244,10 +244,14 @@ function resolveRepoAssetFile(pathname: string, roots: RepoAssetRoots, myrionInd
 function pipeAssetFile(
   filePath: string,
   res: NodeJS.WritableStream & { setHeader: (name: string, value: string) => void },
+  options?: { devImmutableCache?: boolean },
 ) {
   const contentType = contentTypeForAsset(filePath)
   if (contentType) {
     res.setHeader('Content-Type', contentType)
+  }
+  if (options?.devImmutableCache && contentType?.startsWith('image/')) {
+    res.setHeader('Cache-Control', 'public, max-age=86400, immutable')
   }
   createReadStream(filePath).pipe(res)
 }
@@ -354,7 +358,11 @@ export function repoAssetsPlugin(repoRoot: string): Plugin {
       next()
       return
     }
-    pipeAssetFile(filePath, res as NodeJS.WritableStream & { setHeader: (name: string, value: string) => void })
+    pipeAssetFile(
+      filePath,
+      res as NodeJS.WritableStream & { setHeader: (name: string, value: string) => void },
+      { devImmutableCache: true },
+    )
   }
 
   return {

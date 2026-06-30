@@ -10,14 +10,14 @@
 | Priorité | Fichier | Contenu |
 |----------|---------|---------|
 | 1 | [`AGENTS.md`](../AGENTS.md) | Règles inviolables |
-| 2 | [`.ai/current-state.md`](../.ai/current-state.md) | Initiative courante |
-| 3 | [`.ai/project-context.md`](../.ai/project-context.md) | Produit, release, contraintes |
-| 4 | [`docs/traceability/project-state.md`](./traceability/project-state.md) | État projet synthétique |
-| 5 | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Phase 2.2 + prompt agent |
-| 6 | [`docs/agent-guide/`](./agent-guide/) | Onboarding, versionnement, validation |
-| 7 | [`.ai/next-task.md`](../.ai/next-task.md) | Prochaine tâche concrète |
+| 2 | [`docs/traceability/project-state.md`](./traceability/project-state.md) | **État projet versionné** (source de vérité) |
+| 3 | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Phase 2.2 + prompt agent |
+| 4 | [`docs/agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md) | **Kickoff nouvelle phase** — proposer dès le 1er message |
+| 5 | [`docs/agent-guide/`](./agent-guide/) | Onboarding, versionnement, validation |
+| — | `.ai/` (gitignoré) | Stub agent **local** — optionnel si présent sur disque |
 
-**Branche prod :** `main` · tag **`v2.1.0.0`** @ `8e50e13`  
+**Branche prod :** `main` @ `b91b6fb` · tag release **`v2.1.0.0`**  
+**Branche dev :** `feature/2.2` · semver **`2.2.0`** · UI **`v2.2.0.02`**  
 **Stack PROD locale :** `deploy/` — **hors Git public** (PC hôte uniquement).
 
 ---
@@ -77,4 +77,4 @@ npm run tnr:baseline
 npm run build
 ```
 
-Voir [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) et [`agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md).
+Voir [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) et [`agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md) et [`agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md).

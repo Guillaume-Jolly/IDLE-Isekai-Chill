@@ -4,7 +4,7 @@ import {
   companionPortraitLayerSources,
   type CompanionPortraitLayerSources,
 } from '../data/companionAssets'
-import { publicAssetCandidates } from '../data/publicAssetUrl'
+import { resolveFirstAvailableRelative } from '../lib/assetProbeCache'
 import { useIsMobileLayout } from './useMediaQuery'
 
 export type CompanionPortraitMode = 'loading' | 'layered' | 'cutout-only' | 'composed' | 'missing'
@@ -16,23 +16,15 @@ export type CompanionPortraitAssets = {
   composedSrc: string | null
 }
 
-function probeUrl(url: string): Promise<boolean> {
-  return new Promise((resolve) => {
-    const img = new Image()
-    img.onload = () => resolve(true)
-    img.onerror = () => resolve(false)
-    img.src = url
-  })
-}
+const portraitResolveCache = new Map<string, Promise<CompanionPortraitAssets>>()
 
-async function firstAvailable(candidates: string[]): Promise<string | null> {
-  for (const relative of candidates) {
-    const urls = publicAssetCandidates(relative)
-    for (const url of urls) {
-      if (await probeUrl(url)) return url
-    }
-  }
-  return null
+function portraitCacheKey(
+  sources: CompanionPortraitLayerSources,
+  cutoutOnly: boolean,
+  preferSceneBackground: boolean,
+  useWideBackground: boolean,
+) {
+  return JSON.stringify({ sources, cutoutOnly, preferSceneBackground, useWideBackground })
 }
 
 async function resolvePortraitAssets(
@@ -42,8 +34,8 @@ async function resolvePortraitAssets(
   useWideBackground: boolean,
 ): Promise<CompanionPortraitAssets> {
   const [cutoutSrc, composedSrc] = await Promise.all([
-    firstAvailable(sources.cutout),
-    cutoutOnly ? Promise.resolve(null) : firstAvailable(sources.composed),
+    resolveFirstAvailableRelative(sources.cutout),
+    cutoutOnly ? Promise.resolve(null) : resolveFirstAvailableRelative(sources.composed),
   ])
 
   if (cutoutOnly) {
@@ -59,7 +51,7 @@ async function resolvePortraitAssets(
         ? sources.backgroundWide ?? sources.background
         : sources.background
 
-  const backgroundSrc = await firstAvailable(backgroundCandidates)
+  const backgroundSrc = await resolveFirstAvailableRelative(backgroundCandidates)
 
   if (cutoutSrc && backgroundSrc) {
     return { mode: 'layered', backgroundSrc, cutoutSrc, composedSrc: null }
@@ -74,6 +66,21 @@ async function resolvePortraitAssets(
   }
 
   return { mode: 'missing', backgroundSrc: null, cutoutSrc: null, composedSrc: null }
+}
+
+function getCachedPortraitAssets(
+  sources: CompanionPortraitLayerSources,
+  cutoutOnly: boolean,
+  preferSceneBackground: boolean,
+  useWideBackground: boolean,
+) {
+  const key = portraitCacheKey(sources, cutoutOnly, preferSceneBackground, useWideBackground)
+  let pending = portraitResolveCache.get(key)
+  if (!pending) {
+    pending = resolvePortraitAssets(sources, cutoutOnly, preferSceneBackground, useWideBackground)
+    portraitResolveCache.set(key, pending)
+  }
+  return pending
 }
 
 export function useCompanionPortraitAssets(
@@ -105,7 +112,7 @@ export function useCompanionPortraitAssets(
 
   useEffect(() => {
     let cancelled = false
-    resolvePortraitAssets(sources, cutoutOnly, Boolean(sceneId), !isMobileLayout).then((next) => {
+    getCachedPortraitAssets(sources, cutoutOnly, Boolean(sceneId), !isMobileLayout).then((next) => {
       if (!cancelled) setAssets(next)
     })
     return () => {
@@ -114,4 +121,8 @@ export function useCompanionPortraitAssets(
   }, [cutoutOnly, isMobileLayout, sceneId, sources])
 
   return assets
+}
+
+export function resetCompanionPortraitResolveCacheForTests() {
+  portraitResolveCache.clear()
 }

@@ -817,12 +817,7 @@ export function DressageGame({
     >
       <div className="mg-refuge mg-refuge-immersive mg-refuge-immersive--mobile">
         <div className="mg-refuge-layout">
-          <div className="mg-refuge-body">
-            <SystemContextHint
-              preferCompanionId={activity.companionId}
-              systemId="refuge"
-              variant="inline"
-            />
+          <div className="mg-refuge-body mg-hunt-layout">
             <HuntSideRail
               drawers={refugeDrawers}
               fabAriaLabel="Menu refuge"
@@ -832,7 +827,12 @@ export function DressageGame({
               onCloseMinigame={onClose}
               onOpenChange={setOpenDrawer}
             />
-            <div className="mg-refuge-enclosure-wrap">
+            <div className="mg-hunt-main mg-refuge-enclosure-wrap">
+              <SystemContextHint
+                preferCompanionId={activity.companionId}
+                systemId="refuge"
+                variant="inline"
+              />
               <div className="mg-refuge-enclosure-slot" ref={enclosureSlotRef}>
                 <div
                   aria-label={`Enclos ${resourceDef.resourceName}`}

@@ -33,9 +33,9 @@ export type MinigameType =
 
 /** Mini-jeux peaufinés — affichés en tête du hub (avant le tri stade/bâtiment). */
 export const FEATURED_MINIGAME_IDS: readonly string[] = [
+  'farm-worksite',
   'farm-capture',
   'farm-dressage',
-  'farm-pets',
 ]
 
 export type BuildingActivity = {
@@ -362,6 +362,22 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     persistent: true,
   },
   {
+    id: 'farm-worksite',
+    buildingId: 'moon-farm',
+    companionId: 'sora',
+    focusResource: 'wood',
+    minigameType: 'myrion-worksite',
+    name: 'Chantier du havre',
+    tagline: 'Prairie lunaire — Sora',
+    inspiration: 'Idle supervision / tap léger',
+    description:
+      'Assigne tes Myrions aux filons des biomes. Tap pour aider un peu — production douce et contemplative.',
+    baseReward: { wood: 1, stone: 1, food: 1 },
+    accent: '#87c56a',
+    icon: '🏗️',
+    persistent: true,
+  },
+  {
     id: 'farm-dressage',
     buildingId: 'moon-farm',
     companionId: 'sora',
@@ -378,22 +394,6 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     persistent: true,
   },
   {
-    id: 'farm-pets',
-    buildingId: 'moon-farm',
-    companionId: 'sora',
-    focusResource: 'gifts',
-    minigameType: 'pet-sanctuary',
-    name: 'Promenade Myrions',
-    tagline: 'Enclos doux — Sora',
-    inspiration: 'Tamagotchi chill / Neko Atsume',
-    description:
-      'Sora veille sur un petit enclos où des Myrions se promènent. Clique sur l’un d’eux pour le soigner — jamais de punition.',
-    baseReward: { gifts: 25, food: 40, renown: 10 },
-    accent: '#ffb86b',
-    icon: '🐾',
-    persistent: true,
-  },
-  {
     id: 'farm-capture',
     buildingId: 'moon-farm',
     companionId: 'talia',
@@ -407,22 +407,6 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     baseReward: { wood: 55, gifts: 30, stardust: 8 },
     accent: '#5ecf8a',
     icon: '🎯',
-    persistent: true,
-  },
-  {
-    id: 'farm-worksite',
-    buildingId: 'moon-farm',
-    companionId: 'sora',
-    focusResource: 'wood',
-    minigameType: 'myrion-worksite',
-    name: 'Ferme lunaire',
-    tagline: 'Prairie lunaire — Sora',
-    inspiration: 'Idle supervision / tap léger',
-    description:
-      'Assigne tes Myrions aux filons des biomes. Tap pour aider un peu — production douce et contemplative.',
-    baseReward: { wood: 1, stone: 1, food: 1 },
-    accent: '#87c56a',
-    icon: '🏗️',
     persistent: true,
   },
   {

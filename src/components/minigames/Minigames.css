@@ -734,12 +734,14 @@
 
 /* Chasse / capture — scène bord à bord ; rail en overlay (ne réduit plus la largeur) */
 .minigame-panel-fullscreen .mg-capture-immersive--hunt .mg-hunt-layout,
-.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-layout {
+.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-layout,
+.minigame-panel-fullscreen .mg-refuge-immersive .mg-hunt-layout {
   position: relative;
 }
 
 .minigame-panel-fullscreen .mg-capture-immersive--hunt .mg-hunt-rail.mg-hunt-rail--desktop-layout,
-.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-rail.mg-hunt-rail--desktop-layout {
+.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-rail.mg-hunt-rail--desktop-layout,
+.minigame-panel-fullscreen .mg-refuge-immersive .mg-hunt-rail.mg-hunt-rail--desktop-layout {
   bottom: 0;
   flex: none;
   height: 100%;
@@ -752,13 +754,15 @@
 }
 
 .minigame-panel-fullscreen .mg-capture-immersive--hunt .mg-hunt-rail--desktop-layout .mg-hunt-rail-desktop,
-.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-rail--desktop-layout .mg-hunt-rail-desktop {
+.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-rail--desktop-layout .mg-hunt-rail-desktop,
+.minigame-panel-fullscreen .mg-refuge-immersive .mg-hunt-rail--desktop-layout .mg-hunt-rail-desktop {
   height: 100%;
   pointer-events: auto;
 }
 
 .minigame-panel-fullscreen .mg-capture-immersive--hunt .mg-hunt-main,
-.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-main {
+.minigame-panel-fullscreen .mg-capture-immersive--result .mg-hunt-main,
+.minigame-panel-fullscreen .mg-refuge-immersive .mg-hunt-main {
   flex: 1 1 100%;
   min-width: 100%;
   width: 100%;
@@ -1193,7 +1197,7 @@
   height: 100%;
   max-height: none;
   max-width: none;
-  object-fit: fill;
+  object-fit: cover;
   object-position: center center;
   width: 100%;
 }
@@ -1280,7 +1284,7 @@
   }
 
   .mg-refuge-immersive .mg-enclosure-bg {
-    object-fit: fill;
+    object-fit: cover;
     object-position: center center;
   }
 

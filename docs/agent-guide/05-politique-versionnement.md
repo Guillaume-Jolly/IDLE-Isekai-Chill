@@ -84,16 +84,21 @@ Documenter dans [`docs/traceability/changelog/VERSION-INDEX.md`](../traceability
 
 ---
 
-## Harmonisation UI ↔ Git (passage 2.2)
+## Harmonisation UI ↔ Git (passage nouvelle phase)
 
 **Problème connu fin 2.1 :** `revision` (= X) a dérivé (ex. 128) vs historique git / nombre de commits.
 
-**Au kickoff 2.2 :**
+**Procédure kickoff (toute phase MINOR) :** voir [`07-kickoff-nouvelle-version.md`](./07-kickoff-nouvelle-version.md).
 
-1. Bump `package.json` → `2.2.0`
-2. Reset `build-revision.json` : `{ "revision": 1, "subRevision": 0 }`
-3. Premier prompt → `npm run version:prompt` → X=2 si convention « prompt 1 = setup branche »
-4. Tag release future : `v2.2.0.0` (convention tag ≠ label UI)
+Résumé :
+
+1. Branche `feature/{N}` depuis `main`
+2. Bump `package.json` → `{N}.0.0`
+3. Reset `build-revision.json` : `{ "revision": 1, "subRevision": 0 }`
+4. Premier prompt de travail → `npm run version:prompt` → label `v{N}.0.02`
+5. Tag release future : `v{N}.0.0` (convention tag ≠ label UI)
+
+**Exemple 2.2 (fait 2026-06-30) :** semver `2.2.0`, UI `v2.2.0.02` après kickoff + premier prompt.
 
 ---
 

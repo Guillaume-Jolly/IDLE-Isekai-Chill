@@ -23,8 +23,9 @@ Chaque **commit** ou **fin de session significative** doit laisser le repo lisib
 
 | Fichier | Contenu |
 |---------|---------|
-| [`.ai/current-state.md`](../../.ai/current-state.md) | Phase active, décisions, prochaine étape |
-| [`.ai/next-task.md`](../../.ai/next-task.md) | Tâche concrète suivante |
+| [`.ai/current-state.md`](../../.ai/current-state.md) | Phase active (optionnel — **gitignoré**, local) |
+| [`.ai/next-task.md`](../../.ai/next-task.md) | Tâche suivante (optionnel — **gitignoré**, local) |
+| [`docs/traceability/project-state.md`](../traceability/project-state.md) | **État projet versionné** — prioritaire sur `.ai/` |
 
 ---
 

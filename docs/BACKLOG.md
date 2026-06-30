@@ -8,9 +8,9 @@ Pour le travail en cours et les tâches priorisées, voir aussi
 
 ---
 
-## Dev — cache / chargement assets (priorité tête de liste)
+## Dev — cache / chargement assets
 
-**Statut :** idée → à traiter tôt pour les tests en dev  
+**Statut :** actif 2.2 — warmup splash + village + gacha + myrions + hub + compagnons (`gameWarmupPaths.ts`, `gameAssetWarmup.ts`)  
 **Contexte :** en local, les gros PNG (~800 Mo sous `assets/`) sont re-téléchargés à chaque changement d’onglet / page ; l’onglet Liens paraît vide longtemps (gradients seuls).
 
 **Objectif :** fluidifier les tests dev sans attendre un rebuild prod.

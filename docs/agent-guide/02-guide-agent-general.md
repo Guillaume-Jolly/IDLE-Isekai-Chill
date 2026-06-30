@@ -9,9 +9,10 @@ Updated: 2026-06-30
 1. Lire [`AGENTS.md`](../../AGENTS.md)
 2. Lire [`.ai/current-state.md`](../../.ai/current-state.md) et [`.ai/next-task.md`](../../.ai/next-task.md)
 3. `git status --short` — comprendre l'état du working tree
-4. Identifier si une **recette playbook** existe (`staging/playbooks/`)
-5. **Nouveau prompt user** → `npm run version:prompt` (incrémente **X**)
-6. **Tâche distincte** dans le même prompt → `npm run version:task` (incrémente **Y**) — log dans `DEV_LOG_2_2.md`
+4. **Nouvelle phase produit ?** → lire [`07-kickoff-nouvelle-version.md`](./07-kickoff-nouvelle-version.md) et **proposer le kickoff** si non fait (avant toute autre tâche)
+5. Identifier si une **recette playbook** existe (`staging/playbooks/`)
+6. **Nouveau prompt user** → `npm run version:prompt` (incrémente **X**)
+7. **Tâche distincte** dans le même prompt → `npm run version:task` (incrémente **Y**) — log dans `DEV_LOG_2_2.md`
 
 ---
 
