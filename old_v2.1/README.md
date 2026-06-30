@@ -9,7 +9,9 @@ Aucun fichier n’a été supprimé : tout a été **déplacé** depuis la racin
 | `assets_wip/` | Assets compagnons/hub non intégrés release 2.1 |
 | `story_wip/` | Story, scene generator, hooks associés (non branchés) |
 | `staging/` | Staging mvp15 généré, manifests JSON temporaires, samples story |
-| `ai_work/` | Dossier `.ai/` (coordination agent) |
+| `ai_work/` | Dossier `.ai/` historique (coordination agent pré-21.2) |
+
+**Stub actif (MVP 21.2) :** `.ai/` à la racine du dépôt — voir `.ai/README.md`.
 | `temp/` | Logs build temporaires |
 | `docs_wip/` | Docs MVP drift + notes hors release active |
 | `legacy/` | Ajouts untracked `old_assets/`, scripts archive |

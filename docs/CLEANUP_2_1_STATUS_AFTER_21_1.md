@@ -78,11 +78,17 @@ Aucun diff de contenu détecté sur les fichiers `src/` (uniquement métadonnée
 
 ## Actions recommandées — MVP 21.2
 
-1. `npm run build` — confirmer build 2.1 intact post-archivage
-2. Décider : restaurer `.ai/` minimal à la racine ou mettre à jour `AGENTS.md`
-3. Traiter bruit CRLF sur `src/` et `scripts/` (checkout ou commit intentionnel)
-4. `git add old_v2.1/` + docs cleanup → commit local (fait en 21.1)
-5. **Ne pas push** avant validation Guillaume (consigne 21.1)
+1. ~~`npm run build` — confirmer build 2.1 intact post-archivage~~ **Fait** — voir [`CLEANUP_2_1_VALIDATION_21_2.md`](./CLEANUP_2_1_VALIDATION_21_2.md)
+2. ~~Décider : restaurer `.ai/` minimal à la racine~~ **Fait** — stub `.ai/` créé (MVP 21.2)
+3. ~~Traiter bruit CRLF sur `src/` et `scripts/`~~ **Fait** — `git checkout --` (diff vide)
+4. Commit cleanup local — voir MVP 21.2
+5. **Ne pas push** avant validation Guillaume
+
+## Actions recommandées — MVP 21.3
+
+1. Push branche cleanup (`d4bb3d0` + commits 21.2) si validé
+2. Créer / mettre à jour PR release 2.1 + cleanup
+3. Rebuild preview pour smoke post-commit
 
 ---
 

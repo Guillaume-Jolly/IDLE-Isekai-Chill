@@ -10,7 +10,7 @@ Keep the project stable, reviewable, and save-compatible. Do not perform broad r
 
 1. Read this file.
 2. Read `docs/agent-guide/README.md` (onboarding + versionnement).
-3. Read `.ai/project-context.md`.
+3. Read `.ai/project-context.md` (stub actif ; archive complète : `old_v2.1/ai_work/.ai/`).
 4. Read `.ai/current-state.md` if present.
 5. Read `.ai/next-task.md` and execute only that task.
 6. Check `git status --short`.
