@@ -29,13 +29,17 @@ import {
   getActivityById,
 } from './data/buildingActivities'
 import {
-  bumpQuestProgress,
-  createStarterQuestSave,
-  generateQuestBoard,
-  type InfiniteQuest,
+  bumpQuestSaveProgress,
+  claimQuestInSave,
+  createInitialQuestSave,
+  createQuestContext,
+  getLocalDayKey,
+  normalizeQuestSave,
+  syncQuestSave,
   type QuestKind,
   type QuestSave,
 } from './data/infiniteQuests'
+import type { QuestNavigateTarget } from './data/questNavigation'
 import {
   claimTutorialObjective,
   createStarterTutorialSave,
@@ -602,14 +606,10 @@ const createStarterGame = (): GameState => ({
   maturePlaceholders: false,
   lastSaved: Date.now(),
   minigameSave: createStarterMinigameSave(),
-  quests: {
-    ...createStarterQuestSave(),
-    board: generateQuestBoard(
-      BUILDINGS.map((building) => building.id),
-      COMPANIONS.map((companion) => companion.id),
-      6,
-    ),
-  },
+  quests: createInitialQuestSave(
+    BUILDINGS.map((building) => building.id),
+    COMPANIONS.map((companion) => companion.id),
+  ),
   tutorial: createStarterTutorialSave(),
   village: createStarterPopulation(),
 })
@@ -676,13 +676,18 @@ const bumpGameQuests = (
   game: GameState,
   kind: QuestKind,
   detail?: { buildingId?: string; companionId?: string; activityId?: string },
-): GameState => ({
-  ...game,
-  quests: {
-    ...game.quests,
-    board: bumpQuestProgress(game.quests.board, kind, detail),
-  },
-})
+): GameState => {
+  const ctx = createQuestContext(
+    BUILDINGS.map((building) => building.id),
+    COMPANIONS.map((companion) => companion.id),
+  )
+  let quests = bumpQuestSaveProgress(game.quests, kind, detail)
+  const today = getLocalDayKey()
+  if (quests.lastDailyGeneratedDay !== today) {
+    quests = syncQuestSave(quests, ctx)
+  }
+  return { ...game, quests }
+}
 
 const scaleCostByMultiplier = (cost: Cost, multiplier: number): Cost =>
   Object.fromEntries(
@@ -795,12 +800,13 @@ const hydrateGameFromRaw = (raw: string): { game: GameState; report: OfflineRepo
       disagreaEventPulls: parsed.disagreaEventPulls ?? 0,
       maturePlaceholders: parsed.maturePlaceholders ?? false,
       minigameSave: mergedMinigameSave,
-      quests: parsed.quests?.board?.length
-        ? {
-            board: parsed.quests.board,
-            totalClaimed: parsed.quests.totalClaimed ?? 0,
-          }
-        : createStarterGame().quests,
+      quests: normalizeQuestSave(
+        parsed.quests,
+        createQuestContext(
+          BUILDINGS.map((building) => building.id),
+          COMPANIONS.map((companion) => companion.id),
+        ),
+      ),
       village: {
         ...createStarterPopulation(),
         ...(parsed.village ?? {}),
@@ -1294,7 +1300,16 @@ function App() {
 
   const nextStepSuggestion = useMemo(() => computeNextStep(nextStepContext), [nextStepContext])
 
-  const handleNextStepNavigate = (target: NextStepTarget) => {
+  const handleNextStepNavigate = (target: NextStepTarget | QuestNavigateTarget) => {
+    if (target.kind === 'building') {
+      setActiveBuildingId(target.buildingId)
+      handleSelectView('buildings')
+      return
+    }
+    if (target.kind === 'companion') {
+      handleSelectView('companions')
+      return
+    }
     if (target.kind === 'view') {
       handleSelectView(target.view)
       return
@@ -1305,26 +1320,53 @@ function App() {
     }
   }
 
-  const claimQuest = (questId: string, reward: Cost) => {
-    pushRewardPayloads(payloadsFromCost(reward))
-    setGame((current) => ({
-      ...current,
-      resources: mergeResources(current.resources, reward),
-      quests: {
-        totalClaimed: current.quests.totalClaimed + 1,
-        board: current.quests.board.filter((quest) => quest.id !== questId),
-      },
-    }))
-    setMessage(`Quete terminee — ${costText(reward)} recoltes.`)
+  const claimQuest = (questId: string) => {
+    setGame((current) => {
+      const ctx = createQuestContext(
+        BUILDINGS.map((building) => building.id),
+        COMPANIONS.map((companion) => companion.id),
+      )
+      const { save, reward } = claimQuestInSave(current.quests, questId, ctx)
+      if (!reward) return current
+      window.queueMicrotask(() => {
+        pushRewardPayloads(payloadsFromCost(reward))
+        setMessage(`Quete terminee — ${costText(reward)} recoltes.`)
+      })
+      return {
+        ...current,
+        resources: mergeResources(current.resources, reward),
+        quests: save,
+      }
+    })
   }
 
-  const refreshQuestBoard = (board: InfiniteQuest[]) => {
-    setGame((current) => ({
-      ...current,
-      quests: { ...current.quests, board },
-    }))
-    setMessage('Nouvelles mini-quetes generees.')
-  }
+  const syncQuestBoard = useCallback(() => {
+    setGame((current) => {
+      const ctx = createQuestContext(
+        BUILDINGS.map((building) => building.id),
+        COMPANIONS.map((companion) => companion.id),
+      )
+      const synced = syncQuestSave(current.quests, ctx)
+      if (
+        synced.daily.length === current.quests.daily.length &&
+        synced.infinite.length === current.quests.infinite.length &&
+        synced.lastDailyGeneratedDay === current.quests.lastDailyGeneratedDay
+      ) {
+        return current
+      }
+      return { ...current, quests: synced }
+    })
+  }, [])
+
+  useEffect(() => {
+    syncQuestBoard()
+  }, [syncQuestBoard])
+
+  useEffect(() => {
+    if (activeView === 'quests') {
+      syncQuestBoard()
+    }
+  }, [activeView, syncQuestBoard])
 
   const saveMinigameProgress = (save: MinigameSave) => {
     setGame((current) => withTutorialSync({ ...current, minigameSave: save }))
@@ -1515,13 +1557,9 @@ function App() {
         onNavigate={handleSelectView}
       />
       <QuestBoard
-        buildingIds={BUILDINGS.map((building) => building.id)}
-        companionIds={COMPANIONS.map((companion) => companion.id)}
         quests={game.quests}
         onClaim={claimQuest}
-        onRefresh={refreshQuestBoard}
-        onLaunchConversation={() => tryLaunchMinigame('spring-hearts')}
-        onLaunchMinigames={() => setActiveView('miniGames')}
+        onNavigate={handleNextStepNavigate}
       />
     </>
   )
@@ -1610,9 +1648,9 @@ function App() {
           <h2>Relations et illustrations</h2>
         </div>
         <p className="section-heading-note">
-          <strong>Conversations de lien</strong> (ci-dessous) : dialogues par palier d&apos;affinité,
-          sans coût. <strong>Mini-jeu Parler</strong> (bouton) : session courte à choix avec
-          récompenses.
+          <strong>Conversations de lien</strong> : dialogues par palier d&apos;affinité (repliés par
+          défaut sur chaque carte). <strong>Mini-jeu Parler</strong> (bouton) : session courte à
+          choix avec récompenses.
         </p>
         <label className="toggle">
           <input
