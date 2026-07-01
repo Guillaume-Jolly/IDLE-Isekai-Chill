@@ -1,6 +1,6 @@
 # Index documentation — guide agent
 
-**Updated:** 2026-06-30 (passe 2 archivage résidus)  
+**Updated:** 2026-07-01 (versionnement hook + DEV_LOG atomique)  
 **But :** éviter qu’un agent suive une doc obsolète. Lire cet index **avant** d’explorer `docs/` au hasard.
 
 ---
@@ -13,11 +13,12 @@
 | 2 | [`docs/traceability/project-state.md`](./traceability/project-state.md) | **État projet versionné** (source de vérité) |
 | 3 | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Phase 2.2 + prompt agent |
 | 4 | [`docs/agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md) | **Kickoff nouvelle phase** — proposer dès le 1er message |
-| 5 | [`docs/agent-guide/`](./agent-guide/) | Onboarding, versionnement, validation |
+| 5 | [`docs/agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) | X/Y, hook, DEV_LOG, commits atomiques |
+| 6 | [`docs/agent-guide/`](./agent-guide/) | Onboarding, validation |
 | — | `.ai/` (gitignoré) | Stub agent **local** — optionnel si présent sur disque |
 
 **Branche prod :** `main` @ `b91b6fb` · tag release **`v2.1.0.0`**  
-**Branche dev :** `feature/2.2` · semver **`2.2.0`** · UI **`v2.2.0.02`**  
+**Branche dev :** `feature/2.2` · semver **`2.2.0`** · UI **`v2.2.0.{X}`** · hook [`.cursor/hooks.json`](../.cursor/hooks.json)  
 **Stack PROD locale :** `deploy/` — **hors Git public** (PC hôte uniquement).
 
 ---
@@ -69,12 +70,17 @@ Uniquement **`staging/playbooks/`** (procédures opérationnelles 01–04, 06, 0
 ## Validation & versionnement
 
 ```bash
-npm run version:prompt
-npm run version:task
+# X : automatique via hook beforeSubmitPrompt (opt-out message : « même X »)
+npm run version:prompt   # backup manuel si hook off
+npm run version:task     # Y — tâche distincte (agent uniquement, pas HMR)
 npm run validate:companion-bonds
 npm run validate:link-corpus
 npm run tnr:baseline
 npm run build
 ```
 
-Voir [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) et [`agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md) et [`agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md).
+- Politique : [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md)
+- Hook : [`.cursor/hooks/README.md`](../.cursor/hooks/README.md)
+- DEV_LOG : [`traceability/changelog/DEV_LOG_2_2.md`](./traceability/changelog/DEV_LOG_2_2.md)
+- Pipeline : [`agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md)
+- Kickoff : [`agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md)

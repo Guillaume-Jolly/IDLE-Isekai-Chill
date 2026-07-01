@@ -24,7 +24,7 @@ Point d'entrée pour **tout nouvel agent** (Cursor, humain, session future).
 | [02-guide-agent-general.md](./02-guide-agent-general.md) | Workflow session, validation, communication user |
 | [03-projets-ponctuels.md](./03-projets-ponctuels.md) | Imports one-shot, events, packs — sans systématiser |
 | [04-fichiers-par-commit.md](./04-fichiers-par-commit.md) | Checklist fichiers à tenir à jour |
-| [05-politique-versionnement.md](./05-politique-versionnement.md) | `v2.2.0.X` / `v2.2.0.X.Y` — X=prompt, Y=tâche |
+| [05-politique-versionnement.md](./05-politique-versionnement.md) | X/Y, hook Cursor, DEV_LOG, commits atomiques |
 | [06-pipeline-validation.md](./06-pipeline-validation.md) | Ordre validate / tnr / CI |
 | [07-kickoff-nouvelle-version.md](./07-kickoff-nouvelle-version.md) | **Kickoff phase** — checklist + comportement agent |
 | [`HANDOFF_2_2_AGENT_BRIEF.md`](../HANDOFF_2_2_AGENT_BRIEF.md) | Brief + prompt agent phase 2.2 |
@@ -36,7 +36,7 @@ Point d'entrée pour **tout nouvel agent** (Cursor, humain, session future).
 
 | Dossier | Granularité | Public |
 |---------|-------------|--------|
-| [`../traceability/changelog/`](../traceability/changelog/) | **Chaque micro-modif** + version exacte | Agents + user |
+| [`../traceability/changelog/DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md) | **Résumé X/Y** + guide commits atomiques | Agents + user |
 | Message de **commit** git | Lot cohérent + *pourquoi* | Historique git |
 | [`.ai/current-state.md`](../../.ai/current-state.md) | État initiative | Agent suivant |
 

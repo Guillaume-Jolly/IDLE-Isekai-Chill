@@ -23,10 +23,13 @@ npm run dev
 Nouvelle session agent / gros chantier :
 
 ```bash
-npm run version:prompt    # incrément X (nouveau prompt)
-npm run version:task      # incrément Y (tâche distincte)
+# X : hook Cursor (beforeSubmitPrompt) — backup manuel :
+npm run version:prompt    # incrément X (nouveau prompt) ; opt-out user : « même X »
+npm run version:task      # incrément Y (tâche distincte — pas le HMR)
 npm run tnr:baseline      # bonds + corpus + build + manifest assets
 ```
+
+Journal prompt → commits atomiques : [`docs/traceability/changelog/DEV_LOG_2_2.md`](docs/traceability/changelog/DEV_LOG_2_2.md)
 
 ---
 

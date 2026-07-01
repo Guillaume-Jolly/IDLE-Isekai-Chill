@@ -1,6 +1,6 @@
 # 07 — Kickoff d'une nouvelle version (phase MINOR)
 
-Updated: 2026-06-30
+Updated: 2026-07-01
 
 Procédure **obligatoire** au démarrage d'une nouvelle phase produit (ex. `2.1.0` → `2.2.0`), avant toute retouche fonctionnelle.
 
@@ -52,12 +52,13 @@ Remplacer `{N}` par la phase cible (`2.2`, `2.3`, …).
 | 2 | Branche travail | `git checkout -b feature/{N}` (ou checkout si existe) |
 | 3 | Bump semver | `package.json` → `{N}.0.0` (convention MINOR phase) |
 | 4 | Reset UI | `build-revision.json` → `{ "revision": 1, "subRevision": 0 }` |
-| 5 | Journal phase | Créer `docs/traceability/changelog/DEV_LOG_{N_with_underscore}.md` (ex. `DEV_LOG_2_2.md`) |
-| 6 | Stubs agent | Mettre à jour `.ai/current-state.md`, `.ai/next-task.md`, `.ai/project-context.md` |
-| 7 | Brief handoff | Mettre à jour ou archiver `docs/HANDOFF_*_AGENT_BRIEF.md` |
-| 8 | Premier prompt travail | `npm run version:prompt` → label `v{N}.0.02` (reset à 1 puis prompt) |
-| 9 | Validation | `npm run build` minimum |
-| 10 | Commit kickoff | 1 commit `chore({N}): kickoff feature/{N}` — **si l'utilisateur le demande** |
+| 5 | Journal phase | Créer `docs/traceability/changelog/DEV_LOG_{N_with_underscore}.md` avec bloc `## ⚠️ Sections ouvertes` |
+| 6 | Hook version (si Cursor) | Vérifier [`.cursor/hooks.json`](../../.cursor/hooks.json) actif — auto `version:prompt` |
+| 7 | Stubs agent | Mettre à jour `.ai/current-state.md`, `.ai/next-task.md`, `.ai/project-context.md` |
+| 8 | Brief handoff | Mettre à jour ou archiver `docs/HANDOFF_*_AGENT_BRIEF.md` |
+| 9 | Premier prompt travail | Hook ou `npm run version:prompt` → label `v{N}.0.02` (reset à 1 puis prompt) |
+| 10 | Validation | `npm run build` minimum |
+| 11 | Commit kickoff | 1 commit `chore({N}): kickoff feature/{N}` — **si l'utilisateur le demande** |
 
 **Tag release future :** `v{N}.0.0` (convention git, distinct du label UI `v{N}.0.{X}`).
 
@@ -65,9 +66,10 @@ Remplacer `{N}` par la phase cible (`2.2`, `2.3`, …).
 
 ## Après le kickoff
 
-- Chaque **nouveau prompt user** → `npm run version:prompt` (X+1, Y→0)
+- Chaque **nouveau prompt user** → hook Cursor ou `npm run version:prompt` (X+1, Y→0)
 - Chaque **tâche distincte** dans le prompt → `npm run version:task` (Y+1)
-- Log obligatoire : `DEV_LOG_{phase}.md` — une section par X, tableau des Y
+- Log obligatoire : `DEV_LOG_{phase}.md` — sections ⚠️ ouvertes + historique complété
+- **Commits atomiques** : relire DEV_LOG → 1 commit par Y (voir [`05-politique-versionnement.md`](./05-politique-versionnement.md))
 - Merge `feature/{N}` → `main` **uniquement** avec go explicite Guillaume
 
 ---

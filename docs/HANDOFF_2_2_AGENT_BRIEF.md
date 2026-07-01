@@ -46,12 +46,14 @@ Format UI : **`v{semver}.{X}`** ou **`v{semver}.{X}.{Y}`**
 | Segment | Règle |
 |---------|-------|
 | `semver` | `package.json` — **`2.2.0`** au kickoff |
-| **X** | +1 à chaque **nouveau prompt** user → `npm run version:prompt` (reset Y=0) |
-| **Y** | +1 à chaque **tâche distincte** dans le prompt → `npm run version:task` |
+| **X** | +1 à chaque **nouveau prompt** user → hook Cursor ou `npm run version:prompt` (reset Y=0). Opt-out : `même X` |
+| **Y** | +1 à chaque **tâche distincte** dans le prompt → `npm run version:task` (agent — **pas** HMR) |
 
-**Commits :** viser **1 commit par X** (fin de prompt) décrivant le **but** ; commits par Y acceptés si lots isolés.
+**Commits :** viser **1 commit par Y** (lots atomiques) ou **1 commit par X** (récap) — le DEV_LOG sert de guide ; voir [`05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md).
 
-**Log obligatoire :** [`docs/traceability/changelog/DEV_LOG_2_2.md`](./traceability/changelog/DEV_LOG_2_2.md)
+**Log obligatoire :** [`docs/traceability/changelog/DEV_LOG_2_2.md`](./traceability/changelog/DEV_LOG_2_2.md) — sections `⚠️` injectées par `version:prompt`, à compléter en fin de prompt.
+
+**Automatisation X :** [`.cursor/hooks.json`](../.cursor/hooks.json) — hook `beforeSubmitPrompt` (redémarrer Cursor si inactif).
 
 **Reset UI au kickoff :**
 
@@ -111,10 +113,10 @@ Smoke minimal si UI touchée : Village, hub mini-jeux, Ferme lunaire, Promenade 
 
 1. `git checkout feature/2.2` (ou créer depuis `main` si nouvelle phase)
 2. **Si kickoff non fait** → proposer checklist [`07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md) **dès le premier message**
-3. **Début prompt :** `npm run version:prompt`
-4. Travailler tâche par tâche → `npm run version:task` + ligne DEV_LOG
-5. **Fin tâche :** commit ciblé sur `feature/2.2` (si demandé)
-6. **Fin prompt :** commit récap X si besoin, mettre à jour DEV_LOG + `.ai/current-state.md`
+3. **Début prompt :** automatique via hook Cursor ; sinon `npm run version:prompt`
+4. Travailler tâche par tâche → `npm run version:task` + **ligne Y** dans DEV_LOG
+5. **Fin tâche :** commit atomique ciblé sur `feature/2.2` (si demandé) — 1 Y = 1 commit typique
+6. **Fin prompt :** compléter section ⚠️ DEV_LOG ; commit récap X si besoin ; `.ai/current-state.md`
 7. Validations avant de dire « terminé »
 
 ---
@@ -150,18 +152,18 @@ Si le kickoff n'est pas fait (semver encore 2.1.0, UI sur v2.1.x, branche absent
 ## Versionnement UI — OBLIGATOIRE
 Format affiché : `v{semver}.{X}` ou `v{semver}.{X}.{Y}`
 - semver : `package.json` (2.2.0 au kickoff)
-- X : +1 par NOUVEAU PROMPT → `npm run version:prompt` (début de session)
-- Y : +1 par TÂCHE DISTINCTE dans le prompt → `npm run version:task`
+- X : hook Cursor ou `npm run version:prompt` à chaque NOUVEAU PROMPT (opt-out : `même X`)
+- Y : +1 par TÂCHE DISTINCTE → `npm run version:task` uniquement (pas HMR)
 
 Kickoff (si pas encore fait — voir `docs/agent-guide/07-kickoff-nouvelle-version.md`) :
 1. Créer `feature/2.2` depuis `main`
 2. Bump `package.json` → `2.2.0`
 3. Reset `build-revision.json` → `{ "revision": 1, "subRevision": 0 }`
-4. `npm run version:prompt` au premier prompt de travail
+4. Vérifier `.cursor/hooks.json` (auto X) ou `npm run version:prompt` manuel
 
-Commits : 1 commit par X (fin de prompt) avec message décrivant le BUT ; commits intermédiaires par Y si lots reviewables.
+Commits : relire DEV_LOG → 1 commit par Y (atomique) ou récap par X ; message = résumé Y ou but du prompt.
 
-Tenir à jour `docs/traceability/changelog/DEV_LOG_2_2.md` : une section par X, tableau des Y (résumé + hash commit).
+Tenir à jour `docs/traceability/changelog/DEV_LOG_2_2.md` : sections ⚠️ ouvertes + historique ; tableau Y (résumé + hash commit).
 
 ## Règles dures
 - Aucune suppression définitive (archiver dans `old_assets/` ou `old_v2.1/` local)
@@ -184,7 +186,7 @@ npm run build
 - Réponds en français
 - Commence chaque session par : branche courante, X/Y UI, `git status --short`
 - **Kickoff non fait ?** Propose l'initialisation immédiatement (guide 07)
-- Nouvelle session user → `npm run version:prompt` en premier (après kickoff)
+- X bump : hook Cursor automatique ; backup `version:prompt` ; opt-out `même X`
 - Ne pas recréer la release 2.1 ni relancer le nettoyage déjà fait sur `main`
 - Ne pas suivre les docs dans `old_v2.1/` comme source active
 

@@ -26,7 +26,7 @@ Updated: 2026-06-30
 |----------|---------|
 | Validate bonds + corpus + build | `.github/workflows/validate.yml` |
 | TNR baseline local | `npm run tnr:baseline` — voir `docs/agent-guide/06-pipeline-validation.md` |
-| Version X/Y | `npm run version:prompt` / `npm run version:task` |
+| Version X/Y + DEV_LOG | Hook [`.cursor/hooks.json`](../../.cursor/hooks.json) + `version:task` — voir [`05-politique-versionnement.md`](../../docs/agent-guide/05-politique-versionnement.md) |
 
 ---
 

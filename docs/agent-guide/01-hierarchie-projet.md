@@ -1,6 +1,6 @@
 # 01 — Hiérarchie projet
 
-Updated: 2026-06-30
+Updated: 2026-07-01
 
 ---
 
@@ -15,6 +15,9 @@ IDLE Isekai Chill/
 ├── old_v2.1/               # Quarantaine post-release 2.1 — JAMAIS supprimer
 ├── staging/                # WIP playbooks + reviews
 ├── docs/agent-guide/       # Onboarding agents (commit)
+├── .cursor/                # Règles agent + hooks versionnement (commit)
+│   ├── rules/              # dont 02-version-prompt-first.mdc
+│   └── hooks.json          # auto version:prompt (beforeSubmitPrompt)
 ├── docs/traceability/      # Changelog, TNR, audits, manifests (commit)
 ├── Input chatgpt/          # Drops user — gitignore
 ├── scripts/                # Import, promote, validate
@@ -70,7 +73,8 @@ assets/
 | `src/data/companionAssets.ts` | 404 portraits |
 | `src/components/minigames/` + `Minigames.css` | Chasse, dressage, liens |
 | `vite.config.ts` + `vite.repo-assets.ts` | 404 silencieux images |
-| `build-revision.json` | Numéro version UI |
+| `build-revision.json` | Numéro version UI (X/Y) |
+| `.cursor/hooks.json` | Auto-bump X à chaque prompt user |
 
 ---
 

@@ -1,6 +1,6 @@
 # 02 — Guide agent général
 
-Updated: 2026-06-30
+Updated: 2026-07-01
 
 ---
 
@@ -11,8 +11,9 @@ Updated: 2026-06-30
 3. `git status --short` — comprendre l'état du working tree
 4. **Nouvelle phase produit ?** → lire [`07-kickoff-nouvelle-version.md`](./07-kickoff-nouvelle-version.md) et **proposer le kickoff** si non fait (avant toute autre tâche)
 5. Identifier si une **recette playbook** existe (`staging/playbooks/`)
-6. **Nouveau prompt user** → `npm run version:prompt` (incrémente **X**)
-7. **Tâche distincte** dans le même prompt → `npm run version:task` (incrémente **Y**) — log dans `DEV_LOG_2_2.md`
+6. **Nouveau prompt user** → X bump **automatique** (hook `.cursor/hooks.json`) ; backup : `npm run version:prompt` — opt-out user : `même X`
+7. **Tâche distincte** dans le même prompt → `npm run version:task` (incrémente **Y**) — ligne Y dans [`DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md)
+8. **Fin de prompt** → compléter la section `⚠️ À COMPLÉTER` (titre, but, validations) ; voir commits atomiques dans [`05-politique-versionnement.md`](./05-politique-versionnement.md)
 
 ---
 
@@ -66,9 +67,10 @@ Smoke visuel si assets ou minigames : voir `staging/playbooks/06-tnr-checklist.m
 
 ## Après chaque micro-modification
 
-1. Vite HMR incrémente automatiquement le **dernier chiffre** de version (voir [`05-politique-versionnement.md`](./05-politique-versionnement.md))
-2. Ajouter une ligne dans [`docs/traceability/changelog/`](../traceability/changelog/) — **obligatoire** pour toute modif significative
-3. Si fin de session ou changement d'initiative : mettre à jour `.ai/current-state.md`
+1. **Y** : `npm run version:task` si lot cohérent terminé — **pas** le HMR Vite (voir [`05-politique-versionnement.md`](./05-politique-versionnement.md))
+2. Ajouter une ligne **Y** dans la section X ouverte de [`DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md)
+3. Ajouter une entrée dans [`docs/traceability/changelog/`](../traceability/changelog/) si modif significative (micro)
+4. Si fin de session ou changement d'initiative : mettre à jour `.ai/current-state.md`
 
 ---
 

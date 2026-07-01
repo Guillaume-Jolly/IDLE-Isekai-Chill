@@ -28,9 +28,13 @@ Point d'entrée pour **tout agent** (Cursor ou humain).
 ## Commandes utiles
 
 ```bash
-npm run tnr:baseline      # build + validate:link-corpus + manifest
-npm run version:prompt    # début session user
+npm run tnr:baseline      # build + validate + manifest
+# X : hook Cursor auto ; backup :
+npm run version:prompt    # nouveau prompt (opt-out : « même X »)
+npm run version:task      # tâche distincte (Y — pas HMR)
 ```
+
+DEV_LOG + commits atomiques : [`docs/traceability/changelog/DEV_LOG_2_2.md`](../../docs/traceability/changelog/DEV_LOG_2_2.md)
 
 ---
 

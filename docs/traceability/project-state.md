@@ -1,6 +1,6 @@
 # État du projet — IDLE Isekai Chill (Havre des Brumes)
 
-> **Source de vérité courante** — mise à jour : 2026-06-30  
+> **Source de vérité courante** — mise à jour : 2026-07-01  
 > Documents historiques archivés : [`old_v2.1/docs_wip/docs-finished-2.1/`](../old_v2.1/docs_wip/docs-finished-2.1/PROJECT_STATE.md) (audit 2026-06-22).
 
 ## Résumé
@@ -12,7 +12,7 @@ Jeu idle / collection cozy fantasy, jouable navigateur. **Release 2.1.0.0 livré
 | Branche prod | `main` @ `b91b6fb` |
 | Branche dev | `feature/2.2` — kickoff fait 2026-06-30 |
 | Semver npm | `2.2.0` (branche feature) |
-| Label UI | `v2.2.0.02` |
+| Label UI | `v2.2.0.{X}` — hook Cursor auto-bump X |
 | Build | **OK** (`npm run build`) |
 | Lint global | **KO** (~33 préexistants, non bloquant) |
 | Tests auto | Aucun framework ; `tnr:baseline` + smoke manuel |
@@ -65,10 +65,10 @@ CI GitHub : [`.github/workflows/validate.yml`](../../.github/workflows/validate.
 
 Format : `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`docs/agent-guide/05-politique-versionnement.md`](../agent-guide/05-politique-versionnement.md).
 
-- **X** : `npm run version:prompt` (nouveau prompt)
-- **Y** : `npm run version:task` (tâche distincte)
-- Log phase 2.2 : [`docs/traceability/changelog/DEV_LOG_2_2.md`](./changelog/DEV_LOG_2_2.md)
-- Kickoff nouvelle phase : [`docs/agent-guide/07-kickoff-nouvelle-version.md`](../agent-guide/07-kickoff-nouvelle-version.md)
+- **X** : hook [`.cursor/hooks.json`](../../.cursor/hooks.json) ou `npm run version:prompt` — opt-out : `même X`
+- **Y** : `npm run version:task` (agent — HMR ne bump plus Y)
+- **DEV_LOG** : [`DEV_LOG_2_2.md`](./changelog/DEV_LOG_2_2.md) — sections ⚠️ + commits atomiques par Y
+- **Kickoff** : [`07-kickoff-nouvelle-version.md`](../agent-guide/07-kickoff-nouvelle-version.md)
 
 **Kickoff 2.2 :** fait 2026-06-30 — reset UI depuis `v2.1.0.128`.
 
