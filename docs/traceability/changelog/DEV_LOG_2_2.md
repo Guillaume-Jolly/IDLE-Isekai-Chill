@@ -418,6 +418,17 @@ Journal **haut niveau** : une section par prompt (**X**), une ligne par tâche d
 **Validations :** ⚠️ _…_
 **Risques :** ⚠️ _…_
 
+### X=41 — 2026-07-01 — ⚠️ À COMPLÉTER
+
+**But du prompt :** ⚠️ _(à compléter — relire le message user de ce prompt)_
+
+| Y | Résumé | Commit | Label UI |
+|---|--------|--------|----------|
+| 0 | `version:prompt` | *(non commité)* | `v2.2.0.41` |
+
+**Validations :** ⚠️ _…_
+**Risques :** ⚠️ _…_
+
 ## Historique complété
 
 ### X=2 — 2026-06-30 — Kickoff phase 2.2 + procédure agents
