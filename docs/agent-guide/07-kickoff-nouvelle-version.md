@@ -1,6 +1,6 @@
 # 07 — Kickoff d'une nouvelle version (phase MINOR)
 
-Updated: 2026-07-01
+Updated: 2026-07-01 (rituels A/B/C agent — MEP, clôture branche, kickoff)
 
 Procédure **obligatoire** au démarrage d'une nouvelle phase produit (ex. `2.1.0` → `2.2.0`), avant toute retouche fonctionnelle.
 
@@ -70,7 +70,8 @@ Remplacer `{N}` par la phase cible (`2.2`, `2.3`, …).
 - Chaque **tâche distincte** dans le prompt → `npm run version:task` (Y+1)
 - Log obligatoire : `DEV_LOG_{phase}.md` — sections ⚠️ ouvertes + historique complété
 - **Commits atomiques** : relire DEV_LOG → 1 commit par Y (voir [`05-politique-versionnement.md`](./05-politique-versionnement.md))
-- Merge `feature/{N}` → `main` **uniquement** avec go explicite Guillaume
+- Merge `feature/{N}` → `main` **uniquement** avec go explicite Guillaume → rituel **B** : voir [`08-versionnement-global.md`](./08-versionnement-global.md) § Push main
+- **Kickoff** souvent enchaîne une clôture / merge — pas confondre avec un simple bump **C**
 
 ---
 

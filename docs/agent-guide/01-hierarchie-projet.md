@@ -11,8 +11,8 @@ IDLE Isekai Chill/
 ├── src/                    # Code React/TS — runtime gameplay
 ├── assets/                 # Source-of-truth visuels (Assets 2.0)
 ├── public/                 # Shell statique + redirects (minimal)
-├── old_assets/             # Archive — JAMAIS supprimer, tri miroir assets/
-├── old_v2.1/               # Quarantaine post-release 2.1 — JAMAIS supprimer
+├── old_assets/             # Archive gitignorée — move only, purge manuelle user
+├── old_v2.1/               # Quarantaine gitignorée — move only, purge manuelle user
 ├── staging/                # WIP playbooks + reviews
 ├── docs/agent-guide/       # Onboarding agents (commit)
 ├── .cursor/                # Règles agent + hooks versionnement (commit)

@@ -1,7 +1,7 @@
 # Cleanup 2.2 — Résidus projets terminés
 
 **Dernière passe :** 2026-06-30 (passe 2)  
-**Archive `old_v2.1/`** : locale uniquement (`.gitignore`) — **non versionnée** sur `main` / `origin`.
+**Archive `old_v2.1/`** : locale, **gitignorée** — moves agent uniquement ; purge manuelle user (local ou autre DD). Non versionnée sur `main` / `origin`.
 
 ---
 
@@ -72,3 +72,18 @@ Scripts one-shot **retirés de `package.json`** :
 | `old_assets/`, `assets/` | Source of truth jeu |
 | `src/` | Code gameplay actif |
 | `staging/playbooks/07-release-prod-stable.md` | Référence locale PROD (gitignoré si non tracké) |
+
+---
+
+## Passe 3 — hooks Cursor legacy (2026-07-01)
+
+**Destination :** `old_2_2/cursor-hooks-legacy/` (gitignoré — convention `old_{A}_{B}/`)
+
+| Fichier | Raison |
+|---------|--------|
+| `bump-version-on-prompt.mjs` | Remplacé par `A.B.C.X.Y - X update - prompt indent.mjs` |
+| `bump-version-on-task-if-changed.mjs` | Remplacé par hook Y nommé |
+| `version-x-nouveau-prompt.mjs` | Doublon intermédiaire |
+| `version-y-fin-tache-si-modif.mjs` | Doublon intermédiaire |
+
+**Actifs :** `.cursor/hooks.json` → hooks `A.B.C.X.Y - X/Y update - …`

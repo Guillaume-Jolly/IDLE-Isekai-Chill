@@ -10,11 +10,14 @@
 | Priorité | Fichier | Contenu |
 |----------|---------|---------|
 | 1 | [`AGENTS.md`](../AGENTS.md) | Règles inviolables |
+| — | [`C:\Dev\Project\REFERENCE`](C:/Dev/Project/REFERENCE) | **Hub multi-projets** — bootstrap, templates, User Rules |
+| — | [`C:\Dev\Project\REFERENCE\docs\INDEX.md`](C:/Dev/Project/REFERENCE/docs/INDEX.md) | Processus partagés (versionnement, archive, MEP…) |
 | 2 | [`docs/traceability/project-state.md`](./traceability/project-state.md) | **État projet versionné** (source de vérité) |
 | 3 | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Phase 2.2 + prompt agent |
-| 4 | [`docs/agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md) | **Kickoff nouvelle phase** — proposer dès le 1er message |
+| 4 | [`docs/agent-guide/08-versionnement-global.md`](./agent-guide/08-versionnement-global.md) | **A.B.C.X.Y** — release + dev, git hooks |
 | 5 | [`docs/agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) | X/Y, hook, DEV_LOG, commits atomiques |
-| 6 | [`docs/agent-guide/`](./agent-guide/) | Onboarding, validation |
+| 6 | [`docs/agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md) | Kickoff nouvelle phase |
+| 7 | [`docs/agent-guide/`](./agent-guide/) | Onboarding, validation |
 | — | `.ai/` (gitignoré) | Stub agent **local** — optionnel si présent sur disque |
 
 **Branche prod :** `main` @ `b91b6fb` · tag release **`v2.1.0.0`**  

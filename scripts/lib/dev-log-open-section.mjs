@@ -1,15 +1,17 @@
 /**
- * Injecte une section ⚠️ À COMPLÉTER dans DEV_LOG_2_2.md après version:prompt.
+ * Injecte une section ⚠️ À COMPLÉTER dans DEV_LOG (chemin via version.config.json).
  */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { devLogPath, projectLabel } from './version-config.mjs'
 
 const OPEN_HEADER = '## ⚠️ Sections ouvertes (X non finalisés)'
 
 export function appendDevLogOpenSection(root, revision, versionLabel) {
-  const devLogPath = join(root, 'docs/traceability/changelog/DEV_LOG_2_2.md')
-  if (!existsSync(devLogPath)) {
-    console.warn('[Havre des Brumes] DEV_LOG_2_2.md introuvable — section ouverte non injectée')
+  const logPath = devLogPath(root)
+  const label = projectLabel(root)
+
+  if (!existsSync(logPath)) {
+    console.warn(`[${label}] DEV_LOG introuvable (${logPath}) — section ouverte non injectée`)
     return
   }
 
@@ -27,12 +29,12 @@ export function appendDevLogOpenSection(root, revision, versionLabel) {
 
 `
 
-  let content = readFileSync(devLogPath, 'utf8')
+  let content = readFileSync(logPath, 'utf8')
 
   if (!content.includes(OPEN_HEADER)) {
     const anchor = '**Commit :** 1 commit principal par **X**'
     if (!content.includes(anchor)) {
-      console.warn('[Havre des Brumes] Ancre DEV_LOG introuvable — section ouverte non injectée')
+      console.warn(`[${label}] Ancre DEV_LOG introuvable — section ouverte non injectée`)
       return
     }
     content = content.replace(
@@ -52,17 +54,17 @@ ${anchor}`,
 
   const headerIdx = content.indexOf(OPEN_HEADER)
   if (headerIdx < 0) {
-    console.warn('[Havre des Brumes] En-tête sections ouvertes introuvable')
+    console.warn(`[${label}] En-tête sections ouvertes introuvable`)
     return
   }
 
   const historyMarker = '## Historique complété'
   const historyIdx = content.indexOf(historyMarker, headerIdx)
   if (historyIdx < 0) {
-    console.warn('[Havre des Brumes] Marqueur historique DEV_LOG introuvable')
+    console.warn(`[${label}] Marqueur historique DEV_LOG introuvable`)
     return
   }
 
   content = `${content.slice(0, historyIdx)}${section}${content.slice(historyIdx)}`
-  writeFileSync(devLogPath, content)
+  writeFileSync(logPath, content)
 }

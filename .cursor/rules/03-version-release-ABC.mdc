@@ -1,0 +1,106 @@
+---
+description: Release A.B.C — rituels MEP, push main, push branche (complète X/Y)
+alwaysApply: true
+---
+
+# Release A · B · C — comportement agent
+
+Schéma : [`docs/agent-guide/08-versionnement-global.md`](../../docs/agent-guide/08-versionnement-global.md)
+
+**Guillaume** seul décideur — **jamais** `git push main` ni MEP sans **go explicite**.
+
+---
+
+## C — push branche feature (auto + rituel agent)
+
+**Bump :** `git push` branche → hook `pre-push` → **C+1** (`version:branch-push`).
+
+### Avant un push branche (proposer si pas fait)
+
+1. `npm run build` minimum ; `validate:*` si domaine touché (bonds, corpus, etc.)
+2. **DEV_LOG** : lignes Y à jour, section X en cours complétée si fin de lot
+3. **Docs** : `project-state.md`, entrées changelog si modif significative
+4. **Normalisation** : chemins doc → [`REFERENCES.md`](../../docs/traceability/REFERENCES.md) si déplacés ; [`DOC_AGENT_INDEX.md`](../../docs/DOC_AGENT_INDEX.md) si nouvelle doc
+5. Commits atomiques (1 Y ≈ 1 commit) — voir [`05-politique-versionnement.md`](../../docs/agent-guide/05-politique-versionnement.md)
+
+### Clôture de branche (pas à chaque C — quand la feature est terminée)
+
+Proposer explicitement la **mise au propre** avant merge :
+
+| Action | Détail |
+|--------|--------|
+| DEV_LOG | Recap tâches agent, déplacer section ⚠️ → Historique |
+| Validation | [`06-pipeline-validation.md`](../../docs/agent-guide/06-pipeline-validation.md) — release gate si lot significatif |
+| Nettoyage | **Move gitignore only** → `old_{A}_{B}/` (ex. `old_2_2/`), `old_v2.1/`, `archive/` — **jamais supprimer** ; fin de B : [`fin-de-B-cleanup`](C:/Dev/Project/REFERENCE/docs/processes/fin-de-B-cleanup.md) + manifeste [`CLEANUP_*_MANIFEST.md`](../../docs/CLEANUP_2_2_RESIDUAL_MANIFEST.md) |
+| Relecture | Mini passe [`relecture-code-hygiene`](C:/Dev/Project/REFERENCE/docs/processes/relecture-code-hygiene.md) si phase longue |
+| Pipelines | Systématiser scripts validate / npm dans `package.json` si nouveau process |
+| Stubs | `.ai/current-state.md`, `.ai/next-task.md` |
+| Push | `git push` branche → **C** auto |
+
+---
+
+## B — push main (auto + rituel agent)
+
+**Bump :** `git push` `main` → hook → **B+1** (`version:main-push`).
+
+### Avant push main — **demander le go** + checklist
+
+1. **Confirmer** avec Guillaume : merge / push `main` autorisé
+2. Release gate : `validate:companion-bonds`, `validate:link-corpus`, `npm run build` ( + `tnr:baseline` si baseline / assets)
+3. [`VERSION-INDEX.md`](../../docs/traceability/changelog/VERSION-INDEX.md) — ligne récap si jalon
+4. [`project-state.md`](../../docs/traceability/project-state.md) — état à jour
+5. [`04-fichiers-par-commit.md`](../../docs/agent-guide/04-fichiers-par-commit.md) — fichiers obligatoires
+6. DEV_LOG phase : sections complétées pour ce qui part en `main`
+7. Push → **B** auto ; rappeler entrée `release-events.jsonl`
+
+**B ≠ MEP.** Push `main` sans deploy prod = **B** seulement, pas **A**.
+
+---
+
+## A — MEP (jamais auto — agent propose, humain valide)
+
+### Quand proposer la procédure MEP complète
+
+Signaux : deploy prod prévu, clôture release majeure, « on met en prod », tag release, fin de phase livrée sur `main`.
+
+### Comportement agent (obligatoire)
+
+1. **Demander** : « On lance la procédure MEP complète (A) ? » + checklist ci-dessous
+2. **Ne pas** exécuter `npm run version:mep` sans accord explicite
+3. Si oui → `npm run version:mep -- --dry-run` → montrer le saut semver → attendre **go**
+4. Si go → `npm run version:mep` → **A+1**
+5. Enchaîner doc + traceabilité (pas seulement le bump)
+
+### Checklist MEP (A)
+
+| # | Action |
+|---|--------|
+| 1 | `version:mep --dry-run` puis `version:mep` |
+| 2 | [`VERSION-INDEX.md`](../../docs/traceability/changelog/VERSION-INDEX.md) — entrée jalon **A** |
+| 3 | Tag git (convention repo, ex. `v{A}.0.0.0`) — si Guillaume demande commit/tag |
+| 4 | Deploy appli (**Guillaume** — stack `deploy/` locale) |
+| 5 | DEV_LOG + `project-state.md` — phase clôturée |
+| 6 | Smoke UI si écrans / assets touchés ([`06-pipeline-validation.md`](../../docs/agent-guide/06-pipeline-validation.md)) |
+
+---
+
+## Kickoff phase suivante (souvent après B ou clôture, pas à chaque C)
+
+Dès brief nouvelle phase ou signaux kickoff non fait → **proposer avant de coder** :
+
+Voir checklist [`07-kickoff-nouvelle-version.md`](../../docs/agent-guide/07-kickoff-nouvelle-version.md) :
+
+- Branche `feature/{N}`, semver `{N}.0.0`, reset `build-revision.json`
+- `DEV_LOG_{phase}.md`, hooks Cursor, `npm run hooks:install` sur clone
+- `npm run build`
+
+Si Guillaume confirme → exécuter sans redemander.
+
+---
+
+## Install & rappels
+
+- Clone / nouvelle machine : `npm run hooks:install`
+- X/Y : règle `02-version-prompt-first.mdc`
+- Nettoyage repo : **move vers gitignore uniquement** — jamais `rm`, `git clean`, purge ; voir `01-no-deletion-archive-only.mdc`
+- Un seul writer agent par working tree

@@ -1,6 +1,9 @@
 # 05 — Politique de versionnement
 
-Updated: 2026-07-01 (hook Cursor + DEV_LOG ouvert + HMR sans bump Y)
+Updated: 2026-07-01 (renvoi schéma global A.B.C.X.Y)
+
+> **Schéma complet release + dev :** [`08-versionnement-global.md`](./08-versionnement-global.md)  
+> Ce fichier détaille surtout **X/Y**, DEV_LOG et hooks Cursor.
 
 Numéro affiché **en haut à gauche** dans l'UI : `UI_VERSION` depuis `build-revision.json` + `package.json`.
 
@@ -24,9 +27,13 @@ v{SEMVER}.{X}.{Y}    (si Y > 0)
 
 | Segment | Nom | Signification | Qui incrémente |
 |---------|-----|---------------|----------------|
-| **SEMVER** | `2.2.0` | Jalon produit (`MAJOR.MINOR.PATCH` dans `package.json`) | Manuel — release / baseline |
-| **X** | `4` | **Chaque nouveau prompt user** | Hook Cursor → `version:prompt` (opt-out : `même X`) |
-| **Y** | `1` | **Chaque tâche distincte** dans le même prompt | `npm run version:task` (agent uniquement) |
+| **A** | MEP | Mise en prod déclarée | `npm run version:mep` (manuel) |
+| **B** | Push main | Intégration `main` | Git `pre-push` → `version:main-push` |
+| **C** | Push branche | Itération branche feature | Git `pre-push` → `version:branch-push` |
+| **X** | Prompt | Chaque nouveau prompt user | Hook Cursor → `version:prompt` (opt-out : `même X`) |
+| **Y** | Tâche | Chaque tâche distincte dans le prompt | Hook `stop` → `version:task` (opt-out : `même Y`) |
+
+> Ancienne sémantique semver « MAJOR/MINOR/PATCH manuel » → remplacée par A/B/C événements git. Voir [`08-versionnement-global.md`](./08-versionnement-global.md).
 
 > **Note historique :** avant 2.1 le format documenté était `v1.0.1.43.543` (5 segments découpés). Depuis 2.1 le semver complet (`2.1.0`) précède X et Y.
 
@@ -38,10 +45,16 @@ v{SEMVER}.{X}.{Y}    (si Y > 0)
 |---------|------|
 | [`package.json`](../../package.json) `version` | `MAJOR.MINOR.PATCH` (semver npm) |
 | [`build-revision.json`](../../build-revision.json) | `revision` (= X), `subRevision` (= Y), `fingerprint` worktree |
-| [`.cursor/hooks.json`](../../.cursor/hooks.json) | **Auto X** — hook `beforeSubmitPrompt` |
+| [`.cursor/hooks.json`](../../.cursor/hooks.json) | **Auto X** (`beforeSubmitPrompt`) + **Auto Y** (`stop`) |
+| [`.cursor/hooks/README.md`](../../.cursor/hooks/README.md) | Debug hooks + redémarrage Cursor |
 | [`.cursor/rules/02-version-prompt-first.mdc`](../../.cursor/rules/02-version-prompt-first.mdc) | Règle agent backup si hook off |
 | [`scripts/bump-prompt.mjs`](../../scripts/bump-prompt.mjs) | Bump X, reset Y à 0, injecte DEV_LOG |
 | [`scripts/bump-task.mjs`](../../scripts/bump-task.mjs) | Bump Y (+1), garde X |
+| [`scripts/lib/version-hook-output.mjs`](../../scripts/lib/version-hook-output.mjs) | `executionLogLabel` |
+| [`scripts/bump-branch-push.mjs`](../../scripts/bump-branch-push.mjs) | Bump **C** |
+| [`scripts/bump-main-push.mjs`](../../scripts/bump-main-push.mjs) | Bump **B** |
+| [`scripts/bump-mep.mjs`](../../scripts/bump-mep.mjs) | Bump **A** |
+| [`.githooks/pre-push`](../../.githooks/pre-push) | Auto B/C sur push |
 | [`scripts/lib/dev-log-open-section.mjs`](../../scripts/lib/dev-log-open-section.mjs) | Section `⚠️ À COMPLÉTER` dans DEV_LOG |
 | [`vite.git-build-info.ts`](../../vite.git-build-info.ts) | Format label ; HMR **sync** sans bump Y |
 | [`public/build-info.json`](../../public/build-info.json) | Miroir runtime (gitignoré) |
@@ -73,13 +86,21 @@ npm run version:prompt
 
 ### Y (+1) — tâche distincte dans un prompt
 
+**Automatique (recommandé) — hook Cursor `stop` :**
+
+- Fin de tour agent → `version:task` si le worktree a changé (fichiers code/docs)
+- **Opt-out :** `même Y` ou `same Y` dans le message user
+- Ignore les seuls changements `build-revision.json` / `DEV_LOG_2_2.md`
+
+**Manuel (backup ou lots multiples dans un tour) :**
+
 ```bash
 npm run version:task
 ```
 
 - Après chaque **lot cohérent** terminé (fix isolé, doc, refactor ciblé)
 - Ajouter une **ligne Y** dans la section X courante du DEV_LOG
-- **Seul mécanisme** qui doit incrémenter Y — pas le HMR
+- Pas le HMR — voir § Dev HMR ci-dessous
 
 ### Dev HMR — sync uniquement (pas de bump Y)
 
@@ -87,15 +108,11 @@ npm run version:task
 - **Ne modifie pas** `subRevision` dans `build-revision.json`
 - Ancien comportement (Y+1 à chaque save) abandonné — produisait des Y absurdes (ex. 314)
 
-### PATCH / MINOR / MAJOR — jalon semver
+### PATCH / MINOR / MAJOR — remplacé par A / B / C
 
-| Bump | Quand | Exemple |
-|------|-------|---------|
-| **PATCH** | Lot cohérent sur branche (feature merge interne) | `2.1.0` → `2.1.1` |
-| **MINOR** | Release produit majeure | `2.1.0` → `2.2.0` (kickoff phase 2.2) |
-| **MAJOR** | Rupture save / pivot incompatible | Rare — coordination user |
+Voir [`08-versionnement-global.md`](./08-versionnement-global.md) § A·B·C.
 
-Documenter dans [`docs/traceability/changelog/VERSION-INDEX.md`](../traceability/changelog/VERSION-INDEX.md).
+Kickoff nouvelle phase : toujours [`07-kickoff-nouvelle-version.md`](./07-kickoff-nouvelle-version.md).
 
 ---
 

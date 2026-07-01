@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+.cursor/hooks/last-run.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -77,6 +78,9 @@ Launch IDLE Isekai Chill.lnk
 
 # Post-2.1 local quarantine — hors dépôt public (archive PC hôte uniquement)
 old_v2.1/
+
+# Reliquats par phase semver — old_{A}_{B}/ (ex. old_2_2/, old_2_3/)
+old_[0-9]*_[0-9]*/
 
 # Agent scratch local — non versionné (lire si présent ; vérité versionnée : docs/traceability/project-state.md)
 .ai/

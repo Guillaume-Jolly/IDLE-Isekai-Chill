@@ -1,33 +1,50 @@
 ---
-description: Interdiction absolue de supprimer fichiers/dossiers — archiver ou commenter uniquement
+description: Jamais de suppression — uniquement déplacer vers dossiers gitignorés (purge manuelle user)
 alwaysApply: true
 ---
 
-# Aucune suppression — archivage uniquement
+# Aucune suppression — déplacer vers gitignore uniquement
 
 ## Règle absolue
 
-**Ne jamais supprimer** de fichiers, dossiers ou assets du projet, y compris :
+**Ne jamais supprimer définitivement** un fichier ou dossier du disque — ni versionné, ni gitignoré, ni « obsolète ».
 
-- `old_assets/`, `staging/`, `release/`, `assets/*-import/`, brouillons gitignorés
-- PNG, sources IA, catalogues, previews, scripts locaux
-- Même si gitignoré, « obsolète », « doublon », « reliquat dev », ou « nettoyage » demandé
+**Interdit :** `Remove-Item`, `rm -rf`, `git clean`, `Delete` tool, vider un dossier d’archive, `git rm` sans accord explicite fichier par fichier.
 
-**Interdit :** `Remove-Item`, `rm -rf`, `git clean`, `git restore` sur suppressions massives, `Delete` tool sur dossiers d’assets, `Remove-Item -Force`.
+## Seule action autorisée pour « retirer » du projet
 
-## À la place
+**Déplacer** (`git mv`, `mv`, `Move-Item`) vers un dossier **gitignoré** :
 
-1. **Déplacer** vers un dossier d’archive explicite, ex. `old_assets/` ou `archive/YYYY-MM-DD-<motif>/`
-2. **Commenter** du code mort plutôt que le retirer, si c’est du source
-3. **Demander confirmation explicite** fichier par fichier si l’utilisateur demande un vrai retrait — et proposer déplacement d’abord
+| Destination type | Exemples (IDLE Isekai) |
+|------------------|------------------------|
+| Archive locale gitignorée | `old_assets/`, `old_v2.1/`, **`old_{A}_{B}/`** (ex. `old_2_2/`), `archive/YYYY-MM-DD-<motif>/` |
+| Drops / temp gitignorés | `Input chatgpt/`, `.tmp/` |
+| Stack locale | `deploy/` (gitignoré) |
 
-## Nettoyage / tri
+Le chemin cible **doit être dans `.gitignore`** (ou devenir gitignoré avant le move).
 
-- « Nettoyer » ≠ supprimer. Lire : trier, gitignore, documenter, déplacer vers archive.
-- Ne jamais interpréter « images dans old_assets » comme une consigne de vider `old_assets/`.
-- Les dossiers marqués à ignorer dans `.gitignore` sont **à conserver sur disque**.
+## Qui purge ?
 
-## Git
+- **Agent / scripts : jamais.** Pas de vidage de `old_*`, `archive/`, etc.
+- **Guillaume seul :** nettoyage manuel des dossiers gitignorés, ou copie/déplacement vers **un autre disque (DD)**.
 
-- Pas de `git add` + suppression de sources non versionnées sans accord.
-- Pas de commit qui retire des assets utiles sans revue utilisateur.
+Les dossiers gitignorés **restent sur disque** jusqu’à action manuelle user.
+
+## Fichiers versionnés (git)
+
+1. **`git mv`** vers zone gitignorée — le fichier **reste sur disque**, sort du suivi git si le dossier est ignoré.
+2. Documenter le move dans un **manifeste cleanup** si lot significatif.
+3. Pas de commit qui **efface** des assets utiles sans revue user.
+
+## Fichiers non versionnés
+
+- **`mv` / `Move-Item`** vers dossier gitignoré uniquement.
+
+## Code source
+
+- Commenter le mort plutôt que retirer, sauf demande explicite.
+- « Nettoyer » = trier, documenter, **déplacer vers gitignore** — pas supprimer.
+
+## Vrai retrait du disque
+
+Uniquement si Guillaume demande **explicitement** fichier par fichier — proposer d’abord un **move gitignoré** ; la purge disque reste **humaine**.

@@ -68,7 +68,7 @@ Tag release future 2.2 : **`v2.2.0.0`** (convention tag git).
 
 ## Règles dures (ne pas violer)
 
-- **Aucune suppression définitive** — archiver dans `old_assets/` ou `old_v2.1/` (local)
+- **Aucune suppression définitive** — **déplacer uniquement** vers dossiers **gitignorés** (`old_assets/`, `old_v2.1/`, `archive/…`) ; purge manuelle Guillaume (local ou autre DD)
 - **`old_v2.1/`** : gitignorée — ne pas committer, ne pas pousser, ne pas modifier sans demande
 - **Ne pas modifier les assets** (PNG, etc.) sans demande explicite
 - **Ne pas changer** le format de sauvegarde sans migration
@@ -166,7 +166,7 @@ Commits : relire DEV_LOG → 1 commit par Y (atomique) ou récap par X ; message
 Tenir à jour `docs/traceability/changelog/DEV_LOG_2_2.md` : sections ⚠️ ouvertes + historique ; tableau Y (résumé + hash commit).
 
 ## Règles dures
-- Aucune suppression définitive (archiver dans `old_assets/` ou `old_v2.1/` local)
+- Aucune suppression définitive — déplacer uniquement vers gitignorés ; purge manuelle (local ou autre DD)
 - Ne pas committer ni pousser `old_v2.1/` ou `deploy/`
 - Ne pas modifier assets (PNG, etc.) sans demande explicite
 - Pas de migration save sans chemin de migration

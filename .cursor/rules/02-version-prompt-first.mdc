@@ -7,9 +7,11 @@ alwaysApply: true
 
 ## Automatisation
 
-Un **hook Cursor** (`beforeSubmitPrompt`) exécute `npm run version:prompt` à chaque message user, sauf si le message contient **`même X`** ou **`same X`**.
+Un **hook Cursor** (`beforeSubmitPrompt`) exécute `npm run version:prompt` à chaque message user, sauf **`même X`** / **`same X`**.
 
-L’agent **ne doit pas** compter sur sa mémoire seule : le hook garantit le bump X.
+Un **hook `stop`** exécute `npm run version:task` si le worktree a changé en fin de tour, sauf **`même Y`** / **`same Y`**.
+
+L’agent **ne doit pas** compter sur sa mémoire seule : les hooks garantissent X et Y.
 
 ## Règle agent (backup si hook désactivé)
 
@@ -25,8 +27,9 @@ L’agent **ne doit pas** compter sur sa mémoire seule : le hook garantit le bu
 
 ## Y (sous-révision)
 
-- **`npm run version:task`** uniquement — pas le HMR Vite (Y agent ≠ sauvegarde dev).
-- Préférer Y modeste et loggé ; éviter des centaines de Y sous un seul X.
+- **Hook `stop`** → `version:task` si fichiers modifiés (opt-out `même Y`)
+- **`npm run version:task`** manuel entre lots distincts dans le même tour
+- Pas le HMR Vite (Y agent ≠ sauvegarde dev)
 
 ## Fichiers
 

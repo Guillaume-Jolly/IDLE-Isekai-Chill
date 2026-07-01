@@ -23,7 +23,8 @@ Keep the project stable, reviewable, and save-compatible. Do not perform broad r
 
 - Keep diffs small and scoped.
 - Do not mix refactor, feature work, and bugfixes unless explicitly requested.
-- Do not rename, delete, move, compress, or replace assets unless explicitly requested.
+- Do not **delete** files or folders — **move only** to **gitignored** paths (`old_assets/`, `old_v2.1/`, `archive/`); user purges manually or on another drive. See `.cursor/rules/01-no-deletion-archive-only.mdc`.
+- Do not rename, move, compress, or replace **assets** (PNG, etc.) unless explicitly requested.
 - Do not change save format without a migration path.
 - Do not remove existing save fields silently.
 - Do not rename public exports or data IDs without checking call sites.
