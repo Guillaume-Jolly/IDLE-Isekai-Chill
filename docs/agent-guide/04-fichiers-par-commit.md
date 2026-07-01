@@ -1,6 +1,6 @@
 # 04 — Fichiers à tenir à jour (par commit / session)
 
-Updated: 2026-06-30
+Updated: 2026-07-01
 
 Chaque **commit** ou **fin de session significative** doit laisser le repo lisible pour le prochain agent.
 
@@ -14,12 +14,24 @@ Chaque **commit** ou **fin de session significative** doit laisser le repo lisib
 |---------|-------------------|----------|
 | **Message commit** | 1–2 phrases : **intérêt** de la modif, pas liste de fichiers | Historique git exploitable |
 | [`docs/traceability/changelog/`](../traceability/changelog/) | Entrée ou lignes pour **chaque micro-modif** significative | Traçabilité version UI |
-| [`build-revision.json`](../../build-revision.json) | `version:prompt` (X) / `version:task` (Y) / HMR | Numéro haut-gauche |
-| [`docs/traceability/changelog/DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md) | Section par prompt X, lignes Y | Résumé phase 2.2 |
+| [`build-revision.json`](../../build-revision.json) | Hook / `version:prompt` (X) / `version:task` (Y) — **pas HMR** | Numéro haut-gauche |
+| [`docs/traceability/changelog/DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md) | Section ⚠️ par X, lignes Y, compléter en fin de prompt | Résumé phase 2.2 + **commits atomiques** |
 
 ---
 
-## Obligatoire — si changement d'initiative ou de phase
+## Commits atomiques (via DEV_LOG)
+
+Avant une série de commits, relire [`DEV_LOG_2_2.md`](../traceability/changelog/DEV_LOG_2_2.md) :
+
+| DEV_LOG | Action git |
+|---------|------------|
+| 1 ligne **Y** sans hash | `git add` fichiers du lot → commit (message = résumé Y) |
+| **But du prompt** (section X) | Message du commit récap si 1 commit par X |
+| Section `⚠️ À COMPLÉTER` | Compléter titre / but / validations avant de considérer le prompt fermé |
+
+Voir [`05-politique-versionnement.md`](./05-politique-versionnement.md) § Commits atomiques.
+
+---
 
 | Fichier | Contenu |
 |---------|---------|

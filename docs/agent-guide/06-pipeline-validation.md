@@ -1,6 +1,6 @@
 # 06 — Pipeline validation
 
-Updated: 2026-06-30
+Updated: 2026-07-01
 
 Ordre canonique pour valider une livraison ou une fin de session significative.
 
@@ -31,7 +31,7 @@ node scripts/inventory-assets-manifest.mjs
 |--------|------|-------------------|
 | `validate:companion-bonds` | Cohérence catalogue bonds | Non |
 | `validate:link-corpus` | Intégrité corpus V2 | Non |
-| `build` | `tsc -b` + Vite production | Non (sauf `build-revision` via plugin si dev) |
+| `build` | `tsc -b` + Vite production | Non |
 | `tnr:baseline` | Enchaîne les trois ci-dessus + manifest | **Oui** — `asset-manifest.json` |
 | `lint` | ESLint global | Non |
 
@@ -85,10 +85,11 @@ Checklist étendue : `staging/playbooks/06-tnr-checklist.md`
 
 ## Versionnement lié au pipeline
 
-| Moment | Commande |
-|--------|----------|
-| Début prompt | `npm run version:prompt` (X+1, Y→0) |
+| Moment | Commande / mécanisme |
+|--------|----------------------|
+| Début prompt | Hook Cursor → `version:prompt` (X+1, Y→0) ; opt-out : `même X` |
 | Fin tâche distincte | `npm run version:task` (Y+1) |
-| Log résumé 2.2 | `docs/traceability/changelog/DEV_LOG_2_2.md` |
+| Log résumé 2.2 | `docs/traceability/changelog/DEV_LOG_2_2.md` — section ⚠️ + lignes Y |
+| Dev HMR | Sync `build-info.json` **sans** bump Y |
 
-Voir [`05-politique-versionnement.md`](./05-politique-versionnement.md).
+Voir [`05-politique-versionnement.md`](./05-politique-versionnement.md) et [`.cursor/hooks/README.md`](../../.cursor/hooks/README.md).

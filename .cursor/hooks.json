@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "node .cursor/hooks/bump-version-on-prompt.mjs"
+      }
+    ]
+  }
+}

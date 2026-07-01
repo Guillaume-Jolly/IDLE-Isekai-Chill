@@ -5,7 +5,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
-import { getGitBuildInfo, refreshPublicBuildInfo, syncPublicBuildInfo } from './vite.git-build-info'
+import { getGitBuildInfo, syncPublicBuildInfo } from './vite.git-build-info'
 import { legacyPublicAssetPlugin, repoAssetsPlugin } from './vite.repo-assets'
 
 const repoRoot = fileURLToPath(new URL('.', import.meta.url))
@@ -52,15 +52,12 @@ function appBuildInfoPlugin(): Plugin {
         return
       }
 
-      const info = refreshPublicBuildInfo('hmr')
-      if (!info.changed) {
-        return
-      }
-
+      // Sync commitHash/dirty sans bump Y — Y réservé à version:task (agent)
+      const info = syncPublicBuildInfo()
       server.ws.send({
         type: 'custom',
         event: 'app-build-info',
-        data: info,
+        data: { ...info, changed: true },
       })
     },
   }

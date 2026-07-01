@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { appendDevLogOpenSection } from './lib/dev-log-open-section.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const revisionPath = join(root, 'build-revision.json')
@@ -82,5 +83,7 @@ const buildInfo = {
 
 mkdirSync(dirname(publicBuildInfoPath), { recursive: true })
 writeFileSync(publicBuildInfoPath, `${JSON.stringify(buildInfo, null, 2)}\n`)
+
+appendDevLogOpenSection(root, revision, versionLabel)
 
 console.log(`[Havre des Brumes] Prompt → ${versionLabel}`)

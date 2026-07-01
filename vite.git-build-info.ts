@@ -116,7 +116,10 @@ export function bumpPromptRevision(): { revision: number; subRevision: number } 
   return { revision, subRevision: 0 }
 }
 
-/** Modifs distinctes dans le même prompt → sous-révision +1 (87.1, 87.2…). */
+/**
+ * @deprecated HMR n’incrémente plus Y — réservé à `npm run version:task`.
+ * Conservé pour appels legacy ; ne plus utiliser depuis Vite HMR.
+ */
 export function bumpSubRevisionIfChanged(): { revision: number; subRevision: number; changed: boolean } {
   const fingerprint = getWorktreeFingerprint()
   const existing = readRevisionState()
@@ -169,14 +172,8 @@ export function syncPublicBuildInfo() {
   return info
 }
 
+/** @deprecated Préférer syncPublicBuildInfo() — le mode hmr ne bump plus Y. */
 export function refreshPublicBuildInfo(mode: 'sync' | 'hmr') {
-  if (mode === 'hmr') {
-    const result = bumpSubRevisionIfChanged()
-    const info = getGitBuildInfo(result.revision, result.subRevision)
-    writePublicBuildInfo(info)
-    return { ...info, changed: result.changed }
-  }
-
   const info = syncPublicBuildInfo()
-  return { ...info, changed: false }
+  return { ...info, changed: mode === 'hmr' }
 }
