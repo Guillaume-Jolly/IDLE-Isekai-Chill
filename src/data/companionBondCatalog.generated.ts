@@ -134,18 +134,18 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "lyra",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "lyra_t4_c01",
-    "prompt": "Parfois je me sens perdu entre toutes les quêtes du havre.",
-    "companionReply": "Moi aussi, au début. Une récolte, une page, un ami — le reste peut attendre.",
-    "tone": "sincere",
+    "prompt": "Hier soir tu m'as laissé rester jusqu'à ce que la lampe cligne. Pourquoi ?",
+    "companionReply": "Parce que j'avais envie de sentir ta respiration ralentir près de la mienne. Ce n'était pas pour la compagnie d'un livre.",
+    "tone": "romantic",
     "relatedSystems": [
       "gacha",
       "inventory",
       "village"
     ],
     "tags": [
-      "conseil",
-      "havre",
-      "patience"
+      "bibliothèque",
+      "nuit",
+      "proximité"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -155,18 +155,18 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "lyra",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "lyra_t4_c02",
-    "prompt": "Y a-t-il quelque chose que tu n'as jamais dit au village ?",
-    "companionReply": "J'ai failli repartir la semaine de mon arrivée. Tu as retardé cette valise.",
-    "tone": "romantic",
+    "prompt": "Je t'ai vue mordre ta lèvre quand nos mains se sont frôlées sur la même page.",
+    "companionReply": "Et toi, tu as fait semblant de lire. Garde ce moment : je n'accorde pas mes frissons à n'importe qui.",
+    "tone": "direct",
     "relatedSystems": [
       "gacha",
       "inventory",
       "village"
     ],
     "tags": [
+      "contact",
       "secret",
-      "rester",
-      "gratitude"
+      "désir"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -176,8 +176,8 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "lyra",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "lyra_t5_c01",
-    "prompt": "Si tu ne gardais qu'un seul livre ici, lequel serait-ce ?",
-    "companionReply": "Celui où j'ai griffonné ton nom en marge. Ne le cherche pas, je le cache bien.",
+    "prompt": "Si on fermait la bibliothèque pour une nuit entière, juste nous deux…",
+    "companionReply": "Je baisserais la voix, je poserais ta main sur ma taille, et je te demanderais de rester jusqu'à ce que le froid ne serve plus de prétexte.",
     "tone": "romantic",
     "relatedSystems": [
       "gacha",
@@ -185,9 +185,9 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
       "village"
     ],
     "tags": [
-      "livre",
-      "marge",
-      "intime"
+      "nuit",
+      "fermeture",
+      "corps"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -197,8 +197,8 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "lyra",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "lyra_t5_c02",
-    "prompt": "Qu'est-ce que tu vois quand tu me regardes ?",
-    "companionReply": "Quelqu'un qui lit entre les lignes du monde, pas seulement des parchemins.",
+    "prompt": "Dis-moi ce que tu veux vraiment, Lyra. Sans métaphore.",
+    "companionReply": "Ton front contre le mien, ta bouche à un souffle de la mienne, et le droit de ne plus faire semblant d'être seule ici.",
     "tone": "sincere",
     "relatedSystems": [
       "gacha",
@@ -206,8 +206,8 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
       "village"
     ],
     "tags": [
-      "regard",
-      "compréhension",
+      "aveu",
+      "bouche",
       "lien"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
@@ -342,18 +342,18 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "maeve",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "maeve_t4_c01",
-    "prompt": "As-tu déjà regretté un échange ici ?",
-    "companionReply": "Une fois, j'ai cédé un fragment rare à quelqu'un qui est parti trop vite. Depuis, j'attends qu'on revienne.",
-    "tone": "sincere",
+    "prompt": "Tu m'as retenu après la fermeture du marché. Qu'est-ce que tu préparais ?",
+    "companionReply": "Pas une marchandise. Une bouteille, deux verres, et l'envie de te voir baisser la garde sans négocier.",
+    "tone": "playful",
     "relatedSystems": [
       "village",
       "inventory",
       "gacha"
     ],
     "tags": [
-      "regret",
-      "fragment",
-      "attente"
+      "fermeture",
+      "comptoir",
+      "invitation"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -363,8 +363,8 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "maeve",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "maeve_t4_c02",
-    "prompt": "Pourquoi tu restes au havre alors que tu connais d'autres routes ?",
-    "companionReply": "Parce que certaines routes mènent à des comptoirs vides. Ici, il y a des visages que je ne veux pas perdre.",
+    "prompt": "Tu m'as effleuré le poignet en comptant la monnaie. C'était volontaire ?",
+    "companionReply": "Je ne fais rien sans calcul… sauf quand c'est toi. Là, c'était le désir de savoir si ta peau frissonnerait.",
     "tone": "romantic",
     "relatedSystems": [
       "village",
@@ -372,9 +372,9 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
       "gacha"
     ],
     "tags": [
-      "rester",
-      "routes",
-      "visages"
+      "contact",
+      "calcul",
+      "désir"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -384,8 +384,8 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "maeve",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "maeve_t5_c01",
-    "prompt": "Si tu fermais ta boutique demain, que ferais-tu ?",
-    "companionReply": "J'ouvrirais une table pour deux, sans étiquette de prix. Tu serais invité en premier.",
+    "prompt": "Si je montais avec toi à l'étage ce soir, tu me laisserais entrer ?",
+    "companionReply": "Je te laisserais entrer, te ferais asseoir sur mon lit, et je te dirais enfin ce que je retiens quand je ferme ma caisse.",
     "tone": "romantic",
     "relatedSystems": [
       "village",
@@ -393,9 +393,9 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
       "gacha"
     ],
     "tags": [
-      "boutique",
-      "invitation",
-      "intime"
+      "étage",
+      "lit",
+      "aveu"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -405,8 +405,8 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "maeve",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "maeve_t5_c02",
-    "prompt": "Quel trésor du havre tu protèges le plus ?",
-    "companionReply": "Les habitudes qu'on tisse sans contrat. Elles ne s'échangent pas, elles se gardent.",
+    "prompt": "Qu'est-ce que tu imagines quand tu comptes en silence ?",
+    "companionReply": "Tes doigts dans mes cheveux, ta voix basse qui me demande de ne pas retourner au comptoir. Je rougis encore en le disant.",
     "tone": "sincere",
     "relatedSystems": [
       "village",
@@ -414,9 +414,9 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
       "gacha"
     ],
     "tags": [
-      "trésor",
-      "habitude",
-      "lien"
+      "fantasme",
+      "voix",
+      "intime"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -544,17 +544,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "seren",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "seren_t4_c01",
-    "prompt": "As-tu déjà douté de ta place ici ?",
-    "companionReply": "Oui. Puis j'ai vu un enfant du village rire sans peur. C'est une victoire aussi.",
-    "tone": "sincere",
+    "prompt": "Tu m'as demandé de t'aider à retirer ton brassard hier. Pourquoi moi ?",
+    "companionReply": "Parce que je voulais ta main sur ma peau sans armure entre nous. C'était un test ; tu l'as réussi.",
+    "tone": "romantic",
     "relatedSystems": [
       "hunt",
       "village"
     ],
     "tags": [
-      "doute",
-      "village",
-      "victoire"
+      "armure",
+      "contact",
+      "confiance"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -564,17 +564,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "seren",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "seren_t4_c02",
-    "prompt": "Y a-t-il quelqu'un que tu veux protéger en priorité ?",
-    "companionReply": "Ceux qui reviennent me saluer après une expédition. Toi inclus, si tu m'écoutes.",
-    "tone": "romantic",
+    "prompt": "Seren… est-ce mal de penser à toi quand je suis seul au camp ?",
+    "companionReply": "Non. Moi aussi je repense à ton souffle quand je veille trop tard. Dis-le franchement la prochaine fois.",
+    "tone": "direct",
     "relatedSystems": [
       "hunt",
       "village"
     ],
     "tags": [
-      "protection",
-      "retour",
-      "priorité"
+      "campagne",
+      "souffle",
+      "franchise"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -584,17 +584,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "seren",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "seren_t5_c01",
-    "prompt": "Si le havre était attaqué, où te placerais-tu ?",
-    "companionReply": "Entre la menace et toi. Ce n'est pas un serment officiel, c'est un choix déjà fait.",
+    "prompt": "Si je partais demain en expédition, que voudrais-tu que je sache ?",
+    "companionReply": "Que je t'attendrai les lèvres prêtes, et que je compte les heures jusqu'à te serrer contre moi sans cuirasse.",
     "tone": "romantic",
     "relatedSystems": [
       "hunt",
       "village"
     ],
     "tags": [
-      "serment",
-      "choix",
-      "garde"
+      "départ",
+      "lèvres",
+      "attente"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -604,17 +604,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "seren",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "seren_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Savoir qu'on peut baisser la garde sans devenir vulnérable aux yeux de l'autre.",
+    "prompt": "Qu'est-ce que tu désires quand tu baisses enfin la garde ?",
+    "companionReply": "Ton poids contre le mien, ta bouche sur mon cou, et le silence de deux personnes qui ne jouent plus à être fortes.",
     "tone": "sincere",
     "relatedSystems": [
       "hunt",
       "village"
     ],
     "tags": [
-      "lien",
-      "garde",
-      "confiance"
+      "désir",
+      "cou",
+      "vulnérabilité"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -742,17 +742,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "nami",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "nami_t4_c01",
-    "prompt": "As-tu peur de ne plus avoir assez à partager un jour ?",
-    "companionReply": "Parfois. Alors je me rappelle pourquoi j'ai ouvert ma marmite au havre : personne ne mange seul ici.",
-    "tone": "sincere",
+    "prompt": "Tu m'as fait goûter à la cuillère en me regardant dans les yeux. C'était pour le plat ?",
+    "companionReply": "Non. C'était pour voir si tu allais rougir avant même d'avaler. Tu as répondu oui sans un mot.",
+    "tone": "playful",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "peur",
-      "partage",
-      "havre"
+      "cuisine",
+      "regard",
+      "goût"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -762,17 +762,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "nami",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "nami_t4_c02",
-    "prompt": "Quel souvenir de cuisine tu gardes en secret ?",
-    "companionReply": "La première fois où tu as dit que ça sentait comme chez toi. J'ai failli pleurer dans le bouillon.",
+    "prompt": "Hier tu m'as gardé près du feu après la fermeture. Pourquoi ?",
+    "companionReply": "Parce que j'en avais marre de te servir à distance. Je voulais ta chaleur, pas seulement ton assiette.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "souvenir",
-      "odeur",
-      "bouillon"
+      "feu",
+      "fermeture",
+      "chaleur"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -782,17 +782,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "nami",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "nami_t5_c01",
-    "prompt": "Si tu ne pouvais préparer qu'un dernier repas ici, ce serait quoi ?",
-    "companionReply": "Ce qu'on mange assis côte à côte, sans chrono. Le menu importe moins que la main qui reste.",
+    "prompt": "Si on restait seuls dans la cuisine jusqu'à l'aube…",
+    "companionReply": "Je t'allongerais sur la table propre, je goûterais ta bouche avant le dessert, et je ne laisserais personne frapper.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "repas",
-      "main",
-      "intime"
+      "aube",
+      "bouche",
+      "intimité"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -802,17 +802,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "nami",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "nami_t5_c02",
-    "prompt": "Qu'est-ce que tu vois en moi, Nami ?",
-    "companionReply": "Quelqu'un qui revient à table même quand la journée a été dure. C'est déjà un cadeau rare.",
+    "prompt": "Nami, qu'est-ce que tu veux de moi, franchement ?",
+    "companionReply": "T'embrasser jusqu'à oublier l'heure, sentir tes mains sous mon tablier, et dormir contre toi quand le feu s'éteint.",
     "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "retour",
-      "table",
-      "cadeau"
+      "embrasser",
+      "mains",
+      "dormir"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -940,17 +940,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "iris",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "iris_t4_c01",
-    "prompt": "As-tu déjà perdu une récolte qui comptait pour toi ?",
-    "companionReply": "Une once de rêve bleu, après une nuit sans sommeil. J'ai appris à demander de l'aide avant la fonte.",
-    "tone": "sincere",
+    "prompt": "Tu m'as guidé entre les rosiers en tenant ma main plus longtemps que nécessaire.",
+    "companionReply": "Les épines ne m'effraient pas. Ce qui m'effraie, c'est à quel point j'ai envie de ne plus lâcher ta paume.",
+    "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "inventory"
     ],
     "tags": [
-      "récolte",
-      "perte",
-      "aide"
+      "jardin",
+      "main",
+      "rosiers"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -960,17 +960,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "iris",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "iris_t4_c02",
-    "prompt": "Pourquoi tu restes rêveuse alors que le havre travaille dur ?",
-    "companionReply": "Parce que certains rêves deviennent des graines. Tu en as planté un en moi sans le savoir.",
-    "tone": "romantic",
+    "prompt": "Iris… tu rougis quand je m'approche trop près des fleurs. Ou c'est moi ?",
+    "companionReply": "C'est toi. Ton souffle dérange mes pétales et ma respiration. Je ne sais plus lequel tremble le plus.",
+    "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "inventory"
     ],
     "tags": [
-      "rêve",
-      "graine",
-      "tendresse"
+      "souffle",
+      "proximité",
+      "trouble"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -980,17 +980,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "iris",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "iris_t5_c01",
-    "prompt": "Si tu ne gardais qu'une seule fleur ici, laquelle ?",
-    "companionReply": "Celle que tu m'as aidée à sauver du gel. Elle fleurit encore du côté où tu t'assieds.",
+    "prompt": "Si on s'allongeait dans l'herbe humide du jardin, juste nous deux…",
+    "companionReply": "Je poserais ta joue contre ma poitrine, je te laisserais sentir mon cœur, et je murmurerais ce que je n'ose pas dire debout.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "inventory"
     ],
     "tags": [
-      "fleur",
-      "gel",
-      "souvenir"
+      "herbe",
+      "poitrine",
+      "murmure"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1000,17 +1000,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "iris",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "iris_t5_c02",
-    "prompt": "Que ressens-tu quand on est silencieux ensemble au jardin ?",
-    "companionReply": "Que le havre respire mieux. Comme si nos racines se touchaient sous la terre.",
+    "prompt": "Dis-moi ce que ton corps me demande quand on est seuls ici.",
+    "companionReply": "De t'attirer plus près, de sentir tes lèvres effleurer mon cou, et de fleurir comme une plante qui attend enfin la main qu'elle reconnaît.",
     "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "inventory"
     ],
     "tags": [
-      "silence",
-      "racines",
-      "lien"
+      "corps",
+      "lèvres",
+      "désir"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1138,17 +1138,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "kael",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "kael_t4_c01",
-    "prompt": "As-tu déjà eu peur de ne plus faire rire personne ?",
-    "companionReply": "Oui, après une soirée vide. Puis tu as applaudi trop fort pour rien — j'ai retrouvé la scène.",
-    "tone": "sincere",
+    "prompt": "Après le spectacle, tu m'as entraîné dans les coulisses. Pourquoi ?",
+    "companionReply": "Parce que j'en avais assez du public. Je voulais tes lèvres à portée de chuchotement, pas d'applaudissements.",
+    "tone": "romantic",
     "relatedSystems": [
       "gacha",
       "village"
     ],
     "tags": [
-      "peur",
-      "applaudir",
-      "scène"
+      "coulisses",
+      "lèvres",
+      "chuchotement"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1158,17 +1158,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "kael",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "kael_t4_c02",
-    "prompt": "Derrière le masque, qui es-tu vraiment ?",
-    "companionReply": "Quelqu'un qui cherche encore la bonne note pour dire merci sans en faire un spectacle.",
-    "tone": "romantic",
+    "prompt": "Kael… ce regard sur scène, c'était joué ou pour moi ?",
+    "companionReply": "Pour toi. J'ai failli oublier ma réplique en imaginant ta main glisser sous mon col.",
+    "tone": "playful",
     "relatedSystems": [
       "gacha",
       "village"
     ],
     "tags": [
-      "masque",
-      "merci",
-      "vulnérabilité"
+      "scène",
+      "regard",
+      "désir"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1178,17 +1178,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "kael",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "kael_t5_c01",
-    "prompt": "Si tu ne chantais plus qu'une seule phrase ici, laquelle ?",
-    "companionReply": "« Reste encore un peu. » Simple, sincère, et assez fort pour remplir le théâtre.",
+    "prompt": "Si le théâtre était vide une nuit, que ferais-tu de moi ?",
+    "companionReply": "Je t'allongerais sur le velours, je chanterais contre ta peau, et je ne lèverais le rideau pour personne.",
     "tone": "romantic",
     "relatedSystems": [
       "gacha",
       "village"
     ],
     "tags": [
-      "chant",
-      "rester",
-      "sincérité"
+      "théâtre",
+      "velours",
+      "peau"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1198,17 +1198,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "kael",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "kael_t5_c02",
-    "prompt": "Qu'est-ce que tu retiens de nous deux ?",
-    "companionReply": "Une improvisation où ni l'un ni l'autre n'a trébuché. C'est rare, et précieux.",
+    "prompt": "Dis-moi la vérité, sans costume.",
+    "companionReply": "Je veux t'embrasser jusqu'à ce que tu oublies le village, et te garder contre moi quand les lumières s'éteignent.",
     "tone": "sincere",
     "relatedSystems": [
       "gacha",
       "village"
     ],
     "tags": [
-      "improvisation",
-      "souvenir",
-      "précieux"
+      "embrasser",
+      "vérité",
+      "nuit"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1336,17 +1336,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "runa",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "runa_t4_c01",
-    "prompt": "As-tu déjà brûlé une pièce qui comptait ?",
-    "companionReply": "Une charnière pour un abri du refuge. J'ai recommencé en silence, puis demandé de l'aide.",
-    "tone": "sincere",
+    "prompt": "Tu m'as appris à tenir le fer chaud en m'attrapant les hanches.",
+    "companionReply": "Pour te stabiliser. Ne prétends pas ne pas avoir senti mon souffle dans ton cou après.",
+    "tone": "direct",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "échec",
-      "refuge",
-      "aide"
+      "forge",
+      "hanches",
+      "souffle"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1356,17 +1356,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "runa",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "runa_t4_c02",
-    "prompt": "Qu'est-ce qui te fait rester ici plutôt qu'ailleurs ?",
-    "companionReply": "Des mains qui reviennent avec leurs outils cassés et leurs histoires intactes. Comme les tiennes.",
+    "prompt": "Runa… pourquoi tu gardes ma trace sur ton tablier de cuir ?",
+    "companionReply": "Parce que ton odeur m'apaise quand la forge gronde. Je ne lave pas tout, exprès.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "rester",
-      "mains",
-      "histoires"
+      "odeur",
+      "tablier",
+      "secret"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1376,17 +1376,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "runa",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "runa_t5_c01",
-    "prompt": "Si tu ne forgeais qu'un dernier objet pour le havre ?",
-    "companionReply": "Une broche discrète pour marquer qu'on appartient au même feu, sans fanfare.",
+    "prompt": "Si on restait seuls quand la forge s'éteint…",
+    "companionReply": "Je poserais ta main sur mon ventre, je te ferais sentir la chaleur qui reste, et je ne parlerais plus d'outils.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "broche",
-      "feu",
-      "appartenance"
+      "forge",
+      "chaleur",
+      "ventre"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1396,17 +1396,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "runa",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "runa_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Tenir le métal chaud ensemble sans se brûler. La confiance, c'est aussi de la technique.",
+    "prompt": "Qu'est-ce que tu veux vraiment, sans détour ?",
+    "companionReply": "T'avoir contre l'enclume, ta bouche sur la mienne, et le droit de trembler sans honte.",
     "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "village"
     ],
     "tags": [
-      "lien",
-      "confiance",
-      "technique"
+      "enclume",
+      "bouche",
+      "trembler"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1534,17 +1534,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "solene",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "solene_t4_c01",
-    "prompt": "As-tu déjà douté de ta foi dans ce havre ?",
-    "companionReply": "Oui, quand la brume a caché la source. Puis quelqu'un est venu boire sans rien demander — j'ai compris.",
-    "tone": "sincere",
+    "prompt": "Tu m'as invité à entrer dans l'eau jusqu'aux genoux. Ce n'était pas une bénédiction.",
+    "companionReply": "Non. C'était pour sentir ta peau frémir contre la mienne sans parler. La source garde les secrets.",
+    "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "prestige"
     ],
     "tags": [
-      "foi",
-      "brume",
-      "compréhension"
+      "source",
+      "peau",
+      "secret"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1554,17 +1554,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "solene",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "solene_t4_c02",
-    "prompt": "Y a-t-il une prière que tu dis pour moi en secret ?",
-    "companionReply": "Une seule : que tu trouves la paix avant la performance. Tu fais déjà assez.",
-    "tone": "romantic",
+    "prompt": "Solène… tu m'as caressé la joue pendant le silence. Pourquoi ?",
+    "companionReply": "Parce que j'avais envie de te toucher sans masque de prêtresse. Ton regard m'a donné permission.",
+    "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "prestige"
     ],
     "tags": [
-      "prière",
-      "paix",
-      "tendresse"
+      "joue",
+      "contact",
+      "permission"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1574,17 +1574,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "solene",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "solene_t5_c01",
-    "prompt": "Si tu ne gardais qu'un souvenir de la source, lequel ?",
-    "companionReply": "Le jour où tu t'es assis à mes côtés sans vouloir guérir le monde entier.",
+    "prompt": "Si on dormait côte à côte près de la source, que ferais-tu ?",
+    "companionReply": "Je glisserais mes doigts dans tes cheveux, je respirerais ton cou, et je te demanderais de ne pas partir au matin.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "prestige"
     ],
     "tags": [
-      "souvenir",
-      "source",
-      "présence"
+      "dormir",
+      "cou",
+      "matin"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1594,17 +1594,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "solene",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "solene_t5_c02",
-    "prompt": "Que ressens-tu quand nos silences se ressemblent ?",
-    "companionReply": "Que le havre nous reconnaît. Deux gouttes qui tombent au même instant.",
+    "prompt": "Dis-moi ce que ton corps murmure quand je suis là.",
+    "companionReply": "Qu'il veut ta chaleur contre lui, ta bouche lente, et une nuit entière où personne ne nous appelle.",
     "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "prestige"
     ],
     "tags": [
-      "silence",
-      "reconnaissance",
-      "lien"
+      "corps",
+      "chaleur",
+      "nuit"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1732,17 +1732,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "talia",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "talia_t4_c01",
-    "prompt": "As-tu déjà eu peur de te perdre loin du havre ?",
-    "companionReply": "Une fois, oui. Puis j'ai entendu la cloche du village au loin. J'ai su que je pouvais revenir.",
-    "tone": "sincere",
+    "prompt": "Tu m'as plaqué contre un arbre en disant que c'était pour éviter une chute.",
+    "companionReply": "Mensonge adorable. Je voulais sentir ton cœur accélérer et savoir si tu me tirerais plus près.",
+    "tone": "playful",
     "relatedSystems": [
       "moon-farm",
       "hunt"
     ],
     "tags": [
-      "peur",
-      "village",
-      "retour"
+      "forêt",
+      "cœur",
+      "proximité"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1752,17 +1752,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "talia",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "talia_t4_c02",
-    "prompt": "Pourquoi tu fais confiance à mes cartes improvisées ?",
-    "companionReply": "Parce que tu marques les endroits où tu t'es arrêté pour m'attendre. C'est une carte du cœur.",
-    "tone": "romantic",
+    "prompt": "Talia… tu m'as mordu l'oreille en riant. C'était le pari ?",
+    "companionReply": "Non. C'était l'envie. Si tu veux que je recommence, choisis un endroit où personne ne nous cherche.",
+    "tone": "direct",
     "relatedSystems": [
       "moon-farm",
       "hunt"
     ],
     "tags": [
-      "carte",
-      "confiance",
-      "cœur"
+      "oreille",
+      "envie",
+      "audace"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1772,17 +1772,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "talia",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "talia_t5_c01",
-    "prompt": "Si tu ne pouvais plus explorer qu'un seul chemin ici ?",
-    "companionReply": "Celui qui mène vers toi après une longue journée. Même sans trésor au bout.",
+    "prompt": "Si on campait seuls sous les étoiles du havre…",
+    "companionReply": "Je t'enroulerais dans ma cape, je goûterais ta bouche jusqu'à perdre le fil du temps, et je ne ferais semblant de dormir.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "hunt"
     ],
     "tags": [
-      "chemin",
-      "retour",
-      "intime"
+      "camp",
+      "cape",
+      "bouche"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1792,17 +1792,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "talia",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "talia_t5_c02",
-    "prompt": "Qu'est-ce que l'aventure t'a appris sur nous ?",
-    "companionReply": "Qu'on avance mieux quand personne ne court devant l'autre pour briller.",
+    "prompt": "Qu'est-ce que tu désires quand tu m'as enfin seul ?",
+    "companionReply": "T'avoir à califourchon sur mes genoux, sentir tes mains dans mes cheveux, et entendre mon prénom rauque.",
     "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "hunt"
     ],
     "tags": [
-      "aventure",
-      "rythme",
-      "lien"
+      "désir",
+      "genoux",
+      "mains"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1930,17 +1930,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "mira",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "mira_t4_c01",
-    "prompt": "As-tu déjà déchiré une œuvre qui te tenait à cœur ?",
-    "companionReply": "Un linceul trop serré pour un Myrion anxieux. J'ai recommencé en écoutant ses peurs.",
-    "tone": "sincere",
+    "prompt": "Tu m'as mesuré pour une écharpe en passant le ruban sur ma poitrine.",
+    "companionReply": "J'ai pris mon temps exprès. Ta respiration a trahi ce que tu pensais de ma proximité.",
+    "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "inventory"
     ],
     "tags": [
-      "œuvre",
-      "myrion",
-      "écoute"
+      "mesure",
+      "poitrine",
+      "proximité"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1950,17 +1950,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "mira",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "mira_t4_c02",
-    "prompt": "Quel fil te relie le plus au havre ?",
-    "companionReply": "Celui que tu m'as tendu quand j'hésitais à exposer mes broderies. Tu as cru en elles.",
-    "tone": "romantic",
+    "prompt": "Mira… tu m'as embrassé le front puis tu t'es arrêtée. Pourquoi ?",
+    "companionReply": "Parce que j'avais envie de continuer plus bas, et que j'attendais que tu me le demandes clairement.",
+    "tone": "sincere",
     "relatedSystems": [
       "refuge",
       "inventory"
     ],
     "tags": [
-      "fil",
-      "broderie",
-      "croyance"
+      "embrasser",
+      "front",
+      "attente"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1970,17 +1970,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "mira",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "mira_t5_c01",
-    "prompt": "Si tu ne tissais qu'un dernier motif ici, lequel ?",
-    "companionReply": "Deux lignes parallèles qui se croisent une fois, puis continuent ensemble. Simple et vrai.",
+    "prompt": "Si je restais dans ton atelier jusqu'à l'aube…",
+    "companionReply": "Je te dénouerais lentement, fil par fil, jusqu'à ce qu'il ne reste que ta peau contre la mienne.",
     "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "inventory"
     ],
     "tags": [
-      "motif",
-      "parallèle",
-      "intime"
+      "atelier",
+      "fil",
+      "peau"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -1990,17 +1990,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "mira",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "mira_t5_c02",
-    "prompt": "Que vois-tu quand tu me regardes travailler ?",
-    "companionReply": "Quelqu'un qui laisse des traces dignes d'être brodées. Je n'ai pas fini le tableau.",
+    "prompt": "Dis-moi ce que tu imagines quand tu brodes mon nom.",
+    "companionReply": "Tes lèvres sur mon cou, tes doigts qui tirent le tissu de mon corsage, et une nuit où je cesse d'être seule.",
     "tone": "sincere",
     "relatedSystems": [
       "refuge",
       "inventory"
     ],
     "tags": [
-      "regard",
       "broderie",
-      "lien"
+      "lèvres",
+      "fantasme"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2128,17 +2128,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "asha",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "asha_t4_c01",
-    "prompt": "As-tu déjà failli perdre une source ?",
-    "companionReply": "Une fois, un filon trop agressif l'a troublée. J'ai appris à négocier avec le prestige, pas le dompter.",
-    "tone": "sincere",
+    "prompt": "Tu m'as tiré contre toi sous la cascade pour « me protéger du spray ».",
+    "companionReply": "Excuse transparente. Je voulais sentir ton cœur contre le mien et voir si tu oserais rester.",
+    "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "source",
-      "filon",
-      "prestige"
+      "cascade",
+      "cœur",
+      "proximité"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2148,17 +2148,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "asha",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "asha_t4_c02",
-    "prompt": "Pourquoi tu me fais confiance près de l'eau ?",
-    "companionReply": "Parce que tu y mets les mains lentement, comme si tu comprenais ce qui vit dessous.",
-    "tone": "romantic",
+    "prompt": "Asha… tes doigts sont restés sur ma nuque trop longtemps.",
+    "companionReply": "Je sais. J'ai voulu te marquer sans paroles, comme l'eau marque la pierre. Dis-moi si tu veux que je continue.",
+    "tone": "direct",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "confiance",
-      "eau",
-      "respect"
+      "nuque",
+      "contact",
+      "désir"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2168,17 +2168,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "asha",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "asha_t5_c01",
-    "prompt": "Si tu ne protégeais qu'une chose ici, ce serait quoi ?",
-    "companionReply": "Notre promesse de revenir boire ensemble après les longues journées. C'est une source aussi.",
+    "prompt": "Si on dormait près de la cascade, seuls, que ferais-tu ?",
+    "companionReply": "Je t'enroulerais dans ma cape humide, je goûterais ta bouche lentement, et je ne laisserais personne nous chercher.",
     "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "promesse",
-      "boire",
-      "intime"
+      "cascade",
+      "cape",
+      "bouche"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2188,17 +2188,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "asha",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "asha_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Deux courants qui se rejoignent sans noyer l'autre. Rares, et clairs.",
+    "prompt": "Dis-moi ce que tu désires quand tu me regardes ainsi.",
+    "companionReply": "T'allonger sur la mousse, sentir tes mains sur mes hanches, et entendre mon prénom rauque dans ton oreille.",
     "tone": "sincere",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "courant",
-      "lien",
-      "clarté"
+      "désir",
+      "hanches",
+      "oreille"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2326,17 +2326,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "elwen",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "elwen_t4_c01",
-    "prompt": "Y a-t-il une page que tu n'oses pas classer ?",
-    "companionReply": "Un témoignage sur toi, laissé par un voisin. Je l'ai lue trois fois avant de trouver le bon tiroir.",
-    "tone": "sincere",
+    "prompt": "Tu m'as enfermé dans la réserve « pour classer un document urgent ».",
+    "companionReply": "Mensonge élégant. J'avais envie de t'embrasser sans témoin et de sentir ta respiration sur mon cou.",
+    "tone": "playful",
     "relatedSystems": [
       "inventory",
       "village"
     ],
     "tags": [
-      "témoignage",
-      "page",
-      "émotion"
+      "réserve",
+      "embrasser",
+      "secret"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2346,17 +2346,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "elwen",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "elwen_t4_c02",
-    "prompt": "Pourquoi tu m'as confié l'accès à la réserve ?",
-    "companionReply": "Parce que tu refermes toujours les portes. La confiance, chez moi, se mesure aux petits gestes.",
+    "prompt": "Elwen… pourquoi tu lis mes lettres avec tes doigts sur mes lèvres ?",
+    "companionReply": "Parce que je t'imagine en train de les murmurer contre ma peau. Je devrais avoir honte ; je n'en ai pas.",
     "tone": "romantic",
     "relatedSystems": [
       "inventory",
       "village"
     ],
     "tags": [
-      "réserve",
-      "confiance",
-      "gestes"
+      "lèvres",
+      "fantasme",
+      "aveu"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2366,17 +2366,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "elwen",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "elwen_t5_c01",
-    "prompt": "Si tu ne gardais qu'une entrée d'archive sur nous ?",
-    "companionReply": "« Arrivée en paire, départ jamais seul. » Court, exact, suffisant.",
+    "prompt": "Si on passait la nuit entre les archives, que ferais-tu ?",
+    "companionReply": "Je te ferais asseoir sur mon bureau, je remonterais ta chemise lentement, et je ne classerais rien avant l'aube.",
     "tone": "romantic",
     "relatedSystems": [
       "inventory",
       "village"
     ],
     "tags": [
-      "archive",
-      "entrée",
-      "intime"
+      "archives",
+      "nuit",
+      "contact"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2386,17 +2386,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "elwen",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "elwen_t5_c02",
-    "prompt": "Que retiens-tu de moi dans tes registres ?",
-    "companionReply": "Quelqu'un qui pose des questions justes. C'est la meilleure forme de respect pour un archiviste.",
+    "prompt": "Écris-moi la vérité, sans code.",
+    "companionReply": "Je veux ta bouche sur la mienne, tes mains dans mes cheveux, et une page blanche pour tout ce qu'on fera ensuite.",
     "tone": "sincere",
     "relatedSystems": [
       "inventory",
       "village"
     ],
     "tags": [
-      "registre",
-      "questions",
-      "respect"
+      "vérité",
+      "bouche",
+      "désir"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2524,17 +2524,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "noa",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "noa_t4_c01",
-    "prompt": "As-tu déjà eu peur de tes propres mélanges ?",
-    "companionReply": "Une fois. Depuis, je note mes doutes sur le même carnet que mes recettes.",
-    "tone": "sincere",
+    "prompt": "Tu m'as collé contre le plan de travail « pour éviter une explosion ».",
+    "companionReply": "Bien sûr. J'avais surtout envie de sentir ton bassin contre le mien et de goûter ton souffle coupé.",
+    "tone": "playful",
     "relatedSystems": [
       "inventory",
       "gacha"
     ],
     "tags": [
-      "doute",
-      "carnet",
-      "recettes"
+      "laboratoire",
+      "proximité",
+      "souffle"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2544,17 +2544,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "noa",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "noa_t4_c02",
-    "prompt": "Pourquoi tu me montres tes échecs en alchimie ?",
-    "companionReply": "Parce qu'avec toi, un raté devient une blague, pas une honte. C'est rare et précieux.",
-    "tone": "romantic",
+    "prompt": "Noa… ce baume sur mes lèvres, c'était vraiment médical ?",
+    "companionReply": "Non. C'était une excuse pour te toucher. Si tu rougis encore, je recommence.",
+    "tone": "direct",
     "relatedSystems": [
       "inventory",
       "gacha"
     ],
     "tags": [
-      "échec",
-      "blague",
-      "confiance"
+      "lèvres",
+      "baume",
+      "contact"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2564,17 +2564,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "noa",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "noa_t5_c01",
-    "prompt": "Si tu ne créais qu'une dernière potion ici, ce serait quoi ?",
-    "companionReply": "Une goutte de « reste ce soir ». Sans effet secondaire, juste du cœur.",
+    "prompt": "Si le laboratoire était vide toute la nuit…",
+    "companionReply": "Je t'allongerais sur la paillasse, je te ferais oublier les fioles, et je ne laisserais personne frapper.",
     "tone": "romantic",
     "relatedSystems": [
       "inventory",
       "gacha"
     ],
     "tags": [
-      "potion",
-      "rester",
-      "cœur"
+      "laboratoire",
+      "nuit",
+      "intimité"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2584,17 +2584,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "noa",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "noa_t5_c02",
-    "prompt": "Qu'est-ce que tu vois en moi, Noa ?",
-    "companionReply": "Mon partenaire de chaos gentil. Ensemble, on renverse moins de flacons.",
+    "prompt": "Quelle potion te représente quand tu me désires ?",
+    "companionReply": "Une chaleur qui monte aux joues, des mains qui tremblent, et l'envie de te mordre la lèvre sans rien expliquer.",
     "tone": "sincere",
     "relatedSystems": [
       "inventory",
       "gacha"
     ],
     "tags": [
-      "partenaire",
-      "chaos",
-      "lien"
+      "désir",
+      "joues",
+      "lèvre"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2722,17 +2722,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "sora",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "sora_t4_c01",
-    "prompt": "As-tu déjà craint de ne pas en faire assez pour eux ?",
-    "companionReply": "Souvent. Puis un Myrion s'endort sur mes genoux, et je sais que c'est déjà beaucoup.",
-    "tone": "sincere",
+    "prompt": "Tu m'as fait asseoir dans le foin en disant que c'était pour les Myrions.",
+    "companionReply": "Petit mensonge tendre. Je voulais ta cuisse contre la mienne et ta main dans mes cheveux.",
+    "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "refuge"
     ],
     "tags": [
-      "doute",
-      "myrion",
-      "réconfort"
+      "ferme",
+      "foin",
+      "proximité"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2742,17 +2742,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "sora",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "sora_t4_c02",
-    "prompt": "Pourquoi tu me confies tes Myrions fatigués ?",
-    "companionReply": "Parce que tu les poses doucement, comme des promesses. Je n'oublie pas ce geste.",
-    "tone": "romantic",
+    "prompt": "Sora… tu m'as embrassé le cou pendant que les Myrions dormaient.",
+    "companionReply": "Ils ronflent fort, heureusement. Moi, je voulais marquer la peau que je reconnaîtrai demain.",
+    "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "refuge"
     ],
     "tags": [
-      "confiance",
-      "geste",
-      "promesse"
+      "cou",
+      "embrasser",
+      "nuit"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2762,17 +2762,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "sora",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "sora_t5_c01",
-    "prompt": "Si tu ne gardais qu'un souvenir de la ferme lunaire ?",
-    "companionReply": "Le jour où tu as attendu avec moi qu'un petit Myrion fasse ses premiers pas.",
+    "prompt": "Si on restait seuls dans la grange jusqu'à l'aube…",
+    "companionReply": "Je t'envelopperais dans ma couverture, je goûterais ta bouche sans hâte, et je ne penserais plus qu'aux filons.",
     "tone": "romantic",
     "relatedSystems": [
       "moon-farm",
       "refuge"
     ],
     "tags": [
-      "souvenir",
-      "premiers pas",
-      "intime"
+      "grange",
+      "couverture",
+      "bouche"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2782,17 +2782,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "sora",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "sora_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Partager le silence des créatures qui nous font confiance. Et tenir la main humaine aussi.",
+    "prompt": "Dis-moi ce que tu veux vraiment, sans parler des Myrions.",
+    "companionReply": "T'avoir contre moi, sentir tes mains glisser sous mon gilet, et dormir entrelacés quand le feu s'éteint.",
     "tone": "sincere",
     "relatedSystems": [
       "moon-farm",
       "refuge"
     ],
     "tags": [
-      "silence",
-      "confiance",
-      "lien"
+      "désir",
+      "mains",
+      "dormir"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2920,17 +2920,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "zelie",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "zelie_t4_c01",
-    "prompt": "As-tu déjà regretté ton exil ?",
-    "companionReply": "Parfois la nuit. Puis je vois le havre tenir debout sans couronne, et je respire.",
-    "tone": "sincere",
+    "prompt": "Tu m'as fait entrer dans le salon et tu as verrouillé la porte « pour le protocole ».",
+    "companionReply": "Protocole imaginaire. Je voulais tes lèvres sur les miennes sans être duchesse, juste femme.",
+    "tone": "romantic",
     "relatedSystems": [
       "village",
       "gacha"
     ],
     "tags": [
-      "exil",
-      "regret",
-      "havre"
+      "salon",
+      "verrou",
+      "lèvres"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2940,17 +2940,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "zelie",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "zelie_t4_c02",
-    "prompt": "Pourquoi tu baisses la garde avec moi ?",
-    "companionReply": "Parce que tu ne demandes jamais de performance. Tu demandes une personne.",
-    "tone": "romantic",
+    "prompt": "Zélie… tu m'as caressé la mâchoire en disant que j'avais du sel sur la peau.",
+    "companionReply": "J'ai menti. J'avais envie de te toucher comme on touche quelqu'on désire, pas comme on goûte un plat.",
+    "tone": "direct",
     "relatedSystems": [
       "village",
       "gacha"
     ],
     "tags": [
-      "garde",
-      "personne",
-      "tendresse"
+      "mâchoire",
+      "désir",
+      "contact"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2960,17 +2960,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "zelie",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "zelie_t5_c01",
-    "prompt": "Si tu ne gardais qu'un bijou ici, lequel ?",
-    "companionReply": "Une épingle sans armoiries, offerte par toi. Elle vaut plus qu'un sceptre.",
+    "prompt": "Si tu m'invitais dans ta chambre ce soir, sans titre…",
+    "companionReply": "Je te ferais asseoir sur le lit, je dénouerais ton col lentement, et je ne laisserais aucun protocolaire frapper.",
     "tone": "romantic",
     "relatedSystems": [
       "village",
       "gacha"
     ],
     "tags": [
-      "bijou",
-      "épingle",
-      "intime"
+      "chambre",
+      "lit",
+      "intimité"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -2980,17 +2980,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "zelie",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "zelie_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Choisir quelqu'un sans alliance ni contrat. Juste la volonté de revenir.",
+    "prompt": "Qu'est-ce que tu murmures quand personne n'écoute ?",
+    "companionReply": "Ton prénom contre mon cou, et la promesse de t'attirer plus près jusqu'à ce que tu oublies le havre.",
     "tone": "sincere",
     "relatedSystems": [
       "village",
       "gacha"
     ],
     "tags": [
-      "lien",
-      "choix",
-      "revenir"
+      "murmure",
+      "cou",
+      "promesse"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3118,17 +3118,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "etna",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "etna_t4_c01",
-    "prompt": "As-tu déjà eu peur de redevenir seule ?",
-    "companionReply": "Oui. Même une reine démoniaque a des nuits trop longues. Ne t'en va pas trop vite.",
-    "tone": "sincere",
+    "prompt": "Etna… tu m'as plaqué contre le mur « pour me punir ».",
+    "companionReply": "Ne fais pas l'innocent. J'avais envie de sentir ta respiration paniquée — et de te garder là.",
+    "tone": "direct",
     "relatedSystems": [
       "gacha",
       "prestige"
     ],
     "tags": [
-      "peur",
-      "solitude",
-      "nuit"
+      "mur",
+      "punition",
+      "désir"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3138,17 +3138,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "etna",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "etna_t4_c02",
-    "prompt": "Pourquoi tu restes quand tu pourrais partir ?",
-    "companionReply": "Parce que tu me traites comme une voisine, pas comme une légende. C'est neuf, et bon.",
+    "prompt": "Tes doigts sont restés sur ma ceinture trop longtemps.",
+    "companionReply": "Et les tiens n'ont pas reculé. Si tu veux que je continue, demande. Je ne supplie pas deux fois.",
     "tone": "romantic",
     "relatedSystems": [
       "gacha",
       "prestige"
     ],
     "tags": [
-      "rester",
-      "voisine",
-      "légende"
+      "ceinture",
+      "contact",
+      "audace"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3158,17 +3158,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "etna",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "etna_t5_c01",
-    "prompt": "Si tu ne gardais qu'un souvenir du havre ?",
-    "companionReply": "Le soir où tu as ri de ma blague sans trembler. J'ai senti un trône différent.",
-    "tone": "romantic",
+    "prompt": "Si je montais dans ta chambre ce soir, tu me laisserais entrer ?",
+    "companionReply": "Je te tirerais à l'intérieur, je claquerais la porte, et je te ferais oublier que tu n'es pas mon sujet.",
+    "tone": "direct",
     "relatedSystems": [
       "gacha",
       "prestige"
     ],
     "tags": [
-      "souvenir",
-      "rire",
-      "intime"
+      "chambre",
+      "portrait",
+      "possession"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3178,17 +3178,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "etna",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "etna_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Quelqu'un qui ne fuit pas quand je baisse la voix. Rare, donc précieux.",
+    "prompt": "Dis-moi ce que tu veux vraiment, sans couronne.",
+    "companionReply": "Ta bouche sur la mienne, tes mains dans mes cheveux, et une nuit où je ne domine personne d'autre que mon envie de toi.",
     "tone": "sincere",
     "relatedSystems": [
       "gacha",
       "prestige"
     ],
     "tags": [
-      "lien",
-      "voix",
-      "précieux"
+      "bouche",
+      "nuit",
+      "aveu"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3316,17 +3316,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "flonne",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "flonne_t4_c01",
-    "prompt": "As-tu déjà douté de ta bonté ici ?",
-    "companionReply": "Quand j'ai voulu guérir trop vite. J'ai appris qu'écouter vaut parfois mieux qu'un sort.",
-    "tone": "sincere",
+    "prompt": "Flonne… tu m'as bandé les yeux « pour un exercice de confiance ».",
+    "companionReply": "C'était un prétexte. Je voulais sentir tes lèvres hésiter près des miennes sans que tu puisses fuir.",
+    "tone": "playful",
     "relatedSystems": [
       "refuge",
       "gacha"
     ],
     "tags": [
-      "doute",
-      "écoute",
-      "guérison"
+      "confiance",
+      "lèvres",
+      "proximité"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3336,17 +3336,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "flonne",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "flonne_t4_c02",
-    "prompt": "Pourquoi tu passes du temps avec moi sans mission ?",
-    "companionReply": "Parce que tu me laisses être simple. Pas seulement l'ange du refuge.",
+    "prompt": "Tu m'as serré contre toi en disant que j'avais froid.",
+    "companionReply": "Tu n'avais pas froid. Moi non plus. J'avais juste envie de te sentir battre contre ma poitrine.",
     "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "gacha"
     ],
     "tags": [
-      "simplicité",
-      "présence",
-      "tendresse"
+      "étreinte",
+      "poitrine",
+      "aveu"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3356,17 +3356,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "flonne",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "flonne_t5_c01",
-    "prompt": "Si tu ne pouvais offrir qu'un dernier réconfort ici ?",
-    "companionReply": "Une étreinte légère et le mot « reste ». Le havre a déjà assez de bruit.",
+    "prompt": "Si on dormait côte à côte au refuge, que ferais-tu ?",
+    "companionReply": "Je glisserais ma main sous ta chemise, je t'embrasserais doucement, puis moins doucement, jusqu'à ce que tu restes.",
     "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "gacha"
     ],
     "tags": [
-      "réconfort",
-      "rester",
-      "intime"
+      "refuge",
+      "embrasser",
+      "nuit"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3376,17 +3376,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "flonne",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "flonne_t5_c02",
-    "prompt": "Que vois-tu en moi, Flonne ?",
-    "companionReply": "Quelqu'un qui protège les autres et oublie parfois de se protéger. Je veille aussi.",
+    "prompt": "Dis-moi ce que ton cœur murmure quand je suis là.",
+    "companionReply": "Qu'il veut ta chaleur, ta bouche, et le droit de te serrer sans excuse angélique.",
     "tone": "sincere",
     "relatedSystems": [
       "refuge",
       "gacha"
     ],
     "tags": [
-      "protection",
-      "veille",
-      "lien"
+      "cœur",
+      "chaleur",
+      "désir"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3514,17 +3514,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "laharl",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "laharl_t4_c01",
-    "prompt": "As-tu déjà eu peur de ne pas être à la hauteur ?",
-    "companionReply": "…Oui. Même un overlord doute. Toi, tu es resté. Ça compte plus qu'une victoire.",
-    "tone": "sincere",
+    "prompt": "Laharl… tu m'as provoqué en m'attrapant le col.",
+    "companionReply": "Et tu n'as pas lâché. Bien. J'avais envie de sentir si tu tremblerais ou si tu me tirerais plus près.",
+    "tone": "direct",
     "relatedSystems": [
       "hunt",
       "gacha"
     ],
     "tags": [
-      "doute",
-      "overlord",
-      "présence"
+      "col",
+      "provocation",
+      "désir"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3534,17 +3534,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "laharl",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "laharl_t4_c02",
-    "prompt": "Pourquoi tu reviens me voir après une chasse ?",
-    "companionReply": "Parce que tu m'accueilles sans courber l'échine. C'est rare, et ça me plaît.",
-    "tone": "romantic",
+    "prompt": "Tu m'as jeté sur le lit du refuge « pour récupérer ».",
+    "companionReply": "Récupérer quoi ? J'voulais ton souffle dans mon cou et ta main qui refuse de reculer.",
+    "tone": "playful",
     "relatedSystems": [
       "hunt",
       "gacha"
     ],
     "tags": [
-      "retour",
-      "accueil",
-      "respect"
+      "refuge",
+      "lit",
+      "souffle"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3554,17 +3554,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "laharl",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "laharl_t5_c01",
-    "prompt": "Si tu ne pouvais garder qu'un trophée du havre ?",
-    "companionReply": "Pas un trophée. Juste le souvenir d'une chasse où on a ri au lieu de compter les points.",
-    "tone": "romantic",
+    "prompt": "Si on restait seuls après la chasse, que ferais-tu ?",
+    "companionReply": "Je t'écraserais contre moi — pas pour gagner. Pour sentir ta bouche, ta chaleur, et te faire rester.",
+    "tone": "direct",
     "relatedSystems": [
       "hunt",
       "gacha"
     ],
     "tags": [
-      "souvenir",
       "chasse",
-      "intime"
+      "bouche",
+      "chaleur"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3574,17 +3574,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "laharl",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "laharl_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Un rival qui devient allié sans perdre sa fierté. Toi, tu y arrives.",
+    "prompt": "Dis-le sans fanfare : qu'est-ce que tu veux ?",
+    "companionReply": "T'avoir à califourchon sur mes genoux, entendre mon prénom rauque, et zéro audience.",
     "tone": "sincere",
     "relatedSystems": [
       "hunt",
       "gacha"
     ],
     "tags": [
-      "lien",
-      "fierté",
-      "allié"
+      "genoux",
+      "désir",
+      "intime"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3712,17 +3712,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "pleinair",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "pleinair_t4_c01",
-    "prompt": "As-tu déjà eu peur de disparaître dans le bruit du havre ?",
-    "companionReply": "…Oui. Puis tu t'es assis à côté de moi sans demander un mot. J'ai respiré.",
-    "tone": "sincere",
+    "prompt": "Pleinair… tu m'as tiré dans l'ombre et tu m'as gardé contre toi.",
+    "companionReply": "…Oui. Pas pour te cacher. Pour sentir ton cœur. Tu as compris sans que je parle.",
+    "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "peur",
-      "présence",
-      "respiration"
+      "ombre",
+      "cœur",
+      "silence"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3732,17 +3732,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "pleinair",
     "affinityTier": 4 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "pleinair_t4_c02",
-    "prompt": "Pourquoi tu me fais confiance sans parler ?",
-    "companionReply": "Parce que tu écoutes aussi le silence. Peu le font. Toi, oui.",
-    "tone": "romantic",
+    "prompt": "Tes doigts sur ma nuque, c'était un signe ?",
+    "companionReply": "…Un oui. Je voulais te toucher. Tu es resté. J'ai respiré plus fort.",
+    "tone": "sincere",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "confiance",
-      "silence",
-      "écoute"
+      "nuque",
+      "contact",
+      "aveu"
     ],
     "intimacyLevel": 4 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3752,17 +3752,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "pleinair",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "pleinair_t5_c01",
-    "prompt": "Si tu ne pouvais me laisser qu'un dernier signe ici ?",
-    "companionReply": "…Deux mains jointes, puis un pouce levé. « On reste. » Sans bruit, mais vrai.",
+    "prompt": "Si on dormait côte à côte au refuge, sans un mot…",
+    "companionReply": "…Je poserais ma main sur ton ventre. Je t'attirerais. Je ne lâcherais pas avant l'aube.",
     "tone": "romantic",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "signe",
-      "rester",
-      "intime"
+      "refuge",
+      "ventre",
+      "nuit"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,
@@ -3772,17 +3772,17 @@ export const COMPANION_BOND_CATALOG: CompanionBondConversation[] = [
     "companionId": "pleinair",
     "affinityTier": 5 as 1 | 2 | 3 | 4 | 5,
     "conversationId": "pleinair_t5_c02",
-    "prompt": "Que signifie pour toi un lien profond ?",
-    "companionReply": "Être là, même sans voix. Tu l'es aussi pour moi. C'est suffisant.",
+    "prompt": "Dis-moi ce que tu désires, même en silence.",
+    "companionReply": "…Ta bouche. Ta chaleur. Dormir entrelacés. Tu es déjà la réponse.",
     "tone": "sincere",
     "relatedSystems": [
       "refuge",
       "prestige"
     ],
     "tags": [
-      "lien",
-      "présence",
-      "voix"
+      "bouche",
+      "chaleur",
+      "lien"
     ],
     "intimacyLevel": 5 as 1 | 2 | 3 | 4 | 5,
     "repeatable": false,

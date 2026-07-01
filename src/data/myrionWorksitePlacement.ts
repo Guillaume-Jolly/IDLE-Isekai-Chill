@@ -33,21 +33,6 @@ type SlotDelta = {
 const BIOME_SLOT_DELTAS: Partial<
   Record<WorksiteCatalogBiomeId, Partial<Record<WorksitePlacementSlotId, SlotDelta>>>
 > = {
-  'prairie-chantier': {
-    bottomCenter: { yPercent: -2, mobileYPercent: -1 },
-    topLeft: { yPercent: 2 },
-    midRight: { yPercent: 4, mobileYPercent: 2 },
-  },
-  'foret-douce': {
-    midLeft: { xPercent: -2 },
-    topCenter: { yPercent: 3 },
-    bottomCenter: { yPercent: -3 },
-  },
-  'mine-tranquille': {
-    midLeft: { yPercent: 6 },
-    topCenter: { yPercent: 4 },
-    topRight: { yPercent: 5, xPercent: -2 },
-  },
   'marais-lucioles': {
     topLeft: { yPercent: 4 },
     bottomCenter: { yPercent: -4 },
@@ -122,23 +107,26 @@ export type WorksiteBiomeBackgroundFrame = {
   objectPosition: string
 }
 
-/** Cadrage fond par biome — complète Worksite.css. */
+/** Ratio des fonds panorama Chantier (1920×720). */
+export const WORKSITE_PANORAMA_ASPECT_RATIO = 1920 / 720
+
+/** Cadrage fond par biome — ancré en bas pour aligner filons et marqueurs peints. */
 export const WORKSITE_BIOME_BACKGROUND_FRAMES: Record<WorksiteBiomeId, WorksiteBiomeBackgroundFrame> = {
-  'prairie-chantier': { objectPosition: 'center 70%' },
-  'foret-douce': { objectPosition: 'center 66%' },
-  'mine-tranquille': { objectPosition: 'center 62%' },
-  'marais-lucioles': { objectPosition: 'center 68%' },
-  'rivage-brumeux': { objectPosition: 'center 74%' },
-  'vergers-suspendus': { objectPosition: 'center 64%' },
-  'ruines-florales': { objectPosition: 'center 68%' },
-  'grotte-cristalline': { objectPosition: 'center 58%' },
-  'desert-cendres-roses': { objectPosition: 'center 72%' },
-  'montagne-vents': { objectPosition: 'center 56%' },
-  'lac-etoile': { objectPosition: 'center 70%' },
-  'bois-automne-eternel': { objectPosition: 'center 66%' },
-  'jardin-fongique': { objectPosition: 'center 62%' },
-  'sanctuaire-astral': { objectPosition: 'center 60%' },
-  'ile-celeste': { objectPosition: 'center 55%' },
+  'prairie-chantier': { objectPosition: 'center bottom' },
+  'foret-douce': { objectPosition: 'center bottom' },
+  'mine-tranquille': { objectPosition: 'center bottom' },
+  'marais-lucioles': { objectPosition: 'center bottom' },
+  'rivage-brumeux': { objectPosition: 'center bottom' },
+  'vergers-suspendus': { objectPosition: 'center bottom' },
+  'ruines-florales': { objectPosition: 'center bottom' },
+  'grotte-cristalline': { objectPosition: 'center bottom' },
+  'desert-cendres-roses': { objectPosition: 'center bottom' },
+  'montagne-vents': { objectPosition: 'center bottom' },
+  'lac-etoile': { objectPosition: 'center bottom' },
+  'bois-automne-eternel': { objectPosition: 'center bottom' },
+  'jardin-fongique': { objectPosition: 'center bottom' },
+  'sanctuaire-astral': { objectPosition: 'center bottom' },
+  'ile-celeste': { objectPosition: 'center bottom' },
 }
 
 function clampPercent(value: number, min = 6, max = 94): number {
@@ -197,6 +185,20 @@ export function resolveWorksiteSpotPlacement(
     slotId,
     componentId: meta.componentId,
   }
+}
+
+/** Centre horizontal initial du scroll — moyenne des filons actifs. */
+export function getWorksiteBiomePanoramaFocusPercent(
+  biomeId: WorksiteBiomeId,
+  spotIds: readonly WorksiteSpotId[],
+  mobile: boolean,
+): number {
+  if (spotIds.length === 0) return 50
+  const xs = spotIds
+    .map((spotId) => resolveWorksiteSpotPlacement(biomeId, spotId, mobile)?.leftPercent)
+    .filter((value): value is number => value != null)
+  if (xs.length === 0) return 50
+  return xs.reduce((sum, value) => sum + value, 0) / xs.length
 }
 
 export function worksiteSpotPlacementStyle(

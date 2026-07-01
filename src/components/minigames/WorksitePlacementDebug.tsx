@@ -1,8 +1,5 @@
 import type { WorksiteBiomeId } from '../../data/myrionWorksiteDefs'
-import {
-  listWorksitePlacementSlotsForBiome,
-  resolveWorksiteSpotPlacement,
-} from '../../data/myrionWorksitePlacement'
+import { listWorksitePlacementSlotsForBiome, resolveWorksiteSpotPlacement } from '../../data/myrionWorksitePlacement'
 import { getRuntimeSpotMeta } from '../../data/myrionWorksiteBiomeRuntime'
 import type { WorksiteSpotId } from '../../data/myrionWorksiteDefs'
 
@@ -12,7 +9,7 @@ type WorksitePlacementDebugProps = {
   mobile: boolean
 }
 
-/** Overlay dev-only — slots catalogue + filons actifs. */
+/** Overlay dev-only — slots catalogue + filons actifs (repère panorama). */
 export function WorksitePlacementDebug({ biomeId, spotIds, mobile }: WorksitePlacementDebugProps) {
   const slots = listWorksitePlacementSlotsForBiome(biomeId)
 

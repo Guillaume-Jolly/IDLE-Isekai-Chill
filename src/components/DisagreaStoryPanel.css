@@ -176,7 +176,7 @@
 }
 
 .disagrea-story-variants-list li {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border-radius: 12px;
   padding: 4px;
 }

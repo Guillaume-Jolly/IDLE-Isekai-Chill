@@ -110,24 +110,15 @@ export function markerBurstOrigin(
   return { left: `${leftPct}%`, top: `${topPct}%` }
 }
 
-const MINE_BURST_TRAVEL_PX = 28
+const MINE_BURST_TRAVEL_MIN_PX = 96
+const MINE_BURST_TRAVEL_MAX_PX = 200
 
-function parsePercent(value: string): number {
-  return Number.parseFloat(value) || 50
-}
-
-/** Direction préférée vers le haut quand le filon est bas dans la scène. */
-function pickBurstAngleDeg(topPct: number): number {
-  if (topPct >= 72) {
-    return -150 + Math.random() * 120
-  }
-  if (topPct >= 58) {
-    return -170 + Math.random() * 200
-  }
+/** Direction aléatoire sur 360° — l’éclat peut traverser toute la scène. */
+function pickBurstAngleDeg(): number {
   return Math.random() * 360
 }
 
-/** Une animation par clic — un éclat part du filon dans une direction aléatoire. */
+/** Une animation par clic — éclats partant du filon dans une direction aléatoire (360°). */
 export function createMineBurstRing(
   baseId: number,
   origin: MineBurstOrigin,
@@ -135,16 +126,15 @@ export function createMineBurstRing(
   resourceAsset: WorksiteVisualAsset,
   yieldLabel: string,
 ): WorksiteMineBurst {
-  const topPct = parsePercent(origin.top)
-  const angleDeg = pickBurstAngleDeg(topPct)
+  const angleDeg = pickBurstAngleDeg()
   const angleRad = (angleDeg * Math.PI) / 180
-  const distance = MINE_BURST_TRAVEL_PX + Math.random() * 8
+  const distance = MINE_BURST_TRAVEL_MIN_PX + Math.random() * (MINE_BURST_TRAVEL_MAX_PX - MINE_BURST_TRAVEL_MIN_PX)
   const rays: WorksiteMineBurstRay[] = [
     {
       id: 'ray-0',
       driftX: Math.cos(angleRad) * distance,
       driftY: Math.sin(angleRad) * distance,
-      rotate: angleDeg * 0.35,
+      rotate: angleDeg + 360 + Math.random() * 180,
     },
   ]
 

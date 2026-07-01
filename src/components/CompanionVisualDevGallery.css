@@ -1,6 +1,6 @@
 .dev-visual-filters-card {
   background: rgba(18, 12, 28, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-hover);
   border-radius: 16px;
   display: grid;
   gap: 12px;
@@ -43,7 +43,7 @@
     rgba(8, 6, 14, 0.85)
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f5d0ff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E")
     no-repeat right 12px center;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 12px;
   color: #fff5fb;
   cursor: pointer;
@@ -71,7 +71,7 @@
 }
 
 .dev-visual-field--checkbox span {
-  color: rgba(255, 248, 252, 0.92);
+  color: var(--panel-bg-sheet);
   display: grid;
   font-size: 0.92rem;
   gap: 4px;
@@ -110,7 +110,7 @@
 
 .dev-visual-card {
   background: rgba(18, 12, 28, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-hover);
   border-radius: 16px;
   display: grid;
   gap: 12px;
@@ -176,9 +176,9 @@
   animation: none;
   background:
     radial-gradient(circle at 35% 24%, rgba(255, 255, 255, 0.16), transparent 17%),
-    radial-gradient(circle at 75% 68%, rgba(255, 255, 255, 0.08), transparent 16%),
+    radial-gradient(circle at 75% 68%, var(--surface-hover), transparent 16%),
     linear-gradient(145deg, #5a3058, #3a2850);
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: var(--surface-hover-strong);
   border-radius: 14px;
   min-height: clamp(168px, 14vw, 240px);
   width: 100%;
@@ -186,7 +186,7 @@
 
 .view-stage--gallery .dev-visual-strip .companion-visual.mature-slot {
   background:
-    radial-gradient(circle at 45% 22%, rgba(255, 255, 255, 0.12), transparent 18%),
+    radial-gradient(circle at 45% 22%, var(--surface-hover-strong), transparent 18%),
     radial-gradient(circle at 76% 76%, rgba(255, 120, 180, 0.14), transparent 20%),
     linear-gradient(145deg, #392044, #6a2850);
   border-color: rgba(255, 140, 196, 0.22);

@@ -178,7 +178,7 @@
 .mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-stable-btn,
 .mg-refuge-immersive--mobile .mg-hunt-rail-panel-body .mg-refuge-tool-btn {
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 12px;
   color: #fff;

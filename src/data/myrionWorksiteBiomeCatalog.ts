@@ -183,6 +183,45 @@ const DEFAULT_PLACEMENT_SLOTS: readonly WorksitePlacementSlot[] = [
   },
 ] as const
 
+/** Coordonnées % du PNG panorama (1920×720) — superposition sur marqueurs peints. */
+function panoramaPlacementSlots(
+  slots: Partial<Record<WorksitePlacementSlotId, { x: number; y: number; scale?: number }>>,
+): readonly WorksitePlacementSlot[] {
+  return DEFAULT_PLACEMENT_SLOTS.map((slot) => {
+    const tuned = slots[slot.id]
+    if (!tuned) return slot
+    return {
+      ...slot,
+      xPercent: tuned.x,
+      yPercent: tuned.y,
+      mobileXPercent: tuned.x,
+      mobileYPercent: tuned.y,
+      scale: tuned.scale ?? slot.scale,
+    }
+  })
+}
+
+const PRAIRIE_PLACEMENT_SLOTS = panoramaPlacementSlots({
+  topLeft: { x: 22, y: 78 },
+  bottomCenter: { x: 50, y: 58 },
+  midRight: { x: 82, y: 76 },
+})
+
+const FORET_PLACEMENT_SLOTS = panoramaPlacementSlots({
+  midLeft: { x: 20, y: 75 },
+  topCenter: { x: 55, y: 48 },
+  bottomCenter: { x: 50, y: 88 },
+  topRight: { x: 85, y: 62 },
+})
+
+const MINE_PLACEMENT_SLOTS = panoramaPlacementSlots({
+  midLeft: { x: 36, y: 85 },
+  topCenter: { x: 46, y: 55 },
+  topRight: { x: 67, y: 65 },
+  midRight: { x: 89, y: 70 },
+  bottomCenter: { x: 36, y: 85 },
+})
+
 type ComponentInput = Omit<
   WorksiteCatalogComponent,
   'assetStatus' | 'available'
@@ -222,6 +261,7 @@ export const WORKSITE_BIOME_CATALOG: Record<WorksiteCatalogBiomeId, WorksiteCata
     assetStatus: 'active',
     gameplayStatus: 'active',
     backgroundAssetKey: 'backgrounds/prairie.png',
+    placementSlots: PRAIRIE_PLACEMENT_SLOTS,
     progressionNotes: 'Biome de départ — 3 filons actifs en gameplay MVP 1–12.',
     assetGenerationNotes: 'Fond wide MVP 9 validé ; composants catalogue 4–6 en attente MVP 14.',
     components: [
@@ -318,6 +358,7 @@ export const WORKSITE_BIOME_CATALOG: Record<WorksiteCatalogBiomeId, WorksiteCata
     assetStatus: 'active',
     gameplayStatus: 'active',
     backgroundAssetKey: 'backgrounds/forest.png',
+    placementSlots: FORET_PLACEMENT_SLOTS,
     progressionNotes: 'Déblocage ~28 total chantier (MVP 10).',
     components: [
       catalogComponent({
@@ -411,6 +452,7 @@ export const WORKSITE_BIOME_CATALOG: Record<WorksiteCatalogBiomeId, WorksiteCata
     assetStatus: 'active',
     gameplayStatus: 'active',
     backgroundAssetKey: 'backgrounds/mine.png',
+    placementSlots: MINE_PLACEMENT_SLOTS,
     progressionNotes: 'Déblocage ~52 total + 18 bois (MVP 10).',
     components: [
       catalogComponent({

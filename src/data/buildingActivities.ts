@@ -31,12 +31,34 @@ export type MinigameType =
   | 'conversation'
   | 'myrion-worksite'
 
-/** Mini-jeux peaufinés — affichés en tête du hub (avant le tri stade/bâtiment). */
-export const FEATURED_MINIGAME_IDS: readonly string[] = [
+/** Mini-jeux récents (chantier, chasse, refuge, parler). */
+export const PARLER_HUB_ACTIVITY_ID = 'village-parler' as const
+
+export const PARLER_HUB_ACTIVITY: BuildingActivity = {
+  id: PARLER_HUB_ACTIVITY_ID,
+  buildingId: 'clear-spring',
+  companionId: 'solene',
+  focusResource: 'gifts',
+  minigameType: 'conversation',
+  name: 'Parler',
+  tagline: 'Village — affinité',
+  inspiration: 'Visual novel / choix relationnels',
+  description:
+    'Trois échanges à choix avec un compagnon du village. Réponses justes = meilleures récompenses en cadeaux, stardust et mana.',
+  baseReward: { gifts: 22, stardust: 10, mana: 35 },
+  accent: '#ff9fd0',
+  icon: '💞',
+}
+
+export const NEW_MINIGAME_IDS: readonly string[] = [
   'farm-worksite',
   'farm-capture',
   'farm-dressage',
+  PARLER_HUB_ACTIVITY_ID,
 ]
+
+/** @deprecated Utiliser NEW_MINIGAME_IDS */
+export const FEATURED_MINIGAME_IDS = NEW_MINIGAME_IDS
 
 export type BuildingActivity = {
   id: string
@@ -472,7 +494,9 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
 ]
 
 export const getActivityById = (activityId: string) =>
-  BUILDING_ACTIVITIES.find((activity) => activity.id === activityId)
+  activityId === PARLER_HUB_ACTIVITY_ID
+    ? PARLER_HUB_ACTIVITY
+    : BUILDING_ACTIVITIES.find((activity) => activity.id === activityId)
 
 export const getActivitiesByBuilding = (buildingId: string) =>
   BUILDING_ACTIVITIES.filter((activity) => activity.buildingId === buildingId)
@@ -483,11 +507,11 @@ const buildingOrderIndex = (buildingId: string, order: readonly string[]) => {
 }
 
 const featuredMinigameIndex = (activityId: string) => {
-  const index = FEATURED_MINIGAME_IDS.indexOf(activityId)
+  const index = NEW_MINIGAME_IDS.indexOf(activityId)
   return index === -1 ? 999 : index
 }
 
-/** Tri hub mini-jeux : peaufinés, stade de deblocage, batiment, gameplay puis conversations. */
+/** Tri hub mini-jeux : nouveaux, stade de deblocage, batiment, gameplay puis conversations. */
 export function sortActivitiesByUnlock(
   activities: BuildingActivity[],
   unlockAtByBuilding: Record<string, number>,

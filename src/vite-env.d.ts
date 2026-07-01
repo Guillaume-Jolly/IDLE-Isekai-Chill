@@ -2,6 +2,9 @@
 
 interface ImportMetaEnv {
   readonly VITE_STABLE_PRESET?: string
+  /** Prod uniquement — injectés au build (CI / hébergement privé). */
+  readonly VITE_HAVRE_LOGIN_USER?: string
+  readonly VITE_HAVRE_LOGIN_PASSWORD?: string
 }
 
 interface ImportMeta {

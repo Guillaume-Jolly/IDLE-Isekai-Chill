@@ -1,17 +1,6 @@
-:root {
-  --text: #6d5969;
-  --text-h: #2f2032;
-  --muted: #947d91;
-  --bg: #fff8fc;
-  --card-bg: rgba(255, 255, 255, 0.82);
-  --border: rgba(153, 90, 139, 0.16);
-  --code-bg: #fff0f8;
-  --accent: #b449ff;
-  --accent-bg: rgba(180, 73, 255, 0.12);
-  --accent-border: rgba(180, 73, 255, 0.45);
-  --shadow: 0 24px 70px rgba(117, 69, 113, 0.14);
-  --soft-shadow: 0 12px 36px rgba(117, 69, 113, 0.09);
+@import './styles/color-theme.css';
 
+:root {
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -43,10 +32,8 @@
 }
 
 body {
-  background:
-    radial-gradient(circle at top left, rgba(255, 196, 219, 0.64), transparent 28rem),
-    radial-gradient(circle at 90% 10%, rgba(202, 177, 255, 0.42), transparent 24rem),
-    linear-gradient(180deg, #fff8fc, #fff1f7 48%, #f7efff);
+  background: var(--body-bg);
+  color: var(--text);
   margin: 0;
   min-width: 320px;
   height: 100dvh;
@@ -59,7 +46,8 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
@@ -94,4 +82,5 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+  color: var(--text-h);
 }

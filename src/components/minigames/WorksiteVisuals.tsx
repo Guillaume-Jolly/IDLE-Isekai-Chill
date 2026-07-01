@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type ImgHTMLAttributes, type ReactNode } from 'react'
+import { useState, type ImgHTMLAttributes, type ReactNode } from 'react'
 import type { WorksiteVisualAsset } from '../../data/myrionWorksiteVisuals'
 
 type WorksiteOptionalImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt'> & {
@@ -39,8 +39,9 @@ type WorksiteBiomeBackgroundProps = {
   label: string
   biomeId?: string
   className?: string
-  /** MVP 16 — cadrage fond (ex. center 68%). */
+  /** @deprecated Panorama scroll — cadrage via hauteur native. */
   objectPosition?: string
+  onImageLoad?: () => void
 }
 
 export function WorksiteBiomeBackground({
@@ -48,34 +49,21 @@ export function WorksiteBiomeBackground({
   label,
   biomeId,
   className,
-  objectPosition,
+  onImageLoad,
 }: WorksiteBiomeBackgroundProps) {
-  const style: CSSProperties | undefined =
-    asset.available && asset.path
-      ? ({
-          ['--mg-worksite-bg-image' as string]: `url(${asset.path})`,
-          ...(objectPosition
-            ? { backgroundPosition: objectPosition, ['--mg-worksite-bg-position' as string]: objectPosition }
-            : {}),
-        } as CSSProperties)
-      : objectPosition
-        ? ({ backgroundPosition: objectPosition } as CSSProperties)
-        : undefined
-
   const biomeClass = biomeId ? `mg-worksite-biome-background--${biomeId}` : ''
 
   return (
     <div
       aria-hidden
-      className={`mg-worksite-biome-background ${biomeClass} ${className ?? ''}`.trim()}
-      style={style}
+      className={`mg-worksite-biome-background mg-worksite-biome-background--panorama ${biomeClass} ${className ?? ''}`.trim()}
     >
       <WorksiteOptionalImage
         asset={asset}
         alt=""
         aria-hidden
-        className="mg-worksite-biome-background-img"
-        style={objectPosition ? { objectPosition } : undefined}
+        className="mg-worksite-panorama-image"
+        onLoad={onImageLoad}
       />
       <span className="visually-hidden">{label}</span>
     </div>

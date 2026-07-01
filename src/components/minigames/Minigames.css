@@ -26,7 +26,7 @@
 .minigame-panel {
   background:
     radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--mg-accent, #b49bff) 28%, transparent), transparent 34%),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 252, 0.9));
+    var(--mini-panel-bg);
   border: none;
   border-radius: 0;
   box-shadow: none;
@@ -62,7 +62,7 @@
 
 .minigame-stage {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 236, 255, 0.88)),
+    var(--mini-stage-bg),
     color-mix(in srgb, var(--mg-accent, #b49bff) 8%, transparent);
   border: 1px solid rgba(180, 73, 255, 0.14);
   border-radius: 18px;
@@ -88,7 +88,7 @@
 
 .minigame-stage-inner {
   backdrop-filter: blur(2px);
-  background: rgba(255, 255, 255, 0.78);
+  background: var(--panel-bg-strong);
   border-radius: 16px;
   margin: 10px;
   min-height: calc(100% - 20px);
@@ -115,7 +115,7 @@
 
 .mg-companion-presenter.stage {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.72)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), var(--panel-bg)),
     color-mix(in srgb, var(--mg-accent, #b49bff) 16%, transparent);
   border: 1px solid rgba(180, 73, 255, 0.14);
   border-radius: 18px;
@@ -239,7 +239,7 @@
 
 .mg-meta-chip-button {
   align-items: center;
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid rgba(153, 90, 139, 0.12);
   border-radius: 999px;
   color: var(--text-h);
@@ -268,7 +268,7 @@
 .mg-meta-chip-tooltip {
   backdrop-filter: blur(12px);
   background: rgba(20, 12, 28, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 12px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
   box-sizing: border-box;
@@ -303,6 +303,33 @@
 
 .minigame-hub-heading {
   align-items: center;
+}
+
+.minigame-hub-section {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.minigame-hub-section-head {
+  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.minigame-hub-section-head h3 {
+  margin: 0;
+}
+
+.minigame-hub-section-head > p {
+  color: var(--text-muted, var(--muted));
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0;
+  max-width: 36rem;
 }
 
 .minigame-hub-heading .mg-dev-unlock-hint {
@@ -366,7 +393,7 @@
 
 .mg-wandering-pet {
   align-items: center;
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--panel-bg-soft);
   border: 1px solid rgba(180, 73, 255, 0.16);
   border-radius: 14px;
   display: grid;
@@ -438,7 +465,7 @@
 .mg-capture-overlay {
   align-items: center;
   backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--panel-bg-solid);
   border-radius: 16px;
   display: grid;
   gap: 10px;
@@ -947,7 +974,7 @@
 
 .mg-refuge-care-popover {
   backdrop-filter: blur(10px);
-  background: rgba(255, 252, 248, 0.94);
+  background: var(--panel-bg-sheet);
   border: 1px solid rgba(120, 90, 60, 0.18);
   border-radius: 14px;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
@@ -1003,7 +1030,7 @@
 }
 
 .mg-refuge-care-popover-close {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--overlay-sheet);
   border: 1px solid rgba(80, 60, 40, 0.16);
   border-radius: 8px;
   color: #5a4030;
@@ -1022,7 +1049,7 @@
 }
 
 .mg-refuge-care-popover-duplicates button {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--overlay-sheet);
   border: 1px solid rgba(80, 60, 40, 0.18);
   border-radius: 8px;
   color: #5a4030;
@@ -1150,9 +1177,9 @@
 
 .mg-refuge-side-stat {
   background: rgba(8, 10, 18, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--panel-bg-solid);
   display: grid;
   gap: 4px;
   padding: 10px 14px;
@@ -1382,7 +1409,7 @@
   }
 
   .mg-refuge-stable-link {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--surface-hover);
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 999px;
     color: #fff;
@@ -1664,7 +1691,7 @@
 }
 
 .mg-capture-actions {
-  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.92) 35%);
+  background: linear-gradient(180deg, transparent, var(--panel-bg-solid) 35%);
   flex-shrink: 0;
   height: calc(112px + env(safe-area-inset-bottom, 0px));
   padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
@@ -2580,7 +2607,7 @@
 }
 
 .mg-ambient-snow .mg-ambient-dot {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--panel-bg-solid);
   height: 4px;
   width: 4px;
 }
@@ -2593,7 +2620,7 @@
 
 .mg-ambient-bubbles .mg-ambient-dot {
   background: rgba(160, 240, 255, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--surface-muted);
   height: 10px;
   width: 10px;
 }
@@ -2648,7 +2675,7 @@
 }
 
 .mg-capture-stability-bar {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--surface-muted);
   border-radius: 999px;
   display: inline-block;
   height: 6px;
@@ -2720,7 +2747,7 @@
   border: 2px solid rgba(158, 235, 178, 0.75);
   box-shadow:
     0 10px 28px rgba(40, 140, 80, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    inset 0 1px 0 var(--surface-hover-strong);
 }
 
 .mg-capture-result-overlay.failed {
@@ -2768,7 +2795,7 @@
 }
 
 .mg-capture-result-chance {
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--panel-bg-solid);
   font-size: 0.82rem;
   margin: 0 0 6px;
 }
@@ -2780,7 +2807,7 @@
 }
 
 .mg-capture-result-auto {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--panel-bg-strong);
   font-size: 0.78rem;
   font-style: italic;
   margin: 8px 0 0;
@@ -2855,7 +2882,7 @@
   background:
     linear-gradient(180deg, rgba(10, 14, 24, 0.96), rgba(6, 8, 16, 0.98)),
     radial-gradient(circle at 0% 40%, rgba(126, 207, 138, 0.08), transparent 55%);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid var(--surface-hover);
 }
 
 .mg-capture-recent-panel.map {
@@ -2920,8 +2947,8 @@
 
 .mg-capture-recent-item {
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
   display: grid;
   gap: 8px;
@@ -2930,7 +2957,7 @@
 }
 
 .mg-capture-recent-panel.map .mg-capture-recent-item {
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--panel-bg-soft);
   border-color: rgba(80, 110, 70, 0.16);
 }
 
@@ -3166,7 +3193,7 @@
 
 .mg-order-item,
 .mg-choice-grid button {
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(180, 73, 255, 0.18);
   border-radius: 12px;
   font-size: 1.4rem;
@@ -3212,7 +3239,7 @@
 }
 
 .mg-timing-track {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border-radius: 999px;
   height: 28px;
   margin: 24px auto;
@@ -3240,7 +3267,7 @@
 }
 
 .mg-dressage-meta {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--panel-bg-solid);
   font-size: 0.9rem;
   margin: 0 0 8px;
   text-align: center;
@@ -3262,7 +3289,7 @@
 
 .mg-refuge-tab {
   align-items: center;
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(208, 136, 48, 0.22);
   border-radius: 12px;
   display: flex;
@@ -3284,7 +3311,7 @@
 }
 
 .mg-refuge-resource-bar {
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--panel-bg-solid);
   display: flex;
   flex-wrap: wrap;
   font-size: 0.82rem;
@@ -3323,8 +3350,8 @@
 }
 
 .mg-refuge-summary-biome {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
   padding: 10px 12px;
 }
@@ -3393,7 +3420,7 @@
 }
 
 .mg-enclosure-empty {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border-radius: 12px;
   color: rgba(40, 30, 20, 0.85);
   font-size: 0.9rem;
@@ -3502,7 +3529,7 @@
 
 .mg-chibi-action-pop {
   animation: mg-bubble-pop 0.35s ease-out;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--panel-bg-solid);
   border-radius: 999px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   font-size: calc(0.9rem * var(--mg-chibi-scale) / 2);
@@ -3525,7 +3552,7 @@
 }
 
 .mg-refuge-pet-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--panel-bg-solid);
   border-radius: 14px;
   margin: 0 auto;
   max-width: 520px;
@@ -3561,7 +3588,7 @@
 }
 
 .mg-refuge-duplicate-nav button {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--overlay-sheet);
   border: 1px solid rgba(80, 60, 40, 0.18);
   border-radius: 8px;
   color: #5a4030;
@@ -3578,7 +3605,7 @@
 
 .mg-refuge-stable-btn {
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 12px;
   color: #fff;
@@ -3591,12 +3618,12 @@
 }
 
 .mg-refuge-stable-btn small {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--panel-bg);
   font-size: 0.72rem;
 }
 
 .mg-refuge-stable-link {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   color: #fff;
@@ -3642,7 +3669,7 @@
   background:
     radial-gradient(circle at 12% 0%, rgba(255, 200, 120, 0.16), transparent 34%),
     linear-gradient(180deg, rgba(28, 20, 14, 0.98), rgba(14, 10, 8, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
   color: #fff8f0;
@@ -3700,8 +3727,8 @@
 
 .mg-refuge-stable-row {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset-mid);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
   color: inherit;
   display: grid;
@@ -3944,7 +3971,7 @@
 
 .mg-dressage-pad {
   align-items: center;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(208, 136, 48, 0.28);
   border-radius: 14px;
   display: flex;
@@ -4057,7 +4084,7 @@
 }
 
 .mg-beat-lane {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border-radius: 14px;
   min-height: 220px;
   overflow: hidden;
@@ -4298,7 +4325,7 @@
 .mg-conversation-dock {
   backdrop-filter: blur(14px);
   background: rgba(10, 5, 16, 0.94);
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid var(--surface-hover-strong);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -4378,7 +4405,7 @@
 }
 
 .mg-conversation-progress {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--panel-bg);
   font-family: var(--sans);
   font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
@@ -4392,7 +4419,7 @@
 
 .minigame-panel-conversation .minigame-close {
   background: rgba(18, 10, 28, 0.55);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--surface-muted);
   color: #fff;
 }
 
@@ -4401,7 +4428,7 @@
 }
 
 .minigame-panel-conversation .mg-conversation-hint {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--panel-bg-solid);
   grid-column: 1 / -1;
   margin: 0;
 }
@@ -4414,7 +4441,7 @@
 
 .minigame-panel-conversation .mg-conversation-panel {
   background: rgba(8, 4, 14, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--surface-hover);
   backdrop-filter: blur(8px);
   border-radius: 12px;
   box-sizing: border-box;
@@ -4458,8 +4485,8 @@
 }
 
 .minigame-panel-conversation .mg-conversation-choice {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--surface-hover);
+  border-color: var(--surface-hover-strong);
   color: #fff;
   font-family: var(--sans);
   font-size: 0.78rem;
@@ -4468,7 +4495,7 @@
 }
 
 .minigame-panel-conversation .mg-conversation-choice:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--surface-hover-strong);
 }
 
 .mg-conversation-head h3 {
@@ -4482,7 +4509,7 @@
 }
 
 .mg-conversation-panel {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid rgba(180, 73, 255, 0.12);
   border-radius: 16px;
   display: block;
@@ -4524,7 +4551,7 @@
 
   .mg-conversation-dock {
     border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid var(--surface-hover-strong);
     grid-column: 1;
     grid-row: 2;
   }
@@ -4602,11 +4629,11 @@
 }
 
 .mg-dialogue-bubble-narrator {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface-inset);
   border: none;
-  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  border-left: 2px solid var(--surface-hover-strong);
   border-radius: 0 8px 8px 0;
-  color: rgba(255, 255, 255, 0.76);
+  color: var(--panel-bg-frosted);
   font-size: 0.8rem;
   font-style: normal;
   font-weight: 400;
@@ -4626,8 +4653,8 @@
 }
 
 .mg-dialogue-bubble-player {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--surface-hover-strong);
+  border: 1px solid var(--surface-muted);
   border-radius: 10px 10px 4px 10px;
   color: rgba(255, 255, 255, 0.95);
   font-size: 0.82rem;
@@ -5178,7 +5205,7 @@
 }
 
 .mg-conversation-result-reward {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--panel-bg);
   font-size: 0.78rem;
   line-height: 1.45;
   margin: 0;
@@ -5199,8 +5226,8 @@
 }
 
 .mg-conversation-recap {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -5224,7 +5251,7 @@
 }
 
 .mg-conversation-recap summary::after {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--surface-muted);
   content: '▾';
   font-size: 0.75rem;
   transition: transform 0.18s ease;
@@ -5253,7 +5280,7 @@
 }
 
 .mg-conversation-recap-body {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--surface-hover);
   display: grid;
   gap: 6px;
   padding: 8px 10px 10px;
@@ -5276,11 +5303,6 @@
   justify-self: start;
 }
 
-.minigame-card-conversations {
-  grid-column: 1 / -1;
-  max-width: 420px;
-}
-
 .mg-conversation-picker-overlay {
   align-items: center;
   backdrop-filter: blur(8px);
@@ -5297,7 +5319,7 @@
   background:
     radial-gradient(circle at 12% 0%, rgba(255, 159, 208, 0.18), transparent 34%),
     linear-gradient(180deg, rgba(28, 16, 36, 0.98), rgba(14, 10, 22, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 24px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
   color: #fff5fb;
@@ -5360,7 +5382,7 @@
 
 .mg-conversation-picker-random-icon {
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--surface-hover-strong);
   border-radius: 14px;
   display: inline-flex;
   font-size: 1.6rem;
@@ -5390,8 +5412,8 @@
 }
 
 .mg-conversation-picker-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset-mid);
+  border: 1px solid var(--surface-hover);
   border-radius: 18px;
   color: #fff5fb;
   display: grid;
@@ -5402,7 +5424,7 @@
 }
 
 .mg-conversation-picker-card:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
   transform: translateY(-1px);
 }
 
@@ -5415,9 +5437,9 @@
 .mg-conversation-picker-visual {
   aspect-ratio: 3 / 4;
   background:
-    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.12), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+    radial-gradient(circle at 50% 18%, var(--surface-hover-strong), transparent 28%),
+    linear-gradient(180deg, var(--surface-hover), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--surface-hover);
   border-radius: 14px;
   overflow: hidden;
   position: relative;
@@ -5458,10 +5480,6 @@
 }
 
 @media (max-width: 760px) {
-  .minigame-card-conversations {
-    max-width: none;
-  }
-
   .mg-conversation-picker {
     border-radius: 18px;
     padding: 14px;
@@ -5475,7 +5493,7 @@
 /* —— MVP2 chasse / refuge —— */
 .mg-hunt-objectives {
   background: rgba(8, 10, 18, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 16px;
   color: #fff;
   display: grid;
@@ -5496,14 +5514,14 @@
 }
 
 .mg-hunt-objectives-count {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
   border-radius: 999px;
   font-size: 0.78rem;
   padding: 2px 8px;
 }
 
 .mg-hunt-objectives-copy {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--panel-bg);
   font-size: 0.78rem;
   line-height: 1.4;
   margin: 0;
@@ -5516,7 +5534,7 @@
 }
 
 .mg-hunt-objective-chip {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
   color: #fff;
@@ -5609,7 +5627,7 @@
   align-items: stretch;
   background: rgba(8, 10, 18, 0.92);
   border-left: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid var(--surface-hover);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -5639,7 +5657,7 @@
 }
 
 .mg-hunt-rail-tabs-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--surface-hover);
   flex-shrink: 0;
   padding:
     4px
@@ -5667,8 +5685,8 @@
 
 .mg-hunt-rail-tab {
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 10px;
   box-sizing: border-box;
   color: rgba(240, 245, 255, 0.88);
@@ -5729,7 +5747,7 @@
 .mg-hunt-rail-panel {
   background: linear-gradient(180deg, rgba(14, 18, 28, 0.98), rgba(8, 10, 18, 0.98));
   border-left: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid var(--surface-hover);
   box-shadow: 8px 0 24px rgba(0, 0, 0, 0.28);
   color: #f0f5ff;
   display: flex;
@@ -5740,7 +5758,7 @@
 
 .mg-hunt-rail-panel-head {
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--surface-hover);
   display: flex;
   gap: 8px;
   justify-content: space-between;
@@ -5843,7 +5861,7 @@
 }
 
 .mg-hunt-auto-settings {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--surface-hover);
   display: grid;
   gap: 10px;
   margin-bottom: 14px;
@@ -5882,8 +5900,8 @@
 
 .mg-hunt-auto-option-btn {
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 10px;
   color: rgba(248, 250, 255, 0.94);
   cursor: pointer;
@@ -5904,7 +5922,7 @@
 }
 
 .mg-hunt-auto-option-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   filter: none;
   transform: none;
 }
@@ -5977,8 +5995,8 @@
 }
 
 .mg-hunt-pending-item {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
   display: grid;
   gap: 8px;
@@ -6020,8 +6038,8 @@
 }
 
 .mg-hunt-pending-btn.secondary {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-inset-mid);
+  border-color: var(--surface-hover-strong);
   color: rgba(248, 250, 255, 0.9);
 }
 
@@ -6030,8 +6048,8 @@
 }
 
 .mg-hunt-pending-bulk {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
   display: grid;
   gap: 10px;
@@ -6067,7 +6085,7 @@
 }
 
 .mg-hunt-pending-bulk-btn.secondary {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--surface-inset-mid);
   border-color: rgba(255, 255, 255, 0.16);
   color: rgba(248, 250, 255, 0.92);
   width: auto;
@@ -6123,7 +6141,7 @@
 
 .mg-hunt-pending-synth {
   background: rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-inset-mid);
   border-radius: 10px;
   padding: 0 8px;
 }
@@ -6153,7 +6171,7 @@
 }
 
 .mg-hunt-pending-synth-body {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--surface-inset-mid);
   display: grid;
   gap: 6px;
   padding: 8px 0 10px;
@@ -6175,7 +6193,7 @@
 }
 
 .mg-hunt-pending-synth-tags li {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--surface-inset-mid);
   border-radius: 999px;
   color: rgba(240, 245, 255, 0.82);
   font-size: 0.62rem;
@@ -6238,8 +6256,8 @@
 
 .mg-hunt-auto-option {
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 10px;
   cursor: pointer;
   display: flex;
@@ -6348,7 +6366,7 @@
 
 .mg-capture-compare {
   background: linear-gradient(180deg, rgba(28, 20, 14, 0.98), rgba(14, 10, 8, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 18px;
   color: #fff8f0;
   display: grid;
@@ -6448,8 +6466,8 @@
 }
 
 .mg-hunt-rail-panel-body .mg-capture-compare-actions button.secondary {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-inset-mid);
+  border-color: var(--surface-hover-strong);
   color: rgba(248, 250, 255, 0.9);
 }
 
@@ -6470,7 +6488,7 @@
 
 .mg-hunt-favors {
   background: rgba(12, 18, 28, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--surface-hover);
   border-radius: 14px;
   padding: 12px 14px;
 }
@@ -6502,7 +6520,7 @@
 }
 
 .mg-hunt-favors-list li {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-inset);
   border-radius: 10px;
   display: grid;
   gap: 2px;
@@ -6515,7 +6533,7 @@
 }
 
 .mg-hunt-favors-empty {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--panel-bg-soft);
   font-size: 0.78rem;
   margin: 0;
 }
@@ -6536,7 +6554,7 @@
   background:
     radial-gradient(circle at 12% 0%, rgba(255, 200, 120, 0.16), transparent 34%),
     linear-gradient(180deg, rgba(28, 22, 16, 0.98), rgba(12, 10, 8, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
   color: #fff8f0;
@@ -6558,8 +6576,8 @@
 }
 
 .mg-refuge-craft-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border: 1px solid var(--surface-hover);
   border-radius: 14px;
   display: grid;
   gap: 8px;
@@ -6575,7 +6593,7 @@
 }
 
 .mg-refuge-craft-card p {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--panel-bg);
   font-size: 0.82rem;
   margin: 0;
 }
@@ -6596,7 +6614,7 @@
   background:
     radial-gradient(circle at 12% 0%, rgba(180, 140, 255, 0.18), transparent 34%),
     linear-gradient(180deg, rgba(22, 16, 36, 0.98), rgba(10, 8, 18, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
   color: #fff8f0;
@@ -6626,7 +6644,7 @@
 }
 
 .mg-echo-parents select {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
   color: #fff;
@@ -6649,8 +6667,8 @@
 }
 
 .mg-echo-egg-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset-mid);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
   display: grid;
   gap: 8px;
@@ -6705,7 +6723,7 @@
 
 .mg-myrion-debug-actions button,
 .mg-myrion-debug-pick button {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   color: #fff8dc;
@@ -6753,7 +6771,7 @@
   }
 
   .mg-refuge-resource-bar span {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--surface-hover);
     border-radius: 999px;
     padding: 3px 8px;
   }
@@ -6859,7 +6877,7 @@
   .minigame-panel-fullscreen .mg-capture-stats--secondary span {
     backdrop-filter: blur(6px);
     background: rgba(8, 10, 18, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--surface-hover);
     border-radius: 8px;
     box-sizing: border-box;
     flex: unset;
@@ -7066,7 +7084,7 @@
 
   .minigame-panel-fullscreen .mg-capture-actions {
     background: rgba(6, 8, 16, 0.92);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--surface-hover);
     flex-shrink: 0;
     min-height: auto;
     padding:
@@ -7137,7 +7155,7 @@
     align-items: center;
     backdrop-filter: blur(8px);
     background: rgba(6, 8, 16, 0.88);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--surface-hover);
     display: flex;
     flex-shrink: 0;
     gap: 10px;
@@ -7295,7 +7313,7 @@
 
   .mg-hunt-menu-drawer {
     background: rgba(14, 10, 22, 0.98);
-    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    border-right: 1px solid var(--surface-hover-strong);
     box-shadow: 8px 0 28px rgba(0, 0, 0, 0.32);
     box-sizing: border-box;
     display: flex;
@@ -7335,7 +7353,7 @@
 
   .mg-hunt-menu-drawer-head {
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--surface-hover);
     display: flex;
     flex-shrink: 0;
     gap: 8px;
@@ -7355,8 +7373,8 @@
 
   .mg-hunt-menu-close {
     align-items: center;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--surface-hover);
+    border: 1px solid var(--surface-hover-strong);
     border-radius: 10px;
     color: #fff5fb;
     display: inline-flex;
@@ -7371,7 +7389,7 @@
   .mg-hunt-rail-tabs--drawer {
     align-self: flex-start;
     border-left: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--surface-hover);
     border-top: 0;
     flex: 0 0 auto;
     max-height: none;

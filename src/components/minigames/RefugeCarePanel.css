@@ -47,7 +47,7 @@
 }
 
 .mg-refuge-care-panel-close {
-  background: #fff;
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(72, 98, 84, 0.2);
   border-radius: 8px;
   color: #5a7264;
@@ -94,7 +94,7 @@
 }
 
 .mg-refuge-care-panel-nav-row button {
-  background: #fff;
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(72, 98, 84, 0.2);
   border-radius: 8px;
   color: #3d5244;
@@ -122,7 +122,7 @@
 }
 
 .mg-refuge-care-panel-duplicates button {
-  background: #fff;
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(72, 98, 84, 0.2);
   border-radius: 8px;
   color: #3d5244;
@@ -144,7 +144,7 @@
 }
 
 .mg-refuge-care-stat {
-  background: #fff;
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(72, 98, 84, 0.14);
   border-radius: 8px;
   display: grid;
@@ -223,7 +223,7 @@
 }
 
 .mg-refuge-care-panel-actions button {
-  background: #fff;
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(72, 98, 84, 0.18);
   border-radius: 8px;
   color: #1a2e22;
@@ -308,7 +308,7 @@
 }
 
 .mg-refuge-care-panel-release {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(180, 90, 70, 0.35);
   border-radius: 8px;
   color: #9a4030;
@@ -326,7 +326,7 @@
 
 .mg-refuge-care-popover {
   backdrop-filter: blur(10px);
-  background: rgba(255, 252, 248, 0.94);
+  background: var(--panel-bg-sheet);
   border: 1px solid rgba(120, 90, 60, 0.18);
   border-radius: 14px;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);

@@ -72,7 +72,7 @@ import {
   isWorksiteDevEnvironment,
 } from '../../data/myrionWorksiteDev'
 import {
-  getWorksiteBiomeBackgroundFrame,
+  getWorksiteBiomePanoramaFocusPercent,
   resolveWorksiteSpotPlacement,
   worksiteSpotPlacementStyle,
 } from '../../data/myrionWorksitePlacement'
@@ -117,6 +117,7 @@ import {
   WorksiteSpotObject,
 } from './WorksiteVisuals'
 import { WorksitePlacementDebug } from './WorksitePlacementDebug'
+import { WorksitePanoramaScroller } from './WorksitePanoramaScroller'
 import './Worksite.css'
 
 const AUTO_TICK_MS = 1000
@@ -237,7 +238,9 @@ export function MyrionWorksiteGame({
   const recentMineTimerRef = useRef<number | null>(null)
   const sceneStageRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<HTMLDivElement>(null)
+  const panoramaTrackRef = useRef<HTMLDivElement>(null)
   const markerRefs = useRef<Partial<Record<WorksiteSpotId, HTMLButtonElement>>>({})
+  const [panoramaLayoutTick, setPanoramaLayoutTick] = useState(0)
 
   const worksiteRef = useRef(worksite)
   const petsRef = useRef(pets)
@@ -343,6 +346,15 @@ export function MyrionWorksiteGame({
   )
   const activeSpots = getSpotsForBiome(activeBiomeId)
   const progressTotals = worksiteResourceTotals(worksite)
+  const panoramaFocusPercent = useMemo(
+    () =>
+      getWorksiteBiomePanoramaFocusPercent(
+        activeBiomeId,
+        activeSpots.map((spot) => spot.id),
+        isMobile,
+      ),
+    [activeBiomeId, activeSpots, isMobile],
+  )
 
   useEffect(() => {
     startWorksiteBiomeAmbience(activeBiomeId, { discrete: monitoringMode })
@@ -391,11 +403,11 @@ export function MyrionWorksiteGame({
       yieldLabel: string,
     ) => {
       const marker = markerRefs.current[spotId]
-      const scene = sceneRef.current
-      if (!marker || !scene) return
+      const track = panoramaTrackRef.current
+      if (!marker || !track) return
 
       const baseId = ++mineBurstSeqRef.current
-      const origin = markerBurstOrigin(marker, scene)
+      const origin = markerBurstOrigin(marker, track)
       const burst = createMineBurstRing(baseId, origin, resourceEmoji, resourceAsset, yieldLabel)
       setMineBursts((current) => {
         const next = [...current, burst]
@@ -414,6 +426,7 @@ export function MyrionWorksiteGame({
   useEffect(() => {
     setSpotWear({})
     setRecentMinedSpotId(null)
+    setPanoramaLayoutTick(0)
   }, [activeBiomeId])
 
   useEffect(() => {
@@ -472,6 +485,7 @@ export function MyrionWorksiteGame({
   const handleSpotPointerDown = useCallback(
     (event: PointerEvent<HTMLButtonElement>, spotId: WorksiteSpotId) => {
       event.preventDefault()
+      event.stopPropagation()
       handleSpotMine(spotId)
     },
     [handleSpotMine],
@@ -1481,27 +1495,21 @@ export function MyrionWorksiteGame({
                 ref={sceneRef}
                 role="img"
               >
-                <WorksiteBiomeBackground
-                  asset={getWorksiteBiomeVisual(activeBiomeId).background}
-                  biomeId={activeBiomeId}
-                  label={activeBiome.label}
-                  objectPosition={getWorksiteBiomeBackgroundFrame(activeBiomeId).objectPosition}
-                />
                 <div className="mg-worksite-sky" />
                 <div className="mg-worksite-hills" />
                 {!monitoringMode ? (
-                <div
-                  className={`mg-worksite-biome-resource-chip mg-worksite-biome-resource-chip--${biomeReferenceSpot.resourceId}`}
-                  title={`Ressource du biome : ${biomeResourceLabel}`}
-                >
-                  <WorksiteResourceIcon
-                    asset={biomeResourceVisual.asset}
-                    className="mg-worksite-biome-resource-chip-icon"
-                    emoji={biomeResourceVisual.fallbackEmoji}
-                    label={biomeResourceLabel}
-                  />
-                  <span>{biomeResourceLabel}</span>
-                </div>
+                  <div
+                    className={`mg-worksite-biome-resource-chip mg-worksite-biome-resource-chip--${biomeReferenceSpot.resourceId}`}
+                    title={`Ressource du biome : ${biomeResourceLabel}`}
+                  >
+                    <WorksiteResourceIcon
+                      asset={biomeResourceVisual.asset}
+                      className="mg-worksite-biome-resource-chip-icon"
+                      emoji={biomeResourceVisual.fallbackEmoji}
+                      label={biomeResourceLabel}
+                    />
+                    <span>{biomeResourceLabel}</span>
+                  </div>
                 ) : (
                   <span className="mg-worksite-monitor-scene-chip">
                     {activeBiome.emoji} {biomeResourceLabel} · {formatYield(biomeAutoPerSec)}/s
@@ -1513,105 +1521,6 @@ export function MyrionWorksiteGame({
                     companionAffinity={companionAffinity}
                   />
                 ) : null}
-                <div className="mg-worksite-spot-markers">
-                  {activeSpots.map((spot) => {
-                    const spotVisual = getWorksiteSpotVisual(spot.id)
-                    const locked = !spotUnlockedForUi(activeBiomeId, spot.id)
-                    const placement = resolveWorksiteSpotPlacement(activeBiomeId, spot.id, isMobile)
-                    const placementStyle = placement ? worksiteSpotPlacementStyle(placement) : undefined
-                    const wear = spotWearLevel(spot.id)
-                    const recent = recentMinedSpotId === spot.id
-                    const spotResourceVisual = getWorksiteResourceIconVisual(spot.resourceId)
-                    return (
-                      <button
-                        aria-label={`Miner ${spot.name}`}
-                        className={`${worksiteSpotMarkerClassNames(spot.id, recent, locked)} mg-worksite-marker--placed mg-worksite-marker--wear-${wear}${recent ? ' mg-worksite-marker--recent' : ''}${locked ? ' mg-worksite-marker--locked' : ''}`}
-                        disabled={locked}
-                        key={spot.id}
-                        ref={(node) => {
-                          if (node) markerRefs.current[spot.id] = node
-                          else delete markerRefs.current[spot.id]
-                        }}
-                        style={placementStyle}
-                        type="button"
-                        onPointerDown={(event) => handleSpotPointerDown(event, spot.id)}
-                      >
-                        <WorksiteSpotObject
-                          asset={spotVisual.asset}
-                          className={worksiteSpotObjectClassNames(spot.id)}
-                          emoji={spot.emoji}
-                          name={spot.name}
-                        />
-                        <span className="mg-worksite-marker-resource" aria-hidden>
-                          <WorksiteResourceIcon
-                            asset={spotResourceVisual.asset}
-                            className="mg-worksite-marker-resource-icon"
-                            emoji={spotResourceVisual.fallbackEmoji}
-                            label={RESOURCE_LABELS[spot.resourceId] ?? spot.resourceId}
-                          />
-                        </span>
-                        {locked ? (
-                          <span aria-hidden className="mg-worksite-marker-lock">
-                            🔒
-                          </span>
-                        ) : null}
-                      </button>
-                    )
-                  })}
-                </div>
-                {placementDebug ? (
-                  <WorksitePlacementDebug
-                    biomeId={activeBiomeId}
-                    mobile={isMobile}
-                    spotIds={activeSpots.map((spot) => spot.id)}
-                  />
-                ) : null}
-                {activeBiomeId === WORKSITE_PRESTIGE_SCENE_BIOME_ID && prestigeSceneVisible ? (
-                  <div
-                    className={`mg-worksite-prestige-anchor${prestigeLrAvailable ? '' : ' mg-worksite-prestige-anchor--locked'}`}
-                    title={WORKSITE_PRESTIGE_CONFIG.name}
-                  >
-                    <div
-                      aria-label={WORKSITE_PRESTIGE_CONFIG.name}
-                      className="mg-worksite-prestige-marker"
-                      role="img"
-                    >
-                      <WorksiteSpotObject
-                        asset={WORKSITE_PRESTIGE_SPOT_VISUAL}
-                        className={`mg-worksite-spot-object mg-worksite-prestige-object ${WORKSITE_PRESTIGE_SPOT_VISUAL.placeholderClass}`}
-                        emoji={WORKSITE_PRESTIGE_CONFIG.emoji}
-                        name={WORKSITE_PRESTIGE_CONFIG.name}
-                      />
-                      {!prestigeLrAvailable ? (
-                        <span aria-hidden className="mg-worksite-prestige-lock">
-                          🔒
-                        </span>
-                      ) : null}
-                      {prestigeAssigned ? (
-                        <span className="mg-worksite-prestige-chibi" aria-hidden>
-                          <PalmonSprite
-                            emoji={prestigeAssigned.emoji}
-                            name={prestigeAssigned.name}
-                            speciesId={prestigeAssigned.speciesId}
-                          />
-                        </span>
-                      ) : null}
-                    </div>
-                    <span className="mg-worksite-prestige-caption">
-                      {!prestigeLrAvailable
-                        ? WORKSITE_PRESTIGE_CONFIG.lrRequirementLabel
-                        : prestigeAssigned
-                          ? `${formatPrestigeAmount(prestigePerSec)}/s`
-                          : 'Assigner un LR'}
-                    </span>
-                  </div>
-                ) : null}
-                <WorksiteMyrionLifeLayer
-                  activeBiomeId={activeBiomeId}
-                  pets={pets}
-                  worksite={worksite}
-                />
-                <WorksiteMineBursts bursts={mineBursts} />
                 {!monitoringMode ? (
                   <button
                     aria-pressed={false}
@@ -1622,6 +1531,117 @@ export function MyrionWorksiteGame({
                     Mode surveillance passive
                   </button>
                 ) : null}
+                <WorksitePanoramaScroller
+                  focusPercent={panoramaFocusPercent}
+                  trackLayoutKey={`${activeBiomeId}-${panoramaLayoutTick}`}
+                  trackRef={panoramaTrackRef}
+                >
+                  <WorksiteBiomeBackground
+                    asset={getWorksiteBiomeVisual(activeBiomeId).background}
+                    biomeId={activeBiomeId}
+                    label={activeBiome.label}
+                    onImageLoad={() => setPanoramaLayoutTick((tick) => tick + 1)}
+                  />
+                  <div className="mg-worksite-spot-markers">
+                    {activeSpots.map((spot) => {
+                      const spotVisual = getWorksiteSpotVisual(spot.id)
+                      const locked = !spotUnlockedForUi(activeBiomeId, spot.id)
+                      const placement = resolveWorksiteSpotPlacement(activeBiomeId, spot.id, isMobile)
+                      const placementStyle = placement ? worksiteSpotPlacementStyle(placement) : undefined
+                      const wear = spotWearLevel(spot.id)
+                      const recent = recentMinedSpotId === spot.id
+                      const spotResourceVisual = getWorksiteResourceIconVisual(spot.resourceId)
+                      return (
+                        <button
+                          aria-label={`Miner ${spot.name}`}
+                          className={`${worksiteSpotMarkerClassNames(spot.id, recent, locked)} mg-worksite-marker--placed mg-worksite-marker--wear-${wear}${recent ? ' mg-worksite-marker--recent' : ''}${locked ? ' mg-worksite-marker--locked' : ''}`}
+                          disabled={locked}
+                          key={spot.id}
+                          ref={(node) => {
+                            if (node) markerRefs.current[spot.id] = node
+                            else delete markerRefs.current[spot.id]
+                          }}
+                          style={placementStyle}
+                          type="button"
+                          onPointerDown={(event) => handleSpotPointerDown(event, spot.id)}
+                        >
+                          <WorksiteSpotObject
+                            asset={spotVisual.asset}
+                            className={worksiteSpotObjectClassNames(spot.id)}
+                            emoji={spot.emoji}
+                            name={spot.name}
+                          />
+                          <span className="mg-worksite-marker-resource" aria-hidden>
+                            <WorksiteResourceIcon
+                              asset={spotResourceVisual.asset}
+                              className="mg-worksite-marker-resource-icon"
+                              emoji={spotResourceVisual.fallbackEmoji}
+                              label={RESOURCE_LABELS[spot.resourceId] ?? spot.resourceId}
+                            />
+                          </span>
+                          {locked ? (
+                            <span aria-hidden className="mg-worksite-marker-lock">
+                              🔒
+                            </span>
+                          ) : null}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  {placementDebug ? (
+                    <WorksitePlacementDebug
+                      biomeId={activeBiomeId}
+                      mobile={isMobile}
+                      spotIds={activeSpots.map((spot) => spot.id)}
+                    />
+                  ) : null}
+                  {activeBiomeId === WORKSITE_PRESTIGE_SCENE_BIOME_ID && prestigeSceneVisible ? (
+                    <div
+                      className={`mg-worksite-prestige-anchor${prestigeLrAvailable ? '' : ' mg-worksite-prestige-anchor--locked'}`}
+                      title={WORKSITE_PRESTIGE_CONFIG.name}
+                    >
+                      <div
+                        aria-label={WORKSITE_PRESTIGE_CONFIG.name}
+                        className="mg-worksite-prestige-marker"
+                        role="img"
+                      >
+                        <WorksiteSpotObject
+                          asset={WORKSITE_PRESTIGE_SPOT_VISUAL}
+                          className={`mg-worksite-spot-object mg-worksite-prestige-object ${WORKSITE_PRESTIGE_SPOT_VISUAL.placeholderClass}`}
+                          emoji={WORKSITE_PRESTIGE_CONFIG.emoji}
+                          name={WORKSITE_PRESTIGE_CONFIG.name}
+                        />
+                        {!prestigeLrAvailable ? (
+                          <span aria-hidden className="mg-worksite-prestige-lock">
+                            🔒
+                          </span>
+                        ) : null}
+                        {prestigeAssigned ? (
+                          <span className="mg-worksite-prestige-chibi" aria-hidden>
+                            <PalmonSprite
+                              emoji={prestigeAssigned.emoji}
+                              name={prestigeAssigned.name}
+                              speciesId={prestigeAssigned.speciesId}
+                            />
+                          </span>
+                        ) : null}
+                      </div>
+                      <span className="mg-worksite-prestige-caption">
+                        {!prestigeLrAvailable
+                          ? WORKSITE_PRESTIGE_CONFIG.lrRequirementLabel
+                          : prestigeAssigned
+                            ? `${formatPrestigeAmount(prestigePerSec)}/s`
+                            : 'Assigner un LR'}
+                      </span>
+                    </div>
+                  ) : null}
+                  <WorksiteMyrionLifeLayer
+                    activeBiomeId={activeBiomeId}
+                    pets={pets}
+                    worksite={worksite}
+                  />
+                  <WorksiteMineBursts bursts={mineBursts} />
+                </WorksitePanoramaScroller>
               </div>
               {!drawerOpen && unlockNotices.length > 0 ? (
                 <div className="mg-worksite-unlock-banner mg-worksite-unlock-banner--overlay" role="status">

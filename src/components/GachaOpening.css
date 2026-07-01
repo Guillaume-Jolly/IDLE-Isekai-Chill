@@ -143,7 +143,7 @@
 
 .gacha-card {
   animation: gacha-card-in 0.45s ease backwards;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  background: linear-gradient(160deg, var(--surface-hover-strong), var(--surface-inset));
   border: 2px solid var(--rarity-color);
   border-radius: 18px;
   box-shadow: 0 0 24px var(--rarity-glow);
@@ -172,7 +172,7 @@
 }
 
 .gacha-card-summary {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--panel-bg-solid);
   font-size: 0.78rem;
   line-height: 1.35;
   margin: 0;
@@ -183,7 +183,7 @@
 }
 
 .gacha-card small {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--panel-bg);
 }
 
 .gacha-rarity-badge {
@@ -199,7 +199,7 @@
 
 .gacha-thumb {
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--surface-hover-strong);
   border-radius: 14px;
   display: flex;
   height: 72px;

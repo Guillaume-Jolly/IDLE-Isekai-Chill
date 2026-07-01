@@ -16,7 +16,7 @@
   background: radial-gradient(circle at 35% 28%, #fff4b8, #ffd56a 42%, #c89400 100%);
   border: 1px solid #a87400;
   border-radius: 50%;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 var(--panel-bg-soft);
 }
 
 .resource-glyph--coins::after {
@@ -33,7 +33,7 @@
 .resource-glyph--wood {
   background: linear-gradient(180deg, #c48652 0%, #8b5a2b 55%, #6b3f1f 100%);
   border-radius: 2px;
-  box-shadow: inset 2px 0 0 rgba(255, 255, 255, 0.12);
+  box-shadow: inset 2px 0 0 var(--surface-hover-strong);
 }
 
 .resource-glyph--wood::before {
@@ -87,7 +87,7 @@
 
 .inventory-summary-chip {
   align-items: center;
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 999px;
   display: inline-flex;
@@ -112,7 +112,7 @@
 }
 
 .inventory-section {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: visible;
@@ -239,7 +239,7 @@
 
 .inventory-chip-button {
   align-items: center;
-  background: rgba(255, 255, 255, 0.78);
+  background: var(--panel-bg-strong);
   border: 1px solid rgba(153, 90, 139, 0.12);
   border-radius: 12px;
   color: var(--text-h);
@@ -276,7 +276,7 @@
 
 .inventory-chip-visual {
   align-items: center;
-  background: rgba(255, 248, 252, 0.92);
+  background: var(--panel-bg-sheet);
   border: 1px solid rgba(153, 90, 139, 0.1);
   border-radius: 8px;
   display: inline-flex;
@@ -409,7 +409,7 @@
 
 .inventory-chip-badge {
   background: linear-gradient(135deg, #b449ff, #ff8fd0);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--overlay-sheet);
   border-radius: 999px;
   bottom: -2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
@@ -435,7 +435,7 @@
 .inventory-chip-tooltip {
   backdrop-filter: blur(12px);
   background: rgba(20, 12, 28, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 12px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
   box-sizing: border-box;

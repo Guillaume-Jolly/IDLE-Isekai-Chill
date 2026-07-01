@@ -1,7 +1,7 @@
 .loot-details-lens {
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--surface-hover-strong);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 999px;
   color: inherit;
   cursor: pointer;
@@ -14,7 +14,7 @@
 }
 
 .loot-details-lens:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-muted);
   transform: none;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .loot-details-dialog {
-  background: #fff9fd;
+  background: var(--panel-bg-sheet);
   border: 1px solid rgba(20, 14, 28, 0.12);
   border-radius: 20px;
   box-shadow: 0 18px 48px rgba(20, 14, 28, 0.22);
@@ -339,7 +339,7 @@
 }
 
 .minigame-panel-fullscreen .loot-details-rate-total {
-  border-top-color: rgba(255, 255, 255, 0.12);
+  border-top-color: var(--surface-hover-strong);
 }
 
 .loot-details-guide {
@@ -404,7 +404,7 @@
 }
 
 .loot-details-guide-block {
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--surface-muted);
   border-radius: 10px;
   padding: 8px 10px;
 }
@@ -508,7 +508,7 @@
 }
 
 .loot-details-favor-guides li {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--surface-muted);
   border-radius: 10px;
   display: grid;
   font-size: 0.78rem;
@@ -549,8 +549,8 @@
 }
 
 .minigame-panel-fullscreen .loot-details-guide {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset);
+  border-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-guide-summary::after {
@@ -558,11 +558,11 @@
 }
 
 .minigame-panel-fullscreen .loot-details-guide-body {
-  border-top-color: rgba(255, 255, 255, 0.1);
+  border-top-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-guide-block {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--surface-inset-mid);
 }
 
 .minigame-panel-fullscreen .loot-details-guide-block--lr {
@@ -580,17 +580,17 @@
 }
 
 .minigame-panel-fullscreen .loot-details-favor-guides li {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-inset);
 }
 
 .minigame-panel-fullscreen .loot-details-tier-section {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset);
+  border-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-tier-head {
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: var(--surface-inset);
+  border-bottom-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-tier-count,
@@ -599,7 +599,7 @@
 }
 
 .minigame-panel-fullscreen .loot-details-tier-species li {
-  border-bottom-color: rgba(255, 255, 255, 0.06);
+  border-bottom-color: var(--surface-inset-mid);
 }
 
 .loot-details-featured-section {
@@ -620,7 +620,7 @@
 
 .loot-details-featured-grid li {
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid rgba(20, 14, 28, 0.08);
   border-radius: 12px;
   display: flex;
@@ -741,7 +741,7 @@
 
 .loot-details-biome-picker select {
   appearance: auto;
-  background: #fff;
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(20, 14, 28, 0.14);
   border-radius: 10px;
   color: #2a1830;
@@ -751,7 +751,7 @@
 }
 
 .loot-details-biome-picker select option {
-  background: #fff9fd;
+  background: var(--panel-bg-sheet);
   color: #2a1830;
 }
 
@@ -767,7 +767,7 @@
 
 .minigame-panel-fullscreen .loot-details-dialog {
   background: rgba(14, 10, 22, 0.96);
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: var(--surface-hover-strong);
   color: #fff5fb;
 }
 
@@ -780,7 +780,7 @@
 .minigame-panel-fullscreen .loot-details-loot-table td,
 .minigame-panel-fullscreen .loot-details-compact-table th,
 .minigame-panel-fullscreen .loot-details-compact-table td {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-loot-table td small {
@@ -789,12 +789,12 @@
 
 .minigame-panel-fullscreen .loot-details-featured-section {
   background: linear-gradient(135deg, rgba(255, 176, 32, 0.12), rgba(255, 90, 138, 0.1));
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-featured-grid li {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--surface-inset-mid);
+  border-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-featured-summary,
@@ -803,8 +803,8 @@
 }
 
 .minigame-panel-fullscreen .loot-details-icon-wrap {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
+  border-color: var(--surface-hover);
 }
 
 .minigame-panel-fullscreen .loot-details-biome-picker {
@@ -824,14 +824,14 @@
 }
 
 .mg-capture-toolbar .loot-details-lens {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
   border-color: rgba(255, 255, 255, 0.16);
 }
 
 .mg-capture-pause-btn {
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--surface-hover-strong);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 999px;
   color: inherit;
   cursor: pointer;
@@ -846,7 +846,7 @@
 }
 
 .mg-capture-pause-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-muted);
   transform: none;
 }
 
@@ -893,7 +893,7 @@
 .loot-details-hover-tip-popup {
   backdrop-filter: blur(12px);
   background: rgba(20, 12, 28, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 12px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
   box-sizing: border-box;
@@ -929,7 +929,7 @@
 }
 
 .loot-details-hover-tip-section + .loot-details-hover-tip-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--surface-hover);
   padding-top: 8px;
 }
 

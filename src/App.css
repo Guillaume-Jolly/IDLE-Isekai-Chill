@@ -69,9 +69,9 @@
 
 .shell-nav-drawer .app-sidebar {
   backdrop-filter: none;
-  background: rgb(14, 10, 22);
+  background: var(--sidebar-solid);
   border-radius: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid var(--sidebar-border);
   box-shadow: none;
   height: 100dvh;
   max-height: 100dvh;
@@ -86,11 +86,11 @@
 
 .shell-menu-fab {
   align-items: center;
-  background: rgba(14, 10, 22, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--sidebar-fab-bg);
+  border: 1px solid var(--sidebar-fab-border);
   border-radius: 12px;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
-  color: #fff5fb;
+  color: var(--sidebar-text);
   display: inline-flex;
   font-size: 1.1rem;
   height: 44px;
@@ -105,17 +105,17 @@
 }
 
 .shell-menu-fab:hover {
-  background: rgba(24, 18, 32, 0.94);
+  background: color-mix(in srgb, var(--sidebar-solid) 94%, var(--sidebar-text) 6%);
   filter: none;
   transform: none;
 }
 
 .view-stage--village .shell-menu-fab {
-  background: rgba(12, 10, 18, 0.78);
+  background: var(--sidebar-village-fab-bg);
 }
 
 .app-sidebar-resources-title {
-  color: rgba(255, 245, 251, 0.62);
+  color: var(--sidebar-text-muted);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -154,6 +154,7 @@
   overscroll-behavior: contain;
   padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.8vw, 14px)
     calc(clamp(56px, 8vw, 72px) + env(safe-area-inset-bottom, 0px));
+  background: var(--stage-default-bg, var(--bg));
 }
 
 .view-stage--village {
@@ -163,40 +164,31 @@
 }
 
 .view-stage--buildings {
-  background:
-    radial-gradient(circle at 12% 0%, rgba(255, 196, 120, 0.22), transparent 34%),
-    linear-gradient(180deg, #fff6ee, #fffaf5 42%, #f7f2ff);
+  background: var(--stage-buildings-bg);
 }
 
 .view-stage--quests {
-  background:
-    radial-gradient(circle at 88% 0%, rgba(120, 210, 160, 0.18), transparent 30%),
-    linear-gradient(180deg, #f4fff8, #f8fffb 50%, #f3f0ff);
+  background: var(--stage-quests-bg);
 }
 
 .view-stage--miniGames {
-  background:
-    radial-gradient(circle at 50% 0%, rgba(180, 73, 255, 0.14), transparent 36%),
-    linear-gradient(180deg, #f8f2ff, #fff8fc);
+  background: var(--stage-minigames-bg);
 }
 
 .view-stage--event {
-  background:
-    radial-gradient(circle at 20% 10%, rgba(255, 196, 87, 0.28), transparent 32%),
-    radial-gradient(circle at 82% 18%, rgba(255, 124, 191, 0.24), transparent 28%),
-    linear-gradient(180deg, #fff4e8, #fff0f8 55%, #f6ecff);
+  background: var(--stage-event-bg);
 }
 
 .view-stage--inventory {
-  background:
-    radial-gradient(circle at 10% 12%, rgba(106, 158, 255, 0.16), transparent 28%),
-    linear-gradient(180deg, #f5f8ff, #faf7ff);
+  background: var(--stage-inventory-bg);
 }
 
 .view-stage--companions {
-  background:
-    radial-gradient(circle at 78% 0%, rgba(255, 140, 196, 0.24), transparent 34%),
-    linear-gradient(180deg, #fff3f8, #fff8fc 48%, #f7efff);
+  background: var(--stage-companions-bg);
+}
+
+.view-stage--settings {
+  background: var(--stage-settings-bg);
 }
 
 .view-stage--gallery {
@@ -225,16 +217,16 @@
 
 .view-stage--gallery .notes-grid p {
   background: rgba(18, 12, 28, 0.72);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--surface-hover);
   color: rgba(255, 248, 252, 0.88);
 }
 
 .app-sidebar {
   backdrop-filter: blur(14px);
-  background: rgba(14, 10, 22, 0.94);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
   box-sizing: border-box;
-  color: #fff5fb;
+  color: var(--sidebar-text);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -282,7 +274,7 @@
 }
 
 .app-sidebar-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--sidebar-footer-border);
   display: grid;
   flex-shrink: 0;
   gap: 4px;
@@ -292,10 +284,10 @@
 
 .app-sidebar-toggle {
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--sidebar-control-bg);
+  border: 1px solid var(--sidebar-control-border);
   border-radius: 8px;
-  color: #fff5fb;
+  color: var(--sidebar-text);
   display: inline-flex;
   flex-shrink: 0;
   font-size: 1rem;
@@ -309,7 +301,7 @@
 }
 
 .app-sidebar-toggle:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--sidebar-control-hover-strong);
   filter: none;
   transform: none;
 }
@@ -420,14 +412,14 @@
 }
 
 .app-sidebar-brand-title {
-  color: #fff;
+  color: var(--sidebar-text-strong);
   font-size: 0.82rem;
   font-weight: 800;
   line-height: 1.15;
 }
 
 .app-sidebar-brand-version {
-  color: rgba(255, 245, 251, 0.58);
+  color: var(--sidebar-text-muted);
   font-size: 0.62rem;
   line-height: 1.2;
 }
@@ -446,7 +438,7 @@
   align-items: center;
   background: transparent;
   border-radius: 10px;
-  color: rgba(255, 245, 251, 0.82);
+  color: var(--sidebar-text-secondary);
   display: grid;
   font-size: 0.78rem;
   font-weight: 700;
@@ -460,21 +452,21 @@
 }
 
 .app-sidebar-tab-resources:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--sidebar-control-hover);
   transform: none;
 }
 
 .app-sidebar-tab-resources.active {
-  background: linear-gradient(135deg, rgba(180, 73, 255, 0.42), rgba(255, 124, 191, 0.28));
-  color: #fff;
+  background: var(--sidebar-active-gradient);
+  color: var(--sidebar-text-strong);
 }
 
 .app-sidebar-resources-flyout {
   backdrop-filter: blur(12px);
-  background: rgba(14, 10, 22, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--sidebar-flyout-bg);
+  border: 1px solid var(--sidebar-control-border);
   border-radius: 12px;
-  box-shadow: 8px 10px 28px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--sidebar-flyout-shadow);
   box-sizing: border-box;
   display: grid;
   gap: 8px;
@@ -497,10 +489,10 @@
 }
 
 .app-sidebar-inventory-link {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--sidebar-control-bg);
+  border: 1px solid var(--sidebar-control-border);
   border-radius: 8px;
-  color: rgba(255, 245, 251, 0.92);
+  color: var(--sidebar-text-secondary);
   cursor: pointer;
   font-size: 0.68rem;
   font-weight: 700;
@@ -510,7 +502,7 @@
 }
 
 .app-sidebar-inventory-link:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--sidebar-control-hover-strong);
   filter: none;
   transform: none;
 }
@@ -519,7 +511,7 @@
   align-items: center;
   background: transparent;
   border-radius: 10px;
-  color: rgba(255, 245, 251, 0.82);
+  color: var(--sidebar-text-secondary);
   display: grid;
   font-size: 0.76rem;
   font-weight: 700;
@@ -548,18 +540,18 @@
 }
 
 .app-sidebar-tabs button:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--sidebar-control-hover);
   transform: none;
 }
 
 .app-sidebar-tabs button.active {
-  background: linear-gradient(135deg, rgba(180, 73, 255, 0.42), rgba(255, 124, 191, 0.28));
-  color: #fff;
+  background: var(--sidebar-active-gradient);
+  color: var(--sidebar-text-strong);
 }
 
 .app-sidebar-status {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--sidebar-control-hover);
+  border: 1px solid var(--sidebar-footer-border);
   border-radius: 10px;
   display: grid;
   flex-shrink: 0;
@@ -573,7 +565,7 @@
   align-items: center;
   background: transparent;
   border-radius: 10px;
-  color: rgba(255, 245, 251, 0.82);
+  color: var(--sidebar-text-secondary);
   display: grid;
   font-size: 0.76rem;
   font-weight: 700;
@@ -588,21 +580,21 @@
 }
 
 .app-sidebar-settings:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--sidebar-control-hover);
   transform: none;
 }
 
 .app-sidebar-settings.active {
-  background: linear-gradient(135deg, rgba(180, 73, 255, 0.42), rgba(255, 124, 191, 0.28));
-  color: #fff;
+  background: var(--sidebar-active-gradient);
+  color: var(--sidebar-text-strong);
 }
 
 .app-sidebar-status span {
-  color: rgba(255, 245, 251, 0.68);
+  color: var(--sidebar-text-muted);
 }
 
 .app-sidebar-status strong {
-  color: #fff;
+  color: var(--sidebar-text-strong);
   font-size: 0.88rem;
   line-height: 1.1;
 }
@@ -630,10 +622,10 @@
 
 .resource-flyout-item {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--sidebar-control-hover);
+  border: 1px solid var(--sidebar-footer-border);
   border-radius: 8px;
-  color: rgba(255, 245, 251, 0.92);
+  color: var(--sidebar-text-secondary);
   display: grid;
   gap: 4px;
   grid-template-columns: 18px minmax(0, 1fr);
@@ -653,8 +645,8 @@
 
 .resource-strip {
   align-items: center;
-  background: rgba(255, 255, 255, 0.42);
-  border-bottom: 1px solid rgba(153, 90, 139, 0.1);
+  background: var(--surface-muted);
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   overflow: visible;
   padding: clamp(6px, 1.2vw, 10px) clamp(8px, 1.5vw, 12px);
@@ -718,7 +710,7 @@
 }
 
 .resource-list-amount {
-  color: rgba(255, 245, 251, 0.82);
+  color: var(--sidebar-text-secondary);
   font-variant-numeric: tabular-nums;
   font-weight: 800;
   white-space: nowrap;
@@ -754,8 +746,8 @@
 .resource-chip-button {
   align-items: center;
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(153, 90, 139, 0.14);
+  background: var(--panel-bg-strong);
+  border: 1px solid var(--chip-border);
   border-radius: 999px;
   box-shadow: 0 6px 18px rgba(117, 69, 113, 0.08);
   color: var(--text-h);
@@ -785,7 +777,7 @@
   background: radial-gradient(circle at 35% 28%, #fff4b8, #ffd56a 42%, #c89400 100%);
   border: 1px solid #a87400;
   border-radius: 50%;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 var(--panel-bg-soft);
 }
 
 .resource-glyph--coins::after {
@@ -802,7 +794,7 @@
 .resource-glyph--wood {
   background: linear-gradient(180deg, #c48652 0%, #8b5a2b 55%, #6b3f1f 100%);
   border-radius: 2px;
-  box-shadow: inset 2px 0 0 rgba(255, 255, 255, 0.12);
+  box-shadow: inset 2px 0 0 var(--surface-hover-strong);
 }
 
 .resource-glyph--wood::before {
@@ -846,7 +838,7 @@
 .resource-chip-tooltip {
   backdrop-filter: blur(12px);
   background: rgba(20, 12, 28, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 14px;
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
   box-sizing: border-box;
@@ -906,7 +898,7 @@
 .game-toast {
   backdrop-filter: blur(10px);
   background: rgba(30, 22, 36, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--surface-hover);
   border-radius: 12px;
   bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
@@ -928,9 +920,7 @@
 .event-panel,
 .design-notes,
 .village-map-panel {
-  background:
-    radial-gradient(circle at top left, rgba(255, 140, 196, 0.28), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 245, 252, 0.62));
+  background: var(--panel-gradient);
   border: 1px solid var(--border);
   border-radius: 28px;
   box-shadow: var(--shadow);
@@ -946,13 +936,13 @@
   position: relative;
   text-align: left;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 245, 252, 0.58)),
+    var(--panel-gradient-hero),
     url('/village/hero-banner.png') center / cover no-repeat;
 }
 
 .top-panel::after {
   background:
-    radial-gradient(circle at 35% 32%, rgba(255, 255, 255, 0.92), transparent 16%),
+    radial-gradient(circle at 35% 32%, var(--panel-bg-solid), transparent 16%),
     radial-gradient(circle at 68% 62%, rgba(255, 255, 255, 0.54), transparent 18%),
     linear-gradient(135deg, rgba(255, 196, 87, 0.45), rgba(175, 92, 255, 0.35));
   border-radius: 999px 999px 36px 999px;
@@ -992,7 +982,7 @@
 }
 
 .view-tabs {
-  background: rgba(255, 255, 255, 0.76);
+  background: var(--panel-bg-frosted);
   border: 1px solid var(--border);
   border-radius: 24px;
   display: grid;
@@ -1065,8 +1055,8 @@ button.danger {
 
 .status-card {
   align-self: start;
-  background: rgba(255, 255, 255, 0.74);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: var(--panel-bg-frosted);
+  border: 1px solid var(--panel-border-strong);
   border-radius: 24px;
   color: var(--text-h);
   display: grid;
@@ -1174,7 +1164,7 @@ button.danger {
 
 .map-detail-close {
   align-self: end;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
   border-radius: 999px;
   color: #fff;
   font-size: 1.2rem;
@@ -1457,7 +1447,7 @@ button.danger {
   align-self: stretch;
   backdrop-filter: blur(14px);
   background: rgba(12, 10, 18, 0.82);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid var(--surface-hover);
   border-radius: 0;
   color: #fff5fb;
   display: flex;
@@ -1618,7 +1608,7 @@ button.danger {
 
   .app-sidebar--drawer .app-sidebar-resources-flyout {
     backdrop-filter: none;
-    background: rgb(20, 14, 28);
+    background: var(--sidebar-drawer-solid);
   }
 
   .event-panel > div {
@@ -1643,7 +1633,7 @@ button.danger {
   }
 
   .gacha-loot-help {
-    background: rgba(255, 255, 255, 0.55);
+    background: var(--panel-bg-soft);
     border: 1px solid var(--border);
     border-radius: 16px;
     display: grid;
@@ -1673,7 +1663,7 @@ button.danger {
 }
 
 .skin-list span {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--text-h);
@@ -1723,7 +1713,7 @@ button.danger {
   margin: 0;
   font-size: 0.78rem;
   line-height: 1.35;
-  color: rgba(232, 240, 255, 0.82);
+  color: var(--text-muted);
 }
 
 .companion-gameplay-support-label {
@@ -1731,9 +1721,9 @@ button.danger {
 }
 
 .companion-bond-panel {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--inset-panel-border);
   border-radius: 10px;
-  background: rgba(8, 6, 14, 0.45);
+  background: var(--inset-panel-bg);
   padding: 0.55rem 0.65rem;
   display: grid;
   gap: 0.45rem;
@@ -1759,6 +1749,18 @@ button.danger {
   opacity: 0.82;
 }
 
+.companion-bond-panel-toggle {
+  font-size: 0.78rem;
+  justify-self: start;
+  margin: 0;
+  padding: 7px 12px;
+  width: 100%;
+}
+
+.companion-bond-panel-toggle:hover {
+  transform: none;
+}
+
 .section-heading-note {
   margin: 0.35rem 0 0;
   max-width: 42rem;
@@ -1775,7 +1777,7 @@ button.danger {
 .companion-bond-tier {
   border-radius: 8px;
   padding: 0.35rem 0.4rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-inset);
 }
 
 .companion-bond-tier.locked {
@@ -1817,8 +1819,8 @@ button.danger {
   line-height: 1.35;
   padding: 0.35rem 0.45rem;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--inset-panel-border);
+  background: var(--surface-inset);
   color: inherit;
   cursor: pointer;
 }
@@ -1830,7 +1832,7 @@ button.danger {
 }
 
 .companion-bond-reply {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--inset-panel-border);
   padding-top: 0.45rem;
   display: grid;
   gap: 0.35rem;
@@ -1873,12 +1875,12 @@ button.danger {
 
 .companion-portrait-tooltip {
   backdrop-filter: blur(12px);
-  background: rgba(20, 12, 28, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--tooltip-bg);
+  border: 1px solid var(--tooltip-border);
   border-radius: 14px;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+  box-shadow: var(--shadow);
   box-sizing: border-box;
-  color: #fff8fc;
+  color: var(--tooltip-text);
   display: grid;
   gap: 6px;
   left: calc(100% + 10px);
@@ -1900,25 +1902,25 @@ button.danger {
 }
 
 .companion-portrait-tooltip strong {
-  color: #fff;
+  color: var(--tooltip-text);
 }
 
 .companion-portrait-tooltip p {
-  color: rgba(255, 248, 252, 0.88);
+  color: var(--tooltip-text-muted);
   font-size: 0.82rem;
   line-height: 1.4;
   margin: 0;
 }
 
 .companion-portrait-tooltip small {
-  color: rgba(255, 248, 252, 0.68);
+  color: var(--tooltip-text-soft);
   font-size: 0.74rem;
   line-height: 1.35;
 }
 
 .companion-portrait-tooltip hr {
   border: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--tooltip-border);
   margin: 4px 0;
 }
 
@@ -1934,7 +1936,7 @@ button.danger {
 }
 
 .companion-stats {
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--panel-bg-soft);
   border: 1px solid var(--border);
   border-radius: 14px;
   display: grid;
@@ -2082,7 +2084,7 @@ button.danger {
   align-items: center;
   aspect-ratio: 3 / 4;
   background:
-    radial-gradient(circle at 38% 28%, rgba(255, 255, 255, 0.88), transparent 20%),
+    radial-gradient(circle at 38% 28%, var(--panel-bg-solid), transparent 20%),
     linear-gradient(145deg, #ffb4d3, #9a6dff);
   border-radius: 24px;
   color: white;
@@ -2166,7 +2168,7 @@ button.danger {
 .companion-action-tooltip {
   backdrop-filter: blur(12px);
   background: rgba(20, 12, 28, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 12px;
   bottom: calc(100% + 6px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
@@ -2207,8 +2209,8 @@ button.danger {
 
 .scene-box,
 .mature-note {
-  background: rgba(255, 246, 252, 0.85);
-  border: 1px solid rgba(255, 188, 222, 0.8);
+  background: var(--scene-box-bg);
+  border: 1px solid var(--scene-box-border);
   border-radius: 16px;
   display: grid;
   gap: 6px;
@@ -2219,10 +2221,10 @@ button.danger {
   align-items: stretch;
   aspect-ratio: 3 / 4;
   background:
-    radial-gradient(circle at 35% 24%, rgba(255, 255, 255, 0.78), transparent 17%),
+    radial-gradient(circle at 35% 24%, var(--panel-bg-strong), transparent 17%),
     radial-gradient(circle at 75% 68%, rgba(255, 255, 255, 0.32), transparent 16%),
     linear-gradient(145deg, #ffd1e4, #bda5ff);
-  border: 1px solid rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--panel-bg-strong);
   border-radius: 18px;
   color: white;
   cursor: zoom-in;
@@ -2281,7 +2283,7 @@ button.danger {
 
 .building-thumb {
   align-items: center;
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 18px;
   display: flex;
@@ -2307,7 +2309,7 @@ button.danger {
 }
 
 .visual-placeholder small {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--panel-bg-solid);
   font-size: 0.66rem;
 }
 
@@ -2333,7 +2335,7 @@ button.danger {
 }
 
 .notes-grid p {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 14px;
@@ -2379,7 +2381,7 @@ button.danger {
 
 @media (min-width: 900px) {
   .map-detail-sheet {
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid var(--surface-hover);
     border-radius: 0;
     border-top: 0;
     bottom: 0;
@@ -2509,6 +2511,47 @@ button.danger {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.quest-daily-section,
+.quest-infinite-section {
+  display: grid;
+  gap: 14px;
+}
+
+.quest-section-heading {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.quest-section-heading h3 {
+  margin: 0;
+}
+
+.quest-section-heading span {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.82rem;
+}
+
+.quest-daily-bundle h4 {
+  color: var(--text-muted, #7a6f88);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.quest-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.quest-card-actions button {
+  flex: 1 1 120px;
 }
 
 .quest-grid {
@@ -2678,7 +2721,7 @@ button.danger {
 }
 
 .future-card {
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--panel-bg-soft);
   border: 1px dashed var(--border);
   border-radius: 12px;
   display: grid;
@@ -2732,7 +2775,7 @@ button.danger {
 
 .inventory-summary-chip {
   align-items: center;
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 999px;
   display: inline-flex;
@@ -2757,7 +2800,7 @@ button.danger {
 }
 
 .inventory-section {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: visible;
@@ -2832,8 +2875,8 @@ button.danger {
 
 .inventory-chip-button {
   align-items: center;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(153, 90, 139, 0.12);
+  background: var(--panel-bg-strong);
+  border: 1px solid var(--chip-border-soft);
   border-radius: 12px;
   color: var(--text-h);
   display: inline-flex;
@@ -2869,8 +2912,8 @@ button.danger {
 
 .inventory-chip-visual {
   align-items: center;
-  background: rgba(255, 248, 252, 0.92);
-  border: 1px solid rgba(153, 90, 139, 0.1);
+  background: var(--panel-bg-sheet);
+  border: 1px solid var(--chip-border-soft);
   border-radius: 8px;
   display: inline-flex;
   flex-shrink: 0;
@@ -3002,7 +3045,7 @@ button.danger {
 
 .inventory-chip-badge {
   background: linear-gradient(135deg, #b449ff, #ff8fd0);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--overlay-sheet);
   border-radius: 999px;
   bottom: -2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
@@ -3028,7 +3071,7 @@ button.danger {
 .inventory-chip-tooltip {
   backdrop-filter: blur(12px);
   background: rgba(20, 12, 28, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 12px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
   box-sizing: border-box;
@@ -3104,7 +3147,7 @@ button.danger {
 }
 
 .settings-panel-head p {
-  color: rgba(255, 248, 252, 0.72);
+  color: var(--settings-muted);
   margin: 0;
 }
 
@@ -3114,8 +3157,8 @@ button.danger {
 }
 
 .settings-card {
-  background: rgba(18, 12, 28, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--settings-card-bg);
+  border: 1px solid var(--settings-card-border);
   border-radius: 16px;
   display: grid;
   gap: 14px;
@@ -3139,12 +3182,12 @@ button.danger {
 }
 
 .settings-field-label strong {
-  color: #ffd56a;
+  color: var(--settings-accent-strong);
   font-size: 0.92rem;
 }
 
 .settings-field small {
-  color: rgba(255, 248, 252, 0.62);
+  color: var(--settings-muted);
   font-size: 0.78rem;
 }
 
@@ -3153,11 +3196,41 @@ button.danger {
 }
 
 .settings-field select {
-  background: rgba(8, 6, 14, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--settings-input-bg);
+  border: 1px solid var(--settings-input-border);
   border-radius: 10px;
   color: inherit;
   padding: 10px 12px;
+}
+
+.settings-theme-toggle {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.settings-theme-toggle-btn {
+  background: var(--settings-input-bg);
+  border: 1px solid var(--settings-input-border);
+  border-radius: 12px;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 700;
+  min-height: 42px;
+  padding: 0.55rem 0.75rem;
+}
+
+.settings-theme-toggle-btn:hover {
+  filter: none;
+  transform: none;
+}
+
+.settings-theme-toggle-btn.is-active {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  box-shadow: inset 0 0 0 1px rgba(180, 73, 255, 0.12);
+  color: var(--text-h);
 }
 
 .settings-actions {
@@ -3188,12 +3261,12 @@ button.danger {
 
 .settings-modal {
   backdrop-filter: blur(12px);
-  background: rgba(14, 10, 22, 0.97);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--modal-bg);
+  border: 1px solid var(--modal-border);
   border-radius: 16px;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow);
   box-sizing: border-box;
-  color: #fff5fb;
+  color: var(--text-h);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   left: 50%;
@@ -3209,7 +3282,7 @@ button.danger {
 
 .settings-modal-head {
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--modal-head-border);
   display: flex;
   gap: 12px;
   justify-content: space-between;
@@ -3223,8 +3296,8 @@ button.danger {
 
 .settings-modal-close {
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--modal-close-bg);
+  border: 1px solid var(--modal-border);
   border-radius: 8px;
   color: inherit;
   display: inline-flex;

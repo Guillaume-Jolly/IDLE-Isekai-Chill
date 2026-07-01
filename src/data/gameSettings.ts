@@ -1,5 +1,7 @@
 export type GameLanguage = 'fr' | 'en'
 
+export type GameColorTheme = 'light' | 'dark'
+
 export type GameSettings = {
   masterVolume: number
   interfaceVolume: number
@@ -7,6 +9,8 @@ export type GameSettings = {
   language: GameLanguage
   /** Scènes intégrées affinity-04-nsfw (ex-L6). Désactivé par défaut (SFW). */
   nsfwContent: boolean
+  /** Thème global de l'interface — lumineux ou sombre. */
+  colorTheme: GameColorTheme
 }
 
 export const DEFAULT_GAME_SETTINGS: GameSettings = {
@@ -15,6 +19,7 @@ export const DEFAULT_GAME_SETTINGS: GameSettings = {
   musicVolume: 0.6,
   language: 'fr',
   nsfwContent: false,
+  colorTheme: 'light',
 }
 
 const STORAGE_KEY = 'idle-isekai-chill-settings'
@@ -26,12 +31,14 @@ function clampVolume(value: number): number {
 
 function normalizeSettings(raw: Partial<GameSettings> | null | undefined): GameSettings {
   const language = raw?.language === 'en' ? 'en' : 'fr'
+  const colorTheme = raw?.colorTheme === 'dark' ? 'dark' : 'light'
   return {
     masterVolume: clampVolume(raw?.masterVolume ?? DEFAULT_GAME_SETTINGS.masterVolume),
     interfaceVolume: clampVolume(raw?.interfaceVolume ?? DEFAULT_GAME_SETTINGS.interfaceVolume),
     musicVolume: clampVolume(raw?.musicVolume ?? DEFAULT_GAME_SETTINGS.musicVolume),
     language,
     nsfwContent: raw?.nsfwContent === true,
+    colorTheme,
   }
 }
 
@@ -39,22 +46,36 @@ export function loadGameSettings(): GameSettings {
   if (typeof window === 'undefined') return DEFAULT_GAME_SETTINGS
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY)
-    if (!raw) return DEFAULT_GAME_SETTINGS
-    return normalizeSettings(JSON.parse(raw) as Partial<GameSettings>)
+    const settings = !raw ? DEFAULT_GAME_SETTINGS : normalizeSettings(JSON.parse(raw) as Partial<GameSettings>)
+    applyColorTheme(settings.colorTheme)
+    return settings
   } catch {
+    applyColorTheme(DEFAULT_GAME_SETTINGS.colorTheme)
     return DEFAULT_GAME_SETTINGS
   }
 }
 
 export function saveGameSettings(settings: GameSettings): void {
   if (typeof window === 'undefined') return
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizeSettings(settings)))
+  const normalized = normalizeSettings(settings)
+  applyColorTheme(normalized.colorTheme)
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized))
 }
 
 export function applyLanguage(language: GameLanguage): void {
   if (typeof document === 'undefined') return
   document.documentElement.lang = language
 }
+
+export function applyColorTheme(theme: GameColorTheme): void {
+  if (typeof document === 'undefined') return
+  document.documentElement.dataset.colorTheme = theme
+}
+
+export const COLOR_THEME_OPTIONS: { value: GameColorTheme; label: string; hint: string }[] = [
+  { value: 'light', label: 'Lumineux', hint: 'Fonds clairs et pastels — lecture confortable de jour.' },
+  { value: 'dark', label: 'Sombre', hint: 'Interface assombrie — moins de lumière, idéal le soir.' },
+]
 
 export const LANGUAGE_OPTIONS: { value: GameLanguage; label: string; enabled: boolean }[] = [
   { value: 'fr', label: 'Français', enabled: true },

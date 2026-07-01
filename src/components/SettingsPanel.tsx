@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { resumeAudio } from '../audio/audioEngine'
 import { playCaptureFailure, playCaptureSuccess } from '../audio/huntAudio'
 import { playUiTab } from '../audio/uiSounds'
-import { LANGUAGE_OPTIONS } from '../data/gameSettings'
+import { COLOR_THEME_OPTIONS, LANGUAGE_OPTIONS } from '../data/gameSettings'
 import { useGameSettings } from '../hooks/useGameSettings'
 import { useSessionGate } from '../hooks/useSessionGate'
 
@@ -121,6 +121,29 @@ export function SettingsPanel({ embedded = false }: { embedded?: boolean }) {
               </small>
             </span>
           </label>
+        </article>
+
+        <article className="settings-card">
+          <h3>Apparence</h3>
+          <div className="settings-theme-toggle" role="radiogroup" aria-label="Thème de l'interface">
+            {COLOR_THEME_OPTIONS.map((option) => (
+              <button
+                key={option.value}
+                aria-pressed={settings.colorTheme === option.value}
+                className={`settings-theme-toggle-btn${settings.colorTheme === option.value ? ' is-active' : ''}`}
+                type="button"
+                onClick={() => updateSettings({ colorTheme: option.value })}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          <small>
+            {
+              COLOR_THEME_OPTIONS.find((option) => option.value === settings.colorTheme)?.hint ??
+              'Choisissez le rendu global de l’interface.'
+            }
+          </small>
         </article>
 
         <article className="settings-card">

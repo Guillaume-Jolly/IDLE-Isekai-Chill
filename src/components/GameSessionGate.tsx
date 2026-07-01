@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { SPLASH_SLIDES, LOGIN_BACKGROUND } from '../data/splashSlides'
 import {
-  DEMO_LOGIN,
+  getDevLoginDefaults,
+  isDevSessionLogin,
   isPreloadDone,
   isSessionAuthenticated,
   logoutSession,
@@ -29,11 +30,15 @@ function resolveInitialPhase(): GatePhase {
   return 'ready'
 }
 
+function devLoginDefaults() {
+  return getDevLoginDefaults()
+}
+
 export function GameSessionGate({ children }: GameSessionGateProps) {
   const versionLabel = useAppBuildVersion()
   const [phase, setPhase] = useState<GatePhase>(resolveInitialPhase)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState(() => devLoginDefaults().username)
+  const [password, setPassword] = useState(() => devLoginDefaults().password)
   const [loginError, setLoginError] = useState('')
   const [slideIndex, setSlideIndex] = useState(0)
   const [progress, setProgress] = useState<WarmupProgress>({
@@ -59,8 +64,9 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
 
   const handleLogout = useCallback((resetPreload = false) => {
     logoutSession({ resetPreload })
-    setUsername('')
-    setPassword('')
+    const defaults = devLoginDefaults()
+    setUsername(defaults.username)
+    setPassword(defaults.password)
     setLoginError('')
     setPhase('login')
   }, [])
@@ -127,7 +133,7 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
               <input
                 autoComplete="username"
                 name="username"
-                placeholder="voyageur"
+                placeholder={isDevSessionLogin() ? devLoginDefaults().username : 'Identifiant'}
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
               />
@@ -138,7 +144,7 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
                 autoComplete="current-password"
                 name="password"
                 placeholder="••••••"
-                type="password"
+                type={isDevSessionLogin() ? 'text' : 'password'}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
@@ -148,9 +154,10 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
               Entrer au Havre
             </button>
           </form>
-          {import.meta.env.DEV ? (
-            <p className="session-login-hint">
-              Démo : {DEMO_LOGIN.username} / {DEMO_LOGIN.password}
+          {isDevSessionLogin() ? (
+            <p className="session-login-hint session-login-hint--dev">
+              Compte démo local prérempli — <strong>{devLoginDefaults().username}</strong> /{' '}
+              <strong>{devLoginDefaults().password}</strong>
             </p>
           ) : null}
         </div>

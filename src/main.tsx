@@ -6,6 +6,9 @@ import { GameDisplayShell } from './components/GameDisplayShell.tsx'
 import { GameSessionGate } from './components/GameSessionGate.tsx'
 import { GameSettingsProvider } from './hooks/useGameSettings.tsx'
 import { RewardToastProvider } from './components/RewardToastProvider.tsx'
+import { loadGameSettings } from './data/gameSettings'
+
+loadGameSettings()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

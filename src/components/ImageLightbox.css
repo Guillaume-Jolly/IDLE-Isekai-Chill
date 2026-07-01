@@ -55,7 +55,7 @@
 
 .lightbox-image--loading {
   animation: none;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   min-height: min(60vh, 480px);
   min-width: min(40vw, 320px);
 }
@@ -135,15 +135,15 @@
 }
 
 .lightbox-caption span {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--panel-bg);
   font-weight: 600;
 }
 
 .lightbox-close,
 .lightbox-nav {
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--surface-hover-strong);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 999px;
   color: #fff;
   cursor: pointer;
@@ -186,7 +186,7 @@
 }
 
 .lightbox-thumbs button {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   border: 2px solid transparent;
   border-radius: 12px;
   cursor: pointer;

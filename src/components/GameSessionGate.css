@@ -71,7 +71,7 @@
 }
 
 .session-login-form input {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   border: 1px solid rgba(255, 196, 219, 0.25);
   border-radius: 12px;
   color: #fff;
@@ -109,9 +109,19 @@
   margin: 14px 0 0;
 }
 
+.session-login-hint--dev {
+  background: rgba(135, 197, 106, 0.1);
+  border: 1px solid rgba(135, 197, 106, 0.28);
+  border-radius: 10px;
+  color: #d8f5c8;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  padding: 0.55rem 0.65rem;
+}
+
 .session-login-version {
   bottom: max(12px, env(safe-area-inset-bottom));
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--panel-bg-soft);
   font-size: 0.75rem;
   left: 50%;
   position: absolute;
@@ -197,7 +207,7 @@
 }
 
 .session-loading-bar {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--surface-hover-strong);
   border-radius: 999px;
   height: 12px;
   overflow: hidden;

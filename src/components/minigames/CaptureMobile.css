@@ -388,7 +388,7 @@
   align-items: center;
   backdrop-filter: blur(8px);
   background: rgba(8, 10, 18, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   border-radius: 999px;
   bottom: auto;
   box-sizing: border-box;

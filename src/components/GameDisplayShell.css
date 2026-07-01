@@ -20,7 +20,7 @@
 
 .game-launch-card {
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(153, 90, 139, 0.18);
   border-radius: 20px;
   box-shadow: 0 24px 70px rgba(117, 69, 113, 0.16);

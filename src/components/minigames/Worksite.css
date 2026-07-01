@@ -26,7 +26,7 @@
   padding: 0;
   gap: 0;
   min-height: 0;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .mg-worksite-scene-wrap--fullscreen .mg-worksite-scene-stage {
@@ -41,6 +41,7 @@
   border-left: 0;
   border-right: 0;
   border-top: 0;
+  overflow: hidden;
 }
 
 .mg-worksite-scene-head-row {
@@ -105,8 +106,102 @@
   min-height: 12rem;
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   background: linear-gradient(180deg, #87c8f0 0%, #b8e6a0 55%, #7cb356 100%);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.mg-worksite-panorama-scroller {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  touch-action: pan-x;
+}
+
+.mg-worksite-panorama-scroller--dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.mg-worksite-panorama-scroller::-webkit-scrollbar {
+  height: 8px;
+}
+
+.mg-worksite-panorama-scroller::-webkit-scrollbar-thumb {
+  background: rgba(210, 170, 95, 0.45);
+  border-radius: 999px;
+}
+
+.mg-worksite-panorama-track {
+  display: inline-block;
+  height: 100%;
+  line-height: 0;
+  position: relative;
+  vertical-align: top;
+}
+
+.mg-worksite-panorama-image {
+  display: block;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+  width: auto;
+}
+
+.mg-worksite-panorama-scroll-hint {
+  bottom: 0.45rem;
+  color: rgba(255, 245, 230, 0.82);
+  font-size: 0.72rem;
+  font-weight: 600;
+  left: 50%;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.mg-worksite-panorama-scroll-hint span {
+  backdrop-filter: blur(6px);
+  background: rgba(12, 10, 18, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+}
+
+.mg-worksite-biome-background--panorama {
+  display: block;
+  height: 100%;
+  line-height: 0;
+  pointer-events: none;
+  position: relative;
+}
+
+.mg-worksite-panorama-track .mg-worksite-spot-markers,
+.mg-worksite-panorama-track .mg-worksite-placement-debug,
+.mg-worksite-panorama-track .mg-worksite-mine-bursts,
+.mg-worksite-panorama-track .mg-worksite-life-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.mg-worksite-panorama-track .mg-worksite-spot-markers {
+  overflow: hidden;
 }
 
 .mg-worksite-scene--prairie {
@@ -142,22 +237,26 @@
 }
 
 .mg-worksite-spot-markers {
+  --mg-worksite-marker-size: 10.05rem;
+  --mg-worksite-marker-emoji: 4.5rem;
+  --mg-worksite-marker-resource-size: 3.3rem;
   position: absolute;
   inset: 0;
   z-index: 5;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .mg-worksite-marker {
   position: absolute;
-  width: 3.35rem;
-  height: 3.35rem;
+  width: var(--mg-worksite-marker-size);
+  height: var(--mg-worksite-marker-size);
   border-radius: 999px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--surface-muted);
   background: rgba(0, 0, 0, 0.25);
-  font-size: 1.5rem;
+  font-size: var(--mg-worksite-marker-emoji);
   cursor: pointer;
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  transition: box-shadow 0.08s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,25 +264,34 @@
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
   pointer-events: auto;
   transform-origin: center center;
 }
 
+.mg-worksite-marker--placed {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
 .mg-worksite-marker--placed:active {
-  transform: translate(-50%, -50%) scale(0.92);
   box-shadow: 0 0 0 4px rgba(135, 197, 106, 0.55);
+}
+
+.mg-worksite-marker--placed:active .mg-worksite-spot-object {
+  transform: scale(0.94);
 }
 
 .mg-worksite-marker--placed.active,
 .mg-worksite-marker--placed.mg-worksite-marker--recent {
-  transform: translate(-50%, -50%) scale(1.1);
   box-shadow:
     0 0 0 3px var(--mg-accent, #87c56a),
     0 0 14px rgba(135, 197, 106, 0.45);
 }
 
-.mg-worksite-marker--recent {
-  animation: mg-worksite-marker-recent 1.2s ease-out;
+.mg-worksite-marker--recent .mg-worksite-spot-object {
+  animation: mg-worksite-marker-recent-inner 0.5s ease-out;
 }
 
 .mg-worksite-marker--locked {
@@ -211,21 +319,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.1rem;
-  height: 1.1rem;
+  width: var(--mg-worksite-marker-resource-size);
+  height: var(--mg-worksite-marker-resource-size);
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
 }
 
 .mg-worksite-marker-resource-icon {
-  width: 0.85rem;
-  height: 0.85rem;
+  width: calc(var(--mg-worksite-marker-resource-size) * 0.78);
+  height: calc(var(--mg-worksite-marker-resource-size) * 0.78);
 }
 
 .mg-worksite-marker-resource-icon .mg-worksite-resource-icon-emoji {
-  font-size: 0.7rem;
+  font-size: calc(var(--mg-worksite-marker-resource-size) * 0.62);
 }
 
 .mg-worksite-biome-resource-chip {
@@ -265,20 +374,15 @@
   height: 1rem;
 }
 
-@keyframes mg-worksite-marker-recent {
+@keyframes mg-worksite-marker-recent-inner {
   0% {
-    transform: scale(0.94);
-    box-shadow: 0 0 0 0 rgba(135, 197, 106, 0.65);
+    transform: scale(1);
   }
-  45% {
-    transform: scale(1.14);
-    box-shadow: 0 0 0 6px rgba(135, 197, 106, 0.2);
+  40% {
+    transform: scale(1.08);
   }
   100% {
-    transform: scale(1.1);
-    box-shadow:
-      0 0 0 3px var(--mg-accent, #87c56a),
-      0 0 14px rgba(135, 197, 106, 0.45);
+    transform: scale(1);
   }
 }
 
@@ -307,32 +411,6 @@
   filter: brightness(0.78) saturate(0.88);
 }
 
-.mg-worksite-marker[class*='mg-worksite-marker--wear-'] {
-  position: relative;
-}
-
-.mg-worksite-marker[class*='mg-worksite-marker--wear-']::after {
-  content: '';
-  position: absolute;
-  inset: 8%;
-  border-radius: 999px;
-  pointer-events: none;
-  opacity: 0.35;
-  background: repeating-linear-gradient(
-    -35deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.35) 3px,
-    rgba(0, 0, 0, 0.35) 4px
-  );
-}
-
-.mg-worksite-marker--wear-3::after,
-.mg-worksite-marker--wear-4::after,
-.mg-worksite-marker--wear-5::after {
-  opacity: 0.55;
-}
-
 .mg-worksite-tap {
   display: flex;
   flex-direction: column;
@@ -341,7 +419,7 @@
   gap: 0.25rem;
   min-height: 4.5rem;
   border-radius: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--surface-muted);
   background: rgba(0, 0, 0, 0.35);
   color: inherit;
   cursor: pointer;
@@ -367,7 +445,7 @@
   margin: 0;
   padding: 0.65rem 0.85rem;
   border-radius: 0.75rem;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border: 1px dashed var(--surface-muted);
   background: rgba(0, 0, 0, 0.22);
   font-size: 0.88rem;
   text-align: center;
@@ -383,7 +461,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 8;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .mg-worksite-mine-burst-stack {
@@ -440,12 +518,12 @@
 
 .mg-worksite-mine-burst-core {
   position: relative;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.35rem;
+  border-radius: 0.65rem;
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
@@ -463,7 +541,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.05rem;
+  font-size: 3.15rem;
   line-height: 1;
 }
 
@@ -500,14 +578,14 @@
   }
   70% {
     transform: translate(
-        calc(-50% + var(--burst-dx) * 0.92),
-        calc(-50% + var(--burst-dy) * 0.92)
+        calc(-50% + var(--burst-dx) * 0.95),
+        calc(-50% + var(--burst-dy) * 0.95)
       )
-      scale(0.8) rotate(calc(var(--burst-rotate) * 0.5));
+      scale(1) rotate(calc(var(--burst-rotate) * 0.65));
     opacity: 0.95;
   }
   100% {
-    transform: translate(calc(-50% + var(--burst-dx)), calc(-50% + var(--burst-dy))) scale(0.55)
+    transform: translate(calc(-50% + var(--burst-dx)), calc(-50% + var(--burst-dy))) scale(0.5)
       rotate(var(--burst-rotate));
     opacity: 0;
   }
@@ -550,7 +628,7 @@
   overflow-x: hidden;
   border-radius: 0.45rem;
   background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-hover);
 }
 
 .mg-worksite-compact-species-item {
@@ -702,7 +780,7 @@
   gap: 0.15rem;
   padding: 0.55rem 0.7rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   background: rgba(0, 0, 0, 0.2);
   color: inherit;
   cursor: pointer;
@@ -756,7 +834,7 @@
   gap: 0.2rem;
   padding: 0.6rem 0.75rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   background: rgba(0, 0, 0, 0.2);
   color: inherit;
   cursor: pointer;
@@ -793,7 +871,7 @@
   padding: 0.5rem 0.65rem;
   border-radius: 0.65rem;
   background: rgba(12, 20, 14, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-hover-strong);
   backdrop-filter: blur(6px);
   pointer-events: none;
 }
@@ -875,7 +953,7 @@
   align-items: center;
   gap: 0.35rem 0.5rem;
   padding: 0.35rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--surface-hover);
   font-size: 0.85rem;
 }
 
@@ -966,7 +1044,7 @@
 }
 
 .mg-worksite-pet-btn.subtle {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--surface-inset-mid);
   font-size: 0.68rem;
   padding: 0.2rem 0.35rem;
 }
@@ -974,7 +1052,7 @@
 .mg-worksite-pet-btn {
   padding: 0.25rem 0.5rem;
   border-radius: 0.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--surface-muted);
   background: rgba(135, 197, 106, 0.25);
   color: inherit;
   cursor: pointer;
@@ -982,7 +1060,7 @@
 }
 
 .mg-worksite-pet-btn.secondary {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
 }
 
 .mg-worksite-pet-busy {
@@ -1049,110 +1127,22 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: var(--mg-worksite-bg-image, none);
-  background-size: cover;
-  background-position: center 72%;
+  user-select: none;
+  -webkit-user-select: none;
   overflow: hidden;
 }
 
 .mg-worksite-biome-background-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 72%;
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
-  transform: scale(1.04);
-  transform-origin: center 82%;
-}
-
-.mg-worksite-biome-background--prairie-chantier,
-.mg-worksite-biome-background--prairie-chantier .mg-worksite-biome-background-img {
-  object-position: center 70%;
-  background-position: center 70%;
-}
-
-.mg-worksite-biome-background--foret-douce,
-.mg-worksite-biome-background--foret-douce .mg-worksite-biome-background-img {
-  object-position: center 66%;
-  background-position: center 66%;
-}
-
-.mg-worksite-biome-background--mine-tranquille,
-.mg-worksite-biome-background--mine-tranquille .mg-worksite-biome-background-img {
-  object-position: center 62%;
-  background-position: center 62%;
-}
-
-.mg-worksite-biome-background--marais-lucioles,
-.mg-worksite-biome-background--marais-lucioles .mg-worksite-biome-background-img {
-  object-position: center 68%;
-  background-position: center 68%;
-}
-
-.mg-worksite-biome-background--rivage-brumeux,
-.mg-worksite-biome-background--rivage-brumeux .mg-worksite-biome-background-img {
-  object-position: center 74%;
-  background-position: center 74%;
-}
-
-.mg-worksite-biome-background--vergers-suspendus,
-.mg-worksite-biome-background--vergers-suspendus .mg-worksite-biome-background-img {
-  object-position: center 64%;
-  background-position: center 64%;
-}
-
-.mg-worksite-biome-background--ruines-florales,
-.mg-worksite-biome-background--ruines-florales .mg-worksite-biome-background-img {
-  object-position: center 68%;
-  background-position: center 68%;
-}
-
-.mg-worksite-biome-background--grotte-cristalline,
-.mg-worksite-biome-background--grotte-cristalline .mg-worksite-biome-background-img {
-  object-position: center 58%;
-  background-position: center 58%;
-}
-
-.mg-worksite-biome-background--desert-cendres-roses,
-.mg-worksite-biome-background--desert-cendres-roses .mg-worksite-biome-background-img {
-  object-position: center 72%;
-  background-position: center 72%;
-}
-
-.mg-worksite-biome-background--montagne-vents,
-.mg-worksite-biome-background--montagne-vents .mg-worksite-biome-background-img {
-  object-position: center 56%;
-  background-position: center 56%;
-}
-
-.mg-worksite-biome-background--lac-etoile,
-.mg-worksite-biome-background--lac-etoile .mg-worksite-biome-background-img {
-  object-position: center 70%;
-  background-position: center 70%;
-}
-
-.mg-worksite-biome-background--bois-automne-eternel,
-.mg-worksite-biome-background--bois-automne-eternel .mg-worksite-biome-background-img {
-  object-position: center 66%;
-  background-position: center 66%;
-}
-
-.mg-worksite-biome-background--jardin-fongique,
-.mg-worksite-biome-background--jardin-fongique .mg-worksite-biome-background-img {
-  object-position: center 62%;
-  background-position: center 62%;
-}
-
-.mg-worksite-biome-background--sanctuaire-astral,
-.mg-worksite-biome-background--sanctuaire-astral .mg-worksite-biome-background-img {
-  object-position: center 60%;
-  background-position: center 60%;
-}
-
-.mg-worksite-biome-background--ile-celeste,
-.mg-worksite-biome-background--ile-celeste .mg-worksite-biome-background-img {
-  object-position: center 55%;
-  background-position: center 55%;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .mg-worksite-placement-debug {
@@ -1201,9 +1191,9 @@
   font-size: 0.68rem;
   padding: 0.2rem 0.45rem;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--surface-muted);
   background: rgba(0, 0, 0, 0.35);
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--overlay-sheet);
   cursor: pointer;
 }
 
@@ -1326,14 +1316,19 @@
   object-fit: contain;
   object-position: center bottom;
   pointer-events: none;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.38));
+  filter:
+    drop-shadow(0 0 0.55px #000)
+    drop-shadow(0 0 0.55px #000)
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.32));
 }
 
 .mg-worksite-spot-object-emoji {
   position: relative;
   z-index: 1;
-  font-size: 1.5rem;
+  font-size: var(--mg-worksite-marker-emoji, 4.5rem);
   line-height: 1;
+  pointer-events: none;
+  user-select: none;
 }
 
 .mg-worksite-spot-object:has(.mg-worksite-spot-object-img) .mg-worksite-spot-object-emoji {
@@ -1364,10 +1359,15 @@
 .mg-worksite-marker.mg-worksite-spot--active,
 .mg-worksite-marker.active,
 .mg-worksite-marker.mg-worksite-marker--recent {
-  transform: scale(1.1);
   box-shadow:
     0 0 0 3px var(--mg-accent, #87c56a),
     0 0 14px rgba(135, 197, 106, 0.45);
+}
+
+.mg-worksite-marker--placed.mg-worksite-spot--active .mg-worksite-spot-object,
+.mg-worksite-marker--placed.active .mg-worksite-spot-object,
+.mg-worksite-marker--placed.mg-worksite-marker--recent .mg-worksite-spot-object {
+  transform: scale(1.06);
 }
 
 .mg-worksite-marker.mg-worksite-spot--locked {
@@ -1441,7 +1441,7 @@
 }
 
 .mg-worksite-assignment-slot {
-  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border: 1px dashed var(--surface-muted);
   border-radius: 0.35rem;
   min-height: 2rem;
 }
@@ -1661,7 +1661,7 @@
   max-width: 4.5rem;
   padding: 0.2rem 0.35rem 0.3rem;
   border-radius: 0.65rem;
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--panel-bg-solid);
   border: 1px solid rgba(90, 120, 70, 0.45);
   box-shadow: 0 4px 10px rgba(20, 40, 15, 0.2);
   transform: translate(-50%, 0);
@@ -1781,14 +1781,16 @@
   }
 
   .mg-worksite-marker {
-    width: 3.15rem;
-    height: 3.15rem;
-    font-size: 1.55rem;
+    width: 9.45rem;
+    height: 9.45rem;
+    font-size: 4.2rem;
   }
 
   .mg-worksite-marker--placed.active,
   .mg-worksite-marker--placed.mg-worksite-marker--recent {
-    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow:
+      0 0 0 3px var(--mg-accent, #87c56a),
+      0 0 14px rgba(135, 197, 106, 0.45);
   }
 
   .mg-worksite-biome-resource-chip {
@@ -1877,7 +1879,7 @@
   height: 1.35rem;
   border-radius: 999px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--surface-muted);
   background: rgba(0, 0, 0, 0.35);
 }
 
@@ -1905,7 +1907,7 @@
   padding: 0.5rem 0.65rem;
   border-radius: 0.5rem;
   background: rgba(0, 0, 0, 0.2);
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border: 1px dashed var(--surface-muted);
   font-size: 0.88rem;
 }
 
@@ -1934,7 +1936,7 @@
 .mg-worksite-monitor-bar {
   flex-shrink: 0;
   padding: 0.5rem 0.65rem 0.6rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid var(--surface-hover-strong);
   background: rgba(8, 12, 20, 0.72);
   backdrop-filter: blur(6px);
 }
@@ -1956,7 +1958,7 @@
 
 .mg-worksite-monitor-btn {
   border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   color: inherit;
   border-radius: 0.45rem;
   padding: 0.2rem 0.55rem;
@@ -1981,7 +1983,7 @@
   width: 1.85rem;
   height: 1.85rem;
   border-radius: 0.45rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--surface-muted);
   background: rgba(0, 0, 0, 0.25);
   font-size: 0.92rem;
   cursor: pointer;
@@ -2059,7 +2061,7 @@
   top: 0.45rem;
   right: 0.5rem;
   z-index: 8;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--surface-muted);
   background: rgba(0, 0, 0, 0.42);
   color: inherit;
   border-radius: 999px;

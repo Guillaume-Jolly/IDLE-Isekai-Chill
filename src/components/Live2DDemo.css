@@ -11,7 +11,7 @@
 }
 
 .live2d-panel {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 252, 0.92));
+  background: linear-gradient(160deg, var(--panel-bg-opaque), rgba(255, 245, 252, 0.92));
   border: 1px solid var(--border);
   border-radius: 24px;
   box-shadow: var(--soft-shadow);

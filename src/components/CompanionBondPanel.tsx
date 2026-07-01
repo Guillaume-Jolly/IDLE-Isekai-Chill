@@ -23,10 +23,12 @@ export function CompanionBondPanel({
   currentAffinity,
 }: CompanionBondPanelProps) {
   const conversations = getBondConversationsForCompanion(companionId)
+  const [expanded, setExpanded] = useState(false)
   const [activeId, setActiveId] = useState<string | null>(null)
 
   if (conversations.length === 0) return null
 
+  const unlockedCount = countUnlockedBondConversations(companionId, currentAffinity)
   const activeConversation = conversations.find((entry) => entry.conversationId === activeId)
 
   return (
@@ -34,15 +36,32 @@ export function CompanionBondPanel({
       <header className="companion-bond-panel-head">
         <strong>Conversations de lien</strong>
         <span className="companion-bond-panel-meta">
-          Affinité {currentAffinity}/5
+          Affinité {currentAffinity}/5 · {unlockedCount} dialogue{unlockedCount > 1 ? 's' : ''}
         </span>
       </header>
-      <p className="companion-bond-panel-intro">
-        Dialogues narratifs débloqués par palier — lecture gratuite. Pour une activité avec choix
-        et récompenses, utilise le bouton <strong>Parler</strong> sur la carte.
-      </p>
 
-      <div className="companion-bond-tiers">
+      <button
+        aria-expanded={expanded}
+        className="companion-bond-panel-toggle secondary"
+        type="button"
+        onClick={() => {
+          setExpanded((open) => {
+            if (open) setActiveId(null)
+            return !open
+          })
+        }}
+      >
+        {expanded ? 'Masquer les discussions' : 'Afficher les discussions'}
+      </button>
+
+      {expanded ? (
+        <>
+          <p className="companion-bond-panel-intro">
+            Dialogues narratifs débloqués par palier — lecture gratuite. Pour une activité avec choix
+            et récompenses, utilise le bouton <strong>Parler</strong> sur la carte.
+          </p>
+
+          <div className="companion-bond-tiers">
         {TIERS.map((tier) => {
           const tierConversations = conversations.filter((entry) => entry.affinityTier === tier)
           const unlocked = currentAffinity >= tier
@@ -92,10 +111,12 @@ export function CompanionBondPanel({
             </div>
           )
         })}
-      </div>
+          </div>
 
-      {activeConversation ? (
-        <BondReplyCard conversation={activeConversation} companionName={companionName} />
+          {activeConversation ? (
+            <BondReplyCard conversation={activeConversation} companionName={companionName} />
+          ) : null}
+        </>
       ) : null}
     </section>
   )
