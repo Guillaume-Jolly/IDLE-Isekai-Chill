@@ -72,6 +72,7 @@ Launch IDLE Isekai Chill.lnk
 /scripts/create-launcher-shortcut.ps1
 /scripts/open-launcher-gui.ps1
 /scripts/dev-server-manager.mjs
+/scripts/dev-launcher/.dev-session/
 /staging/playbooks/07-release-prod-stable.md
 
 # Post-2.1 local quarantine — hors dépôt public (archive PC hôte uniquement)

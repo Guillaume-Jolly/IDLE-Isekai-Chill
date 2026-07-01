@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:launcher": "node scripts/dev-launcher/server.mjs",
     "build": "tsc -b && vite build",
     "version:prompt": "node scripts/bump-prompt.mjs",
     "version:task": "node scripts/bump-task.mjs",
