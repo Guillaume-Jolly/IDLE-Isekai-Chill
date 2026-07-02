@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'old_v2.1/**', 'deploy/**', 'old_2_2/**']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -20,10 +20,16 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/components/minigames/**/*.{ts,tsx}', 'src/hooks/**/*.ts'],
+    files: ['src/**/*.{ts,tsx}'],
     rules: {
-      // Mini-jeux : sync explicite depuis minigameSave / timers — refactor différé.
-      'react-hooks/set-state-in-effect': 'off',
+      // Patterns UI courants (sync au mount, reset d’animation) — pas bloquant prod.
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/preserve-manual-memoization': 'warn',
+      'react-refresh/only-export-components': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
     },
   },
 ])

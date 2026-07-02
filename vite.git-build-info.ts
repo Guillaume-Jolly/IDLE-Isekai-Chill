@@ -1,9 +1,10 @@
 import { createHash } from 'node:crypto'
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { AppBuildInfo } from './src/buildInfo.types'
+import { resolveGitExecutable } from './scripts/dev-launcher/resolve-git-exe.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)))
 const revisionPath = join(root, 'build-revision.json')
@@ -16,19 +17,24 @@ type BuildRevisionState = {
   updatedAt: string
 }
 
-function runGit(command: string) {
+function runGit(args: string[]) {
   try {
-    return execSync(command, { cwd: root, encoding: 'utf8' }).trim()
+    return execFileSync(resolveGitExecutable(), args, {
+      cwd: root,
+      encoding: 'utf8',
+      windowsHide: true,
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
   } catch {
     return ''
   }
 }
 
 function getWorktreeFingerprint() {
-  const head = runGit('git rev-parse HEAD') || 'unknown'
-  const status = runGit('git status --porcelain')
-  const diff = runGit('git diff HEAD')
-  const untracked = runGit('git ls-files --others --exclude-standard')
+  const head = runGit(['rev-parse', 'HEAD']) || 'unknown'
+  const status = runGit(['status', '--porcelain'])
+  const diff = runGit(['diff', 'HEAD'])
+  const untracked = runGit(['ls-files', '--others', '--exclude-standard'])
 
   return createHash('sha1')
     .update(head)
@@ -63,8 +69,8 @@ function writeRevisionState(state: BuildRevisionState) {
 }
 
 function initialRevision() {
-  const commitCount = Number.parseInt(runGit('git rev-list --count HEAD') || '0', 10)
-  const dirty = runGit('git status --porcelain') !== ''
+  const commitCount = Number.parseInt(runGit(['rev-list', '--count', 'HEAD']) || '0', 10)
+  const dirty = runGit(['status', '--porcelain']) !== ''
   return dirty ? Math.max(1, commitCount) + 1 : Math.max(1, commitCount)
 }
 
@@ -79,9 +85,9 @@ function formatVersionLabel(semver: string, revision: number, subRevision: numbe
 function createBuildInfo(revision: number, subRevision = 0): AppBuildInfo {
   const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')) as { version?: string }
   const semver = typeof pkg.version === 'string' ? pkg.version : '0.0.0'
-  const commitHash = runGit('git rev-parse --short HEAD') || 'unknown'
-  const commitCount = Number.parseInt(runGit('git rev-list --count HEAD') || '0', 10)
-  const dirty = runGit('git status --porcelain') !== ''
+  const commitHash = runGit(['rev-parse', '--short', 'HEAD']) || 'unknown'
+  const commitCount = Number.parseInt(runGit(['rev-list', '--count', 'HEAD']) || '0', 10)
+  const dirty = runGit(['status', '--porcelain']) !== ''
   const build = String(Math.max(0, revision)).padStart(2, '0')
 
   return {

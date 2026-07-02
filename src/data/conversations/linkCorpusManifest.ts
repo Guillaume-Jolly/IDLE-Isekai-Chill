@@ -1,0 +1,71 @@
+/** Généré par scripts/split-link-corpus-batches.mjs — ne pas éditer à la main */
+export const LINK_CORPUS_BATCH_SIZE = 50 as const
+
+export const LINK_CORPUS_MANIFEST = {
+  "version": 2,
+  "batchSize": 50,
+  "scenarioCount": 7500,
+  "rejectedCount": 0,
+  "companions": {
+    "asha": {
+      "count": 500,
+      "batches": 10
+    },
+    "elwen": {
+      "count": 500,
+      "batches": 10
+    },
+    "iris": {
+      "count": 500,
+      "batches": 10
+    },
+    "kael": {
+      "count": 500,
+      "batches": 10
+    },
+    "lyra": {
+      "count": 500,
+      "batches": 10
+    },
+    "maeve": {
+      "count": 500,
+      "batches": 10
+    },
+    "mira": {
+      "count": 500,
+      "batches": 10
+    },
+    "nami": {
+      "count": 500,
+      "batches": 10
+    },
+    "noa": {
+      "count": 500,
+      "batches": 10
+    },
+    "runa": {
+      "count": 500,
+      "batches": 10
+    },
+    "seren": {
+      "count": 500,
+      "batches": 10
+    },
+    "solene": {
+      "count": 500,
+      "batches": 10
+    },
+    "sora": {
+      "count": 500,
+      "batches": 10
+    },
+    "talia": {
+      "count": 500,
+      "batches": 10
+    },
+    "zelie": {
+      "count": 500,
+      "batches": 10
+    }
+  }
+} as const

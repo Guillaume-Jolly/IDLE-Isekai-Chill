@@ -1,4 +1,4 @@
-import { createReadStream, existsSync, statSync } from 'node:fs'
+import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, normalize } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { execFile } from 'node:child_process'
@@ -10,11 +10,24 @@ import { legacyPublicAssetPlugin, repoAssetsPlugin } from './vite.repo-assets'
 
 const repoRoot = fileURLToPath(new URL('.', import.meta.url))
 
+/** En dev, évite les appels git répétés (flash cmd) — lit le fichier existant. */
+function readDevBuildInfo() {
+  const cachedPath = join(repoRoot, 'public/build-info.json')
+  if (existsSync(cachedPath)) {
+    try {
+      return JSON.parse(readFileSync(cachedPath, 'utf8'))
+    } catch {
+      /* fallback sync */
+    }
+  }
+  return syncPublicBuildInfo()
+}
+
 function appBuildInfoPlugin(): Plugin {
   return {
     name: 'app-build-info',
     config(_config, { command }) {
-      const info = syncPublicBuildInfo()
+      const info = command === 'serve' ? readDevBuildInfo() : syncPublicBuildInfo()
       if (command === 'serve') {
         console.log(`[Havre des Brumes] Version menu : ${info.versionLabel}`)
         console.log('[Havre des Brumes] Nouveau prompt → npm run version:prompt')
@@ -25,40 +38,12 @@ function appBuildInfoPlugin(): Plugin {
         },
       }
     },
-    configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        const path = req.url?.split('?')[0]
-        if (path !== '/build-info.json') {
-          next()
-          return
-        }
-
-        const info = getGitBuildInfo()
-        res.setHeader('Content-Type', 'application/json; charset=utf-8')
-        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate')
-        res.setHeader('Pragma', 'no-cache')
-        res.end(JSON.stringify(info))
-      })
+    configureServer() {
+      // build-info.json est servi depuis public/ — pas de git à chaque requête HTTP.
     },
     buildStart() {
       const info = syncPublicBuildInfo()
       console.log(`[Havre des Brumes] Build ${info.versionLabel} (${info.commitHash})`)
-    },
-    handleHotUpdate({ file, server }) {
-      if (file.includes('node_modules') || file.includes('vite.git-build-info')) {
-        return
-      }
-      if (!file.replace(/\\/g, '/').includes('/src/')) {
-        return
-      }
-
-      // Sync commitHash/dirty sans bump Y — Y réservé à version:task (agent)
-      const info = syncPublicBuildInfo()
-      server.ws.send({
-        type: 'custom',
-        event: 'app-build-info',
-        data: { ...info, changed: true },
-      })
     },
   }
 }
@@ -233,6 +218,7 @@ export default defineConfig({
     allowedHosts: ['.lhr.life', '.loca.lt'],
     watch: {
       ignored: [
+        '**/.dev-session/**',
         '**/.tmp/**',
         '**/.tools/**',
         '**/assets/**',

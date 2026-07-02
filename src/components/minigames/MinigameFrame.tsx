@@ -278,6 +278,9 @@ export type MinigameProps = {
   /** Lance un autre mini-jeu persistant (ex. chasse ↔ refuge). */
   onLaunchMinigame?: (activityId: string) => void
 
+  /** Stade village — sélecteur compagnon Parler en fin de session. */
+  villageStage?: number
+
 }
 
 

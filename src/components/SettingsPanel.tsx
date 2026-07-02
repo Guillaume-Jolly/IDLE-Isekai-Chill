@@ -114,13 +114,39 @@ export function SettingsPanel({ embedded = false }: { embedded?: boolean }) {
               onChange={(event) => updateSettings({ nsfwContent: event.target.checked })}
             />
             <span>
-              Contenu NSFW (scènes intégrées affinity-04-nsfw)
+              Contenu NSFW
               <small>
-                Désactivé par défaut (SFW). Affiche les vues intimes peak-plus pour les compagnons
-                éligibles.
+                Dialogues intimes Parler (aff. 4–5) et scènes intégrées. Choix initial à la connexion ;
+                modifiable ici sans se déconnecter.
               </small>
             </span>
           </label>
+          <div
+            className="settings-theme-toggle settings-protagonist-gender"
+            role="radiogroup"
+            aria-label="Genre du protagoniste"
+          >
+            <span className="settings-field-label">Protagoniste (dialogues intimes)</span>
+            <div className="settings-theme-toggle-row">
+              <button
+                aria-pressed={settings.protagonistGender === 'male'}
+                className={`settings-theme-toggle-btn${settings.protagonistGender === 'male' ? ' is-active' : ''}`}
+                type="button"
+                onClick={() => updateSettings({ protagonistGender: 'male' })}
+              >
+                Homme (H)
+              </button>
+              <button
+                aria-pressed={settings.protagonistGender === 'female'}
+                className={`settings-theme-toggle-btn${settings.protagonistGender === 'female' ? ' is-active' : ''}`}
+                type="button"
+                onClick={() => updateSettings({ protagonistGender: 'female' })}
+              >
+                Femme (F)
+              </button>
+            </div>
+            <small>Corpus aff. 4–5 en production. En dev, le sélecteur d&apos;échange permet H et F.</small>
+          </div>
         </article>
 
         <article className="settings-card">

@@ -6,7 +6,8 @@ export const COMPANION_DIALOGUE_PROFILES: Record<string, CompanionDialogueProfil
     id: 'lyra',
     name: 'Lyra',
     place: 'la bibliothèque',
-    personalityHint: 'Lyra est réservée et intellectuelle — écoute, patience, pas de flirts lourds.',
+    personalityHint:
+      'Lyra est réservée et intellectuelle — écoute, patience, pas de flirts lourds (aff. 1–2).',
     toneWeights: { sincere: 10, playful: 2, direct: 4, romantic: 4 },
   },
   maeve: {

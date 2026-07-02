@@ -17,6 +17,7 @@ import {
 } from '../../data/buildingActivities'
 
 import { listCompanionNamesForSystem } from '../../data/companionSupport'
+import { CURATED_PARLER_ONLY, CURATED_PARLER_COMPANION_ID } from '../../data/companionDialogues'
 
 import { DEV_UNLOCK_ALL_MINIGAMES } from '../../data/gacha'
 
@@ -175,11 +176,12 @@ export function MinigameHub({
 
 
   const conversationActivities = useMemo(
-
-    () => sortedActivities.filter((activity) => activity.minigameType === 'conversation'),
-
+    () => {
+      const items = sortedActivities.filter((activity) => activity.minigameType === 'conversation')
+      if (!CURATED_PARLER_ONLY) return items
+      return items.filter((activity) => activity.companionId === CURATED_PARLER_COMPANION_ID)
+    },
     [sortedActivities],
-
   )
 
 

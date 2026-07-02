@@ -1,15 +1,47 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import {
-  pickConversation,
+  pickConversationAsync,
   scoreFromChoices,
+  hasParlerDialoguesAtAffinity,
+  defaultParlerDialogueAffinity,
+  listCuratedDevExchangeOptions,
+  listCuratedDevPackOptions,
+  parseDevCuratedSelection,
+  serializeDevCuratedSelection,
+  devCuratedSelectionToPickOptions,
+  devPackSelectionFromQueryParam,
+  type CompanionConversation,
+  type CuratedDevExchangeOption,
+  type CuratedDevPackOption,
   type DialogueChoice,
 } from '../../data/companionDialogues'
-import { scaleReward, type Cost } from '../../data/buildingActivities'
-import { companionBackgroundPath } from '../../data/companionAssets'
+import { loadGameSettings } from '../../data/gameSettings'
+import { useGameSettings } from '../../hooks/useGameSettings'
+import {
+  formatCompanionPromptLine,
+  formatCompanionActionLine,
+  parseCompanionReactionSegments,
+  reactionPortraitEmotion,
+  splitContextForDisplay,
+  splitIntimateFinaleForDisplay,
+  resolveIntimateFinaleForScore,
+  resolvePackIntimateFinaleForScore,
+} from '../../data/conversations/conversationContext'
+import { scaleReward, type Cost, BUILDING_ACTIVITIES } from '../../data/buildingActivities'
+import type { CompanionEmotionId } from '../../data/companionAssets'
+import { companionBackgroundPath, lyraIntimateSessionPortraitEmotion } from '../../data/companionAssets'
+import {
+  CURATED_PARLER_COMPANION_ID,
+  CURATED_PARLER_ONLY,
+  COMPANION_DIALOGUE_PROFILES,
+} from '../../data/companionDialogues'
+import { BUILDING_UNLOCK_STAGE } from '../../data/population'
+import { MAX_DIALOGUE_CHOICE_SCORE, type DialogueChoiceScore } from '../../data/conversations/types'
 import { CompanionPortrait } from '../CompanionPortrait'
+import { ConversationPicker } from './ConversationPicker'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
 
-type Phase = 'intro' | 'round' | 'reaction' | 'result'
+type Phase = 'intro' | 'round' | 'reaction' | 'finale' | 'packFinale' | 'result'
 type FeedbackKind = 'success' | 'fail'
 type FeedbackTier = 1 | 2 | 3
 
@@ -26,6 +58,67 @@ type RoundRecap = {
   choiceText: string
   reaction: string
   success: boolean
+  intimateFinale?: string
+}
+
+function intimateFinaleForRound(
+  affinity: number,
+  nsfwContent: boolean,
+  score: number | undefined,
+  round?: { intimateFinale?: string; intimateFinaleLow?: string },
+): string | undefined {
+  return resolveIntimateFinaleForScore(affinity, nsfwContent, score, round)
+}
+
+function intimateFinaleEarned(
+  affinity: number,
+  nsfwContent: boolean,
+  score: number | undefined,
+  round?: { intimateFinale?: string; intimateFinaleLow?: string },
+): boolean {
+  return Boolean(intimateFinaleForRound(affinity, nsfwContent, score, round))
+}
+
+function packIntimateFinaleForSession(
+  affinity: number,
+  nsfwContent: boolean,
+  totalScore: number,
+  conversation: CompanionConversation,
+): string | undefined {
+  return resolvePackIntimateFinaleForScore(
+    affinity,
+    nsfwContent,
+    totalScore,
+    conversation.rounds.length,
+    conversation,
+  )
+}
+
+function packIntimateFinaleEarned(
+  affinity: number,
+  nsfwContent: boolean,
+  totalScore: number,
+  conversation: CompanionConversation,
+): boolean {
+  return Boolean(packIntimateFinaleForSession(affinity, nsfwContent, totalScore, conversation))
+}
+
+function IntimateFinaleBlock({ finale, kicker = 'Épilogue' }: { finale: string; kicker?: string }) {
+  return (
+    <div className="mg-conversation-intimate-finale">
+      <p className="mg-conversation-intimate-finale-kicker">{kicker}</p>
+      <div className="mg-conversation-intimate-finale-body">
+        {splitIntimateFinaleForDisplay(finale).map((segment, index) => (
+          <p
+            className="mg-dialogue-bubble mg-dialogue-bubble-narrator mg-dialogue-bubble-intimate-finale"
+            key={`finale-${index}`}
+          >
+            {segment}
+          </p>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 const REWARD_LABELS: Record<string, string> = {
@@ -66,23 +159,74 @@ const FAIL_TOAST: Record<FeedbackTier, string> = {
   3: 'Aïe…',
 }
 
-function trailingStreak(values: number[], target: 0 | 1): number {
+function CompanionReactionContent({
+  companionName,
+  reaction,
+}: {
+  companionName: string
+  reaction: string
+}) {
+  const segments = parseCompanionReactionSegments(reaction)
+  return (
+    <>
+      <span className="mg-companion-reaction-speaker">{companionName} : </span>
+      {segments.map((segment, index) =>
+        segment.kind === 'speech' ? (
+          <span key={`speech-${index}`}>{segment.text}</span>
+        ) : (
+          <em key={`didasc-${index}`} className="mg-companion-reaction-didascalie">
+            {segment.text}
+          </em>
+        ),
+      )}
+    </>
+  )
+}
+
+function trailingHighScoreStreak(values: number[], minScore: number): number {
   let streak = 0
   for (let index = values.length - 1; index >= 0; index -= 1) {
-    if (values[index] === target) streak += 1
+    if (values[index] >= minScore) streak += 1
     else break
   }
   return streak
 }
 
+function choiceIsStrong(score: DialogueChoiceScore) {
+  return score >= 2
+}
+
+function choiceBubbleClass(score: DialogueChoiceScore) {
+  return choiceIsStrong(score) ? 'success' : 'fail'
+}
+
 function feedbackTier(scores: number[], choice: DialogueChoice): FeedbackFx {
-  const isSuccess = choice.score === 1
-  const prior = trailingStreak(scores, isSuccess ? 1 : 0)
+  const strong = choiceIsStrong(choice.score)
+  const prior = trailingHighScoreStreak(scores, 2)
+  const scoreTier = Math.min(3, Math.max(1, choice.score)) as FeedbackTier
   return {
-    kind: isSuccess ? 'success' : 'fail',
-    tier: Math.min(3, prior + 1) as FeedbackTier,
+    kind: strong ? 'success' : 'fail',
+    tier: strong ? (Math.min(3, prior + 1) as FeedbackTier) : scoreTier,
     pulse: Date.now(),
   }
+}
+
+const PARLER_AFFINITY_LEVELS = [1, 2, 3, 4, 5] as const
+const PARLER_DEV_MODE = import.meta.env.DEV
+const PARLER_DEV_CURATED_STORAGE_KEY = 'parler-dev-curated-selection'
+/** @deprecated Migré vers PARLER_DEV_CURATED_STORAGE_KEY */
+const PARLER_DEV_EXCHANGE_STORAGE_KEY = 'parler-dev-exchange-id'
+
+function readDevCuratedSelectionFromStorage(): string {
+  if (typeof window === 'undefined') return ''
+  const current = window.sessionStorage.getItem(PARLER_DEV_CURATED_STORAGE_KEY)
+  if (current) return current
+  const legacy = window.sessionStorage.getItem(PARLER_DEV_EXCHANGE_STORAGE_KEY)
+  if (!legacy) return ''
+  const migrated = legacy.includes('-curated-') ? `e:${legacy}` : legacy
+  window.sessionStorage.setItem(PARLER_DEV_CURATED_STORAGE_KEY, migrated)
+  window.sessionStorage.removeItem(PARLER_DEV_EXCHANGE_STORAGE_KEY)
+  return migrated
 }
 
 export function ConversationGame({
@@ -92,16 +236,169 @@ export function ConversationGame({
   resourceLabel,
   onComplete,
   onClose,
+  onLaunchMinigame,
   companionAffinity = 2,
   conversationRewardMultiplier = 1,
+  villageStage = 0,
 }: MinigameProps) {
+  const { settings } = useGameSettings()
+  const parlerOptions = useMemo(
+    () => ({
+      protagonistGender: settings.protagonistGender,
+      nsfwContent: settings.nsfwContent,
+    }),
+    [settings.nsfwContent, settings.protagonistGender],
+  )
+  /** En dev, aff. 4–5 restent testables même si NSFW désactivé à la connexion. */
+  const effectiveParlerOptions = useMemo(
+    () =>
+      PARLER_DEV_MODE
+        ? { ...parlerOptions, nsfwContent: true as const }
+        : parlerOptions,
+    [parlerOptions],
+  )
+
+  const playerAffinityLevel = Math.min(5, Math.max(1, companionAffinity))
+  const [selectedDialogueAffinity, setSelectedDialogueAffinity] = useState(() =>
+    defaultParlerDialogueAffinity(activity.companionId, playerAffinityLevel, {
+      nsfwContent: loadGameSettings().nsfwContent,
+      protagonistGender: loadGameSettings().protagonistGender,
+    }),
+  )
+
   const [conversationSession, setConversationSession] = useState(0)
   const [lastConversationId, setLastConversationId] = useState<string | undefined>()
+  const curatedDevPackOptions = useMemo<CuratedDevPackOption[]>(
+    () =>
+      PARLER_DEV_MODE ? listCuratedDevPackOptions(selectedDialogueAffinity) : [],
+    [selectedDialogueAffinity],
+  )
+  const curatedDevExchangeOptions = useMemo<CuratedDevExchangeOption[]>(
+    () =>
+      PARLER_DEV_MODE
+        ? listCuratedDevExchangeOptions(selectedDialogueAffinity)
+        : [],
+    [selectedDialogueAffinity],
+  )
+  const [devCuratedSelectionRaw, setDevCuratedSelectionRaw] = useState(() =>
+    PARLER_DEV_MODE ? readDevCuratedSelectionFromStorage() : '',
+  )
+  const devCuratedSelection = useMemo(
+    () => parseDevCuratedSelection(devCuratedSelectionRaw),
+    [devCuratedSelectionRaw],
+  )
 
-  const conversation = useMemo(() => {
-    void conversationSession
-    return pickConversation(activity.companionId, companionAffinity, lastConversationId)
-  }, [activity.companionId, companionAffinity, lastConversationId, conversationSession])
+  useEffect(() => {
+    if (!PARLER_DEV_MODE) return
+    const urlPack = devPackSelectionFromQueryParam(
+      effectiveParlerOptions.protagonistGender ?? 'male',
+    )
+    if (!urlPack) return
+    const raw = serializeDevCuratedSelection(urlPack)
+    setDevCuratedSelectionRaw(raw)
+    window.sessionStorage.setItem(PARLER_DEV_CURATED_STORAGE_KEY, raw)
+    if (urlPack.mode === 'pack') {
+      setSelectedDialogueAffinity(urlPack.affinity)
+    }
+  }, [effectiveParlerOptions.protagonistGender])
+
+  useEffect(() => {
+    if (!PARLER_DEV_MODE) return
+    if (devCuratedSelection.mode === 'pack') {
+      setSelectedDialogueAffinity(devCuratedSelection.affinity)
+    }
+  }, [devCuratedSelectionRaw, devCuratedSelection])
+  const curatedPickOptions = useMemo(
+    () =>
+      PARLER_DEV_MODE
+        ? devCuratedSelectionToPickOptions(
+            devCuratedSelection,
+            effectiveParlerOptions.protagonistGender ?? 'male',
+          )
+        : effectiveParlerOptions,
+    [devCuratedSelection, effectiveParlerOptions],
+  )
+  const [conversation, setConversation] = useState<CompanionConversation | null>(null)
+  const [conversationLoading, setConversationLoading] = useState(true)
+  const [conversationError, setConversationError] = useState<string | null>(null)
+
+  const sessionMcGender = useMemo<'H' | 'F'>(() => {
+    if (conversation?.id.includes('female-mc')) return 'F'
+    return effectiveParlerOptions.protagonistGender === 'female' ? 'F' : 'H'
+  }, [conversation?.id, effectiveParlerOptions.protagonistGender])
+
+  useEffect(() => {
+    let cancelled = false
+    setConversationLoading(true)
+    setConversationError(null)
+
+    void pickConversationAsync(activity.companionId, selectedDialogueAffinity, lastConversationId, curatedPickOptions)
+      .then((next) => {
+        if (cancelled) return
+        if (
+          !next &&
+          PARLER_DEV_MODE &&
+          (('packId' in curatedPickOptions && curatedPickOptions.packId) ||
+            ('exchangeId' in curatedPickOptions && curatedPickOptions.exchangeId))
+        ) {
+          setDevCuratedSelectionRaw('')
+          if (typeof window !== 'undefined') {
+            window.sessionStorage.removeItem(PARLER_DEV_CURATED_STORAGE_KEY)
+          }
+          return
+        }
+        setConversation(next)
+        if (!next) {
+          setConversationError('Impossible de charger une conversation pour ce compagnon.')
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setConversationError('Chargement du corpus en cours — réessayez dans un instant.')
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setConversationLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [
+    activity.companionId,
+    selectedDialogueAffinity,
+    lastConversationId,
+    conversationSession,
+    devCuratedSelectionRaw,
+    curatedPickOptions,
+  ])
+
+  useEffect(() => {
+    if (
+      hasParlerDialoguesAtAffinity(
+        activity.companionId,
+        selectedDialogueAffinity,
+        effectiveParlerOptions,
+      )
+    ) {
+      return
+    }
+    const fallback = defaultParlerDialogueAffinity(
+      activity.companionId,
+      playerAffinityLevel,
+      effectiveParlerOptions,
+    )
+    if (fallback !== selectedDialogueAffinity) {
+      setSelectedDialogueAffinity(fallback)
+      setLastConversationId(undefined)
+      setConversationSession((value) => value + 1)
+    }
+  }, [
+    activity.companionId,
+    effectiveParlerOptions,
+    playerAffinityLevel,
+    selectedDialogueAffinity,
+  ])
 
   const [phase, setPhase] = useState<Phase>('intro')
   const [roundIndex, setRoundIndex] = useState(0)
@@ -111,15 +408,45 @@ export function ConversationGame({
   const [pickedChoice, setPickedChoice] = useState<DialogueChoice | null>(null)
   const [feedbackFx, setFeedbackFx] = useState<FeedbackFx | null>(null)
   const [pendingReward, setPendingReward] = useState<Cost | null>(null)
-  const affinityLevel = Math.min(5, Math.max(1, companionAffinity))
+  const dialogueEndRef = useRef<HTMLDivElement>(null)
+  const promptRef = useRef<HTMLParagraphElement>(null)
+  const rewardsClaimedRef = useRef(false)
+  const [companionPickerOpen, setCompanionPickerOpen] = useState(false)
+
+  const conversationActivities = useMemo(() => {
+    const items = BUILDING_ACTIVITIES.filter((entry) => entry.minigameType === 'conversation')
+    if (!CURATED_PARLER_ONLY) return items
+    return items.filter((entry) => entry.companionId === CURATED_PARLER_COMPANION_ID)
+  }, [])
+
+  const pickerCompanions = useMemo(
+    () =>
+      [...new Set(conversationActivities.map((entry) => entry.companionId))].map((companionId) => ({
+        id: companionId,
+        name: COMPANION_DIALOGUE_PROFILES[companionId]?.name ?? companionId,
+      })),
+    [conversationActivities],
+  )
   const affinityArtwork = activity.companionId
-    ? companionBackgroundPath(activity.companionId, affinityLevel)
+    ? companionBackgroundPath(activity.companionId, selectedDialogueAffinity)
     : undefined
 
   const displayReward = useMemo(() => {
     if (!pendingReward) return null
     return scaleRewardByMultiplier(pendingReward, conversationRewardMultiplier)
   }, [conversationRewardMultiplier, pendingReward])
+
+  useEffect(() => {
+    if (phase !== 'reaction' && phase !== 'finale') return
+    dialogueEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }, [phase, roundIndex, lastReaction])
+
+  useEffect(() => {
+    if (phase !== 'round') return
+    requestAnimationFrame(() => {
+      promptRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    })
+  }, [phase, roundIndex])
 
   const resetSession = () => {
     setPhase('intro')
@@ -130,9 +457,40 @@ export function ConversationGame({
     setLastReaction('')
     setFeedbackFx(null)
     setPendingReward(null)
+    rewardsClaimedRef.current = false
   }
 
-  if (!conversation) {
+  const pickDialogueAffinity = (level: number) => {
+    if (!hasParlerDialoguesAtAffinity(activity.companionId, level, effectiveParlerOptions)) return
+    if (level === selectedDialogueAffinity) return
+    setSelectedDialogueAffinity(level)
+    setDevCuratedSelectionRaw('')
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.removeItem(PARLER_DEV_CURATED_STORAGE_KEY)
+      window.sessionStorage.removeItem(PARLER_DEV_EXCHANGE_STORAGE_KEY)
+    }
+    setLastConversationId(undefined)
+    setConversationSession((value) => value + 1)
+    resetSession()
+  }
+
+  const pickDevCuratedSelection = (raw: string) => {
+    if (!PARLER_DEV_MODE || raw === devCuratedSelectionRaw) return
+    setDevCuratedSelectionRaw(raw)
+    if (typeof window !== 'undefined') {
+      if (raw) {
+        window.sessionStorage.setItem(PARLER_DEV_CURATED_STORAGE_KEY, raw)
+      } else {
+        window.sessionStorage.removeItem(PARLER_DEV_CURATED_STORAGE_KEY)
+      }
+      window.sessionStorage.removeItem(PARLER_DEV_EXCHANGE_STORAGE_KEY)
+    }
+    setLastConversationId(undefined)
+    setConversationSession((value) => value + 1)
+    resetSession()
+  }
+
+  if (conversationLoading) {
     return (
       <MinigameFrame
         activity={activity}
@@ -143,26 +501,157 @@ export function ConversationGame({
         onRestart={onClose}
         resourceLabel={resourceLabel}
         score={0}
+        status="playing"
+      >
+        <p className="mg-conversation-loading">Chargement des dialogues…</p>
+      </MinigameFrame>
+    )
+  }
+
+  if (!conversation) {
+    return (
+      <MinigameFrame
+        activity={activity}
+        buildingName={buildingName}
+        companionName={companionName}
+        maxScore={3}
+        onClose={onClose}
+        onRestart={() => setConversationSession((value) => value + 1)}
+        resourceLabel={resourceLabel}
+        score={0}
         status="lost"
       >
-        <p>Pas encore de dialogue pour ce compagnon.</p>
+        <p>{conversationError ?? 'Pas encore de dialogue pour ce compagnon.'}</p>
       </MinigameFrame>
     )
   }
 
   const currentRound = conversation.rounds[roundIndex]
+  const maxSessionScore = conversation.rounds.length * MAX_DIALOGUE_CHOICE_SCORE
+  const isSingleExchange = conversation.rounds.length === 1
+  const contextBubbles = splitContextForDisplay(currentRound?.context ?? [])
   const totalScore = scoreFromChoices(scores)
-  const inPlay = phase === 'round' || phase === 'reaction'
+  const earnedIntimateFinales = conversation.rounds
+    .map((round, index) => ({
+      roundIndex: index,
+      finale: intimateFinaleForRound(
+        selectedDialogueAffinity,
+        effectiveParlerOptions.nsfwContent,
+        scores[index],
+        round,
+      ),
+      score: scores[index],
+    }))
+    .filter((entry) => Boolean(entry.finale))
+  const earnedPackIntimateFinale = packIntimateFinaleForSession(
+    selectedDialogueAffinity,
+    effectiveParlerOptions.nsfwContent,
+    totalScore,
+    conversation,
+  )
+  const currentFinaleRound = phase === 'finale' ? conversation.rounds[roundIndex] : undefined
+  const currentFinale = currentFinaleRound
+    ? intimateFinaleForRound(
+        selectedDialogueAffinity,
+        effectiveParlerOptions.nsfwContent,
+        scores[roundIndex],
+        currentFinaleRound,
+      )
+    : undefined
+  const currentPackFinale =
+    phase === 'packFinale' ? earnedPackIntimateFinale : undefined
+  const inPlay =
+    phase === 'round' || phase === 'reaction' || phase === 'finale' || phase === 'packFinale'
   const linkPointsGained = totalScore
+
+  const intimatePackPortrait = lyraIntimateSessionPortraitEmotion(
+    activity.companionId,
+    conversation.id,
+    selectedDialogueAffinity,
+  )
+
+  const portraitEmotion: CompanionEmotionId | undefined =
+    phase === 'reaction' && pickedChoice
+      ? reactionPortraitEmotion(pickedChoice)
+      : phase === 'finale' && currentFinale
+        ? 'lustful'
+        : phase === 'packFinale' && currentPackFinale
+          ? 'lustful'
+          : intimatePackPortrait !== undefined
+          ? intimatePackPortrait
+          : phase === 'intro' || phase === 'round'
+            ? 'neutral'
+            : undefined
+  const pendingFinaleAfterReaction =
+    phase === 'reaction' &&
+    pickedChoice !== null &&
+    intimateFinaleEarned(
+      selectedDialogueAffinity,
+      effectiveParlerOptions.nsfwContent,
+      pickedChoice.score,
+      currentRound,
+    )
+  const reactionContinueLabel = pendingFinaleAfterReaction
+    ? 'Épilogue'
+    : roundIndex >= conversation.rounds.length - 1
+      ? packIntimateFinaleEarned(
+          selectedDialogueAffinity,
+          effectiveParlerOptions.nsfwContent,
+          scoreFromChoices([...scores, pickedChoice?.score ?? 0]),
+          conversation,
+        )
+        ? 'Fin de l\'acte'
+        : 'Voir le résultat'
+      : 'Suite'
+  const finaleContinueLabel =
+    roundIndex >= conversation.rounds.length - 1 &&
+    packIntimateFinaleEarned(
+      selectedDialogueAffinity,
+      effectiveParlerOptions.nsfwContent,
+      scoreFromChoices(scores),
+      conversation,
+    )
+      ? 'Fin de l\'acte'
+      : roundIndex >= conversation.rounds.length - 1
+        ? 'Voir le résultat'
+        : 'Suite'
 
   const computeReward = (finalScores: number[]) => {
     const final = scoreFromChoices(finalScores)
-    return final === 0 ? { renown: 3 } : scaleReward(activity.baseReward, final, 3)
+    return final === 0 ? { renown: 3 } : scaleReward(activity.baseReward, final, maxSessionScore)
   }
 
-  const confirmResult = () => {
-    if (!pendingReward) return
-    onComplete(totalScore, 3, pendingReward, { keepOpen: false })
+  const claimRewardsOnce = (keepOpen: boolean) => {
+    if (!pendingReward || rewardsClaimedRef.current) return
+    rewardsClaimedRef.current = true
+    onComplete(totalScore, maxSessionScore, pendingReward, { keepOpen })
+  }
+
+  const quitMinigame = () => {
+    claimRewardsOnce(false)
+  }
+
+  const relaunchDiscussion = () => {
+    claimRewardsOnce(true)
+    if (conversation) setLastConversationId(conversation.id)
+    setConversationSession((value) => value + 1)
+    resetSession()
+  }
+
+  const openCompanionPicker = () => {
+    claimRewardsOnce(true)
+    setCompanionPickerOpen(true)
+  }
+
+  const handleCompanionPick = (activityId: string) => {
+    setCompanionPickerOpen(false)
+    if (activityId === activity.id) {
+      if (conversation) setLastConversationId(conversation.id)
+      setConversationSession((value) => value + 1)
+      resetSession()
+      return
+    }
+    onLaunchMinigame?.(activityId)
   }
 
   const pickAnswer = (choice: DialogueChoice) => {
@@ -172,8 +661,40 @@ export function ConversationGame({
     setPhase('reaction')
   }
 
+  const advanceAfterRound = (nextScores: number[]) => {
+    const sessionTotal = scoreFromChoices(nextScores)
+    if (roundIndex >= conversation.rounds.length - 1) {
+      if (
+        packIntimateFinaleEarned(
+          selectedDialogueAffinity,
+          effectiveParlerOptions.nsfwContent,
+          sessionTotal,
+          conversation,
+        )
+      ) {
+        setPhase('packFinale')
+        return
+      }
+      setPendingReward(computeReward(nextScores))
+      setPhase('result')
+      return
+    }
+
+    setRoundIndex((value) => value + 1)
+    setPhase('round')
+  }
+
   const nextAfterReaction = () => {
+    const roundScore = pickedChoice?.score ?? 0
+
     if (pickedChoice && currentRound) {
+      const earnedFinale = intimateFinaleForRound(
+        selectedDialogueAffinity,
+        effectiveParlerOptions.nsfwContent,
+        roundScore,
+        currentRound,
+      )
+
       setRoundRecaps((previous) => [
         ...previous,
         {
@@ -182,24 +703,52 @@ export function ConversationGame({
           prompt: currentRound.prompt,
           choiceText: pickedChoice.text,
           reaction: lastReaction,
-          success: pickedChoice.score === 1,
+          success: pickedChoice.score >= 2,
+          intimateFinale: earnedFinale,
         },
       ])
     }
 
     setFeedbackFx(null)
-    const nextScores = [...scores, pickedChoice?.score ?? 0]
+    const nextScores = [...scores, roundScore]
     setScores(nextScores)
     setPickedChoice(null)
 
-    if (roundIndex >= conversation.rounds.length - 1) {
-      setPendingReward(computeReward(nextScores))
-      setPhase('result')
+    if (
+      intimateFinaleEarned(
+        selectedDialogueAffinity,
+        effectiveParlerOptions.nsfwContent,
+        roundScore,
+        currentRound,
+      )
+    ) {
+      setPhase('finale')
       return
     }
 
-    setRoundIndex((value) => value + 1)
-    setPhase('round')
+    advanceAfterRound(nextScores)
+  }
+
+  const continueAfterFinale = () => {
+    const sessionTotal = scoreFromChoices(scores)
+    if (
+      roundIndex >= conversation.rounds.length - 1 &&
+      packIntimateFinaleEarned(
+        selectedDialogueAffinity,
+        effectiveParlerOptions.nsfwContent,
+        sessionTotal,
+        conversation,
+      )
+    ) {
+      setPhase('packFinale')
+      return
+    }
+    advanceAfterRound(scores)
+  }
+
+  const continueAfterPackFinale = () => {
+    setPendingReward(computeReward(scores))
+    setPhase('result')
   }
 
   const showFeedback = phase === 'reaction' && feedbackFx !== null
@@ -221,7 +770,7 @@ export function ConversationGame({
       stageBackgroundSrc={affinityArtwork}
       stageBackgroundVariant="companion-art"
       endless
-      maxScore={3}
+      maxScore={maxSessionScore}
       onClose={onClose}
       onRestart={() => {
         if (conversation) setLastConversationId(conversation.id)
@@ -230,7 +779,7 @@ export function ConversationGame({
       }}
       resourceLabel={resourceLabel}
       score={totalScore}
-      scoreLabel="Réponses justes"
+      scoreLabel="Points"
       status="playing"
     >
       <div className="mg-conversation">
@@ -268,9 +817,23 @@ export function ConversationGame({
             <CompanionPortrait
               alt=""
               companionId={activity.companionId}
-              level={affinityLevel}
+              cutoutOnly
+              emotion={portraitEmotion}
+              fitContain
+              key={`parler-${activity.companionId}-${portraitEmotion ?? 'tier'}-${roundIndex}`}
+              level={selectedDialogueAffinity}
             />
           </div>
+          {phase === 'reaction' && pickedChoice && lastReaction ? (
+            <div
+              className={`mg-conversation-reaction-speech mg-conversation-reaction-speech--${choiceBubbleClass(pickedChoice.score)}`}
+              role="status"
+            >
+              <p className="mg-conversation-reaction-speech-text">
+                <CompanionReactionContent companionName={companionName} reaction={lastReaction} />
+              </p>
+            </div>
+          ) : null}
         </div>
 
         <div className="mg-conversation-dock">
@@ -280,14 +843,19 @@ export function ConversationGame({
               <h3>{companionName}</h3>
             </div>
             <div className="mg-conversation-head-meta">
-              <small className="mg-conversation-affinity-tag">Affinité {affinityLevel}/5</small>
+              <small className="mg-conversation-session-tag">
+                {conversation.title} · MC {sessionMcGender}
+              </small>
+              <small className="mg-conversation-affinity-tag">
+                Discussion · aff. {selectedDialogueAffinity}/5
+              </small>
               {inPlay && (
                 <small className="mg-conversation-progress">
-                  Échange {roundIndex + 1}/{conversation.rounds.length} · {totalScore}/3
+                  Échange {roundIndex + 1}/{conversation.rounds.length} · {totalScore}/{maxSessionScore}
                 </small>
               )}
               {phase === 'result' && (
-                <small className="mg-conversation-progress">Résultat · {totalScore}/3</small>
+                <small className="mg-conversation-progress">Résultat · {totalScore}/{maxSessionScore}</small>
               )}
             </div>
             {!inPlay && phase !== 'result' && (
@@ -299,10 +867,112 @@ export function ConversationGame({
             <div className="mg-conversation-panel">
               <p>
                 <strong>Mini-jeu Parler</strong> — distinct des conversations de lien gratuites
-                (onglet Liens). Trois échanges à choix : adapte ton ton à {companionName} ; 3 bonnes
-                réponses = maximum.
+                (onglet Liens).
+                {isSingleExchange ? (
+                  <>
+                    {' '}
+                    Un échange à choix : adapte ton ton à {companionName} ; une bonne réponse vaut
+                    le maximum.
+                  </>
+                ) : (
+                  <>
+                    {' '}
+                    Trois échanges enchaînés (un fil narratif tiré au hasard) : adapte ton ton à{' '}
+                    {companionName} ; 3 bonnes réponses = maximum.
+                  </>
+                )}
               </p>
-              <button className="primary mg-big-btn" type="button" onClick={() => setPhase('round')}>
+              <fieldset className="mg-conversation-affinity-picker">
+                <legend>Niveau d&apos;affinité de la discussion</legend>
+                <div className="mg-conversation-affinity-options" role="group" aria-label="Palier d'affinité">
+                  {PARLER_AFFINITY_LEVELS.map((level) => {
+                    const available = hasParlerDialoguesAtAffinity(
+                      activity.companionId,
+                      level,
+                      effectiveParlerOptions,
+                    )
+                    const active = selectedDialogueAffinity === level
+                    return (
+                      <button
+                        key={level}
+                        type="button"
+                        className={`secondary mg-conversation-affinity-option${active ? ' active' : ''}`}
+                        disabled={!available || conversationLoading}
+                        aria-pressed={active}
+                        onClick={() => pickDialogueAffinity(level)}
+                      >
+                        <span className="mg-conversation-affinity-option-level">{level}</span>
+                        {!available ? (
+                          <span className="mg-conversation-affinity-option-hint">Bientôt</span>
+                        ) : null}
+                      </button>
+                    )
+                  })}
+                </div>
+                {playerAffinityLevel !== selectedDialogueAffinity ? (
+                  <p className="mg-conversation-affinity-note">
+                    Ton affinité en jeu : {playerAffinityLevel}/5 — tu testes un autre palier de dialogue.
+                  </p>
+                ) : null}
+              </fieldset>
+              {PARLER_DEV_MODE &&
+              (curatedDevExchangeOptions.length > 0 || curatedDevPackOptions.length > 0) ? (
+                <fieldset className="mg-conversation-affinity-picker mg-conversation-dev-pack-picker">
+                  <legend>Corpus curé (dev)</legend>
+                  <label className="mg-conversation-dev-pack-label">
+                    <select
+                      aria-label="Choisir un pack ou un échange curé à tester"
+                      className="mg-conversation-dev-pack-select"
+                      value={devCuratedSelectionRaw}
+                      onChange={(event) => pickDevCuratedSelection(event.target.value)}
+                    >
+                      <option value="">Pack aléatoire (prod)</option>
+                      {curatedDevPackOptions.length > 0 ? (
+                        <optgroup label="Session — 3 échanges (fil pack)">
+                          {curatedDevPackOptions.map((pack) => (
+                            <option
+                              key={`${pack.affinity}-${pack.protagonistGender}-${pack.packId}`}
+                              value={serializeDevCuratedSelection({
+                                mode: 'pack',
+                                packId: pack.packId,
+                                affinity: pack.affinity,
+                                protagonistGender: pack.protagonistGender,
+                              })}
+                            >
+                              {pack.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                      ) : null}
+                      {curatedDevExchangeOptions.length > 0 ? (
+                        <optgroup label="Échange unique — 1 round">
+                          {curatedDevExchangeOptions.map((exchange) => (
+                            <option
+                              key={exchange.exchangeId}
+                              value={serializeDevCuratedSelection({
+                                mode: 'exchange',
+                                exchangeId: exchange.exchangeId,
+                              })}
+                            >
+                              {exchange.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                      ) : null}
+                    </select>
+                  </label>
+                  <p className="mg-conversation-dev-pack-note">
+                    Aff. 4–5 : variantes H et F. Session = 3 rounds comme en prod ; échange unique = 1
+                    round pour debug ciblé. Sans sélection, tirage pack aléatoire.
+                  </p>
+                </fieldset>
+              ) : null}
+              <button
+                className="primary mg-big-btn"
+                type="button"
+                disabled={conversationLoading || !conversation}
+                onClick={() => setPhase('round')}
+              >
                 Commencer la conversation
               </button>
             </div>
@@ -310,34 +980,46 @@ export function ConversationGame({
 
           {(phase === 'round' || phase === 'reaction') && currentRound && (
             <div className="mg-conversation-panel">
-              <div className="mg-conversation-dialogue-block">
+              <div
+                className={`mg-conversation-dialogue-block${phase === 'reaction' ? ' mg-conversation-dialogue-block--scroll' : ''}`}
+              >
                 <div className="mg-dialogue-thread">
-                  {currentRound.context.length > 0 && (
-                    <p className="mg-dialogue-bubble mg-dialogue-bubble-narrator">
-                      {currentRound.context.join(' ')}
+                  {contextBubbles.map((bubble, lineIndex) => (
+                    <p
+                      className={`mg-dialogue-bubble ${
+                        bubble.variant === 'companion'
+                          ? 'mg-dialogue-bubble-companion'
+                          : 'mg-dialogue-bubble-narrator'
+                      }`}
+                      key={`ctx-${roundIndex}-${lineIndex}`}
+                    >
+                      {bubble.text}
                     </p>
-                  )}
-                  <p className="mg-dialogue-bubble mg-dialogue-bubble-companion">{currentRound.prompt}</p>
+                  ))}
+                  {currentRound.companionAction ? (
+                    <p className="mg-dialogue-bubble mg-dialogue-bubble-narrator mg-dialogue-bubble-companion-action">
+                      {formatCompanionActionLine(currentRound.companionAction)}
+                    </p>
+                  ) : null}
+                  <p
+                    className="mg-dialogue-bubble mg-dialogue-bubble-companion mg-dialogue-bubble-companion-prompt"
+                    ref={promptRef}
+                  >
+                    {formatCompanionPromptLine(companionName, currentRound.prompt)}
+                  </p>
                   {phase === 'reaction' && pickedChoice && (
                     <>
                       <p
-                        className={`mg-dialogue-bubble mg-dialogue-bubble-player${
-                          pickedChoice.score === 1
-                            ? ' mg-dialogue-bubble-player--success'
-                            : ' mg-dialogue-bubble-player--fail'
-                        }`}
+                        className={`mg-dialogue-bubble mg-dialogue-bubble-player mg-dialogue-bubble-player--${choiceBubbleClass(pickedChoice.score)}`}
                       >
                         {pickedChoice.text}
                       </p>
                       <p
-                        className={`mg-dialogue-bubble mg-dialogue-bubble-companion mg-dialogue-bubble-reaction${
-                          pickedChoice.score === 1
-                            ? ' mg-dialogue-bubble-reaction--success'
-                            : ' mg-dialogue-bubble-reaction--fail'
-                        }`}
+                        className={`mg-dialogue-bubble mg-dialogue-bubble-companion mg-dialogue-bubble-reaction mg-dialogue-bubble-reaction--${choiceBubbleClass(pickedChoice.score)} mg-dialogue-bubble-reaction--emphasis`}
                       >
-                        {lastReaction}
+                        <CompanionReactionContent companionName={companionName} reaction={lastReaction} />
                       </p>
+                      <div aria-hidden ref={dialogueEndRef} />
                     </>
                   )}
                 </div>
@@ -353,14 +1035,20 @@ export function ConversationGame({
                         type="button"
                         onClick={() => pickAnswer(choice)}
                       >
-                        {choice.text}
+                        {PARLER_DEV_MODE ? (
+                          <span className="mg-conversation-choice-score">+{choice.score}</span>
+                        ) : null}
+                        <span className="mg-conversation-choice-text">{choice.text}</span>
                       </button>
                     ))}
                   </div>
                 ) : (
                   <div className="mg-conversation-reaction">
+                    <p className="mg-conversation-reaction-hint">
+                      Lis la réponse de {companionName} (bulle sur le portrait), puis continue.
+                    </p>
                     <button className="primary" type="button" onClick={nextAfterReaction}>
-                      {roundIndex >= conversation.rounds.length - 1 ? 'Voir le résultat' : 'Suite'}
+                      {reactionContinueLabel}
                     </button>
                   </div>
                 )}
@@ -368,11 +1056,53 @@ export function ConversationGame({
             </div>
           )}
 
+          {phase === 'finale' && currentFinale ? (
+            <div className="mg-conversation-panel">
+              <IntimateFinaleBlock
+                finale={currentFinale}
+                kicker={
+                  conversation.rounds.length > 1
+                    ? `Épilogue — échange ${roundIndex + 1}`
+                    : 'Épilogue'
+                }
+              />
+              <div className="mg-conversation-actions-block">
+                <div className="mg-conversation-reaction">
+                  <p className="mg-conversation-reaction-hint">
+                    Scène finale de l&apos;échange — lis l&apos;épilogue, puis continue.
+                  </p>
+                  <button className="primary" type="button" onClick={continueAfterFinale}>
+                    {finaleContinueLabel}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {phase === 'packFinale' && currentPackFinale ? (
+            <div className="mg-conversation-panel">
+              <IntimateFinaleBlock
+                finale={currentPackFinale}
+                kicker={`Épilogue — ${conversation.title}`}
+              />
+              <div className="mg-conversation-actions-block">
+                <div className="mg-conversation-reaction">
+                  <p className="mg-conversation-reaction-hint">
+                    Clôture de l&apos;acte — lis l&apos;épilogue, puis continue.
+                  </p>
+                  <button className="primary" type="button" onClick={continueAfterPackFinale}>
+                    Voir le résultat
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
           {phase === 'result' && (
             <div className="mg-conversation-panel mg-conversation-result">
               <div className="mg-conversation-result-summary">
                 <p className="mg-conversation-result-score">
-                  <strong>{totalScore}/3</strong> bonnes réponses
+                  <strong>{totalScore}/{maxSessionScore}</strong> points
                 </p>
                 <p className="mg-conversation-result-affinity">
                   {linkPointsGained > 0 ? (
@@ -380,7 +1110,7 @@ export function ConversationGame({
                       <span className="mg-conversation-result-affinity-value">+{linkPointsGained}</span>
                       {' '}
                       point{linkPointsGained > 1 ? 's' : ''} de lien
-                      {affinityLevel >= 5 ? ' — affinité déjà au maximum' : ''}
+                      {playerAffinityLevel >= 5 ? ' — affinité déjà au maximum' : ''}
                     </>
                   ) : (
                     <>Aucun point de lien gagné cette fois.</>
@@ -392,6 +1122,29 @@ export function ConversationGame({
                   </p>
                 ) : null}
               </div>
+
+              {earnedIntimateFinales.length > 0 ? (
+                <div className="mg-conversation-intimate-finale-list">
+                  {earnedIntimateFinales.map((entry) => (
+                    <IntimateFinaleBlock
+                      finale={entry.finale!}
+                      key={`result-finale-${entry.roundIndex}`}
+                      kicker={
+                        conversation.rounds.length > 1
+                          ? `Épilogue — échange ${entry.roundIndex + 1}`
+                          : 'Épilogue'
+                      }
+                    />
+                  ))}
+                </div>
+              ) : null}
+
+              {earnedPackIntimateFinale ? (
+                <IntimateFinaleBlock
+                  finale={earnedPackIntimateFinale}
+                  kicker={`Épilogue — ${conversation.title}`}
+                />
+              ) : null}
 
               <div className="mg-conversation-recap-list">
                 <p className="mg-conversation-recap-title">Relire les échanges</p>
@@ -428,20 +1181,44 @@ export function ConversationGame({
                             : ' mg-dialogue-bubble-reaction--fail'
                         }`}
                       >
-                        {round.reaction}
+                        <CompanionReactionContent companionName={companionName} reaction={round.reaction} />
                       </p>
+                      {round.intimateFinale ? (
+                        <IntimateFinaleBlock
+                          finale={round.intimateFinale}
+                          kicker="Épilogue"
+                        />
+                      ) : null}
                     </div>
                   </details>
                 ))}
               </div>
 
-              <button className="primary mg-big-btn" type="button" onClick={confirmResult}>
-                Terminer
-              </button>
+              <div className="mg-conversation-result-actions">
+                <button className="primary mg-big-btn" type="button" onClick={relaunchDiscussion}>
+                  Relancer une discussion
+                </button>
+                <button className="secondary mg-big-btn" type="button" onClick={openCompanionPicker}>
+                  Choisir un autre compagnon
+                </button>
+                <button className="secondary mg-big-btn" type="button" onClick={quitMinigame}>
+                  Quitter le mini-jeu
+                </button>
+              </div>
             </div>
           )}
         </div>
       </div>
+      {companionPickerOpen ? (
+        <ConversationPicker
+          activities={conversationActivities}
+          companions={pickerCompanions}
+          unlockAtByBuilding={BUILDING_UNLOCK_STAGE}
+          villageStage={villageStage}
+          onClose={() => setCompanionPickerOpen(false)}
+          onPick={handleCompanionPick}
+        />
+      ) : null}
     </MinigameFrame>
   )
 }

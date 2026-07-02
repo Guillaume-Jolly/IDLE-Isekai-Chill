@@ -4,11 +4,15 @@ import {
   SCENARIOS_PER_COMPANION,
 } from './companionScenarios.generated'
 import {
-  getLinkCorpusV2Pack,
-  getLinkCorpusV2Scenario,
+  getLinkCorpusSessionLocalScenario,
+  getLinkCorpusSessionPackSize,
+  getLinkCorpusV2PackSize,
   hasLinkCorpusV2,
   LINK_CORPUS_V2_SCENARIO_COUNT,
+  prepareLinkCorpusSession,
 } from './linkCorpusV2'
+import { buildConversationRoundDisplay } from './conversationContext'
+import { pickCuratedConversation, usesCuratedCorpus, canUseParlerDialogues, dialogueAffinityForParler, isCuratedAffinity, CURATED_PARLER_ONLY, type CuratedParlerAffinity, type ParlerCorpusOptions } from './curatedCorpus'
 import type {
   CompanionConversation,
   CompanionScenarioSeed,
@@ -108,13 +112,22 @@ const buildRound = (
     script.roundToneHints[roundIndex],
   )
 
+  const metaPrompt = fillText(roundScript.prompt, name, place)
+  const { displayContext, prompt } = buildConversationRoundDisplay(
+    companionId,
+    roundScript.context,
+    roundIndex,
+    script.title,
+    metaPrompt,
+  )
+
   const choices = roundScript.choices.map((choice) =>
     mapChoice(choice, preferredTone, name, place),
   ) as [DialogueChoice, DialogueChoice, DialogueChoice, DialogueChoice]
 
   return {
-    context: roundScript.context.map((line) => fillText(line, name, place)),
-    prompt: fillText(roundScript.prompt, name, place),
+    context: displayContext,
+    prompt,
     choices,
   }
 }
@@ -129,7 +142,7 @@ const buildConversationFromScript = (
 
   const rounds = [0, 1, 2].map((roundIndex) =>
     buildRound(companionId, script, scenarioIndex, roundIndex),
-  ) as [DialogueRound, DialogueRound, DialogueRound]
+  )
 
   return {
     id: script.id,
@@ -196,18 +209,38 @@ const pickScenarioIndex = (
   return shuffle(candidates)[0]
 }
 
-function pickConversationV2(companionId: string, affinity: number, avoidId?: string) {
-  const pack = getLinkCorpusV2Pack(companionId)
-  if (pack.length === 0) return null
+function pickConversationV2(
+  companionId: string,
+  affinity: number,
+  avoidId?: string,
+) {
+  const packSize = getLinkCorpusSessionPackSize(companionId)
+  if (packSize === 0) return null
 
-  const getScenario = (index: number) => getLinkCorpusV2Scenario(companionId, index)
-  const picked = pickScenarioIndex(affinity, avoidId, getScenario, pack.length)
+  const getScenario = (localIndex: number) =>
+    getLinkCorpusSessionLocalScenario(companionId, localIndex)
+
+  const picked = pickScenarioIndex(affinity, avoidId, getScenario, packSize)
   if (picked === undefined) return null
 
   const script = getScenario(picked)
   if (!script) return null
 
   return buildConversationFromScript(companionId, script, picked)
+}
+
+async function pickConversationV2Async(
+  companionId: string,
+  affinity: number,
+  avoidId?: string,
+  advanceBatch = false,
+) {
+  await prepareLinkCorpusSession(companionId, { advanceBatch })
+  let conversation = pickConversationV2(companionId, affinity, avoidId)
+  if (conversation) return conversation
+
+  await prepareLinkCorpusSession(companionId, { advanceBatch: true })
+  return pickConversationV2(companionId, affinity, avoidId)
 }
 
 function pickConversationLegacy(companionId: string, affinity: number, avoidId?: string) {
@@ -223,17 +256,81 @@ function pickConversationLegacy(companionId: string, affinity: number, avoidId?:
   return buildConversation(companionId, picked)
 }
 
-export function pickConversation(companionId: string, affinity: number, avoidId?: string) {
-  if (!COMPANION_DIALOGUE_PROFILES[companionId]) {
+export type PickConversationOptions = ParlerCorpusOptions & {
+  packId?: string
+  exchangeId?: string
+  curatedAffinity?: CuratedParlerAffinity
+}
+
+function resolvePickAffinity(
+  companionId: string,
+  affinity: number,
+  options?: PickConversationOptions,
+): number {
+  if (options?.curatedAffinity !== undefined && isCuratedAffinity(options.curatedAffinity)) {
+    return options.curatedAffinity
+  }
+  return dialogueAffinityForParler(companionId, affinity)
+}
+
+export function pickConversation(
+  companionId: string,
+  affinity: number,
+  avoidId?: string,
+  options?: PickConversationOptions,
+) {
+  if (!COMPANION_DIALOGUE_PROFILES[companionId] || !canUseParlerDialogues(companionId)) {
+    return null
+  }
+
+  const effectiveAffinity = resolvePickAffinity(companionId, affinity, options)
+
+  if (usesCuratedCorpus(companionId, effectiveAffinity, options)) {
+    return pickCuratedConversation(companionId, effectiveAffinity, avoidId, options)
+  }
+
+  if (CURATED_PARLER_ONLY) {
     return null
   }
 
   if (hasLinkCorpusV2) {
-    const v2 = pickConversationV2(companionId, affinity, avoidId)
+    return pickConversationV2(companionId, effectiveAffinity, avoidId)
+  }
+
+  return pickConversationLegacy(companionId, effectiveAffinity, avoidId)
+}
+
+export async function pickConversationAsync(
+  companionId: string,
+  affinity: number,
+  avoidId?: string,
+  options?: PickConversationOptions & { advanceBatch?: boolean },
+) {
+  if (!COMPANION_DIALOGUE_PROFILES[companionId] || !canUseParlerDialogues(companionId)) {
+    return null
+  }
+
+  const effectiveAffinity = resolvePickAffinity(companionId, affinity, options)
+
+  if (usesCuratedCorpus(companionId, effectiveAffinity, options)) {
+    return pickCuratedConversation(companionId, effectiveAffinity, avoidId, options)
+  }
+
+  if (CURATED_PARLER_ONLY) {
+    return null
+  }
+
+  if (hasLinkCorpusV2) {
+    const v2 = await pickConversationV2Async(
+      companionId,
+      effectiveAffinity,
+      avoidId,
+      options?.advanceBatch ?? false,
+    )
     if (v2) return v2
   }
 
-  return pickConversationLegacy(companionId, affinity, avoidId)
+  return pickConversationLegacy(companionId, effectiveAffinity, avoidId)
 }
 
 export function scoreFromChoices(scores: number[]) {
@@ -243,7 +340,7 @@ export function scoreFromChoices(scores: number[]) {
 export const CONVERSATIONS_PER_COMPANION = hasLinkCorpusV2
   ? Math.max(
       SCENARIOS_PER_COMPANION,
-      ...ALL_COMPANION_IDS.map((id) => getLinkCorpusV2Pack(id).length),
+      ...ALL_COMPANION_IDS.map((id) => getLinkCorpusV2PackSize(id)),
     )
   : SCENARIOS_PER_COMPANION
 

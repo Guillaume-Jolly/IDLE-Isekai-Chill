@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { SPLASH_SLIDES, LOGIN_BACKGROUND } from '../data/splashSlides'
 import {
+  loadGameSettings,
+  saveGameSettings,
+  type ProtagonistGender,
+} from '../data/gameSettings'
+import {
   getDevLoginDefaults,
   isDevSessionLogin,
   isPreloadDone,
@@ -15,7 +20,7 @@ import { useAppBuildVersion } from '../hooks/useAppBuildVersion'
 import { SessionGateProvider } from '../hooks/useSessionGate'
 import './GameSessionGate.css'
 
-const MIN_LOADING_MS = 4500
+const MIN_LOADING_MS_FIRST = 600
 const SLIDE_INTERVAL_MS = 3200
 
 type GatePhase = 'login' | 'loading' | 'ready'
@@ -39,6 +44,10 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
   const [phase, setPhase] = useState<GatePhase>(resolveInitialPhase)
   const [username, setUsername] = useState(() => devLoginDefaults().username)
   const [password, setPassword] = useState(() => devLoginDefaults().password)
+  const [nsfwContent, setNsfwContent] = useState(() => loadGameSettings().nsfwContent)
+  const [protagonistGender, setProtagonistGender] = useState<ProtagonistGender>(
+    () => loadGameSettings().protagonistGender,
+  )
   const [loginError, setLoginError] = useState('')
   const [slideIndex, setSlideIndex] = useState(0)
   const [progress, setProgress] = useState<WarmupProgress>({
@@ -56,10 +65,19 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
         return
       }
       setLoginError('')
+      saveGameSettings({
+        ...loadGameSettings(),
+        nsfwContent,
+        protagonistGender,
+      })
       setSessionAuthenticated(username)
+      if (isPreloadDone()) {
+        setPhase('ready')
+        return
+      }
       setPhase('loading')
     },
-    [password, username],
+    [nsfwContent, password, protagonistGender, username],
   )
 
   const handleLogout = useCallback((resetPreload = false) => {
@@ -67,6 +85,8 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
     const defaults = devLoginDefaults()
     setUsername(defaults.username)
     setPassword(defaults.password)
+    setNsfwContent(loadGameSettings().nsfwContent)
+    setProtagonistGender(loadGameSettings().protagonistGender)
     setLoginError('')
     setPhase('login')
   }, [])
@@ -87,7 +107,8 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
       })
 
       const elapsed = performance.now() - startedAt
-      const waitMs = Math.max(0, MIN_LOADING_MS - elapsed)
+      const minWait = isPreloadDone() ? 0 : MIN_LOADING_MS_FIRST
+      const waitMs = Math.max(0, minWait - elapsed)
       if (waitMs > 0) {
         await new Promise((resolve) => window.setTimeout(resolve, waitMs))
       }
@@ -149,6 +170,49 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </label>
+            <fieldset className="session-login-preferences">
+              <legend>Préférences de jeu</legend>
+              <label className="session-login-checkbox">
+                <input
+                  checked={nsfwContent}
+                  type="checkbox"
+                  onChange={(event) => setNsfwContent(event.target.checked)}
+                />
+                <span>
+                  Contenu NSFW
+                  <small>Dialogues intimes Parler (aff. 4–5) et scènes intégrées.</small>
+                </span>
+              </label>
+              <div
+                className="session-login-gender"
+                role="radiogroup"
+                aria-label="Genre du protagoniste"
+              >
+                <span className="session-login-gender-label">Protagoniste</span>
+                <div className="session-login-gender-options">
+                  <label className="session-login-gender-option">
+                    <input
+                      checked={protagonistGender === 'male'}
+                      name="protagonistGender"
+                      type="radio"
+                      value="male"
+                      onChange={() => setProtagonistGender('male')}
+                    />
+                    <span>Homme (H)</span>
+                  </label>
+                  <label className="session-login-gender-option">
+                    <input
+                      checked={protagonistGender === 'female'}
+                      name="protagonistGender"
+                      type="radio"
+                      value="female"
+                      onChange={() => setProtagonistGender('female')}
+                    />
+                    <span>Femme (F)</span>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
             {loginError ? <p className="session-login-error">{loginError}</p> : null}
             <button type="submit" className="session-login-btn">
               Entrer au Havre

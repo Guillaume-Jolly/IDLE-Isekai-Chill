@@ -2118,6 +2118,7 @@ function App() {
             }
             onSaveMinigame={saveMinigameProgress}
             onLaunchMinigame={tryLaunchMinigame}
+            villageStage={game.village.stage}
           />
         )
       })()}

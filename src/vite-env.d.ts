@@ -1,14 +1,11 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
+/** Augmentation Vite — vars lues via import.meta.env */
+export interface ImportMetaEnv {
   readonly VITE_STABLE_PRESET?: string
   /** Prod uniquement — injectés au build (CI / hébergement privé). */
   readonly VITE_HAVRE_LOGIN_USER?: string
   readonly VITE_HAVRE_LOGIN_PASSWORD?: string
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
 }
 
 import type { AppBuildInfo } from './buildInfo.types'

@@ -4316,8 +4316,8 @@
   display: block;
   height: 100%;
   inset: 0;
-  object-fit: cover;
-  object-position: center 18%;
+  object-fit: contain;
+  object-position: center bottom;
   position: absolute;
   width: 100%;
 }
@@ -4433,10 +4433,142 @@
   margin: 0;
 }
 
+.mg-conversation-affinity-picker {
+  border: 1px solid rgba(255, 180, 220, 0.22);
+  border-radius: 12px;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 12px 10px;
+}
+
+.mg-conversation-affinity-picker legend {
+  color: rgba(255, 200, 230, 0.95);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0 4px;
+  text-transform: uppercase;
+}
+
+.mg-conversation-affinity-options {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.mg-conversation-affinity-option {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+  min-height: 44px;
+  padding: 6px 4px;
+}
+
+.mg-conversation-affinity-option.active {
+  border-color: rgba(255, 160, 210, 0.85);
+  box-shadow: 0 0 0 1px rgba(255, 160, 210, 0.35);
+}
+
+.mg-conversation-affinity-option:disabled {
+  opacity: 0.45;
+}
+
+.mg-conversation-affinity-option-level {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.mg-conversation-affinity-option-hint {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+.mg-conversation-affinity-note {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.mg-conversation-dev-pack-picker {
+  margin-top: 4px;
+}
+
+.mg-conversation-dev-pack-label {
+  display: block;
+  width: 100%;
+}
+
+.mg-conversation-dev-pack-select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(180, 73, 255, 0.35);
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.95);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+.mg-conversation-dev-pack-note {
+  color: rgba(255, 200, 120, 0.85);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  margin: 6px 0 0;
+}
+
+.minigame-panel-conversation .mg-conversation-choice {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+  text-align: left;
+}
+
+.mg-conversation-choice-score {
+  background: rgba(180, 73, 255, 0.28);
+  border: 1px solid rgba(180, 73, 255, 0.45);
+  border-radius: 6px;
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 1.8rem;
+  padding: 4px 5px;
+  text-align: center;
+}
+
+.mg-conversation-choice-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .mg-conversation-affinity-tag {
   color: rgba(255, 220, 180, 0.95);
   display: inline-block;
   font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.mg-conversation-session-tag {
+  color: rgba(255, 196, 230, 0.95);
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 600;
+  max-width: min(42vw, 220px);
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .minigame-panel-conversation .mg-conversation-panel {
@@ -4454,7 +4586,10 @@
   max-width: 100%;
   min-height: 0;
   min-width: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 12px;
   width: 100%;
 }
@@ -4469,15 +4604,95 @@
 }
 
 .mg-conversation-dialogue-block {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   margin-bottom: 0;
+  max-height: min(42vh, 300px);
   min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mg-conversation-dialogue-block--scroll {
+  /* alias — scroll toujours actif sur le fil de dialogue */
+}
+
+.mg-conversation-reaction-speech {
+  animation: mg-conversation-reaction-speech-in 0.35s ease-out both;
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  bottom: max(14px, env(safe-area-inset-bottom, 0px));
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  left: 50%;
+  margin: 0;
+  max-width: min(92%, 440px);
+  padding: 12px 16px;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  width: max-content;
+  z-index: 3;
+}
+
+.mg-conversation-reaction-speech--success {
+  background: rgba(18, 48, 32, 0.92);
+  border: 1px solid rgba(140, 220, 160, 0.35);
+}
+
+.mg-conversation-reaction-speech--fail {
+  background: rgba(36, 14, 22, 0.94);
+  border: 1px solid rgba(255, 150, 160, 0.32);
+}
+
+.mg-conversation-reaction-speech-text {
+  color: rgba(255, 255, 255, 0.96);
+  font-family: var(--sans);
+  font-size: clamp(0.88rem, 2.4vw, 1rem);
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 0;
+  text-align: center;
+}
+
+.mg-conversation-reaction-hint {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 0;
+  text-align: center;
+}
+
+.mg-dialogue-bubble-reaction--emphasis {
+  font-size: 0.92rem;
+  font-weight: 650;
+}
+
+@keyframes mg-conversation-reaction-speech-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .mg-conversation-actions-block {
   clear: both;
+  flex: 0 0 auto;
   flex-shrink: 0;
   margin-top: auto;
+  max-height: min(46vh, 340px);
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .minigame-panel-conversation .mg-conversation-panel small {
@@ -4506,6 +4721,13 @@
   color: rgba(58, 42, 74, 0.78);
   font-size: 0.92rem;
   margin: 0;
+}
+
+.mg-conversation-dock > .mg-conversation-panel {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .mg-conversation-panel {
@@ -4633,12 +4855,58 @@
   border: none;
   border-left: 2px solid var(--surface-hover-strong);
   border-radius: 0 8px 8px 0;
-  color: var(--panel-bg-frosted);
+  color: var(--text-muted);
   font-size: 0.8rem;
-  font-style: normal;
+  font-style: italic;
   font-weight: 400;
   line-height: 1.48;
   padding: 8px 10px 8px 12px;
+}
+
+.mg-companion-reaction-didascalie {
+  color: var(--text-muted);
+  display: block;
+  font-size: 0.88em;
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 6px;
+}
+
+.mg-companion-reaction-speaker {
+  font-style: normal;
+  font-weight: 600;
+}
+
+.mg-conversation-intimate-finale-list {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 6px;
+}
+
+.mg-conversation-intimate-finale {
+  margin: 14px 0 6px;
+}
+
+.mg-conversation-intimate-finale-body {
+  display: grid;
+  gap: 8px;
+}
+
+.mg-conversation-intimate-finale-kicker {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.mg-dialogue-bubble-intimate-finale {
+  border-left-color: rgba(255, 120, 170, 0.55);
+  color: var(--text);
+  font-size: 0.84rem;
+  font-style: italic;
+  line-height: 1.5;
+  padding: 10px 12px 10px 14px;
 }
 
 .mg-dialogue-bubble-companion {
@@ -4650,6 +4918,10 @@
   font-weight: 600;
   line-height: 1.42;
   padding: 10px 12px;
+}
+
+.mg-dialogue-bubble-companion-prompt {
+  flex-shrink: 0;
 }
 
 .mg-dialogue-bubble-player {
@@ -5209,6 +5481,18 @@
   font-size: 0.78rem;
   line-height: 1.45;
   margin: 0;
+}
+
+.mg-conversation-result-actions {
+  display: grid;
+  flex-shrink: 0;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.mg-conversation-result-actions .mg-big-btn {
+  margin: 0;
+  width: 100%;
 }
 
 .mg-conversation-recap-list {
