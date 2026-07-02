@@ -1,0 +1,438 @@
+{
+  "version": 1,
+  "source": "scripts/references/link-corpus/curated/lyra-aff1-curated-12.json",
+  "exchanges": [
+    {
+      "id": "lyra-aff1-curated-01",
+      "bridge": "À la bibliothèque, tu la trouves au milieu d'une note dans le registre de mana.",
+      "companionLine": "Je suis occupée. Si c'est important, dis-le en une phrase. Sinon, laisse-moi finir cette page.",
+      "answerRule": "imperative",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Ce n'est pas urgent. Prends le temps de finir ta page.",
+          "score": 3,
+          "emotion": "pleased",
+          "reaction": "« Merci. Une minute, le temps de marquer ma page. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Le village manque de mana. On m'a dit de te voir.",
+          "score": 2,
+          "emotion": "focused",
+          "reaction": "« Alors on parlera de mana. Mais laisse-moi d'abord fermer cette entrée. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Je viens surtout voler deux minutes de calme à côté de toi.",
+          "score": 1,
+          "emotion": "dismissive",
+          "reaction": "« Pour le calme, la fenêtre suffit. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "J'avais envie de te voir travailler. C'est pour ça que je suis monté.",
+          "score": 0,
+          "emotion": "embarrassed",
+          "reaction": "« Ne complique pas une visite simple. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-02",
+      "bridge": "À la bibliothèque, Lyra a étalé trois cartes usées qui montrent le même symbole avec des traductions différentes.",
+      "companionLine": "Ce signe revient partout, et personne ne l'explique pareil. Tu l'as déjà croisé dehors, toi ?",
+      "answerRule": "yes-no",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Sur une pierre près de la lisière, oui. Je peux te montrer où, si tu veux.",
+          "score": 3,
+          "emotion": "curious",
+          "reaction": "« Montre-moi demain, avec la lumière du matin. Ce genre de détail se voit mal le soir. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Non. Mais si tu me dis ce que tu cherches, je saurai quoi surveiller.",
+          "score": 2,
+          "emotion": "focused",
+          "reaction": "« Je veux savoir si ce symbole marque un flux de mana ou une date. Retiens ça. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Moi j'aurais dit que c'est l'étiquette « ne pas toucher » des anciens.",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Drôle. Inutile pour l'instant, mais drôle. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "Je préférerais t'aider à déchiffrer plutôt que deviner tout seul dehors.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« Aide oui, mais avec des faits. Pas avec des mots tendres. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-03",
+      "bridge": "Lyra te montre le registre communal : depuis trois jours, le mana bouge plus que d'habitude au havre.",
+      "companionLine": "Ce n'est pas une crise, mais ça se remarque. Tu as vu quelque chose d'inhabituel, de ton côté ?",
+      "answerRule": "yes-no",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Les fourneaux tournent plus longtemps depuis la pluie. Ça doit jouer, non ?",
+          "score": 3,
+          "emotion": "pleased",
+          "reaction": "« Oui. C'est exactement le genre de piste que je voulais entendre. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Non. Dis-moi ce qu'il faut couper en premier.",
+          "score": 2,
+          "emotion": "firm",
+          "reaction": "« Trop tôt pour couper. D'abord on comprend, ensuite on décide. »"
+        },
+        {
+          "tone": "playful",
+          "text": "J'ai surtout remarqué que mes bottes séchaient mal.",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Alors tu n'as rien remarqué. Reviens quand tu auras observé le village, pas tes chaussures. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "J'ai remarqué que tu t'inquiètes plus que d'habitude.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« Concentre-toi sur le mana, pas sur moi. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-04",
+      "bridge": "Tu lui apportes un sachet de Thé étoile ; elle le reconnaît tout de suite.",
+      "companionLine": "C'est mon thé préféré. Tu savais, ou tu as eu de la chance ?",
+      "answerRule": "either-or",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Je l'ai su au marché. Je voulais m'excuser de t'avoir dérangée l'autre jour.",
+          "score": 3,
+          "emotion": "warm",
+          "reaction": "« Alors c'est un cadeau qui a du sens. Je peux accepter ça. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je l'ai su aussi. Je n'aime pas arriver les mains vides quand je dérange quelqu'un.",
+          "score": 2,
+          "emotion": "pleased",
+          "reaction": "« Honnête. Garde une tasse pour toi, si tu restes. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Oui, la chance. Le destin a bon goût.",
+          "score": 1,
+          "emotion": "neutral",
+          "reaction": "« Le destin, peut-être. Toi, reste simple. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "J'ai retenu parce que j'écoutais quand tu en parlais.",
+          "score": 0,
+          "emotion": "embarrassed",
+          "reaction": "« C'était juste du thé. Ne m'en fais pas tout un discours. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-05",
+      "bridge": "Lyra a entendu dire que tu as croisé un Myrion curieux près de la Forêt ancienne.",
+      "companionLine": "On m'a parlé d'un Myrion qui te suivait de loin. C'était de la curiosité, ou de la peur ?",
+      "answerRule": "either-or",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Curiosité, je crois. Il est reparti dès que j'ai fait un pas vers lui.",
+          "score": 3,
+          "emotion": "curious",
+          "reaction": "« Alors ne le poursuis pas. Laisse-le venir une deuxième fois. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Peur des deux côtés, probablement. Je n'ai pas insisté.",
+          "score": 2,
+          "emotion": "neutral",
+          "reaction": "« Bien. Insister aurait gâché la suite. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Il m'a peut-être jugé sur ma coiffure. Difficile à dire.",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Si tu veux parler Myrions, reste sérieux deux minutes. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "J'aurais aimé qu'il reste. Sa présence me rassurait.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« Les Myrions ne rassurent pas. Ils observent. Retiens la différence. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-06",
+      "bridge": "Lyra a trouvé une mention des Ruines astrales dans un atlas qu'elle ne peut pas emprunter.",
+      "companionLine": "Le passage vers les Ruines porte cette mention : « fermé après l'équinoxe ». C'est encore vrai ?",
+      "answerRule": "yes-no",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Non. Si tu veux, je peux demander au garde du havre demain matin.",
+          "score": 3,
+          "emotion": "pleased",
+          "reaction": "« Demande, oui. Et rapporte les mots exacts, pas un résumé. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Non. Et je ne partirais pas sans quelqu'un qui connaît la route.",
+          "score": 2,
+          "emotion": "pleased",
+          "reaction": "« Prudent. Ça m'aide déjà. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Peut-être que « fermé » veut dire « réservé aux courageux ».",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Ou aux imprudents. Ne confonds pas les deux. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "J'irais avec toi, si un jour tu veux vérifier sur place.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« D'abord les faits. Si un jour on y va, ce sera une autre discussion. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-07",
+      "bridge": "Au village, après une partie de Pages partagées, Lyra range ses cartes sans les mélanger.",
+      "companionLine": "Tu as perdu de justesse. Tu veux une revanche tout de suite, ou tu préfères réfléchir à ton erreur ?",
+      "answerRule": "either-or",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Réfléchir d'abord. J'ai joué trop vite, je le vois bien.",
+          "score": 3,
+          "emotion": "pleased",
+          "reaction": "« Bien. Reviens quand tu sauras expliquer ton erreur, pas seulement la corriger. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Une revanche, tout de suite. Mêmes règles, une manche.",
+          "score": 2,
+          "emotion": "focused",
+          "reaction": "« D'accord. Une manche, pas trois. J'ai encore des notes à finir. »"
+        },
+        {
+          "tone": "playful",
+          "text": "J'ai failli gagner — j'ai surtout joué la main comme si j'avais déjà gagné.",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Jouer vite ne suffit pas. Regarde la main que tu as gaspillée. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "J'ai surtout aimé qu'on joue côte à côte, plus que le résultat.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« Pas le moment pour ça. Gagner ou perdre compte quand on apprend. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-08",
+      "bridge": "Une chasseuse du refuge t'a confié un message pour Lyra au sujet d'une dette de faveur.",
+      "companionLine": "Elle veut savoir si je tiens ma promesse. Dis-moi d'abord ce qu'elle t'a dit, mot pour mot.",
+      "answerRule": "report",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Qu'elle te doit une sortie de nuit et qu'elle préfère savoir si tu es toujours d'accord.",
+          "score": 3,
+          "emotion": "pleased",
+          "reaction": "« Exact. Je lui répondrai moi-même. Merci de ne pas avoir inventé. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Qu'elle veut une réponse oui ou non avant la fin de la semaine.",
+          "score": 2,
+          "emotion": "firm",
+          "reaction": "« C'est le délai, pas le fond. La prochaine fois, écoute le détail. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Qu'elle avait l'air de quelqu'un qui n'aime pas les dettes impayées.",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Tout le monde déteste ça. Répète ses mots, pas ton impression. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "Qu'elle espérait que tu ferais confiance à celui qui porte le message.",
+          "score": 0,
+          "emotion": "surprised",
+          "reaction": "« Je fais confiance aux faits, pas au messager. Recommence. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-09",
+      "bridge": "Tu as raté un mini-jeu devant plusieurs villageois ; Lyra t'a vu quitter la place sans un mot.",
+      "companionLine": "Tu es passé devant la bibliothèque sans entrer. Tu voulais éviter qu'on te parle, ou pas ?",
+      "answerRule": "either-or",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Un peu les deux. Surtout éviter qu'on me console par politesse.",
+          "score": 3,
+          "emotion": "warm",
+          "reaction": "« Alors tu as bien fait de passer. Entrer quand tu voudras parler, pas quand on te regardera. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Éviter, surtout. Je reprendrai quand ce sera utile.",
+          "score": 2,
+          "emotion": "neutral",
+          "reaction": "« Raisonnable. Le havre n'a pas besoin de spectacles. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Je fuyais surtout les « c'est pas grave » dits trop fort.",
+          "score": 1,
+          "emotion": "neutral",
+          "reaction": "« Je n'aime pas non plus ces phrases. Tu peux entrer, je n'en dirai pas. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "J'aurais voulu te voir. Tu es la seule qui ne dramatise pas.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« Ne fais pas de moi une excuse pour entrer. Viens quand tu voudras parler. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-10",
+      "bridge": "La bibliothèque ferme ; Lyra boucle la dernière liasse de feuillets.",
+      "companionLine": "J'ai encore dix minutes ici. Tu voulais me demander quelque chose, ou tu suivais le bruit du couloir ?",
+      "answerRule": "either-or",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Oui. Tu peux me mettre de côté le livre sur les flux de mana, pour demain matin ?",
+          "score": 3,
+          "emotion": "warm",
+          "reaction": "« Je le mets de côté. Viens le matin, avant l'affluence. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Oui. Tu enseignes parfois, ou tu ne fais qu'archiver ?",
+          "score": 2,
+          "emotion": "tired",
+          "reaction": "« Les deux, mais pas le soir. Repose ta question demain. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Je suivais le bruit du couloir — il menait vers la seule lampe encore allumée.",
+          "score": 1,
+          "emotion": "tired",
+          "reaction": "« Le bruit, c'est le vent. Moi, je range. On verra demain. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "Plutôt te voir finir de ranger, pour être franc.",
+          "score": 0,
+          "emotion": "firm",
+          "reaction": "« Alors tu n'avais rien à me demander. Laisse-moi fermer. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-11",
+      "bridge": "Tu arrives tôt le lendemain ; Lyra a posé le volume sur les flux de mana sur le comptoir réservé.",
+      "companionLine": "Tu es venu avant l'affluence. Tu veux le lire ici, ou tu préfères l'emporter sans me déranger ?",
+      "answerRule": "either-or",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "Lire ici, en silence. Je ne te poserai des questions que si tu m'y invites.",
+          "score": 3,
+          "emotion": "pleased",
+          "reaction": "« D'accord. Table du fond, et pas de pages feuilletées sans me demander. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Emporter. Je te le rapporte intact dès que j'ai fini le chapitre.",
+          "score": 2,
+          "emotion": "firm",
+          "reaction": "« Emporte-le. Si tu l'abîmes, dis-le franchement, pas après coup. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Lire ici, si le silence compte comme un loyer.",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Le silence est gratuit. Les pages cornées, non. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "Je préfère lire ici, près de toi, plutôt que chez moi.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« Lis ton chapitre. Ma présence n'est pas un parchemin. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff1-curated-12",
+      "bridge": "Lyra referme le registre du matin ; deux villageois attendent déjà près de la porte.",
+      "companionLine": "Avant que la file s'allonge : note un endroit au havre où le mana se perd. Une ligne, demain matin.",
+      "answerRule": "imperative",
+      "choices": [
+        {
+          "tone": "sincere",
+          "text": "D'accord. Je note ce que je vois, pas ce que j'imagine.",
+          "score": 3,
+          "emotion": "pleased",
+          "reaction": "« Bien. Une ligne factuelle vaut mieux qu'un discours. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Pourquoi moi, et pas un des villageois qui traînent dehors ?",
+          "score": 2,
+          "emotion": "firm",
+          "reaction": "« Parce que tu passes par les fourneaux et les entrepôts. Eux restent sur leur seuil. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Et si j'écris « la bibliothèque, parce que tu oublies d'éteindre la lampe » ?",
+          "score": 1,
+          "emotion": "annoyed",
+          "reaction": "« Amusant. Faux, mais amusant. Cherche ailleurs. »"
+        },
+        {
+          "tone": "romantic",
+          "text": "Je note, si tu promets de lire ma ligne ce soir.",
+          "score": 0,
+          "emotion": "dismissive",
+          "reaction": "« Je lirai ta ligne si elle est utile. Pas comme un échange de lettres. »"
+        }
+      ]
+    }
+  ]
+}

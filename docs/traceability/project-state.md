@@ -79,20 +79,20 @@ Format : `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`docs/agent-guide/05-p
 - Pas de push `main` / merge sans go explicite
 - Décideur : **Guillaume**
 
-## Wording onboarding — « Chantier du havre » (non fait)
+## Wording onboarding — harmonisé (2026-07-01)
 
-**Pourquoi c'est encore listé :** la release 2.1 a harmonisé le hub (Promenade Myrions, Ferme lunaire, etc.), mais **pas** le panneau objectifs tutorial (`src/data/tutorialObjectives.ts`).
+Terminologie alignée hub mini-jeux (`buildingActivities.ts`) :
 
-| Zone | Libellé actuel | Fichier |
+| Zone | Libellé retenu | Fichier |
 |------|----------------|---------|
-| Objectif onboarding étape 2 | « Chantier du havre » | `tutorialObjectives.ts` |
-| Quête infinie (upgrade bâtiment) | « Chantier du village » | `infiniteQuests.ts` |
-| Objectif onboarding étape 5 | « Refuge des brumes » | `tutorialObjectives.ts` |
-| Hub mini-jeux | « Promenade Myrions » | `buildingActivities.ts` |
+| Mini-jeu worksite | **Chantier du havre** | hub, quêtes `play-minigame` |
+| Mini-jeu capture | **Chasse aux Myrions** | hub, tutorial étape 3 |
+| Mini-jeu dressage | **Refuge des Myrions** | hub, tutorial étape 5 |
+| Amélioration bâtiment | **Bâtiments du havre** | tutorial étape 2, quêtes `upgrade-building` |
 
 Ce n'est **pas** le mini-jeu Chantier Myrion (`myrionWorksite*`) — autre système.
 
-**Statut :** réserve reportée en 2.2, jamais implémentée. À trancher (havre vs village vs harmoniser avec Promenade) sur demande Guillaume.
+**Statut :** fait en 2.2 (`tutorialObjectives.ts`, `infiniteQuests.ts`).
 
 | Sujet | Fichier |
 |-------|---------|
@@ -109,4 +109,3 @@ Ce n'est **pas** le mini-jeu Chantier Myrion (`myrionWorksite*`) — autre syst�
 - Asset `ruines-lierre-ancien.png` — silhouette faible
 - Chunk JS > 500 kB (warning Vite)
 - Flags dev gacha (`DEV_*`) — à traiter avant prod stable
-- **Wording onboarding tutorial** — voir ci-dessous

@@ -1,0 +1,762 @@
+{
+  "version": 1,
+  "source": "scripts/references/link-corpus/curated/lyra-aff5-curated-12.json",
+  "exchanges": [
+    {
+      "id": "lyra-aff5-curated-01",
+      "bridge": "À la bibliothèque, Lyra vient de tirer le verrou. Sa robe de nuit ne cache presque rien sous la lampe.",
+      "companionLine": "Reste contre la porte — je décide quand tu bouges.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je reste immobile contre la porte et je la laisse serrer mes hanches, main sur ma braguette.",
+          "score": 3,
+          "emotion": "commanding",
+          "reaction": "« Tiens bon. » *Elle serre tes hanches contre la porte.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste près d'elle et je signale si elle va trop vite contre la porte.",
+          "score": 2,
+          "emotion": "commanding",
+          "reaction": "« Signale. Mais ne t'éloigne pas. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde mes hanches immobiles une minute, puis je presse la sienne plus fort contre moi.",
+          "score": 1,
+          "emotion": "commanding",
+          "reaction": "« Une minute. Puis presse-toi contre moi. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de partir, puis je la retourne contre les rayons du fond.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de fuite. Presse-toi contre moi. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-02",
+      "bridge": "Toujours à la bibliothèque, elle s'assoit au bord de la table de travail, cuisses entrouvertes sous la robe.",
+      "companionLine": "Bouge tes doigts quand je serre ton poignet.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je caresse son clitoris puis je lui glisse deux doigts dans l'anus jusqu'à ce qu'elle tremble.",
+          "score": 3,
+          "emotion": "commanding",
+          "reaction": "« Continue. » *Elle serre ton poignet.* « Tais-toi. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je sens sa main sur mon poignet et je ralentis dès qu'elle serre.",
+          "score": 2,
+          "emotion": "commanding",
+          "reaction": "« Serre quand tu veux. Continue lentement. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je retire ma main une seconde, puis je repose deux doigts plus fermement sur son clitoris.",
+          "score": 1,
+          "emotion": "commanding",
+          "reaction": "« Repose. Je veux sentir ta pression. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de lire le registre, puis je presse ma paume contre son clitoris quand même.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Oublie le registre. Mets ta main ici. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-03",
+      "bridge": "Encore entre les rayons où elle t'a collé ; la chaleur monte, ses cuisses ouvertes au niveau de ton visage.",
+      "companionLine": "Goûte. Ne relève pas les yeux sans ma permission.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je lèche son clitoris sans relever les yeux, langue entre ses cuisses.",
+          "score": 3,
+          "emotion": "commanding",
+          "reaction": "« Continue. » *Elle tire tes cheveux.* « Ne t'arrête pas trop tôt. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je la laisse guider ma nuque et je ralentis dès qu'elle serre mes cheveux.",
+          "score": 2,
+          "emotion": "commanding",
+          "reaction": "« Main dans tes cheveux. Garde ce rythme. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je retiens ma langue une seconde, puis je reprends sur son clitoris, plus fort.",
+          "score": 1,
+          "emotion": "commanding",
+          "reaction": "« Une seconde. Puis ne t'arrête pas. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de reculer le visage, puis je lèche sa chatte quand elle tire mes cheveux.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Langue sur ma chatte. Lèche. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-04",
+      "bridge": "Au havre, tard ; sa chambre sent le thé et la cire. Le peignoir glisse, entrouvert sur sa poitrine nue.",
+      "companionLine": "Laisse-moi déshabiller. Tu restes à ma merci, sans protester.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je reste immobile sous elle et je la laisse ouvrir ma chemise, puis mon pantalon, sans rien cacher.",
+          "score": 3,
+          "emotion": "heated",
+          "reaction": "« Parfait. » *Elle finit de t'ôter la chemise et ton pantalon, ta verge dure contre son ventre nu.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Immobilisé sous Lyra, je signale d'un geste si elle va trop vite.",
+          "score": 2,
+          "emotion": "heated",
+          "reaction": "« Signale. Je continue. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Trente secondes immobile sous elle, puis je la retourne et la presse contre les draps.",
+          "score": 1,
+          "emotion": "heated",
+          "reaction": "« Si tu veux jouer, assume. Je veux que tu me prennes toute la nuit. » *Elle écarte les cuisses et te lance un regard de défi.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de croiser les bras sur ma poitrine, puis je les relâche quand elle fronce les sourcils.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de jeu. Laisse-moi faire. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-05",
+      "bridge": "Nu sur les draps où elle vient de t'ôter ta chemise, Lyra s'agenouille sur tes hanches — un genou de chaque côté.",
+      "companionLine": "Garde les mains sur ma taille. Ne lâche pas.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "J'agrippe ses hanches et je la laisse enfoncer ma bite jusqu'au fond.",
+          "score": 3,
+          "emotion": "heated",
+          "reaction": "« Oui. » *Elle descend d'un coup.* « Ne lâche pas mes hanches. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste allongé et je guide ses hanches lentement d'abord.",
+          "score": 2,
+          "emotion": "heated",
+          "reaction": "« Lent d'abord. Puis plus fort. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je laisse mes mains immobiles une seconde, puis je retourne la position et je lui enfonce ma bite par-dessus.",
+          "score": 1,
+          "emotion": "heated",
+          "reaction": "« Retourne-moi. Prends-moi par-dessus. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de la repousser, puis je la tire plus fort sur ma bite.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de jeu. Laisse-moi monter. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-06",
+      "bridge": "Elle te relève du lit, haletante ; contre la commode du havre, Lyra te fixe, une main entre tes cuisses.",
+      "companionLine": "Serre ma taille plus fort quand je te le demande.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je la plaque contre la commode et je l'encule jusqu'à ce qu'elle gémisse.",
+          "score": 3,
+          "emotion": "heated",
+          "reaction": "« Continue. Plus fort. Ne retiens rien. » *Elle serre la commode, voix basse.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je serre sa taille contre le bois et je ralentis dès qu'elle fronce les sourcils.",
+          "score": 2,
+          "emotion": "heated",
+          "reaction": "« Ralentis si tu veux. Ne t'arrête pas. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je compte trente secondes contre la commode, puis je la retourne sur le lit.",
+          "score": 1,
+          "emotion": "heated",
+          "reaction": "« Sur le lit. Puis encore plus fort. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je serre sa taille, puis je feins de lâcher une seconde.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de lâcher. Serre plus fort. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-07",
+      "bridge": "Sous la verrière, lune sur les vitrages ; matelas bas, draps froissés, peaux collées et chaudes.",
+      "companionLine": "Attends mon signal sur tes hanches — après, tu entres.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je reste immobile allongé — je la laisse serrer mes hanches avant de glisser en elle.",
+          "score": 3,
+          "emotion": "dominant",
+          "reaction": "« Alors viens. » *Elle serre tes hanches.* « Ne te retiens pas. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste immobile et j'enfonce ma bite lentement quand elle serre mes hanches.",
+          "score": 2,
+          "emotion": "dominant",
+          "reaction": "« Lent, puis fort. Je te demanderai. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je la retourne et je lui enfonce ma bite avant qu'elle ait fini de parler.",
+          "score": 1,
+          "emotion": "dominant",
+          "reaction": "« Retourne-moi. En moi, maintenant. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de rester immobile, puis je la prends d'un coup.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Moins de théâtre. En moi, maintenant. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-08",
+      "bridge": "Toujours sous la verrière — bite en elle, buée sur le vitrage ; elle serre ta taille, rythme qui accélère.",
+      "companionLine": "Tape mon poignet si c'est trop.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je serre ses hanches et je continue jusqu'à ce qu'elle halète mon nom.",
+          "score": 3,
+          "emotion": "dominant",
+          "reaction": "« Alors baise-moi jusqu'à ce que j'oublie ce mot. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je tape son poignet dès que ça brûle et je ralentis tout de suite.",
+          "score": 2,
+          "emotion": "dominant",
+          "reaction": "« Tape si ça brûle. Ralentis sans t'arrêter. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je dis stop d'une voix basse si elle serre trop fort.",
+          "score": 1,
+          "emotion": "dominant",
+          "reaction": "« Stop entendu. Dis-le si ça pique. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de taper son poignet, puis je la presse plus fort.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de faux signal. Tape pour de vrai. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-09",
+      "bridge": "Toujours sous la verrière — condensation sur la vitraille ; Lyra te plaque dos contre le montant de bois, chatte encore trempée, souffle chaud dans ta nuque.",
+      "companionLine": "Arche le dos. Presse-toi contre ma main.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je me cambre contre le montant et je cède à ses doigts jusqu'à ce que je jouisse.",
+          "score": 3,
+          "emotion": "dominant",
+          "reaction": "« Presse le montant. » *Elle accélère, buée sur le vitrage.* « Laisse-toi jouir. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Contre le montant, je retiens ma respiration et je tape son poignet si ça brûle trop.",
+          "score": 2,
+          "emotion": "dominant",
+          "reaction": "« Serre le montant. Tape si ça brûle trop. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Contre le bois, je garde vingt secondes immobiles puis je pousse mes hanches sur sa paume.",
+          "score": 1,
+          "emotion": "dominant",
+          "reaction": "« Maintenant. Plus fort. »"
+        },
+        {
+          "tone": "playful",
+          "text": "Simulant recul du montant, je cambre le bassin contre sa paume quand elle m'attrape par la taille.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Cambre-toi. Contre ma main. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-10",
+      "bridge": "Sur le toit du havre, avant l'aube — air froid, village endormi en contrebas ; Lyra déroule une couverture et t'allonge sur le dos ; elle ouvre ta braguette, s'empale sur ta bite — genoux de chaque côté, robe relevée sur les cuisses.",
+      "companionLine": "Signal au poignet. Tu pousses seulement quand je serre.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je presse mes hanches contre les siennes et je la laisse mener le rythme jusqu'à ce qu'elle jouisse.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Continue. Là. Ne t'arrête pas avant que je jouisse. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Quand elle serre mes hanches, je ralentis sans reprendre le tempo.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Mes hanches te guident. Suis mon rythme. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je retiens ses hanches une minute, puis je la bascule sur le dos à côté de moi.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« Retourne-moi si tu peux. Puis reprends. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je reste raide sous elle, puis je la serre plus fort contre moi.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Trop raide. Presse-toi contre moi. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-11",
+      "bridge": "Toujours sur le toit — elle se relève à peine, cuisses encore tremblantes, ta bite encore raide ; Lyra te plaque dos à la rambarde et descend entre tes jambes.",
+      "companionLine": "Tiens la rambarde. Ne te retiens pas — je m'occupe du reste.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Dos à la rambarde, immobile, je la laisse sucer ma bite jusqu'à ce que je jouisse.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Laisse-toi… aller. J'avale. » *Elle hache chaque mot entre deux va-et-vient dans sa bouche.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Quand elle serre ma hanche, je retiens ma respiration sans reprendre le contrôle.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Poignet sur ma hanche. Laisse-toi aller — je mène. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je retiens ses cheveux une seconde, puis je la laisse reprendre la profondeur qu'elle veut.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« Reprends. Plus profond si tu veux. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je plaisante sur le vertige du toit, puis je me cambre contre sa bouche.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Vertige ou pas. Suce ma bite. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-12",
+      "bridge": "L'aube grise sur le toit — Lyra à quatre pattes, haletante, cuisses chancelantes ; elle te regarde par-dessus l'épaule.",
+      "companionLine": "Encule-moi maintenant — je te veux, je guide.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je glisse ma bite en son cul et je la laisse fixer le rythme jusqu'à ce qu'on jouisse tous les deux.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Viens vite. Je suis à deux doigts de jouir. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je pénètre son cul lentement et je ralentis dès qu'elle serre mes hanches.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Lent. Serre quand j'accélère. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde trente secondes sans bouger en elle, puis je la prends fort par derrière.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« Maintenant. Puis encore, fort. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de hésiter à l'entrée, puis je la pénètre par derrière jusqu'au fond.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas d'hésitation. En mon cul, fort. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-13",
+      "bridge": "Bibliothèque du havre, matin de cire et de papier — Lyra tourne encore une page au comptoir quand tu entres ; rien n'était prévu entre vous, et pourtant la nuit du toit flotte encore dans l'air ; dans le couloir de pierre, un chuchotement, puis des pas — on demande la bibliothécaire.",
+      "companionLine": "Bonjour — je suis la bibliothécaire. Un instant, je termine cette ligne du registre.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Bouche scellée, je la laisse accueillir le visiteur d'une voix posée tandis que sa jambe me cache sous le comptoir.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Oui, bien sûr — je vous entends. » *Elle termine sa phrase vers le couloir sans trembler — genou qui te plaque, index sur tes lèvres.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Retenant ma respiration, je n'avance d'un millimètre que si sa main le permet sur mon poignet.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Un instant, je consulte le registre. » *Elle serre ton poignet une seconde — reste dans son ombre, pas un bruit.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde quinze secondes sans bouger sous le bois, puis je presse ma joue contre sa cheville.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« Je reviens vers vous dans un moment. » *Elle presse ta nuque sous le bois — attend le claquement de porte.*"
+        },
+        {
+          "tone": "playful",
+          "text": "Feignant un oubli de volume, je fais grincer une planche — puis je me fige quand son index se presse plus fort.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« …Pardon ? Je n'ai pas entendu. » *Elle te transperce d'un regard sous le comptoir — index plus fort, puis reprend vers le couloir.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-14",
+      "bridge": "Toujours sous le bois — le visiteur attend son atlas depuis deux minutes ; Lyra cite des numéros de réserve d'une voix posée ; tu n'as encore rien touché ; le tiroir secret s'entrebâille sous sa jupe : un gode qu'elle n'a pas sorti — elle ignore encore que tu l'as vu.",
+      "companionLine": "Les atlas du nord sont en réserve deux — je vous les sortirai dans un instant.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Doigts sur son clitoris, je caresse lentement au rythme de sa citation d'atlas vers le couloir — elle retient un frisson sans couper sa phrase.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Section trois… oui, tout à l'heure. » *Elle mord l'intérieur de la joue — serre tes cheveux une seconde, puis relâche.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste immobile jusqu'à ce que sa cheville cède d'un millimètre — puis je caresse, plus lent quand elle serre.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Je note votre demande, monsieur. » *Elle serre ta cheville quand ça brûle — voix toujours posée vers le couloir.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Quinze secondes sans bouger, puis je caresse son clitoris quand le visiteur marque une pause.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« …Comme vous dites. » *Elle marque une pause vers le visiteur — te fixe une seconde sous le bois, mâchoire serrée.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je retire ma main une seconde, puis je caresse sa chatte quand son regard me transperce sous le bois.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pardon ? » *Elle te transperce du regard — genou qui te bloque, puis reprend sa citation.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-15",
+      "bridge": "Le visiteur feuillette un registre ; Lyra commente une gravure pour le couloir ; le gode au creux de ta main — elle ne l'a pas vu entrer, rien n'a encore pénétré ; c'est toi qui choisis le premier cran.",
+      "companionLine": "Je vous montre cette gravure — remarquez le trait du scribe, second siècle, ici.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Sans prévenir, je glisse le gode en elle pendant sa pause — de l'autre côté, sa voix reprend sur la gravure sans faillir.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« …Remarquez, ici, l'usure du parchemin. » *Elle serre le manche via ta main — frisson retenu, voix qui reprend aussitôt.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Lentement, je pousse le gode d'un cran — je m'arrête dès qu'elle retient un gémissement, sans bruit contre le bois.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Ici, le filigrane… » *Elle serre tes cheveux quand ça brûle — lent, sans bruit.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde quinze secondes à caler le gode, puis j'enfonce d'un cran quand elle fait une pause vers le couloir.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« …Un instant. » *Elle marque une pause vers le visiteur — mâchoire serrée, yeux qui supplient sous le bois.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de poser le gode au sol, puis j'enfonce le gode quand son index se presse plus fort sur mes lèvres.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Je vous écoute. » *Elle te transperce du regard — index sur tes lèvres, puis reprend sur la gravure.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-16",
+      "bridge": "Une heure plus tard au comptoir : gode en elle depuis que tu l'as enfoncé sans prévenir — elle n'a jamais choisi le moment ; le visiteur tourne une page ; Lyra énumère les amendes d'une voix trop régulière ; ce n'est plus son rythme, c'est le tien.",
+      "companionLine": "Les amendes de retard figurent au registre B — je vous les indique tout de suite.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je pousse le gode plus profond à mon tempo — je m'arrête net avant qu'elle vacille, sa voix toujours claire sur les amendes.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« …Colonne quatre. » *Elle mord sa lèvre — frisson retenu, puis reprend vers le couloir.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Quand elle serre mes cheveux, je ralentis ; quand elle relâche, je reprends — sans quitter la cadence de sa citation.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« …Colonne quatre, oui. » *Elle serre sans bruit — voix stable vers le visiteur.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Trente secondes à pousser lentement, puis je presse plus fort seulement quand elle frôle un gémissement retenu.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« …Comme indiqué. » *Elle serre tes cheveux une seconde — panique étouffée, pas un ordre.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je ralentis une seconde sur le manche pour la taquiner, puis je repousse là où ses hanches cherchent.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pardon ? » *Elle te fixe sous le bois — genou qui te bloque une seconde, puis reprend sa litanie.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-17",
+      "bridge": "Le visiteur feuillette encore au comptoir — Lyra recommande une réserve à voix basse, gode toujours en elle, fesses serrées sur le tabouret.",
+      "companionLine": "La réserve fermée s'ouvre sur rendez-vous — je peux vous noter demain matin.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je glisse un doigt en son anus pendant qu'elle conclut sa phrase sur la réserve — je ralentis dès que sa voix frôle la faille, sans la laisser basculer.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« …Demain matin, oui. » *Elle serre ton poignet une seconde — presque un gémissement retenu, voix qui tient.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Un doigt lent en son anus ; je ralentis dès qu'elle serre mes doigts contre le bois — gode immobile entre deux phrases.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Je note votre nom… » *Elle serre tes doigts — garde la voix posée.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Vingt secondes sans bouger, puis un doigt anal quand elle serre mon poignet — deux seulement si sa voix reste stable.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« …Entendu. » *Elle serre ton poignet — une seconde, puis relâche.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de caresser sa cuisse, puis je presse un doigt contre son anus quand le visiteur baisse les yeux sur le registre.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Je vous écoute. » *Elle te fixe sous le bois — cuisses qui se contractent, pas un geste vers ta main.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-18",
+      "bridge": "Fin de matinée — le visiteur s'est perdu dans les travées ; gode enfoncé depuis le matin, tu mènes ; Lyra feuillette un registre, mais deux allées plus loin on entend encore des pages.",
+      "companionLine": "Les tarifs de retard n'ont pas changé depuis l'hiver — je vous indique la colonne.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je pousse le gode à mon tempo — je m'arrête avant qu'elle halète, sa voix toujours posée sur les tarifs.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« …Colonne sept. » *Elle serre tes cheveux d'un cran — tremblement retenu, plume immobile.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Pages qui crissent deux allées plus loin — je ralentis dès qu'elle serre mes cheveux, sans couper sa litanie sur les tarifs.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« …Comme indiqué ici. » *Elle serre tes cheveux — voix stable malgré le frisson.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde quarante secondes muettes sous le bois, puis un cran sur le manche quand elle tourne une page du registre.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« …Voilà la ligne. » *Elle te fixe une seconde sous le comptoir — yeux humides, pas un mot.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de lâcher le manche, je repousse quand elle m'attrape la nuque — deux allées plus loin, rien ne bouge.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pardon ? » *Elle te repousse la main sur le manche — puis reprend sa citation.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-19",
+      "bridge": "Midi vient de sonner ; gode en place depuis des heures, chaque cran mené par toi ; Lyra penchée au comptoir, plume sur le papier, masque intact — la salle basse est quasi vide.",
+      "companionLine": "Oui ? Entrez — asseyez-vous, je finis cette page.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Pendant qu'elle salue l'apprenti, j'avance le gode d'un cran — j'arrête net quand sa voix frôle la faille, sans la laisser basculer.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« …Asseyez-vous. Je finis cette page. » *Elle garde la voix stable vers la porte — mord sa lèvre d'un millimètre.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Rythme lent sur le manche ; je ralentis dès qu'elle serre mes doigts contre le bois.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Un instant… » *Elle serre tes doigts — voix posée vers l'apprenti.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Je compte quarante secondes immobile sous le comptoir, puis un cran sur le manche au moment où elle dit entre.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« …Entrez. » *Elle marque une pause vers la porte — retient un frisson, plume immobile.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je tapote le tiroir comme distrait, puis j'enfonce le gode quand l'apprenti baisse les yeux sur ses notes.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Oui ? » *Elle te transperce du regard — mâchoire serrée, puis reprend vers l'apprenti.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-20",
+      "bridge": "Fin d'après-midi — bibliothèque vide, porte du couloir fermée ; sous le comptoir, le gode depuis des heures, impossible à retirer sans risquer un bruit. Assise raide, joues roses : le contrôle lâche.",
+      "companionLine": "J'ai envie de toi — continue. Ce soir, tu es ma chose.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Sans attendre, je pousse le gode jusqu'à frôler sa limite et je m'arrête net — elle n'a rien vu venir, seulement senti.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« …Oui. Continue sous le bois. » *Elle mord sa lèvre — masque qui craque, yeux vers la porte close.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Lentement sur le manche, je ralentis quand ses doigts se crispent sur le tabouret — elle retient chaque souffle comme s'il restait du monde dehors.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« J'ai envie… » *Elle retient un frisson — doigts blancs sur le bois, pas sur ton poignet.*"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde vingt secondes muettes sous le bois, puis j'enfonce le gode d'un cran sans attendre — je m'arrête quand ses cuisses tremblent.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« …Encore. » *Elle fronce les sourcils vers la porte — honte et envie, sans te freiner.*"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je fais semblant de lâcher le manche, puis je repousse quand elle cherche ta main — je chuchote qu'elle déteste vouloir autant.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« …Tu le sais. » *Elle détourne les yeux — mâchoire serrée, joues qui brûlent.*"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff5-curated-21",
+      "bridge": "Le soir tombe ; Lyra tire le verrou principal, éteint la lampe du comptoir — seules les hautes travées restent dans la pénombre ambrée, odeur de cuir et de cire.",
+      "companionLine": "Toute la journée j'ai tenu le masque. Maintenant, plus de spectateur — prends-moi jusqu'à ce que j'oublie les registres.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Entre les atlas, je glisse en elle et je la pousse contre un rayonnage jusqu'à ce que le bois grince — enfin libres de faire du bruit.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Oui. Là, entre les atlas. Ne te retiens pas — personne n'écoute. » *Elle serre tes hanches, chatte chaude contre ta bite.*"
+        },
+        {
+          "tone": "sincere",
+          "text": "Entre les travées, je suis son tempo et je ralentis quand elle serre mes hanches plus fort.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Suis mon tempo. Presse-toi quand je serre. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Une minute debout entre les rayons, puis je la retourne contre un atlas et je la prends jusqu'au bruit des reliures.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« Maintenant. Fort. Fais grincer le bois. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je chuchote une citation du bestiaire pour la taquiner, puis je la plaque contre le rayonnage le plus bruyant.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de citation. Plaque-moi. Fort. »"
+        }
+      ]
+    }
+  ]
+}

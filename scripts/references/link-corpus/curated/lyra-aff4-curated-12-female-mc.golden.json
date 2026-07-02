@@ -1,0 +1,438 @@
+{
+  "version": 1,
+  "source": "scripts/references/link-corpus/curated/lyra-aff4-curated-12-female-mc.json",
+  "exchanges": [
+    {
+      "id": "lyra-aff4-curated-female-mc-01",
+      "bridge": "À la bibliothèque, Lyra pose sa main sur le verrou ; la porte de fond coupe le bruit des rayons.",
+      "companionLine": "Suis mon pas. Reste près de moi.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je serre sa main et je la suis jusqu'à la porte du fond.",
+          "score": 3,
+          "emotion": "commanding",
+          "reaction": "« Bien. Reste contre moi dans le couloir. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste près d'elle et je ralentis si elle hésite un instant.",
+          "score": 2,
+          "emotion": "commanding",
+          "reaction": "« Je n'hésite pas. Suis mon pas. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je la suis d'un pas, sans parler avant le fond.",
+          "score": 1,
+          "emotion": "commanding",
+          "reaction": "« Moins de mots. Plus de proximité. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de reculer, puis je la rattrape au coin du couloir.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de théâtre. Viens. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-02",
+      "bridge": "Dans le couloir du fond, Lyra te plaque contre le mur ; sa respiration chauffe ta nuque.",
+      "companionLine": "Ne recule pas. Garde tes mains sur moi.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je glisse mes mains sur sa taille et je la rapproche encore.",
+          "score": 3,
+          "emotion": "commanding",
+          "reaction": "« Encore. Je veux sentir ton souffle sur mon cou. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste immobile une seconde, puis je la serre lentement contre le mur.",
+          "score": 2,
+          "emotion": "commanding",
+          "reaction": "« Doucement suffit. Ne lâche pas. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je compte deux secondes front contre front, puis je presse mon front contre le sien sans la lâcher.",
+          "score": 1,
+          "emotion": "commanding",
+          "reaction": "« Garde ce contact. On avance. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je retourne la pression et je la plaque à mon tour.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Retourne-moi plus tard. Là, suis. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-03",
+      "bridge": "Lyra ouvre la porte de sa chambre au havre ; la lumière baisse d'un geste.",
+      "companionLine": "Je veux le silence. Ferme derrière toi.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je passe le seuil avec elle et je ferme la porte derrière nous.",
+          "score": 3,
+          "emotion": "commanding",
+          "reaction": "« Bien. On est seules dans ma chambre. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je la suis pas à pas et je ralentis si elle hésite un instant.",
+          "score": 2,
+          "emotion": "commanding",
+          "reaction": "« Je la ferme. Reste là. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je m'assois au bord du lit sans attendre qu'elle parle.",
+          "score": 1,
+          "emotion": "commanding",
+          "reaction": "« Assieds-toi. Je viens à côté. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je m'allonge sur le lit avant qu'elle ait fini d'allumer.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas si vite. Viens près de moi d'abord. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-04",
+      "bridge": "Sa chambre sent le thé ; une tension électrique flotte dans l'air. Le peignoir glisse sur son épaule nue.",
+      "companionLine": "Je te laisse toucher, lentement — sans brusquer.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je touche sa peau à l'épaule et je la suis jusqu'au lit.",
+          "score": 3,
+          "emotion": "heated",
+          "reaction": "« Touche. Je suis prête à t'avoir près. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je la laisse guider ma main, lentement, sans brusquer.",
+          "score": 2,
+          "emotion": "heated",
+          "reaction": "« Lentement. Je te montre où poser tes doigts. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde ma place debout trente secondes, puis je m'assois au bord du lit.",
+          "score": 1,
+          "emotion": "heated",
+          "reaction": "« Attends. Je viens contre toi. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je tire le peignoir un peu plus, puis je recule d'un pas.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de jeu. Guide-toi vers moi. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-05",
+      "bridge": "Lyra s'assoit au bord du lit, peignoir entrouvert sur sa poitrine.",
+      "companionLine": "Je t'attends. Assieds-toi, puis rapproche-toi.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je m'assois à côté d'elle et je glisse ma main dans la sienne.",
+          "score": 3,
+          "emotion": "heated",
+          "reaction": "« Reste. Je veux ton poids contre le mien. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je la rejoins et je reste immobile jusqu'à ce qu'elle bouge.",
+          "score": 2,
+          "emotion": "heated",
+          "reaction": "« Immobile, oui. Puis rapproche-toi. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je m'allonge à côté d'elle sans attendre son signal.",
+          "score": 1,
+          "emotion": "heated",
+          "reaction": "« Allonge-toi. Je viens sur ton torse. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je m'assois de l'autre côté du lit pour la faire venir.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas l'autre côté. Rejoins-moi ici. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-06",
+      "bridge": "Sur le balcon du havre, la nuit ; Lyra te fixe, lèvres déjà proches des tiennes.",
+      "companionLine": "Embrasse-moi en retour. Ne t'arrête pas au cou.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je l'embrasse en retour et je serre sa taille contre moi.",
+          "score": 3,
+          "emotion": "heated",
+          "reaction": "« Encore. Ne t'arrête pas au cou. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je cède au baiser et je signale d'un geste si c'est trop fort.",
+          "score": 2,
+          "emotion": "heated",
+          "reaction": "« Signale. Sinon je continue. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde nos fronts collés une seconde, puis je l'embrasse sur la bouche.",
+          "score": 1,
+          "emotion": "heated",
+          "reaction": "« Bouche, oui. Garde tes mains sur moi. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je détourne la tête une seconde, puis je la rattrape.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de fuite. Embrasse-moi. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-07",
+      "bridge": "Sur le balcon, Lyra glisse ses doigts le long de ton dos ; la ville bruit en contrebas.",
+      "companionLine": "Je continue. Signale d'un geste si ça va trop loin.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je presse mon corps contre le sien et je la laisse continuer.",
+          "score": 3,
+          "emotion": "dominant",
+          "reaction": "« Continue. Je sens que tu veux plus. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste immobile et je signale d'un geste si ça va trop loin.",
+          "score": 2,
+          "emotion": "dominant",
+          "reaction": "« Geste suffit. Je ralentis tout de suite. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je compte trois secondes sans bouger, puis je guide sa main plus bas.",
+          "score": 1,
+          "emotion": "dominant",
+          "reaction": "« Plus bas. Je te suis. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je fronce les sourcils exprès, puis je l'attire plus près.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de grimace. Dis-moi ou montre. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-08",
+      "bridge": "Sur le balcon, vos corps déjà rapprochés contre la rambarde ; le vent glisse sous votre peignoir.",
+      "companionLine": "Tape mon poignet si c'est trop.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je prends sa main et je la presse contre mon torse, sans rien cacher.",
+          "score": 3,
+          "emotion": "dominant",
+          "reaction": "« Bien. Je reste à ton rythme ce soir. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je pose ma main sur son poignet — signe clair si ça brûle.",
+          "score": 2,
+          "emotion": "dominant",
+          "reaction": "« Poignet, compris. Je ralentis. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je dis stop d'une voix basse si elle serre trop fort.",
+          "score": 1,
+          "emotion": "dominant",
+          "reaction": "« Stop entendu. Je lâche un peu. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je feins de froncer les sourcils, puis je l'attire contre moi.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de faux signal. Sois honnête. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-09",
+      "bridge": "Dans le jardin du havre, à l'aube ; Lyra incline la tête, sa peau chaude contre ton cou.",
+      "companionLine": "Ne détourne pas la tête. Reste.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je tourne la tête pour lui offrir plus de peau et je serre sa taille.",
+          "score": 3,
+          "emotion": "dominant",
+          "reaction": "« Encore. Je veux te sentir frissonner. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je m'immobilise contre elle et je signale d'un geste si ça brûle.",
+          "score": 2,
+          "emotion": "dominant",
+          "reaction": "« Immobile. Je descends encore. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde mon cou offert une seconde de plus, puis je presse son épaule vers ma bouche.",
+          "score": 1,
+          "emotion": "dominant",
+          "reaction": "« Monte. Je t'embrasse là. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je pivote le visage une seconde, puis je lui offre mon cou.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de détour. Reste. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-10",
+      "bridge": "Dans le pavillon du jardin, Lyra ferme la porte ; le bruit du village s'éteint dehors.",
+      "companionLine": "Reste collée. Ne lâche pas.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je m'allonge contre elle sur les draps et je la serre contre moi.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Reste collée. Je veux sentir ton souffle. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste contre ses draps et je signale d'un geste si elle serre trop fort.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Près suffit. Rapproche encore. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je compte trois secondes debout, puis je passe une jambe sur le lit et je la tire à côté de moi.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« À côté. Je m'allonge sur ton torse. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je m'allonge de l'autre côté du lit pour la faire venir.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas l'autre côté. Contre moi. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-11",
+      "bridge": "Dans le pavillon, Lyra passe une jambe sur tes hanches ; le matelas creuse sous vous.",
+      "companionLine": "Serre ma taille. Suis mon rythme.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je serre sa taille et je la rapproche jusqu'à ce qu'on respire pareil.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Encore. Je veux ton poids sous le mien. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je reste allongée et je ralentis quand elle ajuste la pression de sa jambe.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Ajuste. Dis-moi si c'est lourd. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je compte trente secondes sans bouger, puis je retourne la position et je la presse contre les draps.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« Retourne-moi. Garde tes mains sur ma taille. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je bouge la jambe pour la faire glisser, puis je la rattrape.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de jeu. Presse-toi contre moi. »"
+        }
+      ]
+    },
+    {
+      "id": "lyra-aff4-curated-female-mc-12",
+      "bridge": "Dans le pavillon, Lyra t'embrasse déjà ; ses doigts s'enfoncent dans la couverture.",
+      "companionLine": "Garde mon rythme. Ne lâche pas mes hanches.",
+      "answerRule": "action",
+      "choices": [
+        {
+          "tone": "romantic",
+          "text": "Je suis son rythme et je l'embrasse jusqu'à ce qu'elle tremble.",
+          "score": 3,
+          "emotion": "lustful",
+          "reaction": "« Encore. Ne lâche pas mes hanches. »"
+        },
+        {
+          "tone": "sincere",
+          "text": "Je ralentis quand elle halète et je reprends quand elle serre ma main.",
+          "score": 2,
+          "emotion": "lustful",
+          "reaction": "« Ralentis bien. Reprends quand je serre. »"
+        },
+        {
+          "tone": "direct",
+          "text": "Je garde son rythme trente secondes, puis je l'allonge sur le dos, doucement.",
+          "score": 1,
+          "emotion": "lustful",
+          "reaction": "« Allonge-moi. Suis ton envie. »"
+        },
+        {
+          "tone": "playful",
+          "text": "D'abord je fais semblant de perdre le fil, puis je la rattrape au cou.",
+          "score": 0,
+          "emotion": "annoyed",
+          "reaction": "« Pas de faux rythme. Suis le mien. »"
+        }
+      ]
+    }
+  ]
+}

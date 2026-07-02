@@ -1,6 +1,6 @@
 # Index documentation — guide agent
 
-**Updated:** 2026-07-01 (versionnement hook + DEV_LOG atomique)  
+**Updated:** 2026-07-03 (piste B Parler curé aff. 5 — handoff + modop)  
 **But :** éviter qu’un agent suive une doc obsolète. Lire cet index **avant** d’explorer `docs/` au hasard.
 
 ---
@@ -14,6 +14,10 @@
 | — | [`C:\Dev\Project\REFERENCE\docs\INDEX.md`](C:/Dev/Project/REFERENCE/docs/INDEX.md) | Processus partagés (versionnement, archive, MEP…) |
 | 2 | [`docs/traceability/project-state.md`](./traceability/project-state.md) | **État projet versionné** (source de vérité) |
 | 3 | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Phase 2.2 + prompt agent |
+| — | [`docs/HANDOFF_PARLER_CURATED_PISTE_B.md`](./HANDOFF_PARLER_CURATED_PISTE_B.md) | **Piste B** — Parler curé aff. 4–5 (Lyra aff. 5 · auto OK · in-game pending) |
+| — | [`docs/traceability/link-corpus-review/README.md`](./traceability/link-corpus-review/README.md) | Index lots corpus — piste A (bulk) vs piste B (curé) |
+| — | [`docs/traceability/link-corpus-review/PARLER_PACK_WALKTHROUGH_MODOP.md`](./traceability/link-corpus-review/PARLER_PACK_WALKTHROUGH_MODOP.md) | Modop walk 10/10 + Phase C in-game aff. 5 |
+| — | [`docs/HANDOFF_NEW_MINIGAME_CO.md`](./HANDOFF_NEW_MINIGAME_CO.md) | CO — créer un nouveau mini-jeu |
 | 4 | [`docs/agent-guide/08-versionnement-global.md`](./agent-guide/08-versionnement-global.md) | **A.B.C.X.Y** — release + dev, git hooks |
 | 5 | [`docs/agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) | X/Y, hook, DEV_LOG, commits atomiques |
 | 6 | [`docs/agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md) | Kickoff nouvelle phase |
@@ -32,6 +36,8 @@
 |---------|------|
 | [`DOC_AGENT_INDEX.md`](./DOC_AGENT_INDEX.md) | Ce fichier |
 | [`HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Brief agent 2.2 |
+| [`HANDOFF_PARLER_CURATED_PISTE_B.md`](./HANDOFF_PARLER_CURATED_PISTE_B.md) | Passage agent — Parler curé piste B |
+| [`HANDOFF_NEW_MINIGAME_CO.md`](./HANDOFF_NEW_MINIGAME_CO.md) | CO — nouveau mini-jeu |
 | [`CLEANUP_2_1_MOVE_MANIFEST.md`](./CLEANUP_2_1_MOVE_MANIFEST.md) | Archive MVP 21.1 |
 | [`CLEANUP_2_2_RESIDUAL_MANIFEST.md`](./CLEANUP_2_2_RESIDUAL_MANIFEST.md) | Archive résidus 2.2 (passes 1–2) |
 | [`BACKLOG.md`](./BACKLOG.md) | Backlog produit |
@@ -78,6 +84,8 @@ npm run version:prompt   # backup manuel si hook off
 npm run version:task     # Y — tâche distincte (agent uniquement, pas HMR)
 npm run validate:companion-bonds
 npm run validate:link-corpus
+npm run validate:curated-parler:aff5:both   # piste B aff. 5 H+F
+npm run walk:pack:aff5:all                  # déroulé cohérence 10 packs
 npm run tnr:baseline
 npm run build
 ```
