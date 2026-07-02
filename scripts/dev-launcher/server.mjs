@@ -10,7 +10,7 @@
 
 
 
-import { spawn, exec, execSync } from 'node:child_process'
+import { spawn, exec, execFile } from 'node:child_process'
 
 import { createServer } from 'node:http'
 
@@ -24,6 +24,8 @@ import {
 
   readFileSync,
 
+  unlinkSync,
+
   watchFile,
 
   writeFileSync,
@@ -33,6 +35,8 @@ import {
 import { dirname, join } from 'node:path'
 
 import { fileURLToPath } from 'node:url'
+
+import { findPortListenerPid, killProcessByPid } from '../windows-shell.mjs'
 
 
 
@@ -50,9 +54,15 @@ const SESSION_DIR = join(__dirname, '.dev-session')
 
 const SESSION_STATE_FILE = join(SESSION_DIR, 'state.json')
 
+const LAUNCHER_LOCK_FILE = join(SESSION_DIR, 'launcher.lock')
+
 const VITE_LOG_FILE = join(SESSION_DIR, 'vite.log')
 
+const SPAWN_AUDIT_FILE = join(SESSION_DIR, 'spawn-audit.log')
+
 const REATTACH_ARG = '--reattach'
+
+const CLEANUP_GHOSTS_ARG = '--cleanup-ghosts'
 
 const SESSION_VERSION = 1
 
@@ -94,6 +104,10 @@ let logLines = []
 
 let viteLogOffset = 0
 
+let viteLogWatchStarted = false
+
+let buildInfoWatchStarted = false
+
 
 
 /** @type {Record<string, unknown> | null} */
@@ -114,9 +128,171 @@ let attachedVitePollTimer = null
 
 
 
+const BACKGROUND_ARG = '--background'
+
+const DASHBOARD_IDLE_SHUTDOWN_MS = 20_000
+
+const DASHBOARD_IDLE_CHECK_MS = 5_000
+
+const CONSOLE_HIDE_DELAY_MS = 1_500
+
+const SHUTDOWN_GRACE_MS = 4_000
+
+
+
+let backgroundMode = process.argv.includes(BACKGROUND_ARG)
+
+let consoleHidden = false
+
+/** @type {ReturnType<typeof setTimeout> | null} */
+
+let consoleHideTimer = null
+
+/** @type {ReturnType<typeof setInterval> | null} */
+
+let dashboardIdleTimer = null
+
+let lastDashboardPingAt = 0
+
+let dashboardEverConnected = false
+
+/** @type {number} */
+
+let pendingShutdownAt = 0
+
+let shuttingDown = false
+
+
+
 function ensureSessionDir() {
 
   mkdirSync(SESSION_DIR, { recursive: true })
+
+}
+
+
+
+/** Trace toute commande système — utile pour diagnostiquer les rafales cmd. */
+
+function auditSpawn(label, detail = '') {
+
+  try {
+
+    ensureSessionDir()
+
+    const stamp = new Date().toISOString()
+
+    appendFileSync(
+
+      SPAWN_AUDIT_FILE,
+
+      `[${stamp}] ${label}${detail ? ` | ${detail}` : ''}\n`,
+
+      'utf8',
+
+    )
+
+  } catch {
+
+    /* ignore */
+
+  }
+
+}
+
+
+
+function spawnHidden(command, args, options = {}) {
+
+  auditSpawn('spawn', `${command} ${(args ?? []).join(' ')}`.trim())
+
+  return spawn(command, args, {
+
+    shell: false,
+
+    windowsHide: process.platform === 'win32',
+
+    ...options,
+
+  })
+
+}
+
+
+
+function killProcessPid(pid) {
+
+  if (!pid || pid === process.pid) return
+
+  auditSpawn('taskkill', `pid=${pid}`)
+
+  killProcessByPid(pid, true)
+
+}
+
+
+
+function releaseLauncherLock() {
+
+  try {
+
+    if (!existsSync(LAUNCHER_LOCK_FILE)) return
+
+    const owner = Number.parseInt(readFileSync(LAUNCHER_LOCK_FILE, 'utf8').trim(), 10)
+
+    if (owner === process.pid) unlinkSync(LAUNCHER_LOCK_FILE)
+
+  } catch {
+
+    /* ignore */
+
+  }
+
+}
+
+
+
+function tryAcquireLauncherLock() {
+
+  ensureSessionDir()
+
+  if (existsSync(LAUNCHER_LOCK_FILE)) {
+
+    try {
+
+      const owner = Number.parseInt(readFileSync(LAUNCHER_LOCK_FILE, 'utf8').trim(), 10)
+
+      if (owner && owner !== process.pid && isProcessAlive(owner)) return false
+
+    } catch {
+
+      /* lock corrompu — on remplace */
+
+    }
+
+    try {
+
+      unlinkSync(LAUNCHER_LOCK_FILE)
+
+    } catch {
+
+      return false
+
+    }
+
+  }
+
+  try {
+
+    writeFileSync(LAUNCHER_LOCK_FILE, String(process.pid), { flag: 'wx' })
+
+    return true
+
+  } catch {
+
+    return false
+
+  }
 
 }
 
@@ -236,6 +412,10 @@ function handleBuildInfoDiskUpdate() {
 
 function watchBuildInfoFile() {
 
+  if (buildInfoWatchStarted) return
+
+  buildInfoWatchStarted = true
+
   const buildInfoPath = join(REPO_ROOT, 'public', 'build-info.json')
 
   if (!existsSync(buildInfoPath)) {
@@ -280,11 +460,19 @@ function watchBuildInfoFile() {
 
 
 
+/** Conserve les couleurs ANSI ; retire seulement les caractères de contrôle nuisibles. */
+function preserveAnsiLogLine(text) {
+  return String(text)
+    .replace(/(?<!\u001B)\[(\d{1,3}(?:;\d{1,3})*)m/g, '\u001B[$1m')
+    .replace(/[\u0000-\u0009\u000b-\u001a\u001c-\u001f]/g, '')
+    .trim()
+}
+
 function pushLog(line, source = 'vite') {
 
   const stamp = new Date().toLocaleTimeString('fr-FR', { hour12: false })
 
-  const entry = `[${stamp}] [${source}] ${line}`
+  const entry = `[${stamp}] [${source}] ${preserveAnsiLogLine(line)}`
 
   logLines.push(entry)
 
@@ -300,13 +488,15 @@ function pushLog(line, source = 'vite') {
 
 function appendViteOutputLine(line) {
 
-  if (!line.trim()) return
+  const preserved = preserveAnsiLogLine(line)
 
-  pushLog(line.trim(), 'vite')
+  if (!preserved) return
+
+  pushLog(preserved, 'vite')
 
   ensureSessionDir()
 
-  appendFileSync(VITE_LOG_FILE, `${line.trim()}\n`, 'utf8')
+  appendFileSync(VITE_LOG_FILE, `${preserved}\n`, 'utf8')
 
 }
 
@@ -347,6 +537,10 @@ function tailViteLogFile() {
 
 
 function initViteLogTail() {
+
+  if (viteLogWatchStarted) return
+
+  viteLogWatchStarted = true
 
   if (!existsSync(VITE_LOG_FILE)) {
 
@@ -588,22 +782,6 @@ async function tryReattachSession() {
 
 
 
-function git(command) {
-
-  try {
-
-    return execSync(command, { cwd: REPO_ROOT, encoding: 'utf8' }).trim()
-
-  } catch {
-
-    return ''
-
-  }
-
-}
-
-
-
 function readJson(path) {
 
   if (!existsSync(path)) return null
@@ -638,11 +816,11 @@ function readLocalBuildInfo() {
 
     revision,
 
-    branch: git('git rev-parse --abbrev-ref HEAD') || 'unknown',
+    branch: buildInfo?.branch ?? '—',
 
-    commit: git('git rev-parse --short HEAD') || 'unknown',
+    commit: buildInfo?.commitHash ?? '—',
 
-    dirty: git('git status --porcelain') !== '',
+    dirty: Boolean(buildInfo?.dirty),
 
   }
 
@@ -650,15 +828,37 @@ function readLocalBuildInfo() {
 
 
 
-async function fetchLiveBuildInfo(url) {
+async function probeExistingDashboard() {
 
   try {
 
-    const res = await fetch(new URL('/build-info.json', url), { cache: 'no-store' })
+    const controller = new AbortController()
+
+    const timer = setTimeout(() => controller.abort(), 1_500)
+
+    const res = await fetch(`http://127.0.0.1:${DASHBOARD_PORT}/api/status`, {
+
+      cache: 'no-store',
+
+      signal: controller.signal,
+
+    })
+
+    clearTimeout(timer)
 
     if (!res.ok) return null
 
-    return await res.json()
+    const data = await res.json()
+
+    if (!data || typeof data.devStatus !== 'string') return null
+
+    if (data.devStatus === 'stopping' || data.devStatus === 'stopped' || data.devStatus === 'crashed') {
+
+      return null
+
+    }
+
+    return data
 
   } catch {
 
@@ -670,23 +870,463 @@ async function fetchLiveBuildInfo(url) {
 
 
 
+function findAllListeningPidsOnPort(port) {
+
+  if (process.platform !== 'win32') return []
+
+  auditSpawn('netstat', `port=${port}`)
+
+  const pid = findPortListenerPid(port)
+
+  return pid ? [pid] : []
+
+}
+
+
+
+function findListeningPidOnPort(port) {
+
+  return findAllListeningPidsOnPort(port)[0] ?? null
+
+}
+
+
+
+function parseGameUrlPort(url) {
+
+  try {
+
+    const parsed = new URL(url)
+
+    if (parsed.port) return Number.parseInt(parsed.port, 10)
+
+    return parsed.protocol === 'https:' ? 443 : 80
+
+  } catch {
+
+    return 5173
+
+  }
+
+}
+
+
+
+function clearStaleLauncherLock() {
+
+  if (!existsSync(LAUNCHER_LOCK_FILE)) return false
+
+  try {
+
+    const owner = Number.parseInt(readFileSync(LAUNCHER_LOCK_FILE, 'utf8').trim(), 10)
+
+    if (owner && isProcessAlive(owner) && owner !== process.pid) return false
+
+    unlinkSync(LAUNCHER_LOCK_FILE)
+
+    return true
+
+  } catch {
+
+    try {
+
+      unlinkSync(LAUNCHER_LOCK_FILE)
+
+      return true
+
+    } catch {
+
+      return false
+
+    }
+
+  }
+
+}
+
+
+
+async function cleanupGhostProcesses() {
+
+  const killed = []
+
+  const ourPid = process.pid
+
+  const keepVitePid = devProcess?.pid ?? attachedVitePid ?? null
+
+
+
+  for (const pid of findAllListeningPidsOnPort(DASHBOARD_PORT)) {
+
+    if (pid === ourPid) continue
+
+    killProcessPid(pid)
+
+    killed.push({ pid, port: DASHBOARD_PORT, role: 'launcher' })
+
+    pushLog(`Fantôme arrêté : PID ${pid} (lanceur, port ${DASHBOARD_PORT})`, 'launcher')
+
+  }
+
+
+
+  const lockCleared = clearStaleLauncherLock()
+
+  if (lockCleared) {
+
+    pushLog('Verrou launcher obsolète supprimé.', 'launcher')
+
+  }
+
+
+
+  const vitePort = parseGameUrlPort(gameUrl)
+
+  const viteAlive = devStatus === 'running' && (await probeGameServer(gameUrl))
+
+
+
+  if (!viteAlive) {
+
+    for (const pid of findAllListeningPidsOnPort(vitePort)) {
+
+      if (pid === ourPid) continue
+
+      if (keepVitePid && pid === keepVitePid) continue
+
+      killProcessPid(pid)
+
+      killed.push({ pid, port: vitePort, role: 'vite' })
+
+      pushLog(`Fantôme arrêté : PID ${pid} (Vite, port ${vitePort})`, 'launcher')
+
+    }
+
+    if (devProcess && !isProcessAlive(devProcess.pid)) {
+
+      devProcess = null
+
+      attachedVitePid = null
+
+      devStatus = 'stopped'
+
+    }
+
+  } else {
+
+    pushLog(`Vite actif sur le port ${vitePort} — conservé.`, 'launcher')
+
+  }
+
+
+
+  return { killed, lockCleared, viteKept: viteAlive }
+
+}
+
+
+
+function killProcessOnPort(port) {
+
+  const pid = findListeningPidOnPort(port)
+
+  if (!pid || pid === process.pid) return false
+
+  try {
+
+    process.kill(pid, 0)
+
+  } catch {
+
+    return false
+
+  }
+
+  pushLog(`Port ${port} occupé par PID ${pid} — libération…`, 'launcher')
+
+  killProcessPid(pid)
+
+  return true
+
+}
+
+
+
+async function handOffToExistingDashboard() {
+
+  const existing = await probeExistingDashboard()
+
+  if (!existing) return false
+
+  const dashboardUrl = `http://127.0.0.1:${DASHBOARD_PORT}/`
+
+  console.log('[Havre Dev Launcher] Lanceur déjà actif — ouverture du tableau de bord existant.')
+
+  console.log(`[Havre Dev Launcher] Tableau de bord : ${dashboardUrl}`)
+
+  openInBrowser(dashboardUrl)
+
+  setTimeout(() => process.exit(0), 400)
+
+  return true
+
+}
+
+
+
 function openInBrowser(url) {
 
   const safeUrl = url.replace(/"/g, '')
 
+  if (process.platform === 'win32') {
+
+    execFile('rundll32', ['url.dll,FileProtocolHandler', safeUrl], {
+
+      windowsHide: true,
+
+    })
+
+    return
+
+  }
+
   const command =
 
-    process.platform === 'win32'
+    process.platform === 'darwin'
 
-      ? `start "" "${safeUrl}"`
+      ? `open "${safeUrl}"`
 
-      : process.platform === 'darwin'
+      : `xdg-open "${safeUrl}"`
 
-        ? `open "${safeUrl}"`
+  exec(command, { windowsHide: true })
 
-        : `xdg-open "${safeUrl}"`
+}
 
-  exec(command, { shell: true })
+
+
+function scriptSpawnArgs(script) {
+
+  if (script === 'dev') {
+
+    const viteBin = join(REPO_ROOT, 'node_modules', 'vite', 'bin', 'vite.js')
+
+    if (existsSync(viteBin)) {
+
+      return { command: process.execPath, args: [viteBin] }
+
+    }
+
+  }
+
+  if (script === 'version:prompt') {
+
+    const scriptPath = join(REPO_ROOT, 'scripts', 'bump-prompt.mjs')
+
+    if (existsSync(scriptPath)) {
+
+      return { command: process.execPath, args: [scriptPath] }
+
+    }
+
+  }
+
+  const npmCli = join(REPO_ROOT, 'node_modules', 'npm', 'bin', 'npm-cli.js')
+
+  if (existsSync(npmCli)) {
+
+    return { command: process.execPath, args: [npmCli, 'run', script] }
+
+  }
+
+  if (process.platform === 'win32') {
+
+    return {
+
+      command: process.env.ComSpec || 'cmd.exe',
+
+      args: ['/d', '/s', '/c', 'npm', 'run', script],
+
+    }
+
+  }
+
+  return { command: 'npm', args: ['run', script] }
+
+}
+
+
+
+function touchDashboardActivity(fromDashboard) {
+
+  if (!fromDashboard) return
+
+  lastDashboardPingAt = Date.now()
+
+  dashboardEverConnected = true
+
+  pendingShutdownAt = 0
+
+}
+
+
+
+function startDashboardIdleWatch() {
+
+  /* Désactivé — l’arrêt se fait via la fenêtre .bat ou le bouton Quitter tout. */
+
+}
+
+
+
+function hideAttachedConsoleWindow() {
+
+  if (process.platform !== 'win32' || consoleHidden || shuttingDown) return
+
+  const psCommand = [
+
+    "Add-Type @'",
+
+    'using System;',
+
+    'using System.Runtime.InteropServices;',
+
+    'public class HavreConsole {',
+
+    '  [DllImport("kernel32.dll", SetLastError=true)] public static extern bool AttachConsole(uint dwProcessId);',
+
+    '  [DllImport("kernel32.dll", SetLastError=true)] public static extern bool FreeConsole();',
+
+    '  [DllImport("kernel32.dll")] public static extern IntPtr GetConsoleWindow();',
+
+    '  [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);',
+
+    '}',
+
+    "'@;",
+
+    `if ([HavreConsole]::AttachConsole(${process.pid})) {`,
+
+    '  $hwnd = [HavreConsole]::GetConsoleWindow();',
+
+    '  if ($hwnd -ne [IntPtr]::Zero) { [void][HavreConsole]::ShowWindow($hwnd, 0) }',
+
+    '  [void][HavreConsole]::FreeConsole()',
+
+    '}',
+
+  ].join('\n')
+
+
+
+  execFile(
+
+    'powershell.exe',
+
+    ['-NoProfile', '-NonInteractive', '-WindowStyle', 'Hidden', '-Command', psCommand],
+
+    { windowsHide: true },
+
+    (error) => {
+
+      if (error) {
+
+        console.error('[Havre Dev Launcher] Impossible de masquer la console :', error.message)
+
+        return
+
+      }
+
+      consoleHidden = true
+
+      backgroundMode = true
+
+      pushLog(
+
+        'Console masquée — fermez l’onglet du tableau de bord pour tout arrêter.',
+
+        'launcher',
+
+      )
+
+      startDashboardIdleWatch()
+
+    },
+
+  )
+
+}
+
+
+
+function scheduleConsoleHide() {
+
+  if (process.env.HAVRE_HIDE_CONSOLE !== '1') return
+
+  if (consoleHidden || consoleHideTimer || shuttingDown || backgroundMode) return
+
+  consoleHideTimer = setTimeout(() => {
+
+    consoleHideTimer = null
+
+    if (shuttingDown || devStatus === 'crashed') return
+
+    hideAttachedConsoleWindow()
+
+    if (process.platform !== 'win32') {
+
+      consoleHidden = true
+
+      backgroundMode = true
+
+      pushLog(
+
+        'Lanceur en arrière-plan — fermez l’onglet du tableau de bord pour tout arrêter.',
+
+        'launcher',
+
+      )
+
+      startDashboardIdleWatch()
+
+    }
+
+  }, CONSOLE_HIDE_DELAY_MS)
+
+}
+
+
+
+function bindConsoleCloseShutdown() {
+
+  if (process.platform !== 'win32') return
+
+  process.stdin.resume()
+
+  process.stdin.on('close', () => {
+
+    if (!shuttingDown) shutdown()
+
+  })
+
+}
+
+
+
+function markDevServerReady(sourceText) {
+
+  if (devStatus !== 'starting') return
+
+  if (!/ready in/i.test(sourceText) && !/➜\s+Local:/i.test(sourceText)) return
+
+  devStatus = 'running'
+
+  if (openedGameOnce || !/localhost|127\.0\.0\.1/i.test(gameUrl)) return
+
+  openedGameOnce = true
+
+  pushLog(`Ouverture du jeu : ${gameUrl}`, 'launcher')
+
+  setTimeout(() => openInBrowser(gameUrl), 400)
 
 }
 
@@ -718,21 +1358,21 @@ function stopProcessTree(child) {
 
   if (!child?.pid) return
 
-  if (process.platform === 'win32') {
-
-    spawn('taskkill', ['/pid', String(child.pid), '/f', '/t'], { shell: true, stdio: 'ignore' })
-
-  } else {
-
-    child.kill('SIGTERM')
-
-  }
+  killProcessPid(child.pid)
 
 }
 
 
 
 function startDevServer() {
+
+  if (devStatus === 'running' && devProcess?.pid && isProcessAlive(devProcess.pid)) {
+
+    pushLog('Vite déjà actif — démarrage ignoré.', 'launcher')
+
+    return
+
+  }
 
   if (devProcess) {
 
@@ -764,25 +1404,46 @@ function startDevServer() {
 
   resetViteLogFile()
 
-  pushLog('Démarrage de npm run dev…', 'launcher')
+  pushLog('Démarrage de Vite…', 'launcher')
 
+  const devSpawn = scriptSpawnArgs('dev')
 
-
-  devProcess = spawn('npm', ['run', 'dev'], {
+  devProcess = spawnHidden(devSpawn.command, devSpawn.args, {
 
     cwd: REPO_ROOT,
 
-    shell: true,
-
     stdio: ['ignore', 'pipe', 'pipe'],
 
-    env: { ...process.env, FORCE_COLOR: '0' },
+    env: {
+      ...process.env,
+      FORCE_COLOR: '1',
+    },
 
   })
 
 
 
-  devProcess.stdout?.on('data', (chunk) => {
+  devProcess.on('error', (error) => {
+
+    if (consoleHideTimer) {
+
+      clearTimeout(consoleHideTimer)
+
+      consoleHideTimer = null
+
+    }
+
+    pushLog(`Impossible de lancer Vite : ${error.message}`, 'launcher')
+
+    devStatus = 'crashed'
+
+    devProcess = null
+
+  })
+
+
+
+  const handleDevOutput = (chunk) => {
 
     const text = String(chunk)
 
@@ -794,39 +1455,17 @@ function startDevServer() {
 
     }
 
-    if (devStatus === 'starting' && (/ready in/i.test(text) || /➜\s+Local:/i.test(text))) {
+    markDevServerReady(text)
 
-      devStatus = 'running'
-
-      if (!openedGameOnce && /localhost|127\.0\.0\.1/i.test(gameUrl)) {
-
-        openedGameOnce = true
-
-        pushLog(`Ouverture du jeu : ${gameUrl}`, 'launcher')
-
-        setTimeout(() => openInBrowser(gameUrl), 400)
-
-      }
-
-    }
-
-  })
+  }
 
 
 
-  devProcess.stderr?.on('data', (chunk) => {
+  devProcess.stdout?.on('data', handleDevOutput)
 
-    const text = String(chunk)
 
-    parseDevUrl(text)
 
-    for (const line of text.split(/\r?\n/)) {
-
-      appendViteOutputLine(line)
-
-    }
-
-  })
+  devProcess.stderr?.on('data', handleDevOutput)
 
 
 
@@ -900,9 +1539,17 @@ function restartLauncher() {
 
 
 
+  releaseLauncherLock()
+
+
+
   const scriptPath = join(__dirname, 'server.mjs')
 
-  const child = spawn(process.execPath, [scriptPath, REATTACH_ARG], {
+  const args = [scriptPath, REATTACH_ARG]
+
+  if (backgroundMode || consoleHidden) args.push(BACKGROUND_ARG)
+
+  const child = spawnHidden(process.execPath, args, {
 
     cwd: REPO_ROOT,
 
@@ -930,6 +1577,8 @@ function restartLauncher() {
 
   dashboardServer.close(() => {
 
+    releaseLauncherLock()
+
     process.exit(0)
 
   })
@@ -950,15 +1599,18 @@ function runBuild() {
 
   pushLog('Lancement de npm run build…', 'launcher')
 
-  buildProcess = spawn('npm', ['run', 'build'], {
+  const buildSpawn = scriptSpawnArgs('build')
+
+  buildProcess = spawnHidden(buildSpawn.command, buildSpawn.args, {
 
     cwd: REPO_ROOT,
 
-    shell: true,
-
     stdio: ['ignore', 'pipe', 'pipe'],
 
-    env: { ...process.env, FORCE_COLOR: '0' },
+    env: {
+      ...process.env,
+      FORCE_COLOR: '1',
+    },
 
   })
 
@@ -992,7 +1644,9 @@ async function getStatusPayload() {
 
   const local = readLocalBuildInfo()
 
-  const liveBuildInfo = devStatus === 'running' ? await fetchLiveBuildInfo(gameUrl) : null
+  const liveBuildInfo =
+
+    devStatus === 'running' ? readJson(join(REPO_ROOT, 'public', 'build-info.json')) : null
 
   const uptimeMs = devStatus === 'running' ? Date.now() - startedAt : 0
 
@@ -1098,6 +1752,8 @@ function createDashboardServer() {
 
     if (path === '/api/status' && req.method === 'GET') {
 
+      touchDashboardActivity(req.headers['x-havre-dashboard'] === '1')
+
       sendJson(res, 200, await getStatusPayload())
 
       return
@@ -1164,6 +1820,42 @@ function createDashboardServer() {
 
 
 
+    if (path === '/api/shutdown' && req.method === 'POST') {
+
+      sendJson(res, 200, { ok: true })
+
+      setTimeout(() => shutdown(), 100)
+
+      return
+
+    }
+
+
+
+    if (path === '/api/quit-all' && req.method === 'POST') {
+
+      sendJson(res, 200, { ok: true })
+
+      setTimeout(() => shutdown(), 100)
+
+      return
+
+    }
+
+
+
+    if (path === '/api/cleanup-ghosts' && req.method === 'POST') {
+
+      const result = await cleanupGhostProcesses()
+
+      sendJson(res, 200, { ok: true, ...result })
+
+      return
+
+    }
+
+
+
     if (path === '/api/build' && req.method === 'POST') {
 
       runBuild()
@@ -1192,19 +1884,23 @@ function createDashboardServer() {
 
       const folder = REPO_ROOT.replace(/"/g, '')
 
-      const command =
+      if (process.platform === 'win32') {
 
-        process.platform === 'win32'
+        execFile('explorer.exe', [folder], { windowsHide: true })
 
-          ? `start "" "${folder}"`
+      } else {
 
-          : process.platform === 'darwin'
+        const command =
+
+          process.platform === 'darwin'
 
             ? `open "${folder}"`
 
             : `xdg-open "${folder}"`
 
-      exec(command, { shell: true })
+        exec(command, { windowsHide: true })
+
+      }
 
       sendJson(res, 200, { ok: true })
 
@@ -1216,7 +1912,15 @@ function createDashboardServer() {
 
     if (path === '/api/version-prompt' && req.method === 'POST') {
 
-      spawn('npm', ['run', 'version:prompt'], { cwd: REPO_ROOT, shell: true, stdio: 'ignore' })
+      const versionSpawn = scriptSpawnArgs('version:prompt')
+
+      spawnHidden(versionSpawn.command, versionSpawn.args, {
+
+        cwd: REPO_ROOT,
+
+        stdio: 'ignore',
+
+      })
 
       pushLog('npm run version:prompt lancé', 'launcher')
 
@@ -1240,6 +1944,28 @@ function createDashboardServer() {
 
 function shutdown() {
 
+  if (shuttingDown) return
+
+  shuttingDown = true
+
+  releaseLauncherLock()
+
+  if (consoleHideTimer) {
+
+    clearTimeout(consoleHideTimer)
+
+    consoleHideTimer = null
+
+  }
+
+  if (dashboardIdleTimer) {
+
+    clearInterval(dashboardIdleTimer)
+
+    dashboardIdleTimer = null
+
+  }
+
   pushLog('Fermeture du lanceur…', 'launcher')
 
   stopDevServer()
@@ -1252,7 +1978,19 @@ function shutdown() {
 
   }
 
-  process.exit(0)
+  const exitNow = () => process.exit(0)
+
+  if (dashboardServer?.listening) {
+
+    dashboardServer.close(exitNow)
+
+    setTimeout(exitNow, 2000)
+
+    return
+
+  }
+
+  exitNow()
 
 }
 
@@ -1260,61 +1998,159 @@ function shutdown() {
 
 function listenDashboard(server, { delayMs = 0 } = {}) {
 
-  const startListening = () => {
+  server.setMaxListeners(16)
 
-    server.listen(DASHBOARD_PORT, '127.0.0.1', () => {
+  let listenAttempts = 0
 
-      const dashboardUrl = `http://127.0.0.1:${DASHBOARD_PORT}/`
+  const MAX_LISTEN_ATTEMPTS = 2
 
-      console.log(`[Havre Dev Launcher] Tableau de bord : ${dashboardUrl}`)
+  const dashboardUrl = `http://127.0.0.1:${DASHBOARD_PORT}/`
 
-      pushLog(`Tableau de bord prêt sur ${dashboardUrl}`, 'launcher')
 
-      if (!openedDashboardOnce) {
 
-        openedDashboardOnce = true
+  const onListening = () => {
 
-        openInBrowser(dashboardUrl)
+    listenAttempts = 0
 
-      }
+    console.log(`[Havre Dev Launcher] Tableau de bord : ${dashboardUrl}`)
 
-    })
+    pushLog(`Tableau de bord prêt sur ${dashboardUrl}`, 'launcher')
+
+    if (!openedDashboardOnce) {
+
+      openedDashboardOnce = true
+
+      openInBrowser(dashboardUrl)
+
+    }
 
   }
 
 
 
-  server.on('error', (error) => {
+  const scheduleListen = () => {
 
-    if (error && typeof error === 'object' && 'code' in error && error.code === 'EADDRINUSE') {
+    server.removeAllListeners('error')
 
-      pushLog(`Port ${DASHBOARD_PORT} occupé — nouvel essai dans 500 ms…`, 'launcher')
+    server.removeAllListeners('listening')
 
-      setTimeout(() => {
+    server.once('listening', onListening)
 
-        server.close(() => startListening())
 
-      }, 500)
 
-      return
+    server.once('error', (error) => {
 
-    }
+      if (error?.code !== 'EADDRINUSE') {
 
-    console.error(error)
+        console.error(error)
 
-    process.exit(1)
+        process.exit(1)
 
-  })
+        return
+
+      }
+
+
+
+      void (async () => {
+
+        if (listenAttempts === 0) {
+
+          const existing = await probeExistingDashboard()
+
+          if (existing) {
+
+            console.log(
+
+              '[Havre Dev Launcher] Lanceur déjà actif — ouverture du tableau de bord existant.',
+
+            )
+
+            openInBrowser(dashboardUrl)
+
+            setTimeout(() => process.exit(0), 400)
+
+            return
+
+          }
+
+        }
+
+
+
+        if (listenAttempts >= MAX_LISTEN_ATTEMPTS) {
+
+          const blockerPid = findListeningPidOnPort(DASHBOARD_PORT)
+
+          console.error(
+
+            `[Havre Dev Launcher] Port ${DASHBOARD_PORT} occupé${
+
+              blockerPid ? ` (PID ${blockerPid})` : ''
+
+            }.`,
+
+          )
+
+          console.error(
+
+            'Fermez l’onglet du tableau de bord précédent ou exécutez : taskkill /PID <pid> /F /T',
+
+          )
+
+          process.exit(1)
+
+          return
+
+        }
+
+
+
+        listenAttempts += 1
+
+        pushLog(
+
+          `Port ${DASHBOARD_PORT} occupé — nouvel essai ${listenAttempts}/${MAX_LISTEN_ATTEMPTS} dans 800 ms…`,
+
+          'launcher',
+
+        )
+
+
+
+        setTimeout(() => {
+
+          if (server.listening) {
+
+            server.close(() => scheduleListen())
+
+            return
+
+          }
+
+          scheduleListen()
+
+        }, 800)
+
+      })()
+
+    })
+
+
+
+    server.listen(DASHBOARD_PORT, '127.0.0.1')
+
+  }
 
 
 
   if (delayMs > 0) {
 
-    setTimeout(startListening, delayMs)
+    setTimeout(scheduleListen, delayMs)
 
   } else {
 
-    startListening()
+    scheduleListen()
 
   }
 
@@ -1338,7 +2174,67 @@ async function main() {
 
 
 
+  if (process.argv.includes(CLEANUP_GHOSTS_ARG)) {
+
+    const result = await cleanupGhostProcesses()
+
+    if (result.killed.length === 0 && !result.lockCleared) {
+
+      console.log('[Havre Dev Launcher] Aucun fantôme détecté.')
+
+    } else {
+
+      console.log('[Havre Dev Launcher] Nettoyage terminé :')
+
+      for (const item of result.killed) {
+
+        console.log(`  - PID ${item.pid} (${item.role}, port ${item.port})`)
+
+      }
+
+      if (result.lockCleared) console.log('  - Verrou launcher supprimé')
+
+      if (result.viteKept) console.log('  - Vite actif conservé')
+
+    }
+
+    process.exit(0)
+
+  }
+
+
+
   const isReattach = process.argv.includes(REATTACH_ARG)
+
+
+
+  if (!isReattach && (await handOffToExistingDashboard())) {
+
+    return
+
+  }
+
+
+
+  if (!tryAcquireLauncherLock()) {
+
+    if (await handOffToExistingDashboard()) return
+
+    console.error(
+
+      '[Havre Dev Launcher] Un lanceur démarre déjà. Attendez 5 secondes ou fermez l’onglet du tableau de bord.',
+
+    )
+
+    process.exit(1)
+
+  }
+
+
+
+  process.on('exit', releaseLauncherLock)
+
+
 
   let reattached = false
 
@@ -1369,6 +2265,16 @@ async function main() {
   if (!reattached) {
 
     startDevServer()
+
+  }
+
+
+
+  bindConsoleCloseShutdown()
+
+  if (backgroundMode) {
+
+    startDashboardIdleWatch()
 
   }
 

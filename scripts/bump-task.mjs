@@ -2,40 +2,14 @@
  * Tâche distincte dans un prompt → sous-révision +1 (npm run version:task).
  * Complète version:prompt (X) ; ne remet pas X à zéro.
  */
-import { execSync } from 'node:child_process'
-import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { getWorktreeFingerprint, runGit } from './lib/worktree-fingerprint.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const revisionPath = join(root, 'build-revision.json')
 const publicBuildInfoPath = join(root, 'public/build-info.json')
-
-function runGit(command) {
-  try {
-    return execSync(command, { cwd: root, encoding: 'utf8' }).trim()
-  } catch {
-    return ''
-  }
-}
-
-function getWorktreeFingerprint() {
-  const head = runGit('git rev-parse HEAD') || 'unknown'
-  const status = runGit('git status --porcelain')
-  const diff = runGit('git diff HEAD')
-  const untracked = runGit('git ls-files --others --exclude-standard')
-  return createHash('sha1')
-    .update(head)
-    .update('\0')
-    .update(status)
-    .update('\0')
-    .update(diff)
-    .update('\0')
-    .update(untracked)
-    .digest('hex')
-    .slice(0, 12)
-}
 
 function readState() {
   if (!existsSync(revisionPath)) return null
@@ -49,12 +23,12 @@ function readState() {
 }
 
 function initialRevision() {
-  const commitCount = Number.parseInt(runGit('git rev-list --count HEAD') || '0', 10)
-  const dirty = runGit('git status --porcelain') !== ''
+  const commitCount = Number.parseInt(runGit(root, 'git rev-list --count HEAD') || '0', 10)
+  const dirty = runGit(root, 'git status --porcelain') !== ''
   return dirty ? Math.max(1, commitCount) + 1 : Math.max(1, commitCount)
 }
 
-const fingerprint = getWorktreeFingerprint()
+const fingerprint = getWorktreeFingerprint(root)
 const existing = readState()
 const revision = existing?.revision ?? initialRevision()
 const subRevision = existing ? existing.subRevision + 1 : 1
@@ -72,9 +46,9 @@ const versionLabel =
 
 const buildInfo = {
   semver,
-  commitCount: Number.parseInt(runGit('git rev-list --count HEAD') || '0', 10),
-  commitHash: runGit('git rev-parse --short HEAD') || 'unknown',
-  dirty: runGit('git status --porcelain') !== '',
+  commitCount: Number.parseInt(runGit(root, 'git rev-list --count HEAD') || '0', 10),
+  commitHash: runGit(root, 'git rev-parse --short HEAD') || 'unknown',
+  dirty: runGit(root, 'git status --porcelain') !== '',
   revision,
   subRevision,
   build,

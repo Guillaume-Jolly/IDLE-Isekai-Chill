@@ -87,3 +87,20 @@
   animation: none;
   position: absolute;
 }
+
+.companion-portrait--fit-contain,
+.mg-conversation-portrait-stack .companion-portrait-cutout,
+.mg-conversation-portrait-stack .companion-portrait--cutout,
+.mg-conversation-portrait-stack .companion-portrait--composed {
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  width: 100%;
+}
+
+.mg-conversation-portrait-stack .companion-portrait--layered {
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+}

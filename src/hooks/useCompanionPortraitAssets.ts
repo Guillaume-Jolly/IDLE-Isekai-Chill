@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   companionBackgroundWidePathCandidates,
+  companionEmotionCutoutPathCandidates,
   companionPortraitLayerSources,
+  type CompanionEmotionId,
   type CompanionPortraitLayerSources,
 } from '../data/companionAssets'
 import { resolveFirstAvailableRelative } from '../lib/assetProbeCache'
@@ -23,8 +25,9 @@ function portraitCacheKey(
   cutoutOnly: boolean,
   preferSceneBackground: boolean,
   useWideBackground: boolean,
+  emotion: CompanionEmotionId | undefined,
 ) {
-  return JSON.stringify({ sources, cutoutOnly, preferSceneBackground, useWideBackground })
+  return JSON.stringify({ sources, cutoutOnly, preferSceneBackground, useWideBackground, emotion })
 }
 
 async function resolvePortraitAssets(
@@ -32,7 +35,18 @@ async function resolvePortraitAssets(
   cutoutOnly: boolean,
   preferSceneBackground: boolean,
   useWideBackground: boolean,
+  companionId: string,
+  emotion: CompanionEmotionId | undefined,
 ): Promise<CompanionPortraitAssets> {
+  if (emotion) {
+    const emotionSrc = await resolveFirstAvailableRelative(
+      companionEmotionCutoutPathCandidates(companionId, emotion),
+    )
+    if (emotionSrc) {
+      return { mode: 'cutout-only', backgroundSrc: null, cutoutSrc: emotionSrc, composedSrc: null }
+    }
+  }
+
   const [cutoutSrc, composedSrc] = await Promise.all([
     resolveFirstAvailableRelative(sources.cutout),
     cutoutOnly ? Promise.resolve(null) : resolveFirstAvailableRelative(sources.composed),
@@ -73,11 +87,20 @@ function getCachedPortraitAssets(
   cutoutOnly: boolean,
   preferSceneBackground: boolean,
   useWideBackground: boolean,
+  companionId: string,
+  emotion: CompanionEmotionId | undefined,
 ) {
-  const key = portraitCacheKey(sources, cutoutOnly, preferSceneBackground, useWideBackground)
+  const key = portraitCacheKey(sources, cutoutOnly, preferSceneBackground, useWideBackground, emotion)
   let pending = portraitResolveCache.get(key)
   if (!pending) {
-    pending = resolvePortraitAssets(sources, cutoutOnly, preferSceneBackground, useWideBackground)
+    pending = resolvePortraitAssets(
+      sources,
+      cutoutOnly,
+      preferSceneBackground,
+      useWideBackground,
+      companionId,
+      emotion,
+    )
     portraitResolveCache.set(key, pending)
   }
   return pending
@@ -89,10 +112,12 @@ export function useCompanionPortraitAssets(
   options?: {
     cutoutOnly?: boolean
     sceneId?: string
+    emotion?: CompanionEmotionId
   },
 ): CompanionPortraitAssets {
   const cutoutOnly = options?.cutoutOnly ?? false
   const sceneId = options?.sceneId
+  const emotion = options?.emotion
   const isMobileLayout = useIsMobileLayout()
 
   const sources = useMemo(
@@ -112,13 +137,26 @@ export function useCompanionPortraitAssets(
 
   useEffect(() => {
     let cancelled = false
-    getCachedPortraitAssets(sources, cutoutOnly, Boolean(sceneId), !isMobileLayout).then((next) => {
+    setAssets({
+      mode: 'loading',
+      backgroundSrc: null,
+      cutoutSrc: null,
+      composedSrc: null,
+    })
+    getCachedPortraitAssets(
+      sources,
+      cutoutOnly,
+      Boolean(sceneId),
+      !isMobileLayout,
+      companionId,
+      emotion,
+    ).then((next) => {
       if (!cancelled) setAssets(next)
     })
     return () => {
       cancelled = true
     }
-  }, [cutoutOnly, isMobileLayout, sceneId, sources])
+  }, [companionId, cutoutOnly, emotion, isMobileLayout, sceneId, sources])
 
   return assets
 }

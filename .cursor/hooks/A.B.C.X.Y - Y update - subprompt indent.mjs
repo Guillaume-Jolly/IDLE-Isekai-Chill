@@ -8,10 +8,11 @@ import { spawnSync } from 'node:child_process'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
-  getChangedPaths,
   getWorktreeFingerprint,
   isVersionMetaOnlyChange,
+  parseChangedPaths,
   readRevisionState,
+  runGit,
 } from '../../scripts/lib/worktree-fingerprint.mjs'
 import { logVersionHook, peekVersionHookProject } from '../../scripts/lib/version-hook-log.mjs'
 import {
@@ -86,9 +87,9 @@ if (/même\s*Y|meme\s*Y|same\s*Y/i.test(lastUserText)) {
 }
 
 const state = readRevisionState(root)
-const currentFingerprint = getWorktreeFingerprint(root)
+const porcelain = runGit(root, 'git status --porcelain')
 
-if (!state || state.fingerprint === currentFingerprint) {
+if (!porcelain.trim()) {
   versionHook = logVersionHook(root, {
     hook: 'stop',
     hookName: VERSION_HOOK_Y_NAME,
@@ -99,7 +100,7 @@ if (!state || state.fingerprint === currentFingerprint) {
   process.exit(0)
 }
 
-const changedPaths = getChangedPaths(root)
+const changedPaths = parseChangedPaths(porcelain)
 if (isVersionMetaOnlyChange(root, changedPaths)) {
   versionHook = logVersionHook(root, {
     hook: 'stop',
@@ -111,10 +112,23 @@ if (isVersionMetaOnlyChange(root, changedPaths)) {
   process.exit(0)
 }
 
+const currentFingerprint = getWorktreeFingerprint(root)
+if (state?.fingerprint === currentFingerprint) {
+  versionHook = logVersionHook(root, {
+    hook: 'stop',
+    hookName: VERSION_HOOK_Y_NAME,
+    action: 'skip',
+    reason: 'fingerprint identique',
+  })
+  emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, versionHook))
+  process.exit(0)
+}
+
 const result = spawnSync(process.execPath, [join(root, 'scripts', 'bump-task.mjs')], {
   cwd: root,
   encoding: 'utf8',
   stdio: ['ignore', 'pipe', 'pipe'],
+  windowsHide: true,
 })
 
 if (result.status !== 0) {

@@ -124,7 +124,7 @@ export function killProcessByPid(pid, force = true) {
   }
 
   if (process.platform === 'win32') {
-    const args = force ? ['/PID', String(pid), '/F'] : ['/PID', String(pid)]
+    const args = force ? ['/PID', String(pid), '/F', '/T'] : ['/PID', String(pid)]
     const result = spawnSync(system32Exe('taskkill.exe'), args, {
       stdio: 'ignore',
       windowsHide: true,

@@ -52,6 +52,7 @@ const result = spawnSync(process.execPath, [join(root, 'scripts', 'bump-prompt.m
   cwd: root,
   encoding: 'utf8',
   stdio: ['ignore', 'pipe', 'pipe'],
+  windowsHide: true,
 })
 
 if (result.status !== 0) {

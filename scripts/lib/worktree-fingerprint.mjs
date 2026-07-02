@@ -1,17 +1,22 @@
 /**
  * Fingerprint worktree git — partagé hooks + scripts version.
+ * Une seule invocation git (status) quand possible.
  */
 import { createHash } from 'node:crypto'
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { resolveGitExecutable } from '../dev-launcher/resolve-git-exe.mjs'
 import { readVersionConfig } from './version-config.mjs'
 
+/** @param {string} root @param {string} command ex. "git status --porcelain" */
 export function runGit(root, command) {
+  const args = command.replace(/^git\s+/i, '').trim().split(/\s+/).filter(Boolean)
   try {
-    return execSync(command, {
+    return execFileSync(resolveGitExecutable(), args, {
       cwd: root,
       encoding: 'utf8',
+      windowsHide: true,
       stdio: ['ignore', 'pipe', 'ignore'],
     }).trim()
   } catch {
@@ -19,19 +24,31 @@ export function runGit(root, command) {
   }
 }
 
+/** Lit HEAD depuis .git sans subprocess. */
+export function readGitHead(root) {
+  try {
+    const headPath = join(root, '.git', 'HEAD')
+    if (!existsSync(headPath)) return ''
+    let head = readFileSync(headPath, 'utf8').trim()
+    if (head.startsWith('ref: ')) {
+      const refPath = join(root, '.git', head.slice(5).trim())
+      if (existsSync(refPath)) {
+        head = readFileSync(refPath, 'utf8').trim()
+      }
+    }
+    return head
+  } catch {
+    return ''
+  }
+}
+
 export function getWorktreeFingerprint(root) {
-  const head = runGit(root, 'git rev-parse HEAD') || 'unknown'
+  const head = readGitHead(root) || runGit(root, 'git rev-parse HEAD') || 'unknown'
   const status = runGit(root, 'git status --porcelain')
-  const diff = runGit(root, 'git diff HEAD')
-  const untracked = runGit(root, 'git ls-files --others --exclude-standard')
   return createHash('sha1')
     .update(head)
     .update('\0')
     .update(status)
-    .update('\0')
-    .update(diff)
-    .update('\0')
-    .update(untracked)
     .digest('hex')
     .slice(0, 12)
 }
@@ -39,6 +56,10 @@ export function getWorktreeFingerprint(root) {
 /** Chemins modifiés (porcelain), normalisés slash forward. */
 export function getChangedPaths(root) {
   const status = runGit(root, 'git status --porcelain')
+  return parseChangedPaths(status)
+}
+
+export function parseChangedPaths(status) {
   if (!status) return []
   return status
     .split('\n')
@@ -50,7 +71,7 @@ export function getChangedPaths(root) {
 
 function versionMetaPaths(root) {
   const devLog = readVersionConfig(root).devLogRelativePath.replace(/\\/g, '/')
-  return new Set(['build-revision.json', devLog])
+  return new Set(['build-revision.json', devLog, 'public/build-info.json'])
 }
 
 export function isVersionMetaOnlyChange(root, paths) {

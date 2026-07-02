@@ -129,7 +129,7 @@ export const companionChibiPathCandidates = (companionId: string) => [
   `companions/${companionId}/chibi.png`,
 ]
 
-/** Émotions cutout (staging v2 → public emotion-*.png). */
+/** Émotions cutout — 8 legacy + 10 palette v2 (Lyra pilote). */
 export const COMPANION_EMOTION_IDS = [
   'neutral',
   'happy',
@@ -139,9 +139,51 @@ export const COMPANION_EMOTION_IDS = [
   'surprised',
   'romantic',
   'playful',
+  'focused',
+  'pleased',
+  'dry_amused',
+  'concerned',
+  'firm',
+  'curious',
+  'dismissive',
+  'tired',
+  'warm',
+  'embarrassed',
+  /** Aff. 4–5 Lyra intime — tenues pack (≠ mage bibliothèque). */
+  'commanding',
+  'heated',
+  'dominant',
+  'lustful',
 ] as const
 
 export type CompanionEmotionId = (typeof COMPANION_EMOTION_IDS)[number]
+
+/** Portrait de base Parler aff. 4–5 Lyra — une tenue intime par pack session. */
+export const LYRA_INTIMATE_PACK_EMOTION: Record<string, CompanionEmotionId> = {
+  'pack-1': 'commanding',
+  'pack-2': 'heated',
+  'pack-3': 'dominant',
+  'pack-4': 'lustful',
+}
+
+/** Cutouts aff. 4–5 (tenue pack) — conservés en réaction même si score 1. */
+export const LYRA_INTIMATE_CUTOUT_EMOTION_IDS = new Set<CompanionEmotionId>([
+  'commanding',
+  'heated',
+  'dominant',
+  'lustful',
+])
+
+export function lyraIntimateSessionPortraitEmotion(
+  companionId: string,
+  conversationId: string,
+  affinity: number,
+): CompanionEmotionId | undefined {
+  if (companionId !== 'lyra' || affinity < 4) return undefined
+  const match = conversationId.match(/-curated-(?:female-mc-)?(pack-\d+)$/)
+  if (!match) return undefined
+  return LYRA_INTIMATE_PACK_EMOTION[match[1]]
+}
 
 const companionEmotionCutoutRelative = (companionId: string, emotion: CompanionEmotionId) =>
   `assets/companions/${companionId}/emotion-${emotion}.png`
@@ -152,7 +194,10 @@ export const companionEmotionCutoutPath = (companionId: string, emotion: Compani
 export const companionEmotionCutoutPathCandidates = (
   companionId: string,
   emotion: CompanionEmotionId,
-) => [companionEmotionCutoutRelative(companionId, emotion)]
+) => [
+  companionEmotionCutoutRelative(companionId, emotion),
+  `assets/Compagnons/${companionId}/cutouts/emotion-${emotion}.png`,
+]
 
 /** Scène intégrée NSFW (ex-L6 peak-plus) — palier logique 4, affichée si option NSFW. */
 export const companionIntegratedNsfwRelative = (companionId: string) =>
