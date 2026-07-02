@@ -45,6 +45,22 @@ Pour le travail en cours et les tâches priorisées, voir aussi
 
 ---
 
+## Parler — génération procédurale (linkCorpusV2)
+
+**Statut :** backlog — **très tardif** (après base curée stable pour **tous** les compagnons)
+
+**Prérequis avant d’y toucher :**
+
+1. Corpus curés aff. 1–5 par compagnon (Lyra = modèle ; autres villageois + Disagrea ensuite)
+2. Règles stables S0–S38 + cutouts intimes pack (commanding / heated / dominant / lustful) validés en prod
+3. `toneWeights` par palier, scores 0–3, mapping ton → émotion — **figés en curated**, pas auto-générés
+
+**Hors scope 2.2 :** réactiver `linkCorpusV2`, `getPreferredTone()` procédural, ou remplacer les JSON curés par du contenu auto.
+
+**Référence :** `CURATED_PARLER_ONLY = true` dans `curatedCorpus.ts` — ne pas inverser sans revue explicite.
+
+---
+
 ## Comment ajouter une entrée
 
 Copier le bloc modèle en bas de fichier, remplir, laisser le statut à `idée`.

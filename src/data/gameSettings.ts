@@ -2,13 +2,18 @@ export type GameLanguage = 'fr' | 'en'
 
 export type GameColorTheme = 'light' | 'dark'
 
+/** Genre du protagoniste — choisi à la connexion (dialogues intimes aff. 4+). */
+export type ProtagonistGender = 'male' | 'female'
+
 export type GameSettings = {
   masterVolume: number
   interfaceVolume: number
   musicVolume: number
   language: GameLanguage
-  /** Scènes intégrées affinity-04-nsfw (ex-L6). Désactivé par défaut (SFW). */
+  /** Scènes intégrées + dialogues Parler aff. 4–5 (NSFW). Désactivé par défaut (SFW). */
   nsfwContent: boolean
+  /** MC masculin (H) ou féminin (F) — corpus intime aff. 4+ en production. */
+  protagonistGender: ProtagonistGender
   /** Thème global de l'interface — lumineux ou sombre. */
   colorTheme: GameColorTheme
 }
@@ -19,6 +24,7 @@ export const DEFAULT_GAME_SETTINGS: GameSettings = {
   musicVolume: 0.6,
   language: 'fr',
   nsfwContent: false,
+  protagonistGender: 'male',
   colorTheme: 'light',
 }
 
@@ -32,12 +38,14 @@ function clampVolume(value: number): number {
 function normalizeSettings(raw: Partial<GameSettings> | null | undefined): GameSettings {
   const language = raw?.language === 'en' ? 'en' : 'fr'
   const colorTheme = raw?.colorTheme === 'dark' ? 'dark' : 'light'
+  const protagonistGender = raw?.protagonistGender === 'female' ? 'female' : 'male'
   return {
     masterVolume: clampVolume(raw?.masterVolume ?? DEFAULT_GAME_SETTINGS.masterVolume),
     interfaceVolume: clampVolume(raw?.interfaceVolume ?? DEFAULT_GAME_SETTINGS.interfaceVolume),
     musicVolume: clampVolume(raw?.musicVolume ?? DEFAULT_GAME_SETTINGS.musicVolume),
     language,
     nsfwContent: raw?.nsfwContent === true,
+    protagonistGender,
     colorTheme,
   }
 }

@@ -47,8 +47,8 @@ export const TUTORIAL_OBJECTIVES: TutorialObjectiveDef[] = [
   {
     id: 'upgrade-building',
     order: 2,
-    title: 'Chantier du havre',
-    description: 'Améliore un bâtiment depuis l’onglet Bâtiments ou la carte.',
+    title: 'Bâtiments du havre',
+    description: 'Améliore un bâtiment depuis l’onglet Bâtiments ou la carte du village.',
     reward: { wood: 30, stone: 25, coins: 50 },
   },
   {
@@ -68,8 +68,8 @@ export const TUTORIAL_OBJECTIVES: TutorialObjectiveDef[] = [
   {
     id: 'open-refuge',
     order: 5,
-    title: 'Refuge des brumes',
-    description: 'Ouvre le mini-jeu Refuge / Dressage depuis Mini-jeux.',
+    title: 'Refuge des Myrions',
+    description: 'Ouvre le mini-jeu Refuge des Myrions depuis Mini-jeux.',
     reward: { food: 40, mana: 15 },
   },
   {

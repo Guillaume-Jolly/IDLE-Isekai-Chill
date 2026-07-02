@@ -106,7 +106,6 @@ Smoke minimal si UI touchée : Village, hub mini-jeux, Ferme lunaire, Promenade 
 - `worksiteDevUnlock` (dev only)
 - Silhouette `public/assets/minigames/myrion-worksite/spots/ruines-lierre-ancien.png`
 - Chunk size warning Vite (> 500 kB)
-- **Wording onboarding tutorial** — incohérence « Chantier du havre » / « Chantier du village » / « Refuge des brumes » vs libellés hub (non fait en 2.1 ; voir `project-state.md`)
 - Flags `DEV_*` gacha / mini-jeux
 
 ## Workflow session type

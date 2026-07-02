@@ -24,7 +24,7 @@ export function normalizeToSum(values: number[], target: number, precision = 2):
 
   const exactUnits = values.map((value) => (value / weightSum) * targetUnits)
   const floored = exactUnits.map((units) => Math.floor(units))
-  let remainder = targetUnits - floored.reduce((sum, units) => sum + units, 0)
+  const remainder = targetUnits - floored.reduce((sum, units) => sum + units, 0)
 
   const ranked = exactUnits
     .map((units, index) => ({ index, remainder: units - floored[index] }))

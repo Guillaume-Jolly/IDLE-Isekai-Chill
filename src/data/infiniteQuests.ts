@@ -92,7 +92,7 @@ const COMPANION_SHORT: Record<string, string> = {
 const QUEST_TEMPLATES: Array<(ctx: QuestContext) => InfiniteQuest> = [
   (ctx) => ({
     id: uid(),
-    title: 'Chantier du havre',
+    title: 'Bâtiments du havre',
     description: `Améliore ${BUILDING_SHORT[ctx.buildingIds[0]] ?? 'un bâtiment'}.`,
     kind: 'upgrade-building',
     goal: 1,
@@ -139,8 +139,8 @@ const QUEST_TEMPLATES: Array<(ctx: QuestContext) => InfiniteQuest> = [
   }),
   () => ({
     id: uid(),
-    title: 'Filons du chantier',
-    description: 'Visite le chantier du havre (mini-jeu worksite).',
+    title: 'Chantier du havre',
+    description: 'Passe une session au Chantier du havre (filons Myrions).',
     kind: 'play-minigame',
     goal: 1,
     progress: 0,
@@ -149,8 +149,8 @@ const QUEST_TEMPLATES: Array<(ctx: QuestContext) => InfiniteQuest> = [
   }),
   () => ({
     id: uid(),
-    title: 'Refuge paisible',
-    description: 'Passe par le refuge des Myrions.',
+    title: 'Refuge des Myrions',
+    description: 'Passe une session au Refuge des Myrions (dressage).',
     kind: 'play-minigame',
     goal: 1,
     progress: 0,

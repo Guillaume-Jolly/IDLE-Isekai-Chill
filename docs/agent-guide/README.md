@@ -13,6 +13,8 @@ Point d'entrée pour **tout nouvel agent** (Cursor, humain, session future).
 6. [`.ai/current-state.md`](../../.ai/current-state.md) — initiative en cours
 7. [`docs/DOC_AGENT_INDEX.md`](../DOC_AGENT_INDEX.md) — quels docs faire confiance / ignorer
 8. [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](../HANDOFF_2_2_AGENT_BRIEF.md) — si phase 2.2
+9. [`docs/HANDOFF_PARLER_CURATED_PISTE_B.md`](../HANDOFF_PARLER_CURATED_PISTE_B.md) — si reprise Parler curé aff. 5
+10. [`docs/HANDOFF_NEW_MINIGAME_CO.md`](../HANDOFF_NEW_MINIGAME_CO.md) — si nouveau mini-jeu
 
 ---
 
@@ -29,6 +31,8 @@ Point d'entrée pour **tout nouvel agent** (Cursor, humain, session future).
 | [06-pipeline-validation.md](./06-pipeline-validation.md) | Ordre validate / tnr / CI |
 | [07-kickoff-nouvelle-version.md](./07-kickoff-nouvelle-version.md) | **Kickoff phase** — checklist + comportement agent |
 | [`HANDOFF_2_2_AGENT_BRIEF.md`](../HANDOFF_2_2_AGENT_BRIEF.md) | Brief + prompt agent phase 2.2 |
+| [`HANDOFF_PARLER_CURATED_PISTE_B.md`](../HANDOFF_PARLER_CURATED_PISTE_B.md) | Piste B — Parler curé Lyra aff. 5 |
+| [`HANDOFF_NEW_MINIGAME_CO.md`](../HANDOFF_NEW_MINIGAME_CO.md) | CO — créer un mini-jeu |
 | [`REFERENCES.md`](../traceability/REFERENCES.md) | Index croisé docs → traçabilité |
 
 ---

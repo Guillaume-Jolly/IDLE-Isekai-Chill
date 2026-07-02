@@ -110,7 +110,7 @@ function GroupedRewardToast({
 }
 
 function mergeGroupedLines(current: GroupedLine[], payloads: RewardToastPayload[]): GroupedLine[] {
-  const next: GroupedLine[] = current.map(({ bumpValue: _bump, ...line }) => ({
+  const next: GroupedLine[] = current.map(({ bumpValue: _omit, ...line }) => ({
     ...line,
     showBump: false,
   }))

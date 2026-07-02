@@ -183,8 +183,8 @@ export function evaluateWorksiteUnlocks(worksite: MyrionWorksiteSave): {
   events: WorksiteUnlockEvent[]
 } {
   const events: WorksiteUnlockEvent[] = []
-  let unlockedBiomeIds = [...worksite.unlockedBiomeIds]
-  let unlockedSpotKeys = [...worksite.unlockedSpotKeys]
+  const unlockedBiomeIds = [...worksite.unlockedBiomeIds]
+  const unlockedSpotKeys = [...worksite.unlockedSpotKeys]
   const seen = new Set(worksite.seenUnlockNotificationIds)
 
   for (const biomeId of BIOME_IDS) {
