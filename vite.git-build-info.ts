@@ -4,11 +4,27 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { AppBuildInfo } from './src/buildInfo.types'
-import { resolveGitExecutable } from './scripts/dev-launcher/resolve-git-exe.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)))
 const revisionPath = join(root, 'build-revision.json')
 const publicBuildInfoPath = join(root, 'public/build-info.json')
+
+/** Évite cmd\git.exe sur Windows (flash console) — même logique que resolve-git-exe.mjs */
+function resolveGitExecutable(): string {
+  const fromEnv = process.env.HAVRE_GIT_EXE
+  if (fromEnv && existsSync(fromEnv) && !fromEnv.replace(/\//g, '\\').includes('\\cmd\\git.exe')) {
+    return fromEnv
+  }
+  const candidates = [
+    'C:\\Program Files\\Git\\bin\\git.exe',
+    'C:\\Program Files (x86)\\Git\\bin\\git.exe',
+    'C:\\Program Files\\Git\\mingw64\\bin\\git.exe',
+  ]
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) return candidate
+  }
+  return 'git'
+}
 
 type BuildRevisionState = {
   revision: number

@@ -76,7 +76,7 @@ Elle s'agenouille entre tes cuisses sur la table et écarte ta culotte d'un gest
 Au havre, tard ; sa chambre sent le thé et la cire. Le peignoir glisse sur ses épaules nues.
 
 **Lyra (geste)**  
-Elle jette le peignoir, te jette sur le lit et s'assoit à califourchon sur tes hanches, doigts sur la bretelle de ta robe.
+Elle laisse tomber le peignoir, te pousse sur le dos contre les draps et dégrafe ta robe d'un geste — genoux qui encadrent ta taille.
 
 **Lyra**  
 « Laisse-moi t'ôter la robe. Tu ne protestes pas »
@@ -176,7 +176,7 @@ Toujours sous la verrière — chattes collées, buée sur le vitrage ; Lyra ser
 Toujours sous la verrière — condensation sur la vitraille ; Lyra te plaque dos contre le montant, ta chatte trempée, clitoris pulsant sous sa paume.
 
 **Lyra (geste)**  
-Par derrière, elle glisse trois doigts dans ta chatte par-dessus l'épaule, lèvres sur ta nuque, autre main sur ton ventre.
+Bouche dans ta nuque, dos au montant — elle enroule un bras, paume sur ton clitoris, trois doigts enfoncés en ta chatte.
 
 **Lyra**  
 « Arche le dos. Presse ta chatte contre ma main »
@@ -419,7 +419,7 @@ Le soir tombe ; Lyra tire le verrou principal, éteint la lampe du comptoir — 
 Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode encore humide entre tes doigts — plus personne ne passera avant l'aube.
 
 **Lyra**  
-« Toute la journée j'ai tenu le masque. Maintenant, plus de spectateur — prends-moi jusqu'à ce que j'oublie les registres »
+« J'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu'à ce que j'oublie les registres »
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|

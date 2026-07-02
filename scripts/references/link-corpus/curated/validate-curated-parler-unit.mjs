@@ -7,6 +7,7 @@ import {
 import {
   spectatorCompanionLineOk,
   pack5BusinessRuleOk,
+  fmcPackBusinessRuleOk,
   normalizedQuoteSimilarity,
   runFmcMirrorValidation,
   packLevelProlepsisInText,
@@ -180,4 +181,24 @@ function assert(condition, message) {
   assert(!failures.some((f) => f.code === 'FM1'), 'FM1 retiré : texte identique H/F ne doit plus échouer');
 }
 
-console.log('✓ validate-curated-parler-unit — 9 tests OK');
+// FM-NQ5 — table pack-1 FMC
+{
+  const ex = {
+    id: 'lyra-aff5-curated-female-mc-02',
+    bridge: 'Bibliothèque — debout contre le mur.',
+    companionAction: 'x',
+    companionLine: 'l',
+    choices: [{ tone: 'romantic', score: 3, text: 'x' }],
+  };
+  assert(!fmcPackBusinessRuleOk(ex).ok, 'FM-NQ5 : ex.02 FMC sans table doit échouer');
+  const ok = {
+    id: 'lyra-aff5-curated-female-mc-02',
+    bridge: 'Lyra te tire sur la table de travail ; tu t\'assois au bord.',
+    companionAction: 'Elle presse sa paume contre ta chatte.',
+    companionLine: 'l',
+    choices: [{ tone: 'romantic', score: 3, text: 'Je presse ma chatte contre sa paume.' }],
+  };
+  assert(fmcPackBusinessRuleOk(ok).ok, 'FM-NQ5 : ex.02 FMC table + chatte doit passer');
+}
+
+console.log('✓ validate-curated-parler-unit — 11 tests OK');

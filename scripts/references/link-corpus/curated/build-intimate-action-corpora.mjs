@@ -539,7 +539,7 @@ const AFF5_MALE = [
     title: 'Verrou du soir',
     bridge: 'Le soir tombe ; Lyra tire le verrou principal, éteint la lampe du comptoir — seules les hautes travées restent dans la pénombre ambrée, odeur de cuir et de cire.',
     companionAction: 'Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode encore humide entre tes doigts — plus personne ne passera avant l\'aube.',
-    companionLine: 'Toute la journée j\'ai tenu le masque. Maintenant, plus de spectateur — prends-moi jusqu\'à ce que j\'oublie les registres.',
+    companionLine: 'J\'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu\'à ce que j\'oublie les registres.',
     choices: [
       choice('romantic', 'Entre les atlas, je glisse en elle et je la pousse contre un rayonnage jusqu\'à ce que le bois grince — enfin libres de faire du bruit.', 3, 'romantic', '« Oui. Là, entre les atlas. Ne te retiens pas — personne n\'écoute. » *Elle serre tes hanches, chatte chaude contre ta bite.*'),
       choice('sincere', 'Entre les travées, je suis son tempo et je ralentis quand elle serre mes hanches plus fort.', 2, 'warm', '« Suis mon tempo. Presse-toi quand je serre. »'),
@@ -738,7 +738,7 @@ const AFF5_FEMALE = [
   {
     title: 'Peignoir ouvert',
     bridge: 'Au havre, tard ; sa chambre sent le thé et la cire. Le peignoir glisse sur ses épaules nues.',
-    companionAction: 'Elle jette le peignoir, te jette sur le lit et s\'assoit à califourchon sur tes hanches, doigts sur la bretelle de ta robe.',
+    companionAction: 'Elle laisse tomber le peignoir, te pousse sur le dos contre les draps et dégrafe ta robe d\'un geste — genoux qui encadrent ta taille.',
     companionLine: 'Laisse-moi t\'ôter la robe. Tu ne protestes pas.',
     choices: [
       choice('romantic', 'Je reste immobile sous elle et je la laisse glisser ma robe, puis mon slip, sans rien cacher.', 3, 'romantic', '« Parfait. » *Elle finit de t\'ôter la robe et ton slip, ta chatte nue contre la sienne.*'),
@@ -798,7 +798,7 @@ const AFF5_FEMALE = [
   {
     title: 'Vitrage embué',
     bridge: 'Toujours sous la verrière — condensation sur la vitraille ; Lyra te plaque dos contre le montant, ta chatte trempée, clitoris pulsant sous sa paume.',
-    companionAction: 'Par derrière, elle glisse trois doigts dans ta chatte par-dessus l\'épaule, lèvres sur ta nuque, autre main sur ton ventre.',
+    companionAction: 'Bouche dans ta nuque, dos au montant — elle enroule un bras, paume sur ton clitoris, trois doigts enfoncés en ta chatte.',
     companionLine: 'Arche le dos. Presse ta chatte contre ma main.',
     choices: [
       choice('romantic', 'Je me cambre contre le montant et je cède à ses doigts sur mon clitoris jusqu\'à ce que je jouisse.', 3, 'romantic', '« Presse le montant. » *Elle accélère, buée sur le vitrage.* « Laisse-toi jouir. »'),
@@ -943,7 +943,7 @@ const AFF5_FEMALE = [
     title: 'Verrou du soir',
     bridge: 'Le soir tombe ; Lyra tire le verrou principal, éteint la lampe du comptoir — seules les hautes travées restent dans la pénombre ambrée, odeur de cuir et de cire.',
     companionAction: 'Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode encore humide entre tes doigts — plus personne ne passera avant l\'aube.',
-    companionLine: 'Toute la journée j\'ai tenu le masque. Maintenant, plus de spectateur — prends-moi jusqu\'à ce que j\'oublie les registres.',
+    companionLine: 'J\'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu\'à ce que j\'oublie les registres.',
     choices: [
       choice('romantic', 'Entre les atlas, je glisse le gode en elle puis je presse ma chatte contre la sienne jusqu\'à ce que le bois grince — enfin libres de faire du bruit.', 3, 'romantic', '« Oui. Là, entre les atlas. Ne te retiens pas — personne n\'écoute. » *Elle serre tes hanches, chatte chaude contre la tienne.*'),
       choice('sincere', 'Entre les travées, je suis son tempo et je ralentis quand elle serre mes hanches plus fort.', 2, 'warm', '« Suis mon tempo. Presse-toi quand je serre. »'),

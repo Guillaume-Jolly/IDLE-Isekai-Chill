@@ -5,7 +5,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
-import { getGitBuildInfo, syncPublicBuildInfo } from './vite.git-build-info'
+import { syncPublicBuildInfo } from './vite.git-build-info'
 import { legacyPublicAssetPlugin, repoAssetsPlugin } from './vite.repo-assets'
 
 const repoRoot = fileURLToPath(new URL('.', import.meta.url))

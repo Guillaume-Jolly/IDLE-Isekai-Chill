@@ -1,8 +1,8 @@
 # Passage agent — Piste B : Parler curé aff. 4–5 (Lyra)
 
-**Date :** 2026-07-03 (X=183)  
-**Phase repo :** `feature/2.2` · semver `2.2.0` · UI `v2.2.0.183`  
-**Statut :** auto OK · **validation in-game en attente** (aucun pack « purement validé »)
+**Date :** 2026-07-03  
+**Phase repo :** `feature/2.2` · semver `2.2.0`  
+**Statut :** validation auto OK · **Phase C in-game = checklist manuelle** ([`staging/playbooks/parler-smoke.md`](../../staging/playbooks/parler-smoke.md) Partie 2)
 
 ---
 
@@ -154,11 +154,11 @@ Phases : `intro` → `round` → `reaction` → `finale` → **`packFinale`** (p
 - `walk:pack:aff5:all` : **10/10 romantic** (H+F, packs 1–5) — confirmé 2026-07-03
 - Validateurs : S29 `\b` accents, S1→S20, S35 playful, S37b MC passif, S46 pack-5
 
-### En attente (prochain agent)
+### En attente (Guillaume — exécution manuelle)
 
 | Priorité | Tâche |
 |----------|--------|
-| **P0** | **Phase C in-game** pack-1 → pack-5, H puis FMC — cocher modop |
+| **P0** | **Phase C in-game** — grille 10 parcours dans [`staging/playbooks/parler-smoke.md`](../../staging/playbooks/parler-smoke.md) Partie 2 |
 | P1 | Audit calque FMC ex. 01–09 (pas de check auto systématique) |
 | P1 | Rejouer pack-5 **mixed** in-game (profil proche partie réelle) |
 | P2 | Épilogues **low** mid-pack : « demain » volontaire en taunt — durcir WALK-FINALE si Guillaume le demande |
@@ -166,10 +166,11 @@ Phases : `intro` → `round` → `reaction` → `finale` → **`packFinale`** (p
 | P2 | Étendre piste B aux **autres compagnons** aff. 5 (modèle = Lyra) |
 | P3 | Aff. 4 FMC : même passe relecture packs que aff. 5 |
 
-### Non commité (typique session en cours)
+### Fait récemment (agent)
 
-- Modifs builder, JSON générés, goldens, modop, `walk-all-aff5-packs.mjs`, `package.json` scripts
-- Commit **uniquement si Guillaume demande** · tenir DEV_LOG Y
+- `npm run build` vert (props `villageStage`, typage git, lint TS)
+- Smoke playbook aff. 5 Phase C + grille H/F
+- Commits locaux piste B (validateurs, in-game, launcher, corpus public)
 
 ---
 

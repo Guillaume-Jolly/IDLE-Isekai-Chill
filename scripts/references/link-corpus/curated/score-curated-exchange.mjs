@@ -162,7 +162,7 @@ function scoreExchange(ex, { maxLineLen = 120 } = {}) {
       : true,
   };
 
-  const hasPlace = /bibliothèque|havre|village|refuge|marché|ruines|forêt|couloir|comptoir|porte|registre|atlas|sachet|chambre|lit|couchette|draps|commode|rayons|table/i.test(
+  const hasPlace = /bibliothèque|havre|village|refuge|marché|ruines|forêt|couloir|comptoir|porte|registre|atlas|sachet|chambre|lit|couchette|draps|commode|rayons|table|verrière|toit|vitrage|matelas|montant|couverture|rambarde|travées|rayonnage/i.test(
     ex.bridge,
   );
   const C = {
@@ -322,8 +322,8 @@ for (const r of results) {
   }
 }
 
-const notValidated = results.filter((r) => r.decision !== 'Validé');
+const notValidated = results.filter((r) => r.global < 10);
 if (notValidated.length > 0) {
-  console.error(`\nÉchec : ${notValidated.length} échange(s) sous le seuil Validé (> 9).`);
+  console.error(`\nÉchec : ${notValidated.length} échange(s) sous 10/10 (grille A→G).`);
   process.exit(1);
 }

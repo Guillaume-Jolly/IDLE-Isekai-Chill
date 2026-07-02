@@ -422,7 +422,7 @@ Le soir tombe ; Lyra tire le verrou principal, éteint la lampe du comptoir — 
 Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode encore humide entre tes doigts — plus personne ne passera avant l'aube.
 
 **Lyra**  
-« Toute la journée j'ai tenu le masque. Maintenant, plus de spectateur — prends-moi jusqu'à ce que j'oublie les registres »
+« J'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu'à ce que j'oublie les registres »
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|

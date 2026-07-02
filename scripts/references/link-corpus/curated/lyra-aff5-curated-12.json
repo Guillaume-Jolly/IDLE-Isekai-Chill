@@ -955,7 +955,7 @@
       "title": "Verrou du soir",
       "bridge": "Le soir tombe ; Lyra tire le verrou principal, éteint la lampe du comptoir — seules les hautes travées restent dans la pénombre ambrée, odeur de cuir et de cire.",
       "companionAction": "Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode encore humide entre tes doigts — plus personne ne passera avant l'aube.",
-      "companionLine": "Toute la journée j'ai tenu le masque. Maintenant, plus de spectateur — prends-moi jusqu'à ce que j'oublie les registres.",
+      "companionLine": "J'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu'à ce que j'oublie les registres.",
       "choices": [
         {
           "tone": "romantic",

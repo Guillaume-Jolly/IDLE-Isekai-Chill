@@ -1,7 +1,7 @@
 /**
  * Règles avancées Parler curé — S50+, FM*, LQ6, partagées validate / walk.
  */
-import { normalizeCorpusLine } from './curated-parler-semantics-lib.mjs';
+import { normalizeCorpusLine, jaccardSimilarity } from './curated-parler-semantics-lib.mjs';
 import {
   SPOKEN_VISITOR_FACING_PATTERN,
   exchangeSpectatorPresent,
@@ -52,6 +52,161 @@ const FMC_NARRATIVE_FIELDS = [
   'intimateFinale',
   'intimateFinaleLow',
 ];
+
+/** ex. 01–09 aff. 5 — anti-calque narratif FMC (complète FM2 anatomie). */
+const FMC_NQ_EXCHANGE_NUMBER_MAX = 9;
+const FMC_BRIDGE_CALQUE_FAIL = 0.72;
+const FMC_ACTION_CALQUE_FAIL = 0.58;
+
+export const FMC_PACK_BUSINESS_RULES = {
+  '01': {
+    label: 'bibliothèque / verrou',
+    bridge: /\b(bibliothèque|verrou|port|rayons)\b/i,
+  },
+  '02': {
+    label: 'table pack-1 — MC assise',
+    bridge: /\btable\b/i,
+    romantic: /\b(chatte|clitoris|paume|table)\b/i,
+    forbid: /\b(bite|braguette|en moi)\b/i,
+  },
+  '03': {
+    label: 'oral sur table pack-1',
+    bridge: /\btable\b/i,
+    action: /\b(cuisses|clitoris|chatte|culotte|langue|lécher|genoux)\b/i,
+    romantic: /\b(lécher|lèche|langue|chatte|clitoris)\b/i,
+    forbid: /\b(bite|braguette)\b/i,
+  },
+  '04': {
+    label: 'chambre / peignoir / draps',
+    bridge: /\b(chambre|peignoir|draps|havre)\b/i,
+    action: /\b(robe|draps|culotte|chatte|genoux)\b/i,
+    forbid: /\b(braguette|chemise|bite)\b/i,
+  },
+  '05': {
+    label: 'lit / frottement chatte',
+    bridge: /\b(draps|lit)\b/i,
+    action: /\b(chatte|frotte|clitoris|cuisse)\b/i,
+    romantic: /\b(chatte|frotte|clitoris)\b/i,
+    forbid: /\b(bite|braguette)\b/i,
+  },
+  '06': {
+    label: 'lit / doigts FMC',
+    bridge: /\blit\b/i,
+    action: /\b(doigts|chatte|en toi|lit)\b/i,
+    forbid: /\b(bite|braguette)\b/i,
+  },
+  '07': {
+    label: 'verrière / matelas tribbing',
+    bridge: /\b(verrière|matelas|vitrage)\b/i,
+    action: /\b(clitoris|chatte|frotte|cuisse)\b/i,
+    romantic: /\b(chatte|clitoris|frotte)\b/i,
+    forbid: /\b(bite|en moi|braguette)\b/i,
+  },
+  '08': {
+    label: 'verrière / frottement',
+    bridge: /\b(verrière|vitrage)\b/i,
+    action: /\b(clitoris|frotte|chatte|cuisse)\b/i,
+    romantic: /\b(chatte|clitoris)\b/i,
+    forbid: /\b(bite|braguette)\b/i,
+  },
+  '09': {
+    label: 'montant / doigts sur chatte',
+    bridge: /\b(verrière|montant|vitrage)\b/i,
+    action: /\b(clitoris|chatte|doigts|montant)\b/i,
+    romantic: /\b(chatte|clitoris|montant|jouir)\b/i,
+    forbid: /\b(bite|braguette)\b/i,
+  },
+};
+
+function resolveFmcPackBusinessRule(exchangeId = '') {
+  if (!exchangeId.includes('female-mc')) return null;
+  const match = exchangeId.match(/-(\d{2})$/);
+  if (!match) return null;
+  return FMC_PACK_BUSINESS_RULES[match[1]] ?? null;
+}
+
+export function fmcPackBusinessRuleOk(exchange) {
+  const rule = resolveFmcPackBusinessRule(exchange.id);
+  if (!rule) return { ok: true };
+
+  const romantic = exchange.choices?.find((choice) => choice.tone === 'romantic' && choice.score === 3);
+  const fieldChecks = [
+    { label: 'bridge', text: exchange.bridge ?? '', pattern: rule.bridge },
+    { label: 'companionAction', text: exchange.companionAction ?? '', pattern: rule.action },
+    { label: 'choix +3', text: romantic?.text ?? '', pattern: rule.romantic },
+  ];
+
+  for (const field of fieldChecks) {
+    if (!field.pattern || !field.text.trim()) continue;
+    if (!field.pattern.test(field.text)) {
+      return {
+        ok: false,
+        reason: `FM-NQ5 — ${field.label} doit ancrer ${rule.label} (${exchange.id})`,
+      };
+    }
+  }
+
+  if (rule.forbid) {
+    const blob = [
+      exchange.bridge,
+      exchange.companionAction,
+      exchange.companionLine,
+      romantic?.text,
+    ]
+      .filter(Boolean)
+      .join(' ');
+    if (rule.forbid.test(blob)) {
+      return {
+        ok: false,
+        reason: `FM-NQ5 — vocabulaire MC homme interdit (${rule.label}) — ${exchange.id}`,
+      };
+    }
+  }
+
+  return { ok: true };
+}
+
+export function fmcExchangeNumber(exchangeId) {
+  const match = exchangeId.match(/(?:female-mc-)?(\d{2})$/);
+  return match ? Number.parseInt(match[1], 10) : null;
+}
+
+/** FM-NQ* — qualité narrative miroir H/F (packs 1–3). */
+export function runFmcNarrativeQualityValidation(maleData, femaleData, hooks) {
+  const { fail } = hooks;
+  const maleById = new Map(maleData.exchanges.map((ex) => [ex.id, ex]));
+
+  for (const femaleEx of femaleData.exchanges) {
+    const num = fmcExchangeNumber(femaleEx.id);
+    if (!num || num > FMC_NQ_EXCHANGE_NUMBER_MAX) continue;
+
+    const maleId = femaleEx.id.replace('-female-mc', '');
+    const maleEx = maleById.get(maleId);
+    if (!maleEx) continue;
+
+    const actionSim = jaccardSimilarity(
+      maleEx.companionAction ?? '',
+      femaleEx.companionAction ?? '',
+    );
+    if (actionSim >= FMC_ACTION_CALQUE_FAIL) {
+      fail(
+        'FM-NQ1',
+        `${femaleEx.id} : companionAction calquée sur H (Jaccard ${actionSim.toFixed(2)} ≥ ${FMC_ACTION_CALQUE_FAIL}) — réécrire le beat spatial FMC`,
+      );
+    }
+
+    const bridgeSim = jaccardSimilarity(maleEx.bridge ?? '', femaleEx.bridge ?? '');
+    if (bridgeSim >= FMC_BRIDGE_CALQUE_FAIL) {
+      fail(
+        'FM-NQ2',
+        `${femaleEx.id} : bridge calqué sur H (Jaccard ${bridgeSim.toFixed(2)} ≥ ${FMC_BRIDGE_CALQUE_FAIL}) — réécrire le pont FMC`,
+      );
+    }
+
+    const business = fmcPackBusinessRuleOk(femaleEx);
+    if (!business.ok) fail('FM-NQ5', business.reason);
+  }
+}
 
 /**
  * S53 — règles métier pack spectateur (suffixe id échange).
@@ -456,6 +611,8 @@ export function runFmcMirrorValidation(maleData, femaleData, hooks) {
       if (!check.ok) fail('FM2', check.reason);
     }
   }
+
+  runFmcNarrativeQualityValidation(maleData, femaleData, hooks);
 }
 
 /** S55 — alias sémantique de WALK-SPACE (bridge ↔ companionAction). */

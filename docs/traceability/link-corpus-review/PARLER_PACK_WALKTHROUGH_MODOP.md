@@ -20,6 +20,7 @@
 ## Phase 0 — Prérequis (5 min)
 
 ```bash
+npm run build
 npm run build:intimate-action-corpora
 npm run sync:lyra-aff5-doc
 npm run validate:curated-parler:aff5:both
@@ -28,6 +29,7 @@ npm run validate:curated-parler:aff5:both
 - NSFW activé en jeu (options).
 - Lyra **affinité 5** (ou dev picker aff. 5).
 - Genre MC : tester **les deux** corpus (H / F) pour les packs toit et bibliothèque.
+- Checklist smoke : [`staging/playbooks/parler-smoke.md`](../../staging/playbooks/parler-smoke.md) Partie 2.
 
 ---
 

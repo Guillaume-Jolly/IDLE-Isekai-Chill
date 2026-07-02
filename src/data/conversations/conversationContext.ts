@@ -3,8 +3,6 @@ import { LYRA_INTIMATE_CUTOUT_EMOTION_IDS } from '../companionAssets'
 import type { DialogueChoice } from './types'
 import { COMPANION_DIALOGUE_PROFILES } from './profiles'
 
-const GENERIC_MARKET_SNIPPET = /Devant les lanternes du marché[^.]*\.?\s*/gi
-
 /** Lignes narrateur méta générées par le corpus — ignorées à l'extraction. */
 const META_NARRATOR_LINE = [
   /^La conversation s'ouvre autour de/i,

@@ -67,6 +67,9 @@ Scripts :
 | **S57** | Corpus avec `intimateFinale*` | Courbe émotion portrait +3 romantic par pack (`PACK_ROMANTIC_EMOTION_BY_PACK`) |
 | **S58** | Corpus avec `intimateFinaleLow` | Ton low = recadrage, pas victoire ; **WALK-LOW** si champ présent (playful/direct) |
 | **FM2** | H+F aff. 5 | Anatomie / registre MC — **pas** d'exigence texte différent H/F (FM1/FM3 retirés) |
+| **FM-NQ1** | Aff. 5 ex. 01–09 | `companionAction` FMC calquée sur H (Jaccard ≥ **0,58**) → **fail** |
+| **FM-NQ2** | Aff. 5 ex. 01–09 | `bridge` FMC calqué sur H (Jaccard ≥ **0,72**) → **fail** |
+| **FM-NQ5** | Aff. 5 FMC ex. 01–09 | Métier spatial par pack (`FMC_PACK_BUSINESS_RULES` — table, chatte, verrière…) |
 | **FR14** | Toutes aff. | `ton string` / `mon string` (masculin) |
 | **FR13** | Toutes aff. | Élision après « que » : `j'halète` pas `je halète` |
 | **C1** | Aff. 4–5 | Bridge ancré lieu concret (dur en sémantique) |
@@ -182,6 +185,23 @@ Le builder écrit dans le JSON :
 - `femalePenetrationRule`, `pornLoanwordsBridgeOnly`
 
 Pour proc gen / modèles sémantiques futurs.
+
+---
+
+## Qualité éditoriale — pile auto (guidage, pas magie LLM)
+
+| Couche | Outil | Rôle |
+|--------|--------|------|
+| **1 — Source** | `build-intimate-action-corpora.mjs` | Textes canoniques ; éditer ici, pas le JSON à la main |
+| **2 — Grille A→G** | `score-curated-exchange.mjs` | Relecture FR (C1 lieu, A3 longueur line ≤110 car., oralité B*) — **CI fail si global < 10** |
+| **3 — Sémantique** | `validate-curated-parler-semantics.mjs` | answerRule, fil pack S45, anti-calque CALQUES, S47 épilogue |
+| **4 — Miroir FMC** | `validate-fmc-mirror.mjs` | FM2 anatomie + **FM-NQ1/2/5** calque narratif ex. 01–09 |
+| **5 — Walk** | `walk-pack-coherence.mjs` | Cohérence séquentielle WALK-* + S56 prolepse |
+| **6 — Humain** | Phase C modop + smoke playbook | Oralité, cutouts, spectateur ressenti |
+
+**Principe FM-NQ :** on n'exige plus un texte H/F différent mot à mot (FM1/FM3 retirés). On **bloque** les calques structurels (action/bridge Jaccard, règles métier pack FMC) — **FM-NQ2 est fail**, plus warn.
+
+**Extension future :** `PACK5_*` métier (S53), quotas LQ*, règles FM-NQ5 par compagnon dans le builder — même pattern.
 
 ---
 

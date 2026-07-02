@@ -725,7 +725,7 @@
     {
       "id": "lyra-aff5-curated-female-mc-21",
       "bridge": "Le soir tombe ; Lyra tire le verrou principal, éteint la lampe du comptoir — seules les hautes travées restent dans la pénombre ambrée, odeur de cuir et de cire.",
-      "companionLine": "Toute la journée j'ai tenu le masque. Maintenant, plus de spectateur — prends-moi jusqu'à ce que j'oublie les registres.",
+      "companionLine": "J'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu'à ce que j'oublie les registres.",
       "answerRule": "action",
       "choices": [
         {

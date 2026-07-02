@@ -30,6 +30,8 @@ type MinigamePlayerProps = {
   companionAffinity?: number
   conversationRewardMultiplier?: number
   onLaunchMinigame?: (activityId: string) => void
+  /** Stade village — sélecteur compagnon Parler en fin de session. */
+  villageStage?: number
 }
 
 const GAME_BY_TYPE: Record<MinigameType, ComponentType<MinigamePlayerProps>> = {

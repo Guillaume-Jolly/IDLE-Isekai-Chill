@@ -1581,6 +1581,50 @@ Journal **haut niveau** : une section par prompt (**X**), une ligne par tâche d
 **Validations :** ⚠️ _…_
 **Risques :** ⚠️ _…_
 
+### X=193 — 2026-07-02 — ⚠️ À COMPLÉTER
+
+**But du prompt :** ⚠️ _(à compléter — relire le message user de ce prompt)_
+
+| Y | Résumé | Commit | Label UI |
+|---|--------|--------|----------|
+| 0 | `version:prompt` | *(non commité)* | `v2.2.0.193` |
+
+**Validations :** ⚠️ _…_
+**Risques :** ⚠️ _…_
+
+### X=194 — 2026-07-02 — ⚠️ À COMPLÉTER
+
+**But du prompt :** ⚠️ _(à compléter — relire le message user de ce prompt)_
+
+| Y | Résumé | Commit | Label UI |
+|---|--------|--------|----------|
+| 0 | `version:prompt` | *(non commité)* | `v2.2.0.194` |
+
+**Validations :** ⚠️ _…_
+**Risques :** ⚠️ _…_
+
+### X=195 — 2026-07-02 — ⚠️ À COMPLÉTER
+
+**But du prompt :** ⚠️ _(à compléter — relire le message user de ce prompt)_
+
+| Y | Résumé | Commit | Label UI |
+|---|--------|--------|----------|
+| 0 | `version:prompt` | *(non commité)* | `v2.2.0.195` |
+
+**Validations :** ⚠️ _…_
+**Risques :** ⚠️ _…_
+
+### X=196 — 2026-07-02 — ⚠️ À COMPLÉTER
+
+**But du prompt :** ⚠️ _(à compléter — relire le message user de ce prompt)_
+
+| Y | Résumé | Commit | Label UI |
+|---|--------|--------|----------|
+| 0 | `version:prompt` | *(non commité)* | `v2.2.0.196` |
+
+**Validations :** ⚠️ _…_
+**Risques :** ⚠️ _…_
+
 ## Historique complété
 
 ### X=2 — 2026-06-30 — Kickoff phase 2.2 + procédure agents
