@@ -1,0 +1,167 @@
+.fiche-destin {
+  width: min(100%, 920px);
+  margin: 0 auto;
+}
+
+.fiche-destin-canvas {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.fiche-destin-bg,
+.fiche-destin-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.fiche-destin-overlay {
+  opacity: 0.08;
+}
+
+.fiche-destin-region {
+  position: absolute;
+  overflow: hidden;
+  color: #2a1f14;
+  font-size: clamp(0.45rem, 0.9vw, 0.72rem);
+  line-height: 1.15;
+  pointer-events: none;
+}
+
+.fiche-destin-region--portrait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2rem, 8vw, 4rem);
+  opacity: 0.85;
+}
+
+.fiche-destin-region--text {
+  display: flex;
+  align-items: center;
+  padding: 0 0.15rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fiche-destin-region--bar {
+  font-family: ui-monospace, monospace;
+  letter-spacing: -0.04em;
+  font-size: clamp(0.4rem, 0.75vw, 0.62rem);
+}
+
+.fiche-destin-region--wide {
+  white-space: normal;
+  align-items: flex-start;
+}
+
+.fiche-archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.fiche-archive-item {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.fiche-archive-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.fiche-archive-item-meta {
+  font-size: 0.68rem;
+  opacity: 0.72;
+  margin-top: 0.2rem;
+}
+
+.fiche-archive-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.fiche-archive-actions button {
+  font-size: 0.68rem;
+  padding: 0.25rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+}
+
+.havre-mode-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.havre-mode-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: inherit;
+  cursor: pointer;
+  flex: 1 1 auto;
+  font-size: 0.68rem;
+  font-weight: 700;
+  min-width: 0;
+  padding: 0.35rem 0.5rem;
+}
+
+.havre-mode-btn--active {
+  background: rgba(232, 184, 109, 0.2);
+  border-color: rgba(232, 184, 109, 0.45);
+  color: #ffe9c8;
+}
+
+.havre-joker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.havre-joker-btn {
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.45rem 0.55rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.72rem;
+}
+
+.havre-joker-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.havre-joker-btn strong {
+  display: block;
+  font-size: 0.76rem;
+}
+
+.havre-joker-btn span {
+  opacity: 0.75;
+  font-size: 0.66rem;
+}

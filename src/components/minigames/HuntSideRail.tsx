@@ -45,6 +45,8 @@ type SideDrawerRailProps = {
   fabAriaLabel?: string
   onCloseMinigame?: () => void
   onMenuOpenChange?: (open: boolean) => void
+  /** Toujours menu replié + FAB (ex. Roue du Destin plein écran). */
+  alwaysDrawerMenu?: boolean
 }
 
 export function HuntSideRail({
@@ -57,9 +59,11 @@ export function HuntSideRail({
   fabAriaLabel = 'Outils de chasse',
   onCloseMinigame,
   onMenuOpenChange,
+  alwaysDrawerMenu = false,
 }: SideDrawerRailProps) {
   const groupId = useId()
-  const useDrawerMenu = useHuntDrawerMenu()
+  const responsiveDrawerMenu = useHuntDrawerMenu()
+  const useDrawerMenu = alwaysDrawerMenu || responsiveDrawerMenu
   const [menuOpen, setMenuOpen] = useState(false)
   const active = drawers.find((drawer) => drawer.id === openId)
 
@@ -137,7 +141,7 @@ export function HuntSideRail({
     })
 
   return (
-    <>
+    <div className={alwaysDrawerMenu ? 'mg-hunt-rail-host mg-hunt-rail-host--always-drawer' : 'mg-hunt-rail-host'}>
       {useDrawerMenu && !menuOpen ? (
         <div aria-label={menuAriaLabel} className="mg-hunt-mobile-fabs">
           {quitButton}
@@ -150,10 +154,11 @@ export function HuntSideRail({
             <span aria-hidden="true">☰</span>
             {urgentDrawer ? <span aria-hidden className="mg-hunt-menu-fab-badge" /> : null}
           </button>
+          {alwaysDrawerMenu ? settingsButton : null}
         </div>
       ) : null}
 
-      {useDrawerMenu && !menuOpen ? (
+      {useDrawerMenu && !menuOpen && !alwaysDrawerMenu ? (
         <div aria-label="Paramètres" className="mg-hunt-settings-dock">
           {settingsButton}
         </div>
@@ -260,6 +265,6 @@ export function HuntSideRail({
           ) : null}
         </div>
       </aside>
-    </>
+    </div>
   )
 }

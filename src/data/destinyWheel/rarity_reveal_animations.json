@@ -1,0 +1,87 @@
+{
+  "pack": "rarity_reveal_animations_v1",
+  "implementation": "CSS classes + optional preview GIFs",
+  "rarities": {
+    "common": {
+      "duration_ms": 520,
+      "scale_peak": 1.04,
+      "shake_px": 0,
+      "rings": 1,
+      "particles": 8,
+      "color_rgb": [210, 220, 230],
+      "accent_rgb": [255, 255, 255]
+    },
+    "uncommon": {
+      "duration_ms": 620,
+      "scale_peak": 1.07,
+      "shake_px": 1,
+      "rings": 1,
+      "particles": 12,
+      "color_rgb": [120, 230, 160],
+      "accent_rgb": [230, 255, 235]
+    },
+    "rare": {
+      "duration_ms": 820,
+      "scale_peak": 1.12,
+      "shake_px": 2,
+      "rings": 2,
+      "particles": 20,
+      "color_rgb": [80, 170, 255],
+      "accent_rgb": [220, 245, 255]
+    },
+    "epic": {
+      "duration_ms": 1020,
+      "scale_peak": 1.18,
+      "shake_px": 3,
+      "rings": 3,
+      "particles": 30,
+      "color_rgb": [170, 95, 255],
+      "accent_rgb": [245, 220, 255]
+    },
+    "legendary": {
+      "duration_ms": 1320,
+      "scale_peak": 1.25,
+      "shake_px": 4,
+      "rings": 4,
+      "particles": 42,
+      "color_rgb": [255, 200, 70],
+      "accent_rgb": [255, 250, 210]
+    },
+    "mythic": {
+      "duration_ms": 1600,
+      "scale_peak": 1.32,
+      "shake_px": 5,
+      "rings": 5,
+      "particles": 58,
+      "color_rgb": [255, 80, 210],
+      "accent_rgb": [255, 235, 255]
+    },
+    "cursed": {
+      "duration_ms": 1100,
+      "scale_peak": 1.13,
+      "shake_px": 7,
+      "rings": 3,
+      "particles": 34,
+      "color_rgb": [120, 255, 90],
+      "accent_rgb": [40, 20, 50]
+    },
+    "illegal": {
+      "duration_ms": 1250,
+      "scale_peak": 1.22,
+      "shake_px": 8,
+      "rings": 4,
+      "particles": 46,
+      "color_rgb": [255, 55, 55],
+      "accent_rgb": [255, 255, 255]
+    },
+    "cosmic_bug": {
+      "duration_ms": 1800,
+      "scale_peak": 1.36,
+      "shake_px": 6,
+      "rings": 6,
+      "particles": 70,
+      "color_rgb": [80, 255, 250],
+      "accent_rgb": [255, 80, 250]
+    }
+  }
+}

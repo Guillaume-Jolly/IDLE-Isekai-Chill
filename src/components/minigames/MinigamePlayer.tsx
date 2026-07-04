@@ -13,6 +13,7 @@ import { TileMergeGame } from './TileMergeGame'
 import { TimingBarGame } from './TimingBarGame'
 import { TowerDefenseGame } from './TowerDefenseGame'
 import { ConversationGame } from './ConversationGame'
+import { DestinyWheelGame } from './DestinyWheelGame'
 import { DressageGame } from './DressageGame'
 import { MyrionWorksiteGame } from './MyrionWorksiteGame'
 import type { MinigameCompleteHandler } from './MinigameFrame'
@@ -49,6 +50,7 @@ const GAME_BY_TYPE: Record<MinigameType, ComponentType<MinigamePlayerProps>> = {
   'familiar-capture': FamiliarCaptureGame,
   dressage: DressageGame,
   conversation: ConversationGame,
+  'destiny-wheel': DestinyWheelGame,
   'myrion-worksite': MyrionWorksiteGame,
 }
 

@@ -1565,6 +1565,216 @@ export function aff5FinaleHasCompanionReaction(text = '') {
   };
 }
 
+/** S48 — geste vestimentaire incohérent (vêtement « sur » main/paume). */
+export const FINALE_DRESS_ON_HAND_GESTURE =
+  /\b(?:lisse|redresse|ajuste)\s+(?:sa\s+)?(?:robe|peignoir|culotte)\s+sur\s+(?:ta\s+|tes\s+)?(?:paume|main|doigts|mains)\b/i;
+
+/** S48 — cohérence gestuelle minimale sur épilogue (échange ou pack). */
+export function packActFinaleNarrativeCoherenceOk(text = '') {
+  if (FINALE_DRESS_ON_HAND_GESTURE.test(text.trim())) {
+    return {
+      ok: false,
+      reason:
+        'épilogue — « lisse/redresse sa robe sur ta paume/main » incohérent ; séparer les gestes (essuie la paume, puis redresse sa robe)',
+    };
+  }
+  return { ok: true };
+}
+
+/** Épilogue d'acte (pack entier) — plus long qu'un épilogue d'échange. */
+export function packIntimateFinaleIsValid(text = '', affinity = 5) {
+  const trimmed = text.trim();
+  if (!trimmed) return { ok: false, reason: 'packIntimateFinale vide' };
+  if (affinity < 5) return { ok: true };
+  if (trimmed.length < 100) {
+    return { ok: false, reason: 'packIntimateFinale trop court (< 100 car.) — clôture d\'acte aff. 5' };
+  }
+  if (trimmed.length > 420) {
+    return { ok: false, reason: 'packIntimateFinale trop long (> 420 car.)' };
+  }
+  if (!/\b(tu |te |ton |ta |tes |toi\b)\b/i.test(trimmed)) {
+    return { ok: false, reason: 'packIntimateFinale en tu (MC) attendu' };
+  }
+  if (/\?\s*$/.test(trimmed)) {
+    return { ok: false, reason: 'packIntimateFinale ne doit pas être une question' };
+  }
+  if (UNNATURAL_LINE_OPENER.test(trimmed)) {
+    return { ok: false, reason: 'packIntimateFinale ouvert par régie (« Fort. »…)' };
+  }
+  const segments = trimmed
+    .split(';')
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+  if (segments.length < 2) {
+    return {
+      ok: false,
+      reason: 'packIntimateFinale — au moins 2 segments « ; » (décor · actes · clôture)',
+    };
+  }
+  return packActFinaleNarrativeCoherenceOk(trimmed);
+}
+
+/** S49 — pas de décompte d'orgasmes figé dans le template pack (runtime session). */
+export const PACK_FINALE_EXPLICIT_CLIMAX_COUNT =
+  /\b(?:un|une|deux|trois|quatre|cinq|six|sept|huit|neuf|\d+)\s+(?:fois(?:\s+tu\s+as|\s+elle\s+a)?|orgasmes?\b)/i;
+
+export function packFinaleExplicitClimaxCountOk(text = '') {
+  if (PACK_FINALE_EXPLICIT_CLIMAX_COUNT.test(text.trim())) {
+    return {
+      ok: false,
+      reason:
+        'épilogue pack — décompte d\'orgasmes figé interdit dans setting/closing ; utiliser sessionOutcome + composition runtime',
+    };
+  }
+  return { ok: true };
+}
+
+export function packFinaleTemplatePartIsValid(text = '', affinity = 5, kind = 'any') {
+  const trimmed = text.trim();
+  if (!trimmed) return { ok: false, reason: 'packIntimateFinaleTemplate vide' };
+  if (affinity < 5) return { ok: true };
+  if (trimmed.length < 48) {
+    return { ok: false, reason: 'packIntimateFinaleTemplate trop court' };
+  }
+  if (trimmed.length > 220) {
+    return { ok: false, reason: 'packIntimateFinaleTemplate trop long (> 220 car.)' };
+  }
+  if (kind === 'closing' && !/\b(tu |te |ton |ta |tes |toi\b|Lyra|elle )\b/i.test(trimmed)) {
+    return { ok: false, reason: 'packIntimateFinaleTemplate.closing — tu / Lyra attendu' };
+  }
+  return packActFinaleNarrativeCoherenceOk(trimmed);
+}
+
+const PARLER_ACT_PHRASES = {
+  male: {
+    grinding: 'cuisse serrée entre tes jambes',
+    fingering_companion: 'ta main sur sa chatte',
+    oral_on_companion: 'ta langue sur sa chatte',
+    fingering_mc: 'ses doigts sur toi',
+    oral_on_mc: 'sa bouche sur ta bite',
+    penetration: 'ta bite en elle',
+    riding: 'elle monte sur toi',
+    anal: 'par derrière',
+    toy: 'gode entre vos doigts',
+    mutual_grinding: 'hanches collées',
+  },
+  female: {
+    grinding: 'sa main sous ta robe',
+    fingering_mc: 'ses doigts sur ta chatte',
+    oral_on_mc: 'sa langue sur toi',
+    fingering_companion: 'ta main sur elle',
+    oral_on_companion: 'ta bouche sur elle',
+    penetration: 'face à face sur toi',
+    riding: 'chatte contre la tienne',
+    anal: 'par derrière',
+    toy: 'gode sous le comptoir',
+    mutual_grinding: 'cuisses frottées',
+  },
+};
+
+function inferParlerActsFromAction(action = '', gender = 'male') {
+  const blob = action.toLowerCase();
+  const acts = [];
+  if (!blob) return acts;
+  if (/\bgode\b/i.test(blob)) acts.push('toy');
+  if (/\b(?:califourchon|chevauche|monte sur|genoux de chaque côté)\b/i.test(blob)) {
+    acts.push(/\bfrotte\b/i.test(blob) && gender === 'female' ? 'mutual_grinding' : 'riding');
+  }
+  if (/\b(?:en toi|ta bite|en son cul|par derrière|encule)\b/i.test(blob)) {
+    acts.push(/\banus|cul|derrière\b/i.test(blob) ? 'anal' : 'penetration');
+  }
+  if (/\b(?:langue|lèche|lécher|suce|suces|bouche.*(?:chatte|clitoris|bite)|agenouille entre tes)\b/i.test(blob)) {
+    if (/\b(?:ta chatte|ton clitoris|en toi|tes cuisses|ta culotte|ton ventre)\b/i.test(blob)) {
+      acts.push('oral_on_mc');
+    }
+    if (/\b(?:sa chatte|son clitoris|ses cuisses ouvertes sur ton visage|entre ses cuisses)\b/i.test(blob)) {
+      acts.push('oral_on_companion');
+    }
+  }
+  if (/\b(?:presse ta main contre sa|doigts contre sa chatte|écarte les cuisses et presse ta main)\b/i.test(blob)) {
+    acts.push('fingering_companion');
+  }
+  if (/\b(?:presse ses doigts contre ta|doigts sur ta chatte|main glissée sous ta robe|glisse ses doigts en toi)\b/i.test(blob)) {
+    acts.push('fingering_mc');
+  }
+  if (/\b(?:cuisse glissée|presse-toi contre|entre tes jambes)\b/i.test(blob) && acts.length === 0) {
+    acts.push('grinding');
+  }
+  return [...new Set(acts)];
+}
+
+export function deriveParlerSessionSummary(exchanges, scores, protagonistGender = 'male') {
+  const acts = [];
+  let mcClimaxCount = 0;
+  let companionClimaxCount = 0;
+  let roundsSucceeded = 0;
+
+  exchanges.forEach((exchange, index) => {
+    const score = scores[index];
+    const succeeded = score !== undefined && score >= 2;
+    const meta = exchange.sessionOutcome ?? {};
+    const roundActs = [...new Set([...(meta.acts ?? []), ...inferParlerActsFromAction(exchange.companionAction, protagonistGender)])];
+    const finale = succeeded ? exchange.intimateFinale : exchange.intimateFinaleLow;
+    const inferredMc =
+      succeeded &&
+      /\b(tu jouis|tu as joui|relâche-toi|tu as tremblé)\b/i.test(finale ?? '') &&
+      !/\btu fais encore semblant\b/i.test(finale ?? '');
+    const inferredCompanion =
+      succeeded &&
+      /\b(elle jouit|elle a joui|elle a tremblé|son orgasme|tremblements de son orgasme)\b/i.test(finale ?? '');
+    const mcClimax =
+      succeeded && (meta.mcClimaxOnSuccess === true || (meta.mcClimaxOnSuccess !== false && inferredMc));
+    const companionClimax =
+      succeeded &&
+      (meta.companionClimaxOnSuccess === true ||
+        (meta.companionClimaxOnSuccess !== false && inferredCompanion));
+
+    if (succeeded) roundsSucceeded += 1;
+    if (mcClimax) mcClimaxCount += 1;
+    if (companionClimax) companionClimaxCount += 1;
+    roundActs.forEach((act) => {
+      if (!acts.includes(act)) acts.push(act);
+    });
+  });
+
+  return {
+    roundsPlayed: exchanges.length,
+    roundsSucceeded,
+    mcClimaxCount,
+    companionClimaxCount,
+    acts,
+  };
+}
+
+function formatMcClimaxPhraseJs(count, gender) {
+  if (count <= 0) return '';
+  if (gender === 'female') {
+    return count === 1 ? 'une fois tu as tremblé' : `${count === 2 ? 'deux' : count} fois tu as tremblé`;
+  }
+  return count === 1 ? 'une fois tu as joui' : `${count === 2 ? 'deux' : count} fois tu as joui`;
+}
+
+function formatCompanionClimaxPhraseJs(count) {
+  if (count <= 0) return '';
+  return count === 1 ? 'une fois elle a tremblé' : `${count === 2 ? 'deux' : count} fois elle a tremblé`;
+}
+
+export function composePackIntimateFinale(template, summary, protagonistGender = 'male') {
+  const phrases = PARLER_ACT_PHRASES[protagonistGender] ?? PARLER_ACT_PHRASES.male;
+  const parts = [];
+  const mcPhrase = formatMcClimaxPhraseJs(summary.mcClimaxCount, protagonistGender);
+  const companionPhrase = formatCompanionClimaxPhraseJs(summary.companionClimaxCount);
+  if (mcPhrase) parts.push(mcPhrase);
+  if (companionPhrase) parts.push(companionPhrase);
+  const actsPhrase = summary.acts
+    .map((act) => phrases[act])
+    .filter(Boolean)
+    .join(', ');
+  if (actsPhrase) parts.push(actsPhrase);
+  const middle = parts.join(', ');
+  return [template.setting.trim(), middle.trim(), template.closing.trim()].filter(Boolean).join(' ; ');
+}
+
 /** S47 — vecteur acte : Lyra stimule le MC (companionAction + bridge). */
 export const SCENE_LYRA_STIMULATES_MC =
   /\b(presse ses doigts contre ta|glisse ses doigts en toi|te lèche|te lécher|lèche ton|lécher ton|écarte ta culotte|doigts entre tes cuisses|contre ta chatte|sur ta chatte|main sous ta robe|main glissée sous ta robe|agenouille entre tes cuisses)\b/i;

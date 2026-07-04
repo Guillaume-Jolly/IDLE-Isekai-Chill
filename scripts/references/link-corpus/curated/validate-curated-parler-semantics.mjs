@@ -32,6 +32,10 @@ import {
   choicesSharedPhraseAligned,
   getJaccardFailThreshold,
   intimateFinaleIsValid,
+  packIntimateFinaleIsValid,
+  packFinaleTemplatePartIsValid,
+  packFinaleExplicitClimaxCountOk,
+  packActFinaleNarrativeCoherenceOk,
   aff5FinaleHasCompanionReaction,
   aff5FinaleAgencyCoherenceOk,
   frenchElisionAfterQueOk,
@@ -223,6 +227,8 @@ export function runSemanticsValidation(data, hooks) {
         if (!finaleAgency.ok) fail('S47', `${exchange.id} : ${finaleAgency.reason}`);
         const finaleElision = frenchElisionAfterQueOk(exchange.intimateFinale, 'intimateFinale');
         if (!finaleElision.ok) fail('FR13', `${exchange.id} : ${finaleElision.reason}`);
+        const finaleGesture = packActFinaleNarrativeCoherenceOk(exchange.intimateFinale);
+        if (!finaleGesture.ok) fail('S48', `${exchange.id} : ${finaleGesture.reason}`);
       }
       if (exchange.intimateFinaleLow?.trim()) {
         const lowFinale = intimateFinaleIsValid(exchange.intimateFinaleLow, affinity);
@@ -231,6 +237,8 @@ export function runSemanticsValidation(data, hooks) {
         if (!lowReaction.ok) fail('S32', `${exchange.id} intimateFinaleLow : ${lowReaction.reason}`);
         const lowCoherence = intimateFinaleLowCoherenceOk(exchange);
         if (!lowCoherence.ok) fail('S47b', `${exchange.id} : ${lowCoherence.reason}`);
+        const lowGesture = packActFinaleNarrativeCoherenceOk(exchange.intimateFinaleLow);
+        if (!lowGesture.ok) fail('S48', `${exchange.id} intimateFinaleLow : ${lowGesture.reason}`);
       }
     }
 
@@ -402,8 +410,53 @@ export function runSemanticsValidation(data, hooks) {
     }
   }
 
+  if (affinity >= 5) {
+    for (const pack of data.meta.sessionPacks ?? []) {
+      const template = pack.packIntimateFinaleTemplate;
+      if (!template?.setting?.trim() && !pack.packIntimateFinale?.trim()) {
+        fail('S46', `${pack.id} aff. 5 : packIntimateFinaleTemplate ou packIntimateFinale requis (clôture d'acte — ${pack.label ?? pack.id})`);
+      }
+      if (template?.setting?.trim()) {
+        for (const [partName, partText] of [
+          ['setting', template.setting],
+          ['closing', template.closing],
+        ]) {
+          const partValid = packFinaleTemplatePartIsValid(partText, affinity, partName);
+          if (!partValid.ok) fail('S46', `${pack.id} packIntimateFinaleTemplate.${partName} : ${partValid.reason}`);
+          const orgasm = packFinaleExplicitClimaxCountOk(partText);
+          if (!orgasm.ok) fail('S49', `${pack.id} packIntimateFinaleTemplate.${partName} : ${orgasm.reason}`);
+          const gesture = packActFinaleNarrativeCoherenceOk(partText);
+          if (!gesture.ok) fail('S48', `${pack.id} packIntimateFinaleTemplate.${partName} : ${gesture.reason}`);
+        }
+        const closingReaction = aff5FinaleHasCompanionReaction(template.closing);
+        if (!closingReaction.ok) {
+          fail('S46', `${pack.id} packIntimateFinaleTemplate.closing : ${closingReaction.reason}`);
+        }
+      }
+      if (pack.packIntimateFinale?.trim()) {
+        const packFinale = packIntimateFinaleIsValid(pack.packIntimateFinale, affinity);
+        if (!packFinale.ok) fail('S46', `${pack.id} packIntimateFinale : ${packFinale.reason}`);
+        const packReaction = aff5FinaleHasCompanionReaction(pack.packIntimateFinale);
+        if (!packReaction.ok) fail('S46', `${pack.id} packIntimateFinale : ${packReaction.reason}`);
+        const orgasm = packFinaleExplicitClimaxCountOk(pack.packIntimateFinale);
+        if (!orgasm.ok) fail('S49', `${pack.id} packIntimateFinale : ${orgasm.reason}`);
+      }
+      if (pack.packIntimateFinaleLow?.trim()) {
+        const packFinaleLow = intimateFinaleIsValid(pack.packIntimateFinaleLow, affinity);
+        if (!packFinaleLow.ok) fail('S46', `${pack.id} packIntimateFinaleLow : ${packFinaleLow.reason}`);
+        const packLowGesture = packActFinaleNarrativeCoherenceOk(pack.packIntimateFinaleLow);
+        if (!packLowGesture.ok) fail('S48', `${pack.id} packIntimateFinaleLow : ${packLowGesture.reason}`);
+      }
+      for (const exchangeId of pack.exchangeIds ?? []) {
+        const exchange = data.exchanges.find((entry) => entry.id === exchangeId);
+        if (!exchange?.sessionOutcome) {
+          fail('S49', `${exchangeId} : sessionOutcome requis (bilan pack / résultat session)`);
+        }
+      }
+    }
+  }
+
   const pack4 = data.meta.sessionPacks?.find((pack) => pack.id === 'pack-4');
-  const pack5 = data.meta.sessionPacks?.find((pack) => pack.id === 'pack-5');
   if (pack4) {
     for (const id of pack4.exchangeIds) {
       const rule = pack4Thread[id];
@@ -413,19 +466,6 @@ export function runSemanticsValidation(data, hooks) {
       if (!rule.pattern.test(blob)) {
         fail('S12', `${id} : fil pack 4 — mot-clé « ${rule.label} » absent`);
       }
-    }
-    if (affinity >= 5 && !pack4.packIntimateFinale?.trim()) {
-      fail('S46', 'pack-4 aff. 5 : packIntimateFinale requis (clôture d\'acte toit)');
-    }
-    if (affinity >= 5 && pack4.packIntimateFinale?.trim()) {
-      const packFinale = intimateFinaleIsValid(pack4.packIntimateFinale, affinity);
-      if (!packFinale.ok) fail('S46', `pack-4 packIntimateFinale : ${packFinale.reason}`);
-      const packReaction = aff5FinaleHasCompanionReaction(pack4.packIntimateFinale);
-      if (!packReaction.ok) fail('S46', `pack-4 packIntimateFinale : ${packReaction.reason}`);
-    }
-    if (affinity >= 5 && pack4.packIntimateFinaleLow?.trim()) {
-      const packFinaleLow = intimateFinaleIsValid(pack4.packIntimateFinaleLow, affinity);
-      if (!packFinaleLow.ok) fail('S46', `pack-4 packIntimateFinaleLow : ${packFinaleLow.reason}`);
     }
     const ex10 = data.exchanges.find((entry) => entry.id === pack4.exchangeIds[0]);
     const ex11 = data.exchanges.find((entry) => entry.id === pack4.exchangeIds[1]);
@@ -439,22 +479,6 @@ export function runSemanticsValidation(data, hooks) {
             : /livre|flux de mana|volume/i;
     if (ex10 && ex11 && !hookPattern.test(ex11.bridge)) {
       fail('S13', `pack 4 : échange 11 ne raccroche pas au fil de l'échange 10`);
-    }
-  }
-
-  if (pack5) {
-    if (affinity >= 5 && !pack5.packIntimateFinale?.trim()) {
-      fail('S46', 'pack-5 aff. 5 : packIntimateFinale requis (clôture d\'acte bibliothèque)');
-    }
-    if (affinity >= 5 && pack5.packIntimateFinale?.trim()) {
-      const packFinale = intimateFinaleIsValid(pack5.packIntimateFinale, affinity);
-      if (!packFinale.ok) fail('S46', `pack-5 packIntimateFinale : ${packFinale.reason}`);
-      const packReaction = aff5FinaleHasCompanionReaction(pack5.packIntimateFinale);
-      if (!packReaction.ok) fail('S46', `pack-5 packIntimateFinale : ${packReaction.reason}`);
-    }
-    if (affinity >= 5 && pack5.packIntimateFinaleLow?.trim()) {
-      const packFinaleLow = intimateFinaleIsValid(pack5.packIntimateFinaleLow, affinity);
-      if (!packFinaleLow.ok) fail('S46', `pack-5 packIntimateFinaleLow : ${packFinaleLow.reason}`);
     }
   }
 

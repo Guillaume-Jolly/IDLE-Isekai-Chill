@@ -3,6 +3,7 @@
 import {
   powerDynamicChoiceAligned,
   reactionMcPassiveCoherenceOk,
+  packActFinaleNarrativeCoherenceOk,
 } from './curated-parler-lib.mjs';
 import {
   spectatorCompanionLineOk,
@@ -127,6 +128,22 @@ function assert(condition, message) {
   assert(
     exchangeCompanionLineProlepsisOk(spectator, 1, 3).ok,
     'S56 : demain visiteur mid-pack doit passer',
+  );
+}
+
+// S48 geste vestimentaire incohérent
+{
+  assert(
+    !packActFinaleNarrativeCoherenceOk(
+      'Sous le verrou — elle lisse sa robe sur ta paume encore humide ; murmure : « Bien. »',
+    ).ok,
+    'S48 : robe sur paume doit échouer',
+  );
+  assert(
+    packActFinaleNarrativeCoherenceOk(
+      'Sous le verrou — elle remonte sa robe, essuie ta paume sur sa cuisse ; murmure : « Bien. »',
+    ).ok,
+    'S48 : gestes séparés doit passer',
   );
 }
 

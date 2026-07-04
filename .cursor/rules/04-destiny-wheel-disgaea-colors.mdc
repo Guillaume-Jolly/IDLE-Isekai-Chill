@@ -1,0 +1,49 @@
+---
+description: Direction couleurs roue Disgaea (pack disgaea uniquement)
+globs:
+  - src/components/minigames/DestinyWheel*.tsx
+  - src/components/minigames/DestinyWheelGame.css
+  - src/data/destinyWheel/disgaeaWheelTheme.ts
+  - src/data/destinyWheel/wheelSegments.ts
+---
+
+# Roue Disgaea — direction couleurs
+
+Pack **`disgaea` uniquement**. Ne pas appliquer au Havre (cozy / brume).
+
+## Ambiance
+
+Netherworld · démoniaque fun · gothique flashy · arcade post-game · contraste fort · sombre + saturation vive.
+
+## Éviter
+
+Pastels doux, gris fades, tons naturels, palette « fantasy neutre » ou « cozy Havre ».
+
+## Tokens
+
+Source de vérité code : `src/data/destinyWheel/disgaeaWheelTheme.ts`
+
+| Rôle | Hex |
+|------|-----|
+| Base noir violacé | `#1A1024` |
+| Prune | `#2A1338` |
+| Bordeaux | `#5A1028` |
+| Magenta infernal | `#D91E8A` |
+| Rouge rubis | `#C71F37` |
+| Violet électrique | `#7A2BE2` |
+| Vert slime | `#39D353` |
+| Bleu mana | `#3A86FF` |
+| Or chaud | `#D4A64A` |
+| Texte segment | `#F7F1E8` / contour `#111111` |
+
+## Segments
+
+Utiliser `DISGAEA_WHEEL_SEGMENT_COLORS` (saturés, alternance forte). Pas `generateDistinctSegmentColors` HSL.
+
+## UI roue
+
+- Bord : `frame.png` (fixe, z-index 3)
+- Taquets : `tick_normal.webp` / `tick_thin.webp` (≥14 segments), dupliqués sur le disque tournant
+- Repère : `pointer_fixed.png` + `pointer_mobile.png` (flap via `--dw-flap-deflect`)
+- Assets : `public/assets/destiny-wheel/disgaea/` — layout `wheelVisualAssets.ts`
+- Classe racine : `.dw-spinner--disgaea.dw-spinner--disgaea-assets`

@@ -7,6 +7,7 @@ import {
   mergeMyrionWorksite,
   type MyrionWorksiteSave,
 } from './myrionWorksite'
+import { normalizeDestinyWheelSave } from './destinyWheel/destinyWheelArchiveStore'
 
 
 
@@ -149,6 +150,24 @@ export type MinigameSave = {
 
   /** Chantier Myrion — MVP 1 spots / assignations. */
   myrionWorksite?: MyrionWorksiteSave
+
+  /** Roue du Destin — archives par pack (max 100 / pack). */
+  destinyWheel?: import('./destinyWheel/destinyWheelArchiveStore').DestinyWheelSave & {
+    /** @deprecated migré vers `archives` */
+    history?: Array<{
+      id: string
+      completedAt: number
+      verdictId: string
+      name: string
+      title?: string
+      score?: number
+      favorite?: boolean
+      packId?: string
+    }>
+  }
+
+  /** Roulette Isekai du Havre — archives par mode. */
+  havreWheel?: import('../features/havreIsekaiWheel/types').HavreWheelSave
 }
 
 
@@ -332,6 +351,12 @@ export function mergeMinigameSave(partial?: Partial<MinigameSave>): MinigameSave
     captureStats: partial?.captureStats ?? starter.captureStats,
 
     myrionWorksite: mergeMyrionWorksite(partial?.myrionWorksite),
+
+    destinyWheel: partial?.destinyWheel
+      ? normalizeDestinyWheelSave(partial.destinyWheel)
+      : undefined,
+
+    havreWheel: partial?.havreWheel,
 
   }
 

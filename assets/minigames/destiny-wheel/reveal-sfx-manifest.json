@@ -1,0 +1,43 @@
+{
+  "pack": "rarity_reveal_sfx_v2_layered",
+  "format": "wav mono 44.1kHz 16-bit",
+  "design": "shared click/whoosh base; rare+ receive longer reward arpeggio tails",
+  "files": [
+    {
+      "file": "reveal_common_v2.wav",
+      "duration_seconds": 0.34
+    },
+    {
+      "file": "reveal_uncommon_v2.wav",
+      "duration_seconds": 0.42
+    },
+    {
+      "file": "reveal_rare_v2_reward.wav",
+      "duration_seconds": 0.68
+    },
+    {
+      "file": "reveal_epic_v2_reward.wav",
+      "duration_seconds": 0.88
+    },
+    {
+      "file": "reveal_legendary_v2_reward.wav",
+      "duration_seconds": 1.2
+    },
+    {
+      "file": "reveal_mythic_v2_reward.wav",
+      "duration_seconds": 1.45
+    },
+    {
+      "file": "reveal_cursed_v2.wav",
+      "duration_seconds": 0.82
+    },
+    {
+      "file": "reveal_illegal_v2.wav",
+      "duration_seconds": 1.08
+    },
+    {
+      "file": "reveal_cosmic_bug_v2.wav",
+      "duration_seconds": 1.55
+    }
+  ]
+}

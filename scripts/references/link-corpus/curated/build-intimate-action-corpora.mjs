@@ -130,6 +130,7 @@ function buildCorpus({
   finalesByIndex,
   finalesLowByIndex,
   packActFinales,
+  sessionOutcomesByIndex,
   defaultPowerDynamic,
 }) {
   const prefix = `lyra-aff${affinity}-curated${idSuffix}`;
@@ -149,7 +150,17 @@ function buildCorpus({
           id: pack.id,
           label: pack.label,
           exchangeIds: pack.nums.map((n) => `${prefix}-${n}`),
-          ...(affinity >= 5 && actFinale?.high ? { packIntimateFinale: actFinale.high } : {}),
+          ...(affinity >= 5 && actFinale?.high?.setting
+            ? {
+                packIntimateFinaleTemplate: {
+                  setting: actFinale.high.setting,
+                  closing: actFinale.high.closing,
+                },
+              }
+            : {}),
+          ...(affinity >= 5 && typeof actFinale?.high === 'string'
+            ? { packIntimateFinale: actFinale.high }
+            : {}),
           ...(affinity >= 5 && actFinale?.low ? { packIntimateFinaleLow: actFinale.low } : {}),
         };
       }),
@@ -164,10 +175,12 @@ function buildCorpus({
         const intimateFinaleLow =
           ex.intimateFinaleLow ??
           (affinity >= 5 && finalesLowByIndex?.[index] ? finalesLowByIndex[index] : undefined);
+        const sessionOutcome = sessionOutcomesByIndex?.[index];
         return {
           ...ex,
           ...(intimateFinale ? { intimateFinale } : {}),
           ...(intimateFinaleLow ? { intimateFinaleLow } : {}),
+          ...(sessionOutcome ? { sessionOutcome } : {}),
           id: `${prefix}-${String(index + 1).padStart(2, '0')}`,
           answerRule: 'action',
         };
@@ -262,34 +275,156 @@ const AFF5_FINALE_LOW_FEMALE = {
   20: 'Verrou pas encore tiré — elle te repousse vers le comptoir ; regard sec : « Pas encore. Remets le masque. »',
 };
 
+/** Bilan attendu par échange (aff. 5) — alimente épilogue pack + écran résultat. */
+const SESSION_OUTCOME_MALE = [
+  { acts: ['grinding'], beatLabel: 'Verrou tiré' },
+  { acts: ['fingering_companion'], companionClimaxOnSuccess: true, beatLabel: 'Mouillée' },
+  { acts: ['oral_on_companion'], companionClimaxOnSuccess: true, beatLabel: 'Entre les cuisses' },
+  { acts: ['grinding'], beatLabel: 'Rien dessous' },
+  { acts: ['riding', 'penetration'], companionClimaxOnSuccess: true, beatLabel: 'Elle monte' },
+  { acts: ['anal'], companionClimaxOnSuccess: true, beatLabel: 'Sans détour' },
+  { acts: ['penetration'], beatLabel: 'Entre en moi' },
+  { acts: ['riding'], companionClimaxOnSuccess: true, beatLabel: 'Stop' },
+  { acts: ['fingering_mc'], mcClimaxOnSuccess: true, beatLabel: 'Contre le montant' },
+  { acts: ['riding'], companionClimaxOnSuccess: true, beatLabel: 'Avant le matin' },
+  { acts: ['oral_on_mc'], mcClimaxOnSuccess: true, beatLabel: 'Sa bouche' },
+  { acts: ['anal'], mcClimaxOnSuccess: true, companionClimaxOnSuccess: true, beatLabel: "Avant l'aube" },
+  { acts: ['grinding'], beatLabel: 'Pas de pas' },
+  { acts: ['fingering_companion'], beatLabel: 'Tiroir secret' },
+  { acts: ['toy'], beatLabel: 'Sans prévenir' },
+  { acts: ['toy'], companionClimaxOnSuccess: true, beatLabel: 'Voix posée' },
+  { acts: ['toy', 'anal'], beatLabel: 'Deux doigts' },
+  { acts: ['toy'], beatLabel: 'Deux allées plus loin' },
+  { acts: ['toy'], companionClimaxOnSuccess: true, beatLabel: 'Plume immobile' },
+  { acts: ['toy'], companionClimaxOnSuccess: true, beatLabel: 'Masque qui craque' },
+  { acts: ['penetration'], companionClimaxOnSuccess: true, beatLabel: 'Verrou du soir' },
+];
+
+const SESSION_OUTCOME_FEMALE = [
+  { acts: ['fingering_mc'], beatLabel: 'Verrou tiré' },
+  { acts: ['fingering_mc'], mcClimaxOnSuccess: true, beatLabel: 'Mouillée' },
+  { acts: ['oral_on_mc'], mcClimaxOnSuccess: true, beatLabel: 'Entre les cuisses' },
+  { acts: ['grinding'], beatLabel: 'Peignoir ouvert' },
+  { acts: ['mutual_grinding'], mcClimaxOnSuccess: true, companionClimaxOnSuccess: true, beatLabel: 'Elle monte' },
+  { acts: ['anal'], mcClimaxOnSuccess: true, beatLabel: 'Doigts' },
+  { acts: ['penetration'], beatLabel: 'Face à face' },
+  { acts: ['riding'], companionClimaxOnSuccess: true, beatLabel: 'Stop' },
+  { acts: ['fingering_mc'], mcClimaxOnSuccess: true, beatLabel: 'Vitrage embué' },
+  { acts: ['riding'], companionClimaxOnSuccess: true, beatLabel: 'Avant le matin' },
+  { acts: ['oral_on_mc'], mcClimaxOnSuccess: true, beatLabel: 'Sa langue' },
+  { acts: ['anal'], mcClimaxOnSuccess: true, companionClimaxOnSuccess: true, beatLabel: "Avant l'aube" },
+  { acts: ['grinding'], beatLabel: 'Pas de pas' },
+  { acts: ['fingering_companion'], beatLabel: 'Tiroir secret' },
+  { acts: ['toy'], beatLabel: 'Sans prévenir' },
+  { acts: ['toy'], companionClimaxOnSuccess: true, beatLabel: 'Voix posée' },
+  { acts: ['toy', 'anal'], beatLabel: 'Deux doigts' },
+  { acts: ['toy'], beatLabel: 'Deux allées plus loin' },
+  { acts: ['toy'], companionClimaxOnSuccess: true, beatLabel: 'Plume immobile' },
+  { acts: ['toy'], companionClimaxOnSuccess: true, beatLabel: 'Masque qui craque' },
+  { acts: ['penetration'], companionClimaxOnSuccess: true, beatLabel: 'Verrou du soir' },
+];
+
 /** Épilogue de clôture d'acte (pack entier) — aff. 5, après le dernier échange. */
 const PACK_ACT_FINALE_MALE = {
-  'pack-4': {
-    high:
-      'Première lueur sur les tuiles — vous vous rhabillez en silence, village endormi ; Lyra verrouille la trappe, cheveux en désordre ; te retient sur la première marche, yeux amusés : « Cette nuit reste entre le toit et nous. Demain, comme si de rien n\'était. »',
+  'pack-1': {
+    high: {
+      setting:
+        'Verrou du fond, travées noires — registre basculé, tableau déplacé, cuisses et doigts encore gluants',
+      closing:
+        'elle redresse sa robe, cheveux en bordel ; elle te retient contre les rayons, puis murmure : « Personne n\'est passé. Remets les volumes. Silence jusqu\'à l\'aube. »',
+    },
     low:
-      'L\'aube monte — tu boucles ta braguette trop vite ; Lyra lisse sa robe, trape verrouillée ; te toise, regard sec : « Vertige oui. Pas encore le reste. Reviens sur le toit. »',
+      'Verrou tiré trop tôt — registre ouvert, tableau effleuré, braguette refermée en catastrophe ; elle te repousse du rayon, joue froide ; te toise sous la lampe, regard sec : « Trop vite. Le verrou tient — reprends quand tu sauras rester. »',
+  },
+  'pack-2': {
+    high: {
+      setting:
+        'Chambre au havre, bougie morte — peignoir au sol, draps froissés, miroir embué, ta semence sur la commode',
+      closing:
+        'elle remonte les draps, chemise retrouvée ; verrouille la porte, joue rose ; te chuchote : « Rien n\'a filtré. Garde ce silence. »',
+    },
+    low:
+      'Tu t\'habilles en hâte, peignoir jeté, draps à peine remontés — elle croise les bras sur le lit, regard sec ; te toise : « Partir comme ça manque de respect. Reviens quand tu sauras rester. »',
+  },
+  'pack-3': {
+    high: {
+      setting:
+        'Verrière vacillante, lune basse — matelas froissé, vitrage embué, condensation sur vos fronts',
+      closing:
+        'elle replie le matelas, essuie la vitre d\'un revers ; te tend la main ; murmure : « Pas un bruit en bas. Redescends quand je le dis. »',
+    },
+    low:
+      'Tu boucles ta veste trop vite, matelas à peine replié — elle reste seule sur la verrière, cuisses tremblantes ; regard sec : « Ce n\'était pas une fuite autorisée. Reviens quand tu sauras rester nu. »',
+  },
+  'pack-4': {
+    high: {
+      setting: 'Première lueur sur les tuiles — couverture tachée, braguette refermée, village endormi',
+      closing:
+        'Lyra verrouille la trappe, cheveux en désordre ; te retient sur la première marche, yeux amusés : « Entre le toit et nous. Demain, comme si de rien n\'était. »',
+    },
+    low:
+      'L\'aube monte — tu boucles ta braguette trop vite, couverture mal repliée ; Lyra verrouille la trappe, regard sec ; te toise : « Vertige oui. Pas encore le reste. Reviens sur le toit. »',
   },
   'pack-5': {
-    high:
-      'Registres clos, lampe du comptoir éteinte — entre les atlas, Lyra lisse sa robe sur tes mains encore humides, gode posé sur une reliure ; te retient la nuque contre le cuir, yeux amusés : « Toute la journée le masque. Ce soir, silence entre nous. Demain, même tabouret — pas un mot de trop. »',
+    high: {
+      setting:
+        'Registres clos, lampe éteinte — atlas déplacés, gode essuyé sur une reliure, comptoir collant sous vos doigts',
+      closing:
+        'Lyra redresse sa robe, essuie tes paumes sur le cuir ; te retient la nuque, yeux amusés : « Le masque toute la journée. Ce soir, silence. Demain, même tabouret. »',
+    },
     low:
-      'Verrou du soir tiré trop tôt — elle referme un atlas d\'un revers sec, registre realigné ; te toise sous les travées : « Trois fois aujourd\'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
+      'Verrou du soir tiré trop tôt — atlas mal refermé, registre realigné, gode encore humide ; elle te repousse vers le comptoir ; te toise sous les travées, regard sec : « Trois fois aujourd\'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
   },
 };
 
 const PACK_ACT_FINALE_FEMALE = {
-  'pack-4': {
-    high:
-      'Première lueur — culotte remontée, robe lissée ; Lyra verrouille la trappe, joue rose ; te retient la main sur l\'escalier, yeux amusés : « Cette nuit reste entre le toit et nous. Demain, même silence au comptoir. »',
+  'pack-1': {
+    high: {
+      setting:
+        'Verrou du fond, lampe basse — registre renversé, table souillée, ta chatte et ses doigts encore mouillés',
+      closing:
+        'elle remonte sa robe, cheveux décoiffés ; elle te retient contre les rayons, puis murmure : « Personne n\'est passée. On remet tout en ordre avant l\'aube. »',
+    },
     low:
-      'L\'aube grise — tu remontes ta robe trop vite ; Lyra verrouille la trappe d\'un geste sec ; te toise : « Vertige oui. Pas encore le reste. Reviens sur le toit. »',
+      'Verrou tiré trop tôt — registre ouvert, table effleurée, robe remontée en catastrophe ; elle te repousse du rayon, joue froide ; te toise sous la lampe, regard sec : « Trop vite. Le verrou tient — reprends quand tu sauras rester. »',
+  },
+  'pack-2': {
+    high: {
+      setting:
+        'Chambre au havre, bougie morte — peignoir abandonné, draps en bordel, miroir embué, cuisses encore tremblantes',
+      closing:
+        'elle remonte ta robe, lisse les draps ; verrouille la porte, joue rose ; te chuchote : « Rien n\'a filtré. Garde ce silence. »',
+    },
+    low:
+      'Tu remontes ta robe en hâte, peignoir jeté, draps à peine remontés — elle croise les bras sur le lit, regard sec ; te toise : « Partir comme ça manque de respect. Reviens quand tu sauras rester. »',
+  },
+  'pack-3': {
+    high: {
+      setting: 'Verrière vacillante, lune basse — matelas froissé, vitrage embué, ta chatte collante à la sienne',
+      closing:
+        'elle replie le matelas, robe remontée ; te tend la main ; murmure : « Pas un bruit en bas. Redescends quand je le dis. »',
+    },
+    low:
+      'Tu remontes ta robe trop vite, matelas à peine replié — elle reste seule sur la verrière, cuisses tremblantes ; regard sec : « Ce n\'était pas une fuite autorisée. Reviens quand tu sauras rester nue. »',
+  },
+  'pack-4': {
+    high: {
+      setting: 'Première lueur — culotte remontée, couverture tachée, robe froissée, vitrage encore embué',
+      closing:
+        'Lyra verrouille la trappe, joue rose ; te retient la main sur l\'escalier, yeux amusés : « Entre le toit et nous. Demain, même silence au comptoir. »',
+    },
+    low:
+      'L\'aube grise — tu remontes ta robe trop vite, couverture mal repliée ; Lyra verrouille la trappe d\'un geste sec ; te toise : « Vertige oui. Pas encore le reste. Reviens sur le toit. »',
   },
   'pack-5': {
-    high:
-      'Registres clos, comptoir éteint — entre les atlas, Lyra lisse sa robe sur tes doigts encore humides, gode posé sur une reliure ; te retient la nuque contre le cuir, yeux amusés : « Toute la journée le masque. Ce soir, silence entre nous. Demain, même tabouret — pas un mot de trop. »',
+    high: {
+      setting:
+        'Registres clos, comptoir éteint — atlas déplacés, gode sur une reliure, doigts encore mouillés',
+      closing:
+        'Lyra remonte sa robe, essuie tes paumes sur le cuir ; te retient la nuque, yeux amusés : « Le masque toute la journée. Ce soir, silence. Demain, même tabouret. »',
+    },
     low:
-      'Verrou du soir trop bruyant — elle claque un atlas, registre realigné ; te toise sous les travées : « Trois fois aujourd\'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
+      'Verrou du soir trop bruyant — atlas mal refermé, registre realigné, gode encore humide ; elle te repousse vers le comptoir ; te toise sous les travées, regard sec : « Trois fois aujourd\'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
   },
 };
 
@@ -1126,6 +1261,7 @@ const OUTPUTS = [
       finalesByIndex: AFF5_FINALE_MALE,
       finalesLowByIndex: finalesLowFromMap(AFF5_FINALE_LOW_MALE, AFF5_FINALE_MALE.length),
       packActFinales: PACK_ACT_FINALE_MALE,
+      sessionOutcomesByIndex: SESSION_OUTCOME_MALE,
       defaultPowerDynamic: 'companion_dominant',
     }),
   },
@@ -1174,6 +1310,7 @@ const OUTPUTS = [
       finalesByIndex: AFF5_FINALE_FEMALE,
       finalesLowByIndex: finalesLowFromMap(AFF5_FINALE_LOW_FEMALE, AFF5_FINALE_FEMALE.length),
       packActFinales: PACK_ACT_FINALE_FEMALE,
+      sessionOutcomesByIndex: SESSION_OUTCOME_FEMALE,
       defaultPowerDynamic: 'companion_dominant',
     }),
   },

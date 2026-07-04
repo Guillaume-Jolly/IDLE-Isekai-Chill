@@ -21,6 +21,8 @@ import {
   formatCompanionPromptLine,
   formatSpeech,
   stripSpeechGuillemets,
+  composePackIntimateFinale,
+  deriveParlerSessionSummary,
 } from './curated-parler-lib.mjs';
 import {
   spectatorCompanionLineOk,
@@ -70,11 +72,16 @@ function resolveRoundFinale(exchange, score, affinity) {
   return undefined;
 }
 
-function resolvePackFinale(pack, totalScore, roundCount, affinity) {
+function resolvePackFinale(pack, totalScore, roundCount, affinity, exchanges, scores, protagonistGender) {
   if (affinity < 5 || roundCount <= 0) return undefined;
   const high = pack.packIntimateFinale?.trim();
   const low = pack.packIntimateFinaleLow?.trim();
+  const template = pack.packIntimateFinaleTemplate;
   const threshold = roundCount * 2;
+  if (totalScore >= threshold && template?.setting?.trim()) {
+    const summary = deriveParlerSessionSummary(exchanges, scores, protagonistGender);
+    return { tier: 'high', text: composePackIntimateFinale(template, summary, protagonistGender) };
+  }
   if (totalScore >= threshold && high) return { tier: 'high', text: high };
   if (totalScore < threshold && low) return { tier: 'low', text: low };
   return undefined;
@@ -176,11 +183,13 @@ export function runPackWalkthrough(data, options = {}) {
   const allIssues = [];
   let totalScore = 0;
   let prior = null;
+  const roundScores = [];
 
   for (let index = 0; index < exchanges.length; index += 1) {
     const exchange = exchanges[index];
     const choice = pickChoice(exchange.choices, index);
     totalScore += choice.score ?? 0;
+    roundScores.push(choice.score ?? 0);
 
     const roundFinale = resolveRoundFinale(exchange, choice.score, affinity);
     const { issues, passes } = runExchangeChecks(exchange, prior, packId, index, affinity, choice);
@@ -228,7 +237,15 @@ export function runPackWalkthrough(data, options = {}) {
   }
 
   const maxScore = exchanges.length * 3;
-  const packFinale = resolvePackFinale(pack, totalScore, exchanges.length, affinity);
+  const packFinale = resolvePackFinale(
+    pack,
+    totalScore,
+    exchanges.length,
+    affinity,
+    exchanges,
+    roundScores,
+    data.meta.protagonistGender ?? 'male',
+  );
 
   if (profileName === 'playful' && affinity >= 5 && pack.packIntimateFinaleLow?.trim()) {
     if (packFinale?.tier !== 'low') {

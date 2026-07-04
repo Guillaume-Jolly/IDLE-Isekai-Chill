@@ -11,6 +11,7 @@ import type { CompanionEmotionId } from '../companionAssets'
 import { COMPANION_DIALOGUE_PROFILES } from './profiles'
 import { getParlerPersonalityHint } from './parlerProfiles'
 import type { CompanionConversation, DialogueChoice, DialogueRound, DialogueTone } from './types'
+import type { ParlerRoundOutcomeMeta } from './parlerSessionSummary'
 import type { ParlerPowerDynamic } from './types'
 
 type CuratedChoice = {
@@ -29,6 +30,7 @@ type CuratedExchange = {
   companionLine: string
   intimateFinale?: string
   intimateFinaleLow?: string
+  sessionOutcome?: ParlerRoundOutcomeMeta
   answerRule?: string
   powerDynamic?: ParlerPowerDynamic
   choices: CuratedChoice[]
@@ -40,6 +42,10 @@ type CuratedSessionPack = {
   exchangeIds: string[]
   packIntimateFinale?: string
   packIntimateFinaleLow?: string
+  packIntimateFinaleTemplate?: {
+    setting: string
+    closing: string
+  }
 }
 
 type CuratedCorpusFile = {
@@ -148,6 +154,7 @@ const exchangeToRound = (exchange: CuratedExchange): DialogueRound | null => {
     intimateFinaleLow: exchange.intimateFinaleLow?.trim()
       ? exchange.intimateFinaleLow.trim()
       : undefined,
+    ...(exchange.sessionOutcome ? { sessionOutcome: exchange.sessionOutcome } : {}),
     choices,
   }
 }
@@ -194,6 +201,9 @@ const buildCuratedSession = (
       : {}),
     ...(pack.packIntimateFinaleLow?.trim()
       ? { packIntimateFinaleLow: pack.packIntimateFinaleLow.trim() }
+      : {}),
+    ...(pack.packIntimateFinaleTemplate
+      ? { packIntimateFinaleTemplate: pack.packIntimateFinaleTemplate }
       : {}),
   }
 }

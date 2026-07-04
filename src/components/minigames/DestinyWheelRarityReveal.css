@@ -1,0 +1,423 @@
+/* Pack rarity_reveal_animation_pack_v1 — préfixe dw- pour la Roue du Destin */
+
+.dw-rarity-reveal {
+  --dw-rarity-color: #dce6f0;
+  --dw-rarity-accent: #ffffff;
+  --dw-reveal-duration: 700ms;
+  --dw-shake-strength: 0px;
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  isolation: isolate;
+  animation: dw-reveal-screen-flash var(--dw-reveal-duration) ease-out both;
+}
+
+.dw-rarity-reveal::before,
+.dw-rarity-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--dw-rarity-color);
+  border-radius: 999px;
+  transform: translate(-50%, -50%) scale(0.35);
+  opacity: 0;
+  animation: dw-reveal-ring var(--dw-reveal-duration) ease-out both;
+}
+
+.dw-rarity-reveal::after {
+  animation-delay: 90ms;
+  border-color: var(--dw-rarity-accent);
+}
+
+.dw-rarity-reveal-card {
+  position: relative;
+  z-index: 2;
+  max-width: min(88%, 320px);
+  min-height: 96px;
+  padding: 14px 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(24, 26, 36, 0.94);
+  border: 3px solid var(--dw-rarity-color);
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--dw-rarity-color) 70%, transparent),
+    0 0 46px color-mix(in srgb, var(--dw-rarity-color) 35%, transparent);
+  color: var(--dw-rarity-accent);
+  font-size: clamp(0.82rem, 2.4vw, 1.05rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  animation:
+    dw-reveal-card-pop var(--dw-reveal-duration) cubic-bezier(0.14, 1.32, 0.26, 1) both,
+    dw-reveal-card-shake var(--dw-reveal-duration) linear both;
+}
+
+.dw-rarity-reveal-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--p-size, 7px);
+  height: var(--p-size, 7px);
+  border-radius: 999px;
+  background: var(--dw-rarity-color);
+  box-shadow: 0 0 10px var(--dw-rarity-accent);
+  transform: translate(-50%, -50%) rotate(var(--p-angle)) translateX(0);
+  opacity: 0;
+  animation: dw-reveal-particle var(--dw-reveal-duration) ease-out both;
+  animation-delay: var(--p-delay, 0ms);
+}
+
+.dw-rarity-reveal--common {
+  --dw-rarity-color: #d2dce6;
+  --dw-rarity-accent: #ffffff;
+  --dw-reveal-duration: 520ms;
+  --dw-shake-strength: 0px;
+}
+
+.dw-rarity-reveal--uncommon {
+  --dw-rarity-color: #78e6a0;
+  --dw-rarity-accent: #e6ffeb;
+  --dw-reveal-duration: 620ms;
+  --dw-shake-strength: 1px;
+}
+
+.dw-rarity-reveal--rare {
+  --dw-rarity-color: #50aaff;
+  --dw-rarity-accent: #dcf5ff;
+  --dw-reveal-duration: 820ms;
+  --dw-shake-strength: 2px;
+}
+
+.dw-rarity-reveal--epic {
+  --dw-rarity-color: #aa5fff;
+  --dw-rarity-accent: #f5dcff;
+  --dw-reveal-duration: 1020ms;
+  --dw-shake-strength: 3px;
+}
+
+.dw-rarity-reveal--legendary {
+  --dw-rarity-color: #ffc846;
+  --dw-rarity-accent: #fffad2;
+  --dw-reveal-duration: 1320ms;
+  --dw-shake-strength: 4px;
+}
+
+.dw-rarity-reveal--mythic {
+  --dw-rarity-color: #ff50d2;
+  --dw-rarity-accent: #ffebff;
+  --dw-reveal-duration: 1600ms;
+  --dw-shake-strength: 5px;
+}
+
+.dw-rarity-reveal--cursed {
+  --dw-rarity-color: #78ff5a;
+  --dw-rarity-accent: #2a1432;
+  --dw-reveal-duration: 1100ms;
+  --dw-shake-strength: 7px;
+  animation-name: dw-reveal-screen-flash, dw-reveal-glitch;
+}
+
+.dw-rarity-reveal--illegal {
+  --dw-rarity-color: #ff3737;
+  --dw-rarity-accent: #ffffff;
+  --dw-reveal-duration: 1250ms;
+  --dw-shake-strength: 8px;
+}
+
+.dw-rarity-reveal--illegal .dw-rarity-reveal-card::after {
+  content: 'ILLEGAL';
+  position: absolute;
+  bottom: -42px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  padding: 5px 16px;
+  border: 4px solid #ff3737;
+  color: #fff;
+  background: rgba(60, 0, 0, 0.74);
+  font-size: 0.72rem;
+  font-weight: 900;
+  animation: dw-reveal-stamp 420ms cubic-bezier(0.12, 1.42, 0.26, 1) 190ms both;
+}
+
+.dw-rarity-reveal--cosmic_bug {
+  --dw-rarity-color: #50fffa;
+  --dw-rarity-accent: #ff50fa;
+  --dw-reveal-duration: 1800ms;
+  --dw-shake-strength: 6px;
+  animation-name: dw-reveal-screen-flash, dw-reveal-glitch;
+}
+
+@keyframes dw-reveal-card-pop {
+  0% {
+    transform: scale(0.72);
+    opacity: 0;
+    filter: brightness(2.4) blur(6px);
+  }
+  16% {
+    opacity: 1;
+  }
+  38% {
+    transform: scale(1.16);
+    filter: brightness(1.45) blur(0);
+  }
+  68% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@keyframes dw-reveal-card-shake {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  10% {
+    translate: calc(var(--dw-shake-strength) * -1) calc(var(--dw-shake-strength) * 0.6);
+  }
+  18% {
+    translate: calc(var(--dw-shake-strength) * 0.9) calc(var(--dw-shake-strength) * -1);
+  }
+  26% {
+    translate: calc(var(--dw-shake-strength) * -0.7) calc(var(--dw-shake-strength) * 0.8);
+  }
+  34% {
+    translate: calc(var(--dw-shake-strength) * 0.4) calc(var(--dw-shake-strength) * -0.5);
+  }
+  44% {
+    translate: 0 0;
+  }
+}
+
+@keyframes dw-reveal-ring {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.25);
+  }
+  70% {
+    opacity: 0.22;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(5.8);
+  }
+}
+
+@keyframes dw-reveal-screen-flash {
+  0% {
+    background: color-mix(in srgb, var(--dw-rarity-accent) 20%, transparent);
+  }
+  16% {
+    background: color-mix(in srgb, var(--dw-rarity-color) 12%, transparent);
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+@keyframes dw-reveal-particle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--p-angle)) translateX(0) scale(0.3);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--p-angle)) translateX(var(--p-distance, 180px))
+      scale(0.9);
+  }
+}
+
+@keyframes dw-reveal-stamp {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(2.1) rotate(-12deg);
+    filter: blur(3px);
+  }
+  58% {
+    opacity: 1;
+    transform: translateX(-50%) scale(0.92) rotate(-4deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) rotate(-4deg);
+  }
+}
+
+@keyframes dw-reveal-glitch {
+  0%,
+  100% {
+    filter: none;
+  }
+  9% {
+    filter: hue-rotate(80deg) contrast(1.5);
+  }
+  12% {
+    filter: none;
+  }
+  21% {
+    filter: hue-rotate(-120deg) saturate(1.8);
+  }
+  24% {
+    filter: none;
+  }
+  46% {
+    filter: contrast(1.4) brightness(1.2);
+  }
+  50% {
+    filter: none;
+  }
+}
+
+/* Variante compacte — bulle « case en cours » (layout calibré : pas de transform sur le panneau) */
+.dw-rarity-reveal--inline {
+  position: relative;
+  inset: auto;
+  display: block;
+  width: 100%;
+  isolation: isolate;
+  animation: none;
+  overflow: visible;
+}
+
+.dw-rarity-reveal--inline::before,
+.dw-rarity-reveal--inline::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(28px, 16cqw, 48px);
+  height: clamp(28px, 16cqw, 48px);
+  border-width: 3px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dw-case-float--calibrated .dw-rarity-reveal--inline::before,
+.dw-case-float--calibrated .dw-rarity-reveal--inline::after {
+  width: clamp(24px, 34%, 42px);
+  height: clamp(24px, 34%, 42px);
+  border-width: 2px;
+}
+
+.dw-rarity-reveal--inline.dw-rarity-reveal--cursed,
+.dw-rarity-reveal--inline.dw-rarity-reveal--cosmic_bug {
+  animation: none;
+}
+
+.dw-rarity-reveal-inline-target {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  animation: none;
+}
+
+.dw-rarity-reveal--inline .dw-case-float-body {
+  position: relative;
+  border-color: var(--dw-rarity-color);
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--dw-rarity-color) 55%, transparent),
+    0 8px 20px rgba(0, 0, 0, 0.32);
+  animation:
+    dw-reveal-inline-glow var(--dw-reveal-duration) ease-out both,
+    dw-reveal-inline-border-pulse var(--dw-reveal-duration) ease-out both;
+}
+
+.dw-rarity-reveal--inline .dw-case-float-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  animation: dw-reveal-inline-flash var(--dw-reveal-duration) ease-out both;
+}
+
+.dw-rarity-reveal--inline .dw-case-float-body > * {
+  position: relative;
+  z-index: 1;
+}
+
+.dw-rarity-reveal--inline.dw-rarity-reveal--cursed .dw-case-float-body,
+.dw-rarity-reveal--inline.dw-rarity-reveal--cosmic_bug .dw-case-float-body {
+  animation:
+    dw-reveal-inline-glow var(--dw-reveal-duration) ease-out both,
+    dw-reveal-inline-border-pulse var(--dw-reveal-duration) ease-out both,
+    dw-reveal-glitch var(--dw-reveal-duration) linear both;
+}
+
+.dw-rarity-reveal--inline.dw-rarity-reveal--illegal .dw-case-float-body::after {
+  content: 'ILLEGAL';
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  padding: 3px 10px;
+  border: 3px solid #ff3737;
+  color: #fff;
+  background: rgba(60, 0, 0, 0.82);
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  transform: rotate(-6deg);
+  z-index: 2;
+  animation: dw-reveal-stamp 420ms cubic-bezier(0.12, 1.42, 0.26, 1) 190ms both;
+}
+
+@keyframes dw-reveal-inline-flash {
+  0% {
+    background: color-mix(in srgb, var(--dw-rarity-color) 42%, transparent);
+    opacity: 1;
+  }
+  28% {
+    background: color-mix(in srgb, var(--dw-rarity-color) 18%, transparent);
+    opacity: 0.85;
+  }
+  100% {
+    background: transparent;
+    opacity: 0;
+  }
+}
+
+@keyframes dw-reveal-inline-glow {
+  0% {
+    filter: brightness(2.1) saturate(1.35);
+  }
+  22% {
+    filter: brightness(1.35) saturate(1.15);
+  }
+  100% {
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes dw-reveal-inline-border-pulse {
+  0% {
+    box-shadow:
+      0 0 0 color-mix(in srgb, var(--dw-rarity-color) 0%, transparent),
+      0 8px 20px rgba(0, 0, 0, 0.32);
+  }
+  24% {
+    box-shadow:
+      0 0 16px color-mix(in srgb, var(--dw-rarity-color) 72%, transparent),
+      0 0 28px color-mix(in srgb, var(--dw-rarity-color) 28%, transparent),
+      0 8px 20px rgba(0, 0, 0, 0.32);
+  }
+  100% {
+    box-shadow:
+      0 0 10px color-mix(in srgb, var(--dw-rarity-color) 55%, transparent),
+      0 8px 20px rgba(0, 0, 0, 0.32);
+  }
+}

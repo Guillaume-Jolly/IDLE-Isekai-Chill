@@ -27,6 +27,11 @@ import {
   resolveIntimateFinaleForScore,
   resolvePackIntimateFinaleForScore,
 } from '../../data/conversations/conversationContext'
+import {
+  deriveParlerSessionSummary,
+  formatParlerSessionSummaryLines,
+  type ParlerSessionSummary,
+} from '../../data/conversations/parlerSessionSummary'
 import { scaleReward, type Cost, BUILDING_ACTIVITIES } from '../../data/buildingActivities'
 import type { CompanionEmotionId } from '../../data/companionAssets'
 import { companionBackgroundPath, lyraIntimateSessionPortraitEmotion } from '../../data/companionAssets'
@@ -84,6 +89,8 @@ function packIntimateFinaleForSession(
   nsfwContent: boolean,
   totalScore: number,
   conversation: CompanionConversation,
+  sessionSummary: ParlerSessionSummary,
+  protagonistGender: 'male' | 'female',
 ): string | undefined {
   return resolvePackIntimateFinaleForScore(
     affinity,
@@ -91,6 +98,8 @@ function packIntimateFinaleForSession(
     totalScore,
     conversation.rounds.length,
     conversation,
+    sessionSummary,
+    protagonistGender,
   )
 }
 
@@ -99,8 +108,19 @@ function packIntimateFinaleEarned(
   nsfwContent: boolean,
   totalScore: number,
   conversation: CompanionConversation,
+  sessionSummary: ParlerSessionSummary,
+  protagonistGender: 'male' | 'female',
 ): boolean {
-  return Boolean(packIntimateFinaleForSession(affinity, nsfwContent, totalScore, conversation))
+  return Boolean(
+    packIntimateFinaleForSession(
+      affinity,
+      nsfwContent,
+      totalScore,
+      conversation,
+      sessionSummary,
+      protagonistGender,
+    ),
+  )
 }
 
 function IntimateFinaleBlock({ finale, kicker = 'Épilogue' }: { finale: string; kicker?: string }) {
@@ -531,6 +551,15 @@ export function ConversationGame({
   const isSingleExchange = conversation.rounds.length === 1
   const contextBubbles = splitContextForDisplay(currentRound?.context ?? [])
   const totalScore = scoreFromChoices(scores)
+  const protagonistGenderForSession: 'male' | 'female' =
+    sessionMcGender === 'F' ? 'female' : 'male'
+  const sessionSummaryForScores = (nextScores: number[]) =>
+    deriveParlerSessionSummary(conversation.rounds, nextScores, protagonistGenderForSession)
+  const sessionSummary = sessionSummaryForScores(scores)
+  const sessionSummaryLines = formatParlerSessionSummaryLines(
+    sessionSummary,
+    protagonistGenderForSession,
+  )
   const earnedIntimateFinales = conversation.rounds
     .map((round, index) => ({
       roundIndex: index,
@@ -548,6 +577,8 @@ export function ConversationGame({
     effectiveParlerOptions.nsfwContent,
     totalScore,
     conversation,
+    sessionSummary,
+    protagonistGenderForSession,
   )
   const currentFinaleRound = phase === 'finale' ? conversation.rounds[roundIndex] : undefined
   const currentFinale = currentFinaleRound
@@ -599,6 +630,8 @@ export function ConversationGame({
           effectiveParlerOptions.nsfwContent,
           scoreFromChoices([...scores, pickedChoice?.score ?? 0]),
           conversation,
+          sessionSummaryForScores([...scores, pickedChoice?.score ?? 0]),
+          protagonistGenderForSession,
         )
         ? 'Fin de l\'acte'
         : 'Voir le résultat'
@@ -610,6 +643,8 @@ export function ConversationGame({
       effectiveParlerOptions.nsfwContent,
       scoreFromChoices(scores),
       conversation,
+      sessionSummary,
+      protagonistGenderForSession,
     )
       ? 'Fin de l\'acte'
       : roundIndex >= conversation.rounds.length - 1
@@ -670,6 +705,8 @@ export function ConversationGame({
           effectiveParlerOptions.nsfwContent,
           sessionTotal,
           conversation,
+          sessionSummaryForScores(nextScores),
+          protagonistGenderForSession,
         )
       ) {
         setPhase('packFinale')
@@ -738,6 +775,8 @@ export function ConversationGame({
         effectiveParlerOptions.nsfwContent,
         sessionTotal,
         conversation,
+        sessionSummary,
+        protagonistGenderForSession,
       )
     ) {
       setPhase('packFinale')
@@ -1120,6 +1159,16 @@ export function ConversationGame({
                   <p className="mg-conversation-result-reward">
                     Récompenses : {formatReward(displayReward)}
                   </p>
+                ) : null}
+                {PARLER_DEV_MODE && sessionSummaryLines.length > 0 ? (
+                  <div className="mg-conversation-result-session-bilan">
+                    <p className="mg-conversation-recap-title">Bilan de la session</p>
+                    <ul className="mg-conversation-result-session-list">
+                      {sessionSummaryLines.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  </div>
                 ) : null}
               </div>
 

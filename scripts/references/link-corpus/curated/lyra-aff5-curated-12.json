@@ -15,7 +15,12 @@
           "lyra-aff5-curated-01",
           "lyra-aff5-curated-02",
           "lyra-aff5-curated-03"
-        ]
+        ],
+        "packIntimateFinaleTemplate": {
+          "setting": "Verrou du fond, travées noires — registre basculé, tableau déplacé, cuisses et doigts encore gluants",
+          "closing": "elle redresse sa robe, cheveux en bordel ; elle te retient contre les rayons, puis murmure : « Personne n'est passé. Remets les volumes. Silence jusqu'à l'aube. »"
+        },
+        "packIntimateFinaleLow": "Verrou tiré trop tôt — registre ouvert, tableau effleuré, braguette refermée en catastrophe ; elle te repousse du rayon, joue froide ; te toise sous la lampe, regard sec : « Trop vite. Le verrou tient — reprends quand tu sauras rester. »"
       },
       {
         "id": "pack-2",
@@ -24,7 +29,12 @@
           "lyra-aff5-curated-04",
           "lyra-aff5-curated-05",
           "lyra-aff5-curated-06"
-        ]
+        ],
+        "packIntimateFinaleTemplate": {
+          "setting": "Chambre au havre, bougie morte — peignoir au sol, draps froissés, miroir embué, ta semence sur la commode",
+          "closing": "elle remonte les draps, chemise retrouvée ; verrouille la porte, joue rose ; te chuchote : « Rien n'a filtré. Garde ce silence. »"
+        },
+        "packIntimateFinaleLow": "Tu t'habilles en hâte, peignoir jeté, draps à peine remontés — elle croise les bras sur le lit, regard sec ; te toise : « Partir comme ça manque de respect. Reviens quand tu sauras rester. »"
       },
       {
         "id": "pack-3",
@@ -33,7 +43,12 @@
           "lyra-aff5-curated-07",
           "lyra-aff5-curated-08",
           "lyra-aff5-curated-09"
-        ]
+        ],
+        "packIntimateFinaleTemplate": {
+          "setting": "Verrière vacillante, lune basse — matelas froissé, vitrage embué, condensation sur vos fronts",
+          "closing": "elle replie le matelas, essuie la vitre d'un revers ; te tend la main ; murmure : « Pas un bruit en bas. Redescends quand je le dis. »"
+        },
+        "packIntimateFinaleLow": "Tu boucles ta veste trop vite, matelas à peine replié — elle reste seule sur la verrière, cuisses tremblantes ; regard sec : « Ce n'était pas une fuite autorisée. Reviens quand tu sauras rester nu. »"
       },
       {
         "id": "pack-4",
@@ -43,8 +58,11 @@
           "lyra-aff5-curated-11",
           "lyra-aff5-curated-12"
         ],
-        "packIntimateFinale": "Première lueur sur les tuiles — vous vous rhabillez en silence, village endormi ; Lyra verrouille la trappe, cheveux en désordre ; te retient sur la première marche, yeux amusés : « Cette nuit reste entre le toit et nous. Demain, comme si de rien n'était. »",
-        "packIntimateFinaleLow": "L'aube monte — tu boucles ta braguette trop vite ; Lyra lisse sa robe, trape verrouillée ; te toise, regard sec : « Vertige oui. Pas encore le reste. Reviens sur le toit. »"
+        "packIntimateFinaleTemplate": {
+          "setting": "Première lueur sur les tuiles — couverture tachée, braguette refermée, village endormi",
+          "closing": "Lyra verrouille la trappe, cheveux en désordre ; te retient sur la première marche, yeux amusés : « Entre le toit et nous. Demain, comme si de rien n'était. »"
+        },
+        "packIntimateFinaleLow": "L'aube monte — tu boucles ta braguette trop vite, couverture mal repliée ; Lyra verrouille la trappe, regard sec ; te toise : « Vertige oui. Pas encore le reste. Reviens sur le toit. »"
       },
       {
         "id": "pack-5",
@@ -60,8 +78,11 @@
           "lyra-aff5-curated-20",
           "lyra-aff5-curated-21"
         ],
-        "packIntimateFinale": "Registres clos, lampe du comptoir éteinte — entre les atlas, Lyra lisse sa robe sur tes mains encore humides, gode posé sur une reliure ; te retient la nuque contre le cuir, yeux amusés : « Toute la journée le masque. Ce soir, silence entre nous. Demain, même tabouret — pas un mot de trop. »",
-        "packIntimateFinaleLow": "Verrou du soir tiré trop tôt — elle referme un atlas d'un revers sec, registre realigné ; te toise sous les travées : « Trois fois aujourd'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »"
+        "packIntimateFinaleTemplate": {
+          "setting": "Registres clos, lampe éteinte — atlas déplacés, gode essuyé sur une reliure, comptoir collant sous vos doigts",
+          "closing": "Lyra redresse sa robe, essuie tes paumes sur le cuir ; te retient la nuque, yeux amusés : « Le masque toute la journée. Ce soir, silence. Demain, même tabouret. »"
+        },
+        "packIntimateFinaleLow": "Verrou du soir tiré trop tôt — atlas mal refermé, registre realigné, gode encore humide ; elle te repousse vers le comptoir ; te toise sous les travées, regard sec : « Trois fois aujourd'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »"
       }
     ],
     "criteria": [
@@ -176,6 +197,12 @@
       ],
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Porte du fond tiède dans ton dos, verrou tiré — tu halètes contre les rayons ; elle se redresse, robe froissée, joue rose ; te chuchote : « Bien. Reste là — on n'en est qu'au début. »",
+      "sessionOutcome": {
+        "acts": [
+          "grinding"
+        ],
+        "beatLabel": "Verrou tiré"
+      },
       "id": "lyra-aff5-curated-01",
       "answerRule": "action"
     },
@@ -216,6 +243,13 @@
       ],
       "powerDynamic": "companion_invites",
       "intimateFinale": "Sous la lampe, ta main encore mouillée sur elle, registre basculé — elle respire contre ton cou, cuisses tremblantes sur la table ; murmure : « Continue. Personne ne passe tant que le verrou tient. »",
+      "sessionOutcome": {
+        "acts": [
+          "fingering_companion"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Mouillée"
+      },
       "id": "lyra-aff5-curated-02",
       "answerRule": "action"
     },
@@ -256,6 +290,13 @@
       ],
       "powerDynamic": "companion_invites",
       "intimateFinale": "Tu relèves la tête entre ses cuisses — elle s'appuie au rayonnage, chatte encore trempée, doigts dans tes cheveux ; ajuste sa robe, murmure : « Silence. On sort quand je le dis. »",
+      "sessionOutcome": {
+        "acts": [
+          "oral_on_companion"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Entre les cuisses"
+      },
       "id": "lyra-aff5-curated-03",
       "answerRule": "action"
     },
@@ -296,6 +337,12 @@
       ],
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Peignoir au sol, ta chemise déboutonnée, draps froissés — elle contre ton torse nu, peau chaude, haleine sur ta peau ; te serre la nuque, te fixe : « Ne t'habille pas trop vite. »",
+      "sessionOutcome": {
+        "acts": [
+          "grinding"
+        ],
+        "beatLabel": "Rien dessous"
+      },
       "id": "lyra-aff5-curated-04",
       "answerRule": "action"
     },
@@ -336,6 +383,14 @@
       ],
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Draps en bordel, elle reste assise sur toi, cuisses molles, chatte trempée — ta bite encore dure contre son ventre ; se redresse, regard amusé : « Tu sais attendre. Dommage que j'aie craqué avant toi. »",
+      "sessionOutcome": {
+        "acts": [
+          "riding",
+          "penetration"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Elle monte"
+      },
       "id": "lyra-aff5-curated-05",
       "answerRule": "action"
     },
@@ -376,6 +431,13 @@
       ],
       "powerDynamic": "companion_invites",
       "intimateFinale": "Oreiller mordu déplacé, ta semence le long de ses fesses sur la commode — miroir embué, vêtements au sol, chambre sens dessus dessous ; elle te toise, yeux amusés : « Retrouve-moi sous le bureau dans deux heures. »",
+      "sessionOutcome": {
+        "acts": [
+          "anal"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Sans détour"
+      },
       "id": "lyra-aff5-curated-06",
       "answerRule": "action"
     },
@@ -416,6 +478,12 @@
       ],
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Sous la verrière, matelas froissé, sueur sur vos peaux — elle s'écarte lentement, cuisses encore collées aux tiennes, lune sur le vitrage ; te fixe, yeux amusés : « On n'a pas fini avec cette nuit. »",
+      "sessionOutcome": {
+        "acts": [
+          "penetration"
+        ],
+        "beatLabel": "Entre en moi"
+      },
       "id": "lyra-aff5-curated-07",
       "answerRule": "action"
     },
@@ -457,6 +525,13 @@
       "powerDynamic": "mutual",
       "intimateFinale": "Buée sur le vitrage, ta respiration encore haletante — elle vérifie ton poignet, cuisses tremblantes, chatte contre la tienne ; ralentit un instant, regard amusé : « Tu as bien tapé. Garde ce rythme encore un peu. »",
       "intimateFinaleLow": "Buée sur le vitrage, tu fais encore semblant de taper — elle te lâche le poignet, amusée mais sèche ; regard sec : « Tu mens avec le poignet. Recommence quand tu seras honnête. »",
+      "sessionOutcome": {
+        "acts": [
+          "riding"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Stop"
+      },
       "id": "lyra-aff5-curated-08",
       "answerRule": "action"
     },
@@ -497,6 +572,13 @@
       ],
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Contre le montant, tes doigts mouillés, condensation sur la vitraille — elle retire sa main lentement, cuisses chancelantes, robe déplacée ; s'essuie la paume, regard sec : « Dommage que personne n'ait vu ta mine. »",
+      "sessionOutcome": {
+        "acts": [
+          "fingering_mc"
+        ],
+        "mcClimaxOnSuccess": true,
+        "beatLabel": "Contre le montant"
+      },
       "id": "lyra-aff5-curated-09",
       "answerRule": "action"
     },
@@ -538,6 +620,13 @@
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Une fois les tremblements de son orgasme passés et ses petits gémissements terminés, elle s'écarte — ta bite encore dure à côté de sa chatte ruisselante, couverture froissée ; te dit, amusée : « Tu es plus endurant que ce que je pensais. On va voir comment tu résistes à ça. »",
       "intimateFinaleLow": "Chevauchée hachée, tu as devancé son signal — elle se redresse, couverture froissée ; te toise : « Ce toit, c'est mon rythme. Recommence sans prendre les devants. »",
+      "sessionOutcome": {
+        "acts": [
+          "riding"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Avant le matin"
+      },
       "id": "lyra-aff5-curated-10",
       "answerRule": "action"
     },
@@ -579,6 +668,13 @@
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Dos à la rambarde, tu jouis enfin — couverture tâchée, elle relève la tête, lèvre mouillée, gorge qui avale ; murmure contre ton ventre : « Mmm… relâche-toi. On n'a pas fini la nuit. »",
       "intimateFinaleLow": "Tu t'es crispé dans sa bouche — elle relève la tête, lèvre humide ; regard sec : « Lâche-toi ou tu recommences debout. »",
+      "sessionOutcome": {
+        "acts": [
+          "oral_on_mc"
+        ],
+        "mcClimaxOnSuccess": true,
+        "beatLabel": "Sa bouche"
+      },
       "id": "lyra-aff5-curated-11",
       "answerRule": "action"
     },
@@ -620,6 +716,14 @@
       "powerDynamic": "companion_invites",
       "intimateFinale": "Sur la couverture, aube grise dans le dos, fesses encore rouges, haleine coupée — vous venez de jouir ; elle se redresse chancelante ; te fixe, yeux amusés : « Voilà. Redescends avant que le village ouvre un œil. »",
       "intimateFinaleLow": "Entrée trop brusque par derrière — elle se redresse chancelante, fesses pâles ; te fixe, murmure froid : « Lent. Tu demandes avant d'accélérer. »",
+      "sessionOutcome": {
+        "acts": [
+          "anal"
+        ],
+        "mcClimaxOnSuccess": true,
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Avant l'aube"
+      },
       "id": "lyra-aff5-curated-12",
       "answerRule": "action"
     },
@@ -661,6 +765,12 @@
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Sous le comptoir, tu retiens encore ton souffle — elle replace une mèche, joue rose ; te chuchote à peine audible : « Personne n'a rien entendu. Dommage. »",
       "intimateFinaleLow": "Sous le comptoir, tu as failli grincer — elle replace le registre, mâchoire serrée ; te fixe, regard sec : « Pas un bruit. Tu réessayeras quand la porte sera close. »",
+      "sessionOutcome": {
+        "acts": [
+          "grinding"
+        ],
+        "beatLabel": "Pas de pas"
+      },
       "id": "lyra-aff5-curated-13",
       "answerRule": "action"
     },
@@ -702,6 +812,12 @@
       "powerDynamic": "companion_invites",
       "intimateFinale": "Gode contre le tiroir, visiteur encore au couloir — tes doigts sur sa chatte, elle respire par le nez ; chuchote sans te regarder : « Lent. Quand je fais une pause. »",
       "intimateFinaleLow": "Trop vite sur sa chatte — le visiteur fronce les sourcils ; elle referme les cuisses ; te fixe : « Maladroit. Tu attends ma pause. »",
+      "sessionOutcome": {
+        "acts": [
+          "fingering_companion"
+        ],
+        "beatLabel": "Tiroir secret"
+      },
       "id": "lyra-aff5-curated-14",
       "answerRule": "action"
     },
@@ -743,6 +859,12 @@
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Gode enfoncé, visiteur au couloir — elle serre tes cheveux une seconde ; chuchote sans te regarder : « Bien. Tu attends mon signal pour la suite. »",
       "intimateFinaleLow": "Tu as enfoncé au mauvais moment — sa voix vacille une seconde ; regard sec : « Pas quand je parle. Recommence. »",
+      "sessionOutcome": {
+        "acts": [
+          "toy"
+        ],
+        "beatLabel": "Sans prévenir"
+      },
       "id": "lyra-aff5-curated-15",
       "answerRule": "action"
     },
@@ -784,6 +906,13 @@
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Comptoir tiède, ta paume sur le manche — elle cite encore les amendes sans trembler ; murmure contre ton oreille : « Comme ça. Pas plus fort sans moi. »",
       "intimateFinaleLow": "Tu as accéléré sans qu'elle serre — elle claque le registre sous le bois ; te fixe : « Tout le bestiaire — à voix haute, lentement. »",
+      "sessionOutcome": {
+        "acts": [
+          "toy"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Voix posée"
+      },
       "id": "lyra-aff5-curated-16",
       "answerRule": "action"
     },
@@ -825,6 +954,13 @@
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Doigt retiré de son anus, gode toujours en place — masque retrouvé vers la vitrine ; murmure : « Tu m'as tendue. Ce n'est pas fini. »",
       "intimateFinaleLow": "Tu l'as frôlée trop près du bord — elle te mord la lèvre sous le comptoir ; chuchote : « Pas encore. Tu paies ce soir. »",
+      "sessionOutcome": {
+        "acts": [
+          "toy",
+          "anal"
+        ],
+        "beatLabel": "Deux doigts"
+      },
       "id": "lyra-aff5-curated-17",
       "answerRule": "action"
     },
@@ -866,6 +1002,12 @@
       "powerDynamic": "companion_invites",
       "intimateFinale": "Registre posé ; aux allées, le silence — tes doigts humides, elle lisse sa robe ; te fixe : « Quand la cloche sonne — même tabouret. »",
       "intimateFinaleLow": "Registre posé de travers, rythme décalé — elle lisse sa robe d'un geste sec ; te fixe : « De toute voix. Et lentement. Pas un mot de trop. »",
+      "sessionOutcome": {
+        "acts": [
+          "toy"
+        ],
+        "beatLabel": "Deux allées plus loin"
+      },
       "id": "lyra-aff5-curated-18",
       "answerRule": "action"
     },
@@ -907,6 +1049,13 @@
       "powerDynamic": "companion_dominant",
       "intimateFinale": "Midi passé, plume renversée, gode encore en place — tu halètes sous le bois ; elle tremble une seconde, masque retrouvé ; yeux amusés : « L'apprenti n'a rien vu. Moi, si. »",
       "intimateFinaleLow": "Plume renversée, voix encore un peu tremblante — elle claque le registre ; te toise : « L'apprenti n'a rien vu. Toi, tu as failli. »",
+      "sessionOutcome": {
+        "acts": [
+          "toy"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Plume immobile"
+      },
       "id": "lyra-aff5-curated-19",
       "answerRule": "action"
     },
@@ -948,6 +1097,13 @@
       "powerDynamic": "protagonist_invited",
       "intimateFinale": "Comptoir vide, tu as mené sans qu'elle voie venir — elle mord sa lèvre, cuisses tremblantes ; te chuchote : « Ce soir tu es ma chose. Là, encore. »",
       "intimateFinaleLow": "Comptoir vide, tu as poussé trop fort — elle te repousse vers le bois ; murmure : « Remets le masque. Pas avant le verrou. »",
+      "sessionOutcome": {
+        "acts": [
+          "toy"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Masque qui craque"
+      },
       "id": "lyra-aff5-curated-20",
       "answerRule": "action"
     },
@@ -989,6 +1145,13 @@
       "powerDynamic": "companion_invites",
       "intimateFinale": "Entre les travées, verrou du soir tiré — elle te sort de sous le comptoir, robe relevée, livres de travers ; murmure contre ta nuque, yeux amusés : « Encore ce soir. Même silence. Même comptoir. »",
       "intimateFinaleLow": "Verrou pas encore tiré, gode encore humide — elle te repousse vers le comptoir ; regard sec : « Pas encore. Remets le masque. »",
+      "sessionOutcome": {
+        "acts": [
+          "penetration"
+        ],
+        "companionClimaxOnSuccess": true,
+        "beatLabel": "Verrou du soir"
+      },
       "id": "lyra-aff5-curated-21",
       "answerRule": "action"
     }

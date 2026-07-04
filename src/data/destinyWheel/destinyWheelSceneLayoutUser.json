@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "wheel": {
+    "version": 1,
+    "disc": {
+      "x": 0,
+      "y": 6,
+      "scale": 1.04,
+      "rotate": 45
+    },
+    "frame": {
+      "x": 0,
+      "y": 6,
+      "scale": 1.06,
+      "rotate": 44.5
+    },
+    "pointerStack": {
+      "x": 0,
+      "y": -10,
+      "scale": 0.2,
+      "rotate": 0
+    },
+    "pointerMobile": {
+      "x": -1,
+      "y": 0,
+      "scale": 0.61,
+      "rotate": 0,
+      "topOnFixedPct": 71.6,
+      "hingeY": 5.5,
+      "widthRatio": 0.47342026078234706
+    },
+    "ticks": {
+      "x": 0,
+      "y": 6,
+      "scale": 0.95,
+      "rotate": 0
+    }
+  },
+  "havreWheel": {
+    "version": 1,
+    "disc": {
+      "x": 0,
+      "y": 7.5,
+      "scale": 1.04,
+      "rotate": 18.5
+    },
+    "frame": {
+      "x": 0,
+      "y": 7.5,
+      "scale": 1.04,
+      "rotate": 45.5
+    },
+    "pointerStack": {
+      "x": 0,
+      "y": -10,
+      "scale": 0.2,
+      "rotate": 0
+    },
+    "pointerMobile": {
+      "x": 0,
+      "y": 0,
+      "scale": 0.8,
+      "rotate": 0,
+      "topOnFixedPct": 72,
+      "hingeY": 5.5,
+      "widthRatio": 0.47
+    },
+    "ticks": {
+      "x": 0,
+      "y": 6,
+      "scale": 0.91,
+      "rotate": 45.5
+    }
+  },
+  "laharl": {
+    "visible": true,
+    "x": 9.6,
+    "y": -7.5,
+    "scale": 1,
+    "rotate": 0
+  },
+  "etna": {
+    "visible": true,
+    "x": 14.5,
+    "y": 4.4,
+    "scale": 1,
+    "rotate": 0
+  },
+  "flonne": {
+    "visible": true,
+    "x": 6,
+    "y": -7.8,
+    "scale": 1,
+    "rotate": 0
+  },
+  "currentCase": {
+    "visible": true,
+    "x": 1,
+    "y": 9,
+    "scale": 1,
+    "rotate": 0,
+    "widthCqw": 26.5,
+    "heightCqh": 22.5
+  },
+  "laharlBubble": {
+    "visible": true,
+    "x": -7,
+    "y": 11.5,
+    "scale": 0.93,
+    "rotate": 0,
+    "widthCqw": 24,
+    "heightCqh": 20
+  },
+  "commentBubbleLane": {
+    "visible": true,
+    "x": 32.5,
+    "y": -1.5,
+    "scale": 1,
+    "rotate": 0,
+    "widthCqw": 24,
+    "heightCqh": 13
+  },
+  "packSwitcher": {
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "scale": 1,
+    "rotate": 0
+  },
+  "spinnerHint": {
+    "visible": true,
+    "x": -117,
+    "y": 74,
+    "scale": 0.98,
+    "rotate": 0
+  }
+}

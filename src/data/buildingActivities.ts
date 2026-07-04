@@ -30,6 +30,7 @@ export type MinigameType =
   | 'dressage'
   | 'conversation'
   | 'myrion-worksite'
+  | 'destiny-wheel'
 
 /** Mini-jeux récents (chantier, chasse, refuge, parler). */
 export const PARLER_HUB_ACTIVITY_ID = 'village-parler' as const
@@ -55,6 +56,7 @@ export const NEW_MINIGAME_IDS: readonly string[] = [
   'farm-capture',
   'farm-dressage',
   PARLER_HUB_ACTIVITY_ID,
+  'disagrea-destiny-wheel',
 ]
 
 /** @deprecated Utiliser NEW_MINIGAME_IDS */
@@ -430,6 +432,21 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     accent: '#5ecf8a',
     icon: '🎯',
     persistent: true,
+  },
+  {
+    id: 'disagrea-destiny-wheel',
+    buildingId: 'moon-farm',
+    companionId: 'etna',
+    focusResource: 'stardust',
+    minigameType: 'destiny-wheel',
+    name: 'Roue du Destin',
+    tagline: 'Faille Disagrea — Etna',
+    inspiration: 'Disgaea tactical absurde / générateur de fiche',
+    description:
+      'Etna commente une génération de personnage tactical démoniaque à roues. Branches, malédictions, stats cruelles et verdict final — tout vient de la seed JSON.',
+    baseReward: { stardust: 8, gifts: 10, renown: 6 },
+    accent: '#d63a72',
+    icon: '🎡',
   },
   {
     id: 'farm-merge',

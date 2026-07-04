@@ -2,6 +2,9 @@ import type { CompanionEmotionId } from '../companionAssets'
 import { LYRA_INTIMATE_CUTOUT_EMOTION_IDS } from '../companionAssets'
 import type { DialogueChoice } from './types'
 import { COMPANION_DIALOGUE_PROFILES } from './profiles'
+import type { ProtagonistGender } from '../gameSettings'
+import type { ParlerPackFinaleTemplate, ParlerSessionSummary } from './parlerSessionSummary'
+import { composePackIntimateFinale } from './parlerSessionSummary'
 
 /** Lignes narrateur méta générées par le corpus — ignorées à l'extraction. */
 const META_NARRATOR_LINE = [
@@ -325,13 +328,25 @@ export function resolvePackIntimateFinaleForScore(
   nsfwContent: boolean,
   totalScore: number,
   roundCount: number,
-  conversation?: { packIntimateFinale?: string; packIntimateFinaleLow?: string },
+  conversation?: {
+    packIntimateFinale?: string
+    packIntimateFinaleLow?: string
+    packIntimateFinaleTemplate?: ParlerPackFinaleTemplate
+  },
+  sessionSummary?: ParlerSessionSummary,
+  protagonistGender: ProtagonistGender = 'male',
 ): string | undefined {
   if (affinity < 5 || !nsfwContent || roundCount <= 0 || !conversation) return undefined
   const high = conversation.packIntimateFinale?.trim()
   const low = conversation.packIntimateFinaleLow?.trim()
+  const template = conversation.packIntimateFinaleTemplate
   const threshold = roundCount * 2
-  if (totalScore >= threshold && high) return high
+  if (totalScore >= threshold) {
+    if (template && sessionSummary) {
+      return composePackIntimateFinale(template, sessionSummary, protagonistGender)
+    }
+    if (high) return high
+  }
   if (totalScore < threshold && low) return low
   return undefined
 }

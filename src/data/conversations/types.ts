@@ -1,5 +1,7 @@
 import type { CompanionEmotionId } from '../companionAssets'
 
+import type { ParlerRoundOutcomeMeta } from './parlerSessionSummary'
+
 export type DialogueTone = 'sincere' | 'playful' | 'direct' | 'romantic'
 
 export const DIALOGUE_TONES: DialogueTone[] = ['sincere', 'playful', 'direct', 'romantic']
@@ -41,6 +43,8 @@ export type DialogueRound = {
   intimateFinale?: string
   /** Aff. 5 NSFW : épilogue alternatif si score ≤ 1 (playful/direct). */
   intimateFinaleLow?: string
+  /** Aff. 5 curé : bilan attendu si l'échange réussit (score ≥ 2). */
+  sessionOutcome?: ParlerRoundOutcomeMeta
   prompt: string
   choices: [DialogueChoice, DialogueChoice, DialogueChoice, DialogueChoice]
 }
@@ -57,7 +61,14 @@ export type CompanionConversation = {
   packIntimateFinale?: string
   /** Aff. 5 NSFW : variante basse si score session insuffisant. */
   packIntimateFinaleLow?: string
+  /** Aff. 5 NSFW : décor + clôture statiques ; segment central composé depuis le déroulé. */
+  packIntimateFinaleTemplate?: {
+    setting: string
+    closing: string
+  }
 }
+
+export type { ParlerRoundOutcomeMeta, ParlerSessionAct } from './parlerSessionSummary'
 
 export type ParlerPowerDynamic =
   | 'companion_dominant'
