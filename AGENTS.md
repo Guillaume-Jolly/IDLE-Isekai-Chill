@@ -16,7 +16,7 @@ Keep the project stable, reviewable, and save-compatible. Do not perform broad r
 6. Read `.ai/next-task.md` if present locally — sinon `docs/traceability/project-state.md` et `docs/HANDOFF_2_2_AGENT_BRIEF.md`.
 7. Check `git status --short`.
 8. Inspect existing code before changing APIs or data shapes.
-9. **Version X/Y :** hook Cursor (`beforeSubmitPrompt`) bump X automatiquement ; backup manuel `npm run version:prompt` si hook off. Opt-out user : `même X`. Chaque tâche distincte → `npm run version:task` ; compléter la section `⚠️ À COMPLÉTER` dans `docs/traceability/changelog/DEV_LOG_2_2.md` en fin de prompt.
+9. **Version X/Y :** hook Cursor (`beforeSubmitPrompt`) bump X automatiquement ; backup manuel `npm run version:prompt` si hook off. Opt-out user : `même X`. Chaque tâche distincte → `npm run version:task` ; compléter la section `⚠️ À COMPLÉTER` dans `docs/traceability/changelog/DEV_LOG_2_2.md` en fin de prompt. Hook X → `.ai/dev-log-pending.md` ; hook stop → follow-up `**[Hook DEV_LOG]**` si section incomplète.
 10. **Nouvelle phase produit** (ex. 2.2, 2.3) : lire [`docs/agent-guide/07-kickoff-nouvelle-version.md`](docs/agent-guide/07-kickoff-nouvelle-version.md) et **proposer le kickoff dès le premier message** si les signaux indiquent qu'il n'est pas fait.
 
 ## Hard Rules

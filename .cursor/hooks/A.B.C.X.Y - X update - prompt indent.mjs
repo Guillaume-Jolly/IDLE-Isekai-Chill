@@ -7,11 +7,13 @@ import { spawnSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { writeDevLogPendingReminder } from '../../scripts/lib/dev-log-hook-reminder.mjs'
 import { logVersionHook, peekVersionHookProject } from '../../scripts/lib/version-hook-log.mjs'
 import {
   enrichHookPayload,
   VERSION_HOOK_X_NAME,
 } from '../../scripts/lib/version-hook-output.mjs'
+import { readRevisionState } from '../../scripts/lib/worktree-fingerprint.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 
@@ -66,12 +68,17 @@ if (result.status !== 0) {
 } else {
   const line = (result.stdout || '').trim().split('\n').pop() || ''
   const labelMatch = line.match(/→\s*(v[\d.]+)/)
+  const versionLabel = labelMatch?.[1] ?? (line || undefined)
   versionHook = logVersionHook(root, {
     hook: 'beforeSubmitPrompt',
     hookName: VERSION_HOOK_X_NAME,
     action: 'bump-x',
-    versionLabel: labelMatch?.[1] ?? (line || undefined),
+    versionLabel,
   })
+  const state = readRevisionState(root)
+  if (state?.revision != null) {
+    writeDevLogPendingReminder(root, state.revision, versionLabel ?? `X=${state.revision}`)
+  }
 }
 
 emit(enrichHookPayload(root, VERSION_HOOK_X_NAME, versionHook, { continue: true }))

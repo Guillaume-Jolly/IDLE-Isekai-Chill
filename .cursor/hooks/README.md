@@ -7,6 +7,16 @@
 | **`beforeSubmitPrompt`** | `A.B.C.X.Y - X update - prompt indent.mjs` | **A.B.C.X.Y - X update - prompt indent** |
 | **`stop`** | `A.B.C.X.Y - Y update - subprompt indent.mjs` | **A.B.C.X.Y - Y update - subprompt indent** |
 
+### Rappel agent DEV_LOG (hooks)
+
+| Hook | Canal vers l'agent |
+|------|-------------------|
+| **X** | Écrit `.ai/dev-log-pending.md` (lu via `AGENTS.md`) |
+| **Y / stop** | `followup_message` avec préfixe `même X` si la section X courante est encore « À COMPLÉTER » (max 3 relances / conversation) |
+
+> **Hook X** : Cursor n'accepte que `continue` / `user_message` en sortie — pas de message agent direct.  
+> **Hook stop** : `followup_message` relance l'agent automatiquement ; `même X` évite un double bump X.
+
 > **Limite Cursor** : Settings affiche toujours `beforeSubmitPrompt` / `stop` (events imposés).
 > Le **chemin du script** et le JSON **Output** portent les noms parlants.
 

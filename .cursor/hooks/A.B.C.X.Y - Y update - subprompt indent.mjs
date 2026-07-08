@@ -14,6 +14,10 @@ import {
   readRevisionState,
   runGit,
 } from '../../scripts/lib/worktree-fingerprint.mjs'
+import {
+  buildStopDevLogFollowup,
+  DEV_LOG_FOLLOWUP_MAX,
+} from '../../scripts/lib/dev-log-hook-reminder.mjs'
 import { logVersionHook, peekVersionHookProject } from '../../scripts/lib/version-hook-log.mjs'
 import {
   enrichHookPayload,
@@ -62,6 +66,35 @@ let versionHook = { hookName: VERSION_HOOK_Y_NAME, started: peekVersionHookProje
 
 const input = readStopInput()
 const status = input.status ?? 'completed'
+const loopCount = Number.isFinite(input.loop_count) ? input.loop_count : 0
+
+function finishStop(hookRecord) {
+  const stateAfter = readRevisionState(root)
+  const revision = stateAfter?.revision
+  const subRevision = stateAfter?.subRevision ?? 0
+  const bumpedY = hookRecord.action === 'bump-y'
+  const inDevLogFollowupLoop = loopCount > 0 && loopCount < DEV_LOG_FOLLOWUP_MAX
+  const metaOnlyWhileFollowingUp =
+    hookRecord.action === 'skip' && hookRecord.reason === 'meta version seulement' && inDevLogFollowupLoop
+  const shouldCheckDevLog =
+    status === 'completed' &&
+    loopCount < DEV_LOG_FOLLOWUP_MAX &&
+    revision != null &&
+    (bumpedY || metaOnlyWhileFollowingUp || inDevLogFollowupLoop)
+
+  let followupMessage = null
+  if (shouldCheckDevLog) {
+    followupMessage = buildStopDevLogFollowup(root, {
+      revision,
+      subRevision,
+      bumpedY: bumpedY || metaOnlyWhileFollowingUp,
+    })
+  }
+
+  const stopPayload = followupMessage ? { followup_message: followupMessage } : {}
+  emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, hookRecord, stopPayload))
+  process.exit(0)
+}
 
 if (status !== 'completed') {
   versionHook = logVersionHook(root, {
@@ -70,8 +103,7 @@ if (status !== 'completed') {
     action: 'skip',
     reason: `status=${status}`,
   })
-  emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, versionHook))
-  process.exit(0)
+  finishStop(versionHook)
 }
 
 const lastUserText = lastUserMessageFromTranscript()
@@ -82,8 +114,7 @@ if (/même\s*Y|meme\s*Y|same\s*Y/i.test(lastUserText)) {
     action: 'skip',
     reason: 'opt-out même Y',
   })
-  emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, versionHook))
-  process.exit(0)
+  finishStop(versionHook)
 }
 
 const state = readRevisionState(root)
@@ -96,8 +127,7 @@ if (!porcelain.trim()) {
     action: 'skip',
     reason: 'worktree inchangé',
   })
-  emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, versionHook))
-  process.exit(0)
+  finishStop(versionHook)
 }
 
 const changedPaths = parseChangedPaths(porcelain)
@@ -108,8 +138,7 @@ if (isVersionMetaOnlyChange(root, changedPaths)) {
     action: 'skip',
     reason: 'meta version seulement',
   })
-  emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, versionHook))
-  process.exit(0)
+  finishStop(versionHook)
 }
 
 const currentFingerprint = getWorktreeFingerprint(root)
@@ -120,8 +149,7 @@ if (state?.fingerprint === currentFingerprint) {
     action: 'skip',
     reason: 'fingerprint identique',
   })
-  emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, versionHook))
-  process.exit(0)
+  finishStop(versionHook)
 }
 
 const result = spawnSync(process.execPath, [join(root, 'scripts', 'bump-task.mjs')], {
@@ -150,5 +178,4 @@ if (result.status !== 0) {
   })
 }
 
-emit(enrichHookPayload(root, VERSION_HOOK_Y_NAME, versionHook))
-process.exit(0)
+finishStop(versionHook)

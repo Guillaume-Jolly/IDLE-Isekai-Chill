@@ -17,7 +17,8 @@ L’agent **ne doit pas** compter sur sa mémoire seule : les hooks garantissent
 
 1. **Premier appel shell** du tour → `npm run version:prompt`, sauf opt-out explicite user (`même X`).
 2. **Fin de tâche distincte** → `npm run version:task` + ligne Y dans `docs/traceability/changelog/DEV_LOG_2_2.md`.
-3. **Fin de prompt** → compléter la section DEV_LOG (titre, but, validations) ; déplacer vers Historique si terminé.
+3. **Fin de prompt** → compléter la section DEV_LOG (titre, but, validations) ; déplacer vers Historique si terminé.  
+   Si `.ai/dev-log-pending.md` existe ou si le hook stop envoie un follow-up `**[Hook DEV_LOG]**`, **priorité immédiate**.
 4. **Commits** → relire DEV_LOG : **1 ligne Y ≈ 1 commit atomique** (`git add` ciblé, message = résumé Y).
 
 ## Ce qui n’est PAS un bump X
@@ -38,3 +39,4 @@ L’agent **ne doit pas** compter sur sa mémoire seule : les hooks garantissent
 | `build-revision.json` | X/Y versionnés git |
 | `public/build-info.json` | Miroir runtime (gitignoré) |
 | `DEV_LOG_2_2.md` | Une section par X ; ⚠️ = à compléter |
+| `.ai/dev-log-pending.md` | Rappel hook X — compléter DEV_LOG (gitignoré) |
