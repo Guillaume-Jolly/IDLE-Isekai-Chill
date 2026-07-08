@@ -56,7 +56,7 @@ export function WorksiteBiomeBackground({
   return (
     <div
       aria-hidden
-      className={`mg-worksite-biome-background mg-worksite-biome-background--panorama ${biomeClass} ${className ?? ''}`.trim()}
+      className={`mg-worksite-biome-background mg-worksite-biome-background--panorama ${asset.placeholderClass} ${biomeClass} ${className ?? ''}`.trim()}
     >
       <WorksiteOptionalImage
         asset={asset}

@@ -31,6 +31,8 @@ export type MinigameType =
   | 'conversation'
   | 'myrion-worksite'
   | 'destiny-wheel'
+  | 'dialed-color'
+  | 'dialed-color2'
 
 /** Mini-jeux récents (chantier, chasse, refuge, parler). */
 export const PARLER_HUB_ACTIVITY_ID = 'village-parler' as const
@@ -449,6 +451,21 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     icon: '🎡',
   },
   {
+    id: 'disagrea-color-toon',
+    buildingId: 'moon-farm',
+    companionId: 'etna',
+    focusResource: 'gifts',
+    minigameType: 'dialed-color2',
+    name: 'Color Toon — Faille',
+    tagline: 'Event Disagrea',
+    inspiration: 'Dialed Color² / toon memory',
+    description:
+      'Etna, Flonne, Laharl, Pleinair — retiens la vraie teinte de cheveux, rubans et écharpes, puis recrée-la au slider HSB.',
+    baseReward: { gifts: 32, stardust: 10, renown: 14 },
+    accent: '#ff6eb4',
+    icon: '🖍️',
+  },
+  {
     id: 'farm-merge',
     buildingId: 'moon-farm',
     companionId: 'sora',
@@ -477,6 +494,21 @@ export const BUILDING_ACTIVITIES: BuildingActivity[] = [
     baseReward: { mana: 75, renown: 20, crystals: 12 },
     accent: '#9b7bff',
     icon: '📖',
+  },
+  {
+    id: 'library-color-memory',
+    buildingId: 'arcane-library',
+    companionId: 'lyra',
+    focusResource: 'crystals',
+    minigameType: 'dialed-color',
+    name: 'Mémoire des teintes',
+    tagline: 'Bibliothèque Arcanique',
+    inspiration: 'Dialed Color / mémoire perceptuelle',
+    description:
+      'Cinq pastilles arc-en-ciel apparaissent brièvement — recrée chaque teinte avec teinte, saturation et luminosité.',
+    baseReward: { crystals: 35, mana: 40, renown: 12 },
+    accent: '#c4a5ff',
+    icon: '🎨',
   },
   {
     id: 'theater-beat',

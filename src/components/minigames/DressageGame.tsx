@@ -45,7 +45,9 @@ import { CaptureComparePanel } from './CaptureComparePanel'
 import { EchoNursery } from './EchoNursery'
 import { EnclosureBackground } from './EnclosureBackground'
 import { EnclosureChibi } from './EnclosureChibi'
-import { HuntSideRail } from './HuntSideRail'
+import { useMinigameSideMenu } from './MinigameSideMenuShell'
+import { MinigameSceneLayoutDragOverlay, MinigameSceneLayoutScene } from './MinigameSceneLayoutDragOverlay'
+import { sceneLayoutLayerStyle, type MinigameSceneLayerDef } from '../../data/minigameSceneLayout'
 import { MinigameFrame, type MinigameProps } from './MinigameFrame'
 import { MinigameSwitchPanel } from './MinigameSwitchPanel'
 import { PalmonSprite } from './PalmonSprite'
@@ -55,8 +57,13 @@ import { RefugeCarePopover } from './RefugeCarePopover'
 import { RefugeCraftPanel } from './RefugeCraftPanel'
 import { RefugeSummaryPanel } from './RefugeSummaryPanel'
 import { SystemContextHint } from '../SystemContextHint'
-
 import './RefugeMobile.css'
+
+const REFUGE_SCENE_LAYERS: MinigameSceneLayerDef[] = [
+  { id: 'enclosure-bg', label: 'Fond enclos', group: 'decor' },
+  { id: 'enclosure-playfield', label: 'Zone Myrions', group: 'gameplay' },
+  { id: 'companion-hint', label: 'Conseil compagnon', group: 'ui' },
+]
 
 const DAY_MS = 86_400_000
 
@@ -128,6 +135,7 @@ export function DressageGame({
   const [status, setStatus] = useState<'playing' | 'won' | 'lost'>('playing')
   const [flash, setFlash] = useState(`${companionName} t'accueille au refuge.`)
   const [openDrawer, setOpenDrawer] = useState<string | null>(null)
+  const [sideMenuOpen, setSideMenuOpen] = useState(false)
   const [releaseConfirmPending, setReleaseConfirmPending] = useState(false)
   const isMobileRefuge = useIsMobileRefuge()
   const biomePets = useMemo(
@@ -167,7 +175,9 @@ export function DressageGame({
       : null)
   const showCarePopover =
     isMobileRefuge &&
-    Boolean(activePet && activeWanderer) &&
+    Boolean(activePetId && activePet && activeWanderer) &&
+    !sideMenuOpen &&
+    !openDrawer &&
     enclosurePets.some((pet) => pet.speciesId === activePet?.speciesId)
   const carePopoverAnchor = useRefugeCarePopoverAnchor(
     enclosureSlotRef,
@@ -660,6 +670,7 @@ export function DressageGame({
     const drawers = [
       {
         id: 'biomes',
+        group: 'gameplay' as const,
         label: 'Biomes',
         icon: '🗺️',
         badge: pets.length,
@@ -677,6 +688,7 @@ export function DressageGame({
       },
       {
         id: 'summary',
+        group: 'gameplay' as const,
         label: 'Récapitulatif',
         icon: '📊',
         content: (
@@ -692,6 +704,7 @@ export function DressageGame({
       },
       {
         id: 'care',
+        group: 'interactive' as const,
         label: 'Soins',
         icon: '💜',
         badge: activePet ? undefined : '!',
@@ -701,6 +714,7 @@ export function DressageGame({
       },
       {
         id: 'tools',
+        group: 'gameplay' as const,
         label: 'Outils',
         icon: '🧰',
         content: (
@@ -762,6 +776,7 @@ export function DressageGame({
     if (onLaunchMinigame) {
       drawers.push({
         id: 'capture',
+        group: 'gameplay' as const,
         label: 'Chasse',
         icon: '🎯',
         content: (
@@ -798,6 +813,31 @@ export function DressageGame({
     status,
   ])
 
+  const sideMenu = useMinigameSideMenu({
+    activity,
+    buildingName,
+    companionName,
+    drawers: refugeDrawers,
+    endless: true,
+    infoExtraLines: [{ label: 'Myrions', value: String(pets.length) }],
+    menuAriaLabel: 'Options du refuge',
+    menuTitle: 'Refuge',
+    fabAriaLabel: 'Menu refuge',
+    openId: openDrawer,
+    onCloseMinigame: onClose,
+    onMenuOpenChange: setSideMenuOpen,
+    onOpenChange: setOpenDrawer,
+    resourceLabel,
+    sceneLayout: {
+      minigameId: activity.id,
+      layers: REFUGE_SCENE_LAYERS,
+    },
+    score: avgMood,
+    scoreLabel: 'Humeur refuge',
+  })
+
+  const layoutCalibration = sideMenu.sceneLayoutDebug.calibration
+
   return (
     <MinigameFrame
       activity={activity}
@@ -818,34 +858,48 @@ export function DressageGame({
       <div className="mg-refuge mg-refuge-immersive mg-refuge-immersive--mobile">
         <div className="mg-refuge-layout">
           <div className="mg-refuge-body mg-hunt-layout">
-            <HuntSideRail
-              drawers={refugeDrawers}
-              fabAriaLabel="Menu refuge"
-              menuAriaLabel="Options du refuge"
-              menuTitle="Refuge"
-              openId={openDrawer}
-              onCloseMinigame={onClose}
-              onOpenChange={setOpenDrawer}
-            />
+            {sideMenu.rail}
             <div className="mg-hunt-main mg-refuge-enclosure-wrap">
-              <SystemContextHint
-                preferCompanionId={activity.companionId}
-                systemId="refuge"
-                variant="inline"
-              />
-              <div className="mg-refuge-enclosure-slot" ref={enclosureSlotRef}>
-                <div
-                  aria-label={`Enclos ${resourceDef.resourceName}`}
-                  className={`mg-enclosure ${resourceDef.particleClass}`}
-                  role="img"
-                >
-                  <EnclosureBackground
-                    biomeId={activeBiomeId}
-                    className="mg-enclosure-bg"
-                    layout="auto"
+              <MinigameSceneLayoutScene
+                dragOverlay={
+                  <MinigameSceneLayoutDragOverlay
+                    calibration={layoutCalibration}
+                    enabled={sideMenu.sceneLayoutDebug.enabled}
+                    layers={REFUGE_SCENE_LAYERS}
+                    onChange={sideMenu.sceneLayoutDebug.onChange}
                   />
-                  <div aria-hidden className="mg-enclosure-particles" />
-                  <div className="mg-enclosure-playfield" ref={playfieldRef}>
+                }
+              >
+                <div
+                  data-mg-layout-layer="companion-hint"
+                  style={sceneLayoutLayerStyle(layoutCalibration['companion-hint'])}
+                >
+                  <SystemContextHint
+                    preferCompanionId={activity.companionId}
+                    systemId="refuge"
+                    variant="inline"
+                  />
+                </div>
+                <div className="mg-refuge-enclosure-slot" ref={enclosureSlotRef}>
+                  <div
+                    aria-label={`Enclos ${resourceDef.resourceName}`}
+                    className={`mg-enclosure ${resourceDef.particleClass}`}
+                    data-mg-layout-layer="enclosure-bg"
+                    role="img"
+                    style={sceneLayoutLayerStyle(layoutCalibration['enclosure-bg'])}
+                  >
+                    <EnclosureBackground
+                      biomeId={activeBiomeId}
+                      className="mg-enclosure-bg"
+                      layout="auto"
+                    />
+                    <div aria-hidden className="mg-enclosure-particles" />
+                    <div
+                      className="mg-enclosure-playfield"
+                      data-mg-layout-layer="enclosure-playfield"
+                      ref={playfieldRef}
+                      style={sceneLayoutLayerStyle(layoutCalibration['enclosure-playfield'])}
+                    >
 
                     {wanderers.map((sprite) => {
                       const pet = enclosurePets.find((entry) => entry.id === sprite.id)
@@ -903,6 +957,7 @@ export function DressageGame({
                   />
                 ) : null}
               </div>
+              </MinigameSceneLayoutScene>
             </div>
 
           </div>

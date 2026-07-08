@@ -112,7 +112,7 @@ export const COMPANION_VISUAL_IDENTITY: Record<
   nami: { name: 'Nami', role: 'Cuisiniere solaire', place: 'la cuisine commune', mood: 'terrasse nocturne', accent: '#ff7a62' },
   iris: { name: 'Iris', role: 'Herboriste reveuse', place: 'le jardin des brumes', mood: 'serre au clair de lune', accent: '#6fd4a0' },
   kael: { name: 'Kael', role: 'Barde androgyne', place: 'le theatre', mood: 'loge privee', accent: '#7080e8' },
-  runa: { name: 'Runa', role: 'Forgeronne douce', place: "l'atelier des rubans", mood: 'atelier tamise', accent: '#c07058' },
+  runa: { name: 'Runa', role: 'Forgeronne douce', place: 'la forge du havre', mood: 'forge tamisée', accent: '#c07058' },
   solene: { name: 'Solene', role: 'Pretresse lunaire', place: 'la source claire', mood: 'sanctuaire nocturne', accent: '#e8c060' },
   talia: { name: 'Talia', role: 'Exploratrice rieuse', place: 'la lisiere de la foret', mood: 'camp sous les etoiles', accent: '#b88848' },
   mira: { name: 'Mira', role: 'Tailleur de rubans', place: "l'atelier textile", mood: 'boudoir de velours', accent: '#e878b8' },

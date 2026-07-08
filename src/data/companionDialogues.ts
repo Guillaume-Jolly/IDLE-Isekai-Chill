@@ -23,6 +23,7 @@ export { COMPANION_DIALOGUE_PROFILES, ALL_COMPANION_IDS } from './conversations/
 export {
   CURATED_PARLER_ONLY,
   CURATED_PARLER_COMPANION_ID,
+  CURATED_PARLER_COMPANION_IDS,
   canUseParlerDialogues,
   dialogueAffinityForParler,
   hasParlerDialoguesAtAffinity,
@@ -36,6 +37,7 @@ export {
   serializeDevCuratedSelection,
   devCuratedSelectionToPickOptions,
   devPackSelectionFromQueryParam,
+  defaultDevCuratedPackSelection,
   type CuratedSessionPackOption,
   type CuratedDevExchangeOption,
   type CuratedDevPackOption,

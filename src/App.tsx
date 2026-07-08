@@ -51,6 +51,8 @@ import {
 } from './data/tutorialObjectives'
 import { createStarterMinigameSave, mergeMinigameSave, type MinigameSave } from './data/minigameSave'
 import { computeNextStep, type NextStepTarget } from './data/nextStepGuidance'
+import type { CompanionSupportSystemId } from './data/companionSupport'
+import { supportSystemForActivity } from './data/systemHints'
 import {
   createStableDemoSeed,
   isStablePresetBuild,
@@ -368,7 +370,7 @@ const COMPANIONS: Companion[] = [
     talent: '+pierre',
     favoriteGift: 'Charbon bleu',
     bonusResource: 'stone',
-    scenes: makeScenes('Runa', 'l atelier des rubans', 'atelier tamise'),
+    scenes: makeScenes('Runa', 'la forge du havre', 'forge tamisee'),
   },
   {
     id: 'solene',
@@ -860,7 +862,7 @@ const initialSession = loadInitialSession()
 function App() {
   const [game, setGame] = useState<GameState>(initialSession.game)
   const [offlineReport] = useState<OfflineReport>(initialSession.report)
-  const { pushRewardPayloads } = useRewardToasts()
+  const { pushRewardPayloads, syncPassiveRates } = useRewardToasts()
   const [message, setMessage] = useState(() =>
     offlineReport.cappedHours > 0.01
       ? `Hors-ligne +${offlineReport.cappedHours.toFixed(1)} h`
@@ -941,7 +943,11 @@ function App() {
     setLightbox({ images, index: level - 1 })
   }
 
-  const perMinute = productionPerMinute(game)
+  const perMinute = useMemo(() => productionPerMinute(game), [game])
+
+  useEffect(() => {
+    syncPassiveRates(perMinute)
+  }, [perMinute, syncPassiveRates])
 
   useEffect(() => {
     const payload: GameState = { ...game, lastSaved: Date.now() }
@@ -1300,6 +1306,19 @@ function App() {
 
   const nextStepSuggestion = useMemo(() => computeNextStep(nextStepContext), [nextStepContext])
 
+  const questGuideSystemId = useMemo((): CompanionSupportSystemId => {
+    const recommendedId = nextStepSuggestion.recommendedActivityId
+    if (recommendedId) {
+      const activity = getActivityById(recommendedId)
+      const systemId = activity ? supportSystemForActivity(activity) : null
+      if (systemId) return systemId
+    }
+    if (nextStepSuggestion.target.kind === 'view' && nextStepSuggestion.target.view === 'event') {
+      return 'gacha'
+    }
+    return 'village'
+  }, [nextStepSuggestion])
+
   const handleNextStepNavigate = (target: NextStepTarget | QuestNavigateTarget) => {
     if (target.kind === 'building') {
       setActiveBuildingId(target.buildingId)
@@ -1551,6 +1570,17 @@ function App() {
 
   const renderQuests = () => (
     <>
+      <section aria-label="Guide du havre" className="quest-guide-panel">
+        <header className="section-heading quest-guide-heading">
+          <div>
+            <p className="eyebrow">Guide</p>
+            <h2>Orientations</h2>
+          </div>
+          <p>Objectif conseillé et conseil compagnon pour la suite de ta partie.</p>
+        </header>
+        <NextStepGuidance suggestion={nextStepSuggestion} onNavigate={handleNextStepNavigate} />
+        <SystemContextHint systemId={questGuideSystemId} variant="inline" />
+      </section>
       <TutorialObjectivesPanel
         tutorial={game.tutorial}
         onClaim={claimTutorialReward}
@@ -1573,7 +1603,6 @@ function App() {
       resourceLabels={RESOURCE_LABELS}
       unlockAtByBuilding={BUILDING_UNLOCK_STAGE}
       villageStage={game.village.stage}
-      onNavigateNextStep={handleNextStepNavigate}
       onPlay={(activityId) => tryLaunchMinigame(activityId)}
     />
   )
@@ -1862,8 +1891,6 @@ function App() {
 
   const renderVillageMap = () => (
     <section className="village-map-panel">
-      <NextStepGuidance suggestion={nextStepSuggestion} onNavigate={handleNextStepNavigate} />
-      <SystemContextHint systemId="village" variant="inline" />
       <div className="panorama-wrap panorama-wrap--fullscreen">
         <div className="panorama-map" aria-label="Carte interactive du village">
           <div className="map-overlay-badge">

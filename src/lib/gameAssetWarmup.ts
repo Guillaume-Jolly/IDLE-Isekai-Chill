@@ -4,6 +4,8 @@
 import { preloadImageUrl, resolveFirstAvailableRelative, assetProbeCacheStats } from './assetProbeCache'
 import {
   collectAllGameWarmupTasks,
+  collectCriticalWarmupTasks,
+  collectDeferredWarmupTasks,
   collectSplashWarmupUrls,
   WARMUP_PHASE_LABELS,
   type WarmupPhase,
@@ -53,17 +55,32 @@ function emitProgress(
   })
 }
 
-export function warmupGameAssets(onProgress?: WarmupProgressHandler): Promise<void> {
-  if (warmupPromise) return warmupPromise
+export type WarmupScope = 'critical' | 'deferred' | 'full'
 
-  warmupPromise = (async () => {
-    const splashUrls = collectSplashWarmupUrls()
-    const pathTasks = collectAllGameWarmupTasks()
+function tasksForScope(scope: WarmupScope) {
+  if (scope === 'critical') return collectCriticalWarmupTasks()
+  if (scope === 'deferred') return collectDeferredWarmupTasks()
+  return collectAllGameWarmupTasks()
+}
+
+export function warmupGameAssets(
+  onProgress?: WarmupProgressHandler,
+  options?: { scope?: WarmupScope },
+): Promise<void> {
+  const scope = options?.scope ?? 'full'
+  if (scope === 'full' && warmupPromise) return warmupPromise
+
+  const run = async () => {
+    const splashUrls = scope === 'deferred' ? [] : collectSplashWarmupUrls()
+    const pathTasks = tasksForScope(scope)
     const total = splashUrls.length + pathTasks.length
     let done = 0
-    let currentPhase: WarmupPhase | undefined = 'splash'
+    let currentPhase: WarmupPhase | undefined = scope === 'deferred' ? 'myrions' : 'splash'
 
-    emitProgress(onProgress, done, total, WARMUP_PHASE_LABELS.splash, currentPhase)
+    const labelFor = (phase?: WarmupPhase) =>
+      phase ? WARMUP_PHASE_LABELS[phase] : scope === 'deferred' ? 'Cache en arrière-plan…' : 'Prêt'
+
+    emitProgress(onProgress, done, total, labelFor(currentPhase), currentPhase)
 
     await runInBatches(splashUrls, BATCH_SIZE, async (url) => {
       await preloadImageUrl(url)
@@ -80,18 +97,31 @@ export function warmupGameAssets(onProgress?: WarmupProgressHandler): Promise<vo
 
     const stats = assetProbeCacheStats()
     console.info(
-      `[Havre des Brumes] Warmup assets : ${done}/${total} · cache ${stats.entries} entrées`,
+      `[Havre des Brumes] Warmup ${scope} : ${done}/${total} · cache ${stats.entries} entrées`,
     )
     emitProgress(onProgress, total, total, 'Prêt', currentPhase)
-    warmupCompleted = true
-  })().catch((error) => {
-    warmupPromise = null
-    warmupCompleted = false
-    console.warn('[Havre des Brumes] Warmup assets interrompu', error)
+    if (scope === 'full') warmupCompleted = true
+  }
+
+  if (scope === 'full') {
+    warmupPromise = run().catch((error) => {
+      warmupPromise = null
+      warmupCompleted = false
+      console.warn('[Havre des Brumes] Warmup assets interrompu', error)
+      throw error
+    })
+    return warmupPromise
+  }
+
+  return run().catch((error) => {
+    console.warn(`[Havre des Brumes] Warmup ${scope} interrompu`, error)
     throw error
   })
+}
 
-  return warmupPromise
+/** Précharge lourde après entrée au village (non bloquant). */
+export function warmupGameAssetsDeferred(): Promise<void> {
+  return warmupGameAssets(undefined, { scope: 'deferred' })
 }
 
 /** @deprecated Utiliser warmupGameAssets */

@@ -10,6 +10,8 @@ import { ResourceIcon } from './ResourceIcon'
 import type { ResourceKey } from '../data/resources'
 import {
   formatRewardToastAmount,
+  passiveRatesFromPerMinute,
+  type PassiveRatePayload,
   type RewardToastPayload,
 } from '../data/rewardToastEntries'
 import { RewardToastContext } from '../contexts/rewardToastContext'
@@ -74,6 +76,50 @@ function GroupedLineRow({ line }: { line: GroupedLine }) {
   )
 }
 
+function PassiveRatesToast({
+  lines,
+  sessionId,
+  refreshKey,
+}: {
+  lines: PassiveRatePayload[]
+  sessionId: number
+  refreshKey: number
+}) {
+  const [exiting, setExiting] = useState(false)
+
+  useEffect(() => {
+    setExiting(false)
+    const exitTimer = window.setTimeout(() => setExiting(true), DISPLAY_MS)
+    return () => window.clearTimeout(exitTimer)
+  }, [sessionId, refreshKey])
+
+  if (lines.length === 0) return null
+
+  return (
+    <div
+      aria-live="polite"
+      className={`reward-toast reward-toast--passive reward-toast--grouped${exiting ? ' reward-toast--exit' : ''}`}
+      role="status"
+    >
+      <div className="reward-toast-glow reward-toast-glow--passive" aria-hidden />
+      <p className="reward-toast-passive-title">Production passive</p>
+      <ul className="reward-toast-lines">
+        {lines.map((line) => (
+          <li className="reward-toast-line" key={line.id}>
+            <div className="reward-toast-icon-wrap reward-toast-icon-wrap--line reward-toast-icon-wrap--passive">
+              <ResourceIcon className="reward-toast-icon" resource={line.resource} />
+            </div>
+            <div className="reward-toast-copy reward-toast-copy--line">
+              <p className="reward-toast-amount reward-toast-amount--passive">{line.rateLabel}</p>
+              <p className="reward-toast-label reward-toast-label--passive">{line.label}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 function GroupedRewardToast({
   toast,
   onDismiss,
@@ -135,10 +181,15 @@ function mergeGroupedLines(current: GroupedLine[], payloads: RewardToastPayload[
 
 export function RewardToastProvider({ children }: { children: ReactNode }) {
   const [groupedToast, setGroupedToast] = useState<GroupedToast | null>(null)
+  const [passiveRates, setPassiveRates] = useState<PassiveRatePayload[]>([])
   const sessionRef = useRef(0)
 
   const dismissToast = useCallback(() => {
     setGroupedToast(null)
+  }, [])
+
+  const syncPassiveRates = useCallback((perMinute: Partial<Record<ResourceKey, number>>) => {
+    setPassiveRates(passiveRatesFromPerMinute(perMinute))
   }, [])
 
   const pushRewardPayloads = useCallback((payloads: RewardToastPayload[]) => {
@@ -156,14 +207,24 @@ export function RewardToastProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
-  const value = useMemo(() => ({ pushRewardPayloads }), [pushRewardPayloads])
+  const value = useMemo(
+    () => ({ pushRewardPayloads, syncPassiveRates, passiveRates }),
+    [passiveRates, pushRewardPayloads, syncPassiveRates],
+  )
 
   return (
     <RewardToastContext.Provider value={value}>
       {children}
       <div aria-label="Récompenses obtenues" className="reward-toast-stack">
         {groupedToast ? (
-          <GroupedRewardToast toast={groupedToast} onDismiss={dismissToast} />
+          <>
+            <GroupedRewardToast toast={groupedToast} onDismiss={dismissToast} />
+            <PassiveRatesToast
+              lines={passiveRates}
+              refreshKey={groupedToast.refreshKey}
+              sessionId={groupedToast.sessionId}
+            />
+          </>
         ) : null}
       </div>
     </RewardToastContext.Provider>

@@ -1,4 +1,5 @@
 import { type ReactNode, useEffect, useId, useState } from 'react'
+import type { MinigameDrawerGroupId } from '../../data/minigameSideMenu'
 import { MinigameSettingsButton } from './MinigameSettingsButton'
 import { MinigameSideRailQuit } from './MinigameSideRailQuit'
 import './Minigames.css'
@@ -30,6 +31,7 @@ export type SideDrawerConfig = {
   badge?: number | string
   content: ReactNode
   pinned?: boolean
+  group?: MinigameDrawerGroupId
 }
 
 /** @deprecated Alias chasse — préférer SideDrawerConfig */
@@ -47,6 +49,8 @@ type SideDrawerRailProps = {
   onMenuOpenChange?: (open: boolean) => void
   /** Toujours menu replié + FAB (ex. Roue du Destin plein écran). */
   alwaysDrawerMenu?: boolean
+  /** Labels affichés entre groupes de tiroirs (rail desktop + drawer mobile). */
+  groupLabels?: Partial<Record<MinigameDrawerGroupId, string>>
 }
 
 export function HuntSideRail({
@@ -60,6 +64,7 @@ export function HuntSideRail({
   onCloseMinigame,
   onMenuOpenChange,
   alwaysDrawerMenu = false,
+  groupLabels,
 }: SideDrawerRailProps) {
   const groupId = useId()
   const responsiveDrawerMenu = useHuntDrawerMenu()
@@ -109,11 +114,35 @@ export function HuntSideRail({
 
   const settingsButton = <MinigameSettingsButton />
 
-  const renderDrawerTabs = (groupSuffix: string) =>
-    drawers.map((drawer) => {
+  const renderDrawerTabs = (groupSuffix: string) => {
+    let previousGroup: MinigameDrawerGroupId | undefined
+
+    return drawers.flatMap((drawer) => {
+      const drawerGroup = drawer.group ?? 'gameplay'
+      const nodes: ReactNode[] = []
+
+      if (previousGroup !== undefined && previousGroup !== drawerGroup) {
+        nodes.push(<hr className="mg-hunt-rail-group-sep" key={`sep-${drawerGroup}-${groupSuffix}`} />)
+        if (groupLabels?.[drawerGroup]) {
+          nodes.push(
+            <span className="mg-hunt-rail-group-label" key={`label-${drawerGroup}-${groupSuffix}`}>
+              {groupLabels[drawerGroup]}
+            </span>,
+          )
+        }
+      } else if (previousGroup === undefined && groupLabels?.[drawerGroup]) {
+        nodes.push(
+          <span className="mg-hunt-rail-group-label" key={`label-first-${drawerGroup}-${groupSuffix}`}>
+            {groupLabels[drawerGroup]}
+          </span>,
+        )
+      }
+
+      previousGroup = drawerGroup
+
       const selected = openId === drawer.id
       const locked = selected && canClose && !canClose(drawer.id)
-      return (
+      nodes.push(
         <button
           aria-controls={`${groupId}-${groupSuffix}-${drawer.id}`}
           aria-expanded={selected}
@@ -136,9 +165,12 @@ export function HuntSideRail({
               !
             </span>
           ) : null}
-        </button>
+        </button>,
       )
+
+      return nodes
     })
+  }
 
   return (
     <div className={alwaysDrawerMenu ? 'mg-hunt-rail-host mg-hunt-rail-host--always-drawer' : 'mg-hunt-rail-host'}>

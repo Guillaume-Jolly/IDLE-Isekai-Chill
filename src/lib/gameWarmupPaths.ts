@@ -236,6 +236,20 @@ export function collectAllGameWarmupTasks(): WarmupPathTask[] {
   ])
 }
 
+/** Boot rapide — village + gacha (SVG / bannières). */
+export function collectCriticalWarmupTasks(): WarmupPathTask[] {
+  return uniqueTasks([...collectVillageWarmupTasks(), ...collectGachaWarmupTasks()])
+}
+
+/** Après entrée au jeu — portraits, Myrions, hub mini-jeux, Ferme lunaire. */
+export function collectDeferredWarmupTasks(): WarmupPathTask[] {
+  return uniqueTasks([
+    ...collectMyrionWarmupTasks(),
+    ...collectMinigameHubWarmupTasks(),
+    ...collectCompanionWarmupTasks(),
+  ])
+}
+
 /** @deprecated Utiliser collectCompanionWarmupTasks */
 export function collectCompanionWarmupRelatives(): string[] {
   return collectCompanionWarmupTasks().flatMap((task) => task.relatives[0]).filter(Boolean) as string[]

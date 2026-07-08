@@ -204,6 +204,36 @@
   width: 100%;
 }
 
+/* Rail menu en overlay — la scène garde toute la surface (cf. Roue du Destin) */
+.mg-refuge-immersive--mobile .mg-refuge-body > .mg-hunt-rail-host {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: auto;
+  z-index: 50;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-mobile-fabs,
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-settings-dock {
+  pointer-events: none;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-mobile-fabs > *,
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-settings-dock > *,
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-menu-backdrop,
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-rail--menu-open .mg-hunt-menu-drawer,
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-rail--desktop-layout,
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-rail--desktop-layout .mg-hunt-rail-desktop {
+  pointer-events: auto;
+}
+
+.mg-refuge-immersive--mobile .mg-hunt-rail-host .mg-hunt-rail--desktop-layout {
+  height: 100%;
+}
+
 @media (min-width: 768px) {
   .mg-refuge-immersive--mobile .mg-refuge-body {
     flex-direction: row;
@@ -211,14 +241,11 @@
     position: relative;
   }
 
-  .mg-refuge-immersive--mobile .mg-refuge-body > .mg-hunt-rail.mg-hunt-rail--desktop-layout {
+  .mg-refuge-immersive--mobile .mg-refuge-body > .mg-hunt-rail-host {
     align-self: stretch;
     flex-shrink: 0;
     height: 100%;
     min-height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
   }
 
   .mg-refuge-immersive--mobile .mg-refuge-enclosure-wrap,

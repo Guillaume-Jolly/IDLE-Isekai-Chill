@@ -1,0 +1,115 @@
+{
+  "version": 2,
+  "emotions": [
+    {
+      "id": "neutral",
+      "label": "Neutre",
+      "prompt": "calm neutral expression, relaxed mouth, attentive eyes"
+    },
+    {
+      "id": "happy",
+      "label": "Joyeux",
+      "prompt": "bright genuine smile, warm open eyes, pleased demeanor"
+    },
+    {
+      "id": "shy",
+      "label": "Timide",
+      "prompt": "slight blush on cheeks, averted shy gaze, small hesitant smile"
+    },
+    {
+      "id": "annoyed",
+      "label": "Agacé",
+      "prompt": "irritated expression, furrowed brows, tight lips, unimpressed look"
+    },
+    {
+      "id": "sad",
+      "label": "Triste",
+      "prompt": "downcast eyes, melancholy soft frown, subdued posture"
+    },
+    {
+      "id": "surprised",
+      "label": "Surpris",
+      "prompt": "wide eyes, raised eyebrows, startled open mouth"
+    },
+    {
+      "id": "romantic",
+      "label": "Romantique",
+      "prompt": "soft longing gaze, gentle blush, dreamy tender smile"
+    },
+    {
+      "id": "playful",
+      "label": "Taquin",
+      "prompt": "mischievous grin, playful wink or cheeky smile, lively eyes"
+    },
+    {
+      "id": "focused",
+      "label": "Concentré",
+      "prompt": "studious focused expression, eyes on task, slight thoughtful frown"
+    },
+    {
+      "id": "pleased",
+      "label": "Satisfait",
+      "prompt": "subtle approving smile, calm satisfaction, not exuberant"
+    },
+    {
+      "id": "dry_amused",
+      "label": "Amusé sec",
+      "prompt": "one eyebrow raised, dry half-smirk, unimpressed but entertained"
+    },
+    {
+      "id": "concerned",
+      "label": "Inquiet",
+      "prompt": "worried eyebrows, serious attentive eyes, quiet concern"
+    },
+    {
+      "id": "firm",
+      "label": "Ferme",
+      "prompt": "stern composed expression, direct steady gaze, closed mouth"
+    },
+    {
+      "id": "curious",
+      "label": "Curieux",
+      "prompt": "inquisitive head tilt, bright curious eyes, leaning slightly forward"
+    },
+    {
+      "id": "dismissive",
+      "label": "Distant",
+      "prompt": "cool half-lidded eyes, looking slightly away, polite but closed off"
+    },
+    {
+      "id": "tired",
+      "label": "Fatigué",
+      "prompt": "drooped eyelids, relaxed shoulders, end-of-day weary calm"
+    },
+    {
+      "id": "warm",
+      "label": "Chaleureux",
+      "prompt": "soft gentle smile, kind eyes, reserved warmth without flirtation"
+    },
+    {
+      "id": "embarrassed",
+      "label": "Gêné",
+      "prompt": "visible blush, flustered look away, awkward small smile"
+    },
+    {
+      "id": "commanding",
+      "label": "Commandant",
+      "prompt": "stern commanding expression, cold direct downward gaze, lips closed, chin slightly raised, absolute control, no smile"
+    },
+    {
+      "id": "heated",
+      "label": "Chauffé",
+      "prompt": "flushed cheeks, parted lips, heavy-lidded intense desire, breathless aroused look, not shy"
+    },
+    {
+      "id": "dominant",
+      "label": "Dominante",
+      "prompt": "confident dominant smirk, one eyebrow raised, possessive knowing look, in control"
+    },
+    {
+      "id": "lustful",
+      "label": "Luxurieuse",
+      "prompt": "deep blush, hungry longing eyes, bitten lower lip, post-intimacy satisfied heat"
+    }
+  ]
+}

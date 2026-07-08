@@ -2,9 +2,10 @@ import type { ResourceKey } from './buildingActivities'
 import type { WorksiteBiomeId, WorksiteSpotId } from './myrionWorksiteDefs'
 import { WORKSITE_RUNTIME_BIOMES, WORKSITE_RUNTIME_SPOT_BY_KEY } from './myrionWorksiteBiomeRuntime'
 import { isWorksiteAssetAvailable } from './myrionWorksiteAssetRegistry'
+import { publicAssetUrl } from './publicAssetUrl'
 
 /** Racine servie par Vite — voir docs/MYRION_WORKSITE_ASSET_PIPELINE.md */
-export const MYRION_WORKSITE_ASSET_ROOT = '/assets/minigames/myrion-worksite'
+export const MYRION_WORKSITE_ASSET_ROOT = publicAssetUrl('assets/minigames/myrion-worksite')
 
 export type WorksiteVisualAsset = {
   /** Chemin public relatif à la racine du site. */

@@ -15,7 +15,7 @@ import {
   setSessionAuthenticated,
   validateLogin,
 } from '../lib/gameSessionAuth'
-import { warmupGameAssets, type WarmupProgress } from '../lib/gameAssetWarmup'
+import { warmupGameAssets, warmupGameAssetsDeferred, type WarmupProgress } from '../lib/gameAssetWarmup'
 import { useAppBuildVersion } from '../hooks/useAppBuildVersion'
 import { SessionGateProvider } from '../hooks/useSessionGate'
 import './GameSessionGate.css'
@@ -104,7 +104,7 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
     const run = async () => {
       await warmupGameAssets((next) => {
         if (!cancelled) setProgress(next)
-      })
+      }, { scope: 'critical' })
 
       const elapsed = performance.now() - startedAt
       const minWait = isPreloadDone() ? 0 : MIN_LOADING_MS_FIRST
@@ -117,6 +117,9 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
         setProgress((current) => ({ ...current, ratio: 1, label: 'Bienvenue au Havre' }))
         setPreloadDone()
         setPhase('ready')
+        void warmupGameAssetsDeferred().catch((error) => {
+          console.warn('[Havre des Brumes] Warmup différé', error)
+        })
       }
     }
 
@@ -137,11 +140,13 @@ export function GameSessionGate({ children }: GameSessionGateProps) {
     return (
       <div
         className="session-gate session-gate--login"
-        style={{ backgroundImage: `url(${LOGIN_BACKGROUND})` }}
         role="dialog"
         aria-modal="true"
         aria-label="Connexion Havre des Brumes"
       >
+        <div className="session-login-backdrop" aria-hidden>
+          <img alt="" src={LOGIN_BACKGROUND} />
+        </div>
         <div className="session-login-card">
           <p className="session-login-kicker">Havre des Brumes</p>
           <h1 className="session-login-title">Connexion</h1>

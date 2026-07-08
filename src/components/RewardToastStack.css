@@ -111,6 +111,53 @@
   min-width: min(92vw, 320px);
 }
 
+.reward-toast--passive {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(10, 28, 32, 0.94) 0%,
+      rgba(22, 72, 68, 0.9) 48%,
+      rgba(12, 36, 52, 0.94) 100%
+    );
+  border-color: rgba(126, 184, 255, 0.42);
+  box-shadow:
+    0 14px 36px rgba(8, 24, 32, 0.45),
+    0 0 24px rgba(126, 184, 255, 0.16),
+    inset 0 1px 0 rgba(158, 213, 107, 0.12);
+  color: #ecfdf5;
+}
+
+.reward-toast-glow--passive {
+  background: radial-gradient(circle at 18% 42%, rgba(158, 213, 107, 0.24), transparent 62%);
+}
+
+.reward-toast-passive-title {
+  color: rgba(236, 253, 245, 0.88);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 4px;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.reward-toast-icon-wrap--passive {
+  background: rgba(126, 184, 255, 0.1);
+  border-color: rgba(158, 213, 107, 0.28);
+}
+
+.reward-toast-amount--passive {
+  background: linear-gradient(90deg, #9ed56b 0%, #7eb8ff 58%, #5eead4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.reward-toast-label--passive {
+  color: rgba(236, 253, 245, 0.72);
+}
+
 .reward-toast-lines {
   display: flex;
   flex-direction: column;

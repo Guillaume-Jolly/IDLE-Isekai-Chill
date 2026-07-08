@@ -202,9 +202,14 @@
   }
 }
 
-.village-map-panel > .next-step-guidance,
-.village-map-panel > .onboarding-hint {
-  flex-shrink: 0;
-  margin: 0.45rem 0.65rem 0;
-  max-width: calc(100% - 1.3rem);
+.quest-guide-panel {
+  margin-bottom: 1.25rem;
+}
+
+.quest-guide-panel .next-step-guidance {
+  margin-bottom: 0.65rem;
+}
+
+.quest-guide-panel .onboarding-hint {
+  margin-bottom: 0;
 }

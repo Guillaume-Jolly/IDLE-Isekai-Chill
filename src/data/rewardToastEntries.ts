@@ -16,6 +16,50 @@ export type RewardToastPayload = {
   iconValue: ResourceKey | string
 }
 
+export type PassiveRatePayload = {
+  id: string
+  resource: ResourceKey
+  label: string
+  /** Affichage « +0,4/s » */
+  rateLabel: string
+  /** Débit brut par seconde — tri. */
+  value: number
+}
+
+export function formatPassiveRatePerSecond(perSecond: number): string {
+  if (perSecond <= 0) return '+0/s'
+  const rounded =
+    perSecond >= 10
+      ? Math.round(perSecond * 10) / 10
+      : perSecond >= 1
+        ? Math.round(perSecond * 100) / 100
+        : Math.round(perSecond * 1000) / 1000
+  const display = rounded.toLocaleString('fr-FR', {
+    minimumFractionDigits: perSecond < 1 ? 1 : 0,
+    maximumFractionDigits: perSecond < 1 ? 2 : perSecond >= 10 ? 1 : 2,
+  })
+  return `+${display}/s`
+}
+
+export function passiveRatesFromPerMinute(
+  perMinute: Partial<Record<ResourceKey, number>>,
+): PassiveRatePayload[] {
+  return RESOURCE_KEYS.map((key) => {
+    const perMin = perMinute[key] ?? 0
+    if (perMin <= 0) return null
+    const perSec = perMin / 60
+    return {
+      id: `passive-${key}`,
+      resource: key,
+      label: RESOURCE_LABELS[key],
+      rateLabel: formatPassiveRatePerSecond(perSec),
+      value: perSec,
+    }
+  })
+    .filter((line): line is PassiveRatePayload => line !== null)
+    .sort((a, b) => b.value - a.value)
+}
+
 export function formatRewardToastAmount(amount: number): string {
   const rounded =
     amount >= 10

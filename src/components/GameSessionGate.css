@@ -1,14 +1,17 @@
 .session-gate {
   box-sizing: border-box;
+  height: 100dvh;
   inset: 0;
   min-height: 100dvh;
   position: fixed;
+  width: 100%;
   z-index: 10000;
 }
 
 .session-gate--login {
-  background: #120b16 center / cover no-repeat;
+  background: #120b16;
   display: grid;
+  overflow: hidden;
   place-items: center;
   padding:
     max(16px, env(safe-area-inset-top))
@@ -17,11 +20,27 @@
     max(16px, env(safe-area-inset-left));
 }
 
+.session-login-backdrop {
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.session-login-backdrop img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
 .session-gate--login::before {
   background: linear-gradient(180deg, rgba(8, 4, 14, 0.35), rgba(8, 4, 14, 0.82));
   content: '';
   inset: 0;
+  pointer-events: none;
   position: absolute;
+  z-index: 1;
 }
 
 .session-login-card {
@@ -204,15 +223,15 @@
 .session-gate--loading {
   background: #0d0812;
   color: #fff6fb;
-  display: grid;
-  grid-template-rows: 1fr auto;
+  display: block;
   overflow: hidden;
 }
 
 .session-loading-stage {
-  display: grid;
-  place-items: center;
-  position: relative;
+  inset: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 0;
 }
 
 .session-loading-slide {
@@ -227,8 +246,12 @@
 }
 
 .session-loading-slide img {
+  display: block;
   height: 100%;
+  min-height: 100%;
+  min-width: 100%;
   object-fit: cover;
+  object-position: center;
   width: 100%;
 }
 
@@ -240,7 +263,7 @@
 }
 
 .session-loading-caption {
-  bottom: 120px;
+  bottom: max(132px, calc(96px + env(safe-area-inset-bottom)));
   left: 50%;
   max-width: min(92vw, 640px);
   position: absolute;
@@ -265,11 +288,16 @@
   backdrop-filter: blur(10px);
   background: rgba(12, 8, 18, 0.92);
   border-top: 1px solid rgba(255, 196, 219, 0.15);
+  bottom: 0;
+  left: 0;
   padding:
     16px
     max(16px, env(safe-area-inset-right))
     max(16px, env(safe-area-inset-bottom))
     max(16px, env(safe-area-inset-left));
+  position: absolute;
+  right: 0;
+  z-index: 2;
 }
 
 .session-loading-label {
