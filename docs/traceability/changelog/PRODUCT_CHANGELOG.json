@@ -1,0 +1,3005 @@
+{
+  "ok": true,
+  "readAt": "2026-07-07T08:46:43.976Z",
+  "current": {
+    "semver": "2.2.0",
+    "a": 2,
+    "b": 2,
+    "c": 0,
+    "x": 674,
+    "y": 0,
+    "ab": "2.2",
+    "label": "v2.2.0.674",
+    "status": "en cours",
+    "uiLabel": "v2.2.0.674"
+  },
+  "changeTypes": {
+    "add": "Ajouts",
+    "mod": "Modifications",
+    "del": "Suppressions / archives",
+    "fix": "Corrections",
+    "info": "Divers · doc · infra"
+  },
+  "categories": [
+    {
+      "id": "ui",
+      "label": "UI"
+    },
+    {
+      "id": "ux",
+      "label": "UX"
+    },
+    {
+      "id": "qol",
+      "label": "Qualité de vie"
+    },
+    {
+      "id": "dev",
+      "label": "Dev / outillage & debug"
+    },
+    {
+      "id": "contenu-plus",
+      "label": "Contenu additionnel"
+    },
+    {
+      "id": "contenu-modif",
+      "label": "Modif contenu"
+    },
+    {
+      "id": "minijeu",
+      "label": "Mini-jeu / mode"
+    },
+    {
+      "id": "parler",
+      "label": "Parler / dialogue"
+    },
+    {
+      "id": "assets",
+      "label": "Assets / visuel"
+    },
+    {
+      "id": "infra",
+      "label": "Infra / repo"
+    },
+    {
+      "id": "event",
+      "label": "Event / invité"
+    },
+    {
+      "id": "meta",
+      "label": "Meta / doc"
+    }
+  ],
+  "totals": {
+    "add": 37,
+    "mod": 21,
+    "del": 13,
+    "fix": 8,
+    "info": 237
+  },
+  "categoryTotals": {
+    "dev": 43,
+    "parler": 19,
+    "meta": 120,
+    "ux": 37,
+    "minijeu": 44,
+    "infra": 4,
+    "contenu-modif": 7,
+    "assets": 11,
+    "contenu-plus": 5,
+    "ui": 25,
+    "event": 1
+  },
+  "releaseCount": 4,
+  "releases": [
+    {
+      "ab": "2.2",
+      "semver": "2.2.0",
+      "title": "Phase 2.2 — retouches libres & Parler curé",
+      "dateStart": "2026-06-30",
+      "status": "en cours",
+      "current": true,
+      "summary": "Branche feature/2.2 — corrections reviewables, corpus Parler, lanceur dev, infra versionnement. Détail auto depuis DEV_LOG.",
+      "source": "docs/traceability/changelog/DEV_LOG_2_2.md",
+      "changes": [
+        {
+          "type": "mod",
+          "text": "Màj agent-guide, HANDOFF, DOC_AGENT_INDEX, project-state, README, DEV_LOG",
+          "ref": "X=5 · Y=1",
+          "date": "2026-07-01",
+          "source": "Sync docs versionnement (hook, DEV_LOG, commits atomiques)",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "mod",
+          "text": "Wording tutorialObjectives, infiniteQuests, project-state",
+          "ref": "X=53 · Y=1",
+          "date": "2026-07-01",
+          "source": "Wording onboarding + relecture corpus Lien",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Script audit tone + README relecture corpus Lyra",
+          "ref": "X=53 · Y=2",
+          "date": "2026-07-01",
+          "source": "Wording onboarding + relecture corpus Lien",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "DEV_LOG — note artefacts hook X=6…52",
+          "ref": "X=53 · Y=3",
+          "date": "2026-07-01",
+          "source": "Wording onboarding + relecture corpus Lien",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "add",
+          "text": "Creer moi une interface sécurisée à destination de l'exterieur pour me perm…",
+          "ref": "X=54 · Y=1",
+          "date": "2026-07-01",
+          "source": "Creer moi une interface sécurisée à destination de l'exterieur pour me perm…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Laisse tomber en fait c'est nul",
+          "ref": "X=55 · Y=1",
+          "date": "2026-07-01",
+          "source": "Laisse tomber en fait c'est nul",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Test hook version — même X",
+          "ref": "X=56 · Y=1",
+          "date": "2026-07-01",
+          "source": "Test hook version — même X",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "1. Piste B — Parler curé aff. 5 (suite du travail en cours) Fichier : docs/…",
+          "ref": "X=110 · Y=1",
+          "date": "2026-07-02",
+          "source": "1. Piste B — Parler curé aff. 5 (suite du travail en cours) Fichier : docs/…",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Déjà, toi quand tu relis. Tu as moyen de trouver des anomalies sémantique e…",
+          "ref": "X=111 · Y=1",
+          "date": "2026-07-02",
+          "source": "Déjà, toi quand tu relis. Tu as moyen de trouver des anomalies sémantique e…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Ce que j’ajouterais en priorité (ROI élevé, faisable en règles) validate-fm…",
+          "ref": "X=112 · Y=1",
+          "date": "2026-07-02",
+          "source": "Ce que j’ajouterais en priorité (ROI élevé, faisable en règles) validate-fm…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Questions ouvertes (prochain tour) FM3 → fail ? Des paires H/F entre 0,85 e…",
+          "ref": "X=113 · Y=1",
+          "date": "2026-07-02",
+          "source": "Questions ouvertes (prochain tour) FM3 → fail ? Des paires H/F entre 0,85 e…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "FM1 Fail CI bridge, companionAction, companionLine, ou les 4 choix strictem…",
+          "ref": "X=114 · Y=1",
+          "date": "2026-07-02",
+          "source": "FM1 Fail CI bridge, companionAction, companionLine, ou les 4 choix strictem…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Non juste des commits",
+          "ref": "X=115 · Y=1",
+          "date": "2026-07-02",
+          "source": "Non juste des commits",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Toujours non commité (autres lots) : UI Parler / ConversationGame, curatedC…",
+          "ref": "X=116 · Y=1",
+          "date": "2026-07-02",
+          "source": "Toujours non commité (autres lots) : UI Parler / ConversationGame, curatedC…",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Okay. Alors faisons un checkup de aff5. Tu as d'autres retours?",
+          "ref": "X=117 · Y=1",
+          "date": "2026-07-02",
+          "source": "Okay. Alors faisons un checkup de aff5. Tu as d'autres retours?",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "P0 — pas encore « livré joueur » npm run build casse (4 erreurs TS) — bloqu…",
+          "ref": "X=118 · Y=1",
+          "date": "2026-07-02",
+          "source": "P0 — pas encore « livré joueur » npm run build casse (4 erreurs TS) — bloqu…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "P1 — qualité éditoriale (warn, pas fail) W2 longueur choix mobile — surtout…",
+          "ref": "X=119 · Y=1",
+          "date": "2026-07-02",
+          "source": "P1 — qualité éditoriale (warn, pas fail) W2 longueur choix mobile — surtout…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pour aller plus loin (si tu veux) FM-NQ5 par pack : règles métier comme S53…",
+          "ref": "X=120 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pour aller plus loin (si tu veux) FM-NQ5 par pack : règles métier comme S53…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "J'ai bien 3 épilogue mais j'ai pas l'épilogue du pack",
+          "ref": "X=121 · Y=1",
+          "date": "2026-07-02",
+          "source": "J'ai bien 3 épilogue mais j'ai pas l'épilogue du pack",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Elle lise sa robe sur ta paume est bizarre. Moyen d'éviter de manière les e…",
+          "ref": "X=122 · Y=1",
+          "date": "2026-07-02",
+          "source": "Elle lise sa robe sur ta paume est bizarre. Moyen d'éviter de manière les e…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Elle te retiens contre les rayons, puis murmure... Dans ces scènes je suis …",
+          "ref": "X=123 · Y=1",
+          "date": "2026-07-02",
+          "source": "Elle te retiens contre les rayons, puis murmure... Dans ces scènes je suis …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Limite actuelle : le validateur ne compte pas automatiquement les orgasmes …",
+          "ref": "X=124 · Y=1",
+          "date": "2026-07-02",
+          "source": "Limite actuelle : le validateur ne compte pas automatiquement les orgasmes …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Ce recap est présent en dev uniquement",
+          "ref": "X=125 · Y=1",
+          "date": "2026-07-02",
+          "source": "Ce recap est présent en dev uniquement",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Tu crées/intègres un nouveau mini-jeu. Lis docs/HANDOFF_NEW_MINIGAME_CO.md …",
+          "ref": "X=126 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu crées/intègres un nouveau mini-jeu. Lis docs/HANDOFF_NEW_MINIGAME_CO.md …",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "add",
+          "text": "Tu vas intégrer un nouveau mini-jeu dans le projet Havre des Brumes / IDLE …",
+          "ref": "X=127 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu vas intégrer un nouveau mini-jeu dans le projet Havre des Brumes / IDLE …",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Tu peux faire une vrai animation de roue sur l'écran (avec visuellement le …",
+          "ref": "X=128 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu peux faire une vrai animation de roue sur l'écran (avec visuellement le …",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "La roue en plus grand, je veux pouvoir lire les categories sur le camembert…",
+          "ref": "X=129 · Y=1",
+          "date": "2026-07-02",
+          "source": "La roue en plus grand, je veux pouvoir lire les categories sur le camembert…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "add",
+          "text": "Créé une branche dev 2.2 Tu es l'agent de développement pour IDLE Isekai Ch…",
+          "ref": "X=130 · Y=1",
+          "date": "2026-07-02",
+          "source": "Créé une branche dev 2.2 Tu es l'agent de développement pour IDLE Isekai Ch…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Okay, il y a des travaux en cours et non finis?",
+          "ref": "X=131 · Y=1",
+          "date": "2026-07-02",
+          "source": "Okay, il y a des travaux en cours et non finis?",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "C'est quoi un kickoff?",
+          "ref": "X=132 · Y=1",
+          "date": "2026-07-02",
+          "source": "C'est quoi un kickoff?",
+          "category": "infra",
+          "categoryLabel": "Infra / repo"
+        },
+        {
+          "type": "info",
+          "text": "parfiat, fait ça, et met à jour les docs pour que les prochains agents fass…",
+          "ref": "X=133 · Y=1",
+          "date": "2026-07-02",
+          "source": "parfiat, fait ça, et met à jour les docs pour que les prochains agents fass…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "mod",
+          "text": "2. Modifications locales non commitées (5 fichiers) Diff non stagé (~155 li…",
+          "ref": "X=134 · Y=1",
+          "date": "2026-07-02",
+          "source": "2. Modifications locales non commitées (5 fichiers) Diff non stagé (~155 li…",
+          "category": "contenu-modif",
+          "categoryLabel": "Modif contenu"
+        },
+        {
+          "type": "info",
+          "text": "Est-ce que tu as des idées de ce que tu pourrais faire en relative autonomi…",
+          "ref": "X=135 · Y=1",
+          "date": "2026-07-02",
+          "source": "Est-ce que tu as des idées de ce que tu pourrais faire en relative autonomi…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Question, tu sais faire des voix IA très réaliste? Pour essayer d'incarner …",
+          "ref": "X=136 · Y=1",
+          "date": "2026-07-02",
+          "source": "Question, tu sais faire des voix IA très réaliste? Pour essayer d'incarner …",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Piste 4 — Confort dev (BACKLOG, pas gameplay) Le chargement lent des assets…",
+          "ref": "X=137 · Y=1",
+          "date": "2026-07-02",
+          "source": "Piste 4 — Confort dev (BACKLOG, pas gameplay) Le chargement lent des assets…",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "Lors du premier chargement de l'application, ça pourrais être cool d'avoir …",
+          "ref": "X=138 · Y=1",
+          "date": "2026-07-02",
+          "source": "Lors du premier chargement de l'application, ça pourrais être cool d'avoir …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Lance le serveur toi même",
+          "ref": "X=139 · Y=1",
+          "date": "2026-07-02",
+          "source": "Lance le serveur toi même",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pas fait (volontairement) Warm-up myrions / gacha / village (prochaine étap…",
+          "ref": "X=140 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pas fait (volontairement) Warm-up myrions / gacha / village (prochaine étap…",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Tu peux passer à ça Pas fait (volontairement) Warm-up myrions / gacha / vil…",
+          "ref": "X=141 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu peux passer à ça Pas fait (volontairement) Warm-up myrions / gacha / vil…",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "mod",
+          "text": "Ptite modif intermédiaire, dans le mini jeu de gardiennage de myrions, les …",
+          "ref": "X=142 · Y=1",
+          "date": "2026-07-02",
+          "source": "Ptite modif intermédiaire, dans le mini jeu de gardiennage de myrions, les …",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Dans les paramètres, donner l'option se deconnecter tout simplement pour te…",
+          "ref": "X=143 · Y=1",
+          "date": "2026-07-02",
+          "source": "Dans les paramètres, donner l'option se deconnecter tout simplement pour te…",
+          "category": "contenu-plus",
+          "categoryLabel": "Contenu additionnel"
+        },
+        {
+          "type": "info",
+          "text": "Okay. Ca marche bien, suggestions suivantes?",
+          "ref": "X=144 · Y=1",
+          "date": "2026-07-02",
+          "source": "Okay. Ca marche bien, suggestions suivantes?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Déconnexion + rechargement complet — option « Se déconnecter et revoir le c…",
+          "ref": "X=145 · Y=1",
+          "date": "2026-07-02",
+          "source": "Déconnexion + rechargement complet — option « Se déconnecter et revoir le c…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Commit de la session — beaucoup de changements non commités (gate connexion…",
+          "ref": "X=146 · Y=1",
+          "date": "2026-07-02",
+          "source": "Commit de la session — beaucoup de changements non commités (gate connexion…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Dans le mini jeu de carrière du haver, quand je clique sur un minerai à min…",
+          "ref": "X=147 · Y=1",
+          "date": "2026-07-02",
+          "source": "Dans le mini jeu de carrière du haver, quand je clique sur un minerai à min…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pour le mini jeu de carriere, tous les minerais sont mal placés sur le back…",
+          "ref": "X=148 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pour le mini jeu de carriere, tous les minerais sont mal placés sur le back…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Fait en sorte que pour les minerais en bord de map, les minerais ne sortent…",
+          "ref": "X=149 · Y=1",
+          "date": "2026-07-02",
+          "source": "Fait en sorte que pour les minerais en bord de map, les minerais ne sortent…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Les background du mini jeu sont toujours en plein écran (voir pour recaler …",
+          "ref": "X=150 · Y=1",
+          "date": "2026-07-02",
+          "source": "Les background du mini jeu sont toujours en plein écran (voir pour recaler …",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "Quand tu lances un serveur tu fais quoi?",
+          "ref": "X=151 · Y=1",
+          "date": "2026-07-02",
+          "source": "Quand tu lances un serveur tu fais quoi?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Tu peux me créer un executable qui lance le serveur de dév et m'ouvre la pa…",
+          "ref": "X=152 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu peux me créer un executable qui lance le serveur de dév et m'ouvre la pa…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Quand on lance le serveur en local en dev, fait en sorte que ça affiche par…",
+          "ref": "X=153 · Y=1",
+          "date": "2026-07-02",
+          "source": "Quand on lance le serveur en local en dev, fait en sorte que ça affiche par…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "(et fait en sorte que ce soit pas acceptable en prod pour pas être sensible…",
+          "ref": "X=154 · Y=1",
+          "date": "2026-07-02",
+          "source": "(et fait en sorte que ce soit pas acceptable en prod pour pas être sensible…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Comment attaquer le session storage?",
+          "ref": "X=155 · Y=1",
+          "date": "2026-07-02",
+          "source": "Comment attaquer le session storage?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pour le jeu dans les paramètres, fait un mode 'lumineux' et un mode 'dark'",
+          "ref": "X=156 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pour le jeu dans les paramètres, fait un mode 'lumineux' et un mode 'dark'",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Le mode dark doit toucher toutes les interfaces. Pas que le menu",
+          "ref": "X=157 · Y=1",
+          "date": "2026-07-02",
+          "source": "Le mode dark doit toucher toutes les interfaces. Pas que le menu",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "add",
+          "text": "Dans les minis jeux, fait une rubrique Nouveaux mini jeux (avec les 4 mini …",
+          "ref": "X=158 · Y=1",
+          "date": "2026-07-02",
+          "source": "Dans les minis jeux, fait une rubrique Nouveaux mini jeux (avec les 4 mini …",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "add",
+          "text": "Dans l'onglet lien ne pas afficher les discussions par défaut",
+          "ref": "X=159 · Y=1",
+          "date": "2026-07-02",
+          "source": "Dans l'onglet lien ne pas afficher les discussions par défaut",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "J'ai ces warnings. Tu peux faire en sorte qu'ils n'apparaissent plus?",
+          "ref": "X=160 · Y=1",
+          "date": "2026-07-02",
+          "source": "J'ai ces warnings. Tu peux faire en sorte qu'ils n'apparaissent plus?",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "fix",
+          "text": "Je précise il faut corriger l'arreur, pas la cacher.",
+          "ref": "X=161 · Y=1",
+          "date": "2026-07-02",
+          "source": "Je précise il faut corriger l'arreur, pas la cacher.",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Okay, le mode dark change quasiment rien. Faut changer tous les menus aussi",
+          "ref": "X=162 · Y=1",
+          "date": "2026-07-02",
+          "source": "Okay, le mode dark change quasiment rien. Faut changer tous les menus aussi",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "mod",
+          "text": "Dans les logs serveurs tu peux afficher quand un update version est captée?…",
+          "ref": "X=163 · Y=1",
+          "date": "2026-07-02",
+          "source": "Dans les logs serveurs tu peux afficher quand un update version est captée?…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Pour les quêtes. Je veux avoir 10 quêtes par jour (cumulables sur 10 jours)…",
+          "ref": "X=164 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pour les quêtes. Je veux avoir 10 quêtes par jour (cumulables sur 10 jours)…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "add",
+          "text": "Ajoute une option pour redemarrer le launcher, sans perdre la session dév e…",
+          "ref": "X=165 · Y=1",
+          "date": "2026-07-02",
+          "source": "Ajoute une option pour redemarrer le launcher, sans perdre la session dév e…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Le mini jeu d'affinité est un mini jeu comme les autres Le mettre au même f…",
+          "ref": "X=166 · Y=1",
+          "date": "2026-07-02",
+          "source": "Le mini jeu d'affinité est un mini jeu comme les autres Le mettre au même f…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Passe en tache de fond je doit m'absenter 1h et quelques, relectures, netto…",
+          "ref": "X=167 · Y=1",
+          "date": "2026-07-02",
+          "source": "Passe en tache de fond je doit m'absenter 1h et quelques, relectures, netto…",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Si tu t'ennuies, commence à relire les conversations petit bloc par petit b…",
+          "ref": "X=168 · Y=1",
+          "date": "2026-07-02",
+          "source": "Si tu t'ennuies, commence à relire les conversations petit bloc par petit b…",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Continue la relecture. Numéro de commit correctement bien mis à jour?",
+          "ref": "X=169 · Y=1",
+          "date": "2026-07-02",
+          "source": "Continue la relecture. Numéro de commit correctement bien mis à jour?",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Tu peux me relire vite fait la politique de gestion des versions?",
+          "ref": "X=170 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu peux me relire vite fait la politique de gestion des versions?",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Du coup on est bien d'accord que le X tu l'as pas bien suivi?",
+          "ref": "X=171 · Y=1",
+          "date": "2026-07-02",
+          "source": "Du coup on est bien d'accord que le X tu l'as pas bien suivi?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pourquoi tu as ignoré, sauté cette commande? Trop chiant à prendre en compt…",
+          "ref": "X=172 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pourquoi tu as ignoré, sauté cette commande? Trop chiant à prendre en compt…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Règle Cursor always-applied du type : « Premier appel shell sur tout messag…",
+          "ref": "X=173 · Y=1",
+          "date": "2026-07-02",
+          "source": "Règle Cursor always-applied du type : « Premier appel shell sur tout messag…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "En sachant qu'un truc pratique c'est qu'apèrs tu peux faire des commits ato…",
+          "ref": "X=174 · Y=1",
+          "date": "2026-07-02",
+          "source": "En sachant qu'un truc pratique c'est qu'apèrs tu peux faire des commits ato…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Tu peux relire et mettre à jour tous les docs qui se référent à ça?",
+          "ref": "X=175 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu peux relire et mettre à jour tous les docs qui se référent à ça?",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Parfait. On est bon. Du coup. Est-ce que tu pense nescessaire de faire un p…",
+          "ref": "X=176 · Y=1",
+          "date": "2026-07-02",
+          "source": "Parfait. On est bon. Du coup. Est-ce que tu pense nescessaire de faire un p…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Ce que je recommande (pragmatique, début de phase) 3 à 5 commits grossiers,…",
+          "ref": "X=177 · Y=1",
+          "date": "2026-07-02",
+          "source": "Ce que je recommande (pragmatique, début de phase) 3 à 5 commits grossiers,…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Tu peux me faire un prompt pour m'expliquer en détail comment tu gères la p…",
+          "ref": "X=178 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu peux me faire un prompt pour m'expliquer en détail comment tu gères la p…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Pourquoi le hook est pas encore OKAY?",
+          "ref": "X=179 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pourquoi le hook est pas encore OKAY?",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Automatise les deux et je redémarre",
+          "ref": "X=180 · Y=1",
+          "date": "2026-07-02",
+          "source": "Automatise les deux et je redémarre",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "mod",
+          "text": "Refait le prompt pour l'autre agent pour qu'il applique la même modif",
+          "ref": "X=181 · Y=1",
+          "date": "2026-07-02",
+          "source": "Refait le prompt pour l'autre agent pour qu'il applique la même modif",
+          "category": "contenu-modif",
+          "categoryLabel": "Modif contenu"
+        },
+        {
+          "type": "mod",
+          "text": "Tu pourrais faire une petite modif insigfiiante, juste pour tester le hook?",
+          "ref": "X=182 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu pourrais faire une petite modif insigfiiante, juste pour tester le hook?",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "HANDOFF_PARLER_CURATED_PISTE_B, README lots, DOC_AGENT_INDEX, .ai/*",
+          "ref": "X=183 · Y=1",
+          "date": "2026-07-03",
+          "source": "Handoff piste B Parler curé aff. 5",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "add",
+          "text": "Possible d'ajouter un log pour savoir si c'est appliqué dans ce projet ou l…",
+          "ref": "X=184 · Y=1",
+          "date": "2026-07-02",
+          "source": "Possible d'ajouter un log pour savoir si c'est appliqué dans ce projet ou l…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Fait un test pour voir les hooks",
+          "ref": "X=185 · Y=1",
+          "date": "2026-07-02",
+          "source": "Fait un test pour voir les hooks",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "fix",
+          "text": "curated-parler-advanced-rules, validate-fmc-mirror, S50–S55/LQ6/FM*, builder fixes pack-3/5/FMC",
+          "ref": "X=186 · Y=1",
+          "date": "2026-07-03",
+          "source": "Validateurs avancés Parler aff. 5 (S50–S55, FM*, LQ6)",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Corpus FM1 ex. 01/04/05/08/10 FMC, S53 ex. 14 atlas — goldens H+F",
+          "ref": "X=186 · Y=2",
+          "date": "2026-07-03",
+          "source": "Validateurs avancés Parler aff. 5 (S50–S55, FM*, LQ6)",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "FM3 warn 0,85 · S53 ex. 20–21 · S56 tous curés · walk CI 5×4 tons aff.5",
+          "ref": "X=186 · Y=3",
+          "date": "2026-07-03",
+          "source": "Validateurs avancés Parler aff. 5 (S50–S55, FM*, LQ6)",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "del",
+          "text": "Politique produit : FM1/FM3 retirés · S56/S57/S58 · WALK-LOW · corpus prolepse",
+          "ref": "X=186 · Y=4",
+          "date": "2026-07-03",
+          "source": "Validateurs avancés Parler aff. 5 (S50–S55, FM*, LQ6)",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "C'est possible qu'en faisant travailler un autre agent en meme temps j'ai c…",
+          "ref": "X=187 · Y=1",
+          "date": "2026-07-02",
+          "source": "C'est possible qu'en faisant travailler un autre agent en meme temps j'ai c…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Possible que les versions des deux projets se mélangent?",
+          "ref": "X=189 · Y=1",
+          "date": "2026-07-02",
+          "source": "Possible que les versions des deux projets se mélangent?",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Met des noms de hook plus parlant peut-être non?",
+          "ref": "X=190 · Y=1",
+          "date": "2026-07-02",
+          "source": "Met des noms de hook plus parlant peut-être non?",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Refait un test pour les hooks",
+          "ref": "X=191 · Y=1",
+          "date": "2026-07-02",
+          "source": "Refait un test pour les hooks",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "add",
+          "text": "J'ai ça, donc pas mal Par contre j'aimerai que tu ajoute des noms plus part…",
+          "ref": "X=192 · Y=1",
+          "date": "2026-07-02",
+          "source": "J'ai ça, donc pas mal Par contre j'aimerai que tu ajoute des noms plus part…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Okay pas mal. Maintenant je voudrais en faire une règle générale pour tous …",
+          "ref": "X=193 · Y=1",
+          "date": "2026-07-02",
+          "source": "Okay pas mal. Maintenant je voudrais en faire une règle générale pour tous …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Detaille aussi le A b et C, si tu sais à quoi ils correspondent",
+          "ref": "X=194 · Y=1",
+          "date": "2026-07-02",
+          "source": "Detaille aussi le A b et C, si tu sais à quoi ils correspondent",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "A. Chaque 'mise en PROD'. Cad à chaque fois qu'on push tout en main. Qu'on …",
+          "ref": "X=195 · Y=1",
+          "date": "2026-07-02",
+          "source": "A. Chaque 'mise en PROD'. Cad à chaque fois qu'on push tout en main. Qu'on …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Suggestions d’amélioration Deux vitesses Dev : X/Y (agents, hooks Cursor) —…",
+          "ref": "X=196 · Y=1",
+          "date": "2026-07-02",
+          "source": "Suggestions d’amélioration Deux vitesses Dev : X/Y (agents, hooks Cursor) —…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Je fais ça ou et comment?",
+          "ref": "X=197 · Y=1",
+          "date": "2026-07-02",
+          "source": "Je fais ça ou et comment?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pour le A du coup c'est toi qui demande si tu part sur la procédure de MEP …",
+          "ref": "X=198 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pour le A du coup c'est toi qui demande si tu part sur la procédure de MEP …",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Oui, et rajoute toutes les consignes autour des B et C habituel (les mise a…",
+          "ref": "X=199 · Y=1",
+          "date": "2026-07-02",
+          "source": "Oui, et rajoute toutes les consignes autour des B et C habituel (les mise a…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "add",
+          "text": "Tu pourras créer un projet 'REFERENCE' dans lequel tu mettra les doc utiles…",
+          "ref": "X=200 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu pourras créer un projet 'REFERENCE' dans lequel tu mettra les doc utiles…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "del",
+          "text": "Ah oui, très important, jamais de suppression définitive, que des mov dans …",
+          "ref": "X=201 · Y=1",
+          "date": "2026-07-02",
+          "source": "Ah oui, très important, jamais de suppression définitive, que des mov dans …",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Tu as pu tout finir?",
+          "ref": "X=203 · Y=1",
+          "date": "2026-07-02",
+          "source": "Tu as pu tout finir?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pour intialiser un projet REFERENCE? Tu veux que je le fasse? Ou tu peux le…",
+          "ref": "X=204 · Y=1",
+          "date": "2026-07-02",
+          "source": "Pour intialiser un projet REFERENCE? Tu veux que je le fasse? Ou tu peux le…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Moteur src/data/destinyWheel/* + DestinyWheelGame + activité hub disagrea-destiny-wheel + validate:destiny-wheel",
+          "ref": "X=205 · Y=1",
+          "date": "2026-07-03",
+          "source": "Mini-jeu Roue du Destin (Disagrea seed JSON)",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Roue SVG proportionnelle (poids moteur) + animation spin + cutouts Laharl/Etna/Flonne + bulles commentateurs",
+          "ref": "X=205 · Y=2",
+          "date": "2026-07-03",
+          "source": "Mini-jeu Roue du Destin (Disagrea seed JSON)",
+          "category": "event",
+          "categoryLabel": "Event / invité"
+        },
+        {
+          "type": "info",
+          "text": "Je vois pas le projet.repo dans github",
+          "ref": "X=207 · Y=1",
+          "date": "2026-07-02",
+          "source": "Je vois pas le projet.repo dans github",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "https://github.com/Guillaume-Jolly/REFERENCE",
+          "ref": "X=208 · Y=1",
+          "date": "2026-07-02",
+          "source": "https://github.com/Guillaume-Jolly/REFERENCE",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\1f942ce1cd…",
+          "ref": "X=209 · Y=1",
+          "date": "2026-07-03",
+          "source": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\1f942ce1cd…",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "La roulette dois prendre tout l'écran en hauteur (ou presque, juste respect…",
+          "ref": "X=210 · Y=1",
+          "date": "2026-07-03",
+          "source": "La roulette dois prendre tout l'écran en hauteur (ou presque, juste respect…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Dans un mini jeu, si il doit y avoir des onglets, menus, tout ça, toujours …",
+          "ref": "X=211 · Y=1",
+          "date": "2026-07-03",
+          "source": "Dans un mini jeu, si il doit y avoir des onglets, menus, tout ça, toujours …",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Donne la possibilité d'interagir avec la roue (cliquer pour la tourner manu…",
+          "ref": "X=212 · Y=1",
+          "date": "2026-07-03",
+          "source": "Donne la possibilité d'interagir avec la roue (cliquer pour la tourner manu…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Ces options vont dans le menu. Pas nescessaire de les afficher en permanenc…",
+          "ref": "X=213 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ces options vont dans le menu. Pas nescessaire de les afficher en permanenc…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "(affiche pas les pourcentages dans la roue",
+          "ref": "X=214 · Y=1",
+          "date": "2026-07-03",
+          "source": "(affiche pas les pourcentages dans la roue",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "spinHistory + liste Repère ; table probas sans scroll ; debug dev sans max-height",
+          "ref": "X=215 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue du Destin : panneaux Repère / Probabilités / Debug",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Placement libellés anti-collision + tiers anim landed-* sur slice/anneau/repère",
+          "ref": "X=216 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue : libellés lisibles + animation rareté à l'arrêt",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Attention, j'ai l'impression que des libellés se chevauchent",
+          "ref": "X=217 · Y=1",
+          "date": "2026-07-03",
+          "source": "Attention, j'ai l'impression que des libellés se chevauchent",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "wheel-segment-tick.mp3 + countSegmentBoundaryCrossings + ticks rAF (plus timer/boucle)",
+          "ref": "X=218 · Y=1",
+          "date": "2026-07-03",
+          "source": "SFX roue : knife flick synchronisé aux cases",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "textAnchor=end bord extérieur ; onFlickSpin ; SPIN_PACE_CONFIG + easing long",
+          "ref": "X=219 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue : libellés bord + flick + vitesse spin",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "del",
+          "text": "WheelMenuPanel — supprime drawer Repère ; badge/pin sur Roue",
+          "ref": "X=220 · Y=1",
+          "date": "2026-07-03",
+          "source": "Fusion onglets Repère + Roue",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "del",
+          "text": "wheel-segment-tick.ogg 55 ms + Web Audio + stop immédiat ; retire spin-stop",
+          "ref": "X=221 · Y=1",
+          "date": "2026-07-03",
+          "source": "SFX roue : clic court synchro case",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Ancre ~58–72 % rayon ; jusqu'à 3 lignes si part étroite ; moins d'ellipses",
+          "ref": "X=222 · Y=1",
+          "date": "2026-07-03",
+          "source": "Libellés roue : plus au centre + retours ligne",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Message « flic plus fort » ; debugFreeSpin coché par défaut en dev",
+          "ref": "X=223 · Y=1",
+          "date": "2026-07-03",
+          "source": "Flick faible + option free spin (debug)",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "rotationForSegmentMidAngle anti-horaire ; drag -delta",
+          "ref": "X=224 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue : sens de rotation inversé",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Barre de paramètres inaccessible, je ne la vois plus",
+          "ref": "X=225 · Y=1",
+          "date": "2026-07-03",
+          "source": "Barre de paramètres inaccessible, je ne la vois plus",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Grille scène 3 colonnes ; rail overlay ; roue dimensionnée au conteneur ; inset rail/panneau",
+          "ref": "X=226 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue du Destin : compagnons dans le cadre",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "wheelLabelPlanner.ts boîtes polaires + validate:wheel-labels",
+          "ref": "X=227 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue : anti-chevauchement libellés définitif",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Drag rotation + delta (au lieu de - delta)",
+          "ref": "X=228 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue : sens du drag aligné au geste",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Affiche tous les libellés dans le même sens (tu fais une fois en haut une f…",
+          "ref": "X=229 · Y=1",
+          "date": "2026-07-03",
+          "source": "Affiche tous les libellés dans le même sens (tu fais une fois en haut une f…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "wheelLabelPlanner tangent 1 ligne / part ; DestinyWheelPunchline ; cutouts agrandis",
+          "ref": "X=230 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue : refonte libellés + compagnons / punchline",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "WAV canoniques + destinyWheelAudio tick clean + reveal par rareté",
+          "ref": "X=231 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue du Destin : packs SFX tick + révélation rareté",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Le son que tu as tiré de la vidéo c'est pas du tout ça mdr. Tu es pas arriv…",
+          "ref": "X=232 · Y=1",
+          "date": "2026-07-03",
+          "source": "Le son que tu as tiré de la vidéo c'est pas du tout ça mdr. Tu es pas arriv…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "WheelCurrentCase overlay ; DestinyWheelRarityReveal pack v1 ; menu = historique seul",
+          "ref": "X=233 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue : case en cours hors menu + animations rareté v1",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "unwrapRotationContinuity rAF spin ; crossings analytiques frontières ; tick-sharp + gain + stagger",
+          "ref": "X=235 · Y=1",
+          "date": "2026-07-03",
+          "source": "Tics segment : sync repère + audio renforcé",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "del",
+          "text": "wheel-segment-tick.wav (clean pack) ; lecture complète du sample ; retire sharp",
+          "ref": "X=236 · Y=1",
+          "date": "2026-07-03",
+          "source": "Tick segment : pack propre (clean), pas sharp ni vidéo",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "add",
+          "text": "Onglet repère, note l'historique de tirage avec le dernier le plus en haut …",
+          "ref": "X=237 · Y=1",
+          "date": "2026-07-03",
+          "source": "Onglet repère, note l'historique de tirage avec le dernier le plus en haut …",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Cutouts centrés/agrandis ; dw-commentator-bubble ; case absolute top-left ; rarity-reveal--inline",
+          "ref": "X=238 · Y=1",
+          "date": "2026-07-03",
+          "source": "Scène roue : cutouts, bulles, case + anim rareté",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Les noms dans la roue se rechevauchent, rend les noms plus visible Ajoute u…",
+          "ref": "X=239 · Y=1",
+          "date": "2026-07-03",
+          "source": "Les noms dans la roue se rechevauchent, rend les noms plus visible Ajoute u…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "debugFastForwardToWheel + planWheelSpin({ forcedItemId }) + UI selects debug",
+          "ref": "X=240 · Y=1",
+          "date": "2026-07-03",
+          "source": "Debug : départ roue + résultat forcé",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Overlay absolu 3 slots ; breathe/talk sans scale ; roue 92vmin max 720px",
+          "ref": "X=241 · Y=1",
+          "date": "2026-07-03",
+          "source": "Cutouts fixes : Laharl / Etna / Flonne + roue agrandie",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "tick-soft + playbackRate inversé (vite→grave) + lowpass dynamique",
+          "ref": "X=242 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ticks spin : mix plus grave à haute vitesse",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "dw-scene-safe + --menu-open ; inset rail exact ; cqw/cqh roue & cutouts",
+          "ref": "X=243 · Y=1",
+          "date": "2026-07-03",
+          "source": "Zone safe scène : menu ouvert + cutouts non clippés",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "spinWarmup 900ms ; soft<0.38 / clean mid ; lowpass+highshelf ; attack gain",
+          "ref": "X=244 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ticks début de spin : warmup + soft/clean tiered",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\freesound_…",
+          "ref": "X=245 · Y=1",
+          "date": "2026-07-03",
+          "source": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\freesound_…",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "--dw-rail-panel-w 36vw + data-menu-open ; bulles lane ; case décalée",
+          "ref": "X=246 · Y=1",
+          "date": "2026-07-03",
+          "source": "Layout roue : safe gauche + bulles couloir",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Volume min 0.28 / warmup 52% ; EQ adoucie ; await resumeAudio par tick",
+          "ref": "X=247 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ticks spin : volume rétabli + resume AudioContext",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "debugJumpToWheelDirect + handleDebugApplyForcedResult + snap roue",
+          "ref": "X=248 · Y=1",
+          "date": "2026-07-03",
+          "source": "Debug : jump roue direct + appliquer résultat",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "del",
+          "text": "Retire landed-* keyframes + tiers spinner ; garde highlight slice statique",
+          "ref": "X=249 · Y=1",
+          "date": "2026-07-03",
+          "source": "Retrait animations atterrissage pré-pack zip",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "del",
+          "text": "Retire sauts forcés ; width:max-content ; bulles Laharl/lane élargies",
+          "ref": "X=250 · Y=1",
+          "date": "2026-07-03",
+          "source": "Bulles dialogue : moins de lignes",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "pointer-events scène pass-through ; rail z50 ; debug actif si Continuer",
+          "ref": "X=251 · Y=1",
+          "date": "2026-07-03",
+          "source": "Debug menu : clics boutons rétablis",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Ecris plus gros, et plus au bord de la roue Le cimetiere des. Si tu va plus…",
+          "ref": "X=252 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ecris plus gros, et plus au bord de la roue Le cimetiere des. Si tu va plus…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Seed Havre + adaptateur + registre packs ; sélecteur UI ; verdict tiré ; fiche Havre ; validate 2 packs",
+          "ref": "X=253 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue Havre : pack par défaut + sélecteur univers",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "add",
+          "text": "Dusionne onglet repère et onglet roue, Onglet roue la base, avec la possibi…",
+          "ref": "X=254 · Y=1",
+          "date": "2026-07-03",
+          "source": "Dusionne onglet repère et onglet roue, Onglet roue la base, avec la possibi…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "del",
+          "text": "Module havreIsekaiWheel (modes, jokers, cardBuilder, archiveStore, FicheDestinView) ; assets fiche ; intégration UI + save",
+          "ref": "X=255 · Y=1",
+          "date": "2026-07-03",
+          "source": "Havre : modes, jokers, archives, fiche layout",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Switch Havre/Disgaea en haut de la scène + tiroir Options ⚙",
+          "ref": "X=256 · Y=1",
+          "date": "2026-07-03",
+          "source": "Sélecteur roues + physique taquets / suspense",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Physique roue : taquets sur le bord, repère à cliquet, phase suspense (tease case suivante puis retour)",
+          "ref": "X=256 · Y=2",
+          "date": "2026-07-03",
+          "source": "Sélecteur roues + physique taquets / suspense",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Les sons sont pas du tout synchro. Normalement c'est juste un tout ptit cli…",
+          "ref": "X=257 · Y=1",
+          "date": "2026-07-03",
+          "source": "Les sons sont pas du tout synchro. Normalement c'est juste un tout ptit cli…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "buildSuspenseLandingPlan ancré sur la même révolution ; garde-fou boucle crossings ; throttle kick repère ; fallback transitionend",
+          "ref": "X=258 · Y=1",
+          "date": "2026-07-03",
+          "source": "Fix plantage physique roue (suspense)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Pour l'ecriture tu peux pas aller plus au centre de la roue? Si besoin pour…",
+          "ref": "X=259 · Y=1",
+          "date": "2026-07-03",
+          "source": "Pour l'ecriture tu peux pas aller plus au centre de la roue? Si besoin pour…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Peg bounce conditionnel (~40 %) ; retrait snap landed ; repère plus haut ; visualTheme=disgaea (crimson/or, ornements SVG)",
+          "ref": "X=260 · Y=1",
+          "date": "2026-07-03",
+          "source": "Atterrissage taquet + flèche + thème Disgaea",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "POur le spin 'manuel' afficher trop lent pour dire que ca detecte bien que …",
+          "ref": "X=261 · Y=1",
+          "date": "2026-07-03",
+          "source": "POur le spin 'manuel' afficher trop lent pour dire que ca detecte bien que …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "mod",
+          "text": "Alignement tip ↔ bord taquets (CSS calc viewBox) ; pegProximityAtRotation + flapDeflectionDeg ; retrait animation kick par key",
+          "ref": "X=262 · Y=1",
+          "date": "2026-07-03",
+          "source": "Repère frôle taquets + déflexion continue",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Ignore ticks si Δrotation > 100° (reset) ; session spin invalidée au reset ; abort suspense async ; ordre handleContinue sécurisé",
+          "ref": "X=263 · Y=1",
+          "date": "2026-07-03",
+          "source": "Fix plantage « Continuer » (roue suivante)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "flapDeflectionDeg jusqu’à ~54° ; impulsion par crossing ; lissage asymétrique (attaque rapide)",
+          "ref": "X=264 · Y=1",
+          "date": "2026-07-03",
+          "source": "Déport flèche taquets (amplitude)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Faire tourner la roue dans l'autre sens",
+          "ref": "X=265 · Y=1",
+          "date": "2026-07-03",
+          "source": "Faire tourner la roue dans l'autre sens",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "transition: none hors spin ; remount spinner (key roue+token) ; reset DOM instantané ; plus de onSpinEnd fantôme si plan annulé",
+          "ref": "X=266 · Y=1",
+          "date": "2026-07-03",
+          "source": "Fix TP roue au Continuer",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Les compagnons sont toujours hors du cadres et Laharl à gauche disparait so…",
+          "ref": "X=267 · Y=1",
+          "date": "2026-07-03",
+          "source": "Les compagnons sont toujours hors du cadres et Laharl à gauche disparait so…",
+          "category": "contenu-modif",
+          "categoryLabel": "Modif contenu"
+        },
+        {
+          "type": "info",
+          "text": "handleSpinEnd via ref + watchdog ; bouton Continuer actif si fault ; spinFault UI ; inversion signe flap ; fin spin même sans plan",
+          "ref": "X=268 · Y=1",
+          "date": "2026-07-03",
+          "source": "Déblocage Continuer + sens flèche",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "add",
+          "text": "De nouveau un chevauchement, écris quelque chose pour éviter ça definitivement",
+          "ref": "X=269 · Y=1",
+          "date": "2026-07-03",
+          "source": "De nouveau un chevauchement, écris quelque chose pour éviter ça definitivement",
+          "category": "contenu-plus",
+          "categoryLabel": "Contenu additionnel"
+        },
+        {
+          "type": "info",
+          "text": "(Maintenant la roue tourne bien dans l'autre sens mais par contre quand j'i…",
+          "ref": "X=270 · Y=1",
+          "date": "2026-07-03",
+          "source": "(Maintenant la roue tourne bien dans l'autre sens mais par contre quand j'i…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "mod",
+          "text": "disgaeaWheelTheme.ts (palette + segments + raretés) ; segments pack disgaea via buildSegmentsFromItems ; CSS/SVG .dw-spinner--disgaea ; règle .cursor/rules/04-destiny-wheel-disgaea-colors.mdc",
+          "ref": "X=271 · Y=1",
+          "date": "2026-07-03",
+          "source": "Palette couleurs Disgaea (roue Netherworld)",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "mod",
+          "text": "Assets → public/assets/destiny-wheel/disgaea/ ; wheelVisualAssets.ts ; calques frame/ticks/pointer dans DestinyWheelSpinner ; CSS .dw-spinner--disgaea-assets",
+          "ref": "X=272 · Y=1",
+          "date": "2026-07-03",
+          "source": "Assets UI roue Disgaea (pack validé)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Les compagnons sont toujours hors du cadre et trop petit, on vois quasiment…",
+          "ref": "X=273 · Y=1",
+          "date": "2026-07-03",
+          "source": "Les compagnons sont toujours hors du cadre et trop petit, on vois quasiment…",
+          "category": "contenu-modif",
+          "categoryLabel": "Modif contenu"
+        },
+        {
+          "type": "info",
+          "text": "DISGAEA_WHEEL_LAYOUT : frame scale 114 % ; taquets h≈12–13,5 u. (≈ peg) ; repère +14–18 % largeur, offsetX +3,6 %",
+          "ref": "X=274 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibration assets roue Disgaea (in-game)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\rarity_rev…",
+          "ref": "X=275 · Y=1",
+          "date": "2026-07-03",
+          "source": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\rarity_rev…",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Repère : position pack (leftPct) + nudge stage +13,5 % + scale ↑ ; segments +45° disgaea + wrap angles ; taquets anchorR 186 h≈21–23 ; frame 116 %",
+          "ref": "X=276 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibration roue Disgaea v2 (repère, +45°, taquets)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Okay, la case en cours tu peux l'afficher en haut à auche (la ou j'ai cercl…",
+          "ref": "X=277 · Y=1",
+          "date": "2026-07-03",
+          "source": "Okay, la case en cours tu peux l'afficher en haut à auche (la ou j'ai cercl…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "fix",
+          "text": "Bug : conteneur repère héritait .dw-spinner-pointer (46×44 px) — classe dw-spinner-pointer-assets plein stage + centrage ; rotate +45° sur transform + physics ; taquets SVG overlay z-index 5",
+          "ref": "X=278 · Y=1",
+          "date": "2026-07-03",
+          "source": "Fix repère Disgaea (bug 46px) + rotate 45° + taquets foreground",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "Les tics par cases sont mal fait. Ca ne correspond pas visuellement et j'en…",
+          "ref": "X=279 · Y=1",
+          "date": "2026-07-03",
+          "source": "Les tics par cases sont mal fait. Ca ne correspond pas visuellement et j'en…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "pointerFixed ~82 % / pointerMobile ~39 % (ratios pack 997/472 vs 1217)",
+          "ref": "X=280 · Y=1",
+          "date": "2026-07-03",
+          "source": "Repère Disgaea : taille pack native",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Intègre les nouveaux clic que je t'ai envoyé, pas l'ancien qui était pas pr…",
+          "ref": "X=281 · Y=1",
+          "date": "2026-07-03",
+          "source": "Intègre les nouveaux clic que je t'ai envoyé, pas l'ancien qui était pas pr…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "fix",
+          "text": "Stack unique scale(0.64) ; mobile ancré sur fixed (72 % / top 63,8 %) ; ratio largeur 472/997",
+          "ref": "X=282 · Y=1",
+          "date": "2026-07-03",
+          "source": "Repère Disgaea : stack + scale 0,64 + charnière",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Les comagnons sont toujours trop petits et dans leurs coins. Quand ils parl…",
+          "ref": "X=283 · Y=1",
+          "date": "2026-07-03",
+          "source": "Les comagnons sont toujours trop petits et dans leurs coins. Quand ils parl…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "DisgaeaWheelCalibrator + disgaeaWheelLayoutCalibration",
+          "ref": "X=284 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibrateur UI roue Disgaea (première version)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "add",
+          "text": "Dans l'onglet debug, proposer de forcer le départ à une roue spécifique et …",
+          "ref": "X=285 · Y=1",
+          "date": "2026-07-03",
+          "source": "Dans l'onglet debug, proposer de forcer le départ à une roue spécifique et …",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "add",
+          "text": "DestinyWheelSceneCalibrator + calibration scène (compagnons, bulles, case, pack) intégrée à l’onglet Debug",
+          "ref": "X=286 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibrateur layout dans onglet Debug (dev only)",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Couche spinnerHint dans calibration scène + transform sur hint spinner",
+          "ref": "X=287 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibrateur : message free spin déplaçable",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Bulles dialogue dynamiques : largeur cqw, déplacement, retour à la ligne texte",
+          "ref": "X=287 · Y=2",
+          "date": "2026-07-03",
+          "source": "Calibrateur : message free spin déplaçable",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Comme pour les autres mini jeux, les compagnons qui sont présents de manièr…",
+          "ref": "X=288 · Y=1",
+          "date": "2026-07-03",
+          "source": "Comme pour les autres mini jeux, les compagnons qui sont présents de manièr…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Je trouve que le bruit du spin est trop aigu, possible de le faire plus gra…",
+          "ref": "X=289 · Y=1",
+          "date": "2026-07-03",
+          "source": "Je trouve que le bruit du spin est trop aigu, possible de le faire plus gra…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Case en cours, et les compagnons sont toujours un peu cut sur les bords, l'…",
+          "ref": "X=290 · Y=1",
+          "date": "2026-07-03",
+          "source": "Case en cours, et les compagnons sont toujours un peu cut sur les bords, l'…",
+          "category": "contenu-modif",
+          "categoryLabel": "Modif contenu"
+        },
+        {
+          "type": "info",
+          "text": "Ce qui a changé chez nous Avant Après Sample clean Sample tick-soft Rapide …",
+          "ref": "X=291 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ce qui a changé chez nous Avant Après Sample clean Sample tick-soft Rapide …",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "mod",
+          "text": "destinyWheelSceneLayoutUser.json + layout appliqué en prod (roue, compagnons, bulles, UI)",
+          "ref": "X=292 · Y=1",
+          "date": "2026-07-03",
+          "source": "Intégration layout user JSON (prod)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "fix",
+          "text": "Physique taquets : fix double offset rAF Disgaea ; impulsion au crossing + decay ; fin creep/settle avec frein par taquet",
+          "ref": "X=292 · Y=4",
+          "date": "2026-07-03",
+          "source": "Intégration layout user JSON (prod)",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Bulles rareté : corps texte blanc classique ; nom speaker reste coloré par rareté",
+          "ref": "X=292 · Y=5",
+          "date": "2026-07-03",
+          "source": "Intégration layout user JSON (prod)",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Inline reveal : glow/bordure/flash sans scale-shake ; respect width calibrée",
+          "ref": "X=293 · Y=1",
+          "date": "2026-07-03",
+          "source": "Animations rareté inline « case en cours »",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "wheelLabelPlanner : tangente unique (mid−90°) ; priorité texte long ; seuil sweep sans déborder",
+          "ref": "X=294 · Y=1",
+          "date": "2026-07-03",
+          "source": "Libellés roue (orientation + affichage)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Debug : bouton « Tirer toutes les roues → écran final » (debugSimulateFullRun)",
+          "ref": "X=294 · Y=2",
+          "date": "2026-07-03",
+          "source": "Libellés roue (orientation + affichage)",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "fix",
+          "text": "Case en cours : hauteur fixe + slot ambiance réservé ; heightCqh calibrable",
+          "ref": "X=294 · Y=3",
+          "date": "2026-07-03",
+          "source": "Libellés roue (orientation + affichage)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "del",
+          "text": "DestinyWheelFinalScreen : nom, note ★, grille 5 col., barre Valider/Favori/Rejouer/Quitter ; onglet Compagnons (Havre archive + historique Disgaea)",
+          "ref": "X=295 · Y=1",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "mod",
+          "text": "Case en cours : layout user (3/23.5, 26.5cqw) ; position cqw/cqh ; effets inline compacts",
+          "ref": "X=295 · Y=2",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Libellés roue Disgaea : fit conservateur, abréviations, clip SVG par segment",
+          "ref": "X=295 · Y=3",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Panneau case : titre = catégorie de roue (Monde d’origine, etc.) au lieu de « Case en cours » / « Sous le repère »",
+          "ref": "X=295 · Y=4",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Libellés roue v2 : police uniforme par roue, mode radial (roues denses) + tangents plus gros",
+          "ref": "X=295 · Y=5",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Écran final : note sévère (computeSheetDisplayRating), grille 2 col. (Identité+stats / boss rouge), cartes basses compactes, boutons cliquables (pointer-events)",
+          "ref": "X=295 · Y=6",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Case en cours : ancrage calibré sur le panneau (kicker au-dessus), pas de double offset position",
+          "ref": "X=295 · Y=7",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Libellés roue : zones texte en anneau (58–90 % R), pad 20 % début de case, ancrage haut-gauche",
+          "ref": "X=295 · Y=8",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "del",
+          "text": "Écran final 3 col. sans scroll ; archives fiches complètes (100/pack) + « Voir la fiche »",
+          "ref": "X=295 · Y=9",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Libellés roue : bande 20–90 % R (spec), ancrage haut-gauche + baseline radial ; case calibrée position:absolute cqw/cqh sans offset 4px",
+          "ref": "X=295 · Y=10",
+          "date": "2026-07-03",
+          "source": "Écran final Roue du Destin (fiche compacte)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Libellés via textPath radial/arc (20→90 % R) ; case : style direct sur aside ; currentCase figé depuis JSON (anti-drift localStorage)",
+          "ref": "X=296 · Y=1",
+          "date": "2026-07-03",
+          "source": "Roue Disgaea : libellés textPath + case en cours",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "INNER 30 %, pad 12/8 %, pas de troncature précoce, shrink textPath, score libellé complet",
+          "ref": "X=297 · Y=1",
+          "date": "2026-07-03",
+          "source": "Libellés roue : bande 30 % + texte complet",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Rotation manuelle roue via molette / scroll (trackpad) sur la scène",
+          "ref": "X=297 · Y=2",
+          "date": "2026-07-03",
+          "source": "Libellés roue : bande 30 % + texte complet",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "fix",
+          "text": "Calibrateur dev zone texte roue (sliders + valeurs fixes, overlay, export JSON)",
+          "ref": "X=297 · Y=3",
+          "date": "2026-07-03",
+          "source": "Libellés roue : bande 30 % + texte complet",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Scroll roue : sensibilité réduite (0.42 → 0.2 deg/px)",
+          "ref": "X=297 · Y=4",
+          "date": "2026-07-03",
+          "source": "Libellés roue : bande 30 % + texte complet",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "DEFAULT wheelLabelZoneCalibration (JSON user) ; radialPadOuterRatio + textPathEndInsetPct",
+          "ref": "X=298 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibration zone texte roue (JSON user)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "A droite c'est bon, mais à gauche personnage encore 'mangé' et case en cour…",
+          "ref": "X=299 · Y=1",
+          "date": "2026-07-03",
+          "source": "A droite c'est bon, mais à gauche personnage encore 'mangé' et case en cour…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Onglet dev **Labels** ; groupe **Pad haut / troncature** en tête (surbrillance) ; calibrateur zone texte remonté avant layout scène dans Debug",
+          "ref": "X=300 · Y=1",
+          "date": "2026-07-03",
+          "source": "Visibilité calibrateur pad haut zone texte",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "On entend plus rien côté spin",
+          "ref": "X=301 · Y=1",
+          "date": "2026-07-03",
+          "source": "On entend plus rien côté spin",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Fit avec startOffset ; libellé complet + lengthAdjust ; plus de candidats « 2 mots » ; clip élargi vers l’extérieur ; shrinkToFitMax 2.2",
+          "ref": "X=302 · Y=1",
+          "date": "2026-07-03",
+          "source": "Fix troncature libellés roue (fit + shrink + clip)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Dans debug, l'option Roue de départ m'emmene directement à la roue que je c…",
+          "ref": "X=304 · Y=1",
+          "date": "2026-07-03",
+          "source": "Dans debug, l'option Roue de départ m'emmene directement à la roue que je c…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "textPathAngleRatio, textPathOuterExtendRatio, clipOuterGlyphPadRatio ; calibrateur « Troncature & position texte »",
+          "ref": "X=305 · Y=1",
+          "date": "2026-07-03",
+          "source": "Bons paramètres troncature (piste ≠ pad clip)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "mod",
+          "text": "Enlève les anciennes animations CSS (avant que je t'envoi le fichier zip)",
+          "ref": "X=306 · Y=1",
+          "date": "2026-07-03",
+          "source": "Enlève les anciennes animations CSS (avant que je t'envoi le fichier zip)",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "DEFAULT wheelLabelZoneCalibration (JSON user complet)",
+          "ref": "X=307 · Y=1",
+          "date": "2026-07-03",
+          "source": "DEFAULT zone texte roue (calibration Guillaume)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Les cases de dialogues tu peux les mettre sur le moins de lignes possible, …",
+          "ref": "X=308 · Y=1",
+          "date": "2026-07-03",
+          "source": "Les cases de dialogues tu peux les mettre sur le moins de lignes possible, …",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "destinyWheelSceneLayoutUser.json — currentCase x:1 y:9, heightCqh:22.5",
+          "ref": "X=309 · Y=1",
+          "date": "2026-07-03",
+          "source": "DEFAULT layout scène (case en cours)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Je peux pas cliquer sur les boutons du menu debug",
+          "ref": "X=310 · Y=1",
+          "date": "2026-07-03",
+          "source": "Je peux pas cliquer sur les boutons du menu debug",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Seuil radial 12 (rank = radial + textPathAngleRatio) ; flip piste pathReversed par quadrant",
+          "ref": "X=311 · Y=1",
+          "date": "2026-07-03",
+          "source": "Sens libellés roue rank + calibration globale",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Instruction pour toi dans prompt cursror Une autre roue à intégrer dans le …",
+          "ref": "X=312 · Y=1",
+          "date": "2026-07-03",
+          "source": "Instruction pour toi dans prompt cursror Une autre roue à intégrer dans le …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "del",
+          "text": "Suppression flip auto + option seuil radial ; libellés toujours radiaux",
+          "ref": "X=313 · Y=1",
+          "date": "2026-07-03",
+          "source": "Retrait flip piste + seuil radial",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "add",
+          "text": "Ajoute ça Pas encore implémenté : modes Hardcore / Auto-Roll / Artiste, jok…",
+          "ref": "X=314 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ajoute ça Pas encore implémenté : modes Hardcore / Auto-Roll / Artiste, jok…",
+          "category": "contenu-plus",
+          "categoryLabel": "Contenu additionnel"
+        },
+        {
+          "type": "info",
+          "text": "Je ne vois pas les deux roues. Une roue havre et une roue disagea",
+          "ref": "X=315 · Y=1",
+          "date": "2026-07-03",
+          "source": "Je ne vois pas les deux roues. Une roue havre et une roue disagea",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "frame.png Havre, thème havre, cal havreWheel, spinner + calibrateur scène, palette segments",
+          "ref": "X=316 · Y=1",
+          "date": "2026-07-03",
+          "source": "Visuels roue Havre (assets PNG + calibration)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "del",
+          "text": "Script prepare-havre-wheel-assets, frame.png + hub.png, calque hub spinner, archive frame_composite.png",
+          "ref": "X=317 · Y=1",
+          "date": "2026-07-03",
+          "source": "Détourage roue Havre (cadre + hub)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Tu peux simuler un truc qu'il y a sur les vraies roues? (chaque bord il y a…",
+          "ref": "X=321 · Y=1",
+          "date": "2026-07-03",
+          "source": "Tu peux simuler un truc qu'il y a sur les vraies roues? (chaque bord il y a…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "mod",
+          "text": "Script prepare:havre-wheel-assets (5 PNG → détourage + webp ticks), layout pointer/ticks Havre, spinner généralisé pack",
+          "ref": "X=322 · Y=1",
+          "date": "2026-07-03",
+          "source": "Pack assets Havre complet (modèle Disgaea)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Ca plante",
+          "ref": "X=323 · Y=1",
+          "date": "2026-07-03",
+          "source": "Ca plante",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Il y a un petit saut à la fin qui fait pas naturel, ça reviens en arrière q…",
+          "ref": "X=324 · Y=1",
+          "date": "2026-07-03",
+          "source": "Il y a un petit saut à la fin qui fait pas naturel, ça reviens en arrière q…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Maintenant la fleche est un peu trop loin, il faudrais qu'on la voit à pein…",
+          "ref": "X=325 · Y=1",
+          "date": "2026-07-03",
+          "source": "Maintenant la fleche est un peu trop loin, il faudrais qu'on la voit à pein…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Détourage frame élargi (noir hub→segments), ticks Havre ×1,4 viewBox, regen frame.png",
+          "ref": "X=326 · Y=1",
+          "date": "2026-07-03",
+          "source": "Havre roue : trou noir centre + taquets plus grands",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "destinyWheelSceneLayoutUser.json havreWheel, visualRotationOffsetDeg 18,5, defaults + anti-drift localStorage",
+          "ref": "X=327 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibration prod Havre roue (disque pivoté)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Quand je passe sur la roue suivante ça plante le mini jeu (clic sur continuer)",
+          "ref": "X=328 · Y=1",
+          "date": "2026-07-03",
+          "source": "Quand je passe sur la roue suivante ça plante le mini jeu (clic sur continuer)",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "destinyWheelSceneLayoutUser.json — disc/frame y:7,5, frame scale 1,04, pointer mobile 0,8, ticks 0,91 rotate 45,5°",
+          "ref": "X=329 · Y=1",
+          "date": "2026-07-03",
+          "source": "Calibration Havre roue v2 (y, scale, ticks)",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+          "ref": "X=330 · Y=1",
+          "date": "2026-07-04",
+          "source": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Je précise ON SEN BAT LES COUILLES DU MERGE. Arretez de parler de merge de …",
+          "ref": "X=331 · Y=1",
+          "date": "2026-07-04",
+          "source": "Je précise ON SEN BAT LES COUILLES DU MERGE. Arretez de parler de merge de …",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+          "ref": "X=332 · Y=1",
+          "date": "2026-07-04",
+          "source": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Mini jeu lien\\chatgpt\\di…",
+          "ref": "X=1 · Y=1",
+          "date": "2026-07-06",
+          "source": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Mini jeu lien\\chatgpt\\di…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Pense à ajouter toutes les 'actions' possible",
+          "ref": "X=7 · Y=1",
+          "date": "2026-07-06",
+          "source": "Pense à ajouter toutes les 'actions' possible",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Parfiat, je te laisses faire",
+          "ref": "X=8 · Y=1",
+          "date": "2026-07-06",
+          "source": "Parfiat, je te laisses faire",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Je pensais aux mots comme sodomie, enculer, sodomiser, faciale, deepthroat,…",
+          "ref": "X=9 · Y=1",
+          "date": "2026-07-06",
+          "source": "Je pensais aux mots comme sodomie, enculer, sodomiser, faciale, deepthroat,…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "add",
+          "text": "Ajoute un second lot le plus exhaustif possible (fait des clés qui contienn…",
+          "ref": "X=10 · Y=1",
+          "date": "2026-07-06",
+          "source": "Ajoute un second lot le plus exhaustif possible (fait des clés qui contienn…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "mod",
+          "text": "Essaye de relire modifier les cles lot 1 aussi, ça risque de bloquer",
+          "ref": "X=11 · Y=1",
+          "date": "2026-07-06",
+          "source": "Essaye de relire modifier les cles lot 1 aussi, ça risque de bloquer",
+          "category": "contenu-modif",
+          "categoryLabel": "Modif contenu"
+        },
+        {
+          "type": "info",
+          "text": "Okay. Fait une petite relecture et dis moi si tu vois encore des choses à f…",
+          "ref": "X=12 · Y=1",
+          "date": "2026-07-06",
+          "source": "Okay. Fait une petite relecture et dis moi si tu vois encore des choses à f…",
+          "category": "parler",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "info",
+          "text": "Vêtements Tu entends quoi par la? Vêtements 17 items + 9 états Peu de linge…",
+          "ref": "X=13 · Y=1",
+          "date": "2026-07-06",
+          "source": "Vêtements Tu entends quoi par la? Vêtements 17 items + 9 états Peu de linge…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Oui ajoute ce qui pourrais manquer avec desz clés compréhensible mais pas e…",
+          "ref": "X=14 · Y=1",
+          "date": "2026-07-06",
+          "source": "Oui ajoute ce qui pourrais manquer avec desz clés compréhensible mais pas e…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "If the available MCP tools do not fully support what the user asked you to …",
+          "ref": "X=15 · Y=1",
+          "date": "2026-07-06",
+          "source": "If the available MCP tools do not fully support what the user asked you to …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Enlève tous les consents, mots de sécurité etc, check-in etc. Cette partie …",
+          "ref": "X=16 · Y=1",
+          "date": "2026-07-06",
+          "source": "Enlève tous les consents, mots de sécurité etc, check-in etc. Cette partie …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Okay. C'est ce que je pensais. C'est très difficile à faire et tu as largem…",
+          "ref": "X=17 · Y=1",
+          "date": "2026-07-06",
+          "source": "Okay. C'est ce que je pensais. C'est très difficile à faire et tu as largem…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Fais un test alors. Et montre moi l'application dans le mini jeu",
+          "ref": "X=18 · Y=1",
+          "date": "2026-07-06",
+          "source": "Fais un test alors. Et montre moi l'application dans le mini jeu",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "tes masques sont entierement noir et les 5 images de laharl sont juste un c…",
+          "ref": "X=19 · Y=1",
+          "date": "2026-07-06",
+          "source": "tes masques sont entierement noir et les 5 images de laharl sont juste un c…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "fix",
+          "text": "Okay, test VRAIMENT pas concluant. Je te laisses t'auto corriger. Mais la i…",
+          "ref": "X=20 · Y=1",
+          "date": "2026-07-06",
+          "source": "Okay, test VRAIMENT pas concluant. Je te laisses t'auto corriger. Mais la i…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Ben du coup tu as tort, j'ai demandé à chatgpt. Il m'a fait des claques de …",
+          "ref": "X=21 · Y=1",
+          "date": "2026-07-06",
+          "source": "Ben du coup tu as tort, j'ai demandé à chatgpt. Il m'a fait des claques de …",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "add",
+          "text": "Intègre ces essais dans le mini-jeu, ajoute un menu debug pour forcer un ca…",
+          "ref": "X=22 · Y=1",
+          "date": "2026-07-06",
+          "source": "Intègre ces essais dans le mini-jeu, ajoute un menu debug pour forcer un ca…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Pas bête de lancer un mini serveur test avec uniquement les mini jeux en co…",
+          "ref": "X=23 · Y=1",
+          "date": "2026-07-06",
+          "source": "Pas bête de lancer un mini serveur test avec uniquement les mini jeux en co…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Fait en sorte que le 5174 ne présente que ce qui est en cours de dév, une f…",
+          "ref": "X=24 · Y=1",
+          "date": "2026-07-06",
+          "source": "Fait en sorte que le 5174 ne présente que ce qui est en cours de dév, une f…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "mod",
+          "text": "Re modif sur le launcher. Pour les fenêtre Jeu complet et Lab mini jeu, cré…",
+          "ref": "X=25 · Y=1",
+          "date": "2026-07-06",
+          "source": "Re modif sur le launcher. Pour les fenêtre Jeu complet et Lab mini jeu, cré…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "add",
+          "text": "Il faut vraiment ajouter un troisième bloc distinct La ici si tu analyse to…",
+          "ref": "X=26 · Y=1",
+          "date": "2026-07-06",
+          "source": "Il faut vraiment ajouter un troisième bloc distinct La ici si tu analyse to…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Okay, pas mal, faire en sorte que dans la fenêtre Version & builds, tout s'…",
+          "ref": "X=27 · Y=1",
+          "date": "2026-07-06",
+          "source": "Okay, pas mal, faire en sorte que dans la fenêtre Version & builds, tout s'…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Faire en sorte que quand je clique sur Mettre à jour le lanceur, ça ne m'ou…",
+          "ref": "X=28 · Y=1",
+          "date": "2026-07-06",
+          "source": "Faire en sorte que quand je clique sur Mettre à jour le lanceur, ça ne m'ou…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Tu as pas compris, cette fenêtre (image) Tu la met à gauche et fait en sort…",
+          "ref": "X=29 · Y=1",
+          "date": "2026-07-06",
+          "source": "Tu as pas compris, cette fenêtre (image) Tu la met à gauche et fait en sort…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Readapter l'affichage pour faire en sorte que tout rentre sur un écran (exe…",
+          "ref": "X=30 · Y=1",
+          "date": "2026-07-06",
+          "source": "Readapter l'affichage pour faire en sorte que tout rentre sur un écran (exe…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Pour les tests de mini jeu J'ai fait une v2 C:\\Dev\\Project\\IDLE Isekai Chil…",
+          "ref": "X=31 · Y=1",
+          "date": "2026-07-06",
+          "source": "Pour les tests de mini jeu J'ai fait une v2 C:\\Dev\\Project\\IDLE Isekai Chil…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Mettre l'image en plein écran (ou laisser juste la place pour l'interface à…",
+          "ref": "X=32 · Y=1",
+          "date": "2026-07-06",
+          "source": "Mettre l'image en plein écran (ou laisser juste la place pour l'interface à…",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Okay, deux choses, pour une raison inconnue, le calque se superpose pas bie…",
+          "ref": "X=33 · Y=1",
+          "date": "2026-07-06",
+          "source": "Okay, deux choses, pour une raison inconnue, le calque se superpose pas bie…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Lab en erreur",
+          "ref": "X=34 · Y=1",
+          "date": "2026-07-06",
+          "source": "Lab en erreur",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "mod",
+          "text": "Ca marche pas. Actuellement, je modifie que le calque. Tu peux pas juste is…",
+          "ref": "X=35 · Y=1",
+          "date": "2026-07-06",
+          "source": "Ca marche pas. Actuellement, je modifie que le calque. Tu peux pas juste is…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Quand je clique sur les boutons, démarrer, redémarrer etc. dans le launcher…",
+          "ref": "X=36 · Y=1",
+          "date": "2026-07-06",
+          "source": "Quand je clique sur les boutons, démarrer, redémarrer etc. dans le launcher…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Permettre dans le launcher, de juste ferme le serveur de dev de base pour p…",
+          "ref": "X=37 · Y=1",
+          "date": "2026-07-06",
+          "source": "Permettre dans le launcher, de juste ferme le serveur de dev de base pour p…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "J'ia lancé le serveur dev et par défaut à lancé le jeu complet Sans me dema…",
+          "ref": "X=38 · Y=1",
+          "date": "2026-07-06",
+          "source": "J'ia lancé le serveur dev et par défaut à lancé le jeu complet Sans me dema…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Tu peux m'extraire toutes les infos dispo sur les compagnons et leurs perso…",
+          "ref": "X=39 · Y=1",
+          "date": "2026-07-06",
+          "source": "Tu peux m'extraire toutes les infos dispo sur les compagnons et leurs perso…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "add",
+          "text": "Fais moi juste un fichier à envoyer à chatgpt. Ajoute les deux compagnons m…",
+          "ref": "X=40 · Y=1",
+          "date": "2026-07-06",
+          "source": "Fais moi juste un fichier à envoyer à chatgpt. Ajoute les deux compagnons m…",
+          "category": "ux",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "text": "Pour le launcher. C'est bien. Tu as bien 'aplati' l'interface, par contre o…",
+          "ref": "X=41 · Y=1",
+          "date": "2026-07-06",
+          "source": "Pour le launcher. C'est bien. Tu as bien 'aplati' l'interface, par contre o…",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Pour cette fenêtre met build app au dessus et build lanceur en dessous",
+          "ref": "X=42 · Y=1",
+          "date": "2026-07-06",
+          "source": "Pour cette fenêtre met build app au dessus et build lanceur en dessous",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Les prompts x sont plus mis à jour. C'est normal?",
+          "ref": "X=43 · Y=1",
+          "date": "2026-07-06",
+          "source": "Les prompts x sont plus mis à jour. C'est normal?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Okay, met à jour tous les X et Y avec les logs que tu trouves",
+          "ref": "X=44 · Y=1",
+          "date": "2026-07-06",
+          "source": "Okay, met à jour tous les X et Y avec les logs que tu trouves",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Ou se situent les dictionnaires d'actions?",
+          "ref": "X=45 · Y=1",
+          "date": "2026-07-06",
+          "source": "Ou se situent les dictionnaires d'actions?",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "Ou se situent les dictionnaires d'actions déjà produits pour les essai link…",
+          "ref": "X=46 · Y=1",
+          "date": "2026-07-06",
+          "source": "Ou se situent les dictionnaires d'actions déjà produits pour les essai link…",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "info",
+          "text": "COMPANIONS_PERSONALITY_BRIEF_CHATGPT.md",
+          "ref": "X=629 · Y=1",
+          "date": "2026-07-06",
+          "source": "Brief personnalités compagnons pour ChatGPT",
+          "category": "contenu-modif",
+          "categoryLabel": "Modif contenu"
+        },
+        {
+          "type": "info",
+          "text": "dashboard.html",
+          "ref": "X=630 · Y=1",
+          "date": "2026-07-06",
+          "source": "Launcher — lisibilité dashboard aplati",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "launcher-version 1.2.42",
+          "ref": "X=630 · Y=2",
+          "date": "2026-07-06",
+          "source": "Launcher — lisibilité dashboard aplati",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "dashboard.html version-build-stack",
+          "ref": "X=631 · Y=1",
+          "date": "2026-07-06",
+          "source": "Build app / lanceur empilés verticalement",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "scripts/backfill-dev-log-from-transcripts.mjs",
+          "ref": "X=633 · Y=1",
+          "date": "2026-07-06",
+          "source": "Backfill DEV_LOG X/Y depuis transcripts",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "scripts/append-missing-dev-log-x.mjs + repair orphelins",
+          "ref": "X=633 · Y=2",
+          "date": "2026-07-06",
+          "source": "Backfill DEV_LOG X/Y depuis transcripts",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "DEV_LOG_2_2.md — ~330 X documentés, plages hook, note backfill",
+          "ref": "X=633 · Y=3",
+          "date": "2026-07-06",
+          "source": "Backfill DEV_LOG X/Y depuis transcripts",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Bump 2.2.0, reset UI, guide 07-kickoff, stubs .ai/, brief handoff",
+          "ref": "X=2 · Y=1",
+          "date": "2026-06-30",
+          "source": "Kickoff phase 2.2 + procédure agents",
+          "category": "ui",
+          "categoryLabel": "UI"
+        },
+        {
+          "type": "info",
+          "text": "Hook beforeSubmitPrompt, règle .cursor/rules/02-*, DEV_LOG ⚠️, HMR sans bump Y",
+          "ref": "X=4 · Y=1",
+          "date": "2026-07-01",
+          "source": "Versionnement auto (hook + règle + DEV_LOG)",
+          "category": "dev",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "info",
+          "text": "Warmup cache compagnons + probes parallèles",
+          "ref": "X=3 · Y=1",
+          "date": "2026-06-30",
+          "source": "Écran connexion + splash chargement + visuels IA",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "GameSessionGate, login, carousel, 5 PNG IA public/splash/",
+          "ref": "X=3 · Y=2",
+          "date": "2026-06-30",
+          "source": "Écran connexion + splash chargement + visuels IA",
+          "category": "assets",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "info",
+          "text": "Lot session : warmup, logout, refuge, Chantier du havre, kickoff docs",
+          "ref": "X=3 · Y=54",
+          "date": "2026-06-30",
+          "source": "Écran connexion + splash chargement + visuels IA",
+          "category": "minijeu",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "info",
+          "text": "…",
+          "source": "DEV_LOG",
+          "category": "meta",
+          "categoryLabel": "Meta / doc"
+        }
+      ],
+      "stats": {
+        "add": 27,
+        "mod": 17,
+        "del": 12,
+        "fix": 8,
+        "info": 234
+      },
+      "categoryStats": {
+        "dev": 39,
+        "parler": 18,
+        "meta": 119,
+        "ux": 35,
+        "minijeu": 41,
+        "infra": 1,
+        "contenu-modif": 7,
+        "assets": 9,
+        "contenu-plus": 3,
+        "ui": 25,
+        "event": 1
+      }
+    },
+    {
+      "ab": "2.1",
+      "semver": "2.1.0",
+      "title": "Release 2.1 — Ferme lunaire étendue",
+      "dateStart": "2026-06-30",
+      "dateEnd": "2026-06-30",
+      "status": "livrée",
+      "tag": "v2.1.0.0",
+      "summary": "Release majeure sur main — 15 biomes, corpus liens validé, validations release gate OK.",
+      "source": "VERSION-INDEX · project-state · HANDOFF_2_2",
+      "changes": [
+        {
+          "type": "add",
+          "category": "minijeu",
+          "text": "Ferme lunaire — 15 biomes, 45 filons, supervision, prestige",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "add",
+          "category": "parler",
+          "text": "19 compagnons · 190 conversations de lien (corpus ~7500 entrées)",
+          "categoryLabel": "Parler / dialogue"
+        },
+        {
+          "type": "add",
+          "category": "minijeu",
+          "text": "Myrions — capture, refuge / promenade, dressage, reproduction",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "add",
+          "category": "contenu-plus",
+          "text": "Hub mini-jeux, gacha, inventaire, quêtes, production passive",
+          "categoryLabel": "Contenu additionnel"
+        },
+        {
+          "type": "add",
+          "category": "dev",
+          "text": "Pipeline validation release — bonds, corpus, tnr:baseline, build",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "mod",
+          "category": "ux",
+          "text": "Terminologie harmonisée — Promenade Myrions, Ferme lunaire (MVP 20)",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "info",
+          "category": "infra",
+          "text": "Tag git v2.1.0.0 · merge PR #3 @ 8e50e13",
+          "categoryLabel": "Infra / repo"
+        }
+      ],
+      "current": false,
+      "stats": {
+        "add": 5,
+        "mod": 1,
+        "del": 0,
+        "fix": 0,
+        "info": 1
+      },
+      "categoryStats": {
+        "minijeu": 2,
+        "parler": 1,
+        "contenu-plus": 1,
+        "dev": 1,
+        "ux": 1,
+        "infra": 1
+      }
+    },
+    {
+      "ab": "2.0",
+      "semver": "2.0.0",
+      "title": "Assets 2.0 — architecture single-root",
+      "dateStart": "2026-06-25",
+      "dateEnd": "2026-06-26",
+      "status": "livrée",
+      "summary": "Migration assets runtime vers `assets/` unique, cold storage, TNR baseline.",
+      "source": "VERSION-INDEX · entries/2026-06-25",
+      "changes": [
+        {
+          "type": "add",
+          "category": "dev",
+          "text": "Plugin Vite `repo-assets` — pont assets/ → URLs runtime",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "add",
+          "category": "assets",
+          "text": "Arborescence cible Compagnons / Background / Myrions / Gacha / Prompts",
+          "categoryLabel": "Assets / visuel"
+        },
+        {
+          "type": "add",
+          "category": "infra",
+          "text": "Scripts migrate public → old_assets · inventaire manifest",
+          "categoryLabel": "Infra / repo"
+        },
+        {
+          "type": "mod",
+          "category": "ux",
+          "text": "Chantier MVP 3–4 — déblocages, toast récompenses, polish UX, minage",
+          "categoryLabel": "UX"
+        },
+        {
+          "type": "mod",
+          "category": "minijeu",
+          "text": "Myrion MVP 2 — 3 biomes, production passive, supervision",
+          "categoryLabel": "Mini-jeu / mode"
+        },
+        {
+          "type": "del",
+          "category": "infra",
+          "text": "Miroirs public/assets retirés — cold storage `old_assets/` documenté",
+          "categoryLabel": "Infra / repo"
+        },
+        {
+          "type": "info",
+          "category": "dev",
+          "text": "TNR baseline · validate:link-corpus · build OK post-migration",
+          "categoryLabel": "Dev / outillage & debug"
+        }
+      ],
+      "current": false,
+      "stats": {
+        "add": 3,
+        "mod": 2,
+        "del": 1,
+        "fix": 0,
+        "info": 1
+      },
+      "categoryStats": {
+        "dev": 2,
+        "assets": 1,
+        "infra": 2,
+        "ux": 1,
+        "minijeu": 1
+      }
+    },
+    {
+      "ab": "1.0",
+      "semver": "1.0.1",
+      "title": "Baseline pré-V2 — produit jouable",
+      "dateStart": "2026-06-24",
+      "dateEnd": "2026-06-25",
+      "status": "archive",
+      "summary": "Fondations idle / collection avant semver 2.x et refonte assets.",
+      "source": "VERSION-INDEX",
+      "changes": [
+        {
+          "type": "info",
+          "category": "contenu-plus",
+          "text": "Produit jouable navigateur — village, compagnons, mini-jeux core",
+          "categoryLabel": "Contenu additionnel"
+        },
+        {
+          "type": "add",
+          "category": "dev",
+          "text": "Guides agents + politique versionnement X/Y (format v1.0.1.43.xxx)",
+          "categoryLabel": "Dev / outillage & debug"
+        },
+        {
+          "type": "add",
+          "category": "meta",
+          "text": "Playbooks staging 07–11 · traçabilité docs/traceability/",
+          "categoryLabel": "Meta / doc"
+        },
+        {
+          "type": "mod",
+          "category": "assets",
+          "text": "Session dev Assets 2.0 / HMR — préparation migration 2.0",
+          "categoryLabel": "Assets / visuel"
+        }
+      ],
+      "current": false,
+      "stats": {
+        "add": 2,
+        "mod": 1,
+        "del": 0,
+        "fix": 0,
+        "info": 1
+      },
+      "categoryStats": {
+        "contenu-plus": 1,
+        "dev": 1,
+        "meta": 1,
+        "assets": 1
+      }
+    }
+  ],
+  "notes": [
+    "Versions A.B = semver major.minor (ex. 2.2 pour package 2.2.0).",
+    "Catégories = mêmes clés que l’onglet Backlog (UI, UX, QoL, dev, contenu…).",
+    "Phase 2.2 : détail auto depuis DEV_LOG (sections complètes, Y≥1).",
+    "Phases 2.1 / 2.0 / 1.0 : jalons curatés (VERSION-INDEX, project-state).",
+    "Prochaine itération : release-events.jsonl + CHANGELOG archivé old_v2.1."
+  ]
+}

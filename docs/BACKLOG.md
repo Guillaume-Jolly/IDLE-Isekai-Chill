@@ -3,14 +3,44 @@
 Liste informelle d'idées à explorer **plus tard**. Rien ici n'est planifié ni priorisé :
 on note pour ne pas oublier, on trie quand on voudra en faire une vraie feature.
 
+**Taxonomie (lanceur dev · onglet Backlog) :**
+
+| **Statut** (cycle de vie) | **Catégorie** (tri) |
+|---------------------------|---------------------|
+| idée · à affiner · actif · backlog · reporté · abandonné · done | UI · UX · Qualité de vie · Dev · Contenu additionnel · Modif contenu · Mini-jeu · Parler · Assets · Infra · Event · Meta |
+
+Chaque entrée : `**Statut :**` court + `**Catégorie :**` + notes libres (`**Note :**`, pitch, etc.).
+
 Pour le travail en cours et les tâches priorisées, voir aussi
 [`TODO_PRIORITIZED.md`](./TODO_PRIORITIZED.md).
 
 ---
 
+## QoL — backlog 2.2.2
+
+<!-- backlog-id: qol-purge-cursor-cache -->
+
+**Statut :** backlog  
+**Catégorie :** Qualité de vie / Dev  
+**Cible :** semver **2.2.2**  
+**Note :** `scripts/purge-cursor-cache.ps1` — purge cache Cursor locale. Indépendant du gameplay IDLE ; à intégrer au pipeline dev (npm script + doc).
+
+<!-- backlog-id: qol-link-corpus-clean-json -->
+
+**Statut :** backlog  
+**Catégorie :** Dev / Contenu  
+**Cible :** semver **2.2.2**  
+**Note :** `scripts/references/link-corpus/companion_link_conversations.v2.clean.json` — export corpus nettoyé ; outil qualité de vie, pas livrable jeu.
+
+---
+
 ## Dev — cache / chargement assets
 
-**Statut :** actif 2.2 — warmup splash + village + gacha + myrions + hub + compagnons (`gameWarmupPaths.ts`, `gameAssetWarmup.ts`)  
+<!-- backlog-id: dev-cache-chargement-assets -->
+
+**Note :** Phase 2.2 — warmup splash + village + gacha + myrions + hub + compagnons (`gameWarmupPaths.ts`, `gameAssetWarmup.ts`)
+**Catégorie :** Dev / technique
+**Statut :** actif
 **Contexte :** en local, les gros PNG (~800 Mo sous `assets/`) sont re-téléchargés à chaque changement d’onglet / page ; l’onglet Liens paraît vide longtemps (gradients seuls).
 
 **Objectif :** fluidifier les tests dev sans attendre un rebuild prod.
@@ -31,7 +61,11 @@ Pour le travail en cours et les tâches priorisées, voir aussi
 
 ## old_assets — déplacement hors repo
 
-**Statut :** idée (premier tri **en fin de nettoyage repo**, puis archivage disque)
+<!-- backlog-id: old-assets-deplacement-hors-repo -->
+
+**Note :** Premier tri en fin de nettoyage repo, puis archivage disque
+**Catégorie :** Infra / repo
+**Statut :** idée
 
 **Chemin cible (Guillaume) :** `D:\Isekai-slow-life\Archiive\Old_assets`
 
@@ -47,7 +81,11 @@ Pour le travail en cours et les tâches priorisées, voir aussi
 
 ## Parler — génération procédurale (linkCorpusV2)
 
-**Statut :** backlog — **très tardif** (après base curée stable pour **tous** les compagnons)
+<!-- backlog-id: parler-generation-procedurale-linkcorpusv2 -->
+
+**Note :** Très tardif — après base curée stable pour tous les compagnons
+**Catégorie :** Parler / dialogue
+**Statut :** backlog
 
 **Prérequis avant d’y toucher :**
 
@@ -63,15 +101,27 @@ Pour le travail en cours et les tâches priorisées, voir aussi
 
 ## Comment ajouter une entrée
 
-Copier le bloc modèle en bas de fichier, remplir, laisser le statut à `idée`.
+<!-- backlog-id: comment-ajouter-une-entree -->
+
+**Catégorie :** Meta / doc
+**Statut :** idée
+Copier le bloc modèle en bas de fichier, remplir **Statut** (court) + **Catégorie** (tri).
 
 ---
 
 ## Idées mini-jeux / modes de jeu
 
+<!-- backlog-id: idees-mini-jeux-modes-de-jeu -->**Catégorie :** Mini-jeu / mode
+**Statut :** idée
+
+---
+
 ### Top War–like — plateformes aléatoires
 
-**Statut :** idée  
+<!-- backlog-id: top-war-like-plateformes-aleatoires -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** Top War (exploration / choix de rencontres)
 
 **Pitch :** le joueur avance sur une plateforme. En avançant, il tombe au hasard
@@ -95,7 +145,10 @@ sur d'autres plateformes qui proposent soit une amélioration, soit un combat.
 
 ### Capybara Go–like — aventure RP
 
-**Statut :** idée  
+<!-- backlog-id: capybara-go-like-aventure-rp -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** Capybara Go (aventure narrative légère)
 
 **Pitch :** mode aventure **RP** : le joueur progresse dans une histoire avec
@@ -119,7 +172,10 @@ Ton cozy, sessions courtes, peu de punition.
 
 ### War Thunder–like — tir latéral + vagues + évolution
 
-**Statut :** idée  
+<!-- backlog-id: war-thunder-like-tir-lateral-vagues-evolution -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** War Thunder (action) + variante **évolution** (type idle evolution)
 
 **Pitch :** déplacement **gauche / droite**, tir **tout droit** (shoot'em up horizontal
@@ -152,6 +208,10 @@ payoff humoristique / cozy aligné avec le ton du jeu.
 
 ## Refuge — mini-jeux avec compagnons (Myrions)
 
+<!-- backlog-id: refuge-mini-jeux-avec-compagnons-myrions -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Contexte actuel :** le refuge (`farm-dressage`, Sora) propose déjà nourrir, câliner,
 jouer, observer — sans mini-jeu dédié ni présence visuelle du compagnon dans l'action.
 Idée : **jouer avec tes Myrions aux côtés d'un compagnon** (Sora en priorité, Talia
@@ -173,7 +233,10 @@ pour course/chasse, autres selon biome).
 
 ### Dressage — mini-jeux dédiés par Myrion
 
-**Statut :** idée  
+<!-- backlog-id: dressage-mini-jeux-dedies-par-myrion -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Contexte :** extension du refuge (`farm-dressage`) : certains Myrions (selon espèce,
 trait, rareté ou affection) débloquent un **mini-jeu spécifique** au lieu du simple
 bouton « Jouer ». Sora (ou le compagnon du bâtiment) introduit l'activité.
@@ -225,7 +288,10 @@ bouton « Jouer ». Sora (ou le compagnon du bâtiment) introduit l'activité.
 
 ### Mini-course — course de Chocobo
 
-**Statut :** idée  
+<!-- backlog-id: mini-course-course-de-chocobo -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** Final Fantasy (course de Chocobo), **Mario Kart** (boost, items, obstacles)  
 **Voir aussi :** [Dressage — mini-jeux dédiés par Myrion](#dressage--mini-jeux-dédiés-par-myrion)
 
@@ -251,7 +317,10 @@ encourage ou lâche un bonus (Talia, Sora).
 
 ### Combat — style criquet (WWM)
 
-**Statut :** idée  
+<!-- backlog-id: combat-style-criquet-wwm -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** *Where Winds Meet* (criquets), **Pokémon** (duel tour par tour, types)  
 **Voir aussi :** [Dressage — mini-jeux dédiés par Myrion](#dressage--mini-jeux-dédiés-par-myrion)
 
@@ -277,7 +346,10 @@ coache depuis le bord (Sora, Runa, Kael selon ton).
 
 ### Caresser — main fixe + animation
 
-**Statut :** idée  
+<!-- backlog-id: caresser-main-fixe-animation -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** **Nintendogs**, tamagotchi / Neko Atsume — interaction tactile douce  
 **Voir aussi :** [Dressage — mini-jeux dédiés par Myrion](#dressage--mini-jeux-dédiés-par-myrion)
 
@@ -305,9 +377,17 @@ Myrion chibi (ferme les yeux, penche la tête, queue, particules cœur).
 
 ## Modes de jeu / combat & auto
 
+<!-- backlog-id: modes-de-jeu-combat-auto -->**Catégorie :** Mini-jeu / mode
+**Statut :** idée
+
+---
+
 ### TFT — auto-battler Myrions / compagnons
 
-**Statut :** idée  
+<!-- backlog-id: tft-auto-battler-myrions-compagnons -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** Teamfight Tactics, auto-chess
 
 **Pitch :** mode **auto-battler** sur grille : placement avant le combat, puis
@@ -331,7 +411,10 @@ ou **les deux** — à trancher selon ce qui s'intègre le mieux au lore et aux 
 
 ### Raid boss — compagnons regroupés (style RPG)
 
-**Statut :** idée  
+<!-- backlog-id: raid-boss-compagnons-regroupes-style-rpg -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** RPG classique (party vs boss), raids mobile
 
 **Pitch :** le joueur **constitue un groupe de compagnons** (3–5) pour affronter
@@ -355,7 +438,10 @@ semi-auto ou tour par tour simplifié, focus sur la composition d'équipe et les
 
 ### Vampire Survivors–like
 
-**Statut :** idée  
+<!-- backlog-id: vampire-survivors-like -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** Vampire Survivors, Brotato
 
 **Pitch :** vue top-down ou isométrique, **déplacement auto ou joystick simple**,
@@ -379,9 +465,17 @@ Session 15–20 min, courbe de puissance satisfaisante, ton cozy malgré le chao
 
 ## Gestion & refuge étendu
 
+<!-- backlog-id: gestion-refuge-etendu -->**Catégorie :** Qualité de vie
+**Statut :** idée
+
+---
+
 ### Mini-jeux de gestion — zoo, auberge
 
-**Statut :** idée  
+<!-- backlog-id: mini-jeux-de-gestion-zoo-auberge -->
+
+**Catégorie :** Mini-jeu / mode
+**Statut :** idée
 **Inspiration :** gestion zoo / auberge (Theme Hospital, Two Point, inn management)
 
 **Pitch :** couche **gestion légère** en plus du refuge actuel : organiser
@@ -406,7 +500,10 @@ collecter → améliorer.
 
 ### Refuge — onglets Ferme, Mine, Donjon…
 
-**Statut :** idée  
+<!-- backlog-id: refuge-onglets-ferme-mine-donjon -->
+
+**Catégorie :** Contenu additionnel
+**Statut :** idée
 **Contexte :** aujourd'hui les Myrions errent dans l'enclos ; risque d'**ennui**
 si peu d'interactions. Idée : **plusieurs zones / onglets** dans le refuge où
 les Myrions peuvent **s'occuper** selon leur espèce, rareté ou trait.
@@ -438,9 +535,18 @@ animé), génèrent des bonus et ne « s'ennuient » plus si occupés.
 
 ## Event Disagrea — compagnons invités
 
+<!-- backlog-id: event-disagrea-compagnons-invites -->**Catégorie :** Event / invité
+**Statut :** idée
+
+---
+
 ### Pleinair — paliers affinité 2–5 (proximité enfant)
 
-**Statut :** idée — à traiter avant intégration jeu / regénération visuelle  
+<!-- backlog-id: pleinair-paliers-affinite-2-5-proximite-enfant -->
+
+**Note :** À traiter avant intégration jeu / regénération visuelle
+**Catégorie :** Assets / visuel
+**Statut :** idée
 **Contexte :** portraits L1–L5 validés en `assets/event-disagrea/integrated/` (pipeline scene-originale-v1). Etna, Flonne, Laharl OK en arc intimité adulte soft.
 
 **Problème :** Pleinair est une **enfant**. Les paliers 2–5 actuels (chambre intime, poses « peak bond ») ne conviennent pas — trop proches d’une intimité adulte.
@@ -458,7 +564,11 @@ animé), génèrent des bonus et ne « s'ennuient » plus si occupés.
 
 ### Skinline Premium — skins intimes cachés (v4)
 
-**Statut :** assets prêts — intégration jeu à planifier  
+<!-- backlog-id: skinline-premium-skins-intimes-caches-v4 -->
+
+**Note :** Assets prêts — intégration jeu à planifier
+**Catégorie :** Contenu additionnel
+**Statut :** backlog
 **Répertoire :** [`staging/skinline-premium/`](../staging/skinline-premium/)  
 **Catalogue :** [`staging/skinline-premium/MANIFEST.json`](../staging/skinline-premium/MANIFEST.json)  
 **Candidats affinité (v1–v3) :** [`intime-bed-batch/AFFINITY_REPLACEMENT.md`](../staging/companion-visual-pack/intime-bed-batch/AFFINITY_REPLACEMENT.md)
@@ -484,8 +594,15 @@ animé), génèrent des bonus et ne « s'ennuient » plus si occupés.
 
 ## Autres idées (template)
 
+<!-- backlog-id: autres-idees-template -->
+
 <!--
+
+---
+
 ### [Titre court]
+
+<!-- backlog-id: titre-court -->
 
 **Statut :** idée | à affiner | maybe | abandonné
 **Inspiration :** …
@@ -501,10 +618,18 @@ animé), génèrent des bonus et ne « s'ennuient » plus si occupés.
 
 ## Modèle pour nouvelle entrée
 
+<!-- backlog-id: modele-pour-nouvelle-entree -->
+
 ```markdown
+
+---
+
 ### [Titre]
 
+<!-- backlog-id: titre -->
+
 **Statut :** idée
+**Catégorie :** Contenu additionnel
 **Inspiration :** …
 
 **Pitch :** …

@@ -6,6 +6,10 @@ Trace **ultra-détaillée** : une entrée par micro-modification significative, 
 
 **Log phase 2.2 (résumé + commits atomiques) :** [`DEV_LOG_2_2.md`](./DEV_LOG_2_2.md)
 
+**Clôture phase 2.2 :** [`CHANGELOG_2_2.md`](./CHANGELOG_2_2.md)
+
+**Kickoff patch 2.2.1 :** [`CHANGELOG_2_2_1.md`](./CHANGELOG_2_2_1.md)
+
 - Sections `⚠️` injectées par hook / `version:prompt`
 - **1 ligne Y** dans DEV_LOG ≈ **1 commit atomique** possible en relisant le journal
 
@@ -46,6 +50,8 @@ Trace **ultra-détaillée** : une entrée par micro-modification significative, 
 ```
 docs/traceability/changelog/
   README.md           ← ce fichier
+  CHANGELOG_2_2.md    ← clôture phase 2.2 (état des lieux)
+  CHANGELOG_2_2_1.md  ← kickoff patch 2.2.1
   DEV_LOG_2_2.md      ← résumé X/Y + guide commits atomiques
   VERSION-INDEX.md    ← table des matières par version
   entries/

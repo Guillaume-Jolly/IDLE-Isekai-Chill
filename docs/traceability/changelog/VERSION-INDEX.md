@@ -19,8 +19,10 @@ Résumé **haut niveau** par version ou fin de session. Détail micro → `entri
 
 | Semver | Date | Intérêt |
 |--------|------|---------|
+| **2.2.0** | 2026-07-08 | **Phase 2.2 clôturée** — inventaire Guillaume · [`CHANGELOG_2_2.md`](./CHANGELOG_2_2.md) |
+| **2.2.1** | 2026-07-08 | **Kickoff patch** — cutouts roue, archive annulés, reset X/Y · [`CHANGELOG_2_2_1.md`](./CHANGELOG_2_2_1.md) |
 | **2.1.0** | 2026-06-30 | **Release Ferme lunaire étendue** — tag git `v2.1.0.0` |
 | **2.0.0** | 2026-06-25 | **Assets 2.0** — architecture single-root, cold storage, TNR baseline |
 | 1.0.1 | baseline | Produit jouable pre-V2 main |
 
-*Prochain MINOR : **2.2.0** — branche `feature/2.2`, retouches libres (voir `HANDOFF_2_2_AGENT_BRIEF.md`).*
+*Phase 2.2 active sur `feature/2.2` — clôture documentée 2026-07-08 ; prochain bump **C** → `2.2.1`.*

@@ -1,21 +1,21 @@
 # État du projet — IDLE Isekai Chill (Havre des Brumes)
 
-> **Source de vérité courante** — mise à jour : 2026-07-01  
-> Documents historiques archivés : [`old_v2.1/docs_wip/docs-finished-2.1/`](../old_v2.1/docs_wip/docs-finished-2.1/PROJECT_STATE.md) (audit 2026-06-22).
+> **Source de vérité courante** — mise à jour : 2026-07-08  
+> **Clôture 2.2.0 :** [`changelog/CHANGELOG_2_2.md`](./changelog/CHANGELOG_2_2.md) · **Kickoff 2.2.1 :** [`changelog/CHANGELOG_2_2_1.md`](./changelog/CHANGELOG_2_2_1.md)
 
 ## Résumé
 
-Jeu idle / collection cozy fantasy, jouable navigateur. **Release 2.1.0.0 livrée** sur `main` (tag `v2.1.0.0`). **Phase 2.2 active** sur `feature/2.2` — retouches libres, nettoyage non destructif.
+Jeu idle / collection cozy fantasy, jouable navigateur. **Release 2.1.0.0 livrée** sur `main`. **Phase 2.2.0 clôturée** (inventaire 2026-07-08) — **patch 2.2.1** en préparation sur `feature/2.2`.
 
 | Élément | État |
 |---------|------|
 | Branche prod | `main` @ `b91b6fb` |
-| Branche dev | `feature/2.2` — kickoff fait 2026-06-30 |
-| Semver npm | `2.2.0` (branche feature) |
-| Label UI | `v2.2.0.{X}` — hook Cursor auto-bump X |
+| Branche dev | `feature/2.2` |
+| Semver npm | `2.2.0` → **`2.2.1`** au prochain push C |
+| Label UI | `v2.2.0.704` — **reset X/Y recommandé** au kickoff 2.2.1 |
 | Build | **OK** (`npm run build`) |
 | Lint global | **KO** (~33 préexistants, non bloquant) |
-| Tests auto | Aucun framework ; `tnr:baseline` + smoke manuel |
+| Tests auto | `audit:dev-log-coverage`, validateurs domaine, smoke manuel |
 | Sauvegarde | `localStorage` — migrations versionnées |
 
 ## Stack
@@ -74,10 +74,21 @@ Format : `v{semver}.{X}` ou `v{semver}.{X}.{Y}` — voir [`docs/agent-guide/05-p
 
 ## Archives & règles dures
 
-- **Aucune suppression définitive** — déplacer vers `old_assets/` ou `old_v2.1/`
+- **Aucune suppression définitive** — déplacer vers `old_2_2/old_2_2_1/` (annulé + mini jeu lien), `old_assets/`, `old_v2.1/`
+- Manifeste moves : [`docs/CLEANUP_2_2_1_MANIFEST.md`](../CLEANUP_2_2_1_MANIFEST.md)
 - Pas de modification assets sans demande explicite Guillaume
 - Pas de push `main` / merge sans go explicite
 - Décideur : **Guillaume**
+
+## Phase 2.2 — statut lots (2026-07-08)
+
+| Statut | Lots principaux |
+|--------|-----------------|
+| **Terminé** | Lanceur + lab `:5174`, Roue du Destin (hors cutouts), Parler Lyra aff.5 validateurs auto, hooks X/Y, retouches hub/mini-jeux |
+| **À compléter (staging)** | Smoke in-game Parler Lyra aff.5 |
+| **Entamé (2.2.1)** | Crash cutouts Roue · Color Toon lab (`staging/mini jeu/color 2/`) |
+| **Annulé → `old_2_2/old_2_2_1/`** | Corpus Parler V2 ChatGPT · Maeve/Runa · Lyra aff.3 essai |
+| **Delayé** | Warm-up gacha/village/SW, merge main, CI Parler strict |
 
 ## Wording onboarding — harmonisé (2026-07-01)
 

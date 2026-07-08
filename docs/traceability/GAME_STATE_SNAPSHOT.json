@@ -1,0 +1,3552 @@
+{
+  "ok": true,
+  "readAt": "2026-07-07T08:46:39.084Z",
+  "maturityLabels": {
+    "shipped": "Terminées",
+    "started": "Commencées",
+    "planned": "Envisagées"
+  },
+  "categories": [
+    {
+      "id": "ui",
+      "label": "UI"
+    },
+    {
+      "id": "ux",
+      "label": "UX"
+    },
+    {
+      "id": "qol",
+      "label": "Qualité de vie"
+    },
+    {
+      "id": "dev",
+      "label": "Dev / outillage & debug"
+    },
+    {
+      "id": "contenu-plus",
+      "label": "Contenu additionnel"
+    },
+    {
+      "id": "contenu-modif",
+      "label": "Modif contenu"
+    },
+    {
+      "id": "minijeu",
+      "label": "Mini-jeu / mode"
+    },
+    {
+      "id": "parler",
+      "label": "Parler / dialogue"
+    },
+    {
+      "id": "assets",
+      "label": "Assets / visuel"
+    },
+    {
+      "id": "infra",
+      "label": "Infra / repo"
+    },
+    {
+      "id": "event",
+      "label": "Event / invité"
+    },
+    {
+      "id": "meta",
+      "label": "Meta / doc"
+    }
+  ],
+  "maturityTotals": {
+    "shipped": 133,
+    "started": 1,
+    "planned": 22
+  },
+  "categoryTotals": {
+    "minijeu": 35,
+    "parler": 20,
+    "contenu-plus": 9,
+    "ux": 40,
+    "qol": 2,
+    "assets": 10,
+    "dev": 3,
+    "contenu-modif": 8,
+    "ui": 25,
+    "event": 2,
+    "infra": 1,
+    "meta": 1
+  },
+  "featureCount": 156,
+  "tiers": {
+    "shipped": [
+      {
+        "category": "ui",
+        "categoryLabel": "UI",
+        "items": [
+          {
+            "id": "devlog-x157",
+            "title": "Le mode dark doit toucher toutes les interfaces. Pas que le menu",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=157",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x159",
+            "title": "Dans l'onglet lien ne pas afficher les discussions par défaut",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=159",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x198",
+            "title": "Pour le A du coup c'est toi qui demande si tu part sur la procédure de MEP …",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=198",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x199",
+            "title": "Oui, et rajoute toutes les consignes autour des B et C habituel (les mise a…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=199",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x201",
+            "title": "Ah oui, très important, jamais de suppression définitive, que des mov dans …",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=201",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x210",
+            "title": "La roulette dois prendre tout l'écran en hauteur (ou presque, juste respect…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=210",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x211",
+            "title": "Dans un mini jeu, si il doit y avoir des onglets, menus, tout ça, toujours …",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=211",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x220",
+            "title": "Fusion onglets Repère + Roue",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=220",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x233",
+            "title": "Roue : case en cours hors menu + animations rareté v1",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=233",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x237",
+            "title": "Onglet repère, note l'historique de tirage avec le dernier le plus en haut …",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=237",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x243",
+            "title": "Zone safe scène : menu ouvert + cutouts non clippés",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=243",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x246",
+            "title": "Layout roue : safe gauche + bulles couloir",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=246",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x254",
+            "title": "Dusionne onglet repère et onglet roue, Onglet roue la base, avec la possibi…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=254",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x255",
+            "title": "Havre : modes, jokers, archives, fiche layout",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=255",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x284",
+            "title": "Calibrateur UI roue Disgaea (première version)",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=284",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x291",
+            "title": "Ce qui a changé chez nous Avant Après Sample clean Sample tick-soft Rapide …",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=291",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x292",
+            "title": "Intégration layout user JSON (prod)",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "3 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=292",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x306",
+            "title": "Enlève les anciennes animations CSS (avant que je t'envoi le fichier zip)",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=306",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x309",
+            "title": "DEFAULT layout scène (case en cours)",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=309",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x324",
+            "title": "Il y a un petit saut à la fin qui fait pas naturel, ça reviens en arrière q…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=324",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x10",
+            "title": "Ajoute un second lot le plus exhaustif possible (fait des clés qui contienn…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=10",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x14",
+            "title": "Oui ajoute ce qui pourrais manquer avec desz clés compréhensible mais pas e…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=14",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x24",
+            "title": "Fait en sorte que le 5174 ne présente que ce qui est en cours de dév, une f…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=24",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x30",
+            "title": "Readapter l'affichage pour faire en sorte que tout rentre sur un écran (exe…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=30",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x32",
+            "title": "Mettre l'image en plein écran (ou laisser juste la place pour l'interface à…",
+            "category": "ui",
+            "categoryLabel": "UI",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=32",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "ux",
+        "categoryLabel": "UX",
+        "items": [
+          {
+            "id": "wording-hub",
+            "title": "Terminologie hub harmonisée",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "Chantier du havre, Chasse aux Myrions, Refuge des Myrions, Bâtiments du havre.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.2"
+          },
+          {
+            "id": "tutorial-onboarding",
+            "title": "Tutorial & objectifs guidés",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "Étapes déblocage, récompenses, navigation contextuelle.",
+            "maturity": "shipped",
+            "source": "tutorialObjectives",
+            "since": "2.1"
+          },
+          {
+            "id": "next-step-guidance",
+            "title": "Guide prochaine étape",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "Suggestion gameplay + conseil compagnon.",
+            "maturity": "shipped",
+            "source": "App.tsx",
+            "since": "2.1"
+          },
+          {
+            "id": "save-migrations",
+            "title": "Sauvegarde localStorage migrée",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "Migrations versionnées, compatibilité inter-versions.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "devlog-x113",
+            "title": "Questions ouvertes (prochain tour) FM3 → fail ? Des paires H/F entre 0,85 e…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=113",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x120",
+            "title": "Pour aller plus loin (si tu veux) FM-NQ5 par pack : règles métier comme S53…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=120",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x128",
+            "title": "Tu peux faire une vrai animation de roue sur l'écran (avec visuellement le …",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=128",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x129",
+            "title": "La roue en plus grand, je veux pouvoir lire les categories sur le camembert…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=129",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x131",
+            "title": "Okay, il y a des travaux en cours et non finis?",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=131",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x136",
+            "title": "Question, tu sais faire des voix IA très réaliste? Pour essayer d'incarner …",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=136",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x152",
+            "title": "Tu peux me créer un executable qui lance le serveur de dév et m'ouvre la pa…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=152",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x156",
+            "title": "Pour le jeu dans les paramètres, fait un mode 'lumineux' et un mode 'dark'",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=156",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x158",
+            "title": "Dans les minis jeux, fait une rubrique Nouveaux mini jeux (avec les 4 mini …",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=158",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x160",
+            "title": "J'ai ces warnings. Tu peux faire en sorte qu'ils n'apparaissent plus?",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=160",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x163",
+            "title": "Dans les logs serveurs tu peux afficher quand un update version est captée?…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=163",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x164",
+            "title": "Pour les quêtes. Je veux avoir 10 quêtes par jour (cumulables sur 10 jours)…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=164",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x170",
+            "title": "Tu peux me relire vite fait la politique de gestion des versions?",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=170",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x174",
+            "title": "En sachant qu'un truc pratique c'est qu'apèrs tu peux faire des commits ato…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=174",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x175",
+            "title": "Tu peux relire et mettre à jour tous les docs qui se référent à ça?",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=175",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x178",
+            "title": "Tu peux me faire un prompt pour m'expliquer en détail comment tu gères la p…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=178",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x180",
+            "title": "Automatise les deux et je redémarre",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=180",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x189",
+            "title": "Possible que les versions des deux projets se mélangent?",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=189",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x204",
+            "title": "Pour intialiser un projet REFERENCE? Tu veux que je le fasse? Ou tu peux le…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=204",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x207",
+            "title": "Je vois pas le projet.repo dans github",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=207",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x208",
+            "title": "https://github.com/Guillaume-Jolly/REFERENCE",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=208",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x218",
+            "title": "SFX roue : knife flick synchronisé aux cases",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=218",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x259",
+            "title": "Pour l'ecriture tu peux pas aller plus au centre de la roue? Si besoin pour…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=259",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x277",
+            "title": "Okay, la case en cours tu peux l'afficher en haut à auche (la ou j'ai cercl…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=277",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x281",
+            "title": "Intègre les nouveaux clic que je t'ai envoyé, pas l'ancien qui était pas pr…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=281",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x288",
+            "title": "Comme pour les autres mini jeux, les compagnons qui sont présents de manièr…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=288",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x308",
+            "title": "Les cases de dialogues tu peux les mettre sur le moins de lignes possible, …",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=308",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x315",
+            "title": "Je ne vois pas les deux roues. Une roue havre et une roue disagea",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=315",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x317",
+            "title": "Détourage roue Havre (cadre + hub)",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=317",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x321",
+            "title": "Tu peux simuler un truc qu'il y a sur les vraies roues? (chaque bord il y a…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=321",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x9",
+            "title": "Je pensais aux mots comme sodomie, enculer, sodomiser, faciale, deepthroat,…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=9",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x23",
+            "title": "Pas bête de lancer un mini serveur test avec uniquement les mini jeux en co…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=23",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x33",
+            "title": "Okay, deux choses, pour une raison inconnue, le calque se superpose pas bie…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=33",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x35",
+            "title": "Ca marche pas. Actuellement, je modifie que le calque. Tu peux pas juste is…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=35",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x39",
+            "title": "Tu peux m'extraire toutes les infos dispo sur les compagnons et leurs perso…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=39",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x40",
+            "title": "Fais moi juste un fichier à envoyer à chatgpt. Ajoute les deux compagnons m…",
+            "category": "ux",
+            "categoryLabel": "UX",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=40",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "qol",
+        "categoryLabel": "Qualité de vie",
+        "items": [
+          {
+            "id": "asset-warmup",
+            "title": "Préchargement assets (warmup)",
+            "category": "qol",
+            "categoryLabel": "Qualité de vie",
+            "summary": "Splash + village + gacha + myrions + hub + compagnons.",
+            "maturity": "shipped",
+            "source": "gameWarmupPaths",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "dev",
+        "categoryLabel": "Dev / outillage & debug",
+        "items": [
+          {
+            "id": "validate-pipeline",
+            "title": "Pipeline validation release",
+            "category": "dev",
+            "categoryLabel": "Dev / outillage & debug",
+            "summary": "bonds, link-corpus, tnr:baseline, build.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "versionnement-xy",
+            "title": "Versionnement UI X/Y",
+            "category": "dev",
+            "categoryLabel": "Dev / outillage & debug",
+            "summary": "Hooks Cursor, DEV_LOG, build-revision.",
+            "maturity": "shipped",
+            "source": "agent-guide",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "contenu-plus",
+        "categoryLabel": "Contenu additionnel",
+        "items": [
+          {
+            "id": "inventaire",
+            "title": "Inventaire & ressources",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "12 ressources, stock, coûts bâtiments et récompenses.",
+            "maturity": "shipped",
+            "source": "App.tsx",
+            "since": "2.1"
+          },
+          {
+            "id": "quetes",
+            "title": "Quêtes & objectifs infinis",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "Tableau de quêtes, tutorial, guide prochaine étape.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "production-passive",
+            "title": "Production passive & offline",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "Gain hors ligne plafonné, tick village.",
+            "maturity": "shipped",
+            "source": "App.tsx",
+            "since": "2.1"
+          },
+          {
+            "id": "companions-collection",
+            "title": "Collection compagnons",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "Affinité, stats, portraits, bonds.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "devlog-x143",
+            "title": "Dans les paramètres, donner l'option se deconnecter tout simplement pour te…",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=143",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x269",
+            "title": "De nouveau un chevauchement, écris quelque chose pour éviter ça definitivement",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=269",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x314",
+            "title": "Ajoute ça Pas encore implémenté : modes Hardcore / Auto-Roll / Artiste, jok…",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=314",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "contenu-modif",
+        "categoryLabel": "Modif contenu",
+        "items": [
+          {
+            "id": "devlog-x134",
+            "title": "2. Modifications locales non commitées (5 fichiers) Diff non stagé (~155 li…",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=134",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x181",
+            "title": "Refait le prompt pour l'autre agent pour qu'il applique la même modif",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=181",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x230",
+            "title": "Roue : refonte libellés + compagnons / punchline",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=230",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x267",
+            "title": "Les compagnons sont toujours hors du cadres et Laharl à gauche disparait so…",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=267",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x273",
+            "title": "Les compagnons sont toujours hors du cadre et trop petit, on vois quasiment…",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=273",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x290",
+            "title": "Case en cours, et les compagnons sont toujours un peu cut sur les bords, l'…",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=290",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x11",
+            "title": "Essaye de relire modifier les cles lot 1 aussi, ça risque de bloquer",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=11",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x629",
+            "title": "Brief personnalités compagnons pour ChatGPT",
+            "category": "contenu-modif",
+            "categoryLabel": "Modif contenu",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=629",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "minijeu",
+        "categoryLabel": "Mini-jeu / mode",
+        "items": [
+          {
+            "id": "village-panorama",
+            "title": "Village panorama & bâtiments",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "8+ bâtiments, production passive, améliorations par stade.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "hub-minijeux",
+            "title": "Hub mini-jeux",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Accès central aux activités par bâtiment et compagnon.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "farm-worksite",
+            "title": "Chantier du havre",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Mini-jeu worksite — progression ressources village.",
+            "maturity": "shipped",
+            "source": "buildingActivities",
+            "since": "2.1"
+          },
+          {
+            "id": "farm-capture",
+            "title": "Chasse aux Myrions",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Capture de Myrions en exploration.",
+            "maturity": "shipped",
+            "source": "buildingActivities",
+            "since": "2.1"
+          },
+          {
+            "id": "farm-dressage",
+            "title": "Refuge des Myrions (dressage)",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Dressage et soin des Myrions capturés.",
+            "maturity": "shipped",
+            "source": "buildingActivities",
+            "since": "2.1"
+          },
+          {
+            "id": "ferme-lunaire",
+            "title": "Ferme lunaire",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "15 biomes, 45 filons, supervision, prestige.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "myrions-refuge-promenade",
+            "title": "Promenade Myrions",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Refuge, reproduction, gestion du parc Myrions.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "gacha",
+            "title": "Gacha compagnons & récompenses",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Tirages, ouverture animée, tickets et cadeaux.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "destiny-wheel",
+            "title": "Roue du destin (Disagrea)",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Mini-jeu event — roue et récompenses spéciales.",
+            "maturity": "shipped",
+            "source": "buildingActivities",
+            "since": "2.1"
+          },
+          {
+            "id": "legacy-minigames",
+            "title": "Mini-jeux legacy par bâtiment",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Service express, jardin TD, atelier, bibliothèque, théâtre… (~20 activités).",
+            "maturity": "shipped",
+            "source": "buildingActivities",
+            "since": "2.1"
+          },
+          {
+            "id": "devlog-x126",
+            "title": "Tu crées/intègres un nouveau mini-jeu. Lis docs/HANDOFF_NEW_MINIGAME_CO.md …",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=126",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x127",
+            "title": "Tu vas intégrer un nouveau mini-jeu dans le projet Havre des Brumes / IDLE …",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=127",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x140",
+            "title": "Pas fait (volontairement) Warm-up myrions / gacha / village (prochaine étap…",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=140",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x141",
+            "title": "Tu peux passer à ça Pas fait (volontairement) Warm-up myrions / gacha / vil…",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=141",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x142",
+            "title": "Ptite modif intermédiaire, dans le mini jeu de gardiennage de myrions, les …",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=142",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x209",
+            "title": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\1f942ce1cd…",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=209",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x226",
+            "title": "Roue du Destin : compagnons dans le cadre",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=226",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x231",
+            "title": "Roue du Destin : packs SFX tick + révélation rareté",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=231",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x245",
+            "title": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\freesound_…",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=245",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x275",
+            "title": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\rarity_rev…",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=275",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x295",
+            "title": "Écran final Roue du Destin (fiche compacte)",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "10 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=295",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "parler",
+        "categoryLabel": "Parler / dialogue",
+        "items": [
+          {
+            "id": "parler-hub",
+            "title": "Parler — hub village",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "Échanges à choix, affinité, récompenses cadeaux / mana / stardust.",
+            "maturity": "shipped",
+            "source": "buildingActivities",
+            "since": "2.1"
+          },
+          {
+            "id": "parler-19-compagnons",
+            "title": "19 compagnons · 190 liens",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "Corpus validé ~7500 entrées, 5 paliers affinité.",
+            "maturity": "shipped",
+            "source": "project-state",
+            "since": "2.1"
+          },
+          {
+            "id": "parler-curated-mode",
+            "title": "Parler curé (CURATED_PARLER_ONLY)",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "Dialogues JSON curés — pas de génération procédurale en prod.",
+            "maturity": "shipped",
+            "source": "curatedCorpus",
+            "since": "2.1"
+          },
+          {
+            "id": "parler-lyra-aff5",
+            "title": "Lyra — corpus curé aff. 1–5",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "Modèle de référence Parler phase 2.2.",
+            "maturity": "shipped",
+            "source": "link-corpus",
+            "since": "2.2"
+          },
+          {
+            "id": "parler-maeve-aff5",
+            "title": "Maeve — corpus curé aff. 1–5",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "Corpus Havre Parler validé (MC + female MC).",
+            "maturity": "shipped",
+            "source": "link-corpus",
+            "since": "2.2"
+          },
+          {
+            "id": "parler-runa-aff5",
+            "title": "Runa — corpus curé aff. 1–5",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "Corpus Havre Parler validé (MC + female MC).",
+            "maturity": "shipped",
+            "source": "link-corpus",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x53",
+            "title": "Wording onboarding + relecture corpus Lien",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "3 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=53",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x110",
+            "title": "1. Piste B — Parler curé aff. 5 (suite du travail en cours) Fichier : docs/…",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=110",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x116",
+            "title": "Toujours non commité (autres lots) : UI Parler / ConversationGame, curatedC…",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=116",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x117",
+            "title": "Okay. Alors faisons un checkup de aff5. Tu as d'autres retours?",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=117",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x167",
+            "title": "Passe en tache de fond je doit m'absenter 1h et quelques, relectures, netto…",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=167",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x168",
+            "title": "Si tu t'ennuies, commence à relire les conversations petit bloc par petit b…",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=168",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x169",
+            "title": "Continue la relecture. Numéro de commit correctement bien mis à jour?",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=169",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x183",
+            "title": "Handoff piste B Parler curé aff. 5",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=183",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x186",
+            "title": "Validateurs avancés Parler aff. 5 (S50–S55, FM*, LQ6)",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "4 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=186",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x330",
+            "title": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=330",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x331",
+            "title": "Je précise ON SEN BAT LES COUILLES DU MERGE. Arretez de parler de merge de …",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=331",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x332",
+            "title": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=332",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x12",
+            "title": "Okay. Fait une petite relecture et dis moi si tu vois encore des choses à f…",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=12",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "assets",
+        "categoryLabel": "Assets / visuel",
+        "items": [
+          {
+            "id": "assets-2-root",
+            "title": "Assets 2.0 — single root",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "Arborescence assets/ unique, plugin Vite repo-assets.",
+            "maturity": "shipped",
+            "source": "VERSION-INDEX",
+            "since": "2.0"
+          },
+          {
+            "id": "companion-portraits",
+            "title": "Portraits compagnons & backgrounds",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "Compagnons, backgrounds mini-jeux, gacha, village.",
+            "maturity": "shipped",
+            "source": "assets/",
+            "since": "2.1"
+          },
+          {
+            "id": "devlog-x150",
+            "title": "Les background du mini jeu sont toujours en plein écran (voir pour recaler …",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=150",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x244",
+            "title": "Ticks début de spin : warmup + soft/clean tiered",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=244",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x272",
+            "title": "Assets UI roue Disgaea (pack validé)",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=272",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x274",
+            "title": "Calibration assets roue Disgaea (in-game)",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=274",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x316",
+            "title": "Visuels roue Havre (assets PNG + calibration)",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=316",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x322",
+            "title": "Pack assets Havre complet (modèle Disgaea)",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "1 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=322",
+            "since": "2.2"
+          },
+          {
+            "id": "devlog-x3",
+            "title": "Écran connexion + splash chargement + visuels IA",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "3 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=3",
+            "since": "2.2"
+          }
+        ]
+      },
+      {
+        "category": "event",
+        "categoryLabel": "Event / invité",
+        "items": [
+          {
+            "id": "devlog-x205",
+            "title": "Mini-jeu Roue du Destin (Disagrea seed JSON)",
+            "category": "event",
+            "categoryLabel": "Event / invité",
+            "summary": "2 livrable(s) DEV_LOG",
+            "maturity": "shipped",
+            "source": "DEV_LOG",
+            "ref": "X=205",
+            "since": "2.2"
+          }
+        ]
+      }
+    ],
+    "started": [
+      {
+        "category": "dev",
+        "categoryLabel": "Dev / outillage & debug",
+        "items": [
+          {
+            "id": "backlog-dev-cache-chargement-assets",
+            "title": "Dev — cache / chargement assets",
+            "category": "dev",
+            "categoryLabel": "Dev / outillage & debug",
+            "summary": "Phase 2.2 — warmup splash + village + gacha + myrions + hub + compagnons (`gameWarmupPaths.ts`, `gameAssetWarmup.ts`)",
+            "note": "Phase 2.2 — warmup splash + village + gacha + myrions + hub + compagnons (`gameWarmupPaths.ts`, `gameAssetWarmup.ts`)",
+            "maturity": "started",
+            "source": "BACKLOG.md",
+            "status": "actif"
+          }
+        ]
+      }
+    ],
+    "planned": [
+      {
+        "category": "qol",
+        "categoryLabel": "Qualité de vie",
+        "items": [
+          {
+            "id": "backlog-gestion-refuge-etendu",
+            "title": "Gestion & refuge étendu",
+            "category": "qol",
+            "categoryLabel": "Qualité de vie",
+            "summary": "Catégorie : Qualité de vie Statut : idée",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          }
+        ]
+      },
+      {
+        "category": "contenu-plus",
+        "categoryLabel": "Contenu additionnel",
+        "items": [
+          {
+            "id": "backlog-refuge-onglets-ferme-mine-donjon",
+            "title": "Refuge — onglets Ferme, Mine, Donjon…",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "Catégorie : Contenu additionnel Statut : idée Contexte : aujourd'hui les Myrions errent dans l'enclos ; risque d'ennui si peu d'interactions. Idée : plusieurs z…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-skinline-premium-skins-intimes-caches-v4",
+            "title": "Skinline Premium — skins intimes cachés (v4)",
+            "category": "contenu-plus",
+            "categoryLabel": "Contenu additionnel",
+            "summary": "Assets prêts — intégration jeu à planifier",
+            "note": "Assets prêts — intégration jeu à planifier",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "backlog"
+          }
+        ]
+      },
+      {
+        "category": "minijeu",
+        "categoryLabel": "Mini-jeu / mode",
+        "items": [
+          {
+            "id": "backlog-idees-mini-jeux-modes-de-jeu",
+            "title": "Idées mini-jeux / modes de jeu",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-top-war-like-plateformes-aleatoires",
+            "title": "Top War–like — plateformes aléatoires",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Top War (exploration / choix de rencontres) Pitch : le joueur avance sur une plateforme. En avançant, il…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-capybara-go-like-aventure-rp",
+            "title": "Capybara Go–like — aventure RP",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Capybara Go (aventure narrative légère) Pitch : mode aventure RP : le joueur progresse dans une histoire…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-war-thunder-like-tir-lateral-vagues-evolution",
+            "title": "War Thunder–like — tir latéral + vagues + évolution",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : War Thunder (action) + variante évolution (type idle evolution) Pitch : déplacement gauche / droite, tir…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-refuge-mini-jeux-avec-compagnons-myrions",
+            "title": "Refuge — mini-jeux avec compagnons (Myrions)",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Contexte actuel : le refuge (`farm-dressage`, Sora) propose déjà nourrir, câliner, jouer, observer — sans mini-jeu déd…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-dressage-mini-jeux-dedies-par-myrion",
+            "title": "Dressage — mini-jeux dédiés par Myrion",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Contexte : extension du refuge (`farm-dressage`) : certains Myrions (selon espèce, trait, rareté ou affection) débloqu…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-mini-course-course-de-chocobo",
+            "title": "Mini-course — course de Chocobo",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Final Fantasy (course de Chocobo), Mario Kart (boost, items, obstacles)   Voir aussi : [Dressage — mini-…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-combat-style-criquet-wwm",
+            "title": "Combat — style criquet (WWM)",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : *Where Winds Meet* (criquets), Pokémon (duel tour par tour, types)   Voir aussi : [Dressage — mini-jeux …",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-caresser-main-fixe-animation",
+            "title": "Caresser — main fixe + animation",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Nintendogs, tamagotchi / Neko Atsume — interaction tactile douce   Voir aussi : [Dressage — mini-jeux dé…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-modes-de-jeu-combat-auto",
+            "title": "Modes de jeu / combat & auto",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-tft-auto-battler-myrions-compagnons",
+            "title": "TFT — auto-battler Myrions / compagnons",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Teamfight Tactics, auto-chess Pitch : mode auto-battler sur grille : placement avant le combat, puis rés…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-raid-boss-compagnons-regroupes-style-rpg",
+            "title": "Raid boss — compagnons regroupés (style RPG)",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : RPG classique (party vs boss), raids mobile Pitch : le joueur constitue un groupe de compagnons (3–5) po…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-vampire-survivors-like",
+            "title": "Vampire Survivors–like",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Vampire Survivors, Brotato Pitch : vue top-down ou isométrique, déplacement auto ou joystick simple, hor…",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          },
+          {
+            "id": "backlog-mini-jeux-de-gestion-zoo-auberge",
+            "title": "Mini-jeux de gestion — zoo, auberge",
+            "category": "minijeu",
+            "categoryLabel": "Mini-jeu / mode",
+            "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : gestion zoo / auberge (Theme Hospital, Two Point, inn management) Pitch : couche gestion légère en plus …",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          }
+        ]
+      },
+      {
+        "category": "parler",
+        "categoryLabel": "Parler / dialogue",
+        "items": [
+          {
+            "id": "backlog-parler-generation-procedurale-linkcorpusv2",
+            "title": "Parler — génération procédurale (linkCorpusV2)",
+            "category": "parler",
+            "categoryLabel": "Parler / dialogue",
+            "summary": "Très tardif — après base curée stable pour tous les compagnons",
+            "note": "Très tardif — après base curée stable pour tous les compagnons",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "backlog"
+          }
+        ]
+      },
+      {
+        "category": "assets",
+        "categoryLabel": "Assets / visuel",
+        "items": [
+          {
+            "id": "backlog-pleinair-paliers-affinite-2-5-proximite-enfant",
+            "title": "Pleinair — paliers affinité 2–5 (proximité enfant)",
+            "category": "assets",
+            "categoryLabel": "Assets / visuel",
+            "summary": "À traiter avant intégration jeu / regénération visuelle",
+            "note": "À traiter avant intégration jeu / regénération visuelle",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          }
+        ]
+      },
+      {
+        "category": "infra",
+        "categoryLabel": "Infra / repo",
+        "items": [
+          {
+            "id": "backlog-old-assets-deplacement-hors-repo",
+            "title": "old_assets — déplacement hors repo",
+            "category": "infra",
+            "categoryLabel": "Infra / repo",
+            "summary": "Premier tri en fin de nettoyage repo, puis archivage disque",
+            "note": "Premier tri en fin de nettoyage repo, puis archivage disque",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          }
+        ]
+      },
+      {
+        "category": "event",
+        "categoryLabel": "Event / invité",
+        "items": [
+          {
+            "id": "backlog-event-disagrea-compagnons-invites",
+            "title": "Event Disagrea — compagnons invités",
+            "category": "event",
+            "categoryLabel": "Event / invité",
+            "summary": "Catégorie : Event / invité Statut : idée",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          }
+        ]
+      },
+      {
+        "category": "meta",
+        "categoryLabel": "Meta / doc",
+        "items": [
+          {
+            "id": "backlog-comment-ajouter-une-entree",
+            "title": "Comment ajouter une entrée",
+            "category": "meta",
+            "categoryLabel": "Meta / doc",
+            "summary": "Catégorie : Meta / doc Statut : idée Copier le bloc modèle en bas de fichier, remplir Statut (court) + Catégorie (tri).",
+            "maturity": "planned",
+            "source": "BACKLOG.md",
+            "status": "idée"
+          }
+        ]
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "village-panorama",
+      "title": "Village panorama & bâtiments",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "8+ bâtiments, production passive, améliorations par stade.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "hub-minijeux",
+      "title": "Hub mini-jeux",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Accès central aux activités par bâtiment et compagnon.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "farm-worksite",
+      "title": "Chantier du havre",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Mini-jeu worksite — progression ressources village.",
+      "maturity": "shipped",
+      "source": "buildingActivities",
+      "since": "2.1"
+    },
+    {
+      "id": "farm-capture",
+      "title": "Chasse aux Myrions",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Capture de Myrions en exploration.",
+      "maturity": "shipped",
+      "source": "buildingActivities",
+      "since": "2.1"
+    },
+    {
+      "id": "farm-dressage",
+      "title": "Refuge des Myrions (dressage)",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Dressage et soin des Myrions capturés.",
+      "maturity": "shipped",
+      "source": "buildingActivities",
+      "since": "2.1"
+    },
+    {
+      "id": "ferme-lunaire",
+      "title": "Ferme lunaire",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "15 biomes, 45 filons, supervision, prestige.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "myrions-refuge-promenade",
+      "title": "Promenade Myrions",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Refuge, reproduction, gestion du parc Myrions.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "gacha",
+      "title": "Gacha compagnons & récompenses",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Tirages, ouverture animée, tickets et cadeaux.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "destiny-wheel",
+      "title": "Roue du destin (Disagrea)",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Mini-jeu event — roue et récompenses spéciales.",
+      "maturity": "shipped",
+      "source": "buildingActivities",
+      "since": "2.1"
+    },
+    {
+      "id": "legacy-minigames",
+      "title": "Mini-jeux legacy par bâtiment",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Service express, jardin TD, atelier, bibliothèque, théâtre… (~20 activités).",
+      "maturity": "shipped",
+      "source": "buildingActivities",
+      "since": "2.1"
+    },
+    {
+      "id": "parler-hub",
+      "title": "Parler — hub village",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "Échanges à choix, affinité, récompenses cadeaux / mana / stardust.",
+      "maturity": "shipped",
+      "source": "buildingActivities",
+      "since": "2.1"
+    },
+    {
+      "id": "parler-19-compagnons",
+      "title": "19 compagnons · 190 liens",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "Corpus validé ~7500 entrées, 5 paliers affinité.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "parler-curated-mode",
+      "title": "Parler curé (CURATED_PARLER_ONLY)",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "Dialogues JSON curés — pas de génération procédurale en prod.",
+      "maturity": "shipped",
+      "source": "curatedCorpus",
+      "since": "2.1"
+    },
+    {
+      "id": "parler-lyra-aff5",
+      "title": "Lyra — corpus curé aff. 1–5",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "Modèle de référence Parler phase 2.2.",
+      "maturity": "shipped",
+      "source": "link-corpus",
+      "since": "2.2"
+    },
+    {
+      "id": "parler-maeve-aff5",
+      "title": "Maeve — corpus curé aff. 1–5",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "Corpus Havre Parler validé (MC + female MC).",
+      "maturity": "shipped",
+      "source": "link-corpus",
+      "since": "2.2"
+    },
+    {
+      "id": "parler-runa-aff5",
+      "title": "Runa — corpus curé aff. 1–5",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "Corpus Havre Parler validé (MC + female MC).",
+      "maturity": "shipped",
+      "source": "link-corpus",
+      "since": "2.2"
+    },
+    {
+      "id": "inventaire",
+      "title": "Inventaire & ressources",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "12 ressources, stock, coûts bâtiments et récompenses.",
+      "maturity": "shipped",
+      "source": "App.tsx",
+      "since": "2.1"
+    },
+    {
+      "id": "quetes",
+      "title": "Quêtes & objectifs infinis",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "Tableau de quêtes, tutorial, guide prochaine étape.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "production-passive",
+      "title": "Production passive & offline",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "Gain hors ligne plafonné, tick village.",
+      "maturity": "shipped",
+      "source": "App.tsx",
+      "since": "2.1"
+    },
+    {
+      "id": "companions-collection",
+      "title": "Collection compagnons",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "Affinité, stats, portraits, bonds.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "wording-hub",
+      "title": "Terminologie hub harmonisée",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "Chantier du havre, Chasse aux Myrions, Refuge des Myrions, Bâtiments du havre.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.2"
+    },
+    {
+      "id": "tutorial-onboarding",
+      "title": "Tutorial & objectifs guidés",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "Étapes déblocage, récompenses, navigation contextuelle.",
+      "maturity": "shipped",
+      "source": "tutorialObjectives",
+      "since": "2.1"
+    },
+    {
+      "id": "next-step-guidance",
+      "title": "Guide prochaine étape",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "Suggestion gameplay + conseil compagnon.",
+      "maturity": "shipped",
+      "source": "App.tsx",
+      "since": "2.1"
+    },
+    {
+      "id": "save-migrations",
+      "title": "Sauvegarde localStorage migrée",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "Migrations versionnées, compatibilité inter-versions.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "asset-warmup",
+      "title": "Préchargement assets (warmup)",
+      "category": "qol",
+      "categoryLabel": "Qualité de vie",
+      "summary": "Splash + village + gacha + myrions + hub + compagnons.",
+      "maturity": "shipped",
+      "source": "gameWarmupPaths",
+      "since": "2.2"
+    },
+    {
+      "id": "assets-2-root",
+      "title": "Assets 2.0 — single root",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "Arborescence assets/ unique, plugin Vite repo-assets.",
+      "maturity": "shipped",
+      "source": "VERSION-INDEX",
+      "since": "2.0"
+    },
+    {
+      "id": "companion-portraits",
+      "title": "Portraits compagnons & backgrounds",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "Compagnons, backgrounds mini-jeux, gacha, village.",
+      "maturity": "shipped",
+      "source": "assets/",
+      "since": "2.1"
+    },
+    {
+      "id": "validate-pipeline",
+      "title": "Pipeline validation release",
+      "category": "dev",
+      "categoryLabel": "Dev / outillage & debug",
+      "summary": "bonds, link-corpus, tnr:baseline, build.",
+      "maturity": "shipped",
+      "source": "project-state",
+      "since": "2.1"
+    },
+    {
+      "id": "versionnement-xy",
+      "title": "Versionnement UI X/Y",
+      "category": "dev",
+      "categoryLabel": "Dev / outillage & debug",
+      "summary": "Hooks Cursor, DEV_LOG, build-revision.",
+      "maturity": "shipped",
+      "source": "agent-guide",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x53",
+      "title": "Wording onboarding + relecture corpus Lien",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "3 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=53",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x110",
+      "title": "1. Piste B — Parler curé aff. 5 (suite du travail en cours) Fichier : docs/…",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=110",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x113",
+      "title": "Questions ouvertes (prochain tour) FM3 → fail ? Des paires H/F entre 0,85 e…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=113",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x116",
+      "title": "Toujours non commité (autres lots) : UI Parler / ConversationGame, curatedC…",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=116",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x117",
+      "title": "Okay. Alors faisons un checkup de aff5. Tu as d'autres retours?",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=117",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x120",
+      "title": "Pour aller plus loin (si tu veux) FM-NQ5 par pack : règles métier comme S53…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=120",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x126",
+      "title": "Tu crées/intègres un nouveau mini-jeu. Lis docs/HANDOFF_NEW_MINIGAME_CO.md …",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=126",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x127",
+      "title": "Tu vas intégrer un nouveau mini-jeu dans le projet Havre des Brumes / IDLE …",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=127",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x128",
+      "title": "Tu peux faire une vrai animation de roue sur l'écran (avec visuellement le …",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=128",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x129",
+      "title": "La roue en plus grand, je veux pouvoir lire les categories sur le camembert…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=129",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x131",
+      "title": "Okay, il y a des travaux en cours et non finis?",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=131",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x134",
+      "title": "2. Modifications locales non commitées (5 fichiers) Diff non stagé (~155 li…",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=134",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x136",
+      "title": "Question, tu sais faire des voix IA très réaliste? Pour essayer d'incarner …",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=136",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x140",
+      "title": "Pas fait (volontairement) Warm-up myrions / gacha / village (prochaine étap…",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=140",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x141",
+      "title": "Tu peux passer à ça Pas fait (volontairement) Warm-up myrions / gacha / vil…",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=141",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x142",
+      "title": "Ptite modif intermédiaire, dans le mini jeu de gardiennage de myrions, les …",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=142",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x143",
+      "title": "Dans les paramètres, donner l'option se deconnecter tout simplement pour te…",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=143",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x150",
+      "title": "Les background du mini jeu sont toujours en plein écran (voir pour recaler …",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=150",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x152",
+      "title": "Tu peux me créer un executable qui lance le serveur de dév et m'ouvre la pa…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=152",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x156",
+      "title": "Pour le jeu dans les paramètres, fait un mode 'lumineux' et un mode 'dark'",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=156",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x157",
+      "title": "Le mode dark doit toucher toutes les interfaces. Pas que le menu",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=157",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x158",
+      "title": "Dans les minis jeux, fait une rubrique Nouveaux mini jeux (avec les 4 mini …",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=158",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x159",
+      "title": "Dans l'onglet lien ne pas afficher les discussions par défaut",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=159",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x160",
+      "title": "J'ai ces warnings. Tu peux faire en sorte qu'ils n'apparaissent plus?",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=160",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x163",
+      "title": "Dans les logs serveurs tu peux afficher quand un update version est captée?…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=163",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x164",
+      "title": "Pour les quêtes. Je veux avoir 10 quêtes par jour (cumulables sur 10 jours)…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=164",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x167",
+      "title": "Passe en tache de fond je doit m'absenter 1h et quelques, relectures, netto…",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=167",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x168",
+      "title": "Si tu t'ennuies, commence à relire les conversations petit bloc par petit b…",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=168",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x169",
+      "title": "Continue la relecture. Numéro de commit correctement bien mis à jour?",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=169",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x170",
+      "title": "Tu peux me relire vite fait la politique de gestion des versions?",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=170",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x174",
+      "title": "En sachant qu'un truc pratique c'est qu'apèrs tu peux faire des commits ato…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=174",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x175",
+      "title": "Tu peux relire et mettre à jour tous les docs qui se référent à ça?",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=175",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x178",
+      "title": "Tu peux me faire un prompt pour m'expliquer en détail comment tu gères la p…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=178",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x180",
+      "title": "Automatise les deux et je redémarre",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=180",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x181",
+      "title": "Refait le prompt pour l'autre agent pour qu'il applique la même modif",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=181",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x183",
+      "title": "Handoff piste B Parler curé aff. 5",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=183",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x186",
+      "title": "Validateurs avancés Parler aff. 5 (S50–S55, FM*, LQ6)",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "4 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=186",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x189",
+      "title": "Possible que les versions des deux projets se mélangent?",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=189",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x198",
+      "title": "Pour le A du coup c'est toi qui demande si tu part sur la procédure de MEP …",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=198",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x199",
+      "title": "Oui, et rajoute toutes les consignes autour des B et C habituel (les mise a…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=199",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x201",
+      "title": "Ah oui, très important, jamais de suppression définitive, que des mov dans …",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=201",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x204",
+      "title": "Pour intialiser un projet REFERENCE? Tu veux que je le fasse? Ou tu peux le…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=204",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x205",
+      "title": "Mini-jeu Roue du Destin (Disagrea seed JSON)",
+      "category": "event",
+      "categoryLabel": "Event / invité",
+      "summary": "2 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=205",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x207",
+      "title": "Je vois pas le projet.repo dans github",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=207",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x208",
+      "title": "https://github.com/Guillaume-Jolly/REFERENCE",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=208",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x209",
+      "title": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\1f942ce1cd…",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=209",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x210",
+      "title": "La roulette dois prendre tout l'écran en hauteur (ou presque, juste respect…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=210",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x211",
+      "title": "Dans un mini jeu, si il doit y avoir des onglets, menus, tout ça, toujours …",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=211",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x218",
+      "title": "SFX roue : knife flick synchronisé aux cases",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=218",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x220",
+      "title": "Fusion onglets Repère + Roue",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=220",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x226",
+      "title": "Roue du Destin : compagnons dans le cadre",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=226",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x230",
+      "title": "Roue : refonte libellés + compagnons / punchline",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=230",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x231",
+      "title": "Roue du Destin : packs SFX tick + révélation rareté",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=231",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x233",
+      "title": "Roue : case en cours hors menu + animations rareté v1",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=233",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x237",
+      "title": "Onglet repère, note l'historique de tirage avec le dernier le plus en haut …",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=237",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x243",
+      "title": "Zone safe scène : menu ouvert + cutouts non clippés",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=243",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x244",
+      "title": "Ticks début de spin : warmup + soft/clean tiered",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=244",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x245",
+      "title": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\freesound_…",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=245",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x246",
+      "title": "Layout roue : safe gauche + bulles couloir",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=246",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x254",
+      "title": "Dusionne onglet repère et onglet roue, Onglet roue la base, avec la possibi…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=254",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x255",
+      "title": "Havre : modes, jokers, archives, fiche layout",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=255",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x259",
+      "title": "Pour l'ecriture tu peux pas aller plus au centre de la roue? Si besoin pour…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=259",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x267",
+      "title": "Les compagnons sont toujours hors du cadres et Laharl à gauche disparait so…",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=267",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x269",
+      "title": "De nouveau un chevauchement, écris quelque chose pour éviter ça definitivement",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=269",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x272",
+      "title": "Assets UI roue Disgaea (pack validé)",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=272",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x273",
+      "title": "Les compagnons sont toujours hors du cadre et trop petit, on vois quasiment…",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=273",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x274",
+      "title": "Calibration assets roue Disgaea (in-game)",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=274",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x275",
+      "title": "c:\\Users\\guill\\Downloads\\Slow life isekai\\Mini jeu\\Wheel\\Disgaea\\rarity_rev…",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=275",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x277",
+      "title": "Okay, la case en cours tu peux l'afficher en haut à auche (la ou j'ai cercl…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=277",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x281",
+      "title": "Intègre les nouveaux clic que je t'ai envoyé, pas l'ancien qui était pas pr…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=281",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x284",
+      "title": "Calibrateur UI roue Disgaea (première version)",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=284",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x288",
+      "title": "Comme pour les autres mini jeux, les compagnons qui sont présents de manièr…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=288",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x290",
+      "title": "Case en cours, et les compagnons sont toujours un peu cut sur les bords, l'…",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=290",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x291",
+      "title": "Ce qui a changé chez nous Avant Après Sample clean Sample tick-soft Rapide …",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=291",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x292",
+      "title": "Intégration layout user JSON (prod)",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "3 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=292",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x295",
+      "title": "Écran final Roue du Destin (fiche compacte)",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "10 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=295",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x306",
+      "title": "Enlève les anciennes animations CSS (avant que je t'envoi le fichier zip)",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=306",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x308",
+      "title": "Les cases de dialogues tu peux les mettre sur le moins de lignes possible, …",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=308",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x309",
+      "title": "DEFAULT layout scène (case en cours)",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=309",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x314",
+      "title": "Ajoute ça Pas encore implémenté : modes Hardcore / Auto-Roll / Artiste, jok…",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=314",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x315",
+      "title": "Je ne vois pas les deux roues. Une roue havre et une roue disagea",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=315",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x316",
+      "title": "Visuels roue Havre (assets PNG + calibration)",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=316",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x317",
+      "title": "Détourage roue Havre (cadre + hub)",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=317",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x321",
+      "title": "Tu peux simuler un truc qu'il y a sur les vraies roues? (chaque bord il y a…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=321",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x322",
+      "title": "Pack assets Havre complet (modèle Disgaea)",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=322",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x324",
+      "title": "Il y a un petit saut à la fin qui fait pas naturel, ça reviens en arrière q…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=324",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x330",
+      "title": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=330",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x331",
+      "title": "Je précise ON SEN BAT LES COUILLES DU MERGE. Arretez de parler de merge de …",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=331",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x332",
+      "title": "Voici le retour du writer. Mes retours à moi, beaucoup de réf hors contexte…",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=332",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x9",
+      "title": "Je pensais aux mots comme sodomie, enculer, sodomiser, faciale, deepthroat,…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=9",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x10",
+      "title": "Ajoute un second lot le plus exhaustif possible (fait des clés qui contienn…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=10",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x11",
+      "title": "Essaye de relire modifier les cles lot 1 aussi, ça risque de bloquer",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=11",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x12",
+      "title": "Okay. Fait une petite relecture et dis moi si tu vois encore des choses à f…",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=12",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x14",
+      "title": "Oui ajoute ce qui pourrais manquer avec desz clés compréhensible mais pas e…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=14",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x23",
+      "title": "Pas bête de lancer un mini serveur test avec uniquement les mini jeux en co…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=23",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x24",
+      "title": "Fait en sorte que le 5174 ne présente que ce qui est en cours de dév, une f…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=24",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x30",
+      "title": "Readapter l'affichage pour faire en sorte que tout rentre sur un écran (exe…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=30",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x32",
+      "title": "Mettre l'image en plein écran (ou laisser juste la place pour l'interface à…",
+      "category": "ui",
+      "categoryLabel": "UI",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=32",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x33",
+      "title": "Okay, deux choses, pour une raison inconnue, le calque se superpose pas bie…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=33",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x35",
+      "title": "Ca marche pas. Actuellement, je modifie que le calque. Tu peux pas juste is…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=35",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x39",
+      "title": "Tu peux m'extraire toutes les infos dispo sur les compagnons et leurs perso…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=39",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x40",
+      "title": "Fais moi juste un fichier à envoyer à chatgpt. Ajoute les deux compagnons m…",
+      "category": "ux",
+      "categoryLabel": "UX",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=40",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x629",
+      "title": "Brief personnalités compagnons pour ChatGPT",
+      "category": "contenu-modif",
+      "categoryLabel": "Modif contenu",
+      "summary": "1 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=629",
+      "since": "2.2"
+    },
+    {
+      "id": "devlog-x3",
+      "title": "Écran connexion + splash chargement + visuels IA",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "3 livrable(s) DEV_LOG",
+      "maturity": "shipped",
+      "source": "DEV_LOG",
+      "ref": "X=3",
+      "since": "2.2"
+    },
+    {
+      "id": "backlog-dev-cache-chargement-assets",
+      "title": "Dev — cache / chargement assets",
+      "category": "dev",
+      "categoryLabel": "Dev / outillage & debug",
+      "summary": "Phase 2.2 — warmup splash + village + gacha + myrions + hub + compagnons (`gameWarmupPaths.ts`, `gameAssetWarmup.ts`)",
+      "note": "Phase 2.2 — warmup splash + village + gacha + myrions + hub + compagnons (`gameWarmupPaths.ts`, `gameAssetWarmup.ts`)",
+      "maturity": "started",
+      "source": "BACKLOG.md",
+      "status": "actif"
+    },
+    {
+      "id": "backlog-old-assets-deplacement-hors-repo",
+      "title": "old_assets — déplacement hors repo",
+      "category": "infra",
+      "categoryLabel": "Infra / repo",
+      "summary": "Premier tri en fin de nettoyage repo, puis archivage disque",
+      "note": "Premier tri en fin de nettoyage repo, puis archivage disque",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-parler-generation-procedurale-linkcorpusv2",
+      "title": "Parler — génération procédurale (linkCorpusV2)",
+      "category": "parler",
+      "categoryLabel": "Parler / dialogue",
+      "summary": "Très tardif — après base curée stable pour tous les compagnons",
+      "note": "Très tardif — après base curée stable pour tous les compagnons",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "backlog"
+    },
+    {
+      "id": "backlog-comment-ajouter-une-entree",
+      "title": "Comment ajouter une entrée",
+      "category": "meta",
+      "categoryLabel": "Meta / doc",
+      "summary": "Catégorie : Meta / doc Statut : idée Copier le bloc modèle en bas de fichier, remplir Statut (court) + Catégorie (tri).",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-idees-mini-jeux-modes-de-jeu",
+      "title": "Idées mini-jeux / modes de jeu",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-top-war-like-plateformes-aleatoires",
+      "title": "Top War–like — plateformes aléatoires",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Top War (exploration / choix de rencontres) Pitch : le joueur avance sur une plateforme. En avançant, il…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-capybara-go-like-aventure-rp",
+      "title": "Capybara Go–like — aventure RP",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Capybara Go (aventure narrative légère) Pitch : mode aventure RP : le joueur progresse dans une histoire…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-war-thunder-like-tir-lateral-vagues-evolution",
+      "title": "War Thunder–like — tir latéral + vagues + évolution",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : War Thunder (action) + variante évolution (type idle evolution) Pitch : déplacement gauche / droite, tir…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-refuge-mini-jeux-avec-compagnons-myrions",
+      "title": "Refuge — mini-jeux avec compagnons (Myrions)",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Contexte actuel : le refuge (`farm-dressage`, Sora) propose déjà nourrir, câliner, jouer, observer — sans mini-jeu déd…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-dressage-mini-jeux-dedies-par-myrion",
+      "title": "Dressage — mini-jeux dédiés par Myrion",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Contexte : extension du refuge (`farm-dressage`) : certains Myrions (selon espèce, trait, rareté ou affection) débloqu…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-mini-course-course-de-chocobo",
+      "title": "Mini-course — course de Chocobo",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Final Fantasy (course de Chocobo), Mario Kart (boost, items, obstacles)   Voir aussi : [Dressage — mini-…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-combat-style-criquet-wwm",
+      "title": "Combat — style criquet (WWM)",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : *Where Winds Meet* (criquets), Pokémon (duel tour par tour, types)   Voir aussi : [Dressage — mini-jeux …",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-caresser-main-fixe-animation",
+      "title": "Caresser — main fixe + animation",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Nintendogs, tamagotchi / Neko Atsume — interaction tactile douce   Voir aussi : [Dressage — mini-jeux dé…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-modes-de-jeu-combat-auto",
+      "title": "Modes de jeu / combat & auto",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-tft-auto-battler-myrions-compagnons",
+      "title": "TFT — auto-battler Myrions / compagnons",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Teamfight Tactics, auto-chess Pitch : mode auto-battler sur grille : placement avant le combat, puis rés…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-raid-boss-compagnons-regroupes-style-rpg",
+      "title": "Raid boss — compagnons regroupés (style RPG)",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : RPG classique (party vs boss), raids mobile Pitch : le joueur constitue un groupe de compagnons (3–5) po…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-vampire-survivors-like",
+      "title": "Vampire Survivors–like",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : Vampire Survivors, Brotato Pitch : vue top-down ou isométrique, déplacement auto ou joystick simple, hor…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-gestion-refuge-etendu",
+      "title": "Gestion & refuge étendu",
+      "category": "qol",
+      "categoryLabel": "Qualité de vie",
+      "summary": "Catégorie : Qualité de vie Statut : idée",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-mini-jeux-de-gestion-zoo-auberge",
+      "title": "Mini-jeux de gestion — zoo, auberge",
+      "category": "minijeu",
+      "categoryLabel": "Mini-jeu / mode",
+      "summary": "Catégorie : Mini-jeu / mode Statut : idée Inspiration : gestion zoo / auberge (Theme Hospital, Two Point, inn management) Pitch : couche gestion légère en plus …",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-refuge-onglets-ferme-mine-donjon",
+      "title": "Refuge — onglets Ferme, Mine, Donjon…",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "Catégorie : Contenu additionnel Statut : idée Contexte : aujourd'hui les Myrions errent dans l'enclos ; risque d'ennui si peu d'interactions. Idée : plusieurs z…",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-event-disagrea-compagnons-invites",
+      "title": "Event Disagrea — compagnons invités",
+      "category": "event",
+      "categoryLabel": "Event / invité",
+      "summary": "Catégorie : Event / invité Statut : idée",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-pleinair-paliers-affinite-2-5-proximite-enfant",
+      "title": "Pleinair — paliers affinité 2–5 (proximité enfant)",
+      "category": "assets",
+      "categoryLabel": "Assets / visuel",
+      "summary": "À traiter avant intégration jeu / regénération visuelle",
+      "note": "À traiter avant intégration jeu / regénération visuelle",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "idée"
+    },
+    {
+      "id": "backlog-skinline-premium-skins-intimes-caches-v4",
+      "title": "Skinline Premium — skins intimes cachés (v4)",
+      "category": "contenu-plus",
+      "categoryLabel": "Contenu additionnel",
+      "summary": "Assets prêts — intégration jeu à planifier",
+      "note": "Assets prêts — intégration jeu à planifier",
+      "maturity": "planned",
+      "source": "BACKLOG.md",
+      "status": "backlog"
+    }
+  ],
+  "notes": [
+    "Terminées = jeu livré (curaté 2.1/2.2) + backlog done + sections DEV_LOG complètes (hors dev/infra/meta).",
+    "Commencées = backlog actif / à affiner + sections DEV_LOG ⚠️ avec au moins une tâche Y.",
+    "Envisagées = backlog idée · backlog · reporté · maybe (docs/BACKLOG.md).",
+    "Catégories identiques à l’onglet Backlog."
+  ],
+  "sources": {
+    "shippedCurated": 29,
+    "devLog": 104,
+    "backlog": 23
+  }
+}
