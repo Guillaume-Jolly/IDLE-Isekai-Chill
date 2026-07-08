@@ -14,8 +14,9 @@ export const COMPANION_DIALOGUE_PROFILES: Record<string, CompanionDialogueProfil
     id: 'maeve',
     name: 'Maeve',
     place: 'le marché des étoiles',
-    personalityHint: 'Maeve est négociante — directe, maline, apprécie l\'audace mesurée.',
-    toneWeights: { sincere: 5, playful: 6, direct: 9, romantic: 5 },
+    personalityHint:
+      'Maeve négocie au comptoir — directe, maline, audace mesurée ; aff. 4+ = deal / invitation, pas romance fleurie.',
+    toneWeights: { sincere: 6, playful: 7, direct: 9, romantic: 3 },
   },
   seren: {
     id: 'seren',
@@ -48,9 +49,10 @@ export const COMPANION_DIALOGUE_PROFILES: Record<string, CompanionDialogueProfil
   runa: {
     id: 'runa',
     name: 'Runa',
-    place: "l'atelier des rubans",
-    personalityHint: 'Runa est calme et travailleuse — concret, fiable, peu de grands gestes.',
-    toneWeights: { sincere: 9, playful: 3, direct: 8, romantic: 4 },
+    place: 'la forge du havre',
+    personalityHint:
+      'Runa est forgeronne — calme, concrète, fiable ; romantic quasi absent, complicité par le geste et l\'outil.',
+    toneWeights: { sincere: 10, playful: 3, direct: 8, romantic: 2 },
   },
   solene: {
     id: 'solene',
@@ -63,8 +65,9 @@ export const COMPANION_DIALOGUE_PROFILES: Record<string, CompanionDialogueProfil
     id: 'talia',
     name: 'Talia',
     place: 'la lisière de la forêt',
-    personalityHint: 'Talia est rieuse et audacieuse — humour, spontanéité, complicité.',
-    toneWeights: { sincere: 5, playful: 10, direct: 7, romantic: 5 },
+    personalityHint:
+      'Talia est éclaireuse — humour terrain, paris et audace ; complicité sans déclaration.',
+    toneWeights: { sincere: 6, playful: 9, direct: 8, romantic: 4 },
   },
   mira: {
     id: 'mira',
@@ -91,8 +94,9 @@ export const COMPANION_DIALOGUE_PROFILES: Record<string, CompanionDialogueProfil
     id: 'noa',
     name: 'Noa',
     place: 'le laboratoire',
-    personalityHint: 'Noa est malicieuse — taquineries, surprises, esprit vif.',
-    toneWeights: { sincere: 4, playful: 10, direct: 7, romantic: 6 },
+    personalityHint:
+      'Noa est alchimiste farceuse — taquineries, prétextes labo, esprit vif ; contact = excuse technique.',
+    toneWeights: { sincere: 5, playful: 10, direct: 8, romantic: 4 },
   },
   sora: {
     id: 'sora',
@@ -107,6 +111,38 @@ export const COMPANION_DIALOGUE_PROFILES: Record<string, CompanionDialogueProfil
     place: 'le salon des invités',
     personalityHint: 'Zélie est noble et masquée — politesse, intrigue, romance raffinée.',
     toneWeights: { sincere: 5, playful: 4, direct: 5, romantic: 10 },
+  },
+  etna: {
+    id: 'etna',
+    name: 'Etna',
+    place: 'la faille Disagrea',
+    personalityHint:
+      'Etna est vassale démoniaque — snark, bombe assumée, dom RP Disagrea ; graveleux dès aff. 1–3 (tease), BDSM aff. 4–5.',
+    toneWeights: { sincere: 5, playful: 8, direct: 9, romantic: 4 },
+  },
+  laharl: {
+    id: 'laharl',
+    name: 'Laharl',
+    place: 'la faille Disagrea',
+    personalityHint:
+      'Laharl est overlord tsundere — bluster, chasse, panique devant « amour » ; graveleux compétitif aff. 1–3, RP aff. 4–5.',
+    toneWeights: { sincere: 6, playful: 9, direct: 8, romantic: 2 },
+  },
+  roric: {
+    id: 'roric',
+    name: 'Roric',
+    place: 'la salle des lames',
+    personalityHint:
+      'Roric est précepteur de lames — calme, direct, cadre et signaux ; domination sobre Havre, jamais cruelle.',
+    toneWeights: { sincere: 7, playful: 2, direct: 10, romantic: 5 },
+  },
+  finn: {
+    id: 'finn',
+    name: 'Finn',
+    place: 'les quais des lanternes',
+    personalityHint:
+      'Finn est saltimbanque — cabotin en public, docile en privé ; demande la permission, fleurit sous les compliments.',
+    toneWeights: { sincere: 9, playful: 7, direct: 3, romantic: 8 },
   },
 }
 

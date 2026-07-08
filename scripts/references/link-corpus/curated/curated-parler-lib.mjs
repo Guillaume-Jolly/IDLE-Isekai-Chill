@@ -41,7 +41,7 @@ export function isCrudeRegisterAffinity(affinity = 1) {
   return affinity >= 5;
 }
 
-/** Pack 5 bibliothèque — Lyra parle au visiteur/apprenti, pas au MC (échanges comptoir). */
+/** Pack 5 spectateur — compagnon parle au visiteur/client/apprenti, pas au MC. */
 export const SPECTATOR_PRESENT_TITLES = new Set([
   'Pas de pas',
   'Tiroir secret',
@@ -50,17 +50,27 @@ export const SPECTATOR_PRESENT_TITLES = new Set([
   'Deux doigts',
   'Deux allées plus loin',
   'Plume immobile',
+  'Client au comptoir',
+  'Tiroir du registre',
+  'Deux lignes de crédit',
+  'Deux étals plus loin',
+  'Marchand de passage',
+  'Commande au seuil',
+  'Tiroir de mesure',
+  'Lame au creux',
+  'Pages du carnet',
+  'Apprenti du havre',
 ]);
 
 export function exchangeSpectatorPresent(exchange) {
   if (SPECTATOR_PRESENT_TITLES.has(exchange.title?.trim())) return true;
   const blob = [exchange.bridge, exchange.companionAction].filter(Boolean).join(' ');
-  return /\b(visiteur|apprenti|quelqu'un tourne des pages)\b/i.test(blob);
+  return /\b(visiteur|apprenti|client|acheteur|commande ouverte|quelqu'un tourne des pages)\b/i.test(blob);
 }
 
-/** Réplique Lyra face au public (vouvoiement / registre comptoir). */
+/** Réplique compagnon face au public (vouvoiement / registre comptoir / forge / marché). */
 export const SPOKEN_VISITOR_FACING_PATTERN =
-  /\b(je vous|vous |remarquez|entrez|asseyez|bonjour|monsieur|madame|instant|réserve|gravure|registre|figurent|colonne|filigrane|amendes|tarifs|demain matin|je peux vous|je suis la bibliothécaire|je note|je consulte|je finis)\b/i;
+  /\b(je vous|vous |remarquez|entrez|asseyez|bonjour|monsieur|madame|instant|réserve|gravure|registre|figurent|colonne|filigrane|amendes|tarifs|demain matin|je peux vous|je suis la bibliothécaire|je suis la marchande|je suis la forgeronne|je note|je consulte|je finis|comptoir|crédit|comptant|deal|marché|forge|commande|mesure|lame|forgeronne|marchande)\b/i;
 
 /** Dynamique de pouvoir — par échange ou défaut compagnon. */
 export const POWER_DYNAMIC_IDS = [
@@ -263,6 +273,27 @@ export function actionChoiceAgencyAligned(exchange) {
       reason:
         'companionAction = Lyra touche/mène le MC ; choix +3 décrit le MC pénétrant ou « prenant » Lyra',
     };
+  }
+  return { ok: true };
+}
+
+/** S22b — Lyra doigte déjà le MC : pas de « guide mes doigts » dans les choix. */
+export const LYRA_FINGERS_MC_ACTION =
+  /\b(?:glisse\s+(?:ses\s+|trois\s+)?doigts en toi|presse ses doigts contre ta(?:\s+chatte)?|doigts en toi|main glissée sous ta robe)\b/i;
+
+export const MC_GUIDES_OWN_FINGERS_CHOICE =
+  /\b(?:guide mes doigts|guider mes doigts|la laisse guider mes doigts)\b/i;
+
+export function lyraLeadFingerChoiceCoherenceOk(exchange) {
+  const action = exchange.companionAction ?? '';
+  if (!LYRA_FINGERS_MC_ACTION.test(action)) return { ok: true };
+  for (const choice of exchange.choices ?? []) {
+    if (MC_GUIDES_OWN_FINGERS_CHOICE.test(choice.text ?? '')) {
+      return {
+        ok: false,
+        reason: `choix ${choice.tone} — Lyra doigte déjà le MC ; pas « guide mes doigts » (S22b)`,
+      };
+    }
   }
   return { ok: true };
 }
@@ -511,7 +542,7 @@ export function reactionChoiceSemanticRedundancyOk(choice) {
   return { ok: true };
 }
 
-export function exchangeNarrativeEconomyOk(exchange) {
+export function exchangeNarrativeEconomyOk(exchange, options = {}) {
   const bridge = bridgeActionSemanticOverlapOk(exchange);
   if (!bridge.ok) return bridge;
   const phrase = bridgeActionPhraseOverlapOk(exchange);
@@ -519,8 +550,10 @@ export function exchangeNarrativeEconomyOk(exchange) {
   const line = companionLineActionRedundancyOk(exchange);
   if (!line.ok) return line;
   for (const choice of exchange.choices ?? []) {
-    const didasc = reactionDidascalieOk(choice.reaction ?? '');
-    if (!didasc.ok) return { ok: false, reason: `choix ${choice.tone} : ${didasc.reason}` };
+    if (!options.phaseB) {
+      const didasc = reactionDidascalieOk(choice.reaction ?? '');
+      if (!didasc.ok) return { ok: false, reason: `choix ${choice.tone} : ${didasc.reason}` };
+    }
     const redundant = reactionChoiceSemanticRedundancyOk(choice);
     if (!redundant.ok) return { ok: false, reason: `choix ${choice.tone} : ${redundant.reason}` };
     const flipReaction = reactionMatchesDominanceFlip(choice);
@@ -632,7 +665,7 @@ export function reactionMatchesPenetrationProgress(choice, exchange) {
 
 /** C1 + S45 — bridge ancré lieu + fil intra-pack (aff. 4–5). Packs 1–4 indépendants. */
 export const BRIDGE_PLACE_ANCHOR =
-  /\b(bibliothèque|havre|village|refuge|marché|ruines|forêt|couloir|comptoir|porte|registre|atlas|sachet|chambre|lit|couchette|commode|draps|rayons|table|verrière|balcon|toit|jardin|pavillon|matelas|rambarde)\b/i;
+  /\b(bibliothèque|havre|village|refuge|marché|ruines|forêt|couloir|comptoir|porte|registre|atlas|sachet|chambre|lit|couchette|commode|draps|rayons|table|verrière|balcon|toit|jardin|pavillon|matelas|rambarde|atelier|ruban|métier|métiers|étal|arrière-boutique|passerelle|quai|rempart|hayon|remise|garde-fou|chemin|gravier)\b/i;
 
 export const PACK_BRIDGE_CONTINUITY_HOOK =
   /\b(encore|toujours|de retour|où elle|après|halet|nu|draps|commode|déshabill|oral|langue|chatte|bite|brûl|tremp|deuxième|rayons|table|lit|bibliothèque|chambre|peignoir|verrou|comme tout|relève|retour)\b/i;
@@ -655,7 +688,11 @@ export const AFF5_PACK_PRIOR_ACT_HOOKS = {
   'pack-3': /\b(verrière|vitrage|vitrail|buée|montant|matelas|nu|draps|chatte|bite|collées|clitoris|lune)\b/i,
   'pack-4': /\b(toit|aube|nuit|couverture|jouis|halet|encore|deuxième|chevauche|enfourche|semence|dégoulin|chancel|bouche|langue|genoux|quatre pattes|cul|derrière|gode)\b/i,
   'pack-5':
-    /\b(bibliothèque|rayons|registre|atlas|pupitre|silence|chut|doigt|lèvres|harnais|sangle|gode|bestiaire|apprenti|réserve|verrou|travées|encore|toujours|midi|soir)\b/i,
+    /\b(bibliothèque|rayons|registre|atlas|pupitre|silence|chut|doigt|lèvres|harnais|sangle|gode|bestiaire|apprenti|réserve|verrou|travées|encore|toujours|midi|soir|comptoir|marché|étal|client|crédit|comptant|deal|forge|enclume|commande|mesure|soufflet|marteau|fer|lame|trempe|acheteur|forfait|prix|tarif)\b/i,
+  'pack-pari-vitrine':
+    /\b(comptoir|marché|étal|vitrine|client|visiteur|acheteur|rideau|arrière-boutique|file|pari|deal|encore|toujours|oral|goûte|clitoris|braguette|reflet|comptoir|marchande)\b/i,
+  'pack-balle-express':
+    /\b(quai|caisse|bâche|bache|coton|charrette|marché|comptoir|carnet|liasse|verrou|encore|toujours|oral|goûte|clitoris|braguette|faveur|deal)\b/i,
 };
 
 export function bridgePackOpenerStandaloneOk(exchange, packIndex) {
@@ -717,6 +754,12 @@ export function packSessionContinuityOk(data) {
       .filter(Boolean);
     for (let index = 0; index < exchanges.length; index += 1) {
       const prior = index > 0 ? exchanges[index - 1] : null;
+      if (prior) {
+        const place = bridgePriorPlaceContinuityOk(exchanges[index], prior);
+        if (!place.ok) {
+          return { ok: false, reason: `${exchanges[index].id} : ${place.reason}` };
+        }
+      }
       const hook = bridgePackHookOk(exchanges[index], prior, pack.id, index, affinity);
       if (!hook.ok) {
         return { ok: false, reason: `${exchanges[index].id} : ${hook.reason}` };
@@ -728,6 +771,68 @@ export function packSessionContinuityOk(data) {
 
 export const MC_FLIPS_COMPANION_CHOICE =
   /\b(je la presse contre les draps|je la retourne|je l'inverse|je la bascule|je la plaque sous)\b/i;
+
+/** S45b — pont lieu N vs scène N−1 (table → rayons sans transition). */
+const PRIOR_TABLE_SCENE = /\b(?:table de travail|bord de la table|contre la table|sur la table|au bord de la table)\b/i;
+const BRIDGE_FALSE_PRIOR_SHELF = /où elle t['']a collé/i;
+
+export function bridgePriorPlaceContinuityOk(exchange, priorExchange) {
+  if (!priorExchange) return { ok: true };
+  const priorBlob = [priorExchange.bridge, priorExchange.companionAction, priorExchange.title]
+    .filter(Boolean)
+    .join(' ');
+  const bridge = exchange.bridge ?? '';
+  if (PRIOR_TABLE_SCENE.test(priorBlob) && BRIDGE_FALSE_PRIOR_SHELF.test(bridge)) {
+    return {
+      ok: false,
+      reason:
+        'bridge — « rayons où elle t\'a collé » incohérent après scène table (transition table→rayons requise — S45b)',
+    };
+  }
+  return { ok: true };
+}
+
+/** S35a — romantic sans anal abrupt (hors spectateur pack-5). */
+export function romanticChoiceAnalToneOk(exchange) {
+  if (exchangeSpectatorPresent(exchange)) return { ok: true };
+  const romantic = exchange.choices?.find((choice) => choice.tone === 'romantic' && choice.score === 3);
+  if (!romantic) return { ok: true };
+  if (/\b(?:dans l'anus|en son anus|doigts dans l'anus)\b/i.test(romantic.text ?? '')) {
+    return {
+      ok: false,
+      reason:
+        'choix romantic — anal direct sans arc tendresse (S35a) ; préférer clitoris / en elle lent',
+    };
+  }
+  return { ok: true };
+}
+
+/** S61 — handoff prop : gode actif → pénération bite exige beat pose gode / braguette. */
+export function propHandoffCoherenceOk(exchange, protagonistGender = 'male') {
+  if (protagonistGender !== 'male') return { ok: true };
+  const action = exchange.companionAction ?? '';
+  if (!/\bgode\b/i.test(action)) return { ok: true };
+
+  const romantic = exchange.choices?.find((choice) => choice.score === 3);
+  const choiceText = romantic?.text ?? '';
+  const reaction = romantic?.reaction ?? '';
+  const wantsPenetration =
+    /\b(?:glisse en elle|en elle jusqu|je la prends|je la pousse contre)\b/i.test(choiceText) ||
+    /\b(?:chatte chaude contre ta bite|contre ta bite)\b/i.test(reaction);
+  const hasHandoff =
+    /\b(?:pose le gode|gode sur|ouvre ma braguette|braguette|déboutonne|j'ouvre ma)\b/i.test(
+      `${choiceText} ${reaction}`,
+    );
+
+  if (wantsPenetration && !hasHandoff) {
+    return {
+      ok: false,
+      reason:
+        'companionAction = gode actif ; choix/réaction +3 pénération/bite sans beat pose gode ou braguette (S61)',
+    };
+  }
+  return { ok: true };
+}
 
 export function romanticChoiceRespectsCompanionOnTop(exchange) {
   if (!COMPANION_ON_TOP_ACTION.test(exchange.companionAction ?? '')) return { ok: true };
@@ -972,7 +1077,70 @@ export const CORPUS_TEMPLATE_QUOTAS = [
   { id: 'LQ3', pattern: /ralentis ma respiration/i, maxPerPack: 2, label: '« je ralentis ma respiration »' },
   { id: 'LQ4', pattern: /« bien\./i, maxPerPack: 3, label: '« Bien. » en réaction +3' },
   { id: 'LQ5', pattern: /ne bouge pas/i, maxPerPack: 1, label: '« Ne bouge pas » (companionLine)', field: 'companionLine' },
+  {
+    id: 'LQ7',
+    pattern: /^d'abord je feins/i,
+    maxPerPack: 2,
+    label: '« D\'abord je feins… » (choix playful)',
+    field: 'playfulChoice',
+  },
+  {
+    id: 'LQ8',
+    pattern: /\b\d+\s*secondes\b/i,
+    maxPerPack: 1,
+    label: 'chrono « X secondes » (choix direct)',
+    field: 'directChoice',
+  },
+  {
+    id: 'LQ9',
+    pattern: /pardon \?/i,
+    maxPerPack: 2,
+    label: '« Pardon ? » (réaction playful spectateur)',
+    field: 'playfulReaction',
+    packIds: ['pack-5'],
+  },
+  {
+    id: 'LQ10',
+    pattern: /transperce du regard/i,
+    maxPerPack: 2,
+    label: '« transperce du regard » (réaction playful)',
+    field: 'playfulReaction',
+    packIds: ['pack-5'],
+  },
 ];
+
+function corpusTemplateQuotaLines(byId, exchangeIds, quota) {
+  if (quota.field === 'companionLine') {
+    return exchangeIds.map((id) => byId.get(id)?.companionLine ?? '').filter(Boolean);
+  }
+  if (quota.field === 'playfulChoice') {
+    return exchangeIds.flatMap((id) =>
+      (byId.get(id)?.choices ?? []).filter((c) => c.tone === 'playful').map((c) => c.text ?? ''),
+    );
+  }
+  if (quota.field === 'directChoice') {
+    return exchangeIds.flatMap((id) =>
+      (byId.get(id)?.choices ?? []).filter((c) => c.tone === 'direct').map((c) => c.text ?? ''),
+    );
+  }
+  if (quota.field === 'playfulReaction') {
+    return exchangeIds.flatMap((id) =>
+      (byId.get(id)?.choices ?? []).filter((c) => c.tone === 'playful').map((c) => c.reaction ?? ''),
+    );
+  }
+  return exchangeIds.flatMap((id) => {
+    const ex = byId.get(id);
+    if (!ex) return [];
+    return [
+      ex.bridge,
+      ex.companionAction,
+      ex.companionLine,
+      ex.intimateFinale,
+      ex.intimateFinaleLow,
+      ...(ex.choices ?? []).flatMap((c) => [c.text, c.reaction]),
+    ];
+  });
+}
 
 export function corpusTemplateQuotaWarnings(data) {
   const warnings = [];
@@ -980,28 +1148,9 @@ export function corpusTemplateQuotaWarnings(data) {
   for (const pack of data.meta?.sessionPacks ?? []) {
     const exchangeIds = pack.exchangeIds ?? [];
     for (const quota of CORPUS_TEMPLATE_QUOTAS) {
-      const blob =
-        quota.field === 'companionLine'
-          ? exchangeIds
-              .map((id) => byId.get(id)?.companionLine ?? '')
-              .filter(Boolean)
-              .join('\n')
-          : exchangeIds
-              .flatMap((id) => {
-                const ex = byId.get(id);
-                if (!ex) return [];
-                return [
-                  ex.bridge,
-                  ex.companionAction,
-                  ex.companionLine,
-                  ex.intimateFinale,
-                  ex.intimateFinaleLow,
-                  ...(ex.choices ?? []).flatMap((c) => [c.text, c.reaction]),
-                ];
-              })
-              .filter(Boolean)
-              .join('\n');
-      const count = (blob.match(quota.pattern) ?? []).length;
+      if (quota.packIds && !quota.packIds.includes(pack.id)) continue;
+      const lines = corpusTemplateQuotaLines(byId, exchangeIds, quota).filter(Boolean);
+      const count = lines.filter((line) => quota.pattern.test(line)).length;
       if (count > quota.maxPerPack) {
         warnings.push({
           code: quota.id,
@@ -1694,7 +1843,7 @@ function inferParlerActsFromAction(action = '', gender = 'male') {
   if (/\b(?:presse ta main contre sa|doigts contre sa chatte|écarte les cuisses et presse ta main)\b/i.test(blob)) {
     acts.push('fingering_companion');
   }
-  if (/\b(?:presse ses doigts contre ta|doigts sur ta chatte|main glissée sous ta robe|glisse ses doigts en toi)\b/i.test(blob)) {
+  if (/\b(?:presse ses doigts contre ta|glisse\s+(?:ses\s+|trois\s+)?doigts en toi|doigts sur ta chatte|main glissée sous ta robe)\b/i.test(blob)) {
     acts.push('fingering_mc');
   }
   if (/\b(?:cuisse glissée|presse-toi contre|entre tes jambes)\b/i.test(blob) && acts.length === 0) {
@@ -1835,6 +1984,115 @@ export function aff5FinaleAgencyCoherenceOk(exchange, protagonistGender = 'male'
     };
   }
 
+  const declaredActs = exchange.sessionOutcome?.acts ?? [];
+  const lyraFingersMc =
+    declaredActs.includes('fingering_mc') || LYRA_FINGERS_MC_ACTION.test(sceneBlob);
+  const mcFingersLyra =
+    declaredActs.includes('fingering_companion') || mcStimulatesLyra;
+
+  if (lyraFingersMc && !mcFingersLyra && /\b(tes doigts(?:\s+mouillés)?|ta paume encore mouillée)\b/i.test(finale)) {
+    return {
+      ok: false,
+      reason:
+        'intimateFinale — Lyra doigte le MC ; « tes doigts / ta paume » incohérent (préférer ses doigts / sa main — S47c)',
+    };
+  }
+
+  if (protagonistGender === 'female') {
+    const sceneBedFingers =
+      /\b(?:glisse ses doigts en toi|te pousse sur le lit|doigts en toi)\b/i.test(sceneBlob) &&
+      !/\bcommode\b/i.test(sceneBlob);
+    if (
+      sceneBedFingers &&
+      /\b(?:commode|semence|paume encore sur ses hanches)\b/i.test(finale)
+    ) {
+      return {
+        ok: false,
+        reason:
+          'intimateFinale FMC — calque H commode/anal sur scène lit/doigts Lyra (S47c)',
+      };
+    }
+  }
+
+  return { ok: true };
+}
+
+/** S49e — sessionOutcome.acts : contradictions flagrantes avec companionAction. */
+export function sessionOutcomeActsAlignedOk(exchange, protagonistGender = 'male') {
+  const meta = exchange.sessionOutcome;
+  if (!meta?.acts?.length) return { ok: true };
+
+  const action = exchange.companionAction ?? '';
+  const lyraFingersMcInScene = LYRA_FINGERS_MC_ACTION.test(action);
+
+  if (lyraFingersMcInScene && meta.acts.includes('anal') && !meta.acts.includes('fingering_mc')) {
+    return {
+      ok: false,
+      reason:
+        'sessionOutcome.acts = anal seul alors que companionAction = doigts Lyra sur le MC (S49e)',
+    };
+  }
+
+  if (lyraFingersMcInScene && !meta.acts.includes('fingering_mc')) {
+    return {
+      ok: false,
+      reason:
+        'sessionOutcome.acts doit inclure fingering_mc quand Lyra glisse/presse ses doigts sur le MC (S49e)',
+    };
+  }
+
+  if (
+    meta.acts.includes('fingering_mc') &&
+    SCENE_MC_STIMULATES_LYRA.test(action) &&
+    !lyraFingersMcInScene
+  ) {
+    return {
+      ok: false,
+      reason:
+        'sessionOutcome.acts = fingering_mc mais companionAction = MC stimule Lyra (S49e)',
+    };
+  }
+
+  return { ok: true };
+}
+
+/** S59 — cold start pack : pas de référence inter-pack (packs indépendants). */
+export const PACK5_COLD_START_FORBIDDEN =
+  /\b(?:nuit du toit|après le toit|de retour sur le toit|la nuit du toit flotte|sur le toit flotte)\b/i;
+
+export function packColdStartInterPackOk(exchange, packCtx) {
+  if (!packCtx || packCtx.packIndex !== 0) return { ok: true };
+  const bridge = exchange.bridge ?? '';
+  if (packCtx.packId === 'pack-5' && PACK5_COLD_START_FORBIDDEN.test(bridge)) {
+    return {
+      ok: false,
+      reason: 'pack-5 ouverture — référence toit inter-pack interdite (packs indépendants — S59)',
+    };
+  }
+  if (/\bde retour (?:dans sa chambre|sur le toit|à la verrière|au toit)\b/i.test(bridge)) {
+    return {
+      ok: false,
+      reason: 'cold start pack — « de retour » vers un autre lieu-pack interdit (S59)',
+    };
+  }
+  return { ok: true };
+}
+
+/** S48b — cowgirl : Lyra descend, pas « tu entres ». */
+export function companionLineCowgirlAlignmentOk(exchange) {
+  const action = exchange.companionAction ?? '';
+  const line = exchange.companionLine ?? '';
+  if (
+    /\b(?:califourchon|monte sur|chatte ouverte au-dessus|ne descend pas encore|genoux de chaque côté)\b/i.test(
+      action,
+    ) &&
+    /\btu entres\b/i.test(line)
+  ) {
+    return {
+      ok: false,
+      reason: 'cowgirl — Lyra descend ; companionLine « tu entres » incohérent (préférer « je descends » — S48b)',
+    };
+  }
   return { ok: true };
 }
 
@@ -2018,8 +2276,8 @@ export function parseDocExchanges(docText) {
     const body = parts[index + 1] ?? '';
     if (num === 'Packs' || body.startsWith('Packs de session')) break;
     const contextMatch = body.match(/\*\*Contexte\*\*\s*\r?\n([^\r\n]+)/);
-    const lyraBlock = body.match(/\*\*Lyra\*\*\s*\r?\n([\s\S]+?)(?:\r?\n\r?\n|\r?\n\|)/);
-    let companionLine = lyraBlock?.[1]?.trim() ?? null;
+    const companionBlock = body.match(/\*\*(Lyra|Maeve|Runa)\*\*\s*\r?\n([\s\S]+?)(?:\r?\n\r?\n|\r?\n\|)/);
+    let companionLine = companionBlock?.[2]?.trim() ?? null;
     if (companionLine?.startsWith('«') && companionLine.endsWith('»')) {
       companionLine = companionLine.slice(1, -1).trim();
     }
@@ -2174,11 +2432,81 @@ export function assertAff5FinaleAgencyRegression() {
   if (!aff5FinaleAgencyCoherenceOk(okFmcFinale, 'female').ok) {
     throw new Error('Régression : épilogue FMC Lyra→MC rejeté à tort');
   }
+  const badH09Finale = {
+    companionAction: 'Par derrière, elle glisse trois doigts en toi par-dessus l\'épaule.',
+    bridge: 'Toujours sous la verrière — condensation sur la vitraille.',
+    sessionOutcome: { acts: ['fingering_mc'] },
+    intimateFinale:
+      'Contre le montant, tes doigts mouillés, condensation sur la vitraille — elle retire sa main lentement.',
+  };
+  if (aff5FinaleAgencyCoherenceOk(badH09Finale, 'male').ok) {
+    throw new Error('Régression : tes doigts mouillés en scène Lyra→MC doit échouer S47c');
+  }
   if (frenchElisionAfterQueOk('jusqu\'à ce que je halète').ok) {
     throw new Error('Régression : que je halète doit échouer FR13');
   }
   if (!frenchElisionAfterQueOk('jusqu\'à ce que j\'halète').ok) {
     throw new Error('Régression : que j\'halète rejeté à tort');
+  }
+}
+
+export function assertLyraLeadFingerAndSessionOutcomeRegression() {
+  const badFmc06 = {
+    companionAction: 'Elle te pousse sur le lit, glisse ses doigts en toi et te retient par le poignet.',
+    sessionOutcome: { acts: ['anal'] },
+    choices: [{ tone: 'sincere', text: 'Je la laisse guider mes doigts et je ralentis si elle fronce.' }],
+  };
+  if (sessionOutcomeActsAlignedOk(badFmc06, 'female').ok) {
+    throw new Error('Régression : sessionOutcome anal sans fingering_mc doit échouer S49e');
+  }
+  if (lyraLeadFingerChoiceCoherenceOk(badFmc06).ok) {
+    throw new Error('Régression : guide mes doigts quand Lyra doigte le MC doit échouer S22b');
+  }
+  const badPack5Bridge = {
+    bridge:
+      'Bibliothèque du havre — rien n\'était prévu entre vous, et pourtant la nuit du toit flotte encore dans l\'air.',
+  };
+  if (packColdStartInterPackOk(badPack5Bridge, { packId: 'pack-5', packIndex: 0 }).ok) {
+    throw new Error('Régression : nuit du toit en cold start pack-5 doit échouer S59');
+  }
+  if (packFinaleExplicitClimaxCountOk('Trois fois aujourd\'hui, tu as failli.').ok) {
+    throw new Error('Régression : compteur trois fois dans pack low doit échouer S60');
+  }
+}
+
+export function assertP2EditorialRulesRegression() {
+  const badH03 = {
+    bridge:
+      'Encore entre les rayons où elle t\'a collé ; la chaleur monte, ses cuisses ouvertes au niveau de ton visage.',
+  };
+  const priorTable = {
+    title: 'Mouillée',
+    bridge: 'Toujours à la bibliothèque, elle s\'assoit au bord de la table de travail, cuisses entrouvertes sous la robe.',
+    companionAction: 'Elle t\'attire contre la table, écarte les cuisses et presse ta main contre sa chatte mouillée.',
+  };
+  if (bridgePriorPlaceContinuityOk(badH03, priorTable).ok) {
+    throw new Error('Régression : table→rayons faux pont doit échouer S45b');
+  }
+  const badRomanticAnal = {
+    bridge: 'À la bibliothèque.',
+    companionAction: 'Elle presse ta main contre sa chatte.',
+    choices: [{ tone: 'romantic', score: 3, text: 'Je caresse son clitoris puis deux doigts dans l\'anus.' }],
+  };
+  if (romanticChoiceAnalToneOk(badRomanticAnal).ok) {
+    throw new Error('Régression : romantic anal abrupt doit échouer S35a');
+  }
+  const badH21 = {
+    companionAction: 'Elle te tire entre les rayonnages, gode encore humide entre tes doigts.',
+    choices: [
+      {
+        score: 3,
+        text: 'Entre les atlas, je glisse en elle jusqu\'à ce que le bois grince.',
+        reaction: '« Oui. » *Chatte chaude contre ta bite.*',
+      },
+    ],
+  };
+  if (propHandoffCoherenceOk(badH21, 'male').ok) {
+    throw new Error('Régression : gode→bite sans handoff doit échouer S61');
   }
 }
 
@@ -2658,6 +2986,8 @@ export function runBuiltInRegressions() {
   assertAff5FemaleMcRegisterRegression();
   assertAff5MaleMcRegisterRegression();
   assertAff5FinaleAgencyRegression();
+  assertLyraLeadFingerAndSessionOutcomeRegression();
+  assertP2EditorialRulesRegression();
   assertAff5MaleMcAnatomyRegression();
   assertPowerDynamicRegression();
   assertActionChoiceAgencyRegression();

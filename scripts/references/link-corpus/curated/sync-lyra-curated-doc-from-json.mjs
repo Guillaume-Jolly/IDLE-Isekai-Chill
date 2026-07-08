@@ -13,7 +13,11 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 const reviewDoc = data.meta.reviewDoc;
 const docPath = path.resolve(ROOT, reviewDoc);
 const affinity = data.meta?.affinity ?? 1;
-const idPrefix = `lyra-aff${affinity}-curated-`;
+const companionId = data.meta?.companionId ?? 'lyra';
+const companionLabel = companionId.charAt(0).toUpperCase() + companionId.slice(1);
+const sampleId = data.exchanges[0]?.id ?? '';
+const idPrefixMatch = sampleId.match(/^([a-z]+-aff\d-curated(?:-[a-z-]+)?-)/);
+const idPrefix = idPrefixMatch?.[1] ?? `${companionId}-aff${affinity}-curated-`;
 
 if (!fs.existsSync(docPath)) {
   console.error(`Doc introuvable : ${reviewDoc}`);
@@ -30,7 +34,7 @@ function renderExchange(ex, num) {
     .join('\n');
 
   const actionBlock = ex.companionAction
-    ? `\n**Lyra (geste)**  \n${ex.companionAction.trim()}\n`
+    ? `\n**${companionLabel} (geste)**  \n${ex.companionAction.trim()}\n`
     : '';
 
   return `## ${num} — ${ex.title}
@@ -38,7 +42,7 @@ function renderExchange(ex, num) {
 **Contexte**  
 ${ex.bridge}
 ${actionBlock}
-**Lyra**  
+**${companionLabel}**  
 ${formatSpeech(ex.companionLine)}
 
 | Ton | Réponse | Réaction | Émotion |
@@ -58,6 +62,9 @@ function packThreadNotes(affinity) {
   }
   if (affinity === 4) {
     return '**Fil pack 4 :** porte du lit (10) → jambe sur toi (11) → suis mon rythme (12).';
+  }
+  if (affinity === 3) {
+    return '**Fil pack 4 :** place gardée (10) → même page / mains (11) → lampe qui faiblit (12).';
   }
   if (affinity === 2) {
     return '**Fil pack 4 :** place gardée (10) → page vingt / chapitre (11) → chiffres fourneaux avant vendredi (12).';
@@ -82,9 +89,11 @@ function renderPacksSection() {
       ? 'npm run validate:curated-parler:aff5'
       : affinity === 4
         ? 'npm run validate:curated-parler:aff4'
-        : affinity === 2
-          ? 'npm run validate:curated-parler:aff2'
-          : 'npm run validate:curated-parler';
+        : affinity === 3
+          ? 'npm run validate:curated-parler:aff3'
+          : affinity === 2
+            ? 'npm run validate:curated-parler:aff2'
+            : 'npm run validate:curated-parler';
 
   return `## Packs de session (3 échanges enchaînés)
 

@@ -191,21 +191,21 @@ function buildCorpus({
 
 /** Épilogues aff. 5 — narration tu ; segments séparés par « ; » (une bulle UI chacun). */
 const AFF5_FINALE_MALE = [
-  'Porte du fond tiède dans ton dos, verrou tiré — tu halètes contre les rayons ; elle se redresse, robe froissée, joue rose ; te chuchote : « Bien. Reste là — on n\'en est qu\'au début. »',
-  'Sous la lampe, ta main encore mouillée sur elle, registre basculé — elle respire contre ton cou, cuisses tremblantes sur la table ; murmure : « Continue. Personne ne passe tant que le verrou tient. »',
+  'Porte du fond tiède dans ton dos, verrou tiré — tu halètes contre les rayons ; elle se redresse, robe froissée, joue rose ; te chuchote : « Tiens bon. Reste là — on n\'en est qu\'au début. »',
+  'Sous la lampe, ta main encore mouillée sur elle, registre basculé — elle respire contre ton cou, cuisses tremblantes sur la table ; murmure : « Reste là. Personne ne passe tant que le verrou tient. »',
   'Tu relèves la tête entre ses cuisses — elle s\'appuie au rayonnage, chatte encore trempée, doigts dans tes cheveux ; ajuste sa robe, murmure : « Silence. On sort quand je le dis. »',
   'Peignoir au sol, ta chemise déboutonnée, draps froissés — elle contre ton torse nu, peau chaude, haleine sur ta peau ; te serre la nuque, te fixe : « Ne t\'habille pas trop vite. »',
   'Draps en bordel, elle reste assise sur toi, cuisses molles, chatte trempée — ta bite encore dure contre son ventre ; se redresse, regard amusé : « Tu sais attendre. Dommage que j\'aie craqué avant toi. »',
   'Oreiller mordu déplacé, ta semence le long de ses fesses sur la commode — miroir embué, vêtements au sol, chambre sens dessus dessous ; elle te toise, yeux amusés : « Retrouve-moi sous le bureau dans deux heures. »',
   'Sous la verrière, matelas froissé, sueur sur vos peaux — elle s\'écarte lentement, cuisses encore collées aux tiennes, lune sur le vitrage ; te fixe, yeux amusés : « On n\'a pas fini avec cette nuit. »',
   'Buée sur le vitrage, ta respiration encore haletante — elle vérifie ton poignet, cuisses tremblantes, chatte contre la tienne ; ralentit un instant, regard amusé : « Tu as bien tapé. Garde ce rythme encore un peu. »',
-  'Contre le montant, tes doigts mouillés, condensation sur la vitraille — elle retire sa main lentement, cuisses chancelantes, robe déplacée ; s\'essuie la paume, regard sec : « Dommage que personne n\'ait vu ta mine. »',
-  'Une fois les tremblements de son orgasme passés et ses petits gémissements terminés, elle s\'écarte — ta bite encore dure à côté de sa chatte ruisselante, couverture froissée ; te dit, amusée : « Tu es plus endurant que ce que je pensais. On va voir comment tu résistes à ça. »',
+  'Contre le montant, ses doigts mouillés encore en toi, condensation sur la vitraille — elle retire sa main lentement, ton dos encore collé au bois ; s\'essuie la paume, regard sec : « Dommage que personne n\'ait vu ta mine. »',
+  'Une fois les tremblements de son orgasme passés et ses petits gémissements terminés, elle s\'écarte — ta bite encore dure à côté de sa chatte ruisselante, couverture froissée ; te fixe, yeux amusés : « Encore debout malgré le froid — on verra si tu tiens la rambarde ensuite. »',
   'Dos à la rambarde, tu jouis enfin — couverture tâchée, elle relève la tête, lèvre mouillée, gorge qui avale ; murmure contre ton ventre : « Mmm… relâche-toi. On n\'a pas fini la nuit. »',
   'Sur la couverture, aube grise dans le dos, fesses encore rouges, haleine coupée — vous venez de jouir ; elle se redresse chancelante ; te fixe, yeux amusés : « Voilà. Redescends avant que le village ouvre un œil. »',
   'Sous le comptoir, tu retiens encore ton souffle — elle replace une mèche, joue rose ; te chuchote à peine audible : « Personne n\'a rien entendu. Dommage. »',
   'Gode contre le tiroir, visiteur encore au couloir — tes doigts sur sa chatte, elle respire par le nez ; chuchote sans te regarder : « Lent. Quand je fais une pause. »',
-  'Gode enfoncé, visiteur au couloir — elle serre tes cheveux une seconde ; chuchote sans te regarder : « Bien. Tu attends mon signal pour la suite. »',
+  'Gode enfoncé, visiteur au couloir — elle serre tes cheveux une seconde ; chuchote sans te regarder : « Lent. Tu attends mon signal pour la suite. »',
   'Comptoir tiède, ta paume sur le manche — elle cite encore les amendes sans trembler ; murmure contre ton oreille : « Comme ça. Pas plus fort sans moi. »',
   'Doigt retiré de son anus, gode toujours en place — masque retrouvé vers la vitrine ; murmure : « Tu m\'as tendue. Ce n\'est pas fini. »',
   'Registre posé ; aux allées, le silence — tes doigts humides, elle lisse sa robe ; te fixe : « Quand la cloche sonne — même tabouret. »',
@@ -236,21 +236,21 @@ function finalesLowFromMap(map, length) {
 }
 
 const AFF5_FINALE_FEMALE = [
-  'Porte du fond tiède dans ton dos, verrou tiré — tu halètes contre les rayons, robe froissée ; elle se redresse, joue rose ; te chuchote : « Bien. Reste là — on n\'en est qu\'au début. »',
-  'Sous la lampe, ta chatte encore trempée sous sa paume, registre basculé — elle respire contre ton cou, cuisses tremblantes sur la table ; murmure : « Continue. Personne ne passe tant que le verrou tient. »',
+  'Porte du fond tiède dans ton dos, verrou tiré — tu halètes contre les rayons, robe froissée ; elle se redresse, joue rose ; te chuchote : « Tiens bon. Reste là — on n\'en est qu\'au début. »',
+  'Sous la lampe, ta chatte encore trempée sous sa paume, registre basculé — elle respire contre ton cou, cuisses tremblantes sur la table ; murmure : « Reste là. Personne ne passe tant que le verrou tient. »',
   'Sur la table, ta chatte encore trempée — elle se redresse entre tes cuisses, lèvres humides, doigts sur ta cuisse ; murmure : « Silence. On sort quand je le dis. »',
   'Robe au pied du lit, ta chatte nue contre la sienne — draps froissés, peignoir abandonné, sueur sur vos ventres ; te serre la nuque, te fixe : « Ne te rhabille pas trop vite. »',
   'Draps en bordel, elle reste sur toi, cuisses molles, chatte trempée contre la tienne — doigts crispés dans tes hanches ; se redresse, regard amusé : « Tu sais attendre. Dommage que j\'aie craqué avant toi. »',
-  'Miroir embué, ta paume encore sur ses hanches — oreiller déplacé, chambre sens dessus dessous, cuisses tremblantes ; elle te toise, yeux amusés : « Retrouve-moi sous le bureau dans deux heures. »',
+  'Draps froissés, ses doigts encore en toi — oreiller déplacé, chambre sens dessus dessous, cuisses tremblantes ; elle retire sa main lentement, te toise, yeux amusés : « Reste. On n\'a pas fini. »',
   'Sous la verrière, matelas froissé, sueur sur vos peaux — elle s\'écarte lentement, clitoris encore brûlant, lune sur le vitrage ; te fixe, yeux amusés : « On n\'a pas fini avec cette nuit. »',
   'Buée sur le vitrage, ta respiration haletante — elle vérifie ton poignet, chatte contre la sienne, cuisses tremblantes ; regard amusé : « Tu as bien tapé. Garde ce rythme. »',
-  'Contre le montant, ses doigts mouillés sur ta chatte — condensation sur la vitraille, robe déplacée, cuisses chancelantes ; s\'essuie la paume, regard sec : « Dommage que personne n\'ait vu ta mine. »',
-  'Une fois les tremblements de son orgasme passés et ses petits gémissements terminés, elle s\'écarte — ta chatte encore brûlante contre la sienne ruisselante, couverture froissée ; te dit, amusée : « Tu es plus endurante que ce que je pensais. On verra comment tu résistes à ça. »',
+  'Contre le montant, ses doigts mouillés sur ta chatte — condensation sur la vitraille, robe déplacée ; elle retire sa main lentement, ton dos encore collé au bois ; s\'essuie la paume, regard sec : « Dommage que personne n\'ait vu ta mine. »',
+  'Une fois les tremblements de son orgasme passés, elle s\'écarte — ta chatte encore brûlante contre la sienne ruisselante, couverture froissée ; te fixe, yeux amusés : « Encore debout malgré le froid — on verra si tu tiens la rambarde ensuite. »',
   'Sur la couverture, tu jouis enfin — elle relève la tête, lèvre mouillée, chatte encore trempée ; murmure : « Mmm… relâche-toi. On n\'a pas fini la nuit. »',
   'Sur la couverture, aube grise dans le dos, cuisses encore tremblantes — vous venez de jouir ; elle se redresse chancelante ; te fixe, yeux amusés : « Voilà. Redescends avant que le village ouvre un œil. »',
   'Sous le comptoir, tu retiens ton souffle — ta robe froissée, elle replace une mèche, joue rose ; te chuchote à peine audible : « Personne n\'a rien entendu. Dommage. »',
   'Gode contre le tiroir, visiteur encore au couloir — tes doigts sur sa chatte, elle respire par le nez ; chuchote sans te regarder : « Lent. Quand je fais une pause. »',
-  'Gode enfoncé, visiteur au couloir — elle serre tes cheveux une seconde ; chuchote sans te regarder : « Bien. Tu attends mon signal. »',
+  'Gode enfoncé, visiteur au couloir — elle serre tes cheveux une seconde ; chuchote sans te regarder : « Lent. Tu attends mon signal. »',
   'Comptoir tiède, ta paume sur le manche — elle cite les amendes sans trembler ; murmure contre ton oreille : « Comme ça. Pas plus fort sans moi. »',
   'Doigt retiré, gode toujours en place — masque retrouvé ; murmure : « Tu m\'as tendue. Ce n\'est pas fini. »',
   'Registre posé — tes doigts humides, elle lisse sa robe ; te fixe : « Quand la cloche sonne — même tabouret. »',
@@ -306,7 +306,7 @@ const SESSION_OUTCOME_FEMALE = [
   { acts: ['oral_on_mc'], mcClimaxOnSuccess: true, beatLabel: 'Entre les cuisses' },
   { acts: ['grinding'], beatLabel: 'Peignoir ouvert' },
   { acts: ['mutual_grinding'], mcClimaxOnSuccess: true, companionClimaxOnSuccess: true, beatLabel: 'Elle monte' },
-  { acts: ['anal'], mcClimaxOnSuccess: true, beatLabel: 'Doigts' },
+  { acts: ['fingering_mc'], mcClimaxOnSuccess: true, beatLabel: 'Doigts' },
   { acts: ['penetration'], beatLabel: 'Face à face' },
   { acts: ['riding'], companionClimaxOnSuccess: true, beatLabel: 'Stop' },
   { acts: ['fingering_mc'], mcClimaxOnSuccess: true, beatLabel: 'Vitrage embué' },
@@ -373,7 +373,7 @@ const PACK_ACT_FINALE_MALE = {
         'Lyra redresse sa robe, essuie tes paumes sur le cuir ; te retient la nuque, yeux amusés : « Le masque toute la journée. Ce soir, silence. Demain, même tabouret. »',
     },
     low:
-      'Verrou du soir tiré trop tôt — atlas mal refermé, registre realigné, gode encore humide ; elle te repousse vers le comptoir ; te toise sous les travées, regard sec : « Trois fois aujourd\'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
+      'Verrou du soir tiré trop tôt — atlas mal refermé, registre realigné, gode encore humide ; elle te repousse vers le comptoir ; te toise sous les travées, regard sec : « À chaque pause tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
   },
 };
 
@@ -424,7 +424,7 @@ const PACK_ACT_FINALE_FEMALE = {
         'Lyra remonte sa robe, essuie tes paumes sur le cuir ; te retient la nuque, yeux amusés : « Le masque toute la journée. Ce soir, silence. Demain, même tabouret. »',
     },
     low:
-      'Verrou du soir trop bruyant — atlas mal refermé, registre realigné, gode encore humide ; elle te repousse vers le comptoir ; te toise sous les travées, regard sec : « Trois fois aujourd\'hui, tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
+      'Verrou du soir trop bruyant — atlas mal refermé, registre realigné, gode encore humide ; elle te repousse vers le comptoir ; te toise sous les travées, regard sec : « À chaque pause tu as failli. Demain, le bestiaire debout — à voix haute, lentement. »',
   },
 };
 
@@ -448,22 +448,22 @@ const AFF5_MALE = [
     companionAction: 'Elle t\'attire contre la table, écarte les cuisses et presse ta main contre sa chatte mouillée.',
     companionLine: 'Bouge tes doigts quand je serre ton poignet.',
     choices: [
-      choice('romantic', 'Je caresse son clitoris puis je lui glisse deux doigts dans l\'anus jusqu\'à ce qu\'elle tremble.', 3, 'romantic', '« Continue. » *Elle serre ton poignet.* « Tais-toi. »'),
+      choice('romantic', 'Je caresse son clitoris, puis je lui glisse deux doigts en elle lentement jusqu\'à ce qu\'elle tremble.', 3, 'romantic', '« Encore. » *Elle serre ton poignet.* « Tais-toi. »'),
       choice('sincere', 'Je sens sa main sur mon poignet et je ralentis dès qu\'elle serre.', 2, 'warm', '« Serre quand tu veux. Continue lentement. »'),
       choice('direct', 'Je retire ma main une seconde, puis je repose deux doigts plus fermement sur son clitoris.', 1, 'focused', '« Repose. Je veux sentir ta pression. »'),
-      choice('playful', 'D\'abord je feins de lire le registre, puis je presse ma paume contre son clitoris quand même.', 0, 'dismissive', '« Oublie le registre. Mets ta main ici. »'),
+      choice('playful', 'Feignant lecture du registre, je presse ma paume contre son clitoris quand même.', 0, 'dismissive', '« Oublie le registre. Mets ta main ici. »'),
     ],
   },
   {
     title: 'Entre les cuisses',
-    bridge: 'Encore entre les rayons où elle t\'a collé ; la chaleur monte, ses cuisses ouvertes au niveau de ton visage.',
+    bridge: 'Toujours à la bibliothèque — au bord de la table où tu l\'as fait mouiller, Lyra te tire entre les rayons du fond ; la chaleur monte, ses cuisses ouvertes au niveau de ton visage.',
     companionAction: 'Elle te pousse à genoux devant elle, doigts entrelacés dans tes cheveux, cuisses ouvertes sur ton visage.',
     companionLine: 'Goûte. Ne relève pas les yeux sans ma permission.',
     choices: [
-      choice('romantic', 'Je lèche son clitoris sans relever les yeux, langue entre ses cuisses.', 3, 'romantic', '« Continue. » *Elle tire tes cheveux.* « Ne t\'arrête pas trop tôt. »'),
+      choice('romantic', 'Je lèche son clitoris sans relever les yeux, langue entre ses cuisses.', 3, 'romantic', '« Ne t\'arrête pas. » *Elle tire tes cheveux.* « Pas trop tôt. »'),
       choice('sincere', 'Je la laisse guider ma nuque et je ralentis dès qu\'elle serre mes cheveux.', 2, 'warm', '« Main dans tes cheveux. Garde ce rythme. »'),
       choice('direct', 'Je retiens ma langue une seconde, puis je reprends sur son clitoris, plus fort.', 1, 'firm', '« Une seconde. Puis ne t\'arrête pas. »'),
-      choice('playful', 'D\'abord je feins de reculer le visage, puis je lèche sa chatte quand elle tire mes cheveux.', 0, 'annoyed', '« Langue sur ma chatte. Lèche. »'),
+      choice('playful', 'Simulant recul du visage, je lèche sa chatte quand elle tire mes cheveux.', 0, 'annoyed', '« Langue sur ma chatte. Lèche. »'),
     ],
   },
   {
@@ -474,8 +474,8 @@ const AFF5_MALE = [
     choices: [
       choice('romantic', 'Je reste immobile sous elle et je la laisse ouvrir ma chemise, puis mon pantalon, sans rien cacher.', 3, 'romantic', '« Parfait. » *Elle finit de t\'ôter la chemise et ton pantalon, ta verge dure contre son ventre nu.*'),
       choice('sincere', 'Immobilisé sous Lyra, je signale d\'un geste si elle va trop vite.', 2, 'warm', '« Signale. Je continue. »'),
-      choice('direct', 'Trente secondes immobile sous elle, puis je la retourne et la presse contre les draps.', 1, 'focused', '« Si tu veux jouer, assume. Je veux que tu me prennes toute la nuit. » *Elle écarte les cuisses et te lance un regard de défi.*'),
-      choice('playful', 'D\'abord je feins de croiser les bras sur ma poitrine, puis je les relâche quand elle fronce les sourcils.', 0, 'annoyed', '« Pas de jeu. Laisse-moi faire. »'),
+      choice('direct', 'Immobilisé une seconde sous elle, puis je la retourne et la presse contre les draps.', 1, 'focused', '« Si tu veux jouer, assume. Je veux que tu me prennes toute la nuit. » *Elle écarte les cuisses et te lance un regard de défi.*'),
+      choice('playful', 'Feignant de croiser les bras sur ma poitrine, je les relâche quand elle fronce les sourcils.', 0, 'annoyed', '« Pas de jeu. Laisse-moi faire. »'),
     ],
   },
   {
@@ -487,7 +487,7 @@ const AFF5_MALE = [
       choice('romantic', 'J\'agrippe ses hanches et je la laisse enfoncer ma bite jusqu\'au fond.', 3, 'romantic', '« Oui. » *Elle descend d\'un coup.* « Ne lâche pas mes hanches. »'),
       choice('sincere', 'Je reste allongé et je guide ses hanches lentement d\'abord.', 2, 'pleased', '« Lent d\'abord. Puis plus fort. »'),
       choice('direct', 'Je laisse mes mains immobiles une seconde, puis je retourne la position et je lui enfonce ma bite par-dessus.', 1, 'firm', '« Retourne-moi. Prends-moi par-dessus. »'),
-      choice('playful', 'D\'abord je feins de la repousser, puis je la tire plus fort sur ma bite.', 0, 'dismissive', '« Pas de jeu. Laisse-moi monter. »'),
+      choice('playful', 'Feignant recul, je la tire plus fort sur ma bite.', 0, 'dismissive', '« Pas de jeu. Laisse-moi monter. »'),
     ],
   },
   {
@@ -496,22 +496,22 @@ const AFF5_MALE = [
     companionAction: 'Elle se penche sur la commode, fesses offertes, et te guide en elle par derrière en serrant ta taille.',
     companionLine: 'Serre ma taille plus fort quand je te le demande.',
     choices: [
-      choice('romantic', 'Je la plaque contre la commode et je l\'encule jusqu\'à ce qu\'elle gémisse.', 3, 'romantic', '« Continue. Plus fort. Ne retiens rien. » *Elle serre la commode, voix basse.*'),
-      choice('sincere', 'Je serre sa taille contre le bois et je ralentis dès qu\'elle fronce les sourcils.', 2, 'warm', '« Ralentis si tu veux. Ne t\'arrête pas. »'),
-      choice('direct', 'Je compte trente secondes contre la commode, puis je la retourne sur le lit.', 1, 'focused', '« Sur le lit. Puis encore plus fort. »'),
-      choice('playful', 'D\'abord je serre sa taille, puis je feins de lâcher une seconde.', 0, 'annoyed', '« Pas de lâcher. Serre plus fort. »'),
+      choice('romantic', 'Contre la commode, je l\'encule jusqu\'à ce qu\'elle gémisse.', 3, 'romantic', '« Encore. Plus fort. Ne retiens rien. » *Elle serre la commode, voix basse.*'),
+      choice('sincere', 'Contre le bois, je serre sa taille et je ralentis dès qu\'elle fronce les sourcils.', 2, 'warm', '« Ralentis si tu veux. Ne t\'arrête pas. »'),
+      choice('direct', 'Je garde ma prise une seconde, puis je la retourne sur le lit.', 1, 'focused', '« Sur le lit. Puis encore plus fort. »'),
+      choice('playful', 'Feignant un faible relâchement, je resserre ma prise sur sa taille.', 0, 'annoyed', '« Pas de lâcher. Serre plus fort. »'),
     ],
   },
   {
     title: 'Entre en moi',
     bridge: 'Sous la verrière, lune sur les vitrages ; matelas bas, draps froissés, peaux collées et chaudes.',
     companionAction: 'Elle s\'assoit à califourchon sur tes hanches, chatte ouverte au-dessus de ta bite, mains sur ton torse — elle tient, ne descend pas encore.',
-    companionLine: 'Attends mon signal sur tes hanches — après, tu entres.',
+    companionLine: 'Attends mon signal sur tes hanches — après, je descends.',
     choices: [
       choice('romantic', 'Je reste immobile allongé — je la laisse serrer mes hanches avant de glisser en elle.', 3, 'romantic', '« Alors viens. » *Elle serre tes hanches.* « Ne te retiens pas. »'),
       choice('sincere', 'Je reste immobile et j\'enfonce ma bite lentement quand elle serre mes hanches.', 2, 'warm', '« Lent, puis fort. Je te demanderai. »'),
       choice('direct', 'Je la retourne et je lui enfonce ma bite avant qu\'elle ait fini de parler.', 1, 'focused', '« Retourne-moi. En moi, maintenant. »'),
-      choice('playful', 'D\'abord je feins de rester immobile, puis je la prends d\'un coup.', 0, 'annoyed', '« Moins de théâtre. En moi, maintenant. »'),
+      choice('playful', 'Simulant immobilité, je la prends d\'un coup.', 0, 'annoyed', '« Moins de théâtre. En moi, maintenant. »'),
     ],
   },
   {
@@ -523,7 +523,7 @@ const AFF5_MALE = [
       choice('romantic', 'Je serre ses hanches et je continue jusqu\'à ce qu\'elle halète mon nom.', 3, 'romantic', '« Alors baise-moi jusqu\'à ce que j\'oublie ce mot. »'),
       choice('sincere', 'Je tape son poignet dès que ça brûle et je ralentis tout de suite.', 2, 'pleased', '« Tape si ça brûle. Ralentis sans t\'arrêter. »'),
       choice('direct', 'Je dis stop d\'une voix basse si elle serre trop fort.', 1, 'firm', '« Stop entendu. Dis-le si ça pique. »'),
-      choice('playful', 'D\'abord je feins de taper son poignet, puis je la presse plus fort.', 0, 'dismissive', '« Pas de faux signal. Tape pour de vrai. »'),
+      choice('playful', 'Feignant un tapotage à vide sur son poignet, je la presse plus fort.', 0, 'dismissive', '« Pas de faux signal. Tape pour de vrai. »'),
     ],
   },
   {
@@ -534,7 +534,7 @@ const AFF5_MALE = [
     choices: [
       choice('romantic', 'Je me cambre contre le montant et je cède à ses doigts jusqu\'à ce que je jouisse.', 3, 'romantic', '« Presse le montant. » *Elle accélère, buée sur le vitrage.* « Laisse-toi jouir. »'),
       choice('sincere', 'Contre le montant, je retiens ma respiration et je tape son poignet si ça brûle trop.', 2, 'warm', '« Serre le montant. Tape si ça brûle trop. »'),
-      choice('direct', 'Contre le bois, je garde vingt secondes immobiles puis je pousse mes hanches sur sa paume.', 1, 'focused', '« Maintenant. Plus fort. »'),
+      choice('direct', 'Une seconde immobile contre le bois, puis je pousse mes hanches sur sa paume.', 1, 'focused', '« Maintenant. Plus fort. »'),
       choice('playful', 'Simulant recul du montant, je cambre le bassin contre sa paume quand elle m\'attrape par la taille.', 0, 'annoyed', '« Cambre-toi. Contre ma main. »'),
     ],
   },
@@ -544,7 +544,7 @@ const AFF5_MALE = [
     companionAction: 'Elle bouge déjà sur toi, paume sur ton poignet — elle accélère quand tu obéis au signal, ralentit quand tu devances.',
     companionLine: 'Signal au poignet. Tu pousses seulement quand je serre.',
     choices: [
-      choice('romantic', 'Je presse mes hanches contre les siennes et je la laisse mener le rythme jusqu\'à ce qu\'elle jouisse.', 3, 'romantic', '« Continue. Là. Ne t\'arrête pas avant que je jouisse. »'),
+      choice('romantic', 'Je presse mes hanches contre les siennes et je la laisse mener le rythme jusqu\'à ce qu\'elle jouisse.', 3, 'romantic', '« Là. Ne t\'arrête pas avant que je jouisse. »'),
       choice('sincere', 'Quand elle serre mes hanches, je ralentis sans reprendre le tempo.', 2, 'warm', '« Mes hanches te guident. Suis mon rythme. »'),
       choice('direct', 'Je retiens ses hanches une minute, puis je la bascule sur le dos à côté de moi.', 1, 'firm', '« Retourne-moi si tu peux. Puis reprends. »'),
       choice('playful', 'D\'abord je reste raide sous elle, puis je la serre plus fort contre moi.', 0, 'annoyed', '« Trop raide. Presse-toi contre moi. »'),
@@ -570,19 +570,19 @@ const AFF5_MALE = [
     choices: [
       choice('romantic', 'Je glisse ma bite en son cul et je la laisse fixer le rythme jusqu\'à ce qu\'on jouisse tous les deux.', 3, 'romantic', '« Viens vite. Je suis à deux doigts de jouir. »'),
       choice('sincere', 'Je pénètre son cul lentement et je ralentis dès qu\'elle serre mes hanches.', 2, 'warm', '« Lent. Serre quand j\'accélère. »'),
-      choice('direct', 'Je garde trente secondes sans bouger en elle, puis je la prends fort par derrière.', 1, 'firm', '« Maintenant. Puis encore, fort. »'),
-      choice('playful', 'D\'abord je feins de hésiter à l\'entrée, puis je la pénètre par derrière jusqu\'au fond.', 0, 'annoyed', '« Pas d\'hésitation. En mon cul, fort. »'),
+      choice('direct', 'Je retiens le geste une seconde en elle, puis je la prends fort par derrière.', 1, 'firm', '« Maintenant. Puis encore, fort. »'),
+      choice('playful', 'Feignant hésitation à l\'entrée, je la pénètre par derrière jusqu\'au fond.', 0, 'annoyed', '« Pas d\'hésitation. En mon cul, fort. »'),
     ],
   },
   {
     title: 'Pas de pas',
-    bridge: 'Bibliothèque du havre, matin de cire et de papier — Lyra tourne encore une page au comptoir quand tu entres ; rien n\'était prévu entre vous, et pourtant la nuit du toit flotte encore dans l\'air ; dans le couloir de pierre, un chuchotement, puis des pas — on demande la bibliothécaire.',
+    bridge: 'Bibliothèque du havre, matin de cire et de papier — Lyra tourne encore une page au comptoir quand tu entres ; rien n\'était prévu entre vous ; dans le couloir de pierre, un chuchotement, puis des pas — on demande la bibliothécaire.',
     companionAction: 'Sans te laisser le temps, elle t\'attrape le poignet et te fourre sous le comptoir — index sur tes lèvres, genou qui te cloue au planches. Pas un ordre, juste ce geste sec. De face, elle se redresse comme si de rien n\'était ; le visiteur ne doit voir qu\'une employée posée.',
     companionLine: 'Bonjour — je suis la bibliothécaire. Un instant, je termine cette ligne du registre.',
     choices: [
       choice('romantic', 'Bouche scellée, je la laisse accueillir le visiteur d\'une voix posée tandis que sa jambe me cache sous le comptoir.', 3, 'romantic', '« Oui, bien sûr — je vous entends. » *Elle termine sa phrase vers le couloir sans trembler — genou qui te plaque, index sur tes lèvres.*'),
       choice('sincere', 'Retenant ma respiration, je n\'avance d\'un millimètre que si sa main le permet sur mon poignet.', 2, 'warm', '« Un instant, je consulte le registre. » *Elle serre ton poignet une seconde — reste dans son ombre, pas un bruit.*'),
-      choice('direct', 'Je garde quinze secondes sans bouger sous le bois, puis je presse ma joue contre sa cheville.', 1, 'focused', '« Je reviens vers vous dans un moment. » *Elle presse ta nuque sous le bois — attend le claquement de porte.*'),
+      choice('direct', 'Un instant sans bouger sous le bois, puis je presse ma joue contre sa cheville.', 1, 'focused', '« Je reviens vers vous dans un moment. » *Elle presse ta nuque sous le bois — attend le claquement de porte.*'),
       choice('playful', 'Feignant un oubli de volume, je fais grincer une planche — puis je me fige quand son index se presse plus fort.', 0, 'annoyed', '« …Pardon ? Je n\'ai pas entendu. » *Elle te transperce d\'un regard sous le comptoir — index plus fort, puis reprend vers le couloir.*'),
     ],
   },
@@ -592,10 +592,10 @@ const AFF5_MALE = [
     companionAction: 'Index sur tes lèvres. Vers le couloir elle feint de feuilleter ; de ton angle, cuisses à peine entrouvertes — hasard ou impatience, pas une invitation qu\'elle oserait nommer. Un regard sous le bois, urgent et honteux ; elle ne peut ni te guider ni chuchoter.',
     companionLine: 'Les atlas du nord sont en réserve deux — je vous les sortirai dans un instant.',
     choices: [
-      choice('romantic', 'Doigts sur son clitoris, je caresse lentement au rythme de sa citation d\'atlas vers le couloir — elle retient un frisson sans couper sa phrase.', 3, 'romantic', '« Section trois… oui, tout à l\'heure. » *Elle mord l\'intérieur de la joue — serre tes cheveux une seconde, puis relâche.*'),
+      choice('romantic', 'Doigts sur son clitoris, je caresse au rythme de sa citation d\'atlas — elle retient un frisson sans couper sa phrase.', 3, 'romantic', '« Section trois… oui, tout à l\'heure. » *Elle mord l\'intérieur de la joue — serre tes cheveux une seconde, puis relâche.*'),
       choice('sincere', 'Je reste immobile jusqu\'à ce que sa cheville cède d\'un millimètre — puis je caresse, plus lent quand elle serre.', 2, 'warm', '« Je note votre demande, monsieur. » *Elle serre ta cheville quand ça brûle — voix toujours posée vers le couloir.*'),
-      choice('direct', 'Quinze secondes sans bouger, puis je caresse son clitoris quand le visiteur marque une pause.', 1, 'focused', '« …Comme vous dites. » *Elle marque une pause vers le visiteur — te fixe une seconde sous le bois, mâchoire serrée.*'),
-      choice('playful', 'D\'abord je retire ma main une seconde, puis je caresse sa chatte quand son regard me transperce sous le bois.', 0, 'annoyed', '« Pardon ? » *Elle te transperce du regard — genou qui te bloque, puis reprend sa citation.*'),
+      choice('direct', 'Sans bouger sous le bois, je retiens le geste puis je caresse son clitoris quand le visiteur marque une pause.', 1, 'focused', '« …Comme vous dites. » *Elle marque une pause vers le visiteur — te fixe une seconde sous le bois, mâchoire serrée.*'),
+      choice('playful', 'D\'abord je retire ma main une seconde, puis je caresse sa chatte quand son regard me transperce sous le bois.', 0, 'annoyed', '« Vous disiez ? » *Elle te mord la cheville sous le bois — genou qui te bloque, puis reprend sa citation.*'),
     ],
   },
   {
@@ -604,10 +604,10 @@ const AFF5_MALE = [
     companionAction: 'Voix claire sur la gravure ; sous le bois, cuisses qui se contractent autour de rien. Quand le visiteur marque une pause, elle serre tes cheveux une fraction — pas pour mener, pour ne pas crier. Dehors, une bibliothécaire distraite, joues roses.',
     companionLine: 'Je vous montre cette gravure — remarquez le trait du scribe, second siècle, ici.',
     choices: [
-      choice('romantic', 'Sans prévenir, je glisse le gode en elle pendant sa pause — de l\'autre côté, sa voix reprend sur la gravure sans faillir.', 3, 'romantic', '« …Remarquez, ici, l\'usure du parchemin. » *Elle serre le manche via ta main — frisson retenu, voix qui reprend aussitôt.*'),
+      choice('romantic', 'Sans prévenir, je glisse le gode en elle à sa pause — sa voix reprend sur la gravure sans faillir.', 3, 'romantic', '« …Remarquez, ici, l\'usure du parchemin. » *Elle serre le manche via ta main — frisson retenu, voix qui reprend aussitôt.*'),
       choice('sincere', 'Lentement, je pousse le gode d\'un cran — je m\'arrête dès qu\'elle retient un gémissement, sans bruit contre le bois.', 2, 'warm', '« Ici, le filigrane… » *Elle serre tes cheveux quand ça brûle — lent, sans bruit.*'),
-      choice('direct', 'Je garde quinze secondes à caler le gode, puis j\'enfonce d\'un cran quand elle fait une pause vers le couloir.', 1, 'firm', '« …Un instant. » *Elle marque une pause vers le visiteur — mâchoire serrée, yeux qui supplient sous le bois.*'),
-      choice('playful', 'D\'abord je feins de poser le gode au sol, puis j\'enfonce le gode quand son index se presse plus fort sur mes lèvres.', 0, 'dismissive', '« Je vous écoute. » *Elle te transperce du regard — index sur tes lèvres, puis reprend sur la gravure.*'),
+      choice('direct', 'Un instant à caler le gode, puis j\'enfonce d\'un cran quand elle fait une pause vers le couloir.', 1, 'firm', '« …Un instant. » *Elle marque une pause vers le visiteur — mâchoire serrée, yeux qui supplient sous le bois.*'),
+      choice('playful', 'Feignant de poser le gode au sol, puis j\'enfonce le gode quand son index se presse plus fort sur mes lèvres.', 0, 'dismissive', '« Je vous écoute. » *Elle appuie son index sur tes lèvres — puis reprend sur la gravure.*'),
     ],
   },
   {
@@ -616,9 +616,9 @@ const AFF5_MALE = [
     companionAction: 'Elle serre la mâchoire vers le visiteur, retient un frisson — regard sous le comptoir qui supplie sans ordonner. Quand tu bouges le manche, ses cuisses tremblent ; dehors, une plume immobile sur le registre.',
     companionLine: 'Les amendes de retard figurent au registre B — je vous les indique tout de suite.',
     choices: [
-      choice('romantic', 'Je pousse le gode plus profond à mon tempo — je m\'arrête net avant qu\'elle vacille, sa voix toujours claire sur les amendes.', 3, 'romantic', '« …Colonne quatre. » *Elle mord sa lèvre — frisson retenu, puis reprend vers le couloir.*'),
+      choice('romantic', 'Je pousse le gode plus profond à mon tempo — j\'arrête net avant qu\'elle vacille, voix claire sur les amendes.', 3, 'romantic', '« …Colonne quatre. » *Elle mord sa lèvre — frisson retenu, puis reprend vers le couloir.*'),
       choice('sincere', 'Quand elle serre mes cheveux, je ralentis ; quand elle relâche, je reprends — sans quitter la cadence de sa citation.', 2, 'warm', '« …Colonne quatre, oui. » *Elle serre sans bruit — voix stable vers le visiteur.*'),
-      choice('direct', 'Trente secondes à pousser lentement, puis je presse plus fort seulement quand elle frôle un gémissement retenu.', 1, 'focused', '« …Comme indiqué. » *Elle serre tes cheveux une seconde — panique étouffée, pas un ordre.*'),
+      choice('direct', 'Je retiens le manche une seconde, puis je presse plus fort quand elle frôle un gémissement retenu.', 1, 'focused', '« …Comme indiqué. » *Elle serre tes cheveux une seconde — panique étouffée, pas un ordre.*'),
       choice('playful', 'D\'abord je ralentis une seconde sur le manche pour la taquiner, puis je repousse là où ses hanches cherchent.', 0, 'annoyed', '« Pardon ? » *Elle te fixe sous le bois — genou qui te bloque une seconde, puis reprend sa litanie.*'),
     ],
   },
@@ -628,10 +628,10 @@ const AFF5_MALE = [
     companionAction: 'Sans couper sa phrase elle cambre d\'un millimètre — de ton côté, accès à son anus ; elle n\'a pas ouvert la bouche. Le visiteur fronce les sourcils : bibliothécaire distraite, joues de plus en plus roses.',
     companionLine: 'La réserve fermée s\'ouvre sur rendez-vous — je peux vous noter demain matin.',
     choices: [
-      choice('romantic', 'Je glisse un doigt en son anus pendant qu\'elle conclut sa phrase sur la réserve — je ralentis dès que sa voix frôle la faille, sans la laisser basculer.', 3, 'romantic', '« …Demain matin, oui. » *Elle serre ton poignet une seconde — presque un gémissement retenu, voix qui tient.*'),
+      choice('romantic', 'Je glisse un doigt en son anus pendant qu\'elle conclut sur la réserve — je ralentis dès que sa voix frôle la faille.', 3, 'romantic', '« …Demain matin, oui. » *Elle serre ton poignet une seconde — presque un gémissement retenu, voix qui tient.*'),
       choice('sincere', 'Un doigt lent en son anus ; je ralentis dès qu\'elle serre mes doigts contre le bois — gode immobile entre deux phrases.', 2, 'warm', '« Je note votre nom… » *Elle serre tes doigts — garde la voix posée.*'),
-      choice('direct', 'Vingt secondes sans bouger, puis un doigt anal quand elle serre mon poignet — deux seulement si sa voix reste stable.', 1, 'firm', '« …Entendu. » *Elle serre ton poignet — une seconde, puis relâche.*'),
-      choice('playful', 'D\'abord je feins de caresser sa cuisse, puis je presse un doigt contre son anus quand le visiteur baisse les yeux sur le registre.', 0, 'dismissive', '« Je vous écoute. » *Elle te fixe sous le bois — cuisses qui se contractent, pas un geste vers ta main.*'),
+      choice('direct', 'Un instant sans bouger, puis un doigt anal quand elle serre mon poignet — deux seulement si sa voix reste stable.', 1, 'firm', '« …Entendu. » *Elle serre ton poignet — une seconde, puis relâche.*'),
+      choice('playful', 'Feignant maladresse sur sa cuisse, je presse un doigt contre son anus quand le visiteur baisse les yeux sur le registre.', 0, 'dismissive', '« Je vous écoute. » *Elle te fixe sous le bois — cuisses qui se contractent, pas un geste vers ta main.*'),
     ],
   },
   {
@@ -642,8 +642,8 @@ const AFF5_MALE = [
     choices: [
       choice('romantic', 'Je pousse le gode à mon tempo — je m\'arrête avant qu\'elle halète, sa voix toujours posée sur les tarifs.', 3, 'romantic', '« …Colonne sept. » *Elle serre tes cheveux d\'un cran — tremblement retenu, plume immobile.*'),
       choice('sincere', 'Pages qui crissent deux allées plus loin — je ralentis dès qu\'elle serre mes cheveux, sans couper sa litanie sur les tarifs.', 2, 'warm', '« …Comme indiqué ici. » *Elle serre tes cheveux — voix stable malgré le frisson.*'),
-      choice('direct', 'Je garde quarante secondes muettes sous le bois, puis un cran sur le manche quand elle tourne une page du registre.', 1, 'focused', '« …Voilà la ligne. » *Elle te fixe une seconde sous le comptoir — yeux humides, pas un mot.*'),
-      choice('playful', 'D\'abord je feins de lâcher le manche, je repousse quand elle m\'attrape la nuque — deux allées plus loin, rien ne bouge.', 0, 'annoyed', '« Pardon ? » *Elle te repousse la main sur le manche — puis reprend sa citation.*'),
+      choice('direct', 'Je reste muet une seconde sous le bois, puis je pousse d\'un cran quand elle tourne une page du registre.', 1, 'focused', '« …Voilà la ligne. » *Elle te fixe une seconde sous le comptoir — yeux humides, pas un mot.*'),
+      choice('playful', 'Simulant lâcher le manche, je repousse quand elle m\'attrape la nuque — deux allées plus loin, rien ne bouge.', 0, 'annoyed', '« …Colonne sept. » *Elle te repousse la main sur le manche — puis reprend vers les travées.*'),
     ],
   },
   {
@@ -654,8 +654,8 @@ const AFF5_MALE = [
     choices: [
       choice('romantic', 'Pendant qu\'elle salue l\'apprenti, j\'avance le gode d\'un cran — j\'arrête net quand sa voix frôle la faille, sans la laisser basculer.', 3, 'romantic', '« …Asseyez-vous. Je finis cette page. » *Elle garde la voix stable vers la porte — mord sa lèvre d\'un millimètre.*'),
       choice('sincere', 'Rythme lent sur le manche ; je ralentis dès qu\'elle serre mes doigts contre le bois.', 2, 'warm', '« Un instant… » *Elle serre tes doigts — voix posée vers l\'apprenti.*'),
-      choice('direct', 'Je compte quarante secondes immobile sous le comptoir, puis un cran sur le manche au moment où elle dit entre.', 1, 'firm', '« …Entrez. » *Elle marque une pause vers la porte — retient un frisson, plume immobile.*'),
-      choice('playful', 'D\'abord je tapote le tiroir comme distrait, puis j\'enfonce le gode quand l\'apprenti baisse les yeux sur ses notes.', 0, 'dismissive', '« Oui ? » *Elle te transperce du regard — mâchoire serrée, puis reprend vers l\'apprenti.*'),
+      choice('direct', 'Immobilisé une seconde sous le comptoir, puis je pousse d\'un cran au moment où elle dit entre.', 1, 'firm', '« …Entrez. » *Elle marque une pause vers la porte — retient un frisson, plume immobile.*'),
+      choice('playful', 'D\'abord je tapote le tiroir comme distrait, puis j\'enfonce le gode quand l\'apprenti baisse les yeux sur ses notes.', 0, 'dismissive', '« Oui ? » *Elle te cloue du regard — mâchoire serrée, puis reprend vers l\'apprenti.*'),
     ],
   },
   {
@@ -666,7 +666,7 @@ const AFF5_MALE = [
     choices: [
       choice('romantic', 'Sans attendre, je pousse le gode jusqu\'à frôler sa limite et je m\'arrête net — elle n\'a rien vu venir, seulement senti.', 3, 'romantic', '« …Oui. Continue sous le bois. » *Elle mord sa lèvre — masque qui craque, yeux vers la porte close.*'),
       choice('sincere', 'Lentement sur le manche, je ralentis quand ses doigts se crispent sur le tabouret — elle retient chaque souffle comme s\'il restait du monde dehors.', 2, 'warm', '« J\'ai envie… » *Elle retient un frisson — doigts blancs sur le bois, pas sur ton poignet.*'),
-      choice('direct', 'Je garde vingt secondes muettes sous le bois, puis j\'enfonce le gode d\'un cran sans attendre — je m\'arrête quand ses cuisses tremblent.', 1, 'firm', '« …Encore. » *Elle fronce les sourcils vers la porte — honte et envie, sans te freiner.*'),
+      choice('direct', 'Je retiens le gode une seconde, puis j\'enfonce d\'un cran sans attendre — je m\'arrête quand ses cuisses tremblent.', 1, 'firm', '« …Encore. » *Elle fronce les sourcils vers la porte — honte et envie, sans te freiner.*'),
       choice('playful', 'D\'abord je fais semblant de lâcher le manche, puis je repousse quand elle cherche ta main — je chuchote qu\'elle déteste vouloir autant.', 0, 'annoyed', '« …Tu le sais. » *Elle détourne les yeux — mâchoire serrée, joues qui brûlent.*'),
     ],
   },
@@ -676,7 +676,7 @@ const AFF5_MALE = [
     companionAction: 'Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode encore humide entre tes doigts — plus personne ne passera avant l\'aube.',
     companionLine: 'J\'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu\'à ce que j\'oublie les registres.',
     choices: [
-      choice('romantic', 'Entre les atlas, je glisse en elle et je la pousse contre un rayonnage jusqu\'à ce que le bois grince — enfin libres de faire du bruit.', 3, 'romantic', '« Oui. Là, entre les atlas. Ne te retiens pas — personne n\'écoute. » *Elle serre tes hanches, chatte chaude contre ta bite.*'),
+      choice('romantic', 'Je pose le gode, j\'ouvre ma braguette, je glisse en elle et la plaque contre les atlas.', 3, 'romantic', '« Oui. Là, entre les atlas. Ne te retiens pas — personne n\'écoute. » *Elle serre tes hanches, chatte chaude contre ta bite.*'),
       choice('sincere', 'Entre les travées, je suis son tempo et je ralentis quand elle serre mes hanches plus fort.', 2, 'warm', '« Suis mon tempo. Presse-toi quand je serre. »'),
       choice('direct', 'Une minute debout entre les rayons, puis je la retourne contre un atlas et je la prends jusqu\'au bruit des reliures.', 1, 'firm', '« Maintenant. Fort. Fais grincer le bois. »'),
       choice('playful', 'D\'abord je chuchote une citation du bestiaire pour la taquiner, puis je la plaque contre le rayonnage le plus bruyant.', 0, 'annoyed', '« Pas de citation. Plaque-moi. Fort. »'),
@@ -852,10 +852,10 @@ const AFF5_FEMALE = [
     companionAction: 'Elle se place face à toi, écarte un peu plus tes cuisses et presse ses doigts contre ta chatte par-dessus le tissu.',
     companionLine: 'Bouge contre ma main quand je te le dis.',
     choices: [
-      choice('romantic', 'Je presse ma chatte contre sa paume et je bouge au rythme qu\'elle impose, jusqu\'à ce que j\'halète.', 3, 'romantic', '« Continue. » *Elle serre tes hanches.* « Tais-toi. »'),
+      choice('romantic', 'Je presse ma chatte contre sa paume et je bouge au rythme qu\'elle impose, jusqu\'à ce que j\'halète.', 3, 'romantic', '« Encore. » *Elle serre tes hanches.* « Tais-toi. »'),
       choice('sincere', 'Je la laisse mener et je ralentis dès qu\'elle resserre sa prise sur mes hanches.', 2, 'warm', '« Plus lent. Garde ce rythme. »'),
       choice('direct', 'Je bloque sa paume une seconde, puis je la fais glisser plus bas vers mon anus.', 1, 'focused', '« … Là ? Non. Clitoris. Bouge quand je te le dis. » *Elle serre tes hanches pour te remettre en place.*'),
-      choice('playful', 'D\'abord je feins de lire le registre, puis je me presse contre sa main.', 0, 'dismissive', '« Oublie le registre. Mouille ma paume. »'),
+      choice('playful', 'Feignant lecture du registre, je me presse contre sa main.', 0, 'dismissive', '« Oublie le registre. Mouille ma paume. »'),
     ],
   },
   {
@@ -864,10 +864,10 @@ const AFF5_FEMALE = [
     companionAction: 'Elle s\'agenouille entre tes cuisses sur la table et écarte ta culotte d\'un geste.',
     companionLine: 'Laisse-moi te lécher. Ne te redresse pas.',
     choices: [
-      choice('romantic', 'Je m\'allonge sur la table et je la laisse lécher mon clitoris sans attendre.', 3, 'romantic', '« Continue. » *Elle tire tes cuisses.* « Ne te redresse pas trop tôt. »'),
+      choice('romantic', 'Je m\'allonge sur la table et je la laisse lécher mon clitoris sans attendre.', 3, 'romantic', '« Ne t\'arrête pas. » *Elle tire tes cuisses.* « Pas trop tôt. »'),
       choice('sincere', 'Je guide sa tête vers mon clitoris et je signale si c\'est trop.', 2, 'warm', '« Main sur ma nuque. Garde ce rythme. »'),
       choice('direct', 'Je retiens mes hanches une seconde, puis je presse ma chatte contre sa langue.', 1, 'firm', '« Une seconde. Puis ne t\'arrête pas. »'),
-      choice('playful', 'D\'abord je feins de reculer, puis j\'écarte les cuisses quand elle m\'attire.', 0, 'annoyed', '« Écarte les cuisses. Maintenant. »'),
+      choice('playful', 'Simulant recul, j\'écarte les cuisses quand elle m\'attire.', 0, 'annoyed', '« Écarte les cuisses. Maintenant. »'),
     ],
   },
   {
@@ -878,8 +878,8 @@ const AFF5_FEMALE = [
     choices: [
       choice('romantic', 'Je reste immobile sous elle et je la laisse glisser ma robe, puis mon slip, sans rien cacher.', 3, 'romantic', '« Parfait. » *Elle finit de t\'ôter la robe et ton slip, ta chatte nue contre la sienne.*'),
       choice('sincere', 'Immobilisée sous Lyra, je signale d\'un geste si elle va trop vite.', 2, 'warm', '« Signale. Je continue. »'),
-      choice('direct', 'Trente secondes immobile sous elle, puis je la retourne et la presse contre les draps.', 1, 'focused', '« Si tu veux jouer, assume. Je veux que tu me prennes toute la nuit. » *Elle écarte les cuisses et te lance un regard de défi.*'),
-      choice('playful', 'D\'abord je feins de croiser les bras sur ma poitrine, puis je les relâche quand elle fronce les sourcils.', 0, 'annoyed', '« Pas de jeu. Laisse-moi faire. »'),
+      choice('direct', 'Immobilisé une seconde sous elle, puis je la retourne et la presse contre les draps.', 1, 'focused', '« Si tu veux jouer, assume. Je veux que tu me prennes toute la nuit. » *Elle écarte les cuisses et te lance un regard de défi.*'),
+      choice('playful', 'Feignant de croiser les bras sur ma poitrine, je les relâche quand elle fronce les sourcils.', 0, 'annoyed', '« Pas de jeu. Laisse-moi faire. »'),
     ],
   },
   {
@@ -890,8 +890,8 @@ const AFF5_FEMALE = [
     choices: [
       choice('romantic', 'Je serre sa taille et je la laisse frotter sa chatte contre la mienne jusqu\'à ce qu\'on jouisse.', 3, 'romantic', '« Oui. » *Elle accélère.* « Ne lâche pas mes hanches. »'),
       choice('sincere', 'Je reste allongée et je guide ses hanches lentement d\'abord.', 2, 'pleased', '« Lent d\'abord. Puis plus fort. »'),
-      choice('direct', 'Je garde mes hanches immobiles trente secondes, puis je la bascule sur le dos.', 1, 'firm', '« Bascule-moi. Prends-moi par-dessus. »'),
-      choice('playful', 'D\'abord je feins de la repousser, puis je la tire plus fort sur moi.', 0, 'dismissive', '« Pas de jeu. Laisse-moi monter. »'),
+      choice('direct', 'Immobilisé une seconde, puis je la bascule sur le dos.', 1, 'firm', '« Bascule-moi. Prends-moi par-dessus. »'),
+      choice('playful', 'Feignant recul, je la tire plus fort sur moi.', 0, 'dismissive', '« Pas de jeu. Laisse-moi monter. »'),
     ],
   },
   {
@@ -900,10 +900,10 @@ const AFF5_FEMALE = [
     companionAction: 'Elle te pousse sur le lit, glisse ses doigts en toi et te retient par le poignet.',
     companionLine: 'Serre ma main plus fort quand je te le demande.',
     choices: [
-      choice('romantic', 'Je me cambre contre sa paume jusqu\'à ce qu\'elle gémit.', 3, 'romantic', '« Alors reste. Ne te retiens pas. »'),
-      choice('sincere', 'Je la laisse guider mes doigts et je ralentis si elle fronce.', 2, 'warm', '« Ralentis si tu veux. Ne t\'arrête pas. »'),
-      choice('direct', 'Je compte trente secondes sans bouger, puis je retourne la position à mon tour.', 1, 'focused', '« Mon tour. Puis encore le tien. »'),
-      choice('playful', 'D\'abord je serre sa main, puis je feins de lâcher une seconde.', 0, 'annoyed', '« Pas de lâcher. Serre plus fort. »'),
+      choice('romantic', 'Contre la commode, je me cambre contre sa paume jusqu\'à ce qu\'elle gémit.', 3, 'romantic', '« Alors reste. Ne te retiens pas. »'),
+      choice('sincere', 'Contre le bois, je retiens ma respiration et je serre sa main quand elle accélère — je ralentis dès qu\'elle fronce.', 2, 'warm', '« Ralentis si tu veux. Ne t\'arrête pas. »'),
+      choice('direct', 'Je garde ma prise une seconde, puis je retourne la position à mon tour.', 1, 'focused', '« Mon tour. Puis encore le tien. »'),
+      choice('playful', 'Feignant un faible relâchement, je resserre ma prise sur sa main.', 0, 'annoyed', '« Pas de lâcher. Serre plus fort. »'),
     ],
   },
   {
@@ -915,7 +915,7 @@ const AFF5_FEMALE = [
       choice('romantic', 'Je m\'allonge immobile, hanches calées sous les siennes, et je la laisse frotter sa chatte contre la mienne.', 3, 'romantic', '« Tu peux jouir. Ne te retiens pas. » *Elle accélère et glisse un doigt entre vos clitoris.*'),
       choice('sincere', 'Je ralentis ma respiration et je monte le rythme seulement quand elle serre mes hanches.', 2, 'warm', '« Lent, puis fort. Suis mon tempo. »'),
       choice('direct', 'Je retiens sa taille une seconde, puis je la retourne avant qu\'elle ait fini de parler.', 1, 'focused', '« Retourne-moi. Contre moi, maintenant. »'),
-      choice('playful', 'D\'abord je feins de rester raide, puis je presse ma chatte plus fort contre la sienne.', 0, 'annoyed', '« Moins de théâtre. Contre moi, maintenant. »'),
+      choice('playful', 'Simulant raideur, je presse ma chatte plus fort contre la sienne.', 0, 'annoyed', '« Moins de théâtre. Contre moi, maintenant. »'),
     ],
   },
   {
@@ -927,7 +927,7 @@ const AFF5_FEMALE = [
       choice('romantic', 'Je serre ses hanches et je presse ma chatte contre la sienne jusqu\'à ce qu\'elle halète mon nom.', 3, 'romantic', '« Alors jouis. Ne retiens pas ce mot. »'),
       choice('sincere', 'Je tape son poignet dès que le frottement brûle et je ralentis tout de suite.', 2, 'pleased', '« Tape si ça brûle. Ralentis sans t\'arrêter. »'),
       choice('direct', 'Je dis stop d\'une voix basse si elle serre trop fort contre mon clitoris.', 1, 'firm', '« Stop entendu. Dis-le si ça pique. »'),
-      choice('playful', 'D\'abord je feins de détendre mes cuisses, puis je la presse plus fort contre moi.', 0, 'dismissive', '« Pas de faux signal. Presse-toi pour de vrai. »'),
+      choice('playful', 'Simulant détente des cuisses, je la presse plus fort contre moi.', 0, 'dismissive', '« Pas de faux signal. Presse-toi pour de vrai. »'),
     ],
   },
   {
@@ -938,7 +938,7 @@ const AFF5_FEMALE = [
     choices: [
       choice('romantic', 'Je me cambre contre le montant et je cède à ses doigts sur mon clitoris jusqu\'à ce que je jouisse.', 3, 'romantic', '« Presse le montant. » *Elle accélère, buée sur le vitrage.* « Laisse-toi jouir. »'),
       choice('sincere', 'Contre le montant, je retiens ma respiration et je tape son poignet si mes cuisses brûlent trop.', 2, 'warm', '« Serre le montant. Tape si ça brûle trop. »'),
-      choice('direct', 'Contre le bois, je garde vingt secondes immobiles puis je pousse ma chatte sur sa paume.', 1, 'focused', '« Maintenant. Plus fort. »'),
+      choice('direct', 'Une seconde immobile contre le bois, puis je pousse ma chatte sur sa paume.', 1, 'focused', '« Maintenant. Plus fort. »'),
       choice('playful', 'Simulant recul du montant, je cambre le bassin quand elle m\'attrape par la taille.', 0, 'annoyed', '« Cambre-toi. Contre ma main. »'),
     ],
   },
@@ -948,7 +948,7 @@ const AFF5_FEMALE = [
     companionAction: 'Elle frotte déjà contre toi, paume sur ton poignet — elle accélère quand tu obéis au signal, ralentit quand tu devances.',
     companionLine: 'Signal au poignet — tu frottes seulement quand je serre tes hanches.',
     choices: [
-      choice('romantic', 'Je presse mes hanches contre les siennes, je frotte ma chatte contre la sienne et je la laisse mener le rythme jusqu\'à ce qu\'elle jouisse.', 3, 'romantic', '« Continue. Là. Ne t\'arrête pas avant que je jouisse. »'),
+      choice('romantic', 'Je presse mes hanches contre les siennes, je frotte ma chatte contre la sienne et je la laisse mener le rythme jusqu\'à ce qu\'elle jouisse.', 3, 'romantic', '« Là. Ne t\'arrête pas avant que je jouisse. »'),
       choice('sincere', 'Quand elle serre mes hanches, je ralentis sans reprendre le rythme.', 2, 'warm', '« Mes hanches te guident. Suis mon tempo. »'),
       choice('direct', 'Je retiens ses hanches une minute, puis je la bascule sur le dos à côté de moi.', 1, 'firm', '« Retourne-moi si tu peux. Puis presse-toi contre moi. »'),
       choice('playful', 'D\'abord je reste raide sous elle, puis je la serre plus fort contre ma chatte.', 0, 'annoyed', '« Trop raide. Presse-toi contre moi. »'),
@@ -974,19 +974,19 @@ const AFF5_FEMALE = [
     choices: [
       choice('romantic', 'Je glisse le gode en son cul et je la laisse fixer le rythme jusqu\'à ce qu\'on jouisse toutes les deux.', 3, 'romantic', '« Viens vite. Je suis à deux doigts de jouir. »'),
       choice('sincere', 'Je pénètre son cul avec le gode lentement et je ralentis dès qu\'elle serre mes doigts.', 2, 'warm', '« Lent. Serre quand j\'accélère. »'),
-      choice('direct', 'Je garde trente secondes sans bouger en elle, puis je pousse le gode plus fort par derrière.', 1, 'firm', '« Maintenant. Puis encore, fort. »'),
+      choice('direct', 'Je retiens le geste une seconde en elle, puis je pousse le gode plus fort par derrière.', 1, 'firm', '« Maintenant. Puis encore, fort. »'),
       choice('playful', 'D\'abord je brandis le gode une seconde, puis je le pousse en son cul d\'un coup.', 0, 'annoyed', '« Pas d\'hésitation. En mon cul, fort. »'),
     ],
   },
   {
     title: 'Pas de pas',
-    bridge: 'Bibliothèque du havre, matin de cire et de papier — Lyra tourne encore une page au comptoir quand tu entres ; rien n\'était prévu entre vous, et pourtant la nuit du toit flotte encore dans l\'air ; dans le couloir de pierre, un chuchotement, puis des pas — on demande la bibliothécaire.',
+    bridge: 'Bibliothèque du havre, matin de cire et de papier — Lyra tourne encore une page au comptoir quand tu entres ; rien n\'était prévu entre vous ; dans le couloir de pierre, un chuchotement, puis des pas — on demande la bibliothécaire.',
     companionAction: 'Sans te laisser le temps, elle t\'attrape le poignet et te fourre sous le comptoir — index sur tes lèvres, genou qui te cloue au planches. Pas un ordre, juste ce geste sec. De face, elle se redresse comme si de rien n\'était ; le visiteur ne doit voir qu\'une employée posée.',
     companionLine: 'Bonjour — je suis la bibliothécaire. Un instant, je termine cette ligne du registre.',
     choices: [
       choice('romantic', 'Bouche scellée, je la laisse accueillir le visiteur d\'une voix posée tandis que sa jambe me cache sous le comptoir.', 3, 'romantic', '« Oui, bien sûr — je vous entends. » *Elle termine sa phrase vers le couloir sans trembler — genou qui te plaque, index sur tes lèvres.*'),
       choice('sincere', 'Retenant ma respiration, je n\'avance d\'un millimètre que si sa main le permet sur mon poignet.', 2, 'warm', '« Un instant, je consulte le registre. » *Elle serre ton poignet une seconde — reste dans son ombre, pas un bruit.*'),
-      choice('direct', 'Je garde quinze secondes sans bouger sous le bois, puis je presse ma joue contre sa cheville.', 1, 'focused', '« Je reviens vers vous dans un moment. » *Elle presse ta nuque sous le bois — attend le claquement de porte.*'),
+      choice('direct', 'Un instant sans bouger sous le bois, puis je presse ma joue contre sa cheville.', 1, 'focused', '« Je reviens vers vous dans un moment. » *Elle presse ta nuque sous le bois — attend le claquement de porte.*'),
       choice('playful', 'Feignant un oubli de volume, je fais grincer une planche — puis je me fige quand son index se presse plus fort.', 0, 'annoyed', '« …Pardon ? Je n\'ai pas entendu. » *Elle te transperce d\'un regard sous le comptoir — index plus fort, puis reprend vers le couloir.*'),
     ],
   },
@@ -996,10 +996,10 @@ const AFF5_FEMALE = [
     companionAction: 'Index sur tes lèvres. Vers le couloir elle feint de feuilleter ; de ton angle, cuisses à peine entrouvertes — hasard ou impatience, pas une invitation qu\'elle oserait nommer. Un regard sous le bois, urgent et honteux ; elle ne peut ni te guider ni chuchoter.',
     companionLine: 'Les atlas du nord sont en réserve deux — je vous les sortirai dans un instant.',
     choices: [
-      choice('romantic', 'Doigts sur son clitoris, je caresse lentement au rythme de sa citation d\'atlas vers le couloir — elle retient un frisson sans couper sa phrase.', 3, 'romantic', '« Section trois… oui, tout à l\'heure. » *Elle mord l\'intérieur de la joue — serre tes cheveux une seconde, puis relâche.*'),
+      choice('romantic', 'Doigts sur son clitoris, je caresse au rythme de sa citation d\'atlas — elle retient un frisson sans couper sa phrase.', 3, 'romantic', '« Section trois… oui, tout à l\'heure. » *Elle mord l\'intérieur de la joue — serre tes cheveux une seconde, puis relâche.*'),
       choice('sincere', 'Je reste immobile jusqu\'à ce que sa cheville cède d\'un millimètre — puis je caresse, plus lent quand elle serre.', 2, 'warm', '« Je note votre demande, monsieur. » *Elle serre ta cheville quand ça brûle — voix toujours posée vers le couloir.*'),
-      choice('direct', 'Quinze secondes sans bouger, puis je caresse son clitoris quand le visiteur marque une pause.', 1, 'focused', '« …Comme vous dites. » *Elle marque une pause vers le visiteur — te fixe une seconde sous le bois, mâchoire serrée.*'),
-      choice('playful', 'D\'abord je retire ma main une seconde, puis je caresse sa chatte quand son regard me transperce sous le bois.', 0, 'annoyed', '« Pardon ? » *Elle te transperce du regard — genou qui te bloque, puis reprend sa citation.*'),
+      choice('direct', 'Sans bouger sous le bois, je retiens le geste puis je caresse son clitoris quand le visiteur marque une pause.', 1, 'focused', '« …Comme vous dites. » *Elle marque une pause vers le visiteur — te fixe une seconde sous le bois, mâchoire serrée.*'),
+      choice('playful', 'D\'abord je retire ma main une seconde, puis je caresse sa chatte quand son regard me transperce sous le bois.', 0, 'annoyed', '« Vous disiez ? » *Elle te mord la cheville sous le bois — genou qui te bloque, puis reprend sa citation.*'),
     ],
   },
   {
@@ -1008,10 +1008,10 @@ const AFF5_FEMALE = [
     companionAction: 'Voix claire sur la gravure ; sous le bois, cuisses qui se contractent autour de rien. Quand le visiteur marque une pause, elle serre tes cheveux une fraction — pas pour mener, pour ne pas crier. Dehors, une bibliothécaire distraite, joues roses.',
     companionLine: 'Je vous montre cette gravure — remarquez le trait du scribe, second siècle, ici.',
     choices: [
-      choice('romantic', 'Sans prévenir, je glisse le gode en elle pendant sa pause — de l\'autre côté, sa voix reprend sur la gravure sans faillir.', 3, 'romantic', '« …Remarquez, ici, l\'usure du parchemin. » *Elle serre le manche via ta main — frisson retenu, voix qui reprend aussitôt.*'),
+      choice('romantic', 'Sans prévenir, je glisse le gode en elle à sa pause — sa voix reprend sur la gravure sans faillir.', 3, 'romantic', '« …Remarquez, ici, l\'usure du parchemin. » *Elle serre le manche via ta main — frisson retenu, voix qui reprend aussitôt.*'),
       choice('sincere', 'Lentement, je pousse le gode d\'un cran — je m\'arrête dès qu\'elle retient un gémissement, sans bruit contre le bois.', 2, 'warm', '« Ici, le filigrane… » *Elle serre tes cheveux quand ça brûle — lent, sans bruit.*'),
-      choice('direct', 'Je garde quinze secondes à caler le gode, puis j\'enfonce d\'un cran quand elle fait une pause vers le couloir.', 1, 'firm', '« …Un instant. » *Elle marque une pause vers le visiteur — mâchoire serrée, yeux qui supplient sous le bois.*'),
-      choice('playful', 'D\'abord je feins de poser le gode au sol, puis j\'enfonce le gode quand son index se presse plus fort sur mes lèvres.', 0, 'dismissive', '« Je vous écoute. » *Elle te transperce du regard — index sur tes lèvres, puis reprend sur la gravure.*'),
+      choice('direct', 'Un instant à caler le gode, puis j\'enfonce d\'un cran quand elle fait une pause vers le couloir.', 1, 'firm', '« …Un instant. » *Elle marque une pause vers le visiteur — mâchoire serrée, yeux qui supplient sous le bois.*'),
+      choice('playful', 'Feignant de poser le gode au sol, puis j\'enfonce le gode quand son index se presse plus fort sur mes lèvres.', 0, 'dismissive', '« Je vous écoute. » *Elle appuie son index sur tes lèvres — puis reprend sur la gravure.*'),
     ],
   },
   {
@@ -1020,9 +1020,9 @@ const AFF5_FEMALE = [
     companionAction: 'Elle serre la mâchoire vers le visiteur, retient un frisson — regard sous le comptoir qui supplie sans ordonner. Quand tu bouges le manche, ses cuisses tremblent ; dehors, une plume immobile sur le registre.',
     companionLine: 'Les amendes de retard figurent au registre B — je vous les indique tout de suite.',
     choices: [
-      choice('romantic', 'Je pousse le gode plus profond à mon tempo — je m\'arrête net avant qu\'elle vacille, sa voix toujours claire sur les amendes.', 3, 'romantic', '« …Colonne quatre. » *Elle mord sa lèvre — frisson retenu, puis reprend vers le couloir.*'),
+      choice('romantic', 'Je pousse le gode plus profond à mon tempo — j\'arrête net avant qu\'elle vacille, voix claire sur les amendes.', 3, 'romantic', '« …Colonne quatre. » *Elle mord sa lèvre — frisson retenu, puis reprend vers le couloir.*'),
       choice('sincere', 'Quand elle serre mes cheveux, je ralentis ; quand elle relâche, je reprends — sans quitter la cadence de sa citation.', 2, 'warm', '« …Colonne quatre, oui. » *Elle serre sans bruit — voix stable vers le visiteur.*'),
-      choice('direct', 'Trente secondes à pousser lentement, puis je presse plus fort seulement quand elle frôle un gémissement retenu.', 1, 'focused', '« …Comme indiqué. » *Elle serre tes cheveux une seconde — panique étouffée, pas un ordre.*'),
+      choice('direct', 'Je retiens le manche une seconde, puis je presse plus fort quand elle frôle un gémissement retenu.', 1, 'focused', '« …Comme indiqué. » *Elle serre tes cheveux une seconde — panique étouffée, pas un ordre.*'),
       choice('playful', 'D\'abord je ralentis une seconde sur le manche pour la taquiner, puis je repousse là où ses hanches cherchent.', 0, 'annoyed', '« Pardon ? » *Elle te fixe sous le bois — genou qui te bloque une seconde, puis reprend sa litanie.*'),
     ],
   },
@@ -1032,10 +1032,10 @@ const AFF5_FEMALE = [
     companionAction: 'Sans couper sa phrase elle cambre d\'un millimètre — de ton côté, accès à son anus ; elle n\'a pas ouvert la bouche. Le visiteur fronce les sourcils : bibliothécaire distraite, joues de plus en plus roses.',
     companionLine: 'La réserve fermée s\'ouvre sur rendez-vous — je peux vous noter demain matin.',
     choices: [
-      choice('romantic', 'Je glisse un doigt en son anus pendant qu\'elle conclut sa phrase sur la réserve — je ralentis dès que sa voix frôle la faille, sans la laisser basculer.', 3, 'romantic', '« …Demain matin, oui. » *Elle serre ton poignet une seconde — presque un gémissement retenu, voix qui tient.*'),
+      choice('romantic', 'Je glisse un doigt en son anus pendant qu\'elle conclut sur la réserve — je ralentis dès que sa voix frôle la faille.', 3, 'romantic', '« …Demain matin, oui. » *Elle serre ton poignet une seconde — presque un gémissement retenu, voix qui tient.*'),
       choice('sincere', 'Un doigt lent en son anus ; je ralentis dès qu\'elle serre mes doigts contre le bois — gode immobile entre deux phrases.', 2, 'warm', '« Je note votre nom… » *Elle serre tes doigts — garde la voix posée.*'),
-      choice('direct', 'Vingt secondes sans bouger, puis un doigt anal quand elle serre mon poignet — deux seulement si sa voix reste stable.', 1, 'firm', '« …Entendu. » *Elle serre ton poignet — une seconde, puis relâche.*'),
-      choice('playful', 'D\'abord je feins de caresser sa cuisse, puis je presse un doigt contre son anus quand le visiteur baisse les yeux sur le registre.', 0, 'dismissive', '« Je vous écoute. » *Elle te fixe sous le bois — cuisses qui se contractent, pas un geste vers ta main.*'),
+      choice('direct', 'Un instant sans bouger, puis un doigt anal quand elle serre mon poignet — deux seulement si sa voix reste stable.', 1, 'firm', '« …Entendu. » *Elle serre ton poignet — une seconde, puis relâche.*'),
+      choice('playful', 'Feignant maladresse sur sa cuisse, je presse un doigt contre son anus quand le visiteur baisse les yeux sur le registre.', 0, 'dismissive', '« Je vous écoute. » *Elle te fixe sous le bois — cuisses qui se contractent, pas un geste vers ta main.*'),
     ],
   },
   {
@@ -1046,8 +1046,8 @@ const AFF5_FEMALE = [
     choices: [
       choice('romantic', 'Je pousse le gode à mon tempo — je m\'arrête avant qu\'elle halète, sa voix toujours posée sur les tarifs.', 3, 'romantic', '« …Colonne sept. » *Elle serre tes cheveux d\'un cran — tremblement retenu, plume immobile.*'),
       choice('sincere', 'Pages qui crissent deux allées plus loin — je ralentis dès qu\'elle serre mes cheveux, sans couper sa litanie sur les tarifs.', 2, 'warm', '« …Comme indiqué ici. » *Elle serre tes cheveux — voix stable malgré le frisson.*'),
-      choice('direct', 'Je garde quarante secondes muettes sous le bois, puis un cran sur le manche quand elle tourne une page du registre.', 1, 'focused', '« …Voilà la ligne. » *Elle te fixe une seconde sous le comptoir — yeux humides, pas un mot.*'),
-      choice('playful', 'D\'abord je feins de lâcher le manche, je repousse quand elle m\'attrape la nuque — deux allées plus loin, rien ne bouge.', 0, 'annoyed', '« Pardon ? » *Elle te repousse la main sur le manche — puis reprend sa citation.*'),
+      choice('direct', 'Je reste muet une seconde sous le bois, puis je pousse d\'un cran quand elle tourne une page du registre.', 1, 'focused', '« …Voilà la ligne. » *Elle te fixe une seconde sous le comptoir — yeux humides, pas un mot.*'),
+      choice('playful', 'Simulant lâcher le manche, je repousse quand elle m\'attrape la nuque — deux allées plus loin, rien ne bouge.', 0, 'annoyed', '« …Colonne sept. » *Elle te repousse la main sur le manche — puis reprend vers les travées.*'),
     ],
   },
   {
@@ -1058,8 +1058,8 @@ const AFF5_FEMALE = [
     choices: [
       choice('romantic', 'Pendant qu\'elle salue l\'apprenti, j\'avance le gode d\'un cran — j\'arrête net quand sa voix frôle la faille, sans la laisser basculer.', 3, 'romantic', '« …Asseyez-vous. Je finis cette page. » *Elle garde la voix stable vers la porte — mord sa lèvre d\'un millimètre.*'),
       choice('sincere', 'Rythme lent sur le manche ; je ralentis dès qu\'elle serre mes doigts contre le bois.', 2, 'warm', '« Un instant… » *Elle serre tes doigts — voix posée vers l\'apprenti.*'),
-      choice('direct', 'Je compte quarante secondes immobile sous le comptoir, puis un cran sur le manche au moment où elle dit entre.', 1, 'firm', '« …Entrez. » *Elle marque une pause vers la porte — retient un frisson, plume immobile.*'),
-      choice('playful', 'D\'abord je tapote le tiroir comme distraite, puis j\'enfonce le gode quand l\'apprenti baisse les yeux sur ses notes.', 0, 'dismissive', '« Oui ? » *Elle te transperce du regard — mâchoire serrée, puis reprend vers l\'apprenti.*'),
+      choice('direct', 'Immobilisé une seconde sous le comptoir, puis je pousse d\'un cran au moment où elle dit entre.', 1, 'firm', '« …Entrez. » *Elle marque une pause vers la porte — retient un frisson, plume immobile.*'),
+      choice('playful', 'D\'abord je tapote le tiroir comme distraite, puis j\'enfonce le gode quand l\'apprenti baisse les yeux sur ses notes.', 0, 'dismissive', '« Oui ? » *Elle te cloue du regard — mâchoire serrée, puis reprend vers l\'apprenti.*'),
     ],
   },
   {
@@ -1070,7 +1070,7 @@ const AFF5_FEMALE = [
     choices: [
       choice('romantic', 'Sans attendre, je pousse le gode jusqu\'à frôler sa limite et je m\'arrête net — elle n\'a rien vu venir, seulement senti.', 3, 'romantic', '« …Oui. Continue sous le bois. » *Elle mord sa lèvre — masque qui craque, yeux vers la porte close.*'),
       choice('sincere', 'Lentement sur le manche, je ralentis quand ses doigts se crispent sur le tabouret — elle retient chaque souffle comme s\'il restait du monde dehors.', 2, 'warm', '« J\'ai envie… » *Elle retient un frisson — doigts blancs sur le bois, pas sur ton poignet.*'),
-      choice('direct', 'Je garde vingt secondes muettes sous le bois, puis j\'enfonce le gode d\'un cran sans attendre — je m\'arrête quand ses cuisses tremblent.', 1, 'firm', '« …Encore. » *Elle fronce les sourcils vers la porte — honte et envie, sans te freiner.*'),
+      choice('direct', 'Je retiens le gode une seconde, puis j\'enfonce d\'un cran sans attendre — je m\'arrête quand ses cuisses tremblent.', 1, 'firm', '« …Encore. » *Elle fronce les sourcils vers la porte — honte et envie, sans te freiner.*'),
       choice('playful', 'D\'abord je fais semblant de lâcher le manche, puis je repousse quand elle cherche ta main — je chuchote qu\'elle déteste vouloir autant.', 0, 'annoyed', '« …Tu le sais. » *Elle détourne les yeux — mâchoire serrée, joues qui brûlent.*'),
     ],
   },
@@ -1080,7 +1080,7 @@ const AFF5_FEMALE = [
     companionAction: 'Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode encore humide entre tes doigts — plus personne ne passera avant l\'aube.',
     companionLine: 'J\'ai tenu le masque toute la journée. Plus personne — prends-moi jusqu\'à ce que j\'oublie les registres.',
     choices: [
-      choice('romantic', 'Entre les atlas, je glisse le gode en elle puis je presse ma chatte contre la sienne jusqu\'à ce que le bois grince — enfin libres de faire du bruit.', 3, 'romantic', '« Oui. Là, entre les atlas. Ne te retiens pas — personne n\'écoute. » *Elle serre tes hanches, chatte chaude contre la tienne.*'),
+      choice('romantic', 'Entre les atlas, je glisse le gode en elle et je presse ma chatte contre la sienne — enfin libres de faire du bruit.', 3, 'romantic', '« Oui. Là, entre les atlas. Ne te retiens pas — personne n\'écoute. » *Elle serre tes hanches, chatte chaude contre la tienne.*'),
       choice('sincere', 'Entre les travées, je suis son tempo et je ralentis quand elle serre mes hanches plus fort.', 2, 'warm', '« Suis mon tempo. Presse-toi quand je serre. »'),
       choice('direct', 'Une minute debout entre les rayons, puis je la retourne contre un atlas et je pousse le gode jusqu\'au bruit des reliures.', 1, 'firm', '« Maintenant. Fort. Fais grincer le bois. »'),
       choice('playful', 'D\'abord je chuchote une citation du bestiaire pour la taquiner, puis je me plaque contre le rayonnage le plus bruyant.', 0, 'annoyed', '« Pas de citation. Plaque-toi. Fort. »'),

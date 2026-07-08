@@ -162,7 +162,7 @@ function scoreExchange(ex, { maxLineLen = 120 } = {}) {
       : true,
   };
 
-  const hasPlace = /bibliothèque|havre|village|refuge|marché|ruines|forêt|couloir|comptoir|porte|registre|atlas|sachet|chambre|lit|couchette|draps|commode|rayons|table|verrière|toit|vitrage|matelas|montant|couverture|rambarde|travées|rayonnage/i.test(
+  const hasPlace = /bibliothèque|havre|village|refuge|marché|ruines|forêt|couloir|comptoir|porte|registre|atlas|sachet|chambre|lit|couchette|draps|commode|rayons|table|verrière|toit|vitrage|matelas|montant|couverture|rambarde|travées|rayonnage|atelier|ruban|métier|métiers|étal|arrière-boutique/i.test(
     ex.bridge,
   );
   const C = {

@@ -18,7 +18,7 @@ export const MC_INTIMATE_LINE_WITH_SPECTATOR =
   /\b(je te veux|tu es ma chose|continue\s*[—–-]\s*(?:mais|ce soir)|encule-moi|en mon cul|sers mes|poignet\.?\s*tu|signal au poignet\.?\s*tu)\b/i;
 
 const VISITOR_REACTION_QUOTE =
-  /(je vous|vous |remarquez|entrez|asseyez|bonjour|monsieur|madame|instant|réserve|gravure|registre|figurent|colonne|filigrane|amendes|tarifs|demain matin|je peux vous|je suis la bibliothécaire|je note|je consulte|je finis|comme indiqué|voici|section|entendu|pardon|voilà|assieds|oui \?)/i;
+  /(je vous|vous |remarquez|entrez|asseyez|bonjour|monsieur|madame|instant|réserve|gravure|registre|figurent|colonne|filigrane|amendes|tarifs|demain matin|je peux vous|je suis la bibliothécaire|je suis la marchande|je suis la forgeronne|je note|je consulte|je finis|comme indiqué|voici|section|entendu|pardon|voilà|assieds|oui \?|crédit|comptant|deal|marché|forge|commande|mesure|lame|forgeronne|marchande|colonne quatre|colonne sept)/i;
 
 const REACTION_QUOTE_SIMILARITY_THRESHOLD = 0.68;
 
@@ -255,8 +255,47 @@ export const PACK5_EXCHANGE_BUSINESS_RULES = {
   },
 };
 
-function resolvePack5BusinessRule(exchangeId = '') {
-  for (const [suffix, rule] of Object.entries(PACK5_EXCHANGE_BUSINESS_RULES)) {
+/** S53 — Maeve aff. 5 pack-5 (gros lot / journée marché — tour 2). */
+export const PACK5_EXCHANGE_BUSINESS_RULES_MAEVE = {
+  '-13': { label: 'lot / inventaire / contrepartie', pattern: /\b(lot|inventaire|contrepartie|charrette|caisse|faveur)\b/i },
+  '-14': { label: 'bâche / allée / contrepartie', pattern: /\b(bâche|allée|contrepartie|silence|étal|rythme)\b/i },
+  '-15': { label: 'bluff / goûte / contre-offre', pattern: /\b(bluff|goûte|contre-offre|marchand|faveur|rythme)\b/i },
+  '-16': { label: 'stylo / signe / page', pattern: /\b(stylo|signe|page|inventaire|doigts|clitoris|cadence)\b/i },
+  '-17': { label: 'stock / midi / chevauchée', pattern: /\b(stock|midi|chevauche|contrepartie|caisse|allée)\b/i },
+  '-18': { label: 'rival / allée / contrepartie', pattern: /\b(rival|allée|contrepartie|verge|main|immobile)\b/i },
+  '-19': { label: 'étal / bord / marché', pattern: /\b(étal|bord|marché|allée|entre|risque)\b/i },
+  '-20': { label: 'prix / lot / envie', pattern: /\b(prix|lot|envie|comptoir|plaque|contrepartie)\b/i, forbid: /\b(je vous|client|acheteur)\b/i },
+  '-21': { label: 'deal clos / contrepartie finale', pattern: /\b(deal|clos|contrepartie|comptoir|caisse|lot|tempo)\b/i, forbid: /\b(je vous|visiteur|sous le bois|gode)\b/i },
+};
+
+/** S53 — Runa aff. 5 pack-5 (dehors / impulsion — tour 2). */
+export const PACK5_EXCHANGE_BUSINESS_RULES_RUNA = {
+  '-13': { label: 'passerelle / quai / impulsion', pattern: /\b(passerelle|quai|impulsion|dehors|garde-fou|reste)\b/i },
+  '-14': { label: 'garde-fou / rythme / brûlant', pattern: /\b(garde-fou|rythme|brûlant|chevauche|marteau|passerelle)\b/i },
+  '-15': { label: 'hayon / charrette / maintenant', pattern: /\b(hayon|charrette|maintenant|verge|hayon|coin)\b/i },
+  '-16': { label: 'mur / pluie / touche', pattern: /\b(mur|pluie|touche|clitoris|doigts|remarpt)\b/i },
+  '-17': { label: 'rythme lointain / goûte', pattern: /\b(rythme|marteau|goûte|remise|clitoris|langue)\b/i },
+  '-18': { label: 'remise / chemin / vu', pattern: /\b(remise|chemin|chevauche|vu|risque|cadence)\b/i },
+  '-19': { label: 'apprenti / chemin / immobile', pattern: /\b(apprenti|chemin|immobile|verge|corde|passe)\b/i },
+  '-20': { label: 'pudeur / dehors / envie', pattern: /\b(pudeur|dehors|envie|rempart|embrasse|jupe)\b/i, forbid: /\b(je vous|entrez|forge)\b/i },
+  '-21': { label: 'retour / seuil / forge choisi', pattern: /\b(retour|seuil|forge|choisi|entre|tempo)\b/i, forbid: /\b(je vous|sous le bois|gode|comptoir)\b/i },
+};
+
+function inferCompanionFromExchangeId(exchangeId = '') {
+  if (exchangeId.startsWith('maeve-')) return 'maeve';
+  if (exchangeId.startsWith('runa-')) return 'runa';
+  return 'lyra';
+}
+
+function resolvePack5BusinessRule(exchangeId = '', companionId = '') {
+  const companion = (companionId || inferCompanionFromExchangeId(exchangeId)).toLowerCase();
+  const rulesByCompanion = {
+    lyra: PACK5_EXCHANGE_BUSINESS_RULES,
+    maeve: PACK5_EXCHANGE_BUSINESS_RULES_MAEVE,
+    runa: PACK5_EXCHANGE_BUSINESS_RULES_RUNA,
+  };
+  const rules = rulesByCompanion[companion] ?? PACK5_EXCHANGE_BUSINESS_RULES;
+  for (const [suffix, rule] of Object.entries(rules)) {
     if (exchangeId.endsWith(suffix)) return rule;
   }
   return null;
@@ -390,9 +429,12 @@ function runPackEmotionCurveChecks(data, hooks) {
   const { fail } = hooks;
   if (!corpusHasIntimateFinales(data)) return;
   const byId = new Map((data.exchanges ?? []).map((ex) => [ex.id, ex]));
+  const companionId = String(data.meta?.companionId ?? 'lyra').toLowerCase();
+  const havreCutout = companionId === 'maeve' || companionId === 'runa';
 
   for (const pack of data.meta?.sessionPacks ?? []) {
-    const pattern = PACK_ROMANTIC_EMOTION_BY_PACK[pack.id];
+    const lyraPattern = PACK_ROMANTIC_EMOTION_BY_PACK[pack.id];
+    const pattern = havreCutout ? /^(romantic|happy|neutral|playful|shy|annoyed)$/i : lyraPattern;
     if (!pattern) continue;
     for (const id of pack.exchangeIds ?? []) {
       const ex = byId.get(id);
@@ -456,7 +498,7 @@ export function spectatorCompanionLineOk(exchange) {
   const line = exchange.companionLine ?? '';
   if (
     SPOKEN_VISITOR_FACING_PATTERN.test(line) ||
-    /\b(bibliothécaire|registre|atlas|réserve|gravure|amendes|tarifs|comptoir|visiteur|monsieur|madame)\b/i.test(line)
+    /\b(bibliothécaire|registre|atlas|réserve|gravure|amendes|tarifs|comptoir|visiteur|monsieur|madame|marchande|forgeronne|forge|commande|mesure|crédit|comptant|deal|marché|client|acheteur|lame|apprenti|rival)\b/i.test(line)
   ) {
     return { ok: true };
   }
@@ -497,8 +539,8 @@ export function spectatorReactionOk(exchange, choice) {
 }
 
 /** S53 — règles métier pack-5 (choix + réaction romantic +3). */
-export function pack5BusinessRuleOk(exchange) {
-  const rule = resolvePack5BusinessRule(exchange.id);
+export function pack5BusinessRuleOk(exchange, companionId = '') {
+  const rule = resolvePack5BusinessRule(exchange.id, companionId);
   if (!rule) return { ok: true };
   const romantic = exchange.choices?.find((choice) => choice.tone === 'romantic' && choice.score === 3);
   if (!romantic) return { ok: true };
@@ -642,8 +684,8 @@ export function runAdvancedExchangeRules(data, hooks) {
       }
     }
 
-    if (corpusHasIntimateFinales(data) && resolvePack5BusinessRule(exchange.id)) {
-      const business = pack5BusinessRuleOk(exchange);
+    if (corpusHasIntimateFinales(data) && resolvePack5BusinessRule(exchange.id, data.meta?.companionId)) {
+      const business = pack5BusinessRuleOk(exchange, data.meta?.companionId);
       if (!business.ok) fail('S53', `${exchange.id} : ${business.reason}`);
     }
   }

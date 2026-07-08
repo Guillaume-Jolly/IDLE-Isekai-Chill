@@ -46,17 +46,17 @@ Elle t'attire contre la table, écarte les cuisses et presse ta main contre sa c
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Je caresse son clitoris puis je lui glisse deux doigts dans l'anus jusqu'à ce qu'elle tremble » | « Continue. » *Elle serre ton poignet.* « Tais-toi. » | commanding |
+| romantic | « Je caresse son clitoris, puis je lui glisse deux doigts en elle lentement jusqu'à ce qu'elle tremble » | « Encore. » *Elle serre ton poignet.* « Tais-toi. » | commanding |
 | ✓ sincere | « Je sens sa main sur mon poignet et je ralentis dès qu'elle serre » | « Serre quand tu veux. Continue lentement. » | commanding |
 | direct | « Je retire ma main une seconde, puis je repose deux doigts plus fermement sur son clitoris » | « Repose. Je veux sentir ta pression. » | commanding |
-| playful | « D'abord je feins de lire le registre, puis je presse ma paume contre son clitoris quand même » | « Oublie le registre. Mets ta main ici. » | annoyed |
+| playful | « Feignant lecture du registre, je presse ma paume contre son clitoris quand même » | « Oublie le registre. Mets ta main ici. » | annoyed |
 
 ---
 
 ## 03 — Entre les cuisses
 
 **Contexte**  
-Encore entre les rayons où elle t'a collé ; la chaleur monte, ses cuisses ouvertes au niveau de ton visage.
+Toujours à la bibliothèque — au bord de la table où tu l'as fait mouiller, Lyra te tire entre les rayons du fond ; la chaleur monte, ses cuisses ouvertes au niveau de ton visage.
 
 **Lyra (geste)**  
 Elle te pousse à genoux devant elle, doigts entrelacés dans tes cheveux, cuisses ouvertes sur ton visage.
@@ -66,10 +66,10 @@ Elle te pousse à genoux devant elle, doigts entrelacés dans tes cheveux, cuiss
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Je lèche son clitoris sans relever les yeux, langue entre ses cuisses » | « Continue. » *Elle tire tes cheveux.* « Ne t'arrête pas trop tôt. » | commanding |
+| romantic | « Je lèche son clitoris sans relever les yeux, langue entre ses cuisses » | « Ne t'arrête pas. » *Elle tire tes cheveux.* « Pas trop tôt. » | commanding |
 | ✓ sincere | « Je la laisse guider ma nuque et je ralentis dès qu'elle serre mes cheveux » | « Main dans tes cheveux. Garde ce rythme. » | commanding |
 | direct | « Je retiens ma langue une seconde, puis je reprends sur son clitoris, plus fort » | « Une seconde. Puis ne t'arrête pas. » | commanding |
-| playful | « D'abord je feins de reculer le visage, puis je lèche sa chatte quand elle tire mes cheveux » | « Langue sur ma chatte. Lèche. » | annoyed |
+| playful | « Simulant recul du visage, je lèche sa chatte quand elle tire mes cheveux » | « Langue sur ma chatte. Lèche. » | annoyed |
 
 ---
 
@@ -88,8 +88,8 @@ Elle jette le peignoir, te jette sur le lit et s'assoit à califourchon sur tes 
 |-----|---------|----------|---------|
 | romantic | « Je reste immobile sous elle et je la laisse ouvrir ma chemise, puis mon pantalon, sans rien cacher » | « Parfait. » *Elle finit de t'ôter la chemise et ton pantalon, ta verge dure contre son ventre nu.* | heated |
 | ✓ sincere | « Immobilisé sous Lyra, je signale d'un geste si elle va trop vite » | « Signale. Je continue. » | heated |
-| direct | « Trente secondes immobile sous elle, puis je la retourne et la presse contre les draps » | « Si tu veux jouer, assume. Je veux que tu me prennes toute la nuit. » *Elle écarte les cuisses et te lance un regard de défi.* | heated |
-| playful | « D'abord je feins de croiser les bras sur ma poitrine, puis je les relâche quand elle fronce les sourcils » | « Pas de jeu. Laisse-moi faire. » | annoyed |
+| direct | « Immobilisé une seconde sous elle, puis je la retourne et la presse contre les draps » | « Si tu veux jouer, assume. Je veux que tu me prennes toute la nuit. » *Elle écarte les cuisses et te lance un regard de défi.* | heated |
+| playful | « Feignant de croiser les bras sur ma poitrine, je les relâche quand elle fronce les sourcils » | « Pas de jeu. Laisse-moi faire. » | annoyed |
 
 ---
 
@@ -109,7 +109,7 @@ Elle te plaque sur le dos et prend ta bite en elle, d'un geste lent puis profond
 | romantic | « J'agrippe ses hanches et je la laisse enfoncer ma bite jusqu'au fond » | « Oui. » *Elle descend d'un coup.* « Ne lâche pas mes hanches. » | heated |
 | ✓ sincere | « Je reste allongé et je guide ses hanches lentement d'abord » | « Lent d'abord. Puis plus fort. » | heated |
 | direct | « Je laisse mes mains immobiles une seconde, puis je retourne la position et je lui enfonce ma bite par-dessus » | « Retourne-moi. Prends-moi par-dessus. » | heated |
-| playful | « D'abord je feins de la repousser, puis je la tire plus fort sur ma bite » | « Pas de jeu. Laisse-moi monter. » | annoyed |
+| playful | « Feignant recul, je la tire plus fort sur ma bite » | « Pas de jeu. Laisse-moi monter. » | annoyed |
 
 ---
 
@@ -126,10 +126,10 @@ Elle se penche sur la commode, fesses offertes, et te guide en elle par derrièr
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Je la plaque contre la commode et je l'encule jusqu'à ce qu'elle gémisse » | « Continue. Plus fort. Ne retiens rien. » *Elle serre la commode, voix basse.* | heated |
-| ✓ sincere | « Je serre sa taille contre le bois et je ralentis dès qu'elle fronce les sourcils » | « Ralentis si tu veux. Ne t'arrête pas. » | heated |
-| direct | « Je compte trente secondes contre la commode, puis je la retourne sur le lit » | « Sur le lit. Puis encore plus fort. » | heated |
-| playful | « D'abord je serre sa taille, puis je feins de lâcher une seconde » | « Pas de lâcher. Serre plus fort. » | annoyed |
+| romantic | « Contre la commode, je l'encule jusqu'à ce qu'elle gémisse » | « Encore. Plus fort. Ne retiens rien. » *Elle serre la commode, voix basse.* | heated |
+| ✓ sincere | « Contre le bois, je serre sa taille et je ralentis dès qu'elle fronce les sourcils » | « Ralentis si tu veux. Ne t'arrête pas. » | heated |
+| direct | « Je garde ma prise une seconde, puis je la retourne sur le lit » | « Sur le lit. Puis encore plus fort. » | heated |
+| playful | « Feignant un faible relâchement, je resserre ma prise sur sa taille » | « Pas de lâcher. Serre plus fort. » | annoyed |
 
 ---
 
@@ -142,14 +142,14 @@ Sous la verrière, lune sur les vitrages ; matelas bas, draps froissés, peaux c
 Elle s'assoit à califourchon sur tes hanches, chatte ouverte au-dessus de ta bite, mains sur ton torse — elle tient, ne descend pas encore.
 
 **Lyra**  
-« Attends mon signal sur tes hanches — après, tu entres »
+« Attends mon signal sur tes hanches — après, je descends »
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
 | romantic | « Je reste immobile allongé — je la laisse serrer mes hanches avant de glisser en elle » | « Alors viens. » *Elle serre tes hanches.* « Ne te retiens pas. » | dominant |
 | ✓ sincere | « Je reste immobile et j'enfonce ma bite lentement quand elle serre mes hanches » | « Lent, puis fort. Je te demanderai. » | dominant |
 | direct | « Je la retourne et je lui enfonce ma bite avant qu'elle ait fini de parler » | « Retourne-moi. En moi, maintenant. » | dominant |
-| playful | « D'abord je feins de rester immobile, puis je la prends d'un coup » | « Moins de théâtre. En moi, maintenant. » | annoyed |
+| playful | « Simulant immobilité, je la prends d'un coup » | « Moins de théâtre. En moi, maintenant. » | annoyed |
 
 ---
 
@@ -169,7 +169,7 @@ Toujours sous la verrière — bite en elle, buée sur le vitrage ; elle serre t
 | romantic | « Je serre ses hanches et je continue jusqu'à ce qu'elle halète mon nom » | « Alors baise-moi jusqu'à ce que j'oublie ce mot. » | dominant |
 | ✓ sincere | « Je tape son poignet dès que ça brûle et je ralentis tout de suite » | « Tape si ça brûle. Ralentis sans t'arrêter. » | dominant |
 | direct | « Je dis stop d'une voix basse si elle serre trop fort » | « Stop entendu. Dis-le si ça pique. » | dominant |
-| playful | « D'abord je feins de taper son poignet, puis je la presse plus fort » | « Pas de faux signal. Tape pour de vrai. » | annoyed |
+| playful | « Feignant un tapotage à vide sur son poignet, je la presse plus fort » | « Pas de faux signal. Tape pour de vrai. » | annoyed |
 
 ---
 
@@ -188,7 +188,7 @@ Par derrière, elle glisse trois doigts en toi par-dessus l'épaule, lèvres sur
 |-----|---------|----------|---------|
 | romantic | « Je me cambre contre le montant et je cède à ses doigts jusqu'à ce que je jouisse » | « Presse le montant. » *Elle accélère, buée sur le vitrage.* « Laisse-toi jouir. » | dominant |
 | ✓ sincere | « Contre le montant, je retiens ma respiration et je tape son poignet si ça brûle trop » | « Serre le montant. Tape si ça brûle trop. » | dominant |
-| direct | « Contre le bois, je garde vingt secondes immobiles puis je pousse mes hanches sur sa paume » | « Maintenant. Plus fort. » | dominant |
+| direct | « Une seconde immobile contre le bois, puis je pousse mes hanches sur sa paume » | « Maintenant. Plus fort. » | dominant |
 | playful | « Simulant recul du montant, je cambre le bassin contre sa paume quand elle m'attrape par la taille » | « Cambre-toi. Contre ma main. » | annoyed |
 
 ---
@@ -206,7 +206,7 @@ Elle bouge déjà sur toi, paume sur ton poignet — elle accélère quand tu ob
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Je presse mes hanches contre les siennes et je la laisse mener le rythme jusqu'à ce qu'elle jouisse » | « Continue. Là. Ne t'arrête pas avant que je jouisse. » | lustful |
+| romantic | « Je presse mes hanches contre les siennes et je la laisse mener le rythme jusqu'à ce qu'elle jouisse » | « Là. Ne t'arrête pas avant que je jouisse. » | lustful |
 | ✓ sincere | « Quand elle serre mes hanches, je ralentis sans reprendre le tempo » | « Mes hanches te guident. Suis mon rythme. » | lustful |
 | direct | « Je retiens ses hanches une minute, puis je la bascule sur le dos à côté de moi » | « Retourne-moi si tu peux. Puis reprends. » | lustful |
 | playful | « D'abord je reste raide sous elle, puis je la serre plus fort contre moi » | « Trop raide. Presse-toi contre moi. » | annoyed |
@@ -248,15 +248,15 @@ Elle écarte les fesses d'une main, coude sur la couverture, et te fait signe d'
 |-----|---------|----------|---------|
 | romantic | « Je glisse ma bite en son cul et je la laisse fixer le rythme jusqu'à ce qu'on jouisse tous les deux » | « Viens vite. Je suis à deux doigts de jouir. » | lustful |
 | ✓ sincere | « Je pénètre son cul lentement et je ralentis dès qu'elle serre mes hanches » | « Lent. Serre quand j'accélère. » | lustful |
-| direct | « Je garde trente secondes sans bouger en elle, puis je la prends fort par derrière » | « Maintenant. Puis encore, fort. » | lustful |
-| playful | « D'abord je feins de hésiter à l'entrée, puis je la pénètre par derrière jusqu'au fond » | « Pas d'hésitation. En mon cul, fort. » | annoyed |
+| direct | « Je retiens le geste une seconde en elle, puis je la prends fort par derrière » | « Maintenant. Puis encore, fort. » | lustful |
+| playful | « Feignant hésitation à l'entrée, je la pénètre par derrière jusqu'au fond » | « Pas d'hésitation. En mon cul, fort. » | annoyed |
 
 ---
 
 ## 13 — Pas de pas
 
 **Contexte**  
-Bibliothèque du havre, matin de cire et de papier — Lyra tourne encore une page au comptoir quand tu entres ; rien n'était prévu entre vous, et pourtant la nuit du toit flotte encore dans l'air ; dans le couloir de pierre, un chuchotement, puis des pas — on demande la bibliothécaire.
+Bibliothèque du havre, matin de cire et de papier — Lyra tourne encore une page au comptoir quand tu entres ; rien n'était prévu entre vous ; dans le couloir de pierre, un chuchotement, puis des pas — on demande la bibliothécaire.
 
 **Lyra (geste)**  
 Sans te laisser le temps, elle t'attrape le poignet et te fourre sous le comptoir — index sur tes lèvres, genou qui te cloue au planches. Pas un ordre, juste ce geste sec. De face, elle se redresse comme si de rien n'était ; le visiteur ne doit voir qu'une employée posée.
@@ -268,7 +268,7 @@ Sans te laisser le temps, elle t'attrape le poignet et te fourre sous le comptoi
 |-----|---------|----------|---------|
 | romantic | « Bouche scellée, je la laisse accueillir le visiteur d'une voix posée tandis que sa jambe me cache sous le comptoir » | « Oui, bien sûr — je vous entends. » *Elle termine sa phrase vers le couloir sans trembler — genou qui te plaque, index sur tes lèvres.* | lustful |
 | ✓ sincere | « Retenant ma respiration, je n'avance d'un millimètre que si sa main le permet sur mon poignet » | « Un instant, je consulte le registre. » *Elle serre ton poignet une seconde — reste dans son ombre, pas un bruit.* | lustful |
-| direct | « Je garde quinze secondes sans bouger sous le bois, puis je presse ma joue contre sa cheville » | « Je reviens vers vous dans un moment. » *Elle presse ta nuque sous le bois — attend le claquement de porte.* | lustful |
+| direct | « Un instant sans bouger sous le bois, puis je presse ma joue contre sa cheville » | « Je reviens vers vous dans un moment. » *Elle presse ta nuque sous le bois — attend le claquement de porte.* | lustful |
 | playful | « Feignant un oubli de volume, je fais grincer une planche — puis je me fige quand son index se presse plus fort » | « …Pardon ? Je n'ai pas entendu. » *Elle te transperce d'un regard sous le comptoir — index plus fort, puis reprend vers le couloir.* | annoyed |
 
 ---
@@ -286,10 +286,10 @@ Index sur tes lèvres. Vers le couloir elle feint de feuilleter ; de ton angle, 
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Doigts sur son clitoris, je caresse lentement au rythme de sa citation d'atlas vers le couloir — elle retient un frisson sans couper sa phrase » | « Section trois… oui, tout à l'heure. » *Elle mord l'intérieur de la joue — serre tes cheveux une seconde, puis relâche.* | lustful |
+| romantic | « Doigts sur son clitoris, je caresse au rythme de sa citation d'atlas — elle retient un frisson sans couper sa phrase » | « Section trois… oui, tout à l'heure. » *Elle mord l'intérieur de la joue — serre tes cheveux une seconde, puis relâche.* | lustful |
 | ✓ sincere | « Je reste immobile jusqu'à ce que sa cheville cède d'un millimètre — puis je caresse, plus lent quand elle serre » | « Je note votre demande, monsieur. » *Elle serre ta cheville quand ça brûle — voix toujours posée vers le couloir.* | lustful |
-| direct | « Quinze secondes sans bouger, puis je caresse son clitoris quand le visiteur marque une pause » | « …Comme vous dites. » *Elle marque une pause vers le visiteur — te fixe une seconde sous le bois, mâchoire serrée.* | lustful |
-| playful | « D'abord je retire ma main une seconde, puis je caresse sa chatte quand son regard me transperce sous le bois » | « Pardon ? » *Elle te transperce du regard — genou qui te bloque, puis reprend sa citation.* | annoyed |
+| direct | « Sans bouger sous le bois, je retiens le geste puis je caresse son clitoris quand le visiteur marque une pause » | « …Comme vous dites. » *Elle marque une pause vers le visiteur — te fixe une seconde sous le bois, mâchoire serrée.* | lustful |
+| playful | « D'abord je retire ma main une seconde, puis je caresse sa chatte quand son regard me transperce sous le bois » | « Vous disiez ? » *Elle te mord la cheville sous le bois — genou qui te bloque, puis reprend sa citation.* | annoyed |
 
 ---
 
@@ -306,10 +306,10 @@ Voix claire sur la gravure ; sous le bois, cuisses qui se contractent autour de 
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Sans prévenir, je glisse le gode en elle pendant sa pause — de l'autre côté, sa voix reprend sur la gravure sans faillir » | « …Remarquez, ici, l'usure du parchemin. » *Elle serre le manche via ta main — frisson retenu, voix qui reprend aussitôt.* | lustful |
+| romantic | « Sans prévenir, je glisse le gode en elle à sa pause — sa voix reprend sur la gravure sans faillir » | « …Remarquez, ici, l'usure du parchemin. » *Elle serre le manche via ta main — frisson retenu, voix qui reprend aussitôt.* | lustful |
 | ✓ sincere | « Lentement, je pousse le gode d'un cran — je m'arrête dès qu'elle retient un gémissement, sans bruit contre le bois » | « Ici, le filigrane… » *Elle serre tes cheveux quand ça brûle — lent, sans bruit.* | lustful |
-| direct | « Je garde quinze secondes à caler le gode, puis j'enfonce d'un cran quand elle fait une pause vers le couloir » | « …Un instant. » *Elle marque une pause vers le visiteur — mâchoire serrée, yeux qui supplient sous le bois.* | lustful |
-| playful | « D'abord je feins de poser le gode au sol, puis j'enfonce le gode quand son index se presse plus fort sur mes lèvres » | « Je vous écoute. » *Elle te transperce du regard — index sur tes lèvres, puis reprend sur la gravure.* | annoyed |
+| direct | « Un instant à caler le gode, puis j'enfonce d'un cran quand elle fait une pause vers le couloir » | « …Un instant. » *Elle marque une pause vers le visiteur — mâchoire serrée, yeux qui supplient sous le bois.* | lustful |
+| playful | « Feignant de poser le gode au sol, puis j'enfonce le gode quand son index se presse plus fort sur mes lèvres » | « Je vous écoute. » *Elle appuie son index sur tes lèvres — puis reprend sur la gravure.* | annoyed |
 
 ---
 
@@ -326,9 +326,9 @@ Elle serre la mâchoire vers le visiteur, retient un frisson — regard sous le 
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Je pousse le gode plus profond à mon tempo — je m'arrête net avant qu'elle vacille, sa voix toujours claire sur les amendes » | « …Colonne quatre. » *Elle mord sa lèvre — frisson retenu, puis reprend vers le couloir.* | lustful |
+| romantic | « Je pousse le gode plus profond à mon tempo — j'arrête net avant qu'elle vacille, voix claire sur les amendes » | « …Colonne quatre. » *Elle mord sa lèvre — frisson retenu, puis reprend vers le couloir.* | lustful |
 | ✓ sincere | « Quand elle serre mes cheveux, je ralentis ; quand elle relâche, je reprends — sans quitter la cadence de sa citation » | « …Colonne quatre, oui. » *Elle serre sans bruit — voix stable vers le visiteur.* | lustful |
-| direct | « Trente secondes à pousser lentement, puis je presse plus fort seulement quand elle frôle un gémissement retenu » | « …Comme indiqué. » *Elle serre tes cheveux une seconde — panique étouffée, pas un ordre.* | lustful |
+| direct | « Je retiens le manche une seconde, puis je presse plus fort quand elle frôle un gémissement retenu » | « …Comme indiqué. » *Elle serre tes cheveux une seconde — panique étouffée, pas un ordre.* | lustful |
 | playful | « D'abord je ralentis une seconde sur le manche pour la taquiner, puis je repousse là où ses hanches cherchent » | « Pardon ? » *Elle te fixe sous le bois — genou qui te bloque une seconde, puis reprend sa litanie.* | annoyed |
 
 ---
@@ -346,10 +346,10 @@ Sans couper sa phrase elle cambre d'un millimètre — de ton côté, accès à 
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Je glisse un doigt en son anus pendant qu'elle conclut sa phrase sur la réserve — je ralentis dès que sa voix frôle la faille, sans la laisser basculer » | « …Demain matin, oui. » *Elle serre ton poignet une seconde — presque un gémissement retenu, voix qui tient.* | lustful |
+| romantic | « Je glisse un doigt en son anus pendant qu'elle conclut sur la réserve — je ralentis dès que sa voix frôle la faille » | « …Demain matin, oui. » *Elle serre ton poignet une seconde — presque un gémissement retenu, voix qui tient.* | lustful |
 | ✓ sincere | « Un doigt lent en son anus ; je ralentis dès qu'elle serre mes doigts contre le bois — gode immobile entre deux phrases » | « Je note votre nom… » *Elle serre tes doigts — garde la voix posée.* | lustful |
-| direct | « Vingt secondes sans bouger, puis un doigt anal quand elle serre mon poignet — deux seulement si sa voix reste stable » | « …Entendu. » *Elle serre ton poignet — une seconde, puis relâche.* | lustful |
-| playful | « D'abord je feins de caresser sa cuisse, puis je presse un doigt contre son anus quand le visiteur baisse les yeux sur le registre » | « Je vous écoute. » *Elle te fixe sous le bois — cuisses qui se contractent, pas un geste vers ta main.* | annoyed |
+| direct | « Un instant sans bouger, puis un doigt anal quand elle serre mon poignet — deux seulement si sa voix reste stable » | « …Entendu. » *Elle serre ton poignet — une seconde, puis relâche.* | lustful |
+| playful | « Feignant maladresse sur sa cuisse, je presse un doigt contre son anus quand le visiteur baisse les yeux sur le registre » | « Je vous écoute. » *Elle te fixe sous le bois — cuisses qui se contractent, pas un geste vers ta main.* | annoyed |
 
 ---
 
@@ -368,8 +368,8 @@ Elle entend des pages crisser au loin, jette un regard sous le bois : lèvres se
 |-----|---------|----------|---------|
 | romantic | « Je pousse le gode à mon tempo — je m'arrête avant qu'elle halète, sa voix toujours posée sur les tarifs » | « …Colonne sept. » *Elle serre tes cheveux d'un cran — tremblement retenu, plume immobile.* | lustful |
 | ✓ sincere | « Pages qui crissent deux allées plus loin — je ralentis dès qu'elle serre mes cheveux, sans couper sa litanie sur les tarifs » | « …Comme indiqué ici. » *Elle serre tes cheveux — voix stable malgré le frisson.* | lustful |
-| direct | « Je garde quarante secondes muettes sous le bois, puis un cran sur le manche quand elle tourne une page du registre » | « …Voilà la ligne. » *Elle te fixe une seconde sous le comptoir — yeux humides, pas un mot.* | lustful |
-| playful | « D'abord je feins de lâcher le manche, je repousse quand elle m'attrape la nuque — deux allées plus loin, rien ne bouge » | « Pardon ? » *Elle te repousse la main sur le manche — puis reprend sa citation.* | annoyed |
+| direct | « Je reste muet une seconde sous le bois, puis je pousse d'un cran quand elle tourne une page du registre » | « …Voilà la ligne. » *Elle te fixe une seconde sous le comptoir — yeux humides, pas un mot.* | lustful |
+| playful | « Simulant lâcher le manche, je repousse quand elle m'attrape la nuque — deux allées plus loin, rien ne bouge » | « …Colonne sept. » *Elle te repousse la main sur le manche — puis reprend vers les travées.* | annoyed |
 
 ---
 
@@ -388,8 +388,8 @@ Elle s'assoit raide sur le tabouret, sourire professionnel vers la porte vitrée
 |-----|---------|----------|---------|
 | romantic | « Pendant qu'elle salue l'apprenti, j'avance le gode d'un cran — j'arrête net quand sa voix frôle la faille, sans la laisser basculer » | « …Asseyez-vous. Je finis cette page. » *Elle garde la voix stable vers la porte — mord sa lèvre d'un millimètre.* | lustful |
 | ✓ sincere | « Rythme lent sur le manche ; je ralentis dès qu'elle serre mes doigts contre le bois » | « Un instant… » *Elle serre tes doigts — voix posée vers l'apprenti.* | lustful |
-| direct | « Je compte quarante secondes immobile sous le comptoir, puis un cran sur le manche au moment où elle dit entre » | « …Entrez. » *Elle marque une pause vers la porte — retient un frisson, plume immobile.* | lustful |
-| playful | « D'abord je tapote le tiroir comme distrait, puis j'enfonce le gode quand l'apprenti baisse les yeux sur ses notes » | « Oui ? » *Elle te transperce du regard — mâchoire serrée, puis reprend vers l'apprenti.* | annoyed |
+| direct | « Immobilisé une seconde sous le comptoir, puis je pousse d'un cran au moment où elle dit entre » | « …Entrez. » *Elle marque une pause vers la porte — retient un frisson, plume immobile.* | lustful |
+| playful | « D'abord je tapote le tiroir comme distrait, puis j'enfonce le gode quand l'apprenti baisse les yeux sur ses notes » | « Oui ? » *Elle te cloue du regard — mâchoire serrée, puis reprend vers l'apprenti.* | annoyed |
 
 ---
 
@@ -408,7 +408,7 @@ Elle ne te guide plus : mains blanches sur le bois, regard qui fuit le tien puis
 |-----|---------|----------|---------|
 | romantic | « Sans attendre, je pousse le gode jusqu'à frôler sa limite et je m'arrête net — elle n'a rien vu venir, seulement senti » | « …Oui. Continue sous le bois. » *Elle mord sa lèvre — masque qui craque, yeux vers la porte close.* | lustful |
 | ✓ sincere | « Lentement sur le manche, je ralentis quand ses doigts se crispent sur le tabouret — elle retient chaque souffle comme s'il restait du monde dehors » | « J'ai envie… » *Elle retient un frisson — doigts blancs sur le bois, pas sur ton poignet.* | lustful |
-| direct | « Je garde vingt secondes muettes sous le bois, puis j'enfonce le gode d'un cran sans attendre — je m'arrête quand ses cuisses tremblent » | « …Encore. » *Elle fronce les sourcils vers la porte — honte et envie, sans te freiner.* | lustful |
+| direct | « Je retiens le gode une seconde, puis j'enfonce d'un cran sans attendre — je m'arrête quand ses cuisses tremblent » | « …Encore. » *Elle fronce les sourcils vers la porte — honte et envie, sans te freiner.* | lustful |
 | playful | « D'abord je fais semblant de lâcher le manche, puis je repousse quand elle cherche ta main — je chuchote qu'elle déteste vouloir autant » | « …Tu le sais. » *Elle détourne les yeux — mâchoire serrée, joues qui brûlent.* | annoyed |
 
 ---
@@ -426,7 +426,7 @@ Elle te tire de sous le comptoir entre deux rayonnages, robe relevée, gode enco
 
 | Ton | Réponse | Réaction | Émotion |
 |-----|---------|----------|---------|
-| romantic | « Entre les atlas, je glisse en elle et je la pousse contre un rayonnage jusqu'à ce que le bois grince — enfin libres de faire du bruit » | « Oui. Là, entre les atlas. Ne te retiens pas — personne n'écoute. » *Elle serre tes hanches, chatte chaude contre ta bite.* | lustful |
+| romantic | « Je pose le gode, j'ouvre ma braguette, je glisse en elle et la plaque contre les atlas » | « Oui. Là, entre les atlas. Ne te retiens pas — personne n'écoute. » *Elle serre tes hanches, chatte chaude contre ta bite.* | lustful |
 | ✓ sincere | « Entre les travées, je suis son tempo et je ralentis quand elle serre mes hanches plus fort » | « Suis mon tempo. Presse-toi quand je serre. » | lustful |
 | direct | « Une minute debout entre les rayons, puis je la retourne contre un atlas et je la prends jusqu'au bruit des reliures » | « Maintenant. Fort. Fais grincer le bois. » | lustful |
 | playful | « D'abord je chuchote une citation du bestiaire pour la taquiner, puis je la plaque contre le rayonnage le plus bruyant » | « Pas de citation. Plaque-moi. Fort. » | annoyed |

@@ -262,6 +262,14 @@ export type PickConversationOptions = ParlerCorpusOptions & {
   curatedAffinity?: CuratedParlerAffinity
 }
 
+function resolveCorpusCompanionId(
+  companionId: string,
+  options?: PickConversationOptions,
+): string {
+  if (options?.curatedCompanionId) return options.curatedCompanionId
+  return companionId
+}
+
 function resolvePickAffinity(
   companionId: string,
   affinity: number,
@@ -279,13 +287,15 @@ export function pickConversation(
   avoidId?: string,
   options?: PickConversationOptions,
 ) {
-  if (!COMPANION_DIALOGUE_PROFILES[companionId] || !canUseParlerDialogues(companionId)) {
+  const corpusCompanionId = resolveCorpusCompanionId(companionId, options)
+
+  if (!COMPANION_DIALOGUE_PROFILES[corpusCompanionId] || !canUseParlerDialogues(corpusCompanionId)) {
     return null
   }
 
-  const effectiveAffinity = resolvePickAffinity(companionId, affinity, options)
+  const effectiveAffinity = resolvePickAffinity(corpusCompanionId, affinity, options)
 
-  if (usesCuratedCorpus(companionId, effectiveAffinity, options)) {
+  if (usesCuratedCorpus(corpusCompanionId, effectiveAffinity, options)) {
     return pickCuratedConversation(companionId, effectiveAffinity, avoidId, options)
   }
 
@@ -306,13 +316,15 @@ export async function pickConversationAsync(
   avoidId?: string,
   options?: PickConversationOptions & { advanceBatch?: boolean },
 ) {
-  if (!COMPANION_DIALOGUE_PROFILES[companionId] || !canUseParlerDialogues(companionId)) {
+  const corpusCompanionId = resolveCorpusCompanionId(companionId, options)
+
+  if (!COMPANION_DIALOGUE_PROFILES[corpusCompanionId] || !canUseParlerDialogues(corpusCompanionId)) {
     return null
   }
 
-  const effectiveAffinity = resolvePickAffinity(companionId, affinity, options)
+  const effectiveAffinity = resolvePickAffinity(corpusCompanionId, affinity, options)
 
-  if (usesCuratedCorpus(companionId, effectiveAffinity, options)) {
+  if (usesCuratedCorpus(corpusCompanionId, effectiveAffinity, options)) {
     return pickCuratedConversation(companionId, effectiveAffinity, avoidId, options)
   }
 

@@ -4,6 +4,7 @@
  * pipeline affichage, scores↔tons, émotions corpus, ponctuation, unicité, packs, doc, golden, runtime.
  */
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -42,6 +43,33 @@ const GOLDEN_PATH = jsonPath.replace(/\.json$/i, '.golden.json');
 const SCORE_SCRIPT = path.join(__dirname, 'score-curated-exchange.mjs');
 
 const updateGolden = process.argv.includes('--update-golden');
+
+function parsePackFlag(argv) {
+  const idx = argv.indexOf('--pack');
+  if (idx >= 0 && argv[idx + 1] && !argv[idx + 1].startsWith('--')) {
+    return argv[idx + 1];
+  }
+  return null;
+}
+
+const packFilter = parsePackFlag(process.argv);
+
+function sliceCorpusForPack(data, packId) {
+  const pack = (data.meta.sessionPacks ?? []).find((entry) => entry.id === packId);
+  if (!pack) {
+    throw new Error(`Pack ${packId} introuvable dans ${path.basename(jsonPath)}`);
+  }
+  const byId = new Map(data.exchanges.map((ex) => [ex.id, ex]));
+  const exchanges = pack.exchangeIds.map((id) => byId.get(id)).filter(Boolean);
+  if (exchanges.length === 0) {
+    throw new Error(`Aucun échange pour ${packId}`);
+  }
+  return {
+    ...data,
+    meta: { ...data.meta, sessionPacks: [pack] },
+    exchanges,
+  };
+}
 
 const failures = [];
 const warnings = [];
@@ -84,8 +112,29 @@ function checkDisplayPipeline(ex) {
   }
 }
 
-function checkScoreToneMapping(ex, affinity) {
-  const scoreByTone = getScoreByTone(affinity);
+const RUNA_AFF5_ROMANTIC_PLUS3_IDS = new Set([
+  'runa-aff5-curated-01',
+  'runa-aff5-curated-07',
+  'runa-aff5-curated-12',
+]);
+
+const RUNA_AFF5_SINCERE_WINS_SCORES = { sincere: 3, direct: 2, romantic: 1, playful: 0 };
+
+function scoreByToneForExchange(ex, meta) {
+  const affinity = meta?.affinity ?? 1;
+  const standard = getScoreByTone(affinity);
+  if (
+    String(meta?.companionId).toLowerCase() === 'runa' &&
+    affinity >= 5 &&
+    !RUNA_AFF5_ROMANTIC_PLUS3_IDS.has(ex.id)
+  ) {
+    return RUNA_AFF5_SINCERE_WINS_SCORES;
+  }
+  return standard;
+}
+
+function checkScoreToneMapping(ex, meta) {
+  const scoreByTone = scoreByToneForExchange(ex, meta);
   for (const choice of ex.choices) {
     const expected = scoreByTone[choice.tone];
     if (expected === undefined) {
@@ -192,8 +241,9 @@ function checkPackIntegrity(data) {
 
   const affinity = data.meta?.affinity ?? 1;
   const sampleId = data.exchanges[0]?.id ?? '';
-  const idPrefixMatch = sampleId.match(/^(lyra-aff\d-curated(?:-[a-z-]+)?-)/);
-  const idPrefix = idPrefixMatch?.[1] ?? `lyra-aff${affinity}-curated-`;
+  const idPrefixMatch = sampleId.match(/^([a-z]+-aff\d-curated(?:-[a-z-]+)?-)/);
+  const companionId = data.meta?.companionId ?? 'lyra';
+  const idPrefix = idPrefixMatch?.[1] ?? `${companionId}-aff${affinity}-curated-`;
 
   for (let index = 1; index <= expectedExchangeCount; index += 1) {
     const expected = `${idPrefix}${String(index).padStart(2, '0')}`;
@@ -355,6 +405,10 @@ function checkGolden(data) {
   const payload = buildGoldenPayload(data);
 
   if (updateGolden) {
+    if (packFilter) {
+      fail('G2', 'update-golden interdit en mode --pack (utiliser validate full sans --pack)');
+      return;
+    }
     fs.writeFileSync(GOLDEN_PATH, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
     console.log(`Golden mis à jour : ${path.relative(ROOT, GOLDEN_PATH)}`);
     return;
@@ -366,11 +420,24 @@ function checkGolden(data) {
   }
 
   const golden = JSON.parse(fs.readFileSync(GOLDEN_PATH, 'utf8'));
-  const current = JSON.stringify(payload.exchanges);
-  const expected = JSON.stringify(golden.exchanges);
+  let currentExchanges = payload.exchanges;
+  let expectedExchanges = golden.exchanges;
+  if (packFilter) {
+    const ids = new Set(data.exchanges.map((ex) => ex.id));
+    expectedExchanges = golden.exchanges.filter((ex) => ids.has(ex.id));
+    currentExchanges = payload.exchanges.filter((ex) => ids.has(ex.id));
+  }
+
+  const current = JSON.stringify(currentExchanges);
+  const expected = JSON.stringify(expectedExchanges);
 
   if (current !== expected) {
-    fail('G1', 'diff golden — review obligatoire (npm run validate:curated-parler:update-golden si voulu)');
+    fail(
+      'G1',
+      packFilter
+        ? `diff golden pack ${packFilter} — review obligatoire`
+        : 'diff golden — review obligatoire (npm run validate:curated-parler:update-golden si voulu)',
+    );
   }
 }
 
@@ -415,26 +482,34 @@ function checkRuntimeMirrors() {
 }
 
 console.log('# Validation complète Parler curé —', path.basename(jsonPath));
+if (packFilter) {
+  console.log(`Mode pack : ${packFilter} (slice ${packFilter === 'pack-5' ? '9' : '3'} échanges)`);
+}
 console.log('');
 
 runBuiltInRegressions();
 checkRuntimeMirrors();
 
-const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+let data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+if (packFilter) {
+  data = sliceCorpusForPack(data, packFilter);
+}
 
 const corpusAffinity = data.meta?.affinity ?? 1;
 
 for (const ex of data.exchanges) {
   checkDisplayPipeline(ex);
-  checkScoreToneMapping(ex, corpusAffinity);
+  checkScoreToneMapping(ex, data.meta);
   checkEmotionVsScore(ex);
   checkCompanionLinePunctuation(ex);
 }
 
 checkGlobalUniqueness(data.exchanges);
-checkPackIntegrity(data);
-checkBuildCorpusMirror(data);
-checkDocSync(data);
+if (!packFilter) {
+  checkPackIntegrity(data);
+  checkBuildCorpusMirror(data);
+  checkDocSync(data);
+}
 checkGolden(data);
 checkUiLengthWarnings(data.exchanges);
 
@@ -463,7 +538,7 @@ const mark = () => failures.length;
 
 console.log('\n## Sémantique (answerRule · diversité · fil pack · anti-calque)');
 const semanticsStart = mark();
-runSemanticsValidation(data, { fail, warn });
+runSemanticsValidation(data, { fail, warn, packMode: Boolean(packFilter) });
 if (failures.length === semanticsStart) console.log('✓ Sémantique OK.');
 else failures.slice(semanticsStart).forEach((entry) => console.log(`✗ [${entry.code}] ${entry.message}`));
 
@@ -485,7 +560,7 @@ if (failures.length > semanticsStart) {
 }
 
 const fmcStart = mark();
-if (resolveFmcMirrorPath(jsonPath)) {
+if (!packFilter && resolveFmcMirrorPath(jsonPath)) {
   console.log('\n## Miroir H/F (cohérence anatomie FM2)');
   runFmcMirrorFromPath(jsonPath, { fail, warn });
   if (failures.length === fmcStart) console.log('✓ Miroir H/F OK.');
@@ -534,7 +609,17 @@ if (corpusSupportsPackWalk(data)) {
 }
 
 console.log('\n## Grille A→G (score-curated-exchange.mjs)\n');
-const scoreRun = spawnSync(process.execPath, [SCORE_SCRIPT, jsonPath], {
+let scoreJsonPath = jsonPath;
+let scoreTempPath = null;
+if (packFilter) {
+  scoreTempPath = path.join(
+    os.tmpdir(),
+    `parler-validate-pack-${packFilter}-${path.basename(jsonPath)}`,
+  );
+  fs.writeFileSync(scoreTempPath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+  scoreJsonPath = scoreTempPath;
+}
+const scoreRun = spawnSync(process.execPath, [SCORE_SCRIPT, scoreJsonPath], {
   cwd: ROOT,
   stdio: 'inherit',
 });
