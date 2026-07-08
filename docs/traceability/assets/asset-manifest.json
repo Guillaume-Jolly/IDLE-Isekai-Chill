@@ -1,31 +1,32 @@
 {
-  "generatedAt": "2026-06-30T07:51:20.460Z",
+  "generatedAt": "2026-07-08T09:00:22.952Z",
   "repoRoot": "C:/Dev/Project/IDLE Isekai Chill",
   "phase": 0,
   "totals": {
-    "imageFiles": 1801,
+    "imageFiles": 1658,
     "byExtension": {
-      ".png": 1774,
+      ".png": 1627,
       ".svg": 19,
-      ".webp": 8
+      ".webp": 12
     },
     "byClass": {
-      "input-chatgpt": 49,
+      "input-chatgpt": 96,
       "runtime:background": 52,
-      "runtime:companions": 280,
-      "other": 4,
+      "runtime:companions": 294,
+      "other": 26,
       "runtime:myrions": 289,
       "runtime:gacha": 45,
       "archive": 687,
       "runtime:minigames": 84,
       "runtime:village": 3,
-      "staging": 308
+      "staging": 82
     },
     "byTopBucket": {
+      "Input chatgpt/cursor_masks_test_character": 47,
       "Input chatgpt/etna_gacha_8_images_pack": 9,
       "Input chatgpt/pack_event_invocation": 40,
       "assets/Background": 52,
-      "assets/Compagnons": 280,
+      "assets/Compagnons": 294,
       "assets/Live2D": 2,
       "assets/Myrions": 289,
       "assets/gacha": 45,
@@ -33,12 +34,13 @@
       "old_assets/Compagnons": 382,
       "old_assets/Gacha": 11,
       "old_assets/Myrions": 157,
-      "public/assets": 84,
+      "public/assets": 101,
       "public/favicon.svg": 1,
       "public/icons.svg": 1,
+      "public/splash": 5,
       "public/village": 3,
-      "staging/companion-visual-pack": 265,
-      "staging/skinline-premium": 43
+      "staging/companion-visual-pack": 14,
+      "staging/mini jeu": 68
     },
     "duplicateHashGroups": 80
   },
@@ -132,6 +134,15 @@
       ]
     },
     {
+      "hash": "b9761f78f2b5725c",
+      "count": 3,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/source/original_reference.png",
+        "Input chatgpt/cursor_masks_test_character/original_reference.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/source/original_reference.png"
+      ]
+    },
+    {
       "hash": "64692a9515371ddc",
       "count": 3,
       "paths": [
@@ -204,15 +215,6 @@
       ]
     },
     {
-      "hash": "061d517c03bb8ab6",
-      "count": 3,
-      "paths": [
-        "assets/Compagnons/etna/NSFW/affinity-4-nsfw.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-04-nsfw-scene-v1.png",
-        "staging/companion-visual-pack/disagrea/etna/tests/companion-etna-affinity-05-lit-batch5-v5-v4-final-tweak.png"
-      ]
-    },
-    {
       "hash": "73f12673a9e807ff",
       "count": 3,
       "paths": [
@@ -222,57 +224,187 @@
       ]
     },
     {
-      "hash": "49da471a47b778ae",
-      "count": 3,
+      "hash": "80c7914857b02b3c",
+      "count": 2,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v1.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v1.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v1.png"
+        "Input chatgpt/cursor_masks_test_character/V3/758cfcf9-25ac-4383-8d17-3a23492fd949 (1).png",
+        "Input chatgpt/cursor_masks_test_character/V3/758cfcf9-25ac-4383-8d17-3a23492fd949.png"
       ]
     },
     {
-      "hash": "724e0b9a05a33bf4",
-      "count": 3,
+      "hash": "36c14219eb00c5f7",
+      "count": 2,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v11.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v11.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v11.png"
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_01_yeux_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_01_yeux_transparent.png"
       ]
     },
     {
-      "hash": "3cc2f13bc94e16e2",
-      "count": 3,
+      "hash": "fe32281da14875c8",
+      "count": 2,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v12.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v12.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v12.png"
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_02_echarpe_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_02_echarpe_transparent.png"
       ]
     },
     {
-      "hash": "a2e075a5a388fbfc",
-      "count": 3,
+      "hash": "ab9dc9d3716f32fb",
+      "count": 2,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v2.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v2.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v2.png"
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_03_pantalon_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_03_pantalon_transparent.png"
       ]
     },
     {
-      "hash": "13c8fabe3d22ca8e",
-      "count": 3,
+      "hash": "410827a5b0db570f",
+      "count": 2,
       "paths": [
-        "staging/companion-visual-pack/disagrea/etna/tests/allfours-batch/companion-etna-affinity-05-lit-allfours-cursor-v9.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-allfours-v9.png",
-        "staging/companion-visual-pack/intime-bed-batch/companion-etna-intime-bed-side-v9.png"
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_04_ceinture_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_04_ceinture_transparent.png"
       ]
     },
     {
-      "hash": "cfdd4c1dcfd36ce7",
-      "count": 3,
+      "hash": "22379319661e9bd2",
+      "count": 2,
       "paths": [
-        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4.png",
-        "staging/skinline-premium/_batch-v4-original/companion-etna-intime-bed-v4b.png",
-        "staging/skinline-premium/companions/etna/companion-etna-skinline-premium.png"
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_05_botte_gauche_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_05_botte_gauche_transparent.png"
+      ]
+    },
+    {
+      "hash": "5d6310dca12ceb85",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_06_botte_droite_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_06_botte_droite_transparent.png"
+      ]
+    },
+    {
+      "hash": "08c4d90bd41af94a",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_07_accessoires_bras_gauche_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_07_accessoires_bras_gauche_transparent.png"
+      ]
+    },
+    {
+      "hash": "af93e227b989dd53",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_08_accessoires_bras_droit_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_08_accessoires_bras_droit_transparent.png"
+      ]
+    },
+    {
+      "hash": "1935ea893d79fb03",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_09_peau_visible_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_09_peau_visible_transparent.png"
+      ]
+    },
+    {
+      "hash": "a4c3672b255ce0d9",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/layers_transparent/layer_10_oreilles_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/layers_transparent/layer_10_oreilles_transparent.png"
+      ]
+    },
+    {
+      "hash": "8dd90e496f8320cd",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_01_yeux.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_01_yeux.png"
+      ]
+    },
+    {
+      "hash": "30c2a8b435cb0562",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_02_echarpe.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_02_echarpe.png"
+      ]
+    },
+    {
+      "hash": "7abc397fe790d177",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_03_pantalon.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_03_pantalon.png"
+      ]
+    },
+    {
+      "hash": "6a9f7e368067ef0e",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_04_ceinture.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_04_ceinture.png"
+      ]
+    },
+    {
+      "hash": "c1383b683bd1aba2",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_05_botte_gauche.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_05_botte_gauche.png"
+      ]
+    },
+    {
+      "hash": "9b7c56e1aa646f9f",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_06_botte_droite.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_06_botte_droite.png"
+      ]
+    },
+    {
+      "hash": "63c994f520ca012e",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_07_accessoires_bras_gauche.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_07_accessoires_bras_gauche.png"
+      ]
+    },
+    {
+      "hash": "4c3977ea1571c2e5",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_08_accessoires_bras_droit.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_08_accessoires_bras_droit.png"
+      ]
+    },
+    {
+      "hash": "4cc06d79acf329b0",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_09_peau_visible.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_09_peau_visible.png"
+      ]
+    },
+    {
+      "hash": "6e3bb190ec5d59ab",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/masks_black_white/mask_10_oreilles.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/masks_black_white/mask_10_oreilles.png"
+      ]
+    },
+    {
+      "hash": "4b0c2913bbef9f1a",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/optional_previous_mask/layer_00_cheveux_optionnel_transparent.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/optional_previous_mask/layer_00_cheveux_optionnel_transparent.png"
+      ]
+    },
+    {
+      "hash": "338544c93853e7d9",
+      "count": 2,
+      "paths": [
+        "Input chatgpt/cursor_masks_test_character/cursor_masks_test_character/optional_previous_mask/mask_00_cheveux_optionnel.png",
+        "staging/mini jeu/color 2/chatgpt-cursor-test/extracted/cursor_masks_test_character/optional_previous_mask/mask_00_cheveux_optionnel.png"
       ]
     },
     {
@@ -380,11 +512,11 @@
       ]
     },
     {
-      "hash": "194b77cde9ac88f9",
+      "hash": "061d517c03bb8ab6",
       "count": 2,
       "paths": [
-        "assets/Compagnons/asha/chibis/chibi.png",
-        "staging/companion-visual-pack/village/asha/chibi/companion-asha-chibi-v2.png"
+        "assets/Compagnons/etna/NSFW/affinity-4-nsfw.png",
+        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/etna/Autres/disagrea-integrated/companion-etna-affinity-04-nsfw-scene-v1.png"
       ]
     },
     {
@@ -476,14 +608,6 @@
       ]
     },
     {
-      "hash": "72b954bb4c1e8084",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/kael/chibis/chibi.png",
-        "staging/companion-visual-pack/village/kael/chibi/companion-kael-chibi-v2.png"
-      ]
-    },
-    {
       "hash": "23552a0c0cfd0606",
       "count": 2,
       "paths": [
@@ -529,22 +653,6 @@
       "paths": [
         "assets/Compagnons/laharl/affinite/affinity-5.png",
         "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/laharl/Autres/disagrea-integrated/companion-laharl-affinity-05-peak-bond-scene-originale-v1.png"
-      ]
-    },
-    {
-      "hash": "5abe722da1ff3f25",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/maeve/chibis/chibi.png",
-        "staging/companion-visual-pack/village/maeve/chibi/companion-maeve-chibi-v2.png"
-      ]
-    },
-    {
-      "hash": "e2b094ed08775cd4",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/noa/chibis/chibi.png",
-        "staging/companion-visual-pack/village/noa/chibi/companion-noa-chibi-v2.png"
       ]
     },
     {
@@ -609,118 +717,6 @@
       "paths": [
         "assets/Compagnons/solene/cutouts/emotion-happy.png",
         "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-happy-v2-archived.png"
-      ]
-    },
-    {
-      "hash": "1d94927d21ff9dd8",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-neutral.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-neutral-v2-archived.png"
-      ]
-    },
-    {
-      "hash": "f4508f98dc5c47a3",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-romantic.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-romantic-v2-archived.png"
-      ]
-    },
-    {
-      "hash": "5691b72aec676250",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-sad.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-sad-v2-archived.png"
-      ]
-    },
-    {
-      "hash": "613bacd8a5df0b8f",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-shy.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-shy-v2-archived.png"
-      ]
-    },
-    {
-      "hash": "eb420e043e25da4d",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/solene/cutouts/emotion-surprised.png",
-        "old_assets/Compagnons/_archive/2026-06-25-dedup-vs-assets/solene/cutouts/emotion-surprised-v2-archived.png"
-      ]
-    },
-    {
-      "hash": "938d12aa7e42399c",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/sora/chibis/chibi.png",
-        "staging/companion-visual-pack/village/sora/chibi/companion-sora-chibi-v2.png"
-      ]
-    },
-    {
-      "hash": "da744edf15694a2a",
-      "count": 2,
-      "paths": [
-        "assets/Compagnons/talia/Autres/guide/point-prairie-solaire.png",
-        "assets/Compagnons/talia/Autres/guide/point.png"
-      ]
-    },
-    {
-      "hash": "03608cc55759f67a",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/intermediate.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/intermediate.png"
-      ]
-    },
-    {
-      "hash": "8795fa4708c36c48",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-lr.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-lr.png"
-      ]
-    },
-    {
-      "hash": "3ea7ea87efdc3f83",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-multi.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-multi.png"
-      ]
-    },
-    {
-      "hash": "aab7f37fd9f45604",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-n.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-n.png"
-      ]
-    },
-    {
-      "hash": "0acc74ea8f92de71",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-sr.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-sr.png"
-      ]
-    },
-    {
-      "hash": "028f032783ed9ef0",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-ssr.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-ssr.png"
-      ]
-    },
-    {
-      "hash": "f2f97b68bdc96baf",
-      "count": 2,
-      "paths": [
-        "assets/gacha/cinema/disagrea/reveal-ur.png",
-        "old_assets/Gacha/_archive/2026-06-25-dedup-vs-assets/gacha-event-disagrea-source-2026-06-25/reveal-ur.png"
       ]
     }
   ],

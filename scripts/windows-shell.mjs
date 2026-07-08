@@ -59,7 +59,13 @@ export function runPowerShellFile(scriptPath, args = [], options = {}) {
 }
 
 export function findPortListenerPid(port) {
-  if (process.platform !== 'win32') return null
+  const all = findAllPortListenerPids(port)
+  return all[0] ?? null
+}
+
+export function findAllPortListenerPids(port) {
+  const pids = new Set()
+  if (process.platform !== 'win32') return []
 
   try {
     const out = execFileSync(system32Exe('netstat.exe'), ['-ano', '-p', 'tcp'], {
@@ -73,20 +79,68 @@ export function findPortListenerPid(port) {
       if (!line.includes(portToken)) continue
       const parts = line.trim().split(/\s+/)
       const pid = Number.parseInt(parts[parts.length - 1], 10)
-      if (Number.isFinite(pid) && pid > 0) return pid
+      if (Number.isFinite(pid) && pid > 0) pids.add(pid)
     }
   } catch {
     /* fallback powershell */
   }
 
+  if (pids.size === 0) {
+    try {
+      const raw = runPowerShellQuiet(
+        `@(Get-NetTCPConnection -LocalPort ${port} -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess) -join ','`,
+      )
+      for (const part of raw.split(',')) {
+        const pid = Number.parseInt(part.trim(), 10)
+        if (Number.isFinite(pid) && pid > 0) pids.add(pid)
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+
+  return [...pids]
+}
+
+export function getProcessCommandLine(pid) {
+  if (process.platform !== 'win32' || !pid) return ''
   try {
-    const raw = runPowerShell(
-      `(Get-NetTCPConnection -LocalPort ${port} -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty OwningProcess)`,
+    const raw = runPowerShellQuiet(
+      `(Get-CimInstance Win32_Process -Filter "ProcessId=${pid}" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty CommandLine)`,
     )
-    const pid = Number.parseInt(raw, 10)
-    return Number.isFinite(pid) ? pid : null
+    return raw || ''
+  } catch {
+    return ''
+  }
+}
+
+export function getProcessMetrics(pid) {
+  if (process.platform !== 'win32' || !pid) return null
+  try {
+    const raw = runPowerShellQuiet(
+      `$p=Get-Process -Id ${pid} -ErrorAction SilentlyContinue;if($p){@{cpuSec=[math]::Round($p.CPU,2);workingSetMb=[math]::Round($p.WorkingSet64/1MB,1);handles=$p.Handles;threads=$p.Threads.Count}|ConvertTo-Json -Compress}`,
+    )
+    if (!raw) return null
+    return JSON.parse(raw)
   } catch {
     return null
+  }
+}
+
+export function listDevRelatedNodeProcesses(repoRoot) {
+  if (process.platform !== 'win32') return []
+  const marker = repoRoot.split(/[/\\]/).filter(Boolean).slice(-2).join(' ').replace(/'/g, "''")
+  try {
+    const raw = runPowerShellQuiet(
+      `@(Get-CimInstance Win32_Process -Filter "Name='node.exe'" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -and ($_.CommandLine -like '*${marker}*' -or $_.CommandLine -like '*dev-launcher*' -or $_.CommandLine -like '*vite.js*') } | ForEach-Object { @{ pid=$_.ProcessId; name=$_.Name; commandLine=$_.CommandLine } }) | ConvertTo-Json -Compress`,
+    )
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    if (Array.isArray(parsed)) return parsed.map((p) => ({ pid: p.pid, name: p.name, commandLine: p.commandLine }))
+    if (parsed?.pid) return [{ pid: parsed.pid, name: parsed.name, commandLine: parsed.commandLine }]
+    return []
+  } catch {
+    return []
   }
 }
 

@@ -102,8 +102,15 @@ if (hooksJson?.hooks) {
   else fail('Cursor hooks', 'beforeSubmitPrompt ou stop manquant')
 }
 
-for (const script of ['version:prompt', 'version:task', 'dev:launcher', 'corpus:split-batches']) {
+for (const script of ['version:prompt', 'version:task', 'dev:launcher', 'corpus:split-batches', 'validate:dev-log-hooks']) {
   if (pkg?.scripts?.[script]) ok(`npm script ${script}`)
+}
+
+try {
+  execSync('node scripts/validate-dev-log-hooks.mjs', { cwd: root, stdio: 'pipe', encoding: 'utf8' })
+  ok('validate:dev-log-hooks')
+} catch (error) {
+  fail('validate:dev-log-hooks', (error.stderr || error.message || '').trim().slice(0, 200))
 }
 
 if (fileExists('public/data/link-corpus/manifest.json', 'link-corpus manifest (lazy)')) {

@@ -5,6 +5,27 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { devLogPath, projectLabel } from './version-config.mjs'
 
 const OPEN_HEADER = '## ⚠️ Sections ouvertes (X non finalisés)'
+const OPEN_HEADER_ALT = '## ?? Sections ouvertes (X non finalis?s)'
+const COMMIT_ANCHOR = '**Commit :** 1 commit'
+const OPEN_BLOCK_END_MARKERS = [
+  '## Historique complété',
+  '## Template section X',
+  '## Template section',
+]
+
+export function findDevLogOpenBlockEnd(content, openHeaderIdx) {
+  let end = content.length
+  for (const marker of OPEN_BLOCK_END_MARKERS) {
+    const idx = content.indexOf(marker, openHeaderIdx)
+    if (idx >= 0) end = Math.min(end, idx)
+  }
+  return end
+}
+
+export function maxDocumentedXInDevLog(content) {
+  const nums = [...content.matchAll(/^### X=(\d+)/gm)].map((m) => Number.parseInt(m[1], 10))
+  return nums.length ? Math.max(...nums) : 0
+}
 
 export function appendDevLogOpenSection(root, revision, versionLabel) {
   const logPath = devLogPath(root)
@@ -31,40 +52,50 @@ export function appendDevLogOpenSection(root, revision, versionLabel) {
 
   let content = readFileSync(logPath, 'utf8')
 
-  if (!content.includes(OPEN_HEADER)) {
-    const anchor = '**Commit :** 1 commit principal par **X**'
-    if (!content.includes(anchor)) {
+  const openHeader = content.includes(OPEN_HEADER)
+    ? OPEN_HEADER
+    : content.includes(OPEN_HEADER_ALT)
+      ? OPEN_HEADER_ALT
+      : null
+
+  if (!openHeader) {
+    const anchorIdx = content.indexOf(COMMIT_ANCHOR)
+    if (anchorIdx < 0) {
       console.warn(`[${label}] Ancre DEV_LOG introuvable — section ouverte non injectée`)
       return
     }
+    const lineEnd = content.indexOf('\n', anchorIdx)
+    const anchorLine = content.slice(anchorIdx, lineEnd >= 0 ? lineEnd : content.length)
     content = content.replace(
-      anchor,
+      anchorLine,
       `${OPEN_HEADER}
 
 > Injecté par \`npm run version:prompt\` / hook Cursor. **Compléter en fin de prompt** (titre, but, Y, validations).
 
-${anchor}`,
+${anchorLine}`,
     )
   }
 
-  const sectionHeader = `### X=${revision} —`
-  if (content.includes(sectionHeader)) {
+  const sectionHeaderRe = new RegExp(`^### X=${revision} [—?\\-]`, 'm')
+  if (sectionHeaderRe.test(content)) {
     return
   }
 
-  const headerIdx = content.indexOf(OPEN_HEADER)
+  const headerIdx =
+    content.indexOf(OPEN_HEADER) >= 0
+      ? content.indexOf(OPEN_HEADER)
+      : content.indexOf(OPEN_HEADER_ALT)
   if (headerIdx < 0) {
     console.warn(`[${label}] En-tête sections ouvertes introuvable`)
     return
   }
 
-  const historyMarker = '## Historique complété'
-  const historyIdx = content.indexOf(historyMarker, headerIdx)
-  if (historyIdx < 0) {
-    console.warn(`[${label}] Marqueur historique DEV_LOG introuvable`)
+  const insertIdx = findDevLogOpenBlockEnd(content, headerIdx)
+  if (insertIdx <= headerIdx) {
+    console.warn(`[${label}] Fin de bloc « sections ouvertes » introuvable`)
     return
   }
 
-  content = `${content.slice(0, historyIdx)}${section}${content.slice(historyIdx)}`
+  content = `${content.slice(0, insertIdx)}${section}${content.slice(insertIdx)}`
   writeFileSync(logPath, content)
 }
