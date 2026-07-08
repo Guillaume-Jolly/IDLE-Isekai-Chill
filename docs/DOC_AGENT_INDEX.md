@@ -1,6 +1,6 @@
 # Index documentation — guide agent
 
-**Updated:** 2026-07-03 (piste B Parler curé aff. 5 — handoff + modop)  
+**Updated:** 2026-07-08 (clôture 2.2 — inventaire changelog)  
 **But :** éviter qu’un agent suive une doc obsolète. Lire cet index **avant** d’explorer `docs/` au hasard.
 
 ---
@@ -13,10 +13,30 @@
 | — | [`C:\Dev\Project\REFERENCE`](C:/Dev/Project/REFERENCE) | **Hub multi-projets** — bootstrap, templates, User Rules |
 | — | [`C:\Dev\Project\REFERENCE\docs\INDEX.md`](C:/Dev/Project/REFERENCE/docs/INDEX.md) | Processus partagés (versionnement, archive, MEP…) |
 | 2 | [`docs/traceability/project-state.md`](./traceability/project-state.md) | **État projet versionné** (source de vérité) |
+| — | [`docs/traceability/changelog/CHANGELOG_2_2.md`](./traceability/changelog/CHANGELOG_2_2.md) | **Clôture 2.2.0** — Terminé / Entamé / Delayé / Annulé |
+| — | [`docs/traceability/changelog/CHANGELOG_2_2_1.md`](./traceability/changelog/CHANGELOG_2_2_1.md) | **Kickoff 2.2.1** — priorités patch |
+| — | [`docs/CLEANUP_2_2_1_MANIFEST.md`](./CLEANUP_2_2_1_MANIFEST.md) | Moves archive `old_2_2/old_2_2_1/` (gitignoré) |
 | 3 | [`docs/HANDOFF_2_2_AGENT_BRIEF.md`](./HANDOFF_2_2_AGENT_BRIEF.md) | Phase 2.2 + prompt agent |
 | — | [`docs/HANDOFF_PARLER_CURATED_PISTE_B.md`](./HANDOFF_PARLER_CURATED_PISTE_B.md) | **Piste B** — Parler curé aff. 4–5 (Lyra aff. 5 · auto OK · in-game pending) |
 | — | [`docs/traceability/link-corpus-review/README.md`](./traceability/link-corpus-review/README.md) | Index lots corpus — piste A (bulk) vs piste B (curé) |
 | — | [`docs/traceability/link-corpus-review/PARLER_PACK_WALKTHROUGH_MODOP.md`](./traceability/link-corpus-review/PARLER_PACK_WALKTHROUGH_MODOP.md) | Modop walk 10/10 + Phase C in-game aff. 5 |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/PARLER_SCENARIO_FIRST_PIPELINE.md` | Pipeline Phase A→B · S67/S68 · banque 45 |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/staging/parler-scenarios/ACTS_POSITIONS_CATALOG.md` | Catalogue ~110 actes/poses · `ACT_TP_*` tiers |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/staging/parler-scenarios/PREFERENCE_WEIGHTS_MC_MALE.md` | **MC H producteur** — arcs, pari Maeve, interdits tiers H (tour 5) |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/staging/parler-scenarios/PREFERENCE_WEIGHTS.md` | Hub poids · MC H vs MC F |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/staging/parler-scenarios/SCENARIO_BANK_INDEX.md` | Index banque 9 scénarios · go/no-go tour 4–5 Phase B |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RELECTURE_PARLER_PHASEA_TOUR4.md` | Relecture 9 scénarios Phase A · 6 GO Phase B |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/staging/parler-scenarios/WRITER_PHASE_B_PROMPT.md` | Prompt Phase B — Pari vitrine v2 + queue 5 scénarios |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RELECTURE_PARLER_PHASEB_PARI_VITRINE.md` | Phase B Pari vitrine v1 NO-GO · queue 5/8 |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/WRITER_PARLER_PHASEB_LOT2_HANDOFF.md` | **Writer Lot 2 CLOS** — 6 JSON staging · menu dev |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RELECTURE_PARLER_PHASEB_LOT3.md` | **Relecteur Lot 3 CLOS** — 5🔴 1🟡 · findings T01–T20 |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/WRITER_PARLER_PHASEB_LOT3_PROMPT.md` | **Writer Lot 3 CLOS** — 6/6 lint GREEN · P3 L-tier S69 |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RETEX_PARLER_LOT3.md` | **RETEX Lot 3** — compilation 3 agents · reste à faire |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RELECTURE_PARLER_PHASEB_LOT4.md` | ~~Lot 4~~ abandonné (corrompu) |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RELECTURE_PARLER_PHASEB_LOT5.md` | **Lot 5 CLOS technique** — sweep · 6/6 lint · writer sweep |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RETEX_PARLER_LOT5.md` | **RETEX Lot 5** — relecteur→règles→writer · suite Lot 6 |
+| — | _archivé_ `old_2_2/old_2_2_1/annule/docs/traceability/link-corpus-review/RELECTURE_PARLER_PHASEB_LOT6.md` | **Lot 6 OPEN** — validation 5b + retours producteur Guillaume |
+| — | [`docs/traceability/companions/README.md`](./traceability/companions/README.md) | Panel Parler v1 + fiches (Havre + Disagrea : Etna, Laharl, Roric, Finn, …) |
 | — | [`docs/HANDOFF_NEW_MINIGAME_CO.md`](./HANDOFF_NEW_MINIGAME_CO.md) | CO — créer un nouveau mini-jeu |
 | 4 | [`docs/agent-guide/08-versionnement-global.md`](./agent-guide/08-versionnement-global.md) | **A.B.C.X.Y** — release + dev, git hooks |
 | 5 | [`docs/agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md) | X/Y, hook, DEV_LOG, commits atomiques |
@@ -40,6 +60,7 @@
 | [`HANDOFF_NEW_MINIGAME_CO.md`](./HANDOFF_NEW_MINIGAME_CO.md) | CO — nouveau mini-jeu |
 | [`CLEANUP_2_1_MOVE_MANIFEST.md`](./CLEANUP_2_1_MOVE_MANIFEST.md) | Archive MVP 21.1 |
 | [`CLEANUP_2_2_RESIDUAL_MANIFEST.md`](./CLEANUP_2_2_RESIDUAL_MANIFEST.md) | Archive résidus 2.2 (passes 1–2) |
+| [`CLEANUP_2_2_1_MANIFEST.md`](./CLEANUP_2_2_1_MANIFEST.md) | Archive clôture 2.2.1 — annulés / reliquats |
 | [`BACKLOG.md`](./BACKLOG.md) | Backlog produit |
 | [`GAME_DESIGN_CURRENT.md`](./GAME_DESIGN_CURRENT.md) | Design courant |
 | [`DUNGEON_EXPLORATION_BACKLOG.md`](./DUNGEON_EXPLORATION_BACKLOG.md) | Backlog futur |
@@ -93,5 +114,6 @@ npm run build
 - Politique : [`agent-guide/05-politique-versionnement.md`](./agent-guide/05-politique-versionnement.md)
 - Hook : [`.cursor/hooks/README.md`](../.cursor/hooks/README.md)
 - DEV_LOG : [`traceability/changelog/DEV_LOG_2_2.md`](./traceability/changelog/DEV_LOG_2_2.md)
+- Clôture 2.2 : [`traceability/changelog/CHANGELOG_2_2.md`](./traceability/changelog/CHANGELOG_2_2.md)
 - Pipeline : [`agent-guide/06-pipeline-validation.md`](./agent-guide/06-pipeline-validation.md)
 - Kickoff : [`agent-guide/07-kickoff-nouvelle-version.md`](./agent-guide/07-kickoff-nouvelle-version.md)

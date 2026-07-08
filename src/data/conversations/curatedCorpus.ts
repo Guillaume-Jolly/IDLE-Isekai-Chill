@@ -50,10 +50,14 @@ type CuratedSessionPack = {
 
 type CuratedCorpusFile = {
   meta: {
-    affinity: number
+    companionId?: CuratedParlerCompanionId
+    affinity?: number
     protagonistGender?: ProtagonistGender
     defaultPowerDynamic?: ParlerPowerDynamic
     sessionPacks?: CuratedSessionPack[]
+    preview?: boolean
+    phaseASource?: string
+    tier?: 'S' | 'M' | 'L'
   }
   exchanges: CuratedExchange[]
 }
@@ -75,21 +79,48 @@ export type CuratedParlerAffinity = (typeof CURATED_PARLER_AFFINITIES)[number]
 
 export const INTIMATE_PARLER_AFFINITIES = [4, 5] as const
 
+export type CuratedParlerCompanionId = 'lyra' | 'maeve' | 'runa'
+
 export type ParlerCorpusOptions = {
   protagonistGender?: ProtagonistGender
   nsfwContent?: boolean
+  curatedCompanionId?: CuratedParlerCompanionId
 }
 
-const CORPUS_MALE_BY_AFFINITY: Record<CuratedParlerAffinity, CuratedCorpusFile> = {
-  1: curatedAff1 as CuratedCorpusFile,
-  2: curatedAff2 as CuratedCorpusFile,
-  4: curatedAff4 as CuratedCorpusFile,
-  5: curatedAff5 as CuratedCorpusFile,
+type CompanionCorpusRegistry = {
+  male: Partial<Record<CuratedParlerAffinity, CuratedCorpusFile>>
+  femaleMc: Partial<Record<CuratedParlerAffinity, CuratedCorpusFile>>
 }
 
-const CORPUS_FEMALE_MC_BY_AFFINITY: Partial<Record<CuratedParlerAffinity, CuratedCorpusFile>> = {
-  4: curatedAff4FemaleMc as CuratedCorpusFile,
-  5: curatedAff5FemaleMc as CuratedCorpusFile,
+const CORPUS_BY_COMPANION: Record<CuratedParlerCompanionId, CompanionCorpusRegistry> = {
+  lyra: {
+    male: {
+      1: curatedAff1 as CuratedCorpusFile,
+      2: curatedAff2 as CuratedCorpusFile,
+      4: curatedAff4 as CuratedCorpusFile,
+      5: curatedAff5 as CuratedCorpusFile,
+    },
+    femaleMc: {
+      4: curatedAff4FemaleMc as CuratedCorpusFile,
+      5: curatedAff5FemaleMc as CuratedCorpusFile,
+    },
+  },
+  maeve: {
+    male: {},
+    femaleMc: {},
+  },
+  runa: {
+    male: {},
+    femaleMc: {},
+  },
+}
+
+export function isScenarioPreviewPackId(_packId: string) {
+  return false
+}
+
+export function isScenarioPhaseBPackId(_packId: string) {
+  return false
 }
 
 export function isCuratedAffinity(level: number): level is CuratedParlerAffinity {
@@ -106,23 +137,35 @@ function affinityAllowedAtRuntime(level: number, nsfwContent = false): level is 
   return true
 }
 
+function isCuratedParlerCompanionId(companionId: string): companionId is CuratedParlerCompanionId {
+  return companionId === 'lyra' || companionId === 'maeve' || companionId === 'runa'
+}
+
 function resolveCorpusFile(
+  companionId: CuratedParlerCompanionId,
   affinity: CuratedParlerAffinity,
   protagonistGender: ProtagonistGender = 'male',
-): CuratedCorpusFile {
+): CuratedCorpusFile | null {
+  const registry = CORPUS_BY_COMPANION[companionId]
   if (isIntimateAffinity(affinity) && protagonistGender === 'female') {
-    return CORPUS_FEMALE_MC_BY_AFFINITY[affinity] ?? CORPUS_MALE_BY_AFFINITY[affinity]
+    return registry.femaleMc[affinity] ?? registry.male[affinity] ?? null
   }
-  return CORPUS_MALE_BY_AFFINITY[affinity]
+  return registry.male[affinity] ?? null
 }
 
 function getCuratedCorpus(
+  companionId: string,
   affinity: number,
   options: ParlerCorpusOptions = {},
 ): CuratedCorpusFile | null {
+  if (!isCuratedParlerCompanionId(companionId)) return null
   const nsfwContent = options.nsfwContent ?? false
   if (!affinityAllowedAtRuntime(affinity, nsfwContent)) return null
-  return resolveCorpusFile(affinity, options.protagonistGender ?? 'male')
+  return resolveCorpusFile(
+    companionId,
+    affinity as CuratedParlerAffinity,
+    options.protagonistGender ?? 'male',
+  )
 }
 
 const toDialogueChoice = (choice: CuratedChoice): DialogueChoice => ({
@@ -163,17 +206,19 @@ const buildExchangeMap = (corpus: CuratedCorpusFile) =>
   new Map(corpus.exchanges.map((exchange) => [exchange.id, exchange]))
 
 const buildCuratedSession = (
+  companionId: CuratedParlerCompanionId,
   affinity: CuratedParlerAffinity,
   pack: CuratedSessionPack,
   exchanges: CuratedExchange[],
   protagonistGender: ProtagonistGender = 'male',
+  maxRoundsPerSession: number = CURATED_MAX_ROUNDS_PER_SESSION,
 ): CompanionConversation | null => {
-  const profile = COMPANION_DIALOGUE_PROFILES.lyra
+  const profile = COMPANION_DIALOGUE_PROFILES[companionId]
   const expectedRounds = pack.exchangeIds.length
   if (
     !profile ||
     expectedRounds < CURATED_ROUNDS_PER_SESSION ||
-    expectedRounds > CURATED_MAX_ROUNDS_PER_SESSION
+    expectedRounds > maxRoundsPerSession
   ) {
     return null
   }
@@ -184,13 +229,13 @@ const buildCuratedSession = (
 
   if (rounds.length !== expectedRounds) return null
 
-  const personalityHint = resolvePersonalityHint('lyra', affinity)
+  const personalityHint = resolvePersonalityHint(companionId, affinity)
   const genderInId =
     protagonistGender === 'female' && isIntimateAffinity(affinity) ? 'female-mc-' : ''
 
   return {
-    id: `lyra-aff${affinity}-curated-${genderInId}${pack.id}`,
-    companionId: 'lyra',
+    id: `${companionId}-aff${affinity}-curated-${genderInId}${pack.id}`,
+    companionId,
     title: pack.label,
     personalityHint,
     minAffinity: affinity,
@@ -209,18 +254,19 @@ const buildCuratedSession = (
 }
 
 const buildSingleExchangeSession = (
+  companionId: CuratedParlerCompanionId,
   exchange: CuratedExchange,
   affinity: CuratedParlerAffinity,
 ): CompanionConversation | null => {
-  const profile = COMPANION_DIALOGUE_PROFILES.lyra
+  const profile = COMPANION_DIALOGUE_PROFILES[companionId]
   const round = exchangeToRound(exchange)
   if (!profile || !round) return null
 
-  const personalityHint = resolvePersonalityHint('lyra', affinity)
+  const personalityHint = resolvePersonalityHint(companionId, affinity)
 
   return {
     id: `${exchange.id}-dev-single`,
-    companionId: 'lyra',
+    companionId,
     title: exchange.title,
     personalityHint,
     minAffinity: affinity,
@@ -230,46 +276,72 @@ const buildSingleExchangeSession = (
 }
 
 const resolvePack = (
+  companionId: CuratedParlerCompanionId,
   affinity: CuratedParlerAffinity,
   pack: CuratedSessionPack,
   exchangeById: Map<string, CuratedExchange>,
   protagonistGender: ProtagonistGender = 'male',
+  maxRoundsPerSession: number = CURATED_MAX_ROUNDS_PER_SESSION,
 ): CompanionConversation | null => {
   const exchanges = pack.exchangeIds
     .map((id) => exchangeById.get(id))
     .filter((exchange): exchange is CuratedExchange => exchange !== undefined)
 
-  return buildCuratedSession(affinity, pack, exchanges, protagonistGender)
+  return buildCuratedSession(
+    companionId,
+    affinity,
+    pack,
+    exchanges,
+    protagonistGender,
+    maxRoundsPerSession,
+  )
 }
 
 function findExchangeInAllCorpora(exchangeId: string): {
+  companionId: CuratedParlerCompanionId
   exchange: CuratedExchange
   affinity: CuratedParlerAffinity
 } | null {
-  for (const affinity of CURATED_PARLER_AFFINITIES) {
-    for (const corpus of [CORPUS_MALE_BY_AFFINITY[affinity], CORPUS_FEMALE_MC_BY_AFFINITY[affinity]]) {
-      if (!corpus) continue
-      const exchange = corpus.exchanges.find((entry) => entry.id === exchangeId)
-      if (exchange) return { exchange, affinity }
+  for (const companionId of CURATED_PARLER_COMPANION_IDS) {
+    const registry = CORPUS_BY_COMPANION[companionId]
+    for (const affinity of CURATED_PARLER_AFFINITIES) {
+      for (const corpus of [registry.male[affinity], registry.femaleMc[affinity]]) {
+        if (!corpus) continue
+        const exchange = corpus.exchanges.find((entry) => entry.id === exchangeId)
+        if (exchange) return { companionId, exchange, affinity }
+      }
     }
   }
   return null
 }
 
-/** Phase validation : Parler = Lyra + échanges curés aff. 1–2 (pas linkCorpusV2). */
+/** Phase validation : Parler = corpus curés Lyra (Maeve/Runa archivés 2.2.1). */
 export const CURATED_PARLER_ONLY = true
 
+export const CURATED_PARLER_COMPANION_IDS = ['lyra'] as const satisfies readonly CuratedParlerCompanionId[]
+
+/** @deprecated Préférer CURATED_PARLER_COMPANION_IDS */
 export const CURATED_PARLER_COMPANION_ID = 'lyra'
 
-/** @deprecated Préférer CURATED_PARLER_AFFINITIES */
-export const CURATED_PARLER_AFFINITY = 1
+export function companionHasCuratedCorpus(companionId: string) {
+  if (!isCuratedParlerCompanionId(companionId)) return false
+  const registry = CORPUS_BY_COMPANION[companionId]
+  return CURATED_PARLER_AFFINITIES.some(
+    (level) =>
+      Boolean(registry.male[level]?.exchanges.length) ||
+      Boolean(registry.femaleMc[level]?.exchanges.length),
+  )
+}
 
 export function canUseParlerDialogues(companionId: string) {
   if (CURATED_PARLER_ONLY) {
-    return companionId === CURATED_PARLER_COMPANION_ID
+    return companionHasCuratedCorpus(companionId)
   }
   return Boolean(COMPANION_DIALOGUE_PROFILES[companionId])
 }
+
+/** @deprecated Préférer CURATED_PARLER_AFFINITIES */
+export const CURATED_PARLER_AFFINITY = 1
 
 /** Affinité effective pour tirer un script Parler (clamp 1–5, sans forcer le palier joueur). */
 export function dialogueAffinityForParler(_companionId: string, selectedAffinity: number) {
@@ -281,9 +353,10 @@ export function usesCuratedCorpus(
   affinity: number,
   options: ParlerCorpusOptions = {},
 ) {
+  if (!isCuratedParlerCompanionId(companionId)) return false
   const level = dialogueAffinityForParler(companionId, affinity)
-  const corpus = getCuratedCorpus(level, options)
-  if (!corpus || companionId !== CURATED_PARLER_COMPANION_ID) return false
+  const corpus = getCuratedCorpus(companionId, level, options)
+  if (!corpus) return false
 
   const sessionPacks = corpus.meta.sessionPacks ?? []
   return sessionPacks.length > 0 && corpus.exchanges.length >= CURATED_ROUNDS_PER_SESSION
@@ -330,53 +403,97 @@ export type CuratedDevExchangeOption = {
 }
 
 export type CuratedDevPackOption = {
+  companionId: CuratedParlerCompanionId
   packId: string
   label: string
   affinity: CuratedParlerAffinity
   protagonistGender: ProtagonistGender
   sortKey: string
+  scenarioPreview?: boolean
+  scenarioPhaseB?: boolean
+  previewTier?: 'S' | 'M' | 'L'
+  roundCount?: number
 }
 
 export type CuratedDevCuratedSelection =
   | { mode: 'random' }
   | { mode: 'exchange'; exchangeId: string }
-  | { mode: 'pack'; packId: string; affinity: CuratedParlerAffinity; protagonistGender: ProtagonistGender }
+  | {
+      mode: 'pack'
+      companionId: CuratedParlerCompanionId
+      packId: string
+      affinity: CuratedParlerAffinity
+      protagonistGender: ProtagonistGender
+    }
 
 const DEV_SELECTION_EXCHANGE_PREFIX = 'e:'
 const DEV_SELECTION_PACK_PREFIX = 'p:'
 
-/** Dev : packs session (3 échanges), aff. 4–5 en double H/F. */
-export function listCuratedDevPackOptions(affinityFilter?: number): CuratedDevPackOption[] {
+export type CuratedDevListFilter = {
+  affinity?: number
+  companionId?: string
+}
+
+function resolveDevListFilter(filter: CuratedDevListFilter | number | undefined): CuratedDevListFilter {
+  if (typeof filter === 'number') return { affinity: filter }
+  return filter ?? {}
+}
+
+function resolveDevCompanionIds(companionId?: string): CuratedParlerCompanionId[] {
+  if (companionId && isCuratedParlerCompanionId(companionId)) return [companionId]
+  return [...CURATED_PARLER_COMPANION_IDS]
+}
+
+function devPackOptionLabel(
+  companionId: CuratedParlerCompanionId,
+  packIndex: number,
+  packLabel: string,
+  level: CuratedParlerAffinity,
+  protagonistGender: ProtagonistGender,
+  scoped: boolean,
+): string {
+  const genderTag = isIntimateAffinity(level) ? (protagonistGender === 'female' ? ' F' : ' H') : ''
+  if (scoped) {
+    return `Pack ${packIndex + 1} — ${packLabel}${genderTag}`
+  }
+  return `${companionId} · Pack ${packIndex + 1} — ${packLabel} — aff. ${level}${genderTag}`
+}
+
+function devExchangeOptionLabel(
+  companionId: CuratedParlerCompanionId,
+  num: string,
+  title: string,
+  level: CuratedParlerAffinity,
+  protagonistGender: ProtagonistGender,
+  scoped: boolean,
+): string {
+  const genderTag = isIntimateAffinity(level) ? (protagonistGender === 'female' ? ' F' : ' H') : ''
+  if (scoped) {
+    return `${num} ${title}${genderTag}`
+  }
+  return `${companionId} · ${num} ${title} — aff. ${level}${genderTag}`
+}
+
+/** Dev : packs session (3 échanges), aff. 4–5 en double H/F. Filtre par compagnon + affinité si fournis. */
+export function listCuratedDevPackOptions(
+  filter: CuratedDevListFilter | number = {},
+): CuratedDevPackOption[] {
+  const { affinity: affinityFilter, companionId: companionFilter } = resolveDevListFilter(filter)
   const affinities =
     affinityFilter !== undefined && isCuratedAffinity(affinityFilter)
       ? [affinityFilter]
       : [...CURATED_PARLER_AFFINITIES]
+  const companions = resolveDevCompanionIds(companionFilter)
+  const scoped = companions.length === 1 && affinities.length === 1
 
   const options: CuratedDevPackOption[] = []
 
-  for (const level of affinities) {
-    const malePacks = CORPUS_MALE_BY_AFFINITY[level].meta.sessionPacks ?? []
-    malePacks.forEach((pack, index) => {
-      if (
-        pack.exchangeIds.length < CURATED_ROUNDS_PER_SESSION ||
-        pack.exchangeIds.length > CURATED_MAX_ROUNDS_PER_SESSION
-      ) {
-        return
-      }
-      const genderTag = isIntimateAffinity(level) ? ' H' : ''
-      options.push({
-        packId: pack.id,
-        label: `Pack ${index + 1} — ${pack.label} — aff. ${level}${genderTag}`,
-        affinity: level,
-        protagonistGender: 'male',
-        sortKey: `${level}-pack-${String(index + 1).padStart(2, '0')}-H`,
-      })
-    })
-
-    if (isIntimateAffinity(level)) {
-      const femaleCorpus = CORPUS_FEMALE_MC_BY_AFFINITY[level]
-      const femalePacks = femaleCorpus?.meta.sessionPacks ?? []
-      femalePacks.forEach((pack, index) => {
+  for (const companionId of companions) {
+    const registry = CORPUS_BY_COMPANION[companionId]
+    for (const level of affinities) {
+      const maleCorpus = registry.male[level]
+      const malePacks = maleCorpus?.meta.sessionPacks ?? []
+      malePacks.forEach((pack, index) => {
         if (
           pack.exchangeIds.length < CURATED_ROUNDS_PER_SESSION ||
           pack.exchangeIds.length > CURATED_MAX_ROUNDS_PER_SESSION
@@ -384,13 +501,35 @@ export function listCuratedDevPackOptions(affinityFilter?: number): CuratedDevPa
           return
         }
         options.push({
+          companionId,
           packId: pack.id,
-          label: `Pack ${index + 1} — ${pack.label} — aff. ${level} F`,
+          label: devPackOptionLabel(companionId, index, pack.label, level, 'male', scoped),
           affinity: level,
-          protagonistGender: 'female',
-          sortKey: `${level}-pack-${String(index + 1).padStart(2, '0')}-F`,
+          protagonistGender: 'male',
+          sortKey: `${companionId}-${level}-pack-${String(index + 1).padStart(2, '0')}-H`,
         })
       })
+
+      if (isIntimateAffinity(level)) {
+        const femaleCorpus = registry.femaleMc[level]
+        const femalePacks = femaleCorpus?.meta.sessionPacks ?? []
+        femalePacks.forEach((pack, index) => {
+          if (
+            pack.exchangeIds.length < CURATED_ROUNDS_PER_SESSION ||
+            pack.exchangeIds.length > CURATED_MAX_ROUNDS_PER_SESSION
+          ) {
+            return
+          }
+          options.push({
+            companionId,
+            packId: pack.id,
+            label: devPackOptionLabel(companionId, index, pack.label, level, 'female', scoped),
+            affinity: level,
+            protagonistGender: 'female',
+            sortKey: `${companionId}-${level}-pack-${String(index + 1).padStart(2, '0')}-F`,
+          })
+        })
+      }
     }
   }
 
@@ -400,7 +539,7 @@ export function listCuratedDevPackOptions(affinityFilter?: number): CuratedDevPa
 export function serializeDevCuratedSelection(selection: CuratedDevCuratedSelection): string {
   if (selection.mode === 'random') return ''
   if (selection.mode === 'exchange') return `${DEV_SELECTION_EXCHANGE_PREFIX}${selection.exchangeId}`
-  return `${DEV_SELECTION_PACK_PREFIX}${selection.affinity}:${selection.protagonistGender}:${selection.packId}`
+  return `${DEV_SELECTION_PACK_PREFIX}${selection.companionId}:${selection.affinity}:${selection.protagonistGender}:${selection.packId}`
 }
 
 /** Dev QA : `?pack=pack-5` force un pack aff. 5 au chargement Parler. */
@@ -408,9 +547,28 @@ export function devPackSelectionFromQueryParam(
   protagonistGender: ProtagonistGender = 'male',
 ): CuratedDevCuratedSelection | null {
   if (typeof window === 'undefined') return null
-  const packId = new URLSearchParams(window.location.search).get('pack')?.trim()
+  const params = new URLSearchParams(window.location.search)
+  const packId = params.get('pack')?.trim()
   if (!packId) return null
-  return { mode: 'pack', packId, affinity: 5, protagonistGender }
+  const companionRaw = params.get('companion')?.trim()?.toLowerCase()
+  const companionId: CuratedParlerCompanionId =
+    companionRaw === 'maeve' || companionRaw === 'runa' || companionRaw === 'lyra'
+      ? companionRaw
+      : 'lyra'
+  return { mode: 'pack', companionId, packId, affinity: 5, protagonistGender }
+}
+
+/** Dev QA : pack-5 long par défaut en aff. 5 (spectateur / cohérence multi-échanges). */
+export function defaultDevCuratedPackSelection(
+  companionId: CuratedParlerCompanionId,
+  affinity: CuratedParlerAffinity,
+  protagonistGender: ProtagonistGender = 'male',
+): CuratedDevCuratedSelection {
+  if (affinity !== 5) return { mode: 'random' }
+  const corpus = getCuratedCorpus(companionId, affinity, { nsfwContent: true, protagonistGender })
+  const hasPack5 = corpus?.meta.sessionPacks?.some((pack) => pack.id === 'pack-5')
+  if (!hasPack5) return { mode: 'random' }
+  return { mode: 'pack', companionId, packId: 'pack-5', affinity: 5, protagonistGender }
 }
 
 export function parseDevCuratedSelection(raw: string): CuratedDevCuratedSelection {
@@ -419,13 +577,14 @@ export function parseDevCuratedSelection(raw: string): CuratedDevCuratedSelectio
   if (trimmed.startsWith(DEV_SELECTION_EXCHANGE_PREFIX)) {
     return { mode: 'exchange', exchangeId: trimmed.slice(DEV_SELECTION_EXCHANGE_PREFIX.length) }
   }
-  const packMatch = trimmed.match(/^p:(\d+):(male|female):(.+)$/)
+  const packMatch = trimmed.match(/^p:(?:(lyra|maeve|runa):)?(\d+):(male|female):(.+)$/)
   if (packMatch) {
-    const affinity = Number(packMatch[1])
-    const protagonistGender = packMatch[2] as ProtagonistGender
-    const packId = packMatch[3]
-    if (packId && isCuratedAffinity(affinity)) {
-      return { mode: 'pack', packId, affinity, protagonistGender }
+    const companionId = (packMatch[1] ?? 'lyra') as CuratedParlerCompanionId
+    const affinity = Number(packMatch[2])
+    const protagonistGender = packMatch[3] as ProtagonistGender
+    const packId = packMatch[4]
+    if (packId && isCuratedAffinity(affinity) && isCuratedParlerCompanionId(companionId)) {
+      return { mode: 'pack', companionId, packId, affinity, protagonistGender }
     }
   }
   // Legacy : valeur = exchangeId seul (sessionStorage ancien format)
@@ -438,7 +597,11 @@ export function parseDevCuratedSelection(raw: string): CuratedDevCuratedSelectio
 export function devCuratedSelectionToPickOptions(
   selection: CuratedDevCuratedSelection,
   fallbackGender: ProtagonistGender = 'male',
-): ParlerCorpusOptions & { packId?: string; exchangeId?: string; curatedAffinity?: CuratedParlerAffinity } {
+): ParlerCorpusOptions & {
+  packId?: string
+  exchangeId?: string
+  curatedAffinity?: CuratedParlerAffinity
+} {
   if (selection.mode === 'exchange') {
     const female = selection.exchangeId.includes('female-mc')
     return {
@@ -453,6 +616,7 @@ export function devCuratedSelectionToPickOptions(
       protagonistGender: selection.protagonistGender,
       packId: selection.packId,
       curatedAffinity: selection.affinity,
+      curatedCompanionId: selection.companionId,
     }
   }
   return {
@@ -461,43 +625,48 @@ export function devCuratedSelectionToPickOptions(
   }
 }
 
-/** Dev : tous les échanges curés (aff. 4–5 en double H/F). */
+/** Dev : tous les échanges curés (aff. 4–5 en double H/F). Filtre par compagnon + affinité si fournis. */
 export function listCuratedDevExchangeOptions(
-  affinityFilter?: number,
+  filter: CuratedDevListFilter | number = {},
 ): CuratedDevExchangeOption[] {
+  const { affinity: affinityFilter, companionId: companionFilter } = resolveDevListFilter(filter)
   const affinities =
     affinityFilter !== undefined && isCuratedAffinity(affinityFilter)
       ? [affinityFilter]
       : [...CURATED_PARLER_AFFINITIES]
+  const companions = resolveDevCompanionIds(companionFilter)
+  const scoped = companions.length === 1 && affinities.length === 1
 
   const options: CuratedDevExchangeOption[] = []
 
-  for (const level of affinities) {
-    const maleCorpus = CORPUS_MALE_BY_AFFINITY[level]
-    maleCorpus.exchanges.forEach((exchange, index) => {
-      const num = String(index + 1).padStart(2, '0')
-      const genderTag = isIntimateAffinity(level) ? ' H' : ''
-      options.push({
-        exchangeId: exchange.id,
-        label: `${num} ${exchange.title} — aff. ${level}${genderTag}`,
-        affinity: level,
-        protagonistGender: 'male',
-        sortKey: `${level}-${num}-H`,
-      })
-    })
-
-    if (isIntimateAffinity(level)) {
-      const femaleCorpus = CORPUS_FEMALE_MC_BY_AFFINITY[level]
-      femaleCorpus?.exchanges.forEach((exchange, index) => {
+  for (const companionId of companions) {
+    const registry = CORPUS_BY_COMPANION[companionId]
+    for (const level of affinities) {
+      const maleCorpus = registry.male[level]
+      maleCorpus?.exchanges.forEach((exchange, index) => {
         const num = String(index + 1).padStart(2, '0')
         options.push({
           exchangeId: exchange.id,
-          label: `${num} ${exchange.title} — aff. ${level} F`,
+          label: devExchangeOptionLabel(companionId, num, exchange.title, level, 'male', scoped),
           affinity: level,
-          protagonistGender: 'female',
-          sortKey: `${level}-${num}-F`,
+          protagonistGender: 'male',
+          sortKey: `${companionId}-${level}-${num}-H`,
         })
       })
+
+      if (isIntimateAffinity(level)) {
+        const femaleCorpus = registry.femaleMc[level]
+        femaleCorpus?.exchanges.forEach((exchange, index) => {
+          const num = String(index + 1).padStart(2, '0')
+          options.push({
+            exchangeId: exchange.id,
+            label: devExchangeOptionLabel(companionId, num, exchange.title, level, 'female', scoped),
+            affinity: level,
+            protagonistGender: 'female',
+            sortKey: `${companionId}-${level}-${num}-F`,
+          })
+        })
+      }
     }
   }
 
@@ -505,16 +674,19 @@ export function listCuratedDevExchangeOptions(
 }
 
 export function listCuratedSessionPacks(
+  companionId: string,
   affinity?: number,
   options: ParlerCorpusOptions = {},
 ): CuratedSessionPackOption[] {
+  if (!isCuratedParlerCompanionId(companionId)) return []
+
   const affinities =
     affinity !== undefined && isCuratedAffinity(affinity)
       ? [affinity]
       : [...CURATED_PARLER_AFFINITIES]
 
   return affinities.flatMap((level) => {
-    const corpus = getCuratedCorpus(level, options)
+    const corpus = getCuratedCorpus(companionId, level, options)
     if (!corpus) return []
 
     return (corpus.meta.sessionPacks ?? [])
@@ -526,7 +698,7 @@ export function listCuratedSessionPacks(
       .map((pack) => ({
         id: pack.id,
         label: `${pack.label} (aff. ${level})`,
-        conversationId: `lyra-aff${level}-curated-${pack.id}`,
+        conversationId: `${companionId}-aff${level}-curated-${pack.id}`,
         affinity: level,
       }))
   })
@@ -545,30 +717,36 @@ export function pickCuratedConversation(
   if (options.exchangeId) {
     const located = findExchangeInAllCorpora(options.exchangeId)
     if (!located) return null
-    return buildSingleExchangeSession(located.exchange, located.affinity)
+    return buildSingleExchangeSession(located.companionId, located.exchange, located.affinity)
   }
+
+  const corpusCompanionId =
+    options.curatedCompanionId && isCuratedParlerCompanionId(options.curatedCompanionId)
+      ? options.curatedCompanionId
+      : isCuratedParlerCompanionId(companionId)
+        ? companionId
+        : null
+  if (!corpusCompanionId) return null
 
   const level =
     options.curatedAffinity !== undefined && isCuratedAffinity(options.curatedAffinity)
       ? options.curatedAffinity
-      : dialogueAffinityForParler(companionId, affinity)
-  if (!isCuratedAffinity(level) || !usesCuratedCorpus(companionId, level, options)) return null
+      : dialogueAffinityForParler(corpusCompanionId, affinity)
+  if (!isCuratedAffinity(level) || !usesCuratedCorpus(corpusCompanionId, level, options)) return null
 
-  const corpus = getCuratedCorpus(level, options)!
+  const corpus = getCuratedCorpus(corpusCompanionId, level, options)!
   const exchangeById = buildExchangeMap(corpus)
   const sessionPacks = corpus.meta.sessionPacks ?? []
-  const protagonistGender =
-    options.protagonistGender ??
-    corpus.meta.protagonistGender ??
-    'male'
+  const resolvedGender =
+    options.protagonistGender ?? corpus.meta.protagonistGender ?? 'male'
 
   if (options.packId) {
     const pack = sessionPacks.find((entry) => entry.id === options.packId)
-    if (pack) return resolvePack(level, pack, exchangeById, protagonistGender)
+    if (pack) return resolvePack(corpusCompanionId, level, pack, exchangeById, resolvedGender)
   }
 
   const candidates = sessionPacks
-    .map((pack) => resolvePack(level, pack, exchangeById, protagonistGender))
+    .map((pack) => resolvePack(corpusCompanionId, level, pack, exchangeById, resolvedGender))
     .filter((session): session is CompanionConversation => session !== null)
 
   if (candidates.length === 0) return null

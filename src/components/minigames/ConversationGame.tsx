@@ -10,6 +10,7 @@ import {
   serializeDevCuratedSelection,
   devCuratedSelectionToPickOptions,
   devPackSelectionFromQueryParam,
+  defaultDevCuratedPackSelection,
   type CompanionConversation,
   type CuratedDevExchangeOption,
   type CuratedDevPackOption,
@@ -36,8 +37,8 @@ import { scaleReward, type Cost, BUILDING_ACTIVITIES } from '../../data/building
 import type { CompanionEmotionId } from '../../data/companionAssets'
 import { companionBackgroundPath, lyraIntimateSessionPortraitEmotion } from '../../data/companionAssets'
 import {
-  CURATED_PARLER_COMPANION_ID,
   CURATED_PARLER_ONLY,
+  canUseParlerDialogues,
   COMPANION_DIALOGUE_PROFILES,
 } from '../../data/companionDialogues'
 import { BUILDING_UNLOCK_STAGE } from '../../data/population'
@@ -288,17 +289,20 @@ export function ConversationGame({
 
   const [conversationSession, setConversationSession] = useState(0)
   const [lastConversationId, setLastConversationId] = useState<string | undefined>()
+  const curatedDevFilter = useMemo(
+    () => ({
+      affinity: selectedDialogueAffinity,
+      companionId: activity.companionId,
+    }),
+    [activity.companionId, selectedDialogueAffinity],
+  )
   const curatedDevPackOptions = useMemo<CuratedDevPackOption[]>(
-    () =>
-      PARLER_DEV_MODE ? listCuratedDevPackOptions(selectedDialogueAffinity) : [],
-    [selectedDialogueAffinity],
+    () => (PARLER_DEV_MODE ? listCuratedDevPackOptions(curatedDevFilter) : []),
+    [curatedDevFilter],
   )
   const curatedDevExchangeOptions = useMemo<CuratedDevExchangeOption[]>(
-    () =>
-      PARLER_DEV_MODE
-        ? listCuratedDevExchangeOptions(selectedDialogueAffinity)
-        : [],
-    [selectedDialogueAffinity],
+    () => (PARLER_DEV_MODE ? listCuratedDevExchangeOptions(curatedDevFilter) : []),
+    [curatedDevFilter],
   )
   const [devCuratedSelectionRaw, setDevCuratedSelectionRaw] = useState(() =>
     PARLER_DEV_MODE ? readDevCuratedSelectionFromStorage() : '',
@@ -307,6 +311,29 @@ export function ConversationGame({
     () => parseDevCuratedSelection(devCuratedSelectionRaw),
     [devCuratedSelectionRaw],
   )
+
+  useEffect(() => {
+    if (!PARLER_DEV_MODE) return
+    if (devCuratedSelectionRaw.trim()) return
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('pack')) return
+    if (selectedDialogueAffinity !== 5) return
+    const companionId = activity.companionId
+    if (companionId !== 'lyra') return
+    const defaultSel = defaultDevCuratedPackSelection(
+      companionId,
+      5,
+      effectiveParlerOptions.protagonistGender ?? 'male',
+    )
+    if (defaultSel.mode !== 'pack') return
+    const raw = serializeDevCuratedSelection(defaultSel)
+    setDevCuratedSelectionRaw(raw)
+    window.sessionStorage.setItem(PARLER_DEV_CURATED_STORAGE_KEY, raw)
+  }, [
+    activity.companionId,
+    devCuratedSelectionRaw,
+    effectiveParlerOptions.protagonistGender,
+    selectedDialogueAffinity,
+  ])
 
   useEffect(() => {
     if (!PARLER_DEV_MODE) return
@@ -323,11 +350,29 @@ export function ConversationGame({
   }, [effectiveParlerOptions.protagonistGender])
 
   useEffect(() => {
-    if (!PARLER_DEV_MODE) return
+    if (!PARLER_DEV_MODE || devCuratedSelection.mode === 'random') return
     if (devCuratedSelection.mode === 'pack') {
-      setSelectedDialogueAffinity(devCuratedSelection.affinity)
+      const mismatchAffinity = devCuratedSelection.affinity !== selectedDialogueAffinity
+      const mismatchCompanion = devCuratedSelection.companionId !== activity.companionId
+      if (mismatchAffinity || mismatchCompanion) {
+        setDevCuratedSelectionRaw('')
+        if (typeof window !== 'undefined') {
+          window.sessionStorage.removeItem(PARLER_DEV_CURATED_STORAGE_KEY)
+        }
+      }
+      return
     }
-  }, [devCuratedSelectionRaw, devCuratedSelection])
+    const exchangeCompanion = devCuratedSelection.exchangeId.split('-aff')[0]
+    if (
+      exchangeCompanion !== activity.companionId ||
+      !devCuratedSelection.exchangeId.includes(`-aff${selectedDialogueAffinity}-`)
+    ) {
+      setDevCuratedSelectionRaw('')
+      if (typeof window !== 'undefined') {
+        window.sessionStorage.removeItem(PARLER_DEV_CURATED_STORAGE_KEY)
+      }
+    }
+  }, [activity.companionId, curatedDevPackOptions, devCuratedSelection, selectedDialogueAffinity])
   const curatedPickOptions = useMemo(
     () =>
       PARLER_DEV_MODE
@@ -338,6 +383,12 @@ export function ConversationGame({
         : effectiveParlerOptions,
     [devCuratedSelection, effectiveParlerOptions],
   )
+  const devCorpusCompanionId =
+    PARLER_DEV_MODE && 'curatedCompanionId' in curatedPickOptions && curatedPickOptions.curatedCompanionId
+      ? curatedPickOptions.curatedCompanionId
+      : activity.companionId
+  const effectiveCompanionName =
+    COMPANION_DIALOGUE_PROFILES[devCorpusCompanionId]?.name ?? companionName
   const [conversation, setConversation] = useState<CompanionConversation | null>(null)
   const [conversationLoading, setConversationLoading] = useState(true)
   const [conversationError, setConversationError] = useState<string | null>(null)
@@ -436,7 +487,7 @@ export function ConversationGame({
   const conversationActivities = useMemo(() => {
     const items = BUILDING_ACTIVITIES.filter((entry) => entry.minigameType === 'conversation')
     if (!CURATED_PARLER_ONLY) return items
-    return items.filter((entry) => entry.companionId === CURATED_PARLER_COMPANION_ID)
+    return items.filter((entry) => canUseParlerDialogues(entry.companionId))
   }, [])
 
   const pickerCompanions = useMemo(
@@ -447,8 +498,8 @@ export function ConversationGame({
       })),
     [conversationActivities],
   )
-  const affinityArtwork = activity.companionId
-    ? companionBackgroundPath(activity.companionId, selectedDialogueAffinity)
+  const affinityArtwork = devCorpusCompanionId
+    ? companionBackgroundPath(devCorpusCompanionId, selectedDialogueAffinity)
     : undefined
 
   const displayReward = useMemo(() => {
@@ -496,6 +547,10 @@ export function ConversationGame({
 
   const pickDevCuratedSelection = (raw: string) => {
     if (!PARLER_DEV_MODE || raw === devCuratedSelectionRaw) return
+    const parsed = parseDevCuratedSelection(raw)
+    if (parsed.mode === 'pack' && parsed.affinity !== selectedDialogueAffinity) {
+      setSelectedDialogueAffinity(parsed.affinity)
+    }
     setDevCuratedSelectionRaw(raw)
     if (typeof window !== 'undefined') {
       if (raw) {
@@ -855,11 +910,11 @@ export function ConversationGame({
           >
             <CompanionPortrait
               alt=""
-              companionId={activity.companionId}
+              companionId={devCorpusCompanionId}
               cutoutOnly
               emotion={portraitEmotion}
               fitContain
-              key={`parler-${activity.companionId}-${portraitEmotion ?? 'tier'}-${roundIndex}`}
+              key={`parler-${devCorpusCompanionId}-${portraitEmotion ?? 'tier'}-${roundIndex}`}
               level={selectedDialogueAffinity}
             />
           </div>
@@ -869,7 +924,7 @@ export function ConversationGame({
               role="status"
             >
               <p className="mg-conversation-reaction-speech-text">
-                <CompanionReactionContent companionName={companionName} reaction={lastReaction} />
+                <CompanionReactionContent companionName={effectiveCompanionName} reaction={lastReaction} />
               </p>
             </div>
           ) : null}
@@ -879,7 +934,7 @@ export function ConversationGame({
           <header className={`mg-conversation-head ${inPlay ? 'compact' : ''}`}>
             <div className="mg-conversation-head-main">
               <p className="eyebrow">{conversation.title}</p>
-              <h3>{companionName}</h3>
+              <h3>{effectiveCompanionName}</h3>
             </div>
             <div className="mg-conversation-head-meta">
               <small className="mg-conversation-session-tag">
@@ -967,12 +1022,13 @@ export function ConversationGame({
                     >
                       <option value="">Pack aléatoire (prod)</option>
                       {curatedDevPackOptions.length > 0 ? (
-                        <optgroup label="Session — 3 échanges (fil pack)">
+                        <optgroup label="Session — pack curé (3–9 ex.)">
                           {curatedDevPackOptions.map((pack) => (
                             <option
-                              key={`${pack.affinity}-${pack.protagonistGender}-${pack.packId}`}
+                              key={`${pack.companionId}-${pack.affinity}-${pack.protagonistGender}-${pack.packId}`}
                               value={serializeDevCuratedSelection({
                                 mode: 'pack',
+                                companionId: pack.companionId,
                                 packId: pack.packId,
                                 affinity: pack.affinity,
                                 protagonistGender: pack.protagonistGender,
@@ -1001,8 +1057,8 @@ export function ConversationGame({
                     </select>
                   </label>
                   <p className="mg-conversation-dev-pack-note">
-                    Aff. 4–5 : variantes H et F. Session = 3 rounds comme en prod ; échange unique = 1
-                    round pour debug ciblé. Sans sélection, tirage pack aléatoire.
+                    Aff. 4–5 : variantes H et F. Pack curé = 3–9 ex. comme en prod ; échange unique =
+                    1 round debug. Sans sélection, tirage pack aléatoire.
                   </p>
                 </fieldset>
               ) : null}
@@ -1056,7 +1112,7 @@ export function ConversationGame({
                       <p
                         className={`mg-dialogue-bubble mg-dialogue-bubble-companion mg-dialogue-bubble-reaction mg-dialogue-bubble-reaction--${choiceBubbleClass(pickedChoice.score)} mg-dialogue-bubble-reaction--emphasis`}
                       >
-                        <CompanionReactionContent companionName={companionName} reaction={lastReaction} />
+                        <CompanionReactionContent companionName={effectiveCompanionName} reaction={lastReaction} />
                       </p>
                       <div aria-hidden ref={dialogueEndRef} />
                     </>

@@ -1,0 +1,68 @@
+{
+  "chatgpt-cheveux": {
+    "url": "/assets/companions/laharl/mask-chatgpt-cheveux.png",
+    "source": "optional_previous_mask/mask_00_cheveux_optionnel.png",
+    "whitePx": 32308,
+    "coveragePct": 2.054
+  },
+  "chatgpt-yeux": {
+    "url": "/assets/companions/laharl/mask-chatgpt-yeux.png",
+    "source": "masks_black_white/mask_01_yeux.png",
+    "whitePx": 547,
+    "coveragePct": 0.035
+  },
+  "chatgpt-echarpe": {
+    "url": "/assets/companions/laharl/mask-chatgpt-echarpe.png",
+    "source": "masks_black_white/mask_02_echarpe.png",
+    "whitePx": 266510,
+    "coveragePct": 16.944
+  },
+  "chatgpt-pantalon": {
+    "url": "/assets/companions/laharl/mask-chatgpt-pantalon.png",
+    "source": "masks_black_white/mask_03_pantalon.png",
+    "whitePx": 62592,
+    "coveragePct": 3.979
+  },
+  "chatgpt-ceinture": {
+    "url": "/assets/companions/laharl/mask-chatgpt-ceinture.png",
+    "source": "masks_black_white/mask_04_ceinture.png",
+    "whitePx": 10894,
+    "coveragePct": 0.693
+  },
+  "chatgpt-botte-gauche": {
+    "url": "/assets/companions/laharl/mask-chatgpt-botte-gauche.png",
+    "source": "masks_black_white/mask_05_botte_gauche.png",
+    "whitePx": 17587,
+    "coveragePct": 1.118
+  },
+  "chatgpt-botte-droite": {
+    "url": "/assets/companions/laharl/mask-chatgpt-botte-droite.png",
+    "source": "masks_black_white/mask_06_botte_droite.png",
+    "whitePx": 17335,
+    "coveragePct": 1.102
+  },
+  "chatgpt-bras-gauche": {
+    "url": "/assets/companions/laharl/mask-chatgpt-bras-gauche.png",
+    "source": "masks_black_white/mask_07_accessoires_bras_gauche.png",
+    "whitePx": 6096,
+    "coveragePct": 0.388
+  },
+  "chatgpt-bras-droit": {
+    "url": "/assets/companions/laharl/mask-chatgpt-bras-droit.png",
+    "source": "masks_black_white/mask_08_accessoires_bras_droit.png",
+    "whitePx": 5084,
+    "coveragePct": 0.323
+  },
+  "chatgpt-peau": {
+    "url": "/assets/companions/laharl/mask-chatgpt-peau.png",
+    "source": "masks_black_white/mask_09_peau_visible.png",
+    "whitePx": 99697,
+    "coveragePct": 6.339
+  },
+  "chatgpt-oreilles": {
+    "url": "/assets/companions/laharl/mask-chatgpt-oreilles.png",
+    "source": "masks_black_white/mask_10_oreilles.png",
+    "whitePx": 908,
+    "coveragePct": 0.058
+  }
+}

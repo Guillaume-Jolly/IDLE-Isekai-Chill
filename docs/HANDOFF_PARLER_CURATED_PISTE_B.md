@@ -208,6 +208,16 @@ Première action : git status, npm run walk:pack:aff5:all, puis Phase C in-game 
 
 ---
 
+## Boucle éditoriale 3 agents (relecteur · règles · writer)
+
+Process formalisé pour éviter qu’un agent unique mélange relecture, validate et patch :
+
+- Doc : [`PARLER_EDITORIAL_LOOP.md`](./traceability/link-corpus-review/PARLER_EDITORIAL_LOOP.md)
+- Skills : `@relecture-parler` · `@regles-parler` · `@writer-parler` · `@parler-loop`
+- Commandes : `npm run parler:loop:init` → `next` → agents → `advance`
+
+---
+
 ## Références
 
 - Index lots corpus : [`link-corpus-review/README.md`](./traceability/link-corpus-review/README.md)

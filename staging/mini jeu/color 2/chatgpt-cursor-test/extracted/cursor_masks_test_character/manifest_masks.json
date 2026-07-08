@@ -1,0 +1,92 @@
+{
+  "source_reference": "source/original_reference.png",
+  "note": "Masques binaires de test. Blanc = zone masquee/selectionnee. Noir = ignore. Les PNG transparents utilisent le masque blanc comme alpha.",
+  "alignment_note": "Ces calques sont issus de la generation visuelle et servent de lot de test; verifier l alignement dans Cursor avant integration definitive.",
+  "masks": [
+    {
+      "id": "01",
+      "part": "yeux",
+      "binary_mask": "masks_black_white/mask_01_yeux.png",
+      "transparent_layer": "layers_transparent/layer_01_yeux_transparent.png",
+      "white_means": "yeux",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "02",
+      "part": "echarpe",
+      "binary_mask": "masks_black_white/mask_02_echarpe.png",
+      "transparent_layer": "layers_transparent/layer_02_echarpe_transparent.png",
+      "white_means": "echarpe",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "03",
+      "part": "pantalon",
+      "binary_mask": "masks_black_white/mask_03_pantalon.png",
+      "transparent_layer": "layers_transparent/layer_03_pantalon_transparent.png",
+      "white_means": "pantalon",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "04",
+      "part": "ceinture",
+      "binary_mask": "masks_black_white/mask_04_ceinture.png",
+      "transparent_layer": "layers_transparent/layer_04_ceinture_transparent.png",
+      "white_means": "ceinture",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "05",
+      "part": "botte_gauche",
+      "binary_mask": "masks_black_white/mask_05_botte_gauche.png",
+      "transparent_layer": "layers_transparent/layer_05_botte_gauche_transparent.png",
+      "white_means": "botte_gauche",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "06",
+      "part": "botte_droite",
+      "binary_mask": "masks_black_white/mask_06_botte_droite.png",
+      "transparent_layer": "layers_transparent/layer_06_botte_droite_transparent.png",
+      "white_means": "botte_droite",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "07",
+      "part": "accessoires_bras_gauche",
+      "binary_mask": "masks_black_white/mask_07_accessoires_bras_gauche.png",
+      "transparent_layer": "layers_transparent/layer_07_accessoires_bras_gauche_transparent.png",
+      "white_means": "accessoires_bras_gauche",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "08",
+      "part": "accessoires_bras_droit",
+      "binary_mask": "masks_black_white/mask_08_accessoires_bras_droit.png",
+      "transparent_layer": "layers_transparent/layer_08_accessoires_bras_droit_transparent.png",
+      "white_means": "accessoires_bras_droit",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "09",
+      "part": "peau_visible",
+      "binary_mask": "masks_black_white/mask_09_peau_visible.png",
+      "transparent_layer": "layers_transparent/layer_09_peau_visible_transparent.png",
+      "white_means": "peau_visible",
+      "black_means": "reste_de_l_image"
+    },
+    {
+      "id": "10",
+      "part": "oreilles",
+      "binary_mask": "masks_black_white/mask_10_oreilles.png",
+      "transparent_layer": "layers_transparent/layer_10_oreilles_transparent.png",
+      "white_means": "oreilles",
+      "black_means": "reste_de_l_image"
+    }
+  ],
+  "optional_previous_mask": {
+    "part": "cheveux",
+    "binary_mask": "optional_previous_mask/mask_00_cheveux_optionnel.png",
+    "transparent_layer": "optional_previous_mask/layer_00_cheveux_optionnel_transparent.png"
+  }
+}

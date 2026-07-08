@@ -27,6 +27,12 @@ export const LYRA_AFF2_VOICE = {
   maxRomanticChoiceChars: 78,
 };
 
+/** Aff. 3 : complicité — romantic tempéré, pas suggestif. */
+export const LYRA_AFF3_VOICE = {
+  ...LYRA_AFF2_VOICE,
+  maxRomanticChoiceChars: 84,
+};
+
 /** Aff. 5 : registre adulte explicite — amour, corps, embrasser autorisés. */
 export const LYRA_AFF5_VOICE = {
   forbidden: /\bbisou\b/i,
@@ -46,8 +52,22 @@ export const LYRA_AFF4_VOICE = {
 export function getLyraVoiceProfile(affinity = 1) {
   if (affinity >= 5) return LYRA_AFF5_VOICE;
   if (affinity === 4) return LYRA_AFF4_VOICE;
+  if (affinity === 3) return LYRA_AFF3_VOICE;
   if (affinity === 2) return LYRA_AFF2_VOICE;
   return LYRA_AFF1_VOICE;
+}
+
+/** Profil voix Parler curé — maeve/runa aff. 1–3 = cadre Lyra aff. 1–3 ; aff. 4–5 = Lyra aff. 4–5. */
+export function getCompanionVoiceProfile(companionId = 'lyra', affinity = 1) {
+  const id = String(companionId ?? 'lyra').toLowerCase();
+  if (id === 'maeve' || id === 'runa') {
+    if (affinity >= 5) return LYRA_AFF5_VOICE;
+    if (affinity === 4) return LYRA_AFF4_VOICE;
+    if (affinity === 3) return LYRA_AFF3_VOICE;
+    if (affinity === 2) return LYRA_AFF2_VOICE;
+    return LYRA_AFF1_VOICE;
+  }
+  return getLyraVoiceProfile(affinity);
 }
 
 export const FRENCH_LINT_PATTERNS = [
@@ -58,7 +78,7 @@ export const FRENCH_LINT_PATTERNS = [
   { id: 'FR13', pattern: /\bque je [aeiouhâêéèëï]/i, hint: 'élision : que j\'… (ex. que j\'halète)' },
 ];
 
-export const PACK4_THREADS = {
+const LYRA_PACK4_THREADS = {
   1: {
     'lyra-aff1-curated-10': {
       label: 'réservation livre',
@@ -85,6 +105,21 @@ export const PACK4_THREADS = {
     'lyra-aff2-curated-12': {
       label: 'mission chiffres',
       pattern: /fourneaux|chiffres|vendredi|registre|havre/i,
+    },
+  },
+  // archivé 2.2.1 — lyra-aff3 hors build ; règles conservées pour relecture corpus archivé
+  3: {
+    'lyra-aff3-curated-10': {
+      label: 'place gardée',
+      pattern: /place|lampe|chapitre|lis ici|emporter|table du fond/i,
+    },
+    'lyra-aff3-curated-11': {
+      label: 'même page',
+      pattern: /même page|doigts|page vingt|chapitre|lampe/i,
+    },
+    'lyra-aff3-curated-12': {
+      label: 'lampe qui faiblit',
+      pattern: /lampe|faiblit|reste|moment|mèche|silhouettes/i,
     },
   },
   4: {
@@ -117,15 +152,116 @@ export const PACK4_THREADS = {
   },
 };
 
-/** @deprecated Préférer getPack4Thread(affinity) */
-export const PACK4_THREAD = PACK4_THREADS[1];
+const MAEVE_PACK4_THREADS = {
+  1: {
+    'maeve-aff1-curated-10': { label: 'crédit ouverture', pattern: /crédit|comptant|comptoir|registre/i },
+    'maeve-aff1-curated-11': { label: 'crédit suite', pattern: /crédit|comptant|registre|comptoir/i },
+    'maeve-aff1-curated-12': { label: 'deal crédit', pattern: /crédit|comptant|havre|deal|registre/i },
+  },
+  2: {
+    'maeve-aff2-curated-10': { label: 'crédit informel', pattern: /crédit|comptoir|registre|faveur/i },
+    'maeve-aff2-curated-11': { label: 'pari crédit', pattern: /crédit|pari|comptoir|registre/i },
+    'maeve-aff2-curated-12': { label: 'crédit clôture', pattern: /crédit|comptant|havre|registre/i },
+  },
+  3: {
+    'maeve-aff3-curated-10': { label: 'comptoir fermé', pattern: /comptoir|fermeture|crédit|registre/i },
+    'maeve-aff3-curated-11': { label: 'confidence deal', pattern: /comptoir|crédit|registre|bouteille/i },
+    'maeve-aff3-curated-12': { label: 'deal sans bourse', pattern: /crédit|comptoir|havre|deal|registre/i },
+  },
+  4: {
+    'maeve-aff4-curated-10': { label: 'deux verres', pattern: /verre|comptoir|bouteille|marché/i },
+    'maeve-aff4-curated-11': { label: 'main poignet', pattern: /poignet|comptoir|verre|main/i },
+    'maeve-aff4-curated-12': { label: 'comptoir privé', pattern: /comptoir|verre|poignet|fermeture/i },
+  },
+  5: {
+    'maeve-aff5-curated-10': { label: 'comptoir privé', pattern: /comptoir|crédit|nuit|registre/i },
+    'maeve-aff5-curated-11': { label: 'nuit sans négocier', pattern: /comptoir|crédit|nuit|poignet/i },
+    'maeve-aff5-curated-12': { label: 'deal final', pattern: /comptoir|crédit|nuit|havre|registre/i },
+  },
+};
 
-export function getPack4Thread(affinity = 1) {
-  return PACK4_THREADS[affinity] ?? PACK4_THREADS[1];
+const RUNA_PACK4_THREADS = {
+  1: {
+    'runa-aff1-curated-10': { label: 'commande commune', pattern: /commande|lingot|projet|mesure|forge/i },
+    'runa-aff1-curated-11': { label: 'marque au fer', pattern: /marque|fer|lame|projet|forge/i },
+    'runa-aff1-curated-12': { label: 'projet final', pattern: /lingot|projet|mesure|forge|havre/i },
+  },
+  2: {
+    'runa-aff2-curated-10': { label: 'marque au fer', pattern: /marque|fer|mesure|forge/i },
+    'runa-aff2-curated-11': { label: 'marque suite', pattern: /marque|mesure|enclume|forge/i },
+    'runa-aff2-curated-12': { label: 'place marquée', pattern: /marque|place|forge|havre|mesure/i },
+  },
+  3: {
+    'runa-aff3-curated-10': { label: 'projet commun', pattern: /projet|enclume|lingot|forge/i },
+    'runa-aff3-curated-11': { label: 'confiance outil', pattern: /enclume|outil|lingot|mesure|forge/i },
+    'runa-aff3-curated-12': { label: 'projet clôture', pattern: /projet|lingot|forge|havre|mesure/i },
+  },
+  4: {
+    'runa-aff4-curated-10': { label: 'forge tard', pattern: /forge|enclume|lingot|mesure/i },
+    'runa-aff4-curated-11': { label: 'dos-à-dos', pattern: /enclume|dos|acier|lingot|forge/i },
+    'runa-aff4-curated-12': { label: 'proximité enclume', pattern: /enclume|forge|lingot|acier|mesure/i },
+  },
+  5: {
+    'runa-aff5-curated-10': { label: 'forge arrêt', pattern: /enclume|forge|lingot|mesure/i },
+    'runa-aff5-curated-11': { label: 'frappe finale', pattern: /frappe|enclume|forge|lingot/i },
+    'runa-aff5-curated-12': { label: 'ne pars pas', pattern: /frappe|forge|enclume|lingot|havre/i },
+  },
+};
+
+export const PACK4_THREADS = LYRA_PACK4_THREADS;
+
+const PACK4_THREADS_BY_COMPANION = {
+  lyra: LYRA_PACK4_THREADS,
+  maeve: MAEVE_PACK4_THREADS,
+  runa: RUNA_PACK4_THREADS,
+};
+
+const PACK4_HOOK_PATTERNS = {
+  lyra: {
+    1: /livre|flux de mana|volume/i,
+    2: /chapitre|place|signet|lecture/i,
+    3: /même page|doigts|lampe|chapitre|page vingt/i,
+    4: /jardin|pavillon|matelas|embrasse|cou/i,
+    5: /toit|couverture|aube|chevauche|enfourche/i,
+  },
+  maeve: {
+    1: /crédit|comptant|registre|comptoir/i,
+    2: /crédit|pari|comptoir|registre/i,
+    3: /comptoir|crédit|registre|fermeture/i,
+    4: /verre|comptoir|poignet|bouteille/i,
+    5: /comptoir|crédit|nuit|registre/i,
+  },
+  runa: {
+    1: /commande|lingot|enclume|forge|mesure/i,
+    2: /marque|fer|forge|enclume|mesure/i,
+    3: /projet|enclume|outil|forge|mesure/i,
+    4: /forge tard|enclume|dos|acier|braise/i,
+    5: /forge|enclume|frappe|braise|marteau/i,
+  },
+};
+
+/** @deprecated Préférer getPack4Thread(companionId, affinity) */
+export const PACK4_THREAD = LYRA_PACK4_THREADS[1];
+
+export function getPack4Thread(companionId = 'lyra', affinity = 1) {
+  const id = String(companionId ?? 'lyra').toLowerCase();
+  const table = PACK4_THREADS_BY_COMPANION[id] ?? LYRA_PACK4_THREADS;
+  return table[affinity] ?? table[1] ?? LYRA_PACK4_THREADS[1];
 }
 
-export function curatedIdPrefix(affinity = 1) {
-  return `lyra-aff${affinity}-curated-`;
+export function getPack4HookPattern(companionId = 'lyra', affinity = 1) {
+  const id = String(companionId ?? 'lyra').toLowerCase();
+  const table = PACK4_HOOK_PATTERNS[id] ?? PACK4_HOOK_PATTERNS.lyra;
+  if (affinity >= 5) return table[5] ?? PACK4_HOOK_PATTERNS.lyra[5];
+  if (affinity === 4) return table[4] ?? PACK4_HOOK_PATTERNS.lyra[4];
+  if (affinity === 3) return table[3] ?? PACK4_HOOK_PATTERNS.lyra[3];
+  if (affinity === 2) return table[2] ?? PACK4_HOOK_PATTERNS.lyra[2];
+  return table[1] ?? PACK4_HOOK_PATTERNS.lyra[1];
+}
+
+export function curatedIdPrefix(companionId = 'lyra', affinity = 1) {
+  const id = String(companionId ?? 'lyra').toLowerCase();
+  return `${id}-aff${affinity}-curated-`;
 }
 
 const STOPWORDS = new Set([

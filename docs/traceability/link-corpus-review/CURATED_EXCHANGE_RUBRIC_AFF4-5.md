@@ -66,6 +66,19 @@ Scripts :
 | **S55** | Aff. 4–5 | Pont / `companionAction` spatio-temporel (`bridgeActionSpatialClashOk` — alias WALK-SPACE) |
 | **S57** | Corpus avec `intimateFinale*` | Courbe émotion portrait +3 romantic par pack (`PACK_ROMANTIC_EMOTION_BY_PACK`) |
 | **S58** | Corpus avec `intimateFinaleLow` | Ton low = recadrage, pas victoire ; **WALK-LOW** si champ présent (playful/direct) |
+| **S59** | Aff. 5 cold start pack | Pont ex. 1 interdit référence inter-pack (`nuit du toit` en pack-5, `de retour sur…`) |
+| **S60** | Aff. 5 `packIntimateFinaleLow` | Compteur orgasmes figé interdit (`trois fois`, `deux fois`…) — comme S49 sur templates high |
+| **S47c** | Aff. 5 `intimateFinale` | Lyra doigte MC → pas « tes doigts mouillés » ; FMC pas calque commode H |
+| **S49e** | Aff. 5 `sessionOutcome.acts` | Aligné `companionAction` (ex. `fingering_mc` si doigts Lyra en MC) |
+| **S22b** | Aff. 4–5 | Lyra doigte MC → choix sans « guide mes doigts » |
+| **S48b** | Aff. 4–5 cowgirl | `companionLine` pas « tu entres » si Lyra monte / ne descend pas encore |
+| **LQ7** | Aff. 5 playful | Max 2 choix `/^D'abord je feins/` par pack |
+| **LQ8** | Aff. 5 direct | Max 1 choix chrono `\d+ secondes` par pack |
+| **LQ9** | Aff. 5 pack-5 playful | Max 2 réactions « Pardon ? » par pack |
+| **LQ10** | Aff. 5 pack-5 playful | Max 2 réactions « transperce du regard » par pack |
+| **S45b** | Aff. 4–5 intra-pack | Pont table → rayons sans transition (faux « où elle t'a collé ») |
+| **S35a** | Aff. 5 hors spectateur | Romantic +3 sans anal abrupt (`dans l'anus`) |
+| **S61** | Aff. 5 H | Gode actif → +3 bite/pénétration exige beat pose gode / braguette |
 | **FM2** | H+F aff. 5 | Anatomie / registre MC — **pas** d'exigence texte différent H/F (FM1/FM3 retirés) |
 | **FM-NQ1** | Aff. 5 ex. 01–09 | `companionAction` FMC calquée sur H (Jaccard ≥ **0,58**) → **fail** |
 | **FM-NQ2** | Aff. 5 ex. 01–09 | `bridge` FMC calqué sur H (Jaccard ≥ **0,72**) → **fail** |
@@ -174,6 +187,81 @@ Couvre les retours terrain type ex. 10 (pack 4 toit) :
 **Dev QA pack** : \`?pack=pack-5\` en dev force le pack 5 au picker Parler.
 
 **Couleurs FMC épilogues** (rubrique doc) : teintes sensorielles dans le texte (rose, ambre, buée…) — **pas** un code couleur UI lié au score. Le score choisit \`intimateFinale\` vs \`intimateFinaleLow\`.
+
+---
+
+---
+
+## `meta.sceneProfile` (Maeve / Runa aff. 5)
+
+Grille 0–10 : **dom**, **sub**, **mutual**, **transaction** (+ dérivés validateur).
+
+| Compagnon | dom | sub | mutual | transaction | varietyActs min |
+|-----------|-----|-----|--------|-------------|-----------------|
+| Lyra | 7 | 2 | 4 | 0 | 8 |
+| Maeve | 5 | 1 | 6 | 9 | 6 |
+| Runa | 3 | 2 | 8 | 0 | 6 |
+
+**CI (aff. 5 Maeve/Runa) :** `companion-scene-profile-rules.mjs`
+
+| Tour | Règles |
+|------|--------|
+| 1 | S29b, S62, S63, LQ12, LQ7b, LQ13–14, S64 |
+| 2 | **S65** naturalité RP · **S66** action physique · **LQ11b/LQ11c** densité + intent · **LQ15b** forge · **PACK5_ORIGINALITY** |
+| 3 | **S67** métier→bridge · **S68** PROFILE_STRICT · **S69** fit tiers/inconnus · validateurs `validate:curated-parler:aff5` |
+| **Lot 3** | **S71** bridge sans label catalogue · **S72** quota tiède · **S73** quota murmure/halète · **S74** acte explicite · **S75** voix Runa · **S76** pari Maeve branché · **S69** durci L-tier |
+| **Lot 5** | **S76b** pari jouable · **S77** duplicate inter-pack · **S78** acts↔Phase A · **S21b** *Elle* reactions Phase B · **S71b** labels bridge étendus · **LQ7b** feint max 2 · **L5-bridge-nuit** · **S69b** props L-tier · **S79** Encore delta |
+
+**Lot 5 (Phase B staging)** — module `parler-lot5-rules.mjs` (appelé via `runLot3ParlerRules`) · **fail** si `meta.phaseB`.
+
+| ID | Logique | Fail | Pass |
+|----|---------|------|------|
+| **S76b** | Pari beat 5 branches → chemins 7–9 distincts (`pariPaths` / `branchFilter`) | metadata + fil MC perd unique | 3 jeux exchangeIds post-beat-5 |
+| **S77** | `companionLine` verbatim inter-pack même compagnon aff.5 | Runa S = Runa M line | lines uniques par pack |
+| **S78** | `sessionOutcome.acts` = acte `phaseACatalogIds` | contact→handjob drift | parity ACT_CONTACT↔contact |
+| **S21b** | Phase B : pas `*Elle/*Il` en reaction | *Elle serre* ×9 | POV2 *serre ta hanche* · prod warn/skip |
+| **S71b** | Labels stage en bridge (tease denial:, edging:, MC relais…) | Lyra M×4 | prose in situ |
+| **LQ7b** | Max **2** feint playful/pack Phase B | Runa M 8/8 | max 2 D'abord je feins |
+| **L5-bridge-nuit** | warn Toujours/Encore + nuit (max 2/pack) | Lyra M×4 | delta lieu/prop |
+| **S69b** | L-tier lieux vs props pitch verrouillés | ruelle vs seuil only | seuil atelier OK |
+| **S79** | warn Encore sans nouveau lieu/prop vs N−1 | Runa M×7 | ancrage spatial |
+
+**Consolidation Lot 5 :** S76b durcit S76 · S71b étend S71 · LQ7b durcit LQ7 (Runa-only) · S21b inverse S21 prod (*Elle* requis) en Phase B only · exchangeNarrativeEconomyOk skip didasc prod si phaseB.
+
+| **Lot 6** | **S80** line sans Je te* physique · **S81** finale sans opener vide · **S82** densité acte fenêtre 3 · **S83** Phase A↔contenu · **S81-L** épilogues round L · **scoreGate10** warn score < 10 |
+
+**Lot 6 (Phase B staging + producteur)** — module `parler-lot6-rules.mjs` (appelé via `runLot5ParlerRules`) · retours F-PROD-01→08.
+
+| ID | Logique | Fail | Pass |
+|----|---------|------|------|
+| **S80** | `companionLine` sans `Je te serre/guide/plaque…` | Maeve « Je te serre au comptoir » | client « Je vous sers » · Runa suggestion S75 |
+| **S81** | `intimateFinale` : pas « tu retiens ton souffle » seul (80 car.) | 6/6 packs opener vide | acte nommé ou clause deal conséquence |
+| **S82** | Fenêtre 3 échanges : ≥1 acte organe explicite ; M beats 1-2 | Maeve M setup prolongé | verge/bite/clitoris en action ou +3 |
+| **S83** | `phaseACatalogIds` acte ↔ companionAction ou +3 | contact→handjob drift | ACT_CONTACT matérialisé |
+| **S81-L** | Beat map L — épilogues round pas template pur | impairs/pairs sans acte | ligne acte/conséquence par beat |
+| **scoreGate10** | warn Phase B si score A→G < 10 | masque épilogues vides | 10/10 grille relecteur |
+
+**Consolidation Lot 6 :** S82 durcit S74 (organe nommé, pas grinding seul) · S83 complète S78 (acts runtime vs contenu éditorial) · S81 ≠ S73 (opener spécifique) · chaîne Lot 3→5→6 unique point d'entrée lint.
+
+**Lot 3 (Phase B staging)** — module `parler-lot3-rules.mjs` · **fail** si `meta.phaseB` · **warn** corpus prod jusqu'à clôture Writer Lot 3.
+
+| ID | Logique | Fail | Pass |
+|----|---------|------|------|
+| **S71** | Pas de label catalogue / didascalie en `bridge` | « Contact barre : elle rapproche, MC immobile… » | « Après-midi forge — Runa te fait tenir la barre, soufflet bas. » |
+| **S72** | Max **1** « tiède »/pack (2 Runa forge) | setting + 7 finales tiède | 1 occurrence sensorielle justifiée |
+| **S73** | Max **2** murmure/chuchote/halète / pack en `intimateFinale` round | 28/28 template halète/murmure | variété lexique épilogue |
+| **S74** | `companionAction` = geste explicite (qui touche quoi) | « Elle cadence, regard vers la porte. » | « Elle glisse la main sous ton tablier, sort ta queue… » |
+| **S75** | Runa `companionLine` = suggestion, pas ordre Lyra-dom | « Mesure encore — reste contre la barre, pas un pas. » | « Garde tes mains sur la barre — finis ta pièce. » |
+| **S76** | Pari Maeve : beat 5 tranche + ≥2 temps tease MC perd + branche Maeve perd | beat 7 triple en 1 scène, pas de branche | choix beat 5 → chemins 7a/b/c documentés |
+| **S69** (durci) | Beat map L-tier : ≤30 % enjeu générique · ≤50 % pose unique | « consigne taquine beat N » ×24 | enjeux distincts par beat |
+
+**Consolidation (ne pas dupliquer) :** S71 ≠ S67 (line métier) · S72–S73 ≠ S32 (prolepse) · S74 ≠ S19 (3e personne seule) · S75 ≠ S68 pack (compte texture) · S22 warn +3 immobile sans acte nommé.
+
+**Principe tour 2 :** lexique = **intent**, pas mot forcé par line. LQ11 quota brut **retiré**.
+
+**Principe tour 3 :** pipeline scénario-first — Phase A beat map avant JSON ; catalogue archivé `old_2_2/old_2_2_1/annule/staging/parler-scenarios/ACTS_POSITIONS_CATALOG.md`.
+
+**Writer :** Maeve = deal-dom faveur/contrepartie ; Runa = mutual impulsif dehors ; pack-5 **≠** miroir Lyra sous-comptoir.
 
 ---
 

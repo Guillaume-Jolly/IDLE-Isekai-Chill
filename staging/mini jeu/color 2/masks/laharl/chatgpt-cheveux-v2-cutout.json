@@ -1,0 +1,13 @@
+{
+  "chatgpt-cheveux-v2-cutout": {
+    "url": "/assets/companions/laharl/mask-chatgpt-cheveux-v2-cutout.png",
+    "sourcePortrait": "assets\\Compagnons\\laharl\\affinite\\affinity-1.png",
+    "sourceMask": "staging/mini jeu/color 2/masks/laharl/chatgpt-cheveux-v2.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "nonZeroPx": 22511,
+    "coveragePct": 1.431
+  }
+}

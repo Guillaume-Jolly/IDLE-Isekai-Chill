@@ -55,6 +55,7 @@ staging/companion-visual-pack/data/GENERATION_QUEUE.json
 Launch IDLE Isekai Chill.cmd
 Launch Stable Server.cmd
 Launch IDLE Isekai Chill.lnk
+Havre Dev Launcher.lnk
 /scripts/build-stable-release.mjs
 /scripts/stable-prod-guard.mjs
 /scripts/serve-stable.mjs
@@ -79,8 +80,8 @@ Launch IDLE Isekai Chill.lnk
 # Post-2.1 local quarantine — hors dépôt public (archive PC hôte uniquement)
 old_v2.1/
 
-# Reliquats par phase semver — old_{A}_{B}/ (ex. old_2_2/, old_2_3/)
-old_[0-9]*_[0-9]*/
+# Reliquats par phase semver — old_{A}_{B}_{C}/ (ex. old_2_2_1/, old_2_3_0/)
+old_[0-9]*(_[0-9]+)*/
 
 # Agent scratch local — non versionné (lire si présent ; vérité versionnée : docs/traceability/project-state.md)
 .ai/

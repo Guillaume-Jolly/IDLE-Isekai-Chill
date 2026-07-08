@@ -7,8 +7,9 @@ import {
   ANSWER_RULE_IDS,
   FRENCH_LINT_PATTERNS,
   curatedIdPrefix,
-  getLyraVoiceProfile,
+  getCompanionVoiceProfile,
   getPack4Thread,
+  getPack4HookPattern,
   checkEmotionReactionCoherence,
   choiceStarter,
   countSubordinateClauses,
@@ -25,6 +26,7 @@ import {
   companionLineIsSpokenDialogue,
   companionLineLooksLikeThirdPersonNarration,
   actionChoiceAgencyAligned,
+  lyraLeadFingerChoiceCoherenceOk,
   actionChoiceWardrobeAligned,
   actionChoiceWardrobeLayerOk,
   choicesToneBehaviorContract,
@@ -38,6 +40,9 @@ import {
   packActFinaleNarrativeCoherenceOk,
   aff5FinaleHasCompanionReaction,
   aff5FinaleAgencyCoherenceOk,
+  sessionOutcomeActsAlignedOk,
+  packColdStartInterPackOk,
+  companionLineCowgirlAlignmentOk,
   frenchElisionAfterQueOk,
   aff5FemaleMcPlayerTextRegister,
   aff5MaleMcPlayerTextRegister,
@@ -57,6 +62,8 @@ import {
   choicePoseAlignedWithAction,
   choiceReactionCoherenceOk,
   romanticChoiceObeysStripConsigne,
+  romanticChoiceAnalToneOk,
+  propHandoffCoherenceOk,
   companionLineReadsComplete,
   exchangeNarrativeEconomyOk,
   exchangeSceneLogicOk,
@@ -102,15 +109,16 @@ function loadLyraGenericLines() {
 }
 
 export function runSemanticsValidation(data, hooks) {
-  const { fail, warn } = hooks;
+  const { fail, warn, packMode = false } = hooks;
   const genericLines = loadLyraGenericLines();
+  const companionId = data.meta?.companionId ?? 'lyra';
   const affinity = data.meta?.affinity ?? 1;
   const protagonistGender = data.meta?.protagonistGender ?? 'male';
   const isAff5FemaleMc = affinity >= 5 && protagonistGender === 'female';
   const isAff5MaleMc = affinity >= 5 && protagonistGender === 'male';
   const isAff4 = affinity === 4;
-  const voiceProfile = getLyraVoiceProfile(affinity);
-  const pack4Thread = getPack4Thread(affinity);
+  const voiceProfile = getCompanionVoiceProfile(companionId, affinity);
+  const pack4Thread = getPack4Thread(companionId, affinity);
   const jaccardFail = getJaccardFailThreshold(affinity);
   const packCtxByExchangeId = new Map();
   for (const pack of data.meta.sessionPacks ?? []) {
@@ -124,6 +132,17 @@ export function runSemanticsValidation(data, hooks) {
   }
 
   for (const exchange of data.exchanges) {
+    const packCtx = packCtxByExchangeId.get(exchange.id);
+    if (affinity >= 4 && packCtx) {
+      const coldStart = packColdStartInterPackOk(exchange, packCtx);
+      if (!coldStart.ok) fail('S59', `${exchange.id} : ${coldStart.reason}`);
+    }
+
+    if (affinity >= 5 && exchange.sessionOutcome) {
+      const outcomeActs = sessionOutcomeActsAlignedOk(exchange, protagonistGender);
+      if (!outcomeActs.ok) fail('S49e', `${exchange.id} : ${outcomeActs.reason}`);
+    }
+
     if (isActionOrientedAffinity(affinity) && exchange.answerRule !== 'action') {
       fail('S15', `${exchange.id} : aff. ${affinity} — answerRule doit être « action »`);
     }
@@ -161,6 +180,10 @@ export function runSemanticsValidation(data, hooks) {
     if (isActionOrientedAffinity(affinity)) {
       const agency = actionChoiceAgencyAligned(exchange);
       if (!agency.ok) fail('S22', `${exchange.id} : ${agency.reason}`);
+      const fingerAgency = lyraLeadFingerChoiceCoherenceOk(exchange);
+      if (!fingerAgency.ok) fail('S22b', `${exchange.id} : ${fingerAgency.reason}`);
+      const cowgirlLine = companionLineCowgirlAlignmentOk(exchange);
+      if (!cowgirlLine.ok) fail('S48b', `${exchange.id} : ${cowgirlLine.reason}`);
       const wardrobe = actionChoiceWardrobeAligned(exchange);
       if (!wardrobe.ok) fail('S33', `${exchange.id} : ${wardrobe.reason}`);
       const layer = actionChoiceWardrobeLayerOk(exchange);
@@ -191,10 +214,18 @@ export function runSemanticsValidation(data, hooks) {
             : 'S39';
         fail(code, `${exchange.id} : ${vestiaire.reason}`);
       }
-      const economy = exchangeNarrativeEconomyOk(exchange);
+      const economy = exchangeNarrativeEconomyOk(exchange, {
+        phaseB: false,
+      });
       if (!economy.ok) fail('S40', `${exchange.id} : ${economy.reason}`);
       const sceneLogic = exchangeSceneLogicOk(exchange);
       if (!sceneLogic.ok) fail('S48', `${exchange.id} : ${sceneLogic.reason}`);
+      if (affinity >= 5) {
+        const romanticAnal = romanticChoiceAnalToneOk(exchange);
+        if (!romanticAnal.ok) fail('S35a', `${exchange.id} : ${romanticAnal.reason}`);
+        const propHandoff = propHandoffCoherenceOk(exchange, protagonistGender);
+        if (!propHandoff.ok) fail('S61', `${exchange.id} : ${propHandoff.reason}`);
+      }
       const packCtx = packCtxByExchangeId.get(exchange.id);
       const packNu = packNuLabelVestiaireOk(exchange, packCtx);
       if (!packNu.ok) fail('S49', `${exchange.id} : ${packNu.reason}`);
@@ -347,7 +378,7 @@ export function runSemanticsValidation(data, hooks) {
 
     const dialogue = exchangeFullText(exchange);
     if (voiceProfile.forbidden.test(dialogue)) {
-      fail('S5', `${exchange.id} : registre Lyra — mot mièvre/interdit`);
+      fail('S5', `${exchange.id} : registre voix — mot mièvre/interdit`);
     }
     const spoken = [exchange.companionLine, ...exchange.choices.flatMap((c) => [c.text, c.reaction])].join(' ');
     if (!exchangeSpectatorPresent(exchange) && voiceProfile.vouvoiement.test(spoken)) {
@@ -446,6 +477,8 @@ export function runSemanticsValidation(data, hooks) {
         if (!packFinaleLow.ok) fail('S46', `${pack.id} packIntimateFinaleLow : ${packFinaleLow.reason}`);
         const packLowGesture = packActFinaleNarrativeCoherenceOk(pack.packIntimateFinaleLow);
         if (!packLowGesture.ok) fail('S48', `${pack.id} packIntimateFinaleLow : ${packLowGesture.reason}`);
+        const packLowCount = packFinaleExplicitClimaxCountOk(pack.packIntimateFinaleLow);
+        if (!packLowCount.ok) fail('S60', `${pack.id} packIntimateFinaleLow : ${packLowCount.reason}`);
       }
       for (const exchangeId of pack.exchangeIds ?? []) {
         const exchange = data.exchanges.find((entry) => entry.id === exchangeId);
@@ -469,14 +502,7 @@ export function runSemanticsValidation(data, hooks) {
     }
     const ex10 = data.exchanges.find((entry) => entry.id === pack4.exchangeIds[0]);
     const ex11 = data.exchanges.find((entry) => entry.id === pack4.exchangeIds[1]);
-    const hookPattern =
-      affinity >= 5
-        ? /toit|couverture|aube|chevauche|enfourche/i
-        : affinity === 4
-          ? /jardin|pavillon|matelas|embrasse|cou/i
-          : affinity === 2
-            ? /chapitre|place|signet|lecture/i
-            : /livre|flux de mana|volume/i;
+    const hookPattern = getPack4HookPattern(companionId, affinity);
     if (ex10 && ex11 && !hookPattern.test(ex11.bridge)) {
       fail('S13', `pack 4 : échange 11 ne raccroche pas au fil de l'échange 10`);
     }
@@ -487,11 +513,13 @@ export function runSemanticsValidation(data, hooks) {
     if (!packContinuity.ok) fail('S45', packContinuity.reason);
   }
 
-  for (const entry of corpusTemplateQuotaWarnings(data)) {
-    if (affinity >= 5) {
-      fail(entry.code, entry.message);
-    } else {
-      warn(entry.code, entry.message);
+  if (!packMode) {
+    for (const entry of corpusTemplateQuotaWarnings(data)) {
+      if (affinity >= 5) {
+        fail(entry.code, entry.message);
+      } else {
+        warn(entry.code, entry.message);
+      }
     }
   }
 

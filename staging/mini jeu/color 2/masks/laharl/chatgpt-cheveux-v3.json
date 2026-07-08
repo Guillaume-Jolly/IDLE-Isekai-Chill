@@ -1,0 +1,8 @@
+{
+  "chatgpt-cheveux-v3": {
+    "url": "/assets/companions/laharl/mask-chatgpt-cheveux-v3.png",
+    "source": "hair_bw_true_alpha_cropped.png",
+    "size": [983, 799],
+    "note": "PNG alpha — overlay lab, affiché tel quel"
+  }
+}

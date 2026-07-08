@@ -218,4 +218,4 @@ function assert(condition, message) {
   assert(fmcPackBusinessRuleOk(ok).ok, 'FM-NQ5 : ex.02 FMC table + chatte doit passer');
 }
 
-console.log('✓ validate-curated-parler-unit — 11 tests OK');
+console.log('✓ validate-curated-parler-unit — tests OK');

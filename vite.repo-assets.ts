@@ -101,6 +101,7 @@ type RepoAssetRoots = {
   background: string
   myrions: string
   companions: string
+  color2Masks: string
 }
 
 function resolveBackgroundAssetFile(pathname: string, baseDir: string): string | null {
@@ -162,7 +163,11 @@ function resolveMyrionFile(pathname: string, index: Map<string, string>): string
   return null
 }
 
-function resolveCompanionAssetFile(pathname: string, baseDir: string): string | null {
+function resolveCompanionAssetFile(
+  pathname: string,
+  baseDir: string,
+  color2MasksDir: string,
+): string | null {
   const match = /^\/assets\/companions\/([^/]+)\/([^/]+\.png)$/.exec(pathname)
   if (!match) return null
   const companionId = decodeURIComponent(match[1])
@@ -178,6 +183,21 @@ function resolveCompanionAssetFile(pathname: string, baseDir: string): string | 
     subdir = 'chibis'
   } else if (fileName === 'affinity-4-nsfw.png') {
     subdir = 'NSFW'
+  } else if (fileName.startsWith('mask-') && fileName.endsWith('.png')) {
+    const zone = fileName.slice('mask-'.length, -'.png'.length)
+    if (!zone || zone.includes('..')) return null
+    const candidates = [
+      normalize(join(color2MasksDir, companionId, `${zone}.png`)),
+      normalize(join(baseDir, companionId, 'color-masks', `${zone}.png`)),
+    ]
+    for (const filePath of candidates) {
+      if (
+        filePath.startsWith(color2MasksDir) || filePath.startsWith(baseDir)
+      ) {
+        if (existsSync(filePath) && statSync(filePath).isFile()) return filePath
+      }
+    }
+    return null
   } else {
     return null
   }
@@ -236,7 +256,7 @@ function resolveRepoAssetFile(pathname: string, roots: RepoAssetRoots, myrionInd
     resolveLive2dFile(pathname, roots.live2d) ??
     resolveBackgroundAssetFile(pathname, roots.background) ??
     resolveMyrionFile(pathname, myrionIndex) ??
-    resolveCompanionAssetFile(pathname, roots.companions) ??
+    resolveCompanionAssetFile(pathname, roots.companions, roots.color2Masks) ??
     resolveGuideCutoutFile(pathname, roots.companions)
   )
 }
@@ -288,7 +308,7 @@ function copyMyrionAssets(index: Map<string, string>, distRoot: string) {
   }
 }
 
-function copyCompanionAssets(baseDir: string, distRoot: string) {
+function copyCompanionAssets(baseDir: string, color2MasksDir: string, distRoot: string) {
   if (!existsSync(baseDir)) return
   const companionsDist = join(distRoot, 'assets', 'companions')
   for (const companionId of readdirSync(baseDir)) {
@@ -302,6 +322,24 @@ function copyCompanionAssets(baseDir: string, distRoot: string) {
         const outDir = join(companionsDist, companionId)
         mkdirSync(outDir, { recursive: true })
         cpSync(join(srcSub, file), join(outDir, file))
+      }
+    }
+    const maskSub = join(color2MasksDir, companionId)
+    if (existsSync(maskSub) && statSync(maskSub).isDirectory()) {
+      for (const file of readdirSync(maskSub)) {
+        if (!file.endsWith('.png') || file.startsWith('_preview') || file.startsWith('_debug')) continue
+        const outDir = join(companionsDist, companionId)
+        mkdirSync(outDir, { recursive: true })
+        cpSync(join(maskSub, file), join(outDir, `mask-${file}`))
+      }
+    }
+    const legacyMaskSub = join(companionDir, 'color-masks')
+    if (existsSync(legacyMaskSub) && statSync(legacyMaskSub).isDirectory()) {
+      for (const file of readdirSync(legacyMaskSub)) {
+        if (!file.endsWith('.png') || file.startsWith('_preview')) continue
+        const outDir = join(companionsDist, companionId)
+        mkdirSync(outDir, { recursive: true })
+        cpSync(join(legacyMaskSub, file), join(outDir, `mask-${file}`))
       }
     }
   }
@@ -344,6 +382,7 @@ export function repoAssetsPlugin(repoRoot: string): Plugin {
     background: join(repoRoot, 'assets', 'Background'),
     myrions: join(repoRoot, 'assets', 'Myrions'),
     companions: join(repoRoot, 'assets', 'Compagnons'),
+    color2Masks: join(repoRoot, 'staging', 'mini jeu', 'color 2', 'masks'),
   }
   let myrionIndex = buildMyrionAssetIndex(roots.myrions)
 
@@ -378,7 +417,7 @@ export function repoAssetsPlugin(repoRoot: string): Plugin {
       copyLive2dAssets(roots.live2d, distRoot)
       copyBackgroundAssets(roots.background, distRoot)
       copyMyrionAssets(myrionIndex, distRoot)
-      copyCompanionAssets(roots.companions, distRoot)
+      copyCompanionAssets(roots.companions, roots.color2Masks, distRoot)
       copyGuideCutoutAssets(roots.companions, distRoot)
     },
   }
