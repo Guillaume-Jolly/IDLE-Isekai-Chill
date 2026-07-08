@@ -4,7 +4,7 @@
   display: none;
 }
 
-.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:not(:has(.mg-refuge-immersive)):not(:has(.mg-capture-immersive)) {
+.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:not(:has(.mg-refuge-immersive)):not(:has(.mg-capture-immersive)):not(:has(.mg-worksite-immersive)) {
   padding: 0;
 }
 

@@ -15,6 +15,8 @@ import { TowerDefenseGame } from './TowerDefenseGame'
 import { ConversationGame } from './ConversationGame'
 import { DestinyWheelGame } from './DestinyWheelGame'
 import { DressageGame } from './DressageGame'
+import { DialedColor2Game } from './DialedColor2Game'
+import { DialedColorGame } from './DialedColorGame'
 import { MyrionWorksiteGame } from './MyrionWorksiteGame'
 import type { MinigameCompleteHandler } from './MinigameFrame'
 import type { MinigameSave } from '../../data/minigameSave'
@@ -52,6 +54,8 @@ const GAME_BY_TYPE: Record<MinigameType, ComponentType<MinigamePlayerProps>> = {
   conversation: ConversationGame,
   'destiny-wheel': DestinyWheelGame,
   'myrion-worksite': MyrionWorksiteGame,
+  'dialed-color': DialedColorGame,
+  'dialed-color2': DialedColor2Game,
 }
 
 export function MinigamePlayer(props: MinigamePlayerProps) {

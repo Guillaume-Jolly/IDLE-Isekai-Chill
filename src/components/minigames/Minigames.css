@@ -930,8 +930,18 @@
   position: relative;
 }
 
-.minigame-panel-fullscreen .minigame-stage-inner:has(.mg-refuge-immersive) {
+.minigame-panel-fullscreen .minigame-stage-inner:has(.mg-refuge-immersive),
+.minigame-panel-fullscreen .minigame-stage-inner:has(.mg-worksite-immersive) {
   padding: 0;
+}
+
+.minigame-panel-fullscreen .mg-worksite-immersive {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .mg-refuge-layout {
@@ -1481,7 +1491,7 @@
   overflow: hidden;
 }
 
-.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:not(:has(.mg-refuge-immersive)):not(:has(.mg-capture-immersive)) {
+.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:not(:has(.mg-refuge-immersive)):not(:has(.mg-capture-immersive)):not(:has(.mg-worksite-immersive)) {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -1496,7 +1506,8 @@
 }
 
 .minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:has(.mg-refuge-immersive),
-.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:has(.mg-capture-immersive) {
+.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:has(.mg-capture-immersive),
+.minigame-panel-immersive.minigame-panel-fullscreen .minigame-stage-inner:has(.mg-worksite-immersive) {
   backdrop-filter: none;
   background: transparent;
   border-radius: 0;

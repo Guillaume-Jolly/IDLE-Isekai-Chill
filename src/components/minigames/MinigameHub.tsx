@@ -17,17 +17,15 @@ import {
 } from '../../data/buildingActivities'
 
 import { listCompanionNamesForSystem } from '../../data/companionSupport'
-import { CURATED_PARLER_ONLY, CURATED_PARLER_COMPANION_ID } from '../../data/companionDialogues'
+import { CURATED_PARLER_ONLY, canUseParlerDialogues } from '../../data/companionDialogues'
 
 import { DEV_UNLOCK_ALL_MINIGAMES } from '../../data/gacha'
 
-import { computeNextStep, type NextStepContext, type NextStepTarget } from '../../data/nextStepGuidance'
+import { computeNextStep, type NextStepContext } from '../../data/nextStepGuidance'
 
 import { BUILDING_UNLOCK_ORDER, getCurrentStage } from '../../data/population'
 
 import { supportSystemForActivity } from '../../data/systemHints'
-
-import { NextStepGuidance } from '../NextStepGuidance'
 
 import { ConversationPicker } from './ConversationPicker'
 
@@ -58,8 +56,6 @@ type MinigameHubProps = {
   nextStepContext: NextStepContext
 
   onPlay: (activityId: string) => void
-
-  onNavigateNextStep?: (target: NextStepTarget) => void
 
 }
 
@@ -155,8 +151,6 @@ export function MinigameHub({
 
   onPlay,
 
-  onNavigateNextStep,
-
 }: MinigameHubProps) {
 
   const [conversationPickerOpen, setConversationPickerOpen] = useState(false)
@@ -179,7 +173,7 @@ export function MinigameHub({
     () => {
       const items = sortedActivities.filter((activity) => activity.minigameType === 'conversation')
       if (!CURATED_PARLER_ONLY) return items
-      return items.filter((activity) => activity.companionId === CURATED_PARLER_COMPANION_ID)
+      return items.filter((activity) => canUseParlerDialogues(activity.companionId))
     },
     [sortedActivities],
   )
@@ -547,10 +541,6 @@ export function MinigameHub({
         </div>
 
       </section>
-
-
-
-      <NextStepGuidance suggestion={nextStep} onNavigate={onNavigateNextStep} />
 
 
 

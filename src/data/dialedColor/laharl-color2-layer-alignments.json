@@ -1,0 +1,163 @@
+{
+  "companionId": "laharl",
+  "portraitSrc": "/assets/companions/laharl/affinity-1.png",
+  "baseVisible": true,
+  "layers": {
+    "cheveux-v3": {
+      "visible": true,
+      "locked": true,
+      "xPx": 635.2797766417498,
+      "yPx": 55.808091508794135,
+      "xPct": 41.359360458447256,
+      "yPct": 5.450008936405677,
+      "widthPx": 242.4292788222162,
+      "heightPx": 195.5523777945992,
+      "widthPct": 15.783156173321366,
+      "heightPct": 19.096911894003828
+    },
+    "cheveux-v2": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "cheveux": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "yeux": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "echarpe": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "pantalon": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "ceinture": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "botte-gauche": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "botte-droite": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "bras-gauche": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "bras-droit": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "peau": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    },
+    "oreilles": {
+      "visible": false,
+      "locked": false,
+      "xPx": 0,
+      "yPx": 0,
+      "xPct": 0,
+      "yPct": 0,
+      "widthPx": 0,
+      "heightPx": 0,
+      "widthPct": 0,
+      "heightPct": 0
+    }
+  }
+}
